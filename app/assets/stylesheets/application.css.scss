@@ -121,7 +121,7 @@ p, li {
 
 /*flash*/
 
-.alert{
+/*.alert{
 	font-size: 1.5em;
 	background-color: inherit;
 	border-left: none;
@@ -132,7 +132,7 @@ p, li {
 	color: black;
 	padding: .5em;
 	width: auto;
-}
+}*/
 
 
 .alert-error, .alert-alert, .alert-success, .alert-notice {
@@ -148,9 +148,18 @@ p, li {
 }
 
 .alert-success, .alert-notice {
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
-  color: #468847;
+	font-size: 1.5em;
+	background-color: inherit;
+	border-left: none;
+	border-right: none;
+	border-color: 
+	#DC0000;
+	border-radius: 0px;
+	border-width: .2em;
+	color: 
+	black;
+	padding: .5em;
+	width: auto;
 }
 
 .panel-primary > .panel-heading {

@@ -77,7 +77,7 @@
 
 <% end %>
 
-<%= link_to 'Back', session[:return_to] %>
+
 <% if (current_user.role == 3 || current_user.id == @client.submitter) %>
 	| <%= link_to 'Edit', edit_client_path(@client, page: request.url) %>
 <% end %>
