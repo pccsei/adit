@@ -1,11 +1,11 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 ruby '1.9.3'
 gem 'rails', '4.0.0'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'mysql2', '0.3.11'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -42,3 +42,23 @@ gem 'jbuilder', '~> 1.2'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'bootstrap-sass', '~> 2.3.2.2'
+gem 'figaro'
+gem 'high_voltage', '~> 2.0.0'
+gem 'simple_form', '>= 3.0.0.rc'
+gem 'thin'
+gem 'ffi', '~> 1.9.3'
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
+  gem 'guard-bundler', ' ~> 2.0.0 '
+  gem 'guard-rails'
+  #gem 'quiet_assets', ' ~> 1.0.2 '
+  gem 'rails_layout'
+  gem 'rb-fchange', :require=>false
+  gem 'rb-fsevent', :require=>false
+  gem 'rb-inotify', :require=>false
+end
+
