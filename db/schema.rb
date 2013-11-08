@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20131107222345) do
 
   create_table "users", force: true do |t|
@@ -18,6 +19,7 @@ ActiveRecord::Schema.define(version: 20131107222345) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "school_id"
+    # It would probably be a good idea to add an index to the role
     t.integer  "role"
     t.integer  "section"
     t.string   "parent_id"
