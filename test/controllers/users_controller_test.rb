@@ -3,6 +3,16 @@ require 'test_helper'
 class UsersControllerTest < ActionController::TestCase
   setup do
     @user = users(:one)
+    @update = {
+      id: 23,
+      name: 'Dr. Shoemaker',
+      school_id: 'tshoemaker',
+      role: 1,
+      section: 1,
+      parent_id: 'None',
+      email: 'tshoemaker@faculty.pcci.edu',
+      extension: '1111-1'
+    }
   end
 
   test "should get index" do
@@ -18,7 +28,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should create user" do
     assert_difference('User.count') do
-      post :create, user: { name: @user.name }
+      post :create, user: @update
     end
 
     assert_redirected_to user_path(assigns(:user))
@@ -35,7 +45,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should update user" do
-    patch :update, id: @user, user: { name: @user.name }
+    patch :update, id: @user, user: @update
     assert_redirected_to user_path(assigns(:user))
   end
 

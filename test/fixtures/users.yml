@@ -1,7 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
+  id: 1
   name: MyString
+  school_id: MyString
+  role: 1
+  section: 1
+  parent_id: MyString
+  email: MyString
+  extension: 1111-1
 
 two:
+  id: 2
   name: MyString
+  school_id: MyStrings
+  role: 1
+  section: 1
+  parent_id: MyString
+  email: MyString
+  extension: 1111-1

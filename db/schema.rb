@@ -31,15 +31,13 @@ ActiveRecord::Schema.define(version: 20131108172915) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "school_id"
-    t.integer  "role"
-    t.integer  "section"
-    t.string   "parent_id"
-    t.string   "email"
-    t.integer  "extension"
+    t.string  "name"
+    t.string  "school_id"
+    t.integer "role"
+    t.integer "section"
+    t.string  "parent_id"
+    t.string  "email"
+    t.string  "extension"
   end
 
 end

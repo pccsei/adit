@@ -31,18 +31,13 @@
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
-<part id="1"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="com.aptana.editor.ruby" name="students_controller.rb" partName="students_controller.rb" title="students_controller.rb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\app\controllers\students_controller.rb" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/controllers/students_controller.rb"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="60" selectionTopPixel="0"/>
-</editor>
-<editor activePart="true" focus="true" id="com.aptana.editor.ruby" name="routes.rb" partName="routes.rb" title="routes.rb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\config\routes.rb" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/config/routes.rb"/>
-<editorState selectionHorizontalPixel="0" selectionLength="8" selectionOffset="343" selectionTopPixel="0"/>
+<editor activePart="true" focus="true" id="com.aptana.editor.ruby" name="ticket.rb" partName="ticket.rb" title="ticket.rb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\app\models\ticket.rb" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/models/ticket.rb"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -156,8 +151,6 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/test/controllers/clients_controller_test.rb"/>
-<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.yaml" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/test/fixtures/clients.yml"/>
 <editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/test/models/client_test.rb"/>
 <editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/controllers/students_controller.rb"/>
 <editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/controllers/clients_controller.rb"/>
@@ -171,156 +164,164 @@
 <editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/views/clients/_form.html.erb"/>
 <editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/views/clients/show.html.erb"/>
 <editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/views/clients/new.html.erb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/views/users/teacher.html.erb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/controllers/students_controller.rb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/models/ticket.rb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/db/seeds.rb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/db/migrate/20131102153455_create_users.rb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/db/migrate/20131107222345_add_details_to_users.rb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/db/migrate/20131107224015_create_clients.rb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/db/migrate/20131108172915_create_tickets.rb"/>
 </editors>
-<item historyLabel="clients_controller_test.rb" index="0">
-<position info="not_deleted" x="324" y="0"/>
+<item historyLabel="students_controller.rb" index="1">
+<position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="client_test.rb" index="2">
-<position info="not_deleted" x="978" y="0"/>
+<item historyLabel="clients_controller.rb" index="2">
+<position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="clients.yml" index="1">
-<position info="not_deleted" x="606" y="0"/>
+<item historyLabel="students_controller.rb" index="1">
+<position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="clients_controller_test.rb" index="0">
-<position info="not_deleted" x="324" y="0"/>
-</item>
-<item historyLabel="client_test.rb" index="2">
-<position info="not_deleted" x="879" y="0"/>
-</item>
-<item historyLabel="clients.yml" index="1">
-<position info="not_deleted" x="370" y="166"/>
-</item>
-<item historyLabel="client_test.rb" index="2">
-<position info="not_deleted" x="879" y="0"/>
-</item>
-<item historyLabel="client_test.rb" index="2">
-<position info="not_deleted" x="695" y="0"/>
-</item>
-<item historyLabel="clients.yml" index="1">
-<position info="not_deleted" x="537" y="0"/>
-</item>
-<item historyLabel="client_test.rb" index="2">
-<position info="not_deleted" x="707" y="0"/>
-</item>
-<item historyLabel="clients.yml" index="1">
-<position info="not_deleted" x="537" y="0"/>
-</item>
-<item historyLabel="client_test.rb" index="2">
-<position info="not_deleted" x="984" y="0"/>
-</item>
-<item historyLabel="clients_controller_test.rb" index="0">
-<position info="not_deleted" x="471" y="0"/>
-</item>
-<item historyLabel="client_test.rb" index="2">
-<position info="not_deleted" x="984" y="0"/>
-</item>
-<item historyLabel="clients.yml" index="1">
-<position info="not_deleted" x="450" y="0"/>
-</item>
-<item historyLabel="client_test.rb" index="2">
+<item historyLabel="client_test.rb" index="0">
 <position info="not_deleted" x="482" y="0"/>
 </item>
-<item historyLabel="students_controller.rb" index="3">
+<item historyLabel="students_controller.rb" index="1">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="clients_controller.rb" index="4">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="students_controller.rb" index="3">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="client_test.rb" index="2">
-<position info="not_deleted" x="482" y="0"/>
-</item>
-<item historyLabel="students_controller.rb" index="3">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="clients_controller.rb" index="5">
+<item historyLabel="clients_controller.rb" index="3">
 <position/>
 </item>
-<item historyLabel="students_controller.rb" index="3">
+<item historyLabel="students_controller.rb" index="1">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="index.html.erb" index="6">
+<item historyLabel="index.html.erb" index="4">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="students_controller.rb" index="3">
+<item historyLabel="students_controller.rb" index="1">
 <position info="not_deleted" x="60" y="0"/>
 </item>
-<item historyLabel="routes.rb" index="7">
+<item historyLabel="routes.rb" index="5">
 <position info="not_deleted" x="433" y="0"/>
 </item>
-<item historyLabel="application_controller.rb" index="8">
+<item historyLabel="application_controller.rb" index="6">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="routes.rb" index="7">
+<item historyLabel="routes.rb" index="5">
 <position info="not_deleted" x="433" y="0"/>
 </item>
-<item historyLabel="clients_controller.rb" index="5">
+<item historyLabel="clients_controller.rb" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="students_controller.rb" index="3">
+<item historyLabel="students_controller.rb" index="1">
 <position info="not_deleted" x="60" y="0"/>
 </item>
-<item historyLabel="clients_controller.rb" index="5">
+<item historyLabel="clients_controller.rb" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="edit.html.erb" index="9">
+<item historyLabel="edit.html.erb" index="7">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="index.html.erb" index="10">
+<item historyLabel="index.html.erb" index="8">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="index.json.jbuilder" index="11">
+<item historyLabel="index.json.jbuilder" index="9">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="index.html.erb" index="10">
+<item historyLabel="index.html.erb" index="8">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="edit.html.erb" index="9">
+<item historyLabel="edit.html.erb" index="7">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="index.html.erb" index="10">
+<item historyLabel="index.html.erb" index="8">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="clients_controller.rb" index="5">
+<item historyLabel="clients_controller.rb" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="index.html.erb" index="10">
+<item historyLabel="index.html.erb" index="8">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="clients_controller.rb" index="5">
+<item historyLabel="clients_controller.rb" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="index.html.erb" index="10">
+<item historyLabel="index.html.erb" index="8">
 <position info="not_deleted" x="282" y="0"/>
 </item>
-<item historyLabel="_form.html.erb" index="12">
+<item historyLabel="_form.html.erb" index="10">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="index.html.erb" index="10">
+<item historyLabel="index.html.erb" index="8">
 <position info="not_deleted" x="282" y="0"/>
 </item>
-<item historyLabel="show.html.erb" index="13">
+<item historyLabel="show.html.erb" index="11">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="new.html.erb" index="14">
+<item historyLabel="new.html.erb" index="12">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="show.html.erb" index="13">
+<item historyLabel="show.html.erb" index="11">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="index.html.erb" index="10">
+<item historyLabel="index.html.erb" index="8">
 <position info="not_deleted" x="282" y="0"/>
 </item>
-<item historyLabel="clients_controller.rb" index="5">
+<item historyLabel="clients_controller.rb" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="students_controller.rb" index="3">
+<item historyLabel="students_controller.rb" index="1">
 <position info="not_deleted" x="60" y="0"/>
 </item>
-<item active="true" historyLabel="routes.rb" index="7">
-<position info="not_deleted" x="433" y="0"/>
+<item historyLabel="routes.rb" index="5">
+<position info="not_deleted" x="343" y="8"/>
+</item>
+<item historyLabel="teacher.html.erb" index="13">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="routes.rb" index="5">
+<position info="not_deleted" x="164" y="0"/>
+</item>
+<item historyLabel="students_controller.rb" index="14">
+<position info="not_deleted" x="60" y="0"/>
+</item>
+<item historyLabel="ticket.rb" index="15">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="seeds.rb" index="16">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="20131102153455_create_users.rb" index="17">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="seeds.rb" index="16">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="ticket.rb" index="15">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="20131107222345_add_details_to_users.rb" index="18">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="ticket.rb" index="15">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="20131107224015_create_clients.rb" index="19">
+<position/>
+</item>
+<item historyLabel="ticket.rb" index="15">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="20131108172915_create_tickets.rb" index="20">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="ticket.rb" index="15">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="20131107224015_create_clients.rb" index="19">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item active="true" historyLabel="ticket.rb" index="15">
+<position info="not_deleted" x="0" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -339,6 +340,27 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="20131107224015_create_clients.rb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\db\migrate\20131107224015_create_clients.rb">
+<persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/db/migrate/20131107224015_create_clients.rb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="20131108172915_create_tickets.rb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\db\migrate\20131108172915_create_tickets.rb">
+<persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/db/migrate/20131108172915_create_tickets.rb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="20131107222345_add_details_to_users.rb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\db\migrate\20131107222345_add_details_to_users.rb">
+<persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/db/migrate/20131107222345_add_details_to_users.rb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="20131102153455_create_users.rb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\db\migrate\20131102153455_create_users.rb">
+<persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/db/migrate/20131102153455_create_users.rb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="seeds.rb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\db\seeds.rb">
+<persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/db/seeds.rb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="ticket.rb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\app\models\ticket.rb">
+<persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/models/ticket.rb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" name="teacher.html.erb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\app\views\users\teacher.html.erb">
+<persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/views/users/teacher.html.erb"/>
+</file>
 <file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" name="new.html.erb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\app\views\clients\new.html.erb">
 <persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/views/clients/new.html.erb"/>
 </file>
@@ -362,27 +384,6 @@
 </file>
 <file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="application_controller.rb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\app\controllers\application_controller.rb">
 <persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/controllers/application_controller.rb"/>
-</file>
-<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="routes.rb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\config\routes.rb">
-<persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/config/routes.rb"/>
-</file>
-<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" name="index.html.erb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\app\views\students\index.html.erb">
-<persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/views/students/index.html.erb"/>
-</file>
-<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="students_controller.rb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\app\controllers\students_controller.rb">
-<persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/app/controllers/students_controller.rb"/>
-</file>
-<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="users_controller_test.rb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\test\controllers\users_controller_test.rb">
-<persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/test/controllers/users_controller_test.rb"/>
-</file>
-<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.yaml" name="users.yml" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\test\fixtures\users.yml">
-<persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/test/fixtures/users.yml"/>
-</file>
-<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.yaml" name="clients.yml" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\test\fixtures\clients.yml">
-<persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/test/fixtures/clients.yml"/>
-</file>
-<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="20131106142614_create_clients.rb" tooltip="C:\Users\Jake\Documents\GitHub\WhiteCollar\db\migrate\20131106142614_create_clients.rb">
-<persistable uri="file:/C:/Users/Jake/Documents/GitHub/WhiteCollar/db/migrate/20131106142614_create_clients.rb"/>
 </file>
 </mruList>
 </workbench>
