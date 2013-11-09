@@ -1,6 +1,6 @@
 WhiteCollar::Application.routes.draw do
-  get "students/index"
-  resources :teachers
+  get "users/teacher"
+  get "users/student_manager"
 
   resources :clients
 
@@ -10,7 +10,6 @@ WhiteCollar::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'students#index', as: 'students'
   # root 'welcome#index'
 
   # Example of regular route:

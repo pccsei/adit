@@ -6,11 +6,9 @@
       <th>Business name</th>
       <th>Address</th>
       <th>Email</th>
-      <th>Website</th>
       <th>Contact name</th>
       <th>Telephone</th>
       <th>Comment</th>
-      <th>Created at</th>
       <th></th>
       <th></th>
       <th></th>
@@ -23,11 +21,9 @@
         <td><%= client.business_name %></td>
         <td><%= client.address %></td>
         <td><%= client.email %></td>
-        <td><%= client.website %></td>
         <td><%= client.contact_name %></td>
         <td><%= client.telephone %></td>
         <td><%= client.comment %></td>
-        <td><%= client.created_at %></td>
         <td><%= link_to 'Show', client %></td>
         <td><%= link_to 'Edit', edit_client_path(client) %></td>
         <td><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -11,28 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20131107143134) do
+ActiveRecord::Schema.define(version: 20131108172915) do
 
   create_table "clients", force: true do |t|
-    t.text     "business_name"
-    t.text     "address"
-    t.text     "email"
-    t.text     "website"
-    t.text     "contact_name"
-    t.text     "telephone"
-=======
-ActiveRecord::Schema.define(version: 20131107224015) do
+    t.string  "business_name"
+    t.string  "address"
+    t.integer "priority"
+    t.string  "email"
+    t.string  "contact_name"
+    t.string  "telephone"
+    t.text    "comment"
+  end
 
-  create_table "clients", force: true do |t|
-    t.string   "business_name"
-    t.string   "address"
-    t.integer  "priority"
-    t.string   "email"
-    t.string   "contact_name"
-    t.string   "telephone"
->>>>>>> origin/master
-    t.text     "comment"
+  create_table "tickets", force: true do |t|
+    t.float    "sale_value"
+    t.float    "page_size"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

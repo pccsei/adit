@@ -1,44 +1,22 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-<<<<<<< HEAD
   id: 1
-  business_name: MyText
-  address: MyText
-  email: MyText
-  website: MyText
-  contact_name: MyText
-  telephone: 111-111-1111
+  business_name: MyString
+  address: MyString
+  priority: 1
+  email: MyString
+  contact_name: MyString
+  telephone: 111-111-111
   comment: MyText
-  created_at: 2013-11-06 08:26:14
-  updated_at: 2013-11-06 08:26:14
 
 two:
   id: 2
-  business_name: MyText
-  address: MyText
-  email: MyText
-  website: MyText
-  contact_name: MyText
-  telephone: 111-111-1111
-  comment: MyText
-  created_at: 2013-11-06 08:26:14
-  updated_at: 2013-11-06 08:26:14
-=======
   business_name: MyString
   address: MyString
   priority: 1
   email: MyString
   contact_name: MyString
-  telephone: MyString
+  telephone: 222-222-2222
   comment: MyText
 
-two:
-  business_name: MyString
-  address: MyString
-  priority: 1
-  email: MyString
-  contact_name: MyString
-  telephone: MyString
-  comment: MyText
->>>>>>> origin/master

@@ -4,13 +4,14 @@ class ClientsControllerTest < ActionController::TestCase
   setup do
     @client = clients(:one)
     @update = {
-      business_name: 'Lamberts',
-      address: '250 Brent Lane',
-      email: 'hey@gmail.com',
-      website: 'google.com',
-      contact_name: 'John Smith',
-      telephone: '123-456-7890',
-      comment: 'None'
+      id: 4,
+      business_name: 'MyString',
+      address: 'MyString',
+      priority: 1,
+      email: 'MyString',
+      contact_name: 'MyString',
+      telephone: '111-111-1111',
+      comment: "MyText"
     }
   end
 

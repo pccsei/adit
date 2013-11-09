@@ -11,6 +11,17 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
   end
+  
+  def teacher
+    @users = User.all
+  end
+  
+  def student_manager
+    @users = User.all
+  end
+  
+  def student_rep
+  end
 
   # GET /users/new
   def new
