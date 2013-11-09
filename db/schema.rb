@@ -11,12 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131109052754) do
+ActiveRecord::Schema.define(version: 20131109053118) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
     t.integer  "role"
     t.integer  "point_value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bonus", force: true do |t|
+    t.integer  "points"
+    t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
