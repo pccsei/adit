@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class ClientTest < ActiveSupport::TestCase
+<<<<<<< HEAD
   fixtures :clients
   test "business name must not be empty" do
     client = Client.new
@@ -27,3 +28,9 @@ class ClientTest < ActiveSupport::TestCase
     assert_equal ["has already been taken"], client.errors[:telephone]
   end
 end
+=======
+  # test "the truth" do
+  #   assert true
+  # end
+end
+>>>>>>> origin/master

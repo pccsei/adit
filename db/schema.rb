@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20131107143134) do
 
   create_table "clients", force: true do |t|
@@ -20,6 +21,17 @@ ActiveRecord::Schema.define(version: 20131107143134) do
     t.text     "website"
     t.text     "contact_name"
     t.text     "telephone"
+=======
+ActiveRecord::Schema.define(version: 20131107224015) do
+
+  create_table "clients", force: true do |t|
+    t.string   "business_name"
+    t.string   "address"
+    t.integer  "priority"
+    t.string   "email"
+    t.string   "contact_name"
+    t.string   "telephone"
+>>>>>>> origin/master
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -29,6 +41,12 @@ ActiveRecord::Schema.define(version: 20131107143134) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "school_id"
+    t.integer  "role"
+    t.integer  "section"
+    t.string   "parent_id"
+    t.string   "email"
+    t.integer  "extension"
   end
 
 end
