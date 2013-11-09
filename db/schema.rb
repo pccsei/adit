@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131107224015) do
+ActiveRecord::Schema.define(version: 20131109045841) do
 
   create_table "clients", force: true do |t|
     t.string   "business_name"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 20131107224015) do
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "tickets", force: true do |t|
+    t.float    "sale_value"
+    t.float    "page_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "payment_type"
+    t.binary   "attachment"
+    t.string   "attachment_name"
   end
 
   create_table "users", force: true do |t|
