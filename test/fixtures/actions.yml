@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  points_earned: 1
+  user_action_time: 2013-11-08 23:36:28
+
+two:
+  points_earned: 1
+  user_action_time: 2013-11-08 23:36:28
