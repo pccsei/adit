@@ -9,7 +9,7 @@ class ClientsControllerTest < ActionController::TestCase
       email: 'hey@gmail.com',
       website: 'google.com',
       contact_name: 'John Smith',
-      telephone: '123-4567',
+      telephone: '123-456-7890',
       comment: 'None'
     }
   end

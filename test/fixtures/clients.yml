@@ -4,9 +4,9 @@ one:
   id: 1
   business_name: MyText
   address: MyText
-  email: 
-  website: 
-  contact_name: 
+  email: MyText
+  website: MyText
+  contact_name: MyText
   telephone: 111-111-1111
   comment: MyText
   created_at: 2013-11-06 08:26:14
@@ -16,10 +16,10 @@ two:
   id: 2
   business_name: MyText
   address: MyText
-  email: 
-  website: 
-  contact_name: 
-  telephone: 222-222-2222
+  email: MyText
+  website: MyText
+  contact_name: MyText
+  telephone: 111-111-1111
   comment: MyText
   created_at: 2013-11-06 08:26:14
   updated_at: 2013-11-06 08:26:14
