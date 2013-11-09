@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131109053628) do
+ActiveRecord::Schema.define(version: 20131109053800) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(version: 20131109053628) do
     t.string   "contact_name"
     t.string   "telephone"
     t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "priorities", force: true do |t|
+    t.integer  "level"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
