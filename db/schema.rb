@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131109053118) do
+ActiveRecord::Schema.define(version: 20131109053406) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -64,6 +64,13 @@ ActiveRecord::Schema.define(version: 20131109053118) do
     t.string   "payment_type"
     t.binary   "attachment"
     t.string   "attachment_name"
+  end
+
+  create_table "updates", force: true do |t|
+    t.boolean  "is_public"
+    t.string   "comment_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
