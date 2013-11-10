@@ -8,7 +8,10 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :section
       t.string :parent_id
       t.string :email
-      t.string :extension
+      t.string :mobile_number
+      t.integer :box_number
+      t.string :room_number
+      t.integer :power_token
 
       t.timestamps
     end

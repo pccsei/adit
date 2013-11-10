@@ -4,19 +4,27 @@
       <th>Name</th>
       <th>ID</th>
       <th>Email</th>
-      <th>Extension</th>
+      <th>Mobile Number</th>
+      <th>Box Number</th>
+      <th>Room Number</th>
       <th>Section</th>
+      <th>Power Token</th>
     </tr>
   </thead>
 
   <tbody>
     <% @users.each do |user| %>
       <tr>
+      	<% if user.school_id =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/ %>
         <td><%= link_to user.name, users_student_rep_path(user) %></td>
-        <td><%= user.school_id%></td>
-        <td><%= user.email%></td>
-        <td><%= user.extension%></td>
-        <td><%= user.section%></td>
+        <td><%= user.school_id %></td>
+        <td><%= user.email %></td>
+        <td><%= user.mobile_number %></td>
+        <td><%= user.box_number %></td>
+        <td><%= user.room_number %></td>
+        <td><%= user.section %></td>
+        <td><%= user.power_token %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

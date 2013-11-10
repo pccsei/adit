@@ -30,14 +30,4 @@ ActiveRecord::Schema.define(version: 20131108172915) do
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
-    t.string  "name"
-    t.string  "school_id"
-    t.integer "role"
-    t.integer "section"
-    t.string  "parent_id"
-    t.string  "email"
-    t.string  "extension"
-  end
-
 end
