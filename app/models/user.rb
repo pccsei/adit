@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  belongs_to :user
+  has_many   :tickets
+  has_many   :receipts
+  has_many   :bonuses
   
   validates :name, :school_id, :email, :room_number, presence: true
   validates :school_id, uniqueness: true
