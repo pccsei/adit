@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131109053800) do
+ActiveRecord::Schema.define(version: 20131110040141) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20131109053800) do
     t.integer  "section"
     t.string   "parent_id"
     t.string   "email"
-    t.integer  "extension"
+    t.string   "phone"
   end
 
 end
