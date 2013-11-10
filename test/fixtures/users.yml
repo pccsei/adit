@@ -10,7 +10,7 @@ one:
   section: 1
   parent_id: MyString
   email: MyString
-  extension: 17-1111-1
+  phone: 17-1111-1
 
 two:
   id: 2
@@ -22,4 +22,4 @@ two:
   section: 1
   parent_id: MyString
   email: MyString
-  extension: 17-2222-1
+  phone: 17-2222-1

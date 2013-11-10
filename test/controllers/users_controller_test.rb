@@ -13,7 +13,7 @@ class UsersControllerTest < ActionController::TestCase
       section: 1,
       parent_id: 'None',
       email: 'tshoemaker@faculty.pcci.edu',
-      extension: '17-1234-1'
+      phone: '17-1234-1'
     }
   end
 
