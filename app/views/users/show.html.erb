@@ -21,20 +21,8 @@
   <%= @user.email %>
 </p>
 <p>
-  <strong>Mobile Number:</strong>
-  <%= @user.mobile_number %>
-</p>
-<p>
-  <strong>Box Number</strong>
-  <%= @user.box_number %>
-</p>
-<p>
-  <strong>Room Number:</strong>
-  <%= @user.room_number %>
-</p>
-<p>
-  <strong>Power Token:</strong>
-  <%= @user.power_token %>
+  <strong>Extension:</strong>
+  <%= @user.extension %>
 </p>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

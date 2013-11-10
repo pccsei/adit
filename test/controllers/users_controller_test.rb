@@ -6,15 +6,14 @@ class UsersControllerTest < ActionController::TestCase
     @update = {
       id: 23,
       name: 'Dr. Shoemaker',
+      created_at: '2013-11-08 23:10:35',
+      updated_at: '2013-11-08 23:10:35',
       school_id: 'tshoemaker',
       role: 1,
       section: 1,
       parent_id: 'None',
       email: 'tshoemaker@faculty.pcci.edu',
-      mobile_number: '123-456-7890',
-      box_number: 1111,
-      room_number: '1111-1',
-      power_token: 1
+      extension: '17-1234-1'
     }
   end
 
