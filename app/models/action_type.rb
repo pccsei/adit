@@ -1,3 +1,3 @@
 class ActionType < ActiveRecord::Base
-  belongs_to :action
+  has_many :actions
 end

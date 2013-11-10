@@ -1,4 +1,5 @@
 class Client < ActiveRecord::Base
+  has_many :tickets
 
   validates :business_name, :address, presence: true
   validates :telephone, uniqueness: true, allow_blank: true
