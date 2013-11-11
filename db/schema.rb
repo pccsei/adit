@@ -11,7 +11,81 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131107222345) do
+ActiveRecord::Schema.define(version: 20131110040141) do
+
+  create_table "action_types", force: true do |t|
+    t.string   "name"
+    t.integer  "role"
+    t.integer  "point_value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "actions", force: true do |t|
+    t.integer  "points_earned"
+    t.datetime "user_action_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bonus", force: true do |t|
+    t.integer  "points"
+    t.string   "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "clients", force: true do |t|
+    t.string   "business_name"
+    t.string   "address"
+    t.integer  "priority"
+    t.string   "email"
+    t.string   "contact_name"
+    t.string   "telephone"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "priorities", force: true do |t|
+    t.integer  "level"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "projects", force: true do |t|
+    t.integer  "year"
+    t.string   "semester"
+    t.string   "project_type"
+    t.datetime "project_start"
+    t.datetime "project_end"
+    t.string   "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "receipts", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tickets", force: true do |t|
+    t.float    "sale_value"
+    t.float    "page_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "payment_type"
+    t.binary   "attachment"
+    t.string   "attachment_name"
+  end
+
+  create_table "updates", force: true do |t|
+    t.boolean  "is_public"
+    t.string   "comment_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -22,7 +96,7 @@ ActiveRecord::Schema.define(version: 20131107222345) do
     t.integer  "section"
     t.string   "parent_id"
     t.string   "email"
-    t.integer  "extension"
+    t.string   "phone"
   end
 
 end

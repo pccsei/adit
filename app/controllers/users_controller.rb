@@ -11,6 +11,17 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
   end
+  
+  def teacher
+    @users = User.all
+  end
+  
+  def student_manager
+    @users = User.all
+  end
+  
+  def student_rep
+  end
 
   # GET /users/new
   def new
@@ -69,6 +80,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name)
+      params.require(:user).permit(:id, :name, :created_at, :updated_at, :school_id, :role, :section, :parent_id, :email, :phone)
     end
 end

@@ -1,0 +1,25 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>ID</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Section</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+      	<% if user.school_id =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/ %>
+        <td><%= link_to user.name, users_student_rep_path(user) %></td>
+        <td><%= user.school_id %></td>
+        <td><%= user.email %></td>
+        <td><%= user.phone %></td>
+        <td><%= user.section %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

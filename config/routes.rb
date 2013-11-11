@@ -1,4 +1,10 @@
 WhiteCollar::Application.routes.draw do
+  get "users/teacher"
+  get "users/student_manager"
+  get "users/student_rep"
+
+  resources :clients
+  resources :projects
   resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.

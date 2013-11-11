@@ -1,0 +1,22 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  business_name: MyString
+  address: MyString
+  priority: 1
+  email: MyString
+  contact_name: MyString
+  telephone: 111-111-111
+  comment: MyText
+
+two:
+  id: 2
+  business_name: MyString
+  address: MyString
+  priority: 1
+  email: MyString
+  contact_name: MyString
+  telephone: 222-222-2222
+  comment: MyText
+
