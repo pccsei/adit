@@ -1,4 +1,28 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  <strong>Year:</strong>
+  <%= @project.year %>
+</p>
+<p>
+  <strong>Semester:</strong>
+  <%= @project.semester %>
+</p>
+<p>
+  <strong>Project Type:</strong>
+  <%= @project.project_type%>
+</p>
+<p>
+  <strong>Project Start Date:</strong>
+  <%= @project.project_start %>
+</p>
+<p>
+  <strong>Project End Date:</strong>
+  <%= @project.project_end %>
+</p>
+<p>
+  <strong>Comment:</strong>
+  <%= @project.comment %>
+</p>
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>

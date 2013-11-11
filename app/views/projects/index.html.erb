@@ -3,15 +3,24 @@
 <table>
   <thead>
     <tr>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Year</th>
+      <th>Semester</th>
+      <th>Project Type</th>
+      <th>Project Start</th>
+      <th>Project End</th>	
+      <th>Comment</th>
     </tr>
   </thead>
 
   <tbody>
     <% @projects.each do |project| %>
       <tr>
+      	<td><%= project.year%></td>
+      	<td><%= project.semester%></td>
+      	<td><%= project.project_type%></td>
+      	<td><%= project.project_end%></td>
+      	<td><%= project.comment%></td>
+      	
         <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
