@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131110040141) do
+ActiveRecord::Schema.define(version: 20131111230806) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -63,6 +63,11 @@ ActiveRecord::Schema.define(version: 20131110040141) do
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "max_clients",        limit: 1
+    t.string   "max_green_clients",  limit: 1
+    t.string   "max_white_clients",  limit: 1
+    t.string   "max_yellow_clients", limit: 1
+    t.boolean  "use_max_clients"
   end
 
   create_table "receipts", force: true do |t|
