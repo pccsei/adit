@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
-  has_many :tickets
-  has_many :bonuses
+  belongs_to :project_type
+  has_many   :tickets
+  has_many   :bonuses
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131111230806) do
+ActiveRecord::Schema.define(version: 20131112051801) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -54,10 +54,15 @@ ActiveRecord::Schema.define(version: 20131111230806) do
     t.datetime "updated_at"
   end
 
+  create_table "project_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "projects", force: true do |t|
     t.integer  "year"
     t.string   "semester"
-    t.string   "project_type"
     t.datetime "project_start"
     t.datetime "project_end"
     t.string   "comment"
@@ -68,6 +73,7 @@ ActiveRecord::Schema.define(version: 20131111230806) do
     t.string   "max_white_clients",  limit: 1
     t.string   "max_yellow_clients", limit: 1
     t.boolean  "use_max_clients"
+    t.integer  "project_type_id"
   end
 
   create_table "receipts", force: true do |t|
