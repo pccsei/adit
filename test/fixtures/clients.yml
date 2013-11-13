@@ -9,6 +9,8 @@ one:
   contact_name: MyString
   telephone: 111-111-111
   comment: MyText
+  created_at: 2013-11-08 23:10:35
+  updated_at: 2013-11-08 23:10:35
 
 two:
   id: 2
@@ -19,4 +21,6 @@ two:
   contact_name: MyString
   telephone: 222-222-2222
   comment: MyText
+  created_at: 2013-11-08 23:10:35
+  updated_at: 2013-11-08 23:10:35
 
