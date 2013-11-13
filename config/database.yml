@@ -6,12 +6,13 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: 'WhiteCollar_development'
+  database: 'sei_wc_dev'
   pool: 5
-  username: canipejak
-  password: canipejak
+  username: '117567'
+  password: '117567'
   timeout: 5000
-  host: localhost
+  host: csweb
+
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -26,6 +27,7 @@ test:
   timeout: 5000
   host: localhost
 
+
 production:
   adapter: mysql2
   encoding: utf8
@@ -35,3 +37,4 @@ production:
   password: canipejak
   timeout: 5000
   host: localhost
+
