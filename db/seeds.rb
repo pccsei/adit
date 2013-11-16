@@ -8,6 +8,8 @@
    
    priorities = Priority.create([{ name: 'green' }, { name: 'yellow'}, { name: 'white'}])
    
+   #users = User.create( name: 'Christina Pasiewicz', school_id: '119693', role: 1, section: 1, phone: '17-1157-2' , email: 'eantip0750@students.pcci.edu', parent_id: 'dlunsford' )
+   
    project_types = ProjectType.create([{ name: 'Calendar' }, { name: 'Arrow' }])
    
    projects = Project.create(year: 2013 , semester: 'Spring', project_type_id: 1, 

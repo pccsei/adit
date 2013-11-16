@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131112053901) do
+ActiveRecord::Schema.define(version: 20131113180557) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -43,13 +43,13 @@ ActiveRecord::Schema.define(version: 20131112053901) do
   create_table "clients", force: true do |t|
     t.string   "business_name"
     t.string   "address"
-    t.integer  "priority"
     t.string   "email"
     t.string   "contact_name"
     t.string   "telephone"
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "website"
   end
 
   create_table "priorities", force: true do |t|
@@ -114,9 +114,9 @@ ActiveRecord::Schema.define(version: 20131112053901) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "school_id"
-    t.integer  "role"
+    t.integer  "role" #1=student, 2=manager, 3=teacher
     t.integer  "section"
-    t.string   "parent_id"
+    t.string   "parent_id" #Should this be the parent_id's name or just the primary key of a different user
     t.string   "email"
     t.string   "phone"
   end
