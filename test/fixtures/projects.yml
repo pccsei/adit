@@ -2,7 +2,7 @@
 
 one:
   id: 1
-  year: 1
+  year: 2013
   semester: MyString
   project_start: 2013-11-08 23:10:35
   project_end: 2013-11-08 23:10:35
@@ -13,12 +13,12 @@ one:
   max_green_clients: 1
   max_white_clients: 1
   max_yellow_clients: 1
-  use_max_clients: false
+  use_max_clients: 1
   project_type_id: 1
 
 two:
   id: 2
-  year: 1
+  year: 2013
   semester: MyString
   project_start: 2013-11-08 23:10:35
   project_end: 2013-11-08 23:10:35
@@ -29,5 +29,5 @@ two:
   max_green_clients: 1
   max_white_clients: 1
   max_yellow_clients: 1
-  use_max_clients: false
+  use_max_clients: 0
   project_type_id: 1

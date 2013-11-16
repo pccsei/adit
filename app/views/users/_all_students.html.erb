@@ -13,7 +13,7 @@
     <% @users.each do |user| %>
       <tr>
       	<% if user.school_id =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/ %>
-        <td><%= link_to user.name, users_student_rep_path(user) %></td>
+        <td><%= link_to user.first_name, users_student_rep_path(user) %></td>
         <td><%= user.school_id %></td>
         <td><%= user.email %></td>
         <td><%= user.phone %></td>

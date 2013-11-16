@@ -4,23 +4,35 @@ one:
   id: 1
   business_name: MyString
   address: MyString
-  priority: 1
   email: MyString
-  contact_name: MyString
   telephone: 111-111-111
   comment: MyText
   created_at: 2013-11-08 23:10:35
   updated_at: 2013-11-08 23:10:35
+  website: MyString
+  status: 1
+  zipcode: 1
+  contact_fname: MyString
+  contact_lname: MyString
+  contact_title: MyString
+  city: MyString
+  state: FL
 
 two:
   id: 2
   business_name: MyString
   address: MyString
-  priority: 1
   email: MyString
-  contact_name: MyString
-  telephone: 222-222-2222
+  telephone: 111-111-111
   comment: MyText
   created_at: 2013-11-08 23:10:35
   updated_at: 2013-11-08 23:10:35
+  website: MyString
+  status: 1
+  zipcode: 1
+  contact_fname: MyString
+  contact_lname: MyString
+  contact_title: MyString
+  city: MyString
+  state: FL
 

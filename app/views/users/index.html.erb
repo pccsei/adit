@@ -14,7 +14,8 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.name %></td>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
         <td><%= user.school_id%></td>
         <td><%= user.email%></td>
         <td><%= user.phone %></td>

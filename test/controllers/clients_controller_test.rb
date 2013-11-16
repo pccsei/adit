@@ -7,11 +7,19 @@ class ClientsControllerTest < ActionController::TestCase
       id: 3,
       business_name: 'PCC',
       address: '250 Brent Lane',
-      priority: 1,
       email: 'pcc@pcci.edu',
-      contact_name: 'Dr. Shoemaker',
       telephone: '111-111-1111',
-      comment: "None"
+      comment: "None",
+      created_at: '2013-11-08 23:10:35',
+      updated_at: '2013-11-08 23:10:35',
+      website: 'www.com',
+      status: 1,
+      zipcode: 1,
+      contact_fname: 'Troy', 
+      contact_lname: 'Shoemaker',
+      contact_tile: 'Dr.',
+      city: 'Pensacola',
+      state: 'FL'
     }
   end
 

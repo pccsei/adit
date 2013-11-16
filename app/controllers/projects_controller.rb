@@ -29,10 +29,8 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @project }
       else
         format.html { render action: 'new' }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -69,6 +67,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:id, :year, :semester, :project_type_id, :project_start, :project_end, :comment)
+      params.require(:project).permit(:id, :year, :semester, :project_start, :project_end, :comment, :created_at, :updated_at, :max_clients, :max_green_clients, :max_white_clients, :max_yellow_clients, :use_max_clients, :project_type_id)
     end
 end

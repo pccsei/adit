@@ -5,7 +5,6 @@ class UsersControllerTest < ActionController::TestCase
     @user = users(:one)
     @update = {
       id: 23,
-      name: 'Dr. Shoemaker',
       created_at: '2013-11-08 23:10:35',
       updated_at: '2013-11-08 23:10:35',
       school_id: 'tshoemaker',
@@ -13,7 +12,13 @@ class UsersControllerTest < ActionController::TestCase
       section: 1,
       parent_id: 'None',
       email: 'tshoemaker@faculty.pcci.edu',
-      phone: '17-1234-1'
+      phone: '17-1234-1',
+      first_name: 'Troy',
+      last_name: 'Shoemaker',
+      box: 1,
+      major: 'None',
+      minor: 'None',
+      classification: 'President'
     }
   end
 

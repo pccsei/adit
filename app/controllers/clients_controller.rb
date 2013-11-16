@@ -69,6 +69,6 @@ class ClientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
-      params.require(:client).permit(:id, :business_name, :address, :priority, :email, :contact_name, :telephone, :comment)
+      params.require(:client).permit(:id, :business_name, :address, :email, :telephone, :comment, :created_at, :updataed_at, :website, :status, :zipcode, :contact_fname, :contact_lname, :contact_title, :city, :state)
     end
 end

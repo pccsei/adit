@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many   :receipts
   has_many   :bonuses
   
-  validates :name, :school_id, :email, :phone, presence: true
+  validates :school_id, :email, :phone, presence: true
   validates :school_id, uniqueness: true
   validates :email, format: {
     with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\z/,

@@ -4,12 +4,20 @@ class ProjectsControllerTest < ActionController::TestCase
   setup do
     @project = projects(:one)
     @update = {
-      year: 1,
+      id: 34,
+      year: 2013,
       semester: 'MyString',
-      project_type: 'MyString',
       project_start: '2013-11-08 23:10:35',
       project_end: '2013-11-08 23:10:35',
-      comment: 'MyString'
+      comment: 'MyString',
+      created_at: '2013-11-08 23:10:35',
+      updated_at: '2013-11-08 23:10:35',
+      max_clients: 1,
+      max_green_clients: 1,
+      max_white_clients: 1,
+      max_yellow_clients: 1,
+      use_max_clients: 0,
+      project_type_id: 1
     }
   end
 
@@ -26,7 +34,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "should create project" do
     assert_difference('Project.count') do
-      post :create, project: @project
+      post :create, project: @update
     end
 
     assert_redirected_to project_path(assigns(:project))
