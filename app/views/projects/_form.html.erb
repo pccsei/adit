@@ -37,6 +37,23 @@
       <%= f.text_field :comment %>
     </div>
 
+    <!--This code doesn't work completely yet. the radio buttons need to be checked for what is selected.-->
+    <div>
+      <%= radio_button_tag(:clients, "max_clients") %>
+      <%= label_tag(:max_color_clients, "Total Clients in total form") %><br>
+      <%= f.label :max_clients %>
+      <%= f.text_field :max_clients %><br><br>
+
+      <%= radio_button_tag(:clients, "max_color_clients") %>
+      <%= label_tag(:max_color_clients, "Total Clients in separated form") %><br>
+      <%= f.label :Green %>
+      <%= f.text_field :max_green_clients %><br>
+      <%= f.label :Yellow %>
+      <%= f.text_field :max_yellow_clients %><br>
+      <%= f.label :White %>
+      <%= f.text_field :max_white_clients %><br>
+    </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
