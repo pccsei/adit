@@ -6,12 +6,12 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: 'sei_wc_dev'
+  database: WhiteCollar_development
   pool: 5
-  username: '117567'
-  password: '117567'
+  username: canipejak
+  password: canipejak
   timeout: 5000
-  host: csweb
+  host: localhost
 
 
 # Warning: The database defined as "test" will be erased and
