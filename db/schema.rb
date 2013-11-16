@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131112053901) do
+ActiveRecord::Schema.define(version: 20131116170614) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -43,13 +43,19 @@ ActiveRecord::Schema.define(version: 20131112053901) do
   create_table "clients", force: true do |t|
     t.string   "business_name"
     t.string   "address"
-    t.integer  "priority"
     t.string   "email"
-    t.string   "contact_name"
     t.string   "telephone"
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "website"
+    t.integer  "status",        limit: 2
+    t.integer  "zipcode"
+    t.string   "contact_fname", limit: 30
+    t.string   "contact_lname", limit: 30
+    t.string   "contact_title", limit: 10
+    t.string   "city",          limit: 30
+    t.string   "state",         limit: 2
   end
 
   create_table "priorities", force: true do |t|
@@ -72,10 +78,10 @@ ActiveRecord::Schema.define(version: 20131112053901) do
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "max_clients",        limit: 1
-    t.string   "max_green_clients",  limit: 1
-    t.string   "max_white_clients",  limit: 1
-    t.string   "max_yellow_clients", limit: 1
+    t.integer  "max_clients",        limit: 2
+    t.integer  "max_green_clients",  limit: 2
+    t.integer  "max_white_clients",  limit: 2
+    t.integer  "max_yellow_clients", limit: 2
     t.boolean  "use_max_clients"
     t.integer  "project_type_id"
   end
@@ -110,7 +116,6 @@ ActiveRecord::Schema.define(version: 20131112053901) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "school_id"
@@ -119,6 +124,12 @@ ActiveRecord::Schema.define(version: 20131112053901) do
     t.string   "parent_id"
     t.string   "email"
     t.string   "phone"
+    t.string   "first_name",     limit: 30
+    t.string   "last_name",      limit: 30
+    t.integer  "box"
+    t.string   "major",          limit: 75
+    t.string   "minor",          limit: 75
+    t.string   "classification", limit: 10
   end
 
 end

@@ -13,23 +13,24 @@
   
     <div class="field">
       <%= f.label :Year %><br>
+      <%= f.label 'in XXXX format' %><br>
       <%= f.text_field :year %>
     </div>
     <div class="field">
       <%= f.label :semester %><br>
-      <%= f.text_field :semester %>
+      <%= f.select :semester, options_for_select(%w[Fall Spring]) %>
     </div>
     <div class="field">
       <%= f.label :project_type_id %><br>
-      <%= f.text_field :project_type_id %>
+      <%= f.collection_select :project_type_id, ProjectType.all, :id, :name  %>
     </div>
     <div class="field">
       <%= f.label :project_start %><br>
-      <%= f.text_field :project_start %>
+      <%= f.text_field :project_start, :placeholder => "DD/MM/YYYY 00:00 AM/PM" %>
     </div>
     <div class="field">
       <%= f.label :project_end %><br>
-      <%= f.text_field :project_end %>
+      <%= f.text_field :project_end, :placeholder => "DD/MM/YYYY 00:00 AM/PM" %>
     </div>
     <div class="field">
       <%= f.label :comment %><br>
