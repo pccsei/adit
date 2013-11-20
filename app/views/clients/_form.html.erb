@@ -24,15 +24,17 @@
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :contact_fname %><br>
+    <%= f.label "Contact title" %>
+    <%= f.label "Contact first name" %>
+    <%= f.label "Contact last name" %><br>
     <%= f.text_field :contact_title %>
     <%= f.text_field :contact_fname %>
     <%= f.text_field :contact_lname %>
   </div>
   <div class="field">
     <%= f.label :telephone %>
-    <%= f.label 'in XXX-XXX-XXXX format' %><br>
-    <%= f.number_field :telephone %>
+    <%= f.label ', and add area code(XXX-) if different than 850' %><br>
+    <%= f.number_field :telephone, :placeholder => "XXX-XXXX" %>
   </div>
   <div class="field">
     <%= f.label :comment %><br>
