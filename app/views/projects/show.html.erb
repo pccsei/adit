@@ -20,25 +20,29 @@
   <strong>Project End Date:</strong>
   <%= @project.project_end %>
 </p>
+<% if @project.use_max_clients %>
 <p>
   <strong>Max number of any Client:</strong>
   <%= @project.max_clients %>
 </p>
-<p>
-  <strong>Max number of Green Clients:</strong>
-  <%= @project.max_green_clients %>
-</p>
-<p>
-  <strong>Max number of Yellow Clients:</strong>
-  <%= @project.max_yellow_clients %>
-</p>
-<p>
-  <strong>Max number of White Clients:</strong>
-  <%= @project.max_white_clients %>
-</p>
+<% end %>
+<% if !@project.use_max_clients %>
+  <p>
+    <strong>Max number of Green Clients:</strong>
+    <%= @project.max_green_clients %>
+  </p>
+  <p>
+    <strong>Max number of Yellow Clients:</strong>
+    <%= @project.max_yellow_clients %>
+  </p>
+  <p>
+   <strong>Max number of White Clients:</strong>
+   <%= @project.max_white_clients %>
+  </p>
+<% end %>
 <p>
   <strong>Comment:</strong>
   <%= @project.comment %>
 </p>
 <%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<%= link_to 'Project list', projects_path %>

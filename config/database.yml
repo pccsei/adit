@@ -6,10 +6,10 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: WhiteCollar_development
+  database: sei_wc_dev
   pool: 5
-  username: canipejak
-  password: canipejak
+  username: sei_user
+  password: katcollar
   timeout: 5000
   host: csweb
 
