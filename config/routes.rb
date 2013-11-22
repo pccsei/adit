@@ -1,4 +1,6 @@
 WhiteCollar::Application.routes.draw do
+  root :to => "clients#index"
+  
   get "users/teacher"
   get "users/student_manager"
   get "users/student_rep"
