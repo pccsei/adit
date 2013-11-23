@@ -12,7 +12,6 @@ class TicketsController < ApplicationController
   end
 
   def create
-    @client = Client.all
     @ticket = Ticket.new(ticket_params)
 
     respond_to do |format|

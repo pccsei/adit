@@ -8,8 +8,8 @@ development:
   encoding: utf8
   database: whitecollar_development
   pool: 5
-  username: intranet
-  password: jg3482
+  username: canipejak
+  password: canipejak
   timeout: 5000
   host: localhost
 
