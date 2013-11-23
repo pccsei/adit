@@ -19,7 +19,8 @@
 
 
 
-//= require jquery.ui.all
+//= require jquery.ui.datepicker
+//= require jquery.ui.slider
 //= require jquery-ui-sliderAccess
 //= require jquery-ui-timepicker-addon
 //= require jquery-ui-timepicker-addon.min

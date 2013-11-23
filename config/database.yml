@@ -8,10 +8,10 @@ development:
   encoding: utf8
   database: whitecollar_development
   pool: 5
-  username: intranet
-  password: jg3482
+  username: root
+  password: root
   timeout: 5000
-  host: localhost
+  host: 127.0.0.1
 
 
 # Warning: The database defined as "test" will be erased and
