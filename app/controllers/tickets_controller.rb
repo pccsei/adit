@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
-  
-def index
+
+  def index
     @tickets = Ticket.all
   end
 
@@ -12,15 +12,14 @@ def index
   end
 
   def create
+    @client = Client.all
     @ticket = Ticket.new(ticket_params)
 
     respond_to do |format|
       if @ticket.save
         format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @ticket }
       else
         format.html { render action: 'new' }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
     end
   end

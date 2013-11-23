@@ -11,7 +11,7 @@ development:
   username: canipejak
   password: canipejak
   timeout: 5000
-  host: csweb
+  host: localhost
 
 
 # Warning: The database defined as "test" will be erased and
