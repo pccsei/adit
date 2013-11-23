@@ -1,4 +1,6 @@
+require 'common_methods'
 class ProjectsController < ApplicationController
+  include CommonMethods
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   # GET /projects
@@ -57,12 +59,6 @@ class ProjectsController < ApplicationController
       format.html { redirect_to projects_url }
       format.json { head :no_content }
     end
-  end
-
-  def get_current_project
-    project = Project.new
-    project.find(:id).where(:project_end > Time.current)
-    return project
   end
 
   private

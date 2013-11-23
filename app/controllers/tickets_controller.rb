@@ -1,4 +1,6 @@
+require 'common_methods'
 class TicketsController < ApplicationController
+  include CommonMethods
 
   def index
     @tickets = Ticket.all
@@ -12,26 +14,15 @@ class TicketsController < ApplicationController
   end
 
   def create
-     clients = Client.all
-     clients.each do |c|
-     ticket = c.tickets.create(
-     project_id: Project.get_current_project.id,
-     priority_id: 1) # Will need a method to calculate)
-  
-     ticket.save
-      
+    clients = Client.all
+    clients.each do |c|
+       ticket = c.tickets.create(
+         project_id: get_current_project,
+         priority_id: 1) # Will need a method to calculate)
+       ticket.save
     end
-   
-    # @ticket = Ticket.new(ticket_params)
-
     respond_to do |format|
-
-      #if @ticket.save
         format.html { redirect_to tickets_url, notice: 'Ticket was successfully created.' }
-      #else
-        #format.html { render action: 'new' }
-        #format.json { render json: @ticket.errors, status: :unprocessable_entity }
-      #end
     end
   end
 
@@ -51,10 +42,9 @@ class TicketsController < ApplicationController
     @ticket.destroy
     respond_to do |format|
       format.html { redirect_to tickets_url }
-      format.json { head :no_content }
     end
   end
-
+  
   private
     def set_ticket
       @ticket = Ticket.find(params[:id])
