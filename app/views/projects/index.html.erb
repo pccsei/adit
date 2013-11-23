@@ -8,7 +8,13 @@
       <th>Project Type</th>
       <th>Project Start</th>
       <th>Project End</th>
-      <th>Clients</th>	
+
+        <th>Total Max Clients</th>
+
+        <th>Green Clients</th>
+        <th>Yellow Clients</th>
+        <th>White Clients</th>
+
       <th>Comment</th>
     </tr>
   </thead>
@@ -22,9 +28,18 @@
       	<td><%= project.project_type_id%></td>
       	<td><%= project.project_start%></td>
         <td><%= project.project_end%></td>
-        <td><%= project.max_clients%></td>
+        <% if project.use_max_clients %>
+        <td><%= project.max_clients%></td><td></td><td></td><td></td>
+        <% end %>
+        <% if !project.use_max_clients %>
+        <td></td>
+        <td><%= project.max_green_clients%></td>
+        <td><%= project.max_yellow_clients%></td>
+        <td><%= project.max_white_clients%></td>
+        <% end %>
       	<td><%= project.comment%></td>
-      	
+
+
         <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>

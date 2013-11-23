@@ -29,6 +29,15 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 
+
+
+
+
+# added by James Miyashita
+gem 'jquery-ui-rails'
+
+
+
   # bundle exec rake doc:rails generates the API under doc/api.
 
 # Use ActiveModel has_secure_password
