@@ -59,6 +59,12 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def get_current_project
+    project = Project.new
+    project.find(:id).where(:project_end > Time.current)
+    return project
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
@@ -67,6 +73,9 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:id, :year, :semester, :project_start, :project_end, :comment, :created_at, :updated_at, :max_clients, :max_green_clients, :max_white_clients, :max_yellow_clients, :use_max_clients, :project_type_id)
+      params.require(:project).permit(:id, :year, :semester, :project_start, :project_end, 
+                                      :comment, :created_at, :updated_at, :max_clients, 
+                                      :max_green_clients, :max_white_clients, :max_yellow_clients, 
+                                      :use_max_clients, :project_type_id)
     end
 end

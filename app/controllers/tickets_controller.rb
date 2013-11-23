@@ -12,14 +12,26 @@ class TicketsController < ApplicationController
   end
 
   def create
-    @ticket = Ticket.new(ticket_params)
+     clients = Client.all
+     clients.each do |c|
+     ticket = c.tickets.create(
+     project_id: Project.get_current_project.id,
+     priority_id: 1) # Will need a method to calculate)
+  
+     ticket.save
+      
+    end
+   
+    # @ticket = Ticket.new(ticket_params)
 
     respond_to do |format|
-      if @ticket.save
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
-      else
-        format.html { render action: 'new' }
-      end
+
+      #if @ticket.save
+        format.html { redirect_to tickets_url, notice: 'Ticket was successfully created.' }
+      #else
+        #format.html { render action: 'new' }
+        #format.json { render json: @ticket.errors, status: :unprocessable_entity }
+      #end
     end
   end
 
