@@ -1,14 +1,17 @@
 <h1>Listing clients</h1>
 
-<table>
+<table class= "table">
   <thead>
     <tr>
       <th>Business name</th>
       <th>Address</th>
       <th>Email</th>
-      <th>Contact name</th>
+      <th>Contact Title</th>
+      <th>First Name</th>
+      <th>Last Name</th>
       <th>Telephone</th>
       <th>Comment</th>
+      <th>Ticket Priority</th>
       <th></th>
       <th></th>
       <th></th>
@@ -18,7 +21,7 @@
   <tbody>
     <% @clients.each do |client| %>
       <tr>
-        <td><%= client.business_name %></td>
+        <td><%= link_to client.business_name, "#" %></td>
         <td><%= client.address %></td>
         <td><%= client.email %></td>
         <td><%= client.contact_title %></td>
@@ -26,6 +29,9 @@
         <td><%= client.contact_lname %></td>
         <td><%= client.telephone %></td>
         <td><%= client.comment %></td>
+        <% ticket = Ticket.find(client.id) %>
+        <td><%= ticket.priority_id %> <td>
+        <td><%= %>
         <td><%= link_to 'Show', client %></td>
         <td><%= link_to 'Edit', edit_client_path(client) %></td>
         <td><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -6,10 +6,10 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: whitecollar_development
+  database: WhiteCollar_development
   pool: 5
-  username: canipejak
-  password: canipejak
+  username: intranet
+  password: jg3482
   timeout: 5000
   host: localhost
 
