@@ -20,21 +20,21 @@
 
   <tbody>
     <% @clients.each do |client| %>
-      <tr>
-        <td><%= link_to client.business_name,  {:controller => "receipts", :action => "create", :client => client.id }, method: :post %>
-        <td><%= client.address %></td>
-        <td><%= client.email %></td>
-        <td><%= client.contact_title %></td>
-        <td><%= client.contact_fname %></td>
-        <td><%= client.contact_lname %></td>
-        <td><%= client.telephone %></td>
-        <td><%= client.comment %></td>
-        <% ticket = Ticket.find(client.id) %>
-        <td><%= ticket.priority_id %> <td>
-        <td><%= %>
-        <td><%= link_to 'Show', client %></td>
-        <td><%= link_to 'Edit', edit_client_path(client) %></td>
-        <td><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr><%= ticket = Ticket.find_by client_id: client.id %>
+      	<% if ticket.user_id == nil %>
+          <td><%= link_to client.business_name,  {:controller => "receipts", :action => "create", :client => client.id }, method: :post %>
+          <td><%= client.address %></td>
+          <td><%= client.email %></td>
+          <td><%= client.contact_title %></td>
+          <td><%= client.contact_fname %></td>
+          <td><%= client.contact_lname %></td>
+          <td><%= client.telephone %></td>
+          <td><%= client.comment %></td>
+          <td><%= ticket.priority_id %> <td>
+          <td><%= link_to 'Show', client %></td>
+          <td><%= link_to 'Edit', edit_client_path(client) %></td>
+          <td><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

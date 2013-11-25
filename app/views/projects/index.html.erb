@@ -1,3 +1,4 @@
+<% require 'common_methods' %>
 <h1>Current Projects</h1>
 
 <table>
@@ -48,11 +49,15 @@
 </table>
 
 <br>
+<% current_project = 0 %>
 <% @projects.each do |project| %>
-  <% if (project.project_start && project.project_end) > Time.current %>
-  <%= link_to 'New Project', new_project_path %>
+  <% if project.project_end > Time.now %>
+    <% current_project = 1%>
   <% end %>
 <% end %>
+  <% if current_project == 0 %>
+    <%= link_to 'New Project', new_project_path %>
+  <% end %>
 <h1>Expired Projects</h1>
 <table>
 	<thead>
