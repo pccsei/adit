@@ -1,4 +1,6 @@
+require 'common_methods'
 class ProjectsController < ApplicationController
+  include CommonMethods
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   # GET /projects
@@ -67,6 +69,9 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:id, :year, :semester, :project_start, :project_end, :comment, :created_at, :updated_at, :max_clients, :max_green_clients, :max_white_clients, :max_yellow_clients, :use_max_clients, :project_type_id)
+      params.require(:project).permit(:id, :year, :semester, :project_start, :project_end, 
+                                      :comment, :created_at, :updated_at, :max_clients, 
+                                      :max_green_clients, :max_white_clients, :max_yellow_clients, 
+                                      :use_max_clients, :project_type_id)
     end
 end

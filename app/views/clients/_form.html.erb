@@ -17,8 +17,20 @@
   </div>
   <div class="field">
     <%= f.label :address %><br>
-    <%= f.text_area :address %>
+    <%= f.text_field :address %>
   </div>
+  <div class="field">
+    <%= f.label :city %><br>
+    <%= f.text_field :city %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.select :state, options_for_select(%w[FL AL]) %>
+  </div>
+  <div class="field">
+    <%= f.label :zipcode %><br>
+    <%= f.text_field :zipcode %>
+  </div>  
   <div class="field">
     <%= f.label :email %><br>
     <%= f.text_field :email %>

@@ -26,11 +26,11 @@
     </div>
     <div class="field">
       <%= f.label :project_start %><br>
-      <%= f.text_field :project_start, :placeholder => "DD/MM/YYYY 00:00 AM/PM" %>
+      <%= f.text_field :project_start, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
     </div>
     <div class="field">
       <%= f.label :project_end %><br>
-      <%= f.text_field :project_end, :placeholder => "DD/MM/YYYY 00:00 AM/PM" %>
+      <%= f.text_field :project_end, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
     </div>
     <div class="field">
       <%= f.label :comment %><br>
@@ -58,10 +58,8 @@
   </div>
   
 <script>
-	$('#project_project_start').datetimepicker();
-	$('#project_project_end').datetimepicker();
-	
-	
+	$('#project_project_start').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
+	$('#project_project_end').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
 </script>  
   
   

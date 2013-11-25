@@ -1,6 +1,6 @@
 <h1>Listing Tickets</h1>
 
-<table>
+<table class = "table">
   <thead>
     <tr>
       <th>Sale Value</th>
@@ -17,8 +17,8 @@
       	<td><%= ticket.sale_value%></td>
       	<td><%= ticket.page_size%></td>
       	<td><%= ticket.payment_type%></td>
-      	<td><%= ticket.attatchment%></td>
-      	<td><%= ticket.attatchment_name%></td>
+      	<td><%= ticket.attachment%></td>
+      	<td><%= ticket.attachment_name%></td>
       	
         <td><%= link_to 'Show', ticket %></td>
         <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
@@ -30,4 +30,5 @@
 
 <br>
 
-<%= link_to 'New Ticket', new_ticket_path %>
+  <%= link_to 'Create Tickets', new_ticket_path %>
+
