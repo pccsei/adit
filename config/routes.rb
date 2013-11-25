@@ -6,11 +6,9 @@ WhiteCollar::Application.routes.draw do
   get "users/teacher"
   get "users/student_manager"
   get "users/student_rep"
-<<<<<<< HEAD
   post "users/input_students_parse"
-=======
   get "users/settings"
->>>>>>> efd52c9a7aa851066936d8b417e8cd79058b7130
+
 
   resources :tickets
   resources :clients
