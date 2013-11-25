@@ -3,26 +3,27 @@
 <table>
   <thead>
     <tr>
-      <th>Sale Value</th>
-      <th>Page Size</th>
-      <th>Payment Type</th>
-      <th>Attachment</th>
-      <th>Attachment Name</th>	
+      <th>Current User</th>
+      <th>Business Name</th>
+      <th>Address</th>
+      <th>Email</th>
+      <th>Contact Name</th>
+      <th>Telephone</th>
+      <th>Comment</th>	
     </tr>
   </thead>
 
   <tbody>
     <% @tickets.each do |ticket| %>
       <tr>
-      	<td><%= ticket.sale_value%></td>
-      	<td><%= ticket.page_size%></td>
-      	<td><%= ticket.payment_type%></td>
-      	<td><%= ticket.attachment%></td>
-      	<td><%= ticket.attachment_name%></td>
+      	<td><%= ticket.user_id %></td>
+      	<td><%= ticket.page_size %></td>
+      	<td><%= ticket.payment_type %></td>
+      	<td><%= ticket.attachment %></td>
+      	<td><%= ticket.attachment_name %></td>
       	
         <td><%= link_to 'Show', ticket %></td>
         <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-        <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
