@@ -32,11 +32,11 @@ class ReceiptsController < ApplicationController
 
     respond_to do |format|
       if @receipt.save
-        format.html { redirect_to @receipt, notice: 'Receipt was successfully created.' }
+        format.html { redirect_to clients_url, notice: 'Receipt was successfully created.' }
         format.json { render action: 'show', status: :created, location: @receipt }
       else
         format.html { render action: 'new' }
-        format.json { render json: @receipt.errors, status: :unprocessable_entity }
+        format.json { render json: clients_url, status: :unprocessable_entity }
       end
     end
   end
