@@ -18,7 +18,7 @@ class TicketsController < ApplicationController
     clients.each do |c|
        ticket = c.tickets.create(
          project_id: get_current_project,
-         priority_id: 1) # Will need a method to calculate)
+         priority_id: 2) # Will need a method to calculate)
        ticket.save
     end
     respond_to do |format|
