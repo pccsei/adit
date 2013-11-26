@@ -39,6 +39,10 @@ class TicketsController < ApplicationController
   def assign_user
     current_user = 1
     ticket.user_id = current_user
+    ticket.save
+    respond_to do |format|
+        format.html { redirect_to clients_url, notice: 'Client was successfully added.' }
+    end
   end
 
   def destroy

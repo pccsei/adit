@@ -32,7 +32,7 @@ class ReceiptsController < ApplicationController
 
     respond_to do |format|
       if @receipt.save
-        format.html { redirect_to clients_url, notice: 'Receipt was successfully created.' }
+        format.html { redirect_to tickets_assign_user_url }
       else
         format.html { render action: 'new' }
       end
