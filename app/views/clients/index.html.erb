@@ -23,6 +23,7 @@
       <tr><% ticket = Ticket.find_by client_id: client.id %>
       	<% if ticket.user_id == nil %>
           <td><%= link_to client.business_name, {:controller => "receipts", :action => "create", :client => client.id }, method: :post %>
+        	<!--add some flash to say that the receipt had been added to the correct user-->          
           <td><%= client.address %></td>
           <td><%= client.email %></td>
           <td><%= client.contact_title %></td>

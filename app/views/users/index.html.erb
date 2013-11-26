@@ -1,5 +1,18 @@
 <h1>Listing users</h1>
 
+<%= form_tag('/users/input_students_parse') do%>
+<h1>Add Student(s)<h1>
+	<%= text_area_tag 'input' %>
+	<%= submit_tag 'input'%>
+<% end %>
+
+	
+<pre>
+  <%= @my_input.inspect %>
+</pre>
+
+
+
 <table class ="table">
   <thead>
     <tr>
