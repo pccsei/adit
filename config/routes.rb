@@ -7,6 +7,7 @@ WhiteCollar::Application.routes.draw do
   get "users/student_manager"
   get "users/student_rep"
   get "users/settings"
+  get "projects/next_step"
 
   resources :tickets
   resources :clients

@@ -20,9 +20,9 @@
 
   <tbody>
     <% @clients.each do |client| %>
-      <tr><%= ticket = Ticket.find_by client_id: client.id %>
+      <tr><% ticket = Ticket.find_by client_id: client.id %>
       	<% if ticket.user_id == nil %>
-          <td><%= link_to client.business_name,  {:controller => "receipts", :action => "create", :client => client.id }, method: :post %>
+          <td><%= link_to client.business_name, {:controller => "receipts", :action => "create", :client => client.id }, method: :post %>
           <td><%= client.address %></td>
           <td><%= client.email %></td>
           <td><%= client.contact_title %></td>
