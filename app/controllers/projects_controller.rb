@@ -1,6 +1,4 @@
-require 'common_methods'
 class ProjectsController < ApplicationController
-  include CommonMethods
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   # GET /projects

@@ -30,7 +30,7 @@ GEM
     better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
-    bootstrap-sass (2.3.2.2)
+    bootstrap-sass (3.0.2.1)
       sass (~> 3.2)
     builder (3.1.4)
     celluloid (0.15.2)
@@ -45,6 +45,7 @@ GEM
     coffee-script-source (1.6.3)
     daemons (1.1.9)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     eventmachine (1.0.3-x86-mingw32)
     execjs (2.0.2)
     ffi (1.9.3-x86-mingw32)
@@ -87,8 +88,13 @@ GEM
     mime-types (1.25)
     minitest (4.7.5)
     multi_json (1.8.2)
+    mysql2 (0.3.11)
     mysql2 (0.3.11-x86-mingw32)
     polyglot (0.3.3)
+    pry (0.9.12.3)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
     pry (0.9.12.3-x86-mingw32)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -161,7 +167,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
-  bootstrap-sass (~> 2.3.2.2)
+  bootstrap-sass (~> 3.0.2.0)
   coffee-rails (~> 4.0.0)
   ffi (~> 1.9.3)
   figaro
