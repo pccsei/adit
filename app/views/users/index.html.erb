@@ -1,7 +1,7 @@
 <h1>Listing users</h1>
 
 <%= form_tag('/users/input_students_parse') do%>
-<h1>Add Student(s)<h1>
+<h2>Add Student(s)<h2>
 	<%= text_area_tag 'input' %>
 	<%= submit_tag 'input'%>
 <% end %>
@@ -44,4 +44,4 @@
 
 <br>
 
-<%= link_to 'New User', new_user_path %>
+<%= link_to 'Add One Student', new_user_path %>

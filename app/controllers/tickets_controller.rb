@@ -1,6 +1,4 @@
-require 'common_methods'
 class TicketsController < ApplicationController
-  include CommonMethods
 
   def index
     @tickets = Ticket.all

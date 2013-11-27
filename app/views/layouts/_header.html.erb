@@ -6,8 +6,8 @@
         <ul class="nav pull-right">
           <li><%= link_to "Manage Section",    users_path %></li>
           <li><%= link_to "Clients",    root_path %></li>
-          <li><%= link_to "Project Options",  '/projects/1'%></li> 
-          <!--Needs to be replaced with function determining current project -->
+          <!--This now actually links to the correct project, please do not change, npc -->
+          <li><%= link_to "Project Options",  project_path(get_current_project) %></li> 
           <li><%= link_to "Tickets",   tickets_path%></li>
           <li><%= link_to "Receipts",  receipts_path%></li>
       </nav>
