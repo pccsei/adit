@@ -6,11 +6,11 @@
 #  cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #  Mayor.create(name: 'Emanuel', city: cities.first)
    
-   #priorities = Priority.create([{ name: 'green' }, { name: 'yellow'}, { name: 'white'}])
+   priorities = Priority.create([{ name: 'green' }, { name: 'yellow'}, { name: 'white'}])
    
-   #users = User.create( name: 'Christina Pasiewicz', school_id: '119693', role: 1, section: 1, phone: '17-1157-2' , email: 'eantip0750@students.pcci.edu', parent_id: 'dlunsford' )
+   # To add users, you can simply paste them from the student manager excel file
    
-   #project_types = ProjectType.create([{ name: 'Calendar' }, { name: 'Arrow' }])
+   project_types = ProjectType.create([{ name: 'Calendar' }, { name: 'Arrow' }])
    
    #projects = Project.create(year: 2013 , semester: 'Spring', project_type_id: 1, 
     #                         project_start: '25-FEB-2013', project_end: '15-APR-2013', comment: 'This is the true Spring 2013 project',
