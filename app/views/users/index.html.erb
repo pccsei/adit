@@ -1,27 +1,22 @@
 <h1>Listing users</h1>
 
+
+
 <%= form_tag('/users/input_students_parse') do%>
 <h1>Add Student(s)<h1>
 	<%= text_area_tag 'input' %>
 	<%= submit_tag 'input'%>
 <% end %>
 
-	
-<pre>
-  <%= @my_input.inspect %>
-</pre>
-
-
-
 <table class ="table">
   <thead>
     <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>ID</th>
-      <th>Email</th>
-      <th>Phone</th>
-      <th>Section</th>
+      <th><%=sortable "first_name"%></th>
+      <th><%=sortable "last_name"%></th>
+      <th><%=sortable "school_id", "ID number"%></th>
+      <th><%=sortable "email"%></th>
+      <th><%=sortable "phone"%></th>
+      <th><%=sortable "section"%></th>
     </tr>
   </thead>
 
