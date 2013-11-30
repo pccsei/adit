@@ -71,3 +71,14 @@ group :development do
   gem 'rb-inotify', :require=>false
 end
 
+group :test, :development do
+  gem 'rspec-rails'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
+end
+
