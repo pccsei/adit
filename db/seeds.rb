@@ -8,9 +8,14 @@
    
    #priorities = Priority.create([{ name: 'green' }, { name: 'yellow'}, { name: 'white'}])
    
-   #users = User.create( name: 'Christina Pasiewicz', school_id: '119693', role: 1, section: 1, phone: '17-1157-2' , email: 'eantip0750@students.pcci.edu', parent_id: 'dlunsford' )
+   # To add users, you can simply paste them from the student manager excel file
    
    #project_types = ProjectType.create([{ name: 'Calendar' }, { name: 'Arrow' }])
+   
+   action_types = ActionType.create([{ name: 'First Contact',  role: 1, point_value: 5 },
+                                     { name: 'Presentation',   role: 1, point_value: 5 },
+                                     { name: 'Sale',           role: 1, point_value: 10},
+                                     { name: 'New Sale Bonus', role: 1, point_value: 5}])
    
    #projects = Project.create(year: 2013 , semester: 'Spring', project_type_id: 1, 
     #                         project_start: '25-FEB-2013', project_end: '15-APR-2013', comment: 'This is the true Spring 2013 project',
@@ -24,4 +29,4 @@
 #{business_name: 'Able Auto Repair', address: '6548 Mobile Hwy', email: '', website: '',  telephone: '332-5162', comment: ''},
 #{business_name: 'Accents by KellyCo Flowers', address: '615 Scenic Highway', email: '', website: '',  telephone: '438-1981', comment: ''}])
 
-   statuses = Status.create([{status_type: "Not Approved" }, { status_type: "Approved"}, { status_type: "In House" }, { status_type: "Pending" }])
+   #statuses = Status.create([{status_type: "Not Approved" }, { status_type: "Approved"}, { status_type: "In House" }, { status_type: "Pending" }])

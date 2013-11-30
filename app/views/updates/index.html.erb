@@ -1,0 +1,35 @@
+<h1>Listing updates</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Receipt ID</th>
+      <th>Points Earned</th>
+      <th>Time Accomplished</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @updates.each do |update| %>
+      <tr>
+      	<td><%= update.receipt_id %></td>
+      	<% update.actions.each do |action|%>
+      	<tr>
+      	   <td><%= action.points_earned%></td>
+      	   <td><%= action.user_action_time%></td>
+      	<tr>
+      	<% end %>
+        <td><%= link_to 'Show', update %></td>
+        <td><%= link_to 'Edit', edit_update_path(update) %></td>
+        <td><%= link_to 'Destroy', update, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Update', new_update_path %>
