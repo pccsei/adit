@@ -1,11 +1,10 @@
 WhiteCollar::Application.routes.draw do
-  resources :receipts
-
   root :to => "clients#index"
   
-  get "users/teacher"
-  get "users/student_manager"
-  get "users/student_rep"
+  
+  get  "users/teacher"
+  get  "users/student_manager"
+  get  "users/student_rep"
   post "users/input_students_parse"
   get "users/settings"
   get "projects/next_step"

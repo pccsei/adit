@@ -21,7 +21,7 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-      	<% if project.project_end > Time.current %>
+      	<% if project.is_current_project %>
       	<td><%= project.year%></td>
       	<td><%= project.semester%></td>
       	<td><%= project.project_type_id%></td>
@@ -76,7 +76,7 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-      	<% if project.project_end < Time.current %>
+      	<% if !project.is_current_project %>
       	<td><%= project.year%></td>
       	<td><%= project.semester%></td>
       	<td><%= project.project_type_id%></td>

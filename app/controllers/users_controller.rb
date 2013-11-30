@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
+  helper_method :sort_column, :sort_direction
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  
 
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.order(sort_column + " " + sort_direction)
   end
 
   # GET /users/1
@@ -114,6 +114,13 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:id, :created_at, :updated_at, :school_id, :role, :section, :parent_id, :email, :phone, :first_name, :last_name, :box, :major, :minor, :classification)
     end
+    
+    def sort_column
+      User.column_names.include?(params[:sort]) ? params[:sort] : "first_name"
+    end
 
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
 
 end
