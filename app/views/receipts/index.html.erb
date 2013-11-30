@@ -3,19 +3,34 @@
 <table class="table">
   <thead>
     <tr>
-      <th>user_id</th>
-      <th>id</th>
+      <th>Title</th>
+      <th>Contact First Name</th>
+      <th>Contact Last Name</th>
+      <th>Business Name</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zipcode</th>
+      <th>Telephone</th>
+      <th>Email</th>
     </tr>
   </thead>
 
   <tbody>
     <% @active_tickets.each do |ticket| %>
+    <% @client = Client.find(ticket.id)%>
       <tr>
-      	<td><%= ticket.user_id%></td>
-      	<td><%= ticket.id%></td>
+      	<td><%= @client.contact_title%></td>
+      	<td><%= @client.contact_fname%></td>
+      	<td><%= @client.contact_lname%></td>
+      	<td><%= @client.business_name%></td>
+      	<td><%= @client.address%></td>
+      	<td><%= @client.city%></td>
+      	<td><%= @client.state%></td>
+      	<td><%= @client.zipcode%></td>
+      	<td><%= @client.telephone%></td>
+      	<td><%= @client.email%></td>
         <td><%= link_to 'Show', ticket %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-        <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,19 +43,34 @@
 <table class="table">
   <thead>
     <tr>
-      <th>user_id</th>
-      <th>id</th>
+      <th>Title</th>
+      <th>Contact First Name</th>
+      <th>Contact Last Name</th>
+      <th>Business Name</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zipcode</th>
+      <th>Telephone</th>
+      <th>Email</th>
     </tr>
   </thead>
 
   <tbody>
     <% @sold_tickets.each do |ticket| %>
+    <% @client = Client.find(ticket.id)%>
       <tr>
-      	<td><%= ticket.user_id%></td>
-      	<td><%= ticket.id%></td>
+      	<td><%= @client.contact_title%></td>
+      	<td><%= @client.contact_fname%></td>
+      	<td><%= @client.contact_lname%></td>
+      	<td><%= @client.business_name%></td>
+      	<td><%= @client.address%></td>
+      	<td><%= @client.city%></td>
+      	<td><%= @client.state%></td>
+      	<td><%= @client.zipcode%></td>
+      	<td><%= @client.telephone%></td>
+      	<td><%= @client.email%></td>      	
         <td><%= link_to 'Show', ticket %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-        <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -54,20 +84,34 @@
 <table class="table">
   <thead>
     <tr>
-      <th>user_id</th>
-      <th>ticket_id</th>
-      <th>id</th>
+      <th>Title</th>
+      <th>Contact First Name</th>
+      <th>Contact Last Name</th>
+      <th>Business Name</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zipcode</th>
+      <th>Telephone</th>
+      <th>Email</th>
     </tr>
   </thead>
+
   <tbody>
-    <% @released_receipts.each do |receipt| %>
+    <% @released_tickets.each do |ticket| %>
+    <% @client = Client.find(ticket.id)%>
       <tr>
-      	<td><%= link_to receipt.user_id, updates_path()%></td>
-      	<td><%= receipt.user_id%></td>
-      	<td><%= receipt.id%></td>
-        <td><%= link_to 'Show', receipt %></td>
-        <td><%= link_to 'Edit', edit_receipt_path(receipt) %></td>
-        <td><%= link_to 'Destroy', receipt, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      	<td><%= @client.contact_title%></td>
+      	<td><%= @client.contact_fname%></td>
+      	<td><%= @client.contact_lname%></td>
+      	<td><%= @client.business_name%></td>
+      	<td><%= @client.address%></td>
+      	<td><%= @client.city%></td>
+      	<td><%= @client.state%></td>
+      	<td><%= @client.zipcode%></td>
+      	<td><%= @client.telephone%></td>
+      	<td><%= @client.email%></td>
+        <td><%= link_to 'Show', ticket %></td>
       </tr>
     <% end %>
   </tbody>

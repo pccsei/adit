@@ -10,17 +10,17 @@ class ReceiptsController < ApplicationController
     
     @all_receipts = current_user.receipts
     @all_tickets = Ticket.all
-    @released_receipts = Array.new  
+    @released_tickets = Array.new  
     
     @all_receipts.each do |r|
-      add_receipt = false
+      add_ticket = false
        @all_tickets.each do |t|
      if ((t.user_id != r.user_id) && (r.ticket_id == t.id))
-           add_receipt = true
+           add_ticket = true
       end
     end
-        if(add_receipt == true)
-          @released_receipts << r
+        if(add_ticket == true)
+          @released_tickets << r
         end
     end
     return

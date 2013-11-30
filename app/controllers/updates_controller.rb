@@ -4,7 +4,8 @@ class UpdatesController < ApplicationController
   # GET /updates
   # GET /updates.json
   def index
-    @updates = Update.all
+    current_receipt = Receipt.first
+    @updates = Update.where("receipt_id = ?", current_receipt.id)
   end
 
   # GET /updates/1
