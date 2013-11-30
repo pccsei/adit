@@ -4,7 +4,26 @@ class ReceiptsController < ApplicationController
   # GET /receipts
   # GET /receipts.json
   def index
-    @receipts = Receipt.all
+    current_user = User.find(1)
+    @active_tickets =  current_user.tickets.where("sale_value is NULL")
+    @sold_tickets = current_user.tickets.where("sale_value is not NULL")
+    
+    @all_receipts = current_user.receipts
+    @all_tickets = Ticket.all
+    @released_receipts = Array.new  
+    
+    @all_receipts.each do |r|
+      add_receipt = false
+       @all_tickets.each do |t|
+     if ((t.user_id != r.user_id) && (r.ticket_id == t.id))
+           add_receipt = true
+      end
+    end
+        if(add_receipt == true)
+          @released_receipts << r
+        end
+    end
+    return
   end
 
   # GET /receipts/1

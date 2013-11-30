@@ -1,11 +1,3 @@
-<%= form_for :user do |f|%>
-    Students: <%= f.text_area %>
-<% end %>
-
-
-
-
-
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
