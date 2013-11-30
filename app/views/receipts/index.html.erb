@@ -1,20 +1,117 @@
-<h1>Listing receipts</h1>
+<h1>My Current Clients</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Title</th>
+      <th>Contact First Name</th>
+      <th>Contact Last Name</th>
+      <th>Business Name</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zipcode</th>
+      <th>Telephone</th>
+      <th>Email</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @receipts.each do |receipt| %>
+    <% @active_tickets.each do |ticket| %>
+    <% @client = Client.find(ticket.id)%>
       <tr>
-        <td><%= link_to 'Show', receipt %></td>
-        <td><%= link_to 'Edit', edit_receipt_path(receipt) %></td>
-        <td><%= link_to 'Destroy', receipt, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      	<td><%= @client.contact_title%></td>
+      	<td><%= @client.contact_fname%></td>
+      	<td><%= @client.contact_lname%></td>
+      	<td><%= @client.business_name%></td>
+      	<td><%= @client.address%></td>
+      	<td><%= @client.city%></td>
+      	<td><%= @client.state%></td>
+      	<td><%= @client.zipcode%></td>
+      	<td><%= @client.telephone%></td>
+      	<td><%= @client.email%></td>
+        <td><%= link_to 'Show', ticket %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<br/>
+
+<h1>My Completed Clients</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Contact First Name</th>
+      <th>Contact Last Name</th>
+      <th>Business Name</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zipcode</th>
+      <th>Telephone</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sold_tickets.each do |ticket| %>
+    <% @client = Client.find(ticket.id)%>
+      <tr>
+      	<td><%= @client.contact_title%></td>
+      	<td><%= @client.contact_fname%></td>
+      	<td><%= @client.contact_lname%></td>
+      	<td><%= @client.business_name%></td>
+      	<td><%= @client.address%></td>
+      	<td><%= @client.city%></td>
+      	<td><%= @client.state%></td>
+      	<td><%= @client.zipcode%></td>
+      	<td><%= @client.telephone%></td>
+      	<td><%= @client.email%></td>      	
+        <td><%= link_to 'Show', ticket %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<br>
+
+<h1>My Released Clients</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Contact First Name</th>
+      <th>Contact Last Name</th>
+      <th>Business Name</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zipcode</th>
+      <th>Telephone</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @released_tickets.each do |ticket| %>
+    <% @client = Client.find(ticket.id)%>
+      <tr>
+      	<td><%= @client.contact_title%></td>
+      	<td><%= @client.contact_fname%></td>
+      	<td><%= @client.contact_lname%></td>
+      	<td><%= @client.business_name%></td>
+      	<td><%= @client.address%></td>
+      	<td><%= @client.city%></td>
+      	<td><%= @client.state%></td>
+      	<td><%= @client.zipcode%></td>
+      	<td><%= @client.telephone%></td>
+      	<td><%= @client.email%></td>
+        <td><%= link_to 'Show', ticket %></td>
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +119,4 @@
 
 <br>
 
-<%= link_to 'New Receipt', new_receipt_path %>
+
