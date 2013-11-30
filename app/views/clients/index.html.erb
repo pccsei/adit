@@ -1,45 +1,119 @@
+<script>
+	var last_update = "<%= Time.now.strftime("%Y/%m/%d %H:%M:%S") %>";
+	
+/* Quick check to make sure timestamp is coming through	
+	$(function(){
+		
+		alert(last_update);
+	});
+*/	
+
+
+$(function() {
+    console.log( "ready!" );
+    
+    
+    //currently writing to ping server
+    $(".addTicket").click(function(caller){		
+		console.log(caller.target.id);		
+		
+		$.ajax({			
+			//url: "localhost:3000/clients#ping",
+			type: "post",
+			url: "localhost:3000/clients",
+			
+			data: {id: caller.target.id},
+			
+			statusCode: {404: function() {
+				      			alert( "page not found" );
+			    			  }
+				  		},	
+			
+			error: function(xhr, status, error) 
+				{
+				  console.log(xhr);
+				  //var err = eval("(" + xhr.responseText + ")");
+				  //alert(err.Message);
+				}
+	  		//success: function() {alert("success")}, 
+	  		//fail:    function() {alert("failed")},
+	  		//error:   function() {alert("error")},	  		
+/*
+	  		    complete: function(xhr, textStatus) {
+        console.log(xhr.status);
+    } 						
+*/		
+		});
+
+	});
+	
+	
+	
+	setTimeout(updateClients, 1000);
+	
+	
+	function updateClients() {
+	  
+	  
+	  $.getScript("/clients.js?ajax=Noah Conrad")
+	  
+	  //..
+	  setTimeout(updateClients, 5000);
+	  
+	}
+	
+
+});
+
+
+</script>
+
 <h1>Listing clients</h1>
 
-<table class= "table">
+<table>
   <thead>
     <tr>
+    	<th> </th>
       <th>Business name</th>
       <th>Address</th>
       <th>Email</th>
-      <th>Contact Title</th>
-      <th>First Name</th>
-      <th>Last Name</th>
+      <th>Contact name</th>
       <th>Telephone</th>
       <th>Comment</th>
-      <th>Ticket Priority</th>
       <th></th>
       <th></th>
       <th></th>
     </tr>
+    
   </thead>
 
   <tbody>
-    <% @clients.each do |client| %>
+
+<% @tickets.each do |ticket| %>    
       <tr>
-        <td><%= link_to client.business_name,  {:controller => "receipts", :action => "create", :client => client.id }, method: :post %>
-        	<!--add some flash to say that the receipt had been added to the correct user-->
-        <td><%= client.address %></td>
-        <td><%= client.email %></td>
-        <td><%= client.contact_title %></td>
-        <td><%= client.contact_fname %></td>
-        <td><%= client.contact_lname %></td>
-        <td><%= client.telephone %></td>
-        <td><%= client.comment %></td>
-        <% ticket = Ticket.find(client.id) %>
-        <td><%= ticket.priority_id %> <td>
-        <td><%= %>
-        <td><%= link_to 'Show', client %></td>
-        <td><%= link_to 'Edit', edit_client_path(client) %></td>
-        <td><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      	<!-- creates a button for each client.-->
+      	<!-- ### need  to create jquery function to run when button is clicked!!### -->
+        <td> <%= button_tag "add", type: 'button',  :id => ticket.id, :class => "addTicket" %></td> 
+        
+          	
+        <td><%= ticket.client.business_name %></td>
+        <td><%= ticket.client.address %></td>
+        <td><%= ticket.client.email %></td>
+        <td><%= ticket.client.contact_title %></td>
+        <td><%= ticket.client.contact_fname %></td>
+        <td><%= ticket.client.contact_lname %></td>
+        <td><%= ticket.client.telephone %></td>
+        <td><%= ticket.client.comment %></td>
       </tr>
-    <% end %>
+<% end %>
+    
+
+
   </tbody>
 </table>
+
+	
+
 
 <br>
 
