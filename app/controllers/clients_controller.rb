@@ -4,21 +4,30 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    
-    
-    
+
+=begin
     if !params[:ajax].nil?
       @testText = "TEXT IS WORKING"
     end
     
     @testText = params[:ajax].to_s
     
-    
     #@clients = Client.all
     @tickets = Ticket.all(:select => 'id, client_id')
     
+=end
     
+    if params[:ajax]
+      #@updates = Ticket.find(:all, :select => "id, user_id", :conditions => ["DATE(created_at) <= ?", params[:timestamp]])
+      @updates = Ticket.select("client_id, user_id").where("updated_at <= ?", params[:timestamp]).all 
+    else 
+      @tickets = Ticket.all(:select => 'id, client_id')
+    end
     
+    respond_to do |format|      
+        format.html 
+        format.json { render json: @updates}
+    end
     
   end
 
