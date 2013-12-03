@@ -1,41 +1,107 @@
 <h1>Listing users</h1>
 
+<!-- This allows teachers to view certain sections -->
+<%= form_tag('/users', method: :get) do%>
+	<div style="position:relative; font-family: arial;
+     font-weight:bold; top: 50px; width: 200px;
+     left: 10px; height: 25px;">
+<h2>select section<h2>
+	<%= select_tag "section_option", options_for_select(@sections), :prompt => ""%> 
+	<%= submit_tag 'section'%>
+<% end %>
+	</div>
 
-
-<%= form_tag('/users/input_students_parse') do%>
+<!-- This gets students from the teacher to be put into the database and get their section number -->
 <h2>Add Student(s)<h2>
+<%= form_tag('/users/input_students_parse') do%>
 	<%= text_area_tag 'input' %>
+	<%= label_tag 'section number please:' %>
+	<%= text_field_tag 'section' %>
 	<%= submit_tag 'input'%>
 <% end %>
 
-<table class ="table">
-  <thead>
-    <tr>
-      <th><%=sortable "first_name"%></th>
-      <th><%=sortable "last_name"%></th>
-      <th><%=sortable "school_id", "ID number"%></th>
-      <th><%=sortable "email"%></th>
-      <th><%=sortable "phone"%></th>
-      <th><%=sortable "section"%></th>
-    </tr>
-  </thead>
+<!-- Everything below here is really just a big form. -->
+<%= form_tag('/users/change_student_status') do%>
+	<!-- This is first select for what the teacher wants to do with the students -->
+	<div id="option">
+		<h2>Do stuff with the students!<h2>
+		<%= select_tag "selected_option", options_for_select(["Promote_Student", "Create_Team", "Demote_Student", "Delete_Student", "Delete_Everybody"]), :onchange => 'myFunction()', :prompt => 'select option'%>
+	</div>
+	
+	<!-- This is will only appear if the teacher wants to create student managers -->	
+	<div id="show_managers">
+		<%= select_tag "student_manager", options_from_collection_for_select(@student_managers, 'id', 'last_name')%> 
+	</div>
+	
+	<%= submit_tag :submit%>
+	
+	<!-- This script code is useed to hide student manager second 
+	 Drop down when "Create_Team" is selected-->
+	<script>
+	$( "#show_managers" ).hide();
+	$( "#option" ).click(
+		function( event) {
+		  	event.preventDefault();
+		  	var e = document.getElementById("selected_option");
+			var strUser = e.options[e.selectedIndex].text;
+			if(strUser=="Create_Team")
+			{
+			  $( "#show_managers" ).show();
+			}
+			else
+			{ 
+			  $( "#show_managers" ).hide();
+			}
+		}
+	);
+	</script>
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.first_name %></td>
-        <td><%= user.last_name %></td>
-        <td><%= user.school_id%></td>
-        <td><%= user.email%></td>
-        <td><%= user.phone %></td>
-        <td><%= user.section %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+	<!-- Here is huge table of all the students -->
+	<table class ="table">
+	  <thead>
+	    <tr>
+	      <th></th>
+	      <th><%=sortable "first_name"%></th>
+	      <th><%=sortable "last_name"%></th>
+	      <th><%=sortable "school_id", "ID number"%></th>
+	      <th><%=sortable "email"%></th>
+	      <th><%=sortable "phone"%></th>
+	      <th><%=sortable "parent_id", "Student Manager"%></th>
+	      <th><%=sortable "section"%></th>
+		  <th><%=sortable "major"%></th>
+		  <th><%=sortable "minor"%></th>
+		  <th><%=sortable "email"%></th>
+		  <th><%=sortable "box"%></th>
+		  <th><%=sortable "classification"%></th>
+	      	      	      	      	      
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @users.each do |user| %>
+	      <tr>
+	      <% if user.section == @selected_section.to_i || @selected_section == "" || @selected_section == "all" %>
+	      	<td><%= check_box_tag "students[]", user.id%></td>
+	        <td><%= user.first_name %></td>
+	        <td><%= user.last_name %></td>
+	        <td><%= user.school_id%></td>
+	        <td><%= user.email%></td>
+	        <td><%= user.phone %></td>
+	        <td><%= user.parent_id %></td>
+	        <td><%= user.section %></td>
+	        <td><%= user.major %></td>
+			<td><%= user.minor %></td>
+			<td><%= user.email %></td>
+			<td><%= user.box %></td>
+			<td><%= user.classification %></td>       
+	        <td><%= link_to 'Show', user %></td>
+	        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+	        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	        <% end%>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+<%end%>
 
 <br>
 

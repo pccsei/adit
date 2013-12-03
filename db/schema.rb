@@ -135,20 +135,12 @@ ActiveRecord::Schema.define(version: 20131127020918) do
     t.string   "parent_id"
     t.string   "email"
     t.string   "phone"
-    t.string   "first_name",          limit: 30
-    t.string   "last_name",           limit: 30
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                  default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "first_name",     limit: 30
+    t.string   "last_name",      limit: 30
     t.integer  "box"
-    t.string   "major",               limit: 75
-    t.string   "minor",               limit: 75
-    t.string   "classification",      limit: 10
+    t.string   "major",          limit: 75
+    t.string   "minor",          limit: 75
+    t.string   "classification", limit: 10
   end
-
-  add_index "users", ["school_id"], name: "index_users_on_school_id", unique: true, using: :btree
 
 end
