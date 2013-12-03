@@ -35,7 +35,7 @@ gem 'jbuilder', '~> 1.2'
 
 # added by James Miyashita
 gem 'jquery-ui-rails'
-
+gem 'jquery-rails'
 
 
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -52,7 +52,7 @@ gem 'jquery-ui-rails'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'bootstrap-sass', '~> 2.3.2.2'
+gem 'bootstrap-sass', '~> 3.0.2.0'
 gem 'figaro'
 gem 'high_voltage', '~> 2.0.0'
 gem 'simple_form', '>= 3.0.0.rc'

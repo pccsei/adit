@@ -1,4 +1,4 @@
-<h1>Listing users</h1>
+<h1>Student Roster</h1>
 
 <!-- This allows teachers to view certain sections -->
 <%= form_tag('/users', method: :get) do%>
@@ -14,11 +14,15 @@
 <!-- This gets students from the teacher to be put into the database and get their section number -->
 <h2>Add Student(s)<h2>
 <%= form_tag('/users/input_students_parse') do%>
+
 	<%= text_area_tag 'input' %>
 	<%= label_tag 'section number please:' %>
 	<%= text_field_tag 'section' %>
 	<%= submit_tag 'input'%>
 <% end %>
+<br>
+<br>
+<%= link_to 'Add One Student', new_user_path %>
 
 <!-- Everything below here is really just a big form. -->
 <%= form_tag('/users/change_student_status') do%>
@@ -105,5 +109,4 @@
 
 <br>
 
-<%= link_to 'Add One Student', new_user_path %>
 

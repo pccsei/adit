@@ -4,13 +4,61 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all
+
+=begin
+    if !params[:ajax].nil?
+      @testText = "TEXT IS WORKING"
+    end
+    
+    @testText = params[:ajax].to_s
+    
+    #@clients = Client.all
+    @tickets = Ticket.all(:select => 'id, client_id')
+    
+=end
+    
+    if params[:ajax]
+      #@updates = Ticket.find(:all, :select => "id, user_id", :conditions => ["DATE(created_at) <= ?", params[:timestamp]])
+      @updates = Ticket.select("client_id, user_id").where("updated_at <= ?", params[:timestamp]).all 
+    else 
+      @tickets = Ticket.all(:select => 'id, client_id')
+    end
+    
+    respond_to do |format|      
+        format.html 
+        format.json { render json: @updates}
+    end
+    
   end
 
   # GET /clients/1
   # GET /clients/1.json
   def show
   end
+
+
+  #used when the clients page pings the server to see if there are any new actions to be performed on the table
+  
+  #need to add the .js page 
+  def ping
+    
+    
+    #logger.debug("APPLICATION WAS SUCCESSFULLY PINGED")
+    #logger.flush
+    
+    #updates = Ticket.find(:all, :select => "id, user_id", :conditions => ["DATE(created_at) >= ?", params[:timestamp]]) #this should give all the updates since the last ping. not sure though
+    
+    @up = Ticket.find(params[:id])
+    render json: @up
+    
+    
+    
+    #how to return JSON???
+           
+  end
+
+
+
 
   # GET /clients/new
   def new
@@ -24,6 +72,13 @@ class ClientsController < ApplicationController
   # POST /clients
   # POST /clients.json
   def create
+    
+    if !params[:ping].nil?
+      return 0
+    end
+      
+    
+    
     @client = Client.new(client_params)
 
     respond_to do |format|
