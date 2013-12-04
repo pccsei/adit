@@ -113,6 +113,7 @@ GEM
     multi_json (1.8.2)
     multi_test (0.0.2)
     mysql2 (0.3.11-x86-mingw32)
+    net-ldap (0.3.1)
     nokogiri (1.6.0-x86-mingw32)
       mini_portile (~> 0.5.0)
     polyglot (0.3.3)
@@ -222,6 +223,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   mysql2 (= 0.3.11)
+  net-ldap (= 0.3.1)
   rails (= 4.0.0)
   rails_layout
   rb-fchange

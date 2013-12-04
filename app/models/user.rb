@@ -38,10 +38,10 @@ def User.encrypt(token)
 end
       
       
-private
 
-      def self.authenticate(login, pass)
-        return 2 if login.empty? or pass.empty?
+
+def self.authenticate(login, pass)
+        return false if login.empty? or pass.empty?
 
         conn = Net::LDAP.new :host => SERVER,
                              :port => PORT,
@@ -51,16 +51,18 @@ private
                                         :password => pass,
                                         :method => :simple }
         if conn.bind
-          return 4
+          return true
         else
-          return 5
+          return false
         end
       # If we don't rescue this, Net::LDAP is decidedly ungraceful about failing
       # to connect to the server. We'd prefer to say authentication failed.
       rescue Net::LDAP::LdapError => e
-        return 3
+        return false
       end
     end
+
+private
 
    def create_remember_token
      self.remember_token = User.encrypt(User.new_remember_token)

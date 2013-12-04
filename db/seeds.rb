@@ -6,17 +6,18 @@
 #  cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #  Mayor.create(name: 'Emanuel', city: cities.first)
    
-   #priorities = Priority.create([{ name: 'green' }, { name: 'yellow'}, { name: 'white'}])
+   priorities = Priority.create([{ name: 'high' }, { name: 'medium'}, { name: 'low'}])
    
    # To add users, you can simply paste them from the student manager excel file
    
-   #project_types = ProjectType.create([{ name: 'Calendar' }, { name: 'Arrow' }])
+   project_types = ProjectType.create([{ name: 'Calendar' }, { name: 'Arrow' }])
    
-#   action_types = ActionType.create([{ name: 'First Contact',  role: 1, point_value: 5 },
-#                                     { name: 'Presentation',   role: 1, point_value: 5 },
-#                                     { name: 'Sale',           role: 1, point_value: 10},
-#                                     { name: 'New Sale Bonus', role: 1, point_value: 5}])
+   action_types = ActionType.create([{ name: 'First Contact',  role: 1, point_value: 5 },
+                                     { name: 'Presentation',   role: 1, point_value: 5 },
+                                     { name: 'Sale',           role: 1, point_value: 10},
+                                     { name: 'New Sale Bonus', role: 1, point_value: 5}])
 
+=begin
 clients = Client.create([{business_name: '10th Avenue Hair Designs', address: '1000 East Cervantes Street', email: '', telephone: '433-5207', comment: '', website: '', status: 0, zipcode: 32503, contact_fname: '', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: 0}, 
 {business_name: '32 Degrees Yogurt Bar', address: '5046 Bayou Boulevard', email: '', telephone: '471-2000', comment: '', website: '', status: 0, zipcode: 32503, contact_fname: 'Eric', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: 0}, 
 {business_name: '6 Flags Cleaners Laundry', address: '916 W. Michigan Ave., Suite A', email: '', telephone: '456-6888', comment: '', website: '', status: 0, zipcode: 32503, contact_fname: 'Rhanh Nguyen', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: 0}, 
@@ -495,17 +496,18 @@ clients = Client.create([{business_name: '10th Avenue Hair Designs', address: '1
 {business_name: "Zale's Jewelers (Cordova Mall)", address: '5100 North 9th Avenue', email: '', telephone: '478-8797', comment: 'approved 12', website: '', status: 0, zipcode: 32503, contact_fname: '', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: 0}, 
 {business_name: "Zaxby's ", address: '2640 Creighton Road', email: '', telephone: '477-0025', comment: '', website: '', status: 0, zipcode: 32503, contact_fname: 'Mr. Joe Yates', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: 0}, 
 {business_name: "Zorba's (Cordova Mall)", address: '5100 North 9th Avenue', email: '', telephone: '', comment: 'approved 12', website: '', status: 0, zipcode: 32503, contact_fname: '', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: 0}]) 
-   
-   #projects = Project.create(year: 2013 , semester: 'Spring', project_type_id: 1, 
-    #                         project_start: '25-FEB-2013', project_end: '15-APR-2013', comment: 'This is the true Spring 2013 project',
-     #                        max_clients: '5', max_green_clients: '1', max_white_clients: '1', max_yellow_clients: '1', use_max_clients: true)
- #clients = Client.create([{business_name: '10th Avenue Hair Designs', address: '1000 East Cervantes Street', email: '', website: '',  telephone: '433-5207', comment: ''},
-#{business_name: '32 Degrees Yogurt Bar', address: '5046 Bayou Boulevard', email: '', website: '',  telephone: '471-2000', comment: ''},
-#{business_name: '6 Flags Cleaners Laundry', address: '916 W. Michigan Ave., Suite A', email: '', website: '',  telephone: '456-6888', comment: ''},
-#{business_name: '9th Avenue Coin Laundry', address: '6220 North 9th Avenue', email: '', website: '', telephone: '471-9224', comment: ''},
-#{business_name: 'A Backcare Center', address: '5559 North Davis Highway', email: '', website: '', telephone: '475-2675', comment: ''},
-#{business_name: 'A Flower Shop', address: '3709 Mobile Highway', email: '', website: '', telephone: '438-1609', comment: ''},
-#{business_name: 'Able Auto Repair', address: '6548 Mobile Hwy', email: '', website: '',  telephone: '332-5162', comment: ''},
-#{business_name: 'Accents by KellyCo Flowers', address: '615 Scenic Highway', email: '', website: '',  telephone: '438-1981', comment: ''}])
+=end   
+   projects = Project.create(year: 2013 , semester: 'Spring', project_type_id: 1, 
+                             project_start: '25-FEB-2013', project_end: '15-APR-2013', comment: 'This is the true Spring 2013 project',
+                             max_clients: '5', max_green_clients: '1', max_white_clients: '1', max_yellow_clients: '1', use_max_clients: true)
+                             
+ clients = Client.create([{business_name: '10th Avenue Hair Designs', address: '1000 East Cervantes Street', email: '', website: '',  telephone: '433-5207', comment: ''},
+{business_name: '32 Degrees Yogurt Bar', address: '5046 Bayou Boulevard', email: '', website: '',  telephone: '471-2000', comment: ''},
+{business_name: '6 Flags Cleaners Laundry', address: '916 W. Michigan Ave., Suite A', email: '', website: '',  telephone: '456-6888', comment: ''},
+{business_name: '9th Avenue Coin Laundry', address: '6220 North 9th Avenue', email: '', website: '', telephone: '471-9224', comment: ''},
+{business_name: 'A Backcare Center', address: '5559 North Davis Highway', email: '', website: '', telephone: '475-2675', comment: ''},
+{business_name: 'A Flower Shop', address: '3709 Mobile Highway', email: '', website: '', telephone: '438-1609', comment: ''},
+{business_name: 'Able Auto Repair', address: '6548 Mobile Hwy', email: '', website: '',  telephone: '332-5162', comment: ''},
+{business_name: 'Accents by KellyCo Flowers', address: '615 Scenic Highway', email: '', website: '',  telephone: '438-1981', comment: ''}])
 
-   #statuses = Status.create([{status_type: "Not Approved" }, { status_type: "Approved"}, { status_type: "In House" }, { status_type: "Pending" }])
+   statuses = Status.create([{status_type: "Not Approved" }, { status_type: "Approved"}, { status_type: "In House" }, { status_type: "Pending" }])
