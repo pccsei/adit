@@ -6,6 +6,7 @@ gem 'rails', '4.0.0'
 
 # Use sqlite3 as the database for Active Record
 gem 'mysql2', '0.3.11'
+gem 'net-ldap', '0.3.1'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -35,7 +36,7 @@ gem 'jbuilder', '~> 1.2'
 
 # added by James Miyashita
 gem 'jquery-ui-rails'
-
+gem 'jquery-rails'
 
 
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -52,7 +53,7 @@ gem 'jquery-ui-rails'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'bootstrap-sass', '~> 2.3.2.2'
+gem 'bootstrap-sass', '~> 3.0.2.0'
 gem 'figaro'
 gem 'high_voltage', '~> 2.0.0'
 gem 'simple_form', '>= 3.0.0.rc'
@@ -69,5 +70,16 @@ group :development do
   gem 'rb-fchange', :require=>false
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
+end
+
+group :test, :development do
+  gem 'rspec-rails'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
 end
 

@@ -1,6 +1,7 @@
-<h1>Listing projects</h1>
+<% if get_current_project %>
+<h1>Current Project</h1>
 
-<table>
+<table class = "table">
   <thead>
     <tr>
       <th>Year</th>
@@ -8,12 +9,10 @@
       <th>Project Type</th>
       <th>Project Start</th>
       <th>Project End</th>
-
-        <th>Total Max Clients</th>
-
-        <th>Green Clients</th>
-        <th>Yellow Clients</th>
-        <th>White Clients</th>
+      <th>Total Max Clients</th>
+      <th>Green Clients</th>
+      <th>Yellow Clients</th>
+      <th>White Clients</th>
 
       <th>Comment</th>
     </tr>
@@ -22,6 +21,7 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
+      	<% if project.is_current_project %>
       	<td><%= project.year%></td>
       	<td><%= project.semester%></td>
       	<td><%= project.project_type_id%></td>
@@ -42,11 +42,52 @@
         <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+   Currently, no active project exists. Please create a new project or view archived projects.
+<br>
+<br>   
+<% @projects.each do |project| %>
+  <% if (project.project_start && project.project_end) < Time.current %>
+  <%= link_to 'Create New Project', new_project_path %>
+  <% end %>
+<% end %>
+<% end %>
 
-<%= link_to 'New Project', new_project_path %>
+<% if Project.find_by is_current_project: '0'%>
+<h1>Expired Projects</h1>
+<table class = "table">
+	<thead>
+      <tr>
+      <th>Year</th>
+      <th>Semester</th>
+      <th>Project Type</th>
+      <th>Project Start</th>
+      <th>Project End</th>
+      <th>Clients</th>	
+      <th>Comment</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+      	<% if project.is_current_project %>
+      	<td><%= project.year%></td>
+      	<td><%= project.semester%></td>
+      	<td><%= project.project_type_id%></td>
+      	<td><%= project.project_start%></td>
+        <td><%= project.project_end%></td>
+        <td><%= project.max_clients%></td>
+      	<td><%= project.comment%></td>
+      	<% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
-  
-def index
+
+  def index
     @tickets = Ticket.all
   end
 
@@ -12,28 +12,34 @@ def index
   end
 
   def create
-    @ticket = Ticket.new(ticket_params)
-
+    clients = Client.all
+    clients.each do |c|
+       ticket = c.tickets.create(
+         project_id: get_current_project,
+         priority_id: 2) # Will need a method to calculate)
+       ticket.save
+    end
     respond_to do |format|
-      if @ticket.save
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @ticket }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
-      end
+        format.html { redirect_to projects_url, notice: 'Ticket was successfully created.' }
     end
   end
 
   def update
     respond_to do |format|
-      if @ticket.update(project_params)
+      if @ticket.update(ticket_params)
         format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
-        format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def assign_user
+    current_user = 1
+    ticket.user_id = current_user
+    ticket.save
+    respond_to do |format|
+        format.html { redirect_to clients_url, notice: 'Client was successfully added.' }
     end
   end
 
@@ -41,10 +47,9 @@ def index
     @ticket.destroy
     respond_to do |format|
       format.html { redirect_to tickets_url }
-      format.json { head :no_content }
     end
   end
-
+  
   private
     def set_ticket
       @ticket = Ticket.find(params[:id])

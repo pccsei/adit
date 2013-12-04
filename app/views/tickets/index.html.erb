@@ -1,28 +1,31 @@
 <h1>Listing Tickets</h1>
 
-<table>
+<table class = "table">
   <thead>
     <tr>
-      <th>Sale Value</th>
-      <th>Page Size</th>
-      <th>Payment Type</th>
-      <th>Attachment</th>
-      <th>Attachment Name</th>	
+      <th>Business Name</th>
+      <th>Address</th>
+      <th>Email</th>
+      <th>Contact Name</th>
+      <th>Telephone</th>
+      <th>Comment</th>	
     </tr>
   </thead>
 
   <tbody>
     <% @tickets.each do |ticket| %>
-      <tr>
-      	<td><%= ticket.sale_value%></td>
-      	<td><%= ticket.page_size%></td>
-      	<td><%= ticket.payment_type%></td>
-      	<td><%= ticket.attatchment%></td>
-      	<td><%= ticket.attatchment_name%></td>
+      <tr><% client = Client.find_by id: ticket.client_id %>
+      	<td><%= client.business_name %></td>
+      	<td><%= client.address %></td>
+      	<td><%= client.email %></td>
+      	<td><%= client.contact_title %></td>
+      	<td><%= client.contact_fname %></td>
+      	<td><%= client.contact_lname %></td>
+      	<td><%= client.telephone %></td>
+      	<td><%= client.comment %></td>
       	
         <td><%= link_to 'Show', ticket %></td>
         <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-        <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +33,5 @@
 
 <br>
 
-<%= link_to 'New Ticket', new_ticket_path %>
+  <%= link_to 'Create Tickets', new_ticket_path %>
+

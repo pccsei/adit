@@ -37,7 +37,7 @@ class ProjectsControllerTest < ActionController::TestCase
       post :create, project: @update
     end
 
-    assert_redirected_to project_path(assigns(:project))
+    assert_redirected_to projects_next_step_path
   end
 
   test "should show project" do
