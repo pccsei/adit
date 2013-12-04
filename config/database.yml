@@ -6,12 +6,12 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: whitecollar_development
+  database: WhiteCollar_development
   pool: 5
-  username: root
-  password: root
+  username: intranet
+  password: jg3482
   timeout: 5000
-  host: 127.0.0.1
+  host: localhost
 
 
 # Warning: The database defined as "test" will be erased and

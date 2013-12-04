@@ -86,7 +86,6 @@ p {
 
 /* header */
 
-
 #logo {
   float: left;
   margin-right: 10px;
@@ -101,6 +100,11 @@ p {
     color: #fff;
     text-decoration: none;
   }
+}
+
+#logo:hover {
+  color: #fff;
+  text-decoration: none;
 }
 
 
