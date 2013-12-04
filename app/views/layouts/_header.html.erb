@@ -18,7 +18,7 @@
            
           <li><%= link_to "Tickets",   tickets_path%></li>
           <li><%= link_to "My Clients",  receipts_path%></li>
-          <li><%= link_to "Sign Out", current_user %></li>
+          <li><%= link_to "Sign Out", signout_path, method: "delete" %></li>
       </nav>
     </div>
   </div>
