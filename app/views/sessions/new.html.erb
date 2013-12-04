@@ -1,2 +1,16 @@
 <% provide(:title, "Sign in")%>
 <h1>Sign in </h1>
+
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_tag sessions_path do%>
+		
+			<%= label_tag :school_id% >
+			<%= text_field_tag :school_id %>
+		
+			<%= label_tag :password %>
+			<%= password_field_tag :password %>
+		
+		<%= submit_tag("Sign in", class: "btn btn-large btn-primary")%>
+		<% end %>
+		
