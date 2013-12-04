@@ -107,6 +107,30 @@ p {
   text-decoration: none;
 }
 
+header {
+  margin-top: 0px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: $gray-light;
+  a {
+    color: #555;
+    &:hover {
+      color: #222;
+    }
+  }
+  small {
+    float: left;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 10px;
+    }
+  }
+}
+
 
 /* footer */
 
