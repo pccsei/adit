@@ -20,19 +20,26 @@ class TicketsController < ApplicationController
        ticket.save
     end
     respond_to do |format|
-        format.html { redirect_to tickets_url, notice: 'Ticket was successfully created.' }
+        format.html { redirect_to projects_url, notice: 'Ticket was successfully created.' }
     end
   end
 
   def update
     respond_to do |format|
-      if @ticket.update(project_params)
+      if @ticket.update(ticket_params)
         format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
-        format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def assign_user
+    current_user = 1
+    ticket.user_id = current_user
+    ticket.save
+    respond_to do |format|
+        format.html { redirect_to clients_url, notice: 'Client was successfully added.' }
     end
   end
 
