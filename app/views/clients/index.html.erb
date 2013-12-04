@@ -15,8 +15,19 @@ $(function() {
 	  			function(json) {
 	  				console.log("Response received......");
 	  			
-	  				console.log(json);
 	  			
+	  			
+	  			
+	  			
+	  				console.log(json);
+	  				
+	  				if (json.Success != null)
+	  					$('#' + caller.target.id).hide();
+	  				else
+	  					alert ("you fail");
+	  				
+
+/*
 		  			var len = json.length
 		  			for (var i = 0; i < len; i++) { 
 		  					//console.log('#' + String(json[i].user_id));
@@ -29,8 +40,7 @@ $(function() {
 		  					  $('#' + json[i].client_id).hide();//effect("highlight", "slow");//hide()
 		  					//setTimeout(console.log("..in the loop.."), 100000);	  						  					
 	  					}
-	  			
-	  			
+*/  			
 	  			
 		})
 		
@@ -103,10 +113,10 @@ $(function() {
 
   <tbody>
 <% @tickets.each do |ticket| %>    
-      <tr class="<%=ticket.client.id %>">
-      	<!-- creates a button for each client.-->
+
+      <tr class="<%= ticket.client.id %>">
+      	
         <td> <%= button_tag "add", type: 'button',  :id => ticket.id, :class => "addTicket" %></td> 
-        
           	
         <td><%= ticket.client.business_name %></td>
         <td><%= ticket.client.address %></td>
@@ -118,14 +128,9 @@ $(function() {
         <td><%= ticket.client.comment %></td>
       </tr>
 <% end %>
-    
-
-
+   
   </tbody>
 </table>
-
-	
-
 
 <br>
 

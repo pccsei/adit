@@ -56,7 +56,10 @@ ActiveRecord::Schema.define(version: 20131127020918) do
     t.string   "contact_title", limit: 10
     t.string   "city",          limit: 30
     t.string   "state",         limit: 2
+    t.integer  "status_id"
   end
+
+  add_index "clients", ["status_id"], name: "index_clients_on_status_id", using: :btree
 
   create_table "priorities", force: true do |t|
     t.string   "name"
@@ -94,9 +97,11 @@ ActiveRecord::Schema.define(version: 20131127020918) do
     t.integer  "user_id"
   end
 
-  create_table "status_tables", force: true do |t|
-    t.string  "status_type"
-    t.boolean "status_enabled"
+  create_table "statuses", force: true do |t|
+    t.string   "status_type",    limit: 30
+    t.boolean  "status_enabled",            default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tickets", force: true do |t|
