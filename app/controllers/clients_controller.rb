@@ -21,7 +21,7 @@ class ClientsController < ApplicationController
       #@updates = Ticket.find(:all, :select => "id, user_id", :conditions => ["DATE(created_at) <= ?", params[:timestamp]])
       @updates = Ticket.select("client_id, user_id").where("updated_at <= ?", params[:timestamp]).all 
     else 
-      @tickets = Ticket.all(:select => 'id, client_id')
+      @tickets = Ticket.where(:select => 'id, client_id')
     end
     
     respond_to do |format|      

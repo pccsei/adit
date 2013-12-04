@@ -21,7 +21,7 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-      	<% if !project.is_current_project %>
+      	<% if project.is_current_project %>
       	<td><%= project.year%></td>
       	<td><%= project.semester%></td>
       	<td><%= project.project_type_id%></td>
@@ -49,12 +49,11 @@
 </table>
 
 <br>
-<% else %>
    Currently, no active project exists. Please create a new project or view archived projects.
 <br>
 <br>   
 <% @projects.each do |project| %>
-  <% if (project.project_start && project.project_end) > Time.current %>
+  <% if (project.project_start && project.project_end) < Time.current %>
   <%= link_to 'Create New Project', new_project_path %>
   <% end %>
 <% end %>

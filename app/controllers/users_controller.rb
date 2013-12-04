@@ -23,8 +23,8 @@ class UsersController < ApplicationController
     @sections.uniq!  
     
     # find student managers
-    @student_managers = User.where(:role => 2)
-    @student_managers.all.each do |user|
+    @student_managers = User.where(role: 2)
+    @student_managers.each do |user|
       @student_manager_names = user.first_name + " " + user.last_name
     end
   end

@@ -35,5 +35,28 @@ class RoutesTest < ActionDispatch::IntegrationTest
   test "test ticket routes" do
     assert_generates "/tickets", :controller => "tickets", :action => "index"
     assert_generates "/tickets/1", {:controller => "tickets", :action => "show", :id => "1"}
+    assert_generates "/tickets/new", :controller => "tickets", :action => "new"
+    assert_generates "/tickets", :controller => "tickets", :action => "create"
+    assert_generates "/tickets/1", {:controller => "tickets", :action => "update", :id => "1"}
+    #need to test assign_user
+    assert_generates "/tickets/1", {:controller => "tickets", :action => "destroy", :id => "1"}
+  end
+  test "test receipts routes" do
+    assert_generates "/receipts", :controller => "receipts", :action =>"index"
+    assert_generates "/receipts/1", {:controller => "receipts", :action => "show", :id => "1"}
+    assert_generates "/receipts/new", :controller => "receipts", :action => "new"
+    assert_generates "/receipts/1/edit", {:controller => "receipts", :action => "edit", :id => "1"}
+    assert_generates "/receipts", :controller => "receipts", :action => "create"
+    assert_generates "/receipts/1", {:controller => "receipts", :action => "update", :id => "1"}
+    assert_generates "/receipts/1", {:controller => "receipts", :action => "destroy", :id => "1"}
+  end
+  test "test updates routes" do
+    assert_generates "/updates", :controller => "updates", :action =>"index"
+    assert_generates "/updates/1", {:controller => "updates", :action => "show", :id => "1"}
+    assert_generates "/updates/new", :controller => "updates", :action => "new"
+    assert_generates "/updates/1/edit", {:controller => "updates", :action => "edit", :id => "1"}
+    assert_generates "/updates", :controller => "updates", :action => "create"
+    assert_generates "/updates/1", {:controller => "updates", :action => "update", :id => "1"}
+    assert_generates "/updates/1", {:controller => "updates", :action => "destroy", :id => "1"}
   end
 end

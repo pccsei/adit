@@ -35,7 +35,7 @@ setup do
       post :create, ticket: @update
     end
 
-    assert_redirected_to projects_url
+    assert_redirected_to tickets_url
   end
 
   test "should show ticket" do

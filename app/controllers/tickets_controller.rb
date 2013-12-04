@@ -26,7 +26,7 @@ class TicketsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @ticket.update(project_params)
+      if @ticket.update(ticket_params)
         format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
       else
         format.html { render action: 'edit' }
