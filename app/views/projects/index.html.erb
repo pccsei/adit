@@ -1,6 +1,7 @@
-<h1>Current Projects</h1>
+<% if get_current_project %>
+<h1>Current Project</h1>
 
-<table>
+<table class = "table">
   <thead>
     <tr>
       <th>Year</th>
@@ -48,18 +49,20 @@
 </table>
 
 <br>
-<% current_project = 0 %>
+<% else %>
+   Currently, no active project exists. Please create a new project or view archived projects.
+<br>
+<br>   
 <% @projects.each do |project| %>
-  <% if project.project_end > Time.now %>
-    <% current_project = 1%>
+  <% if (project.project_start && project.project_end) > Time.current %>
+  <%= link_to 'Create New Project', new_project_path %>
   <% end %>
 <% end %>
-  <% if current_project == 0 %>
-    <p>There are currently no Projects.  Please add one :)</p>
-    <%= link_to 'New Project', new_project_path %>
-  <% end %>
+<% end %>
+
+<% if Project.find_by is_current_project: '0'%>
 <h1>Expired Projects</h1>
-<table>
+<table class = "table">
 	<thead>
       <tr>
       <th>Year</th>
@@ -88,3 +91,4 @@
     <% end %>
   </tbody>
 </table>
+<% end %>

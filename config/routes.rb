@@ -6,14 +6,16 @@ WhiteCollar::Application.routes.draw do
   get  "users/student_manager"
   get  "users/student_rep"
   post "users/input_students_parse"
-  get "users/settings"
-  get "projects/next_step"
+  get  "users/settings"
+  post "/users/change_student_status"
+  post "/users/show_section"
 
   resources :tickets
   resources :clients
   resources :projects
   resources :users
   resources :receipts
+  resources :updates
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
