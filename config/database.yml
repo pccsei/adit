@@ -3,15 +3,16 @@
 #
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #    gem 'mysql2'
+
 development:
   adapter: mysql2
   encoding: utf8
-  database: WhiteCollar_development
+  database: sei_wc_dev
   pool: 5
-  username: intranet
-  password: jg3482
+  username: sei_user
+  password: katcollar
   timeout: 5000
-  host: localhost
+  host: csweb
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
