@@ -19,9 +19,8 @@
   </thead>
 
   <tbody>
-    <% @clients.each do |client| %>
+    <% @client.each do |client| %>
       <tr><% ticket = Ticket.find_by client_id: client.id %>
-      	<% if ticket.user_id == nil %>
           <td><%= link_to client.business_name, {:controller => "receipts", :action => "create", :client => client.id }, method: :post %>
         	<!--add some flash to say that the receipt had been added to the correct user-->          
           <td><%= client.address %></td>
@@ -35,7 +34,6 @@
           <td><%= link_to 'Show', client %></td>
           <td><%= link_to 'Edit', edit_client_path(client) %></td>
           <td><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -35,7 +35,7 @@ setup do
       post :create, ticket: @update
     end
 
-    assert_redirected_to ticket_path(assigns(:ticket))
+    assert_redirected_to projects_url
   end
 
   test "should show ticket" do
@@ -50,7 +50,7 @@ setup do
 
   test "should update ticket" do
     patch :update, id: @ticket, ticket: @update
-    assert_redirected_to client_path(assigns(:ticket))
+    assert_redirected_to ticket_path(assigns(:ticket))
   end
 
   test "should destroy ticket" do
@@ -58,6 +58,6 @@ setup do
       delete :destroy, id: @ticket
     end
 
-    assert_redirected_to tickets_path
+    assert_redirected_to tickets_url
   end
 end
