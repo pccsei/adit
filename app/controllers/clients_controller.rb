@@ -71,7 +71,7 @@ class ClientsController < ApplicationController
                 
       end 
     else 
-      @tickets = Ticket.where(:select => 'id, client_id')
+      @tickets = Ticket.all
     end
     
     respond_to do |format|      

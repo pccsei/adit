@@ -105,7 +105,6 @@ $(function() {
 <% @tickets.each do |ticket| %>    
       <tr class="<%=ticket.client.id %>">
       	<!-- creates a button for each client.-->
-      	<!-- ### need  to create jquery function to run when button is clicked!!### -->
         <td> <%= button_tag "add", type: 'button',  :id => ticket.id, :class => "addTicket" %></td> 
         
           	
