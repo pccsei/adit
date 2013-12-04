@@ -26,3 +26,7 @@
 //= require jquery-ui-sliderAccess
 //= require jquery-ui-timepicker-addon
 //= require jquery-ui-timepicker-addon.min
+
+
+
+//= require jquery.ui.effect
