@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @project.year %>
+</p>
+<p>
+  <strong>Semester:</strong>
+  <%= @project.semester %>
+</p>
+<p>
+  <strong>Project Type:</strong>
+  <%= @project.project_type_id%>
+</p>
+<p>
+  <strong>Project Start Date:</strong>
+  <%= @project.project_start %>
+</p>
+<p>
+  <strong>Project End Date:</strong>
+  <%= @project.project_end %>
+</p>
+<% if @project.use_max_clients %>
+<p>
+  <strong>Max number of any Client:</strong>
+  <%= @project.max_clients %>
+</p>
+<% end %>
+<% if !@project.use_max_clients %>
+  <p>
+    <strong>Max number of Green Clients:</strong>
+    <%= @project.max_green_clients %>
+  </p>
+  <p>
+    <strong>Max number of Yellow Clients:</strong>
+    <%= @project.max_yellow_clients %>
+  </p>
+  <p>
+   <strong>Max number of White Clients:</strong>
+   <%= @project.max_white_clients %>
+  </p>
+<% end %>
+<p>
+  <strong>Comment:</strong>
+  <%= @project.comment %>
+</p>
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Project list',  {:controller => "tickets", :action => "create" }, method: :post %>

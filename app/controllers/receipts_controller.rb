@@ -51,11 +51,9 @@ class ReceiptsController < ApplicationController
 
     respond_to do |format|
       if @receipt.save
-        format.html { redirect_to clients_url, notice: 'Receipt was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @receipt }
+        format.html { redirect_to tickets_assign_user_url }
       else
         format.html { render action: 'new' }
-        format.json { render json: clients_url, status: :unprocessable_entity }
       end
     end
   end
@@ -66,10 +64,8 @@ class ReceiptsController < ApplicationController
     respond_to do |format|
       if @receipt.update(receipt_params)
         format.html { redirect_to @receipt, notice: 'Receipt was successfully updated.' }
-        format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @receipt.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -80,7 +76,6 @@ class ReceiptsController < ApplicationController
     @receipt.destroy
     respond_to do |format|
       format.html { redirect_to receipts_url }
-      format.json { head :no_content }
     end
   end
 
