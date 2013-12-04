@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   has_many   :tickets
   has_many   :receipts
   has_many   :bonuses
+  
+  before_create :create_remember_token
 =begin
   validates :school_id, :email, :phone, presence: true
   validates :school_id, uniqueness: true
@@ -18,4 +20,48 @@ class User < ActiveRecord::Base
     message: 'is the wrong length'
   }
 =end
+
+      ### BEGIN CONFIGURATION ###
+      SERVER = 'studentnet.int'        # Active Directory server name or IP
+      PORT = 636                       # Active Directory server port (default 389)
+      BASE = 'DC=studentnet,DC=int'    # Base to search from
+      DOMAIN = 'studentnet.int'        # For simplified user@domain format login
+      ### END CONFIGURATION ###
+
+def User.new_remember_token
+  SecureRandom.urlsafe_base64
 end
+
+
+def User.encrypt(token)
+   Digest::SHA1.hexdigest(token.to_s)
+end
+      
+      
+private
+
+      def self.authenticate(login, pass)
+        return 2 if login.empty? or pass.empty?
+
+        conn = Net::LDAP.new :host => SERVER,
+                             :port => PORT,
+                             :base => BASE,
+                             :encryption => :simple_tls,
+                             :auth => { :username => "#{login}@#{DOMAIN}",
+                                        :password => pass,
+                                        :method => :simple }
+        if conn.bind
+          return 4
+        else
+          return 5
+        end
+      # If we don't rescue this, Net::LDAP is decidedly ungraceful about failing
+      # to connect to the server. We'd prefer to say authentication failed.
+      rescue Net::LDAP::LdapError => e
+        return 3
+      end
+    end
+
+   def create_remember_token
+     self.remember_token = User.encrypt(User.new_remember_token)
+   end
