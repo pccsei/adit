@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204051741) do
+ActiveRecord::Schema.define(version: 20131205032350) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 20131204051741) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "website"
-    t.integer  "status",        limit: 2
     t.integer  "zipcode"
     t.string   "contact_fname", limit: 30
     t.string   "contact_lname", limit: 30
@@ -131,23 +130,17 @@ ActiveRecord::Schema.define(version: 20131204051741) do
     t.datetime "updated_at"
     t.string   "school_id"
     t.integer  "role"
-    t.integer  "section"
     t.string   "parent_id"
     t.string   "email"
     t.string   "phone"
-    t.string   "first_name",          limit: 30
-    t.string   "last_name",           limit: 30
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                  default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "first_name",     limit: 30
+    t.string   "last_name",      limit: 30
     t.integer  "box"
-    t.string   "major",               limit: 75
-    t.string   "minor",               limit: 75
-    t.string   "classification",      limit: 10
+    t.string   "major",          limit: 75
+    t.string   "minor",          limit: 75
+    t.string   "classification", limit: 10
     t.string   "remember_token"
+    t.integer  "section"
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
