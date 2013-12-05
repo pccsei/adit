@@ -5,6 +5,17 @@
 #    gem 'mysql2'
 
 development:
+<<<<<<< HEAD
+  adapter: mysql2
+  encoding: utf8
+  database: sei_wc_dev
+  pool: 5
+  username: sei_user
+  password: katcollar
+  timeout: 5000
+  host: csweb
+
+=======
   adapter: mysql2
   encoding: utf8
   database: sei_wc_dev
@@ -13,6 +24,7 @@ development:
   password: '117567'
   timeout: 5000
   host: csweb
+>>>>>>> 1d1cb29017ce63402b73e0eea0a6b40f84400e6f
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
