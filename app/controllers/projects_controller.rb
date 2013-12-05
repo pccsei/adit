@@ -22,6 +22,7 @@ class ProjectsController < ApplicationController
   # POST /projects
   def create
     @project = Project.new(project_params)
+    @project.is_current_project = 1
 
     respond_to do |format|
       if @project.save

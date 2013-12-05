@@ -62,4 +62,9 @@ class ProjectsControllerTest < ActionController::TestCase
 
     assert_redirected_to projects_path
   end
+  
+    test "should render correct template and layout" do
+    get :index
+    assert_template layout: "layouts/application"
+  end
 end

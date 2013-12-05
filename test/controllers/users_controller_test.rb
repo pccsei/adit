@@ -63,4 +63,9 @@ class UsersControllerTest < ActionController::TestCase
 
     assert_redirected_to users_path
   end
+  
+  test "should render correct template and layout" do
+    get :index
+    assert_template layout: "layouts/application"
+  end
 end
