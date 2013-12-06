@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131205032350) do
+ActiveRecord::Schema.define(version: 20131206015318) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -59,6 +59,21 @@ ActiveRecord::Schema.define(version: 20131205032350) do
   end
 
   add_index "clients", ["status_id"], name: "index_clients_on_status_id", using: :btree
+
+  create_table "members", force: true do |t|
+    t.integer  "section_number"
+    t.boolean  "is_enabled"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "project_id"
+  end
+
+  add_index "members", ["project_id"], name: "index_members_on_project_id", using: :btree
+
+  create_table "members_users", id: false, force: true do |t|
+    t.integer "members_id"
+    t.integer "users_id"
+  end
 
   create_table "priorities", force: true do |t|
     t.string   "name"
