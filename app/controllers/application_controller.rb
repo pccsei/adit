@@ -20,6 +20,9 @@ class ApplicationController < ActionController::Base
   end
   
   def set_selected_project(project = (Project.find_by is_active: '1'))
+    if(!project)
+      project = Project.first
+    end
     @selected_project = project
   end
   

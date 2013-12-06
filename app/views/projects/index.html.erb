@@ -1,4 +1,4 @@
-<% if get_current_project %>
+<% if (Project.find_by is_active: '1') %>
 <h1>Current Project</h1>
 
 <table class = "table">
@@ -48,9 +48,12 @@
   </tbody>
 </table>
 
+<% else %>
 <br>
    Currently, no active project exists. Please create a new project or view archived projects.
 <br>
+
+<% end %>
 <br>   
 <% @projects.each do |project| %>
   <% if (project.project_start && project.project_end) < Time.current %>
@@ -77,7 +80,7 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-      	<% if project.is_active%>
+      	<% if !project.is_active%>
       	<td><%= project.year%></td>
       	<td><%= project.semester%></td>
       	<td><%= project.project_type_id%></td>

@@ -25,6 +25,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
+        create_tickets(@project)
         format.html { redirect_to projects_next_step_path, notice: 'Project was successfully created.' }
       else
         format.html { render action: 'new' }
@@ -53,6 +54,16 @@ class ProjectsController < ApplicationController
   
   # Create the tickets and move to the next step, which is to add students
   def next_step
+  end
+  
+  def create_tickets(project)
+    clients = Client.all
+      clients.each do |c|
+      ticket = c.tickets.create(
+         project_id: project.id,
+         priority_id: 2) # Will need a method to calculate)
+       ticket.save
+    end    
   end
 
   private

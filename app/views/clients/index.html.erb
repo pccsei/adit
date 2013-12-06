@@ -63,7 +63,7 @@ $(function() {
 
 <br /><br /><br /><br /><br /><br /><br />
 
-
+<% if @tickets%>
 <h1>Listing clients</h1>
 
 <%= debug get_selected_project%>
@@ -115,3 +115,6 @@ $(function() {
 <br>
 
 <%= link_to 'New Client', new_client_path %>
+<% else %>
+   Currently, there is no project for you to view. Contact you teacher for further instructions.
+   <% end %>

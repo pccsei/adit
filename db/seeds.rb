@@ -496,12 +496,10 @@ clients = Client.create([{business_name: '10th Avenue Hair Designs', address: '1
 {business_name: "Zale's Jewelers (Cordova Mall)", address: '5100 North 9th Avenue', email: '', telephone: '478-8797', comment: 'approved 12', website: '', status: 0, zipcode: 32503, contact_fname: '', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: 0}, 
 {business_name: "Zaxby's ", address: '2640 Creighton Road', email: '', telephone: '477-0025', comment: '', website: '', status: 0, zipcode: 32503, contact_fname: 'Mr. Joe Yates', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: 0}, 
 {business_name: "Zorba's (Cordova Mall)", address: '5100 North 9th Avenue', email: '', telephone: '', comment: 'approved 12', website: '', status: 0, zipcode: 32503, contact_fname: '', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: 0}]) 
-<<<<<<< HEAD
    
    #projects = Project.create(year: 2013 , semester: 'Spring', project_type_id: 1, 
     #                         project_start: '25-FEB-2013', project_end: '15-APR-2013', comment: 'This is the true Spring 2013 project',
      #                        max_clients: '5', max_green_clients: '1', max_white_clients: '1', max_yellow_clients: '1', use_max_clients: true)
-=======
 =end   
                 
  clients = Client.create([{business_name: '10th Avenue Hair Designs', address: '1000 East Cervantes Street', email: '', website: '',  telephone: '433-5207', comment: ''},
