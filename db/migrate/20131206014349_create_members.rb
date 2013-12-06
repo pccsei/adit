@@ -6,10 +6,8 @@ class CreateMembers < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    add_reference :members, :user, index: true
 
-     create_table :members_users, id: false do |t|
-       t.belongs_to :members
-       t.belongs_to :users
-     end
-   end
+  end
 end

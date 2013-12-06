@@ -5,7 +5,8 @@ class ClientsController < ApplicationController
   # GET /clients.json
   def index
 
-    currentProject = Project.select("id, use_max_clients, max_green_clients, max_yellow_clients, max_white_clients").where("is_current_project = 1").first
+    
+    currentProject = Project.select("id, use_max_clients, max_green_clients, max_yellow_clients, max_white_clients").where("is_active = 1").first
 
     if params[:ajax] == "update"
       #@updates = Ticket.find(:all, :select => "id, user_id", :conditions => ["DATE(created_at) <= ?", params[:timestamp]])
@@ -71,8 +72,10 @@ class ClientsController < ApplicationController
           end
         end                
       end 
-      
-    else 
+     
+    ## Added by Noah, ugly check for existence of current project, can remove once we've 
+    ## cleaned up the program  
+    elsif currentProject    
       @tickets = Ticket.where("project_id = ?", currentProject.id)
     end
     

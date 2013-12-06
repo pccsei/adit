@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131206015318) do
+ActiveRecord::Schema.define(version: 20131206031047) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -65,15 +65,12 @@ ActiveRecord::Schema.define(version: 20131206015318) do
     t.boolean  "is_enabled"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
     t.integer  "project_id"
   end
 
   add_index "members", ["project_id"], name: "index_members_on_project_id", using: :btree
-
-  create_table "members_users", id: false, force: true do |t|
-    t.integer "members_id"
-    t.integer "users_id"
-  end
+  add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
 
   create_table "priorities", force: true do |t|
     t.string   "name"
@@ -101,7 +98,8 @@ ActiveRecord::Schema.define(version: 20131206015318) do
     t.integer  "max_yellow_clients", limit: 2
     t.boolean  "use_max_clients"
     t.integer  "project_type_id"
-    t.boolean  "is_current_project"
+    t.boolean  "is_active"
+    t.datetime "ticket_close_time"
   end
 
   create_table "receipts", force: true do |t|
@@ -145,6 +143,7 @@ ActiveRecord::Schema.define(version: 20131206015318) do
     t.datetime "updated_at"
     t.string   "school_id"
     t.integer  "role"
+    t.integer  "section"
     t.string   "parent_id"
     t.string   "email"
     t.string   "phone"
@@ -155,7 +154,6 @@ ActiveRecord::Schema.define(version: 20131206015318) do
     t.string   "minor",          limit: 75
     t.string   "classification", limit: 10
     t.string   "remember_token"
-    t.integer  "section"
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree

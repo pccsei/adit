@@ -1,4 +1,4 @@
-<% if get_current_project %>
+<% if (Project.find_by is_active: '1') %>
 <h1>Current Project</h1>
 
 <table class = "table">
@@ -21,7 +21,7 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-      	<% if project.is_current_project %>
+      	<% if project.is_active %>
       	<td><%= button_tag 'input'%></td>
       	<td><%= project.year%></td>
       	<td><%= project.semester%></td>
@@ -49,9 +49,12 @@
   </tbody>
 </table>
 
+<% else %>
 <br>
    Currently, no active project exists. Please create a new project or view archived projects.
 <br>
+
+<% end %>
 <br>   
 <% @projects.each do |project| %>
   <% if (project.project_start && project.project_end) < Time.current %>
@@ -60,7 +63,7 @@
 <% end %>
 <% end %>
 
-<% if Project.find_by is_current_project: '0'%>
+<% if Project.find_by is_active: '0'%>
 <h1>Expired Projects</h1>
 <table class = "table">
 	<thead>
@@ -78,7 +81,7 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-      	<% if project.is_current_project %>
+      	<% if !project.is_active%>
       	<td><%= submit_tag 'input'%></td>
       	<td><%= project.year%></td>
       	<td><%= project.semester%></td>
