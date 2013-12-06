@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many   :tickets
   has_many   :receipts
   has_many   :bonuses
-  has_and_belongs_to_many :members
+  has_many   :members
   
   before_create :create_remember_token
 =begin

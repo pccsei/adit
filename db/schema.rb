@@ -65,15 +65,12 @@ ActiveRecord::Schema.define(version: 20131206015318) do
     t.boolean  "is_enabled"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
     t.integer  "project_id"
   end
 
   add_index "members", ["project_id"], name: "index_members_on_project_id", using: :btree
-
-  create_table "members_users", id: false, force: true do |t|
-    t.integer "members_id"
-    t.integer "users_id"
-  end
+  add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
 
   create_table "priorities", force: true do |t|
     t.string   "name"
