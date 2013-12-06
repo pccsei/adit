@@ -74,10 +74,10 @@
 	      <th><%=sortable "section"%></th>
 		  <th><%=sortable "major"%></th>
 		  <th><%=sortable "minor"%></th>
-		  <th><%=sortable "email"%></th>
 		  <th><%=sortable "box"%></th>
 		  <th><%=sortable "classification"%></th>
-	      	      	      	      	      
+		  <th></th>
+          <th></th>	      	      	      	      	      
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -94,12 +94,10 @@
 	        <td><%= user.section %></td>
 	        <td><%= user.major %></td>
 			<td><%= user.minor %></td>
-			<td><%= user.email %></td>
 			<td><%= user.box %></td>
 			<td><%= user.classification %></td>       
 	        <td><%= link_to 'Show', user %></td>
 	        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-	        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 	        <% end%>
 	      </tr>
 	    <% end %>
