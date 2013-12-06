@@ -10,4 +10,9 @@ class ApplicationController < ActionController::Base
     return project
   end
   
+  def get_selected_project selected
+    project = selected
+    return project
+  end
+  
 end

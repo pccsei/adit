@@ -22,6 +22,7 @@
     <% @projects.each do |project| %>
       <tr>
       	<% if project.is_current_project %>
+      	<td><%= button_tag 'input'%></td>
       	<td><%= project.year%></td>
       	<td><%= project.semester%></td>
       	<td><%= project.project_type_id%></td>
@@ -78,6 +79,7 @@
     <% @projects.each do |project| %>
       <tr>
       	<% if project.is_current_project %>
+      	<td><%= submit_tag 'input'%></td>
       	<td><%= project.year%></td>
       	<td><%= project.semester%></td>
       	<td><%= project.project_type_id%></td>

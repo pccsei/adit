@@ -4,6 +4,11 @@ class ProjectsController < ApplicationController
   # GET /projects
   def index
     @projects = Project.all
+    
+    hi = params["input"]
+    if hi
+      render text: hi
+    end
   end
 
   # GET /projects/1
@@ -66,6 +71,6 @@ class ProjectsController < ApplicationController
       params.require(:project).permit(:id, :year, :semester, :project_start, :project_end, 
                                       :comment, :created_at, :updated_at, :max_clients, 
                                       :max_green_clients, :max_white_clients, :max_yellow_clients, 
-                                      :use_max_clients, :project_type_id)
+                                      :use_max_clients, :project_type_id, :is_current_project)
     end
 end
