@@ -14,7 +14,7 @@
   <%= @user.section %>
 </p>
 <p>
-  <strong>Parent ID:</strong>
+  <strong>Student Manager:</strong>
   <%= @user.parent_id %>
 </p>
 <p>
@@ -25,5 +25,22 @@
   <strong>Phone:</strong>
   <%= @user.phone %>
 </p>
+<p>
+  <strong>Major:</strong>
+  <%= @user.major %>
+</p>
+<p>
+  <strong>Minor:</strong>
+  <%= @user.minor %>
+</p>
+<p>
+  <strong>Classification</strong>
+  <%= @user.classification %>
+</p>
+<p>
+  <strong>Box:</strong>
+  <%= @user.box %>
+</p>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

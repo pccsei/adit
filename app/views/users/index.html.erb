@@ -2,9 +2,7 @@
 
 <!-- This allows teachers to view certain sections -->
 <%= form_tag('/users', method: :get) do%>
-	<div style="position:relative; font-family: arial;
-     font-weight:bold; top: 50px; width: 200px;
-     left: 10px; height: 25px;">
+	<div>
 <h2>select section<h2>
 	<%= select_tag "section_option", options_for_select(@sections), :prompt => ""%> 
 	<%= submit_tag 'section'%>

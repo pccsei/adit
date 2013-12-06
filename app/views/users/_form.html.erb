@@ -28,9 +28,17 @@
     <%= f.text_field :section %>
   </div>
   <div class="field">
-    <%= f.label :parent_id %><br>
+    <%= f.label :Student_Manager %><br>
     <%= f.text_field :parent_id %>
   </div>
+  <div class="field">
+    <%= f.label :major %><br>
+    <%= f.text_field :major %>
+  </div>
+  <div class="field">
+    <%= f.label :minor %><br>
+    <%= f.text_field :minor %>
+  </div> 
   <div class="field">
     <%= f.label :email %><br>
     <%= f.text_field :email %>
@@ -38,6 +46,14 @@
   <div class="field">
     <%= f.label :phone %><br>
     <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :box %><br>
+    <%= f.text_field :box %>
+  </div>
+  <div class="field">
+    <%= f.label :classification %><br>
+    <%= f.text_field :classification %>
   </div>
   <div class="actions">
     <%= f.submit %>
