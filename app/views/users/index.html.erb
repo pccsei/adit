@@ -1,10 +1,8 @@
 <h1>Student Roster</h1>
 
 <!-- This allows teachers to view certain sections -->
-<%= form_tag('/users', method: :get) do%>
-	<div style="position:relative; font-family: arial;
-     font-weight:bold; top: 50px; width: 200px;
-     left: 10px; height: 25px;">
+<%= form_tag('/users') do%>
+	<div>
 <h2>select section<h2>
 	<%= select_tag "section_option", options_for_select(@sections), :prompt => ""%> 
 	<%= submit_tag 'section'%>
@@ -83,7 +81,7 @@
 	  <tbody>
 	    <% @users.each do |user| %>
 	      <tr>
-	      <% if user.section == @selected_section.to_i || @selected_section == "" || @selected_section == "all" %>
+	      <% if (user.section == @selected_section.to_i || @selected_section == "" || @selected_section == "all") && (user.role != 3) %>
 	      	<td><%= check_box_tag "students[]", user.id%></td>
 	        <td><%= user.first_name %></td>
 	        <td><%= user.last_name %></td>

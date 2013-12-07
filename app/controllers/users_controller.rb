@@ -88,6 +88,20 @@ class UsersController < ApplicationController
         @user.role = 1
         @user.section = section_number
         @user.save
+      else
+        @user = User.find_by! school_id: single_student_info[1]
+        @user.school_id = single_student_info[1]
+        @user.first_name = single_student_info[2].split(", ")[1]
+        @user.last_name = single_student_info[2].split(", ")[0]
+        @user.classification = single_student_info[3]
+        @user.box = single_student_info[5]
+        @user.phone = single_student_info[6]
+        @user.email = single_student_info[7]
+        @user.major = single_student_info[8]
+        @user.minor = single_student_info[9]
+        @user.role = 1
+        @user.section = section_number
+        @user.save
       end
     end
     
@@ -174,13 +188,37 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @user }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    @user.role = 1
+
+    all_student_ids = [] 
+    User.all.each do |user|  
+      all_student_ids.push(user.school_id)
+    end
+
+    if all_student_ids.include?(@user.school_id)
+      @user_same = User.find_by! school_id: @user.school_id
+      @user_same.school_id = @user.school_id
+      @user_same.first_name = @user.first_name
+      @user_same.last_name = @user.last_name
+      @user_same.classification = @user.classification
+      @user_same.box = @user.box
+      @user_same.phone = @user.phone
+      @user_same.email = @user.email
+      @user_same.major = @user.major
+      @user_same.minor = @user.minor
+      @user_same.section = @user.section   
+      @user_same.save
+      redirect_to @user_same
+    
+    else
+      respond_to do |format|
+        if @user.save
+          format.html { redirect_to @user, notice: 'User was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @user }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

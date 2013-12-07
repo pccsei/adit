@@ -4,10 +4,16 @@ class ProjectsController < ApplicationController
   # GET /projects
   def index
     @projects = Project.all
+    
+    hi = params['input']
+    if hi
+      render text: hi
+    end
   end
 
   # GET /projects/1
   def show
+    @project = get_selected_project
   end
 
   # GET /projects/new
@@ -65,6 +71,12 @@ class ProjectsController < ApplicationController
        ticket.save
     end    
   end
+  
+  def select_project
+    project_id = params['input']
+    set_selected_project project_id
+    redirect_to projects_url
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -77,6 +89,6 @@ class ProjectsController < ApplicationController
       params.require(:project).permit(:id, :year, :semester, :project_start, :project_end, 
                                       :comment, :created_at, :updated_at, :max_clients, 
                                       :max_green_clients, :max_white_clients, :max_yellow_clients, 
-                                      :use_max_clients, :project_type_id)
+                                      :use_max_clients, :project_type_id, :is_active)
     end
 end
