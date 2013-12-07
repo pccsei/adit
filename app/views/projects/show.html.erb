@@ -1,3 +1,4 @@
+<% if(@project) %>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -50,8 +51,20 @@
 
 
 <h1>Manage Section</h1>
-<%= link_to 'Section 1 - Mr. Lunsford', users_path %>
+
+<br>
+<%= link_to 'Create New Section', users_path%> <!-- needs to be changed -->
+<br>
+<% if @section_numbers %>
+<% @section_numbers.each do |s|%>
+<%= link_to 'Section' + ' ' + s + ' ' , users_path %>
+<br>
+<% end %>
+<% end %>
 <br>
 <br>
 
-<%= link_to 'Section 2 - Mr. Smith', users_path %>
+<% end %>
+
+<%= debug @section_numbers %>
+<%= debug @teacher_members %>

@@ -32,6 +32,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @member_teachers = Member.where("role = 3 AND project_id = ?", @project.id)
+    @section_numbers = member_teachers.section_number.uniq!
   end
   
   def teacher
@@ -70,6 +72,7 @@ class UsersController < ApplicationController
     User.all.each do |user|  
       all_student_ids.push(user.school_id)
     end
+    
 
     # Parse the input
     for i in 0..all_student_info.count-1
@@ -86,7 +89,6 @@ class UsersController < ApplicationController
         @user.major = single_student_info[8]
         @user.minor = single_student_info[9]
         @user.role = 1
-        @user.section = section_number
         @user.save
       else
         @user = User.find_by! school_id: single_student_info[1]
@@ -100,10 +102,18 @@ class UsersController < ApplicationController
         @user.major = single_student_info[8]
         @user.minor = single_student_info[9]
         @user.role = 1
-        @user.section = section_number
         @user.save
       end
+      if(@user.save)
+        @member = Member.new
+        @member.user_id = @user.id
+        @member.project_id = (get_selected_project).id
+        @member.section_number = section_number
+        @member.is_enabled = true
+        @member.save
+      end
     end
+   
     
     redirect_to users_url
   end

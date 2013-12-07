@@ -82,6 +82,8 @@
 	    <% @users.each do |user| %>
 	      <tr>
 	      <% if (user.section == @selected_section.to_i || @selected_section == "" || @selected_section == "all") && (user.role != 3) %>
+	      <% member = Member.where("user_id = ?", user.id).last %>
+	      <% if member %>
 	      	<td><%= check_box_tag "students[]", user.id%></td>
 	        <td><%= user.first_name %></td>
 	        <td><%= user.last_name %></td>
@@ -89,13 +91,14 @@
 	        <td><%= user.email%></td>
 	        <td><%= user.phone %></td>
 	        <td><%= user.parent_id %></td>
-	        <td><%= user.section %></td>
+	        <td><%= member.section_number %></td>
 	        <td><%= user.major %></td>
 			<td><%= user.minor %></td>
 			<td><%= user.box %></td>
 			<td><%= user.classification %></td>       
 	        <td><%= link_to 'Show', user %></td>
 	        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+	        <% end %>
 	        <% end%>
 	      </tr>
 	    <% end %>
