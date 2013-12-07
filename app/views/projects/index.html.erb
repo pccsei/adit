@@ -1,9 +1,12 @@
+<%= form_tag('/projects/change_project', method: :post) do %>
+
 <% if (Project.find_by is_active: '1') %>
-<h1>Current Project</h1>
+<h1>Active Project</h1>
 
 <table class = "table">
   <thead>
     <tr>
+      <th>Selected</th>
       <th>Year</th>
       <th>Semester</th>
       <th>Project Type</th>
@@ -49,24 +52,20 @@
 </table>
 
 <% else %>
+
 <br>
    Currently, no active project exists. Please create a new project or view archived projects.
+   <%= link_to 'Create New Project', new_project_path %>
 <br>
 
 <% end %>
-<br>   
-<% @projects.each do |project| %>
-  <% if (project.project_start && project.project_end) < Time.current %>
-  <%= link_to 'Create New Project', new_project_path %>
-  <% end %>
-<% end %>
-<% end %>
 
-<% if Project.find_by is_active: '0'%>
-<h1>Expired Projects</h1>
+<% if Project.find_by is_active: '0' %>
+<h1>Archived Projects</h1>
 <table class = "table">
 	<thead>
       <tr>
+      <th>Selected</th>
       <th>Year</th>
       <th>Semester</th>
       <th>Project Type</th>
@@ -93,4 +92,10 @@
     <% end %>
   </tbody>
 </table>
+<% end %>
+
+
+<% if @projects %>
+   <%= submit_tag 'View Project' %>
+<% end %>
 <% end %>
