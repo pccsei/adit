@@ -1,3 +1,6 @@
+<!-- Buttons wont appear if they were not loaded when the page was first loaded because they were not created. -->
+
+
 <script>
 	var last_update = "<%= Time.now.strftime("%Y-%m-%d %H:%M:%S") %>";
 	// need to have server send new timestamp!!!
@@ -40,7 +43,7 @@ $(function() {
 					for (i = 0; i < len; i++) { 
 						//console.log(json[i]);
 
-						if (json[i].user_id == null)
+						if (json[i].user_id == 0)
 						  $('#' + json[i].client_id).show();
 						else
 	  					  $('#' + json[i].client_id).hide();
@@ -66,7 +69,8 @@ $(function() {
 <% if @tickets%>
 <h1>Listing clients</h1>
 
-<%= debug get_selected_project%>
+<%= #debug get_selected_project
+%>
 
 <table>
   <thead>
@@ -92,7 +96,7 @@ $(function() {
       	
          
           	<td>
-          	<% if (ticket.user_id.nil?)  %>
+          	<% if (ticket.user_id == 0) %>
 		  		<%= button_tag "add", type: 'button',  :id => ticket.id, :class => "addTicket" %>
 	  		<%end%>
           	</td>
@@ -117,4 +121,4 @@ $(function() {
 <%= link_to 'New Client', new_client_path %>
 <% else %>
    Currently, there is no project for you to view. Contact you teacher for further instructions.
-   <% end %>
+<% end %>
