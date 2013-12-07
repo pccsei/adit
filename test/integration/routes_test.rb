@@ -33,6 +33,7 @@ class RoutesTest < ActionDispatch::IntegrationTest
     assert_generates "/projects", :controller => "projects", :action => "create"
     assert_generates "/projects/1", {:controller => "projects", :action => "update", :id => "1"}
     assert_generates "/projects/1", {:controller => "projects", :action => "destroy", :id => "1"}
+    assert_generates "/projects/next_step", :controller => "projects", :action => "next_step"
   end
   test "test ticket routes" do
     assert_generates "/tickets", :controller => "tickets", :action => "index"

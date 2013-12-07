@@ -17,14 +17,14 @@ class ClientsControllerTest < ActionController::TestCase
       zipcode: 1,
       contact_fname: 'Troy', 
       contact_lname: 'Shoemaker',
-      contact_tile: 'Dr.',
+      contact_title: 'Dr.',
       city: 'Pensacola',
       state: 'FL'
     }
   end
 
   test "should get index" do
-    get :index
+    get :root
     assert_response :success
     assert_not_nil assigns(:clients)
   end
