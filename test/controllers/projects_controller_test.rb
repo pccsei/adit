@@ -39,7 +39,7 @@ class ProjectsControllerTest < ActionController::TestCase
       post :create, project: @update
     end
 
-    assert_redirected_to projects_next_step_path
+    assert_redirected_to users_path
   end
 
   test "should show project" do
@@ -63,11 +63,6 @@ class ProjectsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to projects_path
-  end
-  
-  test "should go to next step after creating a project" do
-    get :next_step, id: @project
-    assert_response :success
   end
   
   test "should render correct template and layout" do

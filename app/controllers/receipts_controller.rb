@@ -4,7 +4,7 @@ class ReceiptsController < ApplicationController
   # GET /receipts
   # GET /receipts.json
   def index
-    current_user = User.where("school_id = ?", 117567).first
+    current_user = User.where("school_id = ?", (116431 || mgeary || 117657)).first
     
     @active_tickets   =  Ticket.where("user_id = ? AND (sale_value is NULL OR sale_value = 0)", current_user.id)
     @sold_tickets     = current_user.tickets.where("sale_value != 0")    

@@ -65,7 +65,7 @@ class ClientsControllerTest < ActionController::TestCase
     assert_redirected_to clients_path
   end
   
-    test "should render correct template and layout" do
+  test "should render correct template and layout" do
     get :index
     assert_template layout: "layouts/application"
   end
