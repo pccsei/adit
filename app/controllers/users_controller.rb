@@ -265,7 +265,9 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:id, :created_at, :updated_at, :school_id, :role, :section, :parent_id, :email, :phone, :first_name, :last_name, :box, :major, :minor, :classification)
+      params.require(:user).permit(:id, :created_at, :updated_at, :school_id, :role, :section, 
+                                   :parent_id, :email, :phone, :first_name, :last_name, :box, 
+                                   :major, :minor, :classification, :remember_token)
     end
     
     def sort_column

@@ -13,18 +13,18 @@ class ClientsControllerTest < ActionController::TestCase
       created_at: '2013-11-08 23:10:35',
       updated_at: '2013-11-08 23:10:35',
       website: 'www.com',
-      status: 1,
       zipcode: 1,
       contact_fname: 'Troy', 
       contact_lname: 'Shoemaker',
-      contact_tile: 'Dr.',
+      contact_title: 'Dr.',
       city: 'Pensacola',
-      state: 'FL'
+      state: 'FL',
+      status_id: 1
     }
   end
 
   test "should get index" do
-    get :index
+    get :root
     assert_response :success
     assert_not_nil assigns(:clients)
   end
@@ -63,5 +63,10 @@ class ClientsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to clients_path
+  end
+  
+    test "should render correct template and layout" do
+    get :index
+    assert_template layout: "layouts/application"
   end
 end

@@ -51,7 +51,8 @@
 			<br>
 			   Currently, no active project exists. Please create a new project or view archived projects.
 			<br>
-			
+						  	<%= link_to 'Create New Project', new_project_path %>
+
 			<br>   
 			<% @projects.each do |project| %>
 			  <% if (project.project_start && project.project_end) < Time.current %>

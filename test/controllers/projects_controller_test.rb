@@ -17,7 +17,9 @@ class ProjectsControllerTest < ActionController::TestCase
       max_white_clients: 1,
       max_yellow_clients: 1,
       use_max_clients: 0,
-      project_type_id: 1
+      project_type_id: 1,
+      is_active: 1,
+      ticket_close_time: '2013-11-08 23:10:35'
     }
   end
 
@@ -61,5 +63,15 @@ class ProjectsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to projects_path
+  end
+  
+  test "should go to next step after creating a project" do
+    get :next_step, id: @project
+    assert_response :success
+  end
+  
+  test "should render correct template and layout" do
+    get :index
+    assert_template layout: "layouts/application"
   end
 end

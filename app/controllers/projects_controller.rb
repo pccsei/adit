@@ -34,6 +34,8 @@ class ProjectsController < ApplicationController
         create_tickets(@project)
         set_selected_project(@project)
         format.html { redirect_to projects_next_step_path, notice: 'Project was successfully created.' }
+        format.html { redirect_to users_path, notice: 'Project was successfully created.' }
+
       else
         format.html { render action: 'new' }
       end
@@ -60,9 +62,6 @@ class ProjectsController < ApplicationController
   end
   
   # Create the tickets and move to the next step, which is to add students
-  def next_step
-  end
-  
   def create_tickets(project)
     clients = Client.all
       clients.each do |c|
@@ -91,6 +90,6 @@ class ProjectsController < ApplicationController
       params.require(:project).permit(:id, :year, :semester, :project_start, :project_end, 
                                       :comment, :created_at, :updated_at, :max_clients, 
                                       :max_green_clients, :max_white_clients, :max_yellow_clients, 
-                                      :use_max_clients, :project_type_id, :is_active)
+                                      :use_max_clients, :project_type_id, :is_active, :ticket_close_time)
     end
 end
