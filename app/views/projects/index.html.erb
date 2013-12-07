@@ -1,6 +1,7 @@
+<<<<<<< HEAD
 <%= form_tag('/projects/select_project') do%>
 	<% if (Project.find_by is_active: '1') %>
-	<h1>Current Project</h1>	
+	<h1>Active Project</h1>
 	<table class = "table">
 	  <thead>
 	    <tr>
@@ -60,7 +61,7 @@
 	<% end %>
 	
 	<% if Project.find_by is_active: '0'%>
-	<h1>Expired Projects</h1>
+	<h1>Archived Projects</h1>
 		<table class = "table">
 			<thead>
 		      <tr>
