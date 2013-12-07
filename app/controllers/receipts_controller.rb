@@ -6,18 +6,20 @@ class ReceiptsController < ApplicationController
   def index
     current_user = User.first
     @active_tickets =  current_user.tickets.where("sale_value is NULL OR sale_value = 0")
-    @sold_tickets = current_user.tickets.where("sale_value is not NULL or sale_value != 0 ")
-    
-    @all_receipts = current_user.receipts
-    @all_tickets = Ticket.all
+    @sold_tickets = current_user.tickets.where("sale_value is not NULL or sale_value != 0 ")  
+    @all_receipts     = current_user.receipts
+    @all_tickets      = Ticket.where("project_id = ?", get_current_project)
     @released_tickets = Array.new  
-    
+   
     @all_receipts.each do |r|
-       @all_tickets.each do |t|
+      @all_tickets.each do |t|
+        if ((t.user_id != r.user_id) && (r.ticket_id == t.id))
           @released_tickets << t
         end
+      end
     end
-    return
+
+
   end
 
   # GET /receipts/1
