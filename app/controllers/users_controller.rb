@@ -8,18 +8,23 @@ class UsersController < ApplicationController
   def index
     @users = User.order(sort_column + " " + sort_direction)
 
-    # James, the all_teachers and project_members functions are located in the user.rb and member.rb files
-    # @project_student_members returns all the students that are in the current project, you
-    # may be able to use it in your view to limit what is being displayed. Good luck!
-    @all_teachers = User.all_teachers
+    # Move this code to the models
+    all_teachers = User.all_teachers
     
-    @teacher_ids = []
-    @all_teachers.each do |t|
-      @teacher_ids << t.id
+    teacher_ids = []
+    all_teachers.each do |t|
+      teacher_ids << t.id
     end
     
-    @project_student_members = Member.project_members(get_selected_project).where.not(user_id: @teacher_ids )
+    project_student_members = Member.project_members(get_selected_project).where.not(user_id: teacher_ids )
     
+    student_users_for_selected_project = []
+    project_student_members.each do |s|
+      student_users_for_selected_project << (User.find(s.user_id))
+    end
+    
+    @current_students = student_users_for_selected_project.zip(project_student_members)
+       
 
     # set paraments for selected section
     @sections = []
@@ -29,17 +34,14 @@ class UsersController < ApplicationController
       @selected_section = "all"
     end
      
-    # find all sections that current students are a part of  
-    User.all.each do |f|
-      @sections.push(f.section)
-    end 
-    @sections.uniq!  
+    # Find sections for current project    
+    @sections = (Member.where("project_id = ?", (get_selected_project).id).uniq!.pluck("section_number")) 
     
     # find student managers
     @student_managers = User.where(role: 2)
-    @student_managers.each do |user|
-      @student_manager_names = user.first_name + " " + user.last_name
-    end
+    #@student_managers.each do |user|
+      #@student_manager_names = user.first_name + " " + user.last_name
+    #end
   end
 
   # GET /users/1
