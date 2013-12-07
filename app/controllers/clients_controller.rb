@@ -5,17 +5,14 @@ class ClientsController < ApplicationController
   # GET /clients.json
   def index
 
-    
     currentProject = Project.select("id, use_max_clients, max_green_clients, max_yellow_clients, max_white_clients").where("is_active = 1").first
 
     if params[:ajax] == "update"
       #@updates = Ticket.find(:all, :select => "id, user_id", :conditions => ["DATE(created_at) <= ?", params[:timestamp]])
-      @updates = Ticket.select("client_id, user_id").where("updated_at >= ?", params[:timestamp]).all      
+      @updates =  Ticket.select("client_id, user_id").where("updated_at >= ?", params[:timestamp]).all      
       @updates << Time.now.strftime("%Y-%m-%d %H:%M:%S") # Append System Time
       
     elsif params[:ajax] == "getClient"      
-      
-      #Do I need to generate a receipt on success?
       
       # Grab the current project 
       #currentProject = Project.select("id, use_max_clients, max_green_clients, max_yellow_clients, max_white_clients").where("is_current_project = 1").first
@@ -30,7 +27,7 @@ class ClientsController < ApplicationController
         white  = 3    
         
         userID = "117567" # need to grab from server variable         
-        user   = User.select("school_id").where("school_id = ?", userID).first #How to get user id from server variable?
+        user   = User.select("id, school_id").where("school_id = ?", userID).first #How to get user id from server variable?
 
         if user.nil? #make sure the user exists. Not redirecting because request is an ajax call
           @updates = {"Error" => "User does not exist in the database..."}
@@ -51,25 +48,37 @@ class ClientsController < ApplicationController
             @updates = { "Error" => "You have exceeded the number of allowed white clients"}          
           else 
             
-            Ticket.transaction do
-                                      
-              ticket = Ticket.where("client_id = ? AND project_id = ?", params[:clientID], currentProject.id).lock("LOCK IN SHARE MODE").first
+            grabbedTicket = false
+            ticket = nil;
+            
+            Ticket.transaction do                                      
+              ticket = Ticket.where("client_id = ? AND project_id = ?", params[:clientID], currentProject.id).lock(true).first
               
               if ticket.nil?
                 @updates = {"Error" => "Ticket does not exist for the current project"}
               else 
                  # User is allowed to get a new client: Try to grab the client ticket
                  
-                 if ticket.user_id.nil?
-                   ticket.user_id = userID
+                 if ticket.user_id.nil? || ticket.user_id == 0
+                   ticket.user_id = user.id
                    ticket.save!
-                   @updates = { "Success" => "You got the client"}              
+                   @updates = { "Success" => "You got the client"}     
+                   grabbedTicket = true         
                  else 
                    @updates = {"Someone already grabbed that client!!" => "(o_o')"}              
                  end   
               end
-            end
+            end            
+            
+            if grabbedTicket
+              receipt = Receipt.where("ticket_id = ? AND user_id = ?", ticket.id, user.id).first
+              
+              if receipt.nil?
+                Receipt.create(ticket_id: ticket.id, user_id: user.id)
+              end              
+            end            
           end
+          
         end                
       end 
      

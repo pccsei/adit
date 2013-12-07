@@ -143,7 +143,6 @@ ActiveRecord::Schema.define(version: 20131206031047) do
     t.datetime "updated_at"
     t.string   "school_id"
     t.integer  "role"
-    t.integer  "section"
     t.string   "parent_id"
     t.string   "email"
     t.string   "phone"
@@ -154,6 +153,7 @@ ActiveRecord::Schema.define(version: 20131206031047) do
     t.string   "minor",          limit: 75
     t.string   "classification", limit: 10
     t.string   "remember_token"
+    t.integer  "section"
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
