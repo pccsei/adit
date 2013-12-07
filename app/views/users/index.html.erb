@@ -1,7 +1,7 @@
 <h1>Student Roster</h1>
 
 <!-- This allows teachers to view certain sections -->
-<%= form_tag('/users', method: :get) do%>
+<%= form_tag('/users') do%>
 	<div>
 <h2>select section<h2>
 	<%= select_tag "section_option", options_for_select(@sections), :prompt => ""%> 

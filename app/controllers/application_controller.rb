@@ -15,13 +15,6 @@ class ApplicationController < ActionController::Base
     return project
   end
   
-<<<<<<< HEAD
-  def get_selected_project selected
-    project = selected
-    return project
-  end
-  
-=======
   def get_selected_project
     return @selected_project
   end
@@ -33,6 +26,4 @@ class ApplicationController < ActionController::Base
     @selected_project = project
   end
   
-  
->>>>>>> 81410b34085177131868063aa1578b41665c6e77
 end

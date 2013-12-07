@@ -10,6 +10,7 @@ WhiteCollar::Application.routes.draw do
   get  "projects/next_step"
   post "/users/change_student_status"
   post "/users/show_section"
+  post "projects/select_project"
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets

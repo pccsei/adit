@@ -1,98 +1,99 @@
-<% if (Project.find_by is_active: '1') %>
-<h1>Current Project</h1>
-
-<table class = "table">
-  <thead>
-    <tr>
-      <th>Year</th>
-      <th>Semester</th>
-      <th>Project Type</th>
-      <th>Project Start</th>
-      <th>Project End</th>
-      <th>Total Max Clients</th>
-      <th>Green Clients</th>
-      <th>Yellow Clients</th>
-      <th>White Clients</th>
-
-      <th>Comment</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-      	<% if project.is_active %>
-      	<td><%= button_tag 'input'%></td>
-      	<td><%= project.year%></td>
-      	<td><%= project.semester%></td>
-      	<td><%= project.project_type_id%></td>
-      	<td><%= project.project_start%></td>
-        <td><%= project.project_end%></td>
-        <% if project.use_max_clients %>
-        <td><%= project.max_clients%></td><td></td><td></td><td></td>
-        <% end %>
-        <% if !project.use_max_clients %>
-        <td></td>
-        <td><%= project.max_green_clients%></td>
-        <td><%= project.max_yellow_clients%></td>
-        <td><%= project.max_white_clients%></td>
-        <% end %>
-      	<td><%= project.comment%></td>
-
-
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<% else %>
-<br>
-   Currently, no active project exists. Please create a new project or view archived projects.
-<br>
-
-<% end %>
-<br>   
-<% @projects.each do |project| %>
-  <% if (project.project_start && project.project_end) < Time.current %>
-  <%= link_to 'Create New Project', new_project_path %>
-  <% end %>
-<% end %>
-<% end %>
-
-<% if Project.find_by is_active: '0'%>
-<h1>Expired Projects</h1>
-<table class = "table">
-	<thead>
-      <tr>
-      <th>Year</th>
-      <th>Semester</th>
-      <th>Project Type</th>
-      <th>Project Start</th>
-      <th>Project End</th>
-      <th>Clients</th>	
-      <th>Comment</th>
-    </tr>
-  </thead>
-  
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-      	<% if !project.is_active%>
-      	<td><%= submit_tag 'input'%></td>
-      	<td><%= project.year%></td>
-      	<td><%= project.semester%></td>
-      	<td><%= project.project_type_id%></td>
-      	<td><%= project.project_start%></td>
-        <td><%= project.project_end%></td>
-        <td><%= project.max_clients%></td>
-      	<td><%= project.comment%></td>
-      	<% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<% end %>
+<%= form_tag('/projects/select_project') do%>
+	<% if (Project.find_by is_active: '1') %>
+	<h1>Current Project</h1>	
+	<table class = "table">
+	  <thead>
+	    <tr>
+	      <th>Year</th>
+	      <th>Semester</th>
+	      <th>Project Type</th>
+	      <th>Project Start</th>
+	      <th>Project End</th>
+	      <th>Total Max Clients</th>
+	      <th>Green Clients</th>
+	      <th>Yellow Clients</th>
+	      <th>White Clients</th>
+	      <th>Comment</th>
+	    </tr>
+	  </thead>
+	
+	  <tbody>
+	    <% @projects.each do |project| %>
+	      <tr>
+	      	<% if project.is_active %>
+      			<td><%= radio_button_tag("input", project.id) %></td>
+		      	<td><%= project.year%></td>
+		      	<td><%= project.semester%></td>
+		      	<td><%= project.project_type_id%></td>
+		      	<td><%= project.project_start%></td>
+		        <td><%= project.project_end%></td>
+			        <% if project.use_max_clients %>
+			        	<td><%= project.max_clients%></td><td></td><td></td><td></td>
+			        <% end %>
+			        <% if !project.use_max_clients %>
+			        	<td></td>
+				        <td><%= project.max_green_clients%></td>
+				        <td><%= project.max_yellow_clients%></td>
+				        <td><%= project.max_white_clients%></td>
+			        <% end %>
+		      	<td><%= project.comment%></td>	
+		        <td><%= link_to 'Show', project %></td>
+		        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+		        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	        <% end %>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+	
+	<% else %>
+			<br>
+			   Currently, no active project exists. Please create a new project or view archived projects.
+			<br>
+			
+			<br>   
+			<% @projects.each do |project| %>
+			  <% if (project.project_start && project.project_end) < Time.current %>
+			  	<%= link_to 'Create New Project', new_project_path %>
+			  <% end %>
+			<% end %>
+	<% end %>
+	
+	<% if Project.find_by is_active: '0'%>
+	<h1>Expired Projects</h1>
+		<table class = "table">
+			<thead>
+		      <tr>
+		      <th>Year</th>
+		      <th>Semester</th>
+		      <th>Project Type</th>
+		      <th>Project Start</th>
+		      <th>Project End</th>
+		      <th>Clients</th>	
+		      <th>Comment</th>
+		    </tr>
+		  </thead>
+		  
+		  <tbody>
+		    <% @projects.each do |project| %>
+		      <tr>
+		      	<% if !project.is_active%>
+      				<td><%= radio_button_tag("input", project.id) %></td>
+			      	<td><%= project.year%></td>
+			      	<td><%= project.semester%></td>
+			      	<td><%= project.project_type_id%></td>
+			      	<td><%= project.project_start%></td>
+			        <td><%= project.project_end%></td>
+			        <td><%= project.max_clients%></td>
+			      	<td><%= project.comment%></td>
+			      	<td><%= link_to 'Show', project %></td>
+			        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+			        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		      	<% end %>
+		      </tr>
+		    <% end %>
+		    <td><%= submit_tag 'input'%></td>
+		  </tbody>
+		</table>
+	<% end %>
+<%end%>
