@@ -37,9 +37,14 @@ end
 def User.encrypt(token)
    Digest::SHA1.hexdigest(token.to_s)
 end
-      
-      
 
+def self.all_students
+  where("role = ?", 1).all
+end
+
+def self.all_teachers
+  where("role = ?", 3).all
+end
 
 def self.authenticate(login, pass)
         return false if login.empty? or pass.empty?

@@ -8,6 +8,19 @@ class UsersController < ApplicationController
   def index
     @users = User.order(sort_column + " " + sort_direction)
 
+    # James, the all_teachers and project_members functions are located in the user.rb and member.rb files
+    # @project_student_members returns all the students that are in the current project, you
+    # may be able to use it in your view to limit what is being displayed. Good luck!
+    @all_teachers = User.all_teachers
+    
+    @teacher_ids = []
+    @all_teachers.each do |t|
+      @teacher_ids << t.id
+    end
+    
+    @project_student_members = Member.project_members(get_selected_project).where.not(user_id: @teacher_ids )
+    
+
     # set paraments for selected section
     @sections = []
     if params["section_option"]
@@ -32,8 +45,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @member_teachers = Member.where("role = 3 AND project_id = ?", @project.id)
-    @section_numbers = member_teachers.section_number.uniq!
+    #@member_teachers = Member.where("role = 3 AND project_id = ?", @project.id)
+    #@section_numbers = member_teachers.section_number.uniq!
   end
   
   def teacher
