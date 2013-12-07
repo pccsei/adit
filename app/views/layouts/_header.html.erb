@@ -11,7 +11,7 @@
           <!--This now actually links to the correct project, please do not change, npc -->
           <!--If there is a current project, it will go to the information regarding that project,
           	  otherwise, it will go to the page that lists all past projects-->
-             <li><%= link_to "Project Options",  project_path(get_current_project) %></li> 
+             <li><%= link_to "Project Options",  project_path(get_selected_project) %></li> 
           <% else %>
              <li><%= link_to "Project Options", projects_path %></li>
           <% end %>

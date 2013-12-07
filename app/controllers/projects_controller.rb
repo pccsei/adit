@@ -32,7 +32,10 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         create_tickets(@project)
+        set_selected_project(@project)
+        format.html { redirect_to projects_next_step_path, notice: 'Project was successfully created.' }
         format.html { redirect_to users_path, notice: 'Project was successfully created.' }
+
       else
         format.html { render action: 'new' }
       end
@@ -71,7 +74,8 @@ class ProjectsController < ApplicationController
   
   def select_project
     project_id = params['input']
-    set_selected_project project_id
+    selected_project = Project.find(project_id)
+    set_selected_project selected_project
     redirect_to projects_url
   end
 
