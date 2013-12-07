@@ -16,6 +16,7 @@ one:
   major: MyString
   minor: MyString
   classification: MyString
+  remember_token: MyString
 
 two:
   id: 2
@@ -33,3 +34,59 @@ two:
   major: MyString
   minor: MyString
   classification: MyString
+  remember_token: MyString
+  
+teacher:
+  id: 3
+  created_at: 2013-11-08 23:10:35
+  updated_at: 2013-11-08 23:10:35
+  school_id: mgeary
+  role: 0
+  section: 1
+  parent_id: 0
+  email: mgeary@faculty.pcci.edu
+  phone: 17-1111-2
+  first_name: Michael
+  last_name: Geary
+  box: 1
+  major: None
+  minor: None
+  classification: Teacher
+  remember_token: None
+  
+student_rep:
+  id: 4
+  created_at: 2013-11-08 23:10:35
+  updated_at: 2013-11-08 23:10:35
+  school_id: 116431
+  role: 1
+  section: 1
+  parent_id: Noah Conrad
+  email: jcanip5463@students.pcci.edu
+  phone: 17-1303-2
+  first_name: Jake
+  last_name: Canipe
+  box: 1152
+  major: Computer Science
+  minor: History
+  classification: Senior
+  remember_token: None
+  
+student_manager:
+  id: 5
+  created_at: 2013-11-08 23:10:35
+  updated_at: 2013-11-08 23:10:35
+  school_id: 117657
+  role: 2
+  section: 1
+  parent_id: Noah Conrad
+  email: nconrad1234@students.pcci.edu
+  phone: 17-1234-5
+  first_name: Noah
+  last_name: Conrad
+  box: 1234
+  major: Computer Science
+  minor: Undeclared
+  classification: Senior
+  remember_token: None
+  

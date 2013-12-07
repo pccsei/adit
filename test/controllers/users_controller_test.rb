@@ -18,7 +18,8 @@ class UsersControllerTest < ActionController::TestCase
       box: 1,
       major: 'None',
       minor: 'None',
-      classification: 'President'
+      classification: 'President',
+      remember_token: 'MyString'
     }
   end
 

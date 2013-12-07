@@ -13,13 +13,13 @@ class ClientsControllerTest < ActionController::TestCase
       created_at: '2013-11-08 23:10:35',
       updated_at: '2013-11-08 23:10:35',
       website: 'www.com',
-      status: 1,
       zipcode: 1,
       contact_fname: 'Troy', 
       contact_lname: 'Shoemaker',
       contact_title: 'Dr.',
       city: 'Pensacola',
-      state: 'FL'
+      state: 'FL',
+      status_id: 1
     }
   end
 
