@@ -20,8 +20,13 @@ class ApplicationController < ActionController::Base
     return $selected_project
   end
   
-  def set_selected_project(project = Project.last)
-    $selected_project = project
+  # def set_selected_project(project = Project.last)
+    # $selected_project = project
+    # return 
+  # end
+  
+  def set_selected_project(project_id)
+    $selected_project = Project.find_by id: project_id
     return 
   end
   

@@ -81,7 +81,7 @@
 	  <tbody>
 	    <% @users.each do |user| %>
 	      <tr>
-	      <% if user.section == @selected_section.to_i || @selected_section == "" || @selected_section == "all" %>
+	      <% if (user.section == @selected_section.to_i || @selected_section == "" || @selected_section == "all") && (user.role != 3) %>
 	      	<td><%= check_box_tag "students[]", user.id%></td>
 	        <td><%= user.first_name %></td>
 	        <td><%= user.last_name %></td>

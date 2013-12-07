@@ -13,6 +13,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   def show
+    @project = get_selected_project
   end
 
   # GET /projects/new
@@ -72,12 +73,9 @@ class ProjectsController < ApplicationController
   end
   
   def select_project
-    hi = params['input']
-    if hi
-      render text: hi
-    else
+    project_id = params['input']
+    set_selected_project project_id
     redirect_to projects_url
-    end
   end
 
   private

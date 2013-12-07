@@ -3,6 +3,7 @@ class Project < ActiveRecord::Base
   has_many   :tickets
   has_many   :bonuses
   has_many   :members
+  has_many   :semesters
 
   validates :year, presence: true, length: {
     minimum: 4, maximum: 4,
