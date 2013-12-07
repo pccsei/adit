@@ -8,15 +8,21 @@ WhiteCollar::Application.routes.draw do
   post "users/input_students_parse"
   get  "users/settings"
   get  "projects/next_step"
+  post "projects/change_project"
   post "/users/change_student_status"
   post "/users/show_section"
+  post "projects/select_project"
 
+  resources :sessions, only: [:new, :create, :destroy]
   resources :tickets
   resources :clients
   resources :projects
   resources :users
   resources :receipts
   resources :updates
+  
+  match '/signin', to: 'sessions#new', via: 'get'
+  match '/signout', to: 'sessions#destroy', via: 'delete'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

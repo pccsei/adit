@@ -1,10 +1,8 @@
 <h1>Student Roster</h1>
 
 <!-- This allows teachers to view certain sections -->
-<%= form_tag('/users', method: :get) do%>
-	<div style="position:relative; font-family: arial;
-     font-weight:bold; top: 50px; width: 200px;
-     left: 10px; height: 25px;">
+<%= form_tag('/users') do%>
+	<div>
 <h2>select section<h2>
 	<%= select_tag "section_option", options_for_select(@sections), :prompt => ""%> 
 	<%= submit_tag 'section'%>
@@ -74,16 +72,16 @@
 	      <th><%=sortable "section"%></th>
 		  <th><%=sortable "major"%></th>
 		  <th><%=sortable "minor"%></th>
-		  <th><%=sortable "email"%></th>
 		  <th><%=sortable "box"%></th>
 		  <th><%=sortable "classification"%></th>
-	      	      	      	      	      
+		  <th></th>
+          <th></th>	      	      	      	      	      
 	    </tr>
 	  </thead>
 	  <tbody>
 	    <% @users.each do |user| %>
 	      <tr>
-	      <% if user.section == @selected_section.to_i || @selected_section == "" || @selected_section == "all" %>
+	      <% if (user.section == @selected_section.to_i || @selected_section == "" || @selected_section == "all") && (user.role != 3) %>
 	      	<td><%= check_box_tag "students[]", user.id%></td>
 	        <td><%= user.first_name %></td>
 	        <td><%= user.last_name %></td>
@@ -94,12 +92,10 @@
 	        <td><%= user.section %></td>
 	        <td><%= user.major %></td>
 			<td><%= user.minor %></td>
-			<td><%= user.email %></td>
 			<td><%= user.box %></td>
 			<td><%= user.classification %></td>       
 	        <td><%= link_to 'Show', user %></td>
 	        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-	        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 	        <% end%>
 	      </tr>
 	    <% end %>

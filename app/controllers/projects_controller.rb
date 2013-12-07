@@ -4,10 +4,16 @@ class ProjectsController < ApplicationController
   # GET /projects
   def index
     @projects = Project.all
+    
+    hi = params['input']
+    if hi
+      render text: hi
+    end
   end
 
   # GET /projects/1
   def show
+    @project = get_selected_project
   end
 
   # GET /projects/new
@@ -26,6 +32,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
+        create_tickets(@project)
         format.html { redirect_to projects_next_step_path, notice: 'Project was successfully created.' }
       else
         format.html { render action: 'new' }
@@ -55,6 +62,22 @@ class ProjectsController < ApplicationController
   # Create the tickets and move to the next step, which is to add students
   def next_step
   end
+  
+  def create_tickets(project)
+    clients = Client.all
+      clients.each do |c|
+      ticket = c.tickets.create(
+         project_id: project.id,
+         priority_id: 2) # Will need a method to calculate)
+       ticket.save
+    end    
+  end
+  
+  def select_project
+    project_id = params['input']
+    set_selected_project project_id
+    redirect_to projects_url
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -67,6 +90,6 @@ class ProjectsController < ApplicationController
       params.require(:project).permit(:id, :year, :semester, :project_start, :project_end, 
                                       :comment, :created_at, :updated_at, :max_clients, 
                                       :max_green_clients, :max_white_clients, :max_yellow_clients, 
-                                      :use_max_clients, :project_type_id)
+                                      :use_max_clients, :project_type_id, :is_active)
     end
 end

@@ -5,9 +5,12 @@ class ClientsController < ApplicationController
   # GET /clients.json
   def index
 
+    
+    currentProject = Project.select("id, use_max_clients, max_green_clients, max_yellow_clients, max_white_clients").where("is_active = 1").first
+
     if params[:ajax] == "update"
       #@updates = Ticket.find(:all, :select => "id, user_id", :conditions => ["DATE(created_at) <= ?", params[:timestamp]])
-      @updates = Ticket.select("client_id, user_id").where("updated_at <= ?", params[:timestamp]).all      
+      @updates = Ticket.select("client_id, user_id").where("updated_at >= ?", params[:timestamp]).all      
       @updates << Time.now.strftime("%Y-%m-%d %H:%M:%S") # Append System Time
       
     elsif params[:ajax] == "getClient"      
@@ -15,7 +18,7 @@ class ClientsController < ApplicationController
       #Do I need to generate a receipt on success?
       
       # Grab the current project 
-      currentProject = Project.select("use_max_clients, max_green_clients, max_yellow_clients, max_white_clients").where("is_current_project = 1").first
+      #currentProject = Project.select("id, use_max_clients, max_green_clients, max_yellow_clients, max_white_clients").where("is_current_project = 1").first
       
       if currentProject.nil? # No current project
         @updates = {"Error" => "There is not a current project!"}        
@@ -26,52 +29,54 @@ class ClientsController < ApplicationController
         yellow = 2
         white  = 3    
         
-        userID = "000001"         
+        userID = "117567" # need to grab from server variable         
         user   = User.select("school_id").where("school_id = ?", userID).first #How to get user id from server variable?
-      
-#        @updates = {"hello" => user.school_id}
-        
-#=begin
-      
-        if (currentProject.use_max_clients) == 1
-          # Check to see if the user has the max number of clients
-          if Ticket.where("user_id = ?", user.school_id).size > currentProject.max_clients
-            @updates = { error => "You have reached the maximum number of clients!"}
-          end  
-                
-        #check each color  
-        elsif (Ticket.where("user_id = ? AND priority_id = ?", user.school_id, green)).size > currentProject.max_green_clients          
-          @updates = { "Error" => "You have exceeded the number of allowed green clients"}          
-        elsif (Ticket.where("user_id = ? AND priority_id = ?", user.school_id, yellow)).size > currentProject.max_yellow_clients
-          @updates = { "Error" => "You have exceeded the number of allowed yellow clients"}          
-        elsif (Ticket.where("user_id = ? AND priority_id = ?", user.school_id, white)).size > currentProject.max_white_clients
-          @updates = { "Error" => "You have exceeded the number of allowed white clients"}          
-        else    
-          @updates = { "success" =>  "Implementation in progress"}
- 
-          # User is allowed to get a new client: Try to grab the client ticket
-           
-          Ticket.transaction do        
-            c_id = params[:clientID]
-            
-            ticket = Ticket.where("client_id = ?", params[:clientID]).lock(true).first
-            
-            if ticket.user_id.nil?
-              ticket.user_id = userID
-              ticket.save!
-              @updates = {"You got the client" => ":D"}              
-            else 
-              @updates = {"Someone already grabbed that client!!" => "(o_o')"}
-              
-            end
-            
-          end
+
+        if user.nil? #make sure the user exists. Not redirecting because request is an ajax call
+          @updates = {"Error" => "User does not exist in the database..."}
+        else
+
+          if (currentProject.use_max_clients) == 1
+            # Check to see if the user has the max number of clients
+            if Ticket.where("user_id = ?", user.school_id).size > currentProject.max_clients
+              @updates = { error => "You have reached the maximum number of clients!"}
+            end  
                   
-        end
-                
+          #check each color  
+          elsif (Ticket.where("user_id = ? AND priority_id = ?", user.school_id, green)).size > currentProject.max_green_clients          
+            @updates = { "Error" => "You have exceeded the number of allowed green clients"}          
+          elsif (Ticket.where("user_id = ? AND priority_id = ?", user.school_id, yellow)).size > currentProject.max_yellow_clients
+            @updates = { "Error" => "You have exceeded the number of allowed yellow clients"}          
+          elsif (Ticket.where("user_id = ? AND priority_id = ?", user.school_id, white)).size > currentProject.max_white_clients
+            @updates = { "Error" => "You have exceeded the number of allowed white clients"}          
+          else 
+            
+            Ticket.transaction do
+                                      
+              ticket = Ticket.where("client_id = ? AND project_id = ?", params[:clientID], currentProject.id).lock("LOCK IN SHARE MODE").first
+              
+              if ticket.nil?
+                @updates = {"Error" => "Ticket does not exist for the current project"}
+              else 
+                 # User is allowed to get a new client: Try to grab the client ticket
+                 
+                 if ticket.user_id.nil?
+                   ticket.user_id = userID
+                   ticket.save!
+                   @updates = { "Success" => "You got the client"}              
+                 else 
+                   @updates = {"Someone already grabbed that client!!" => "(o_o')"}              
+                 end   
+              end
+            end
+          end
+        end                
       end 
-    else 
-      @tickets = Ticket.all
+     
+    ## Added by Noah, ugly check for existence of current project, can remove once we've 
+    ## cleaned up the program  
+    elsif currentProject    
+      @tickets = Ticket.where("project_id = ?", currentProject.id)
     end
     
     respond_to do |format|      

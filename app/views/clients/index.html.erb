@@ -8,32 +8,22 @@ $(function() {
     //currently writing to ping server
     $(".addTicket").click(function(caller){		
 
-//		console.log(caller.target.id);		
+		console.log(caller.target.id);		
 //		alert("Add Ticket in progress");
 		
 		$.getJSON("/clients.json?ajax=getClient&clientID=" + caller.target.id, 
 	  			function(json) {
-	  				console.log("Response received......");
-	  			
+	  				//console.log("Response received......");
 	  				console.log(json);
-	  			
-		  			var len = json.length
-		  			for (var i = 0; i < len; i++) { 
-		  					//console.log('#' + String(json[i].user_id));
-	
-		  					console.log(json[i].client_id);
-		
-		  					if (json[i][0])
-		  					  $('#' + json[i].client_id).show();//effect("highlight", "slow");//show()
-		  					else
-		  					  $('#' + json[i].client_id).hide();//effect("highlight", "slow");//hide()
-		  					//setTimeout(console.log("..in the loop.."), 100000);	  						  					
-	  					}
-	  			
-	  			
-	  			
+	  				
+	  				if (json.Success != null) {
+	  					$('#' + caller.target.id).hide();
+	  					console.log("You got the client!");
+  					}
+	  				else
+	  					console.log("You didn't get the client")
 		})
-		
+		//updateClients();
 	});
 
 
@@ -43,34 +33,26 @@ $(function() {
 	function updateClients() {
 		  $.getJSON("/clients.json?ajax=update&timestamp=" + last_update, 
 	  			function(json) {
-	  				console.log("Response received......");
-	  				
-	  				/*
-	  				for (property in json) 
-	  					console.log(property);
-	  				*/
-	  					  					  				
+	  				//console.log("Response received......");
+
 	  				var len = json.length - 1; // compensating for system time appended to the end of JSON object 
 	  				var i;
-	  				for (i = 0; i < len; i++) { 
-	  					//console.log('#' + String(json[i].user_id));
+					for (i = 0; i < len; i++) { 
+						//console.log(json[i]);
 
-	  					console.log(json[i].client_id);
-	
-	  					if (json[i][0])
-	  					  $('#' + json[i].client_id).show();//effect("highlight", "slow");//show()
-	  					else
-	  					  $('#' + json[i].client_id).hide();//effect("highlight", "slow");//hide()
-	  					//setTimeout(console.log("..in the loop.."), 100000);	  						  					
+						if (json[i].user_id == null)
+						  $('#' + json[i].client_id).show();
+						else
+	  					  $('#' + json[i].client_id).hide();
   					}
-  					console.log(last_update);
+  					//temp = last_update;
   					last_update = json[i];
-  					//console.log(last_update);
-
+  					//last_update = temp;
       	   })
-	  //setTimeout(updateClients, 2000);
+      	   
+      console.log("Last updated at: " + last_update);
+	  setTimeout(updateClients, 2000);
 	}
-
 
 });
 
@@ -81,8 +63,10 @@ $(function() {
 
 <br /><br /><br /><br /><br /><br /><br />
 
-
+<% if @tickets%>
 <h1>Listing clients</h1>
+
+<%= debug get_selected_project%>
 
 <table>
   <thead>
@@ -103,10 +87,16 @@ $(function() {
 
   <tbody>
 <% @tickets.each do |ticket| %>    
-      <tr class="<%=ticket.client.id %>">
-      	<!-- creates a button for each client.-->
-        <td> <%= button_tag "add", type: 'button',  :id => ticket.id, :class => "addTicket" %></td> 
-        
+
+      <tr class="<%= ticket.client.id %>">
+      	
+         
+          	<td>
+          	<% if (ticket.user_id.nil?)  %>
+		  		<%= button_tag "add", type: 'button',  :id => ticket.id, :class => "addTicket" %>
+	  		<%end%>
+          	</td>
+          	
           	
         <td><%= ticket.client.business_name %></td>
         <td><%= ticket.client.address %></td>
@@ -118,15 +108,13 @@ $(function() {
         <td><%= ticket.client.comment %></td>
       </tr>
 <% end %>
-    
-
-
+   
   </tbody>
 </table>
-
-	
-
 
 <br>
 
 <%= link_to 'New Client', new_client_path %>
+<% else %>
+   Currently, there is no project for you to view. Contact you teacher for further instructions.
+   <% end %>

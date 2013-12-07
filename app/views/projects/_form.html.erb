@@ -36,6 +36,11 @@
       <%= f.label :comment %><br>
       <%= f.text_field :comment %>
     </div>
+    
+    <div class="field">
+      <%= f.label :always_put_0_here %><br>
+      <%= f.text_field :is_active %>
+    </div>
 
     <div class="field">
       <%= radio_button(:project, :use_max_clients, 1, :checked => true) %>
