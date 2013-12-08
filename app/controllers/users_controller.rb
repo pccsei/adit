@@ -230,8 +230,7 @@ class UsersController < ApplicationController
       @user_same.phone = @user.phone
       @user_same.email = @user.email
       @user_same.major = @user.major
-      @user_same.minor = @user.minor
-      @user_same.section = @user.section   
+      @user_same.minor = @user.minor   
       @user_same.save
       redirect_to @user_same
     
