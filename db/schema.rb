@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131206031047) do
+ActiveRecord::Schema.define(version: 20131208013043) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -153,7 +153,6 @@ ActiveRecord::Schema.define(version: 20131206031047) do
     t.string   "minor",          limit: 75
     t.string   "classification", limit: 10
     t.string   "remember_token"
-    t.integer  "section"
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree

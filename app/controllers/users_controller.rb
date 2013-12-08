@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def index
     @users = User.order(sort_column + " " + sort_direction)
 
-    # Move this code to the models
+    # Move this code to the models when you have time
     all_teachers = User.all_teachers
     
     teacher_ids = []
