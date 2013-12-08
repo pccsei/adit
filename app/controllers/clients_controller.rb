@@ -143,6 +143,9 @@ class ClientsController < ApplicationController
     
     
     @client = Client.new(client_params)
+    
+    # This line should eventually place the clients on the pneding clients list instead of straight into the db
+    # @client.status_id = Status.where("status_type = ?", "Pending").pluck(:id) 
 
     respond_to do |format|
       if @client.save
