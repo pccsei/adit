@@ -6,25 +6,14 @@
         <ul>
           <li><%= link_to "Manage Section",    users_path %></li>
           <li><%= link_to "Clients",    root_path %></li>
-          
-          <% if get_current_project%>
-          <!--This now actually links to the correct project, please do not change, npc -->
-          <!--If there is a current project, it will go to the information regarding that project,
-          	  otherwise, it will go to the page that lists all past projects-->
-             <li><%= link_to "Project Options",  project_path(get_selected_project) %></li> 
-          <% else %>
-             <li><%= link_to "Project Options", projects_path %></li>
-          <% end %>
-           
+          <li><%= link_to "Project Options",  project_path(get_selected_project) %></li>           
           <li><%= link_to "Tickets",   tickets_path %></li>
           <li><%= link_to "My Clients",  receipts_path %></li>
           <% if signed_in? %>
           <li><%= link_to "Sign Out", signout_path, method: "delete" %></li>
           <% else %>
           <li><%= link_to "Sign In", signin_path %></li>
-          <% end %>
-          
-
+          <% end %>      
       </nav>
     </div>
   </div>

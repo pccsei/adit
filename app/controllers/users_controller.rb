@@ -150,7 +150,7 @@ class UsersController < ApplicationController
         for i in 0..students.count-1
           user = User.find(students[i])
           user.role = 2
-          user.parent_id = user.first_name + " " + user.last_name        
+          user.parent_id = user.id        
           user.save
           end
         end
@@ -189,7 +189,7 @@ class UsersController < ApplicationController
       if choice == "Create_Team"
         for i in 0..students.count-1
           user = User.find(students[i])
-          user.parent_id = student_manager.first_name + " " + student_manager.last_name 
+          user.parent_id = student_manager.id
           user.save
         end
       end
@@ -230,8 +230,7 @@ class UsersController < ApplicationController
       @user_same.phone = @user.phone
       @user_same.email = @user.email
       @user_same.major = @user.major
-      @user_same.minor = @user.minor
-      @user_same.section = @user.section   
+      @user_same.minor = @user.minor   
       @user_same.save
       redirect_to @user_same
     
