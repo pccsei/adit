@@ -1,3 +1,6 @@
+<!-- replace the following with simple for tags -->
+
+
 <%= form_for(@update) do |f| %>
   <% if @update.errors.any? %>
     <div id="error_explanation">
@@ -12,6 +15,17 @@
   <% end %>
   
   
+  <!-- wasn't exactly sure how to use the form helper on this one so I just added the html...  - James Miyashita -->
+  <div class="check-boxes">
+  	<label> First Contact </label>
+  	<input id="first_contact" type="checkbox" value="1">
+  	<label> Presentation </label>
+  	<input id="presentation" type="checkbox" value="2">
+  	<label> Sale </label>
+  	<input id="sale" type="checkbox" value="3">  	
+  </div>
+
+  
   <div class ="field">
   	<%= f.label :comment_text %> <br>
   	<%= f.text_area :comment_text%>
@@ -20,4 +34,7 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+  
+
+  
 <% end %>
