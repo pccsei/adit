@@ -6,10 +6,10 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: sei_wc_dev
+  database: 'sei_wc_dev'
   pool: 5
-  username: sei_user
-  password: katcollar
+  username: '117567'
+  password: '117567'
   timeout: 5000
   host: csweb
 

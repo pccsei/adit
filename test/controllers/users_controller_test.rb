@@ -18,7 +18,8 @@ class UsersControllerTest < ActionController::TestCase
       box: 1,
       major: 'None',
       minor: 'None',
-      classification: 'President'
+      classification: 'President',
+      remember_token: 'MyString'
     }
   end
 
@@ -62,5 +63,10 @@ class UsersControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to users_path
+  end
+  
+  test "should render correct template and layout" do
+    get :index
+    assert_template layout: "layouts/application"
   end
 end

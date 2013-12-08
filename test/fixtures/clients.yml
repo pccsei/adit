@@ -10,13 +10,13 @@ one:
   created_at: 2013-11-08 23:10:35
   updated_at: 2013-11-08 23:10:35
   website: MyString
-  status: 1
   zipcode: 1
   contact_fname: MyString
   contact_lname: MyString
   contact_title: MyString
   city: MyString
   state: FL
+  status_id: 1
 
 two:
   id: 2
@@ -28,11 +28,10 @@ two:
   created_at: 2013-11-08 23:10:35
   updated_at: 2013-11-08 23:10:35
   website: MyString
-  status: 1
   zipcode: 1
   contact_fname: MyString
   contact_lname: MyString
   contact_title: MyString
   city: MyString
   state: FL
-
+  status_id: 1

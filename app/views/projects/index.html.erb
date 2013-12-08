@@ -4,6 +4,7 @@
 	<table class = "table">
 	  <thead>
 	    <tr>
+	      <th>Selected</th>
 	      <th>Year</th>
 	      <th>Semester</th>
 	      <th>Project Type</th>
@@ -21,7 +22,7 @@
 	    <% @projects.each do |project| %>
 	      <tr>
 	      	<% if project.is_active %>
-      			<td><%= radio_button_tag("input", project.id) %></td>
+      			<td><%= radio_button_tag 'input', project.id, (true if project.id == (get_selected_project).id) %></td>
 		      	<td><%= project.year%></td>
 		      	<td><%= project.semester%></td>
 		      	<td><%= project.project_type_id%></td>
@@ -50,7 +51,8 @@
 			<br>
 			   Currently, no active project exists. Please create a new project or view archived projects.
 			<br>
-			
+						  	<%= link_to 'Create New Project', new_project_path %>
+
 			<br>   
 			<% @projects.each do |project| %>
 			  <% if (project.project_start && project.project_end) < Time.current %>
@@ -64,6 +66,7 @@
 		<table class = "table">
 			<thead>
 		      <tr>
+		      <th>Selected<th>
 		      <th>Year</th>
 		      <th>Semester</th>
 		      <th>Project Type</th>
@@ -78,7 +81,7 @@
 		    <% @projects.each do |project| %>
 		      <tr>
 		      	<% if !project.is_active%>
-      				<td><%= radio_button_tag("input", project.id) %></td>
+      				<td><%= radio_button_tag 'input', project.id, (true if project.id == (get_selected_project).id) %></td>
 			      	<td><%= project.year%></td>
 			      	<td><%= project.semester%></td>
 			      	<td><%= project.project_type_id%></td>
@@ -92,7 +95,7 @@
 		      	<% end %>
 		      </tr>
 		    <% end %>
-		    <td><%= submit_tag 'input'%></td>
+		    <td><%= submit_tag 'View Project'%></td>
 		  </tbody>
 		</table>
 	<% end %>

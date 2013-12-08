@@ -10,7 +10,7 @@ setup do
       created_at: '2013-11-08 23:10:35',
       updated_at: '2013-11-08 23:10:35',
       payment_type: 'MyString',
-      attachment: 1,
+      attachment: nil,
       attachment_name: 'MyString',
       project_id: 1,
       client_id: 1,
@@ -35,7 +35,7 @@ setup do
       post :create, ticket: @update
     end
 
-    assert_redirected_to tickets_url
+    assert_redirected_to ticket_path(assigns(:ticket))
   end
 
   test "should show ticket" do
@@ -59,5 +59,10 @@ setup do
     end
 
     assert_redirected_to tickets_url
+  end
+  
+    test "should render correct template and layout" do
+    get :index
+    assert_template layout: "layouts/application"
   end
 end

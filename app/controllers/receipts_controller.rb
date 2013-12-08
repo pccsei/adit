@@ -4,17 +4,16 @@ class ReceiptsController < ApplicationController
   # GET /receipts
   # GET /receipts.json
   def index
-    current_user = User.where("school_id = ?", 117567).first
-    
-    @active_tickets   =  Ticket.where("user_id = ? AND (sale_value is NULL OR sale_value = 0)", current_user.id)
-    @sold_tickets     = current_user.tickets.where("sale_value != 0")    
+    current_user = User.first
+    @active_tickets =  current_user.tickets.where("sale_value is NULL OR sale_value = 0")
+    @sold_tickets = current_user.tickets.where("sale_value is not NULL or sale_value != 0 ")  
     @all_receipts     = current_user.receipts
     @all_tickets      = Ticket.where("project_id = ?", get_current_project)
     @released_tickets = Array.new  
    
     @all_receipts.each do |r|
       @all_tickets.each do |t|
-        if ((t.user_id != r.user_id) && (r.ticket_id == t.id))# the line of truth
+        if ((t.user_id != r.user_id) && (r.ticket_id == t.id))
           @released_tickets << t
         end
       end

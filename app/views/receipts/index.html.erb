@@ -18,18 +18,18 @@
 
   <tbody>
     <% @active_tickets.each do |ticket| %>
-    <% @client = Client.find(ticket.id)%>
+    <% client = Client.find(ticket.client_id)%>
       <tr>
-      	<td><%= @client.contact_title%></td>
-      	<td><%= @client.contact_fname%></td>
-      	<td><%= @client.contact_lname%></td>
-      	<td><%= @client.business_name%></td>
-      	<td><%= @client.address%></td>
-      	<td><%= @client.city%></td>
-      	<td><%= @client.state%></td>
-      	<td><%= @client.zipcode%></td>
-      	<td><%= @client.telephone%></td>
-      	<td><%= @client.email%></td>
+      	<td><%= client.contact_title%></td>
+      	<td><%= client.contact_fname%></td>
+      	<td><%= client.contact_lname%></td>
+      	<td><%= client.business_name%></td>
+      	<td><%= client.address%></td>
+      	<td><%= client.city%></td>
+      	<td><%= client.state%></td>
+      	<td><%= client.zipcode%></td>
+      	<td><%= client.telephone%></td>
+      	<td><%= client.email%></td>
         <td><%= link_to 'Show', ticket %></td>
       </tr>
     <% end %>
@@ -58,18 +58,18 @@
 
   <tbody>
     <% @sold_tickets.each do |ticket| %>
-    <% @client = Client.find(ticket.id)%>
+    <% client = Client.find(ticket.client_id)%>
       <tr>
-      	<td><%= @client.contact_title%></td>
-      	<td><%= @client.contact_fname%></td>
-      	<td><%= @client.contact_lname%></td>
-      	<td><%= @client.business_name%></td>
-      	<td><%= @client.address%></td>
-      	<td><%= @client.city%></td>
-      	<td><%= @client.state%></td>
-      	<td><%= @client.zipcode%></td>
-      	<td><%= @client.telephone%></td>
-      	<td><%= @client.email%></td>      	
+      	<td><%= client.contact_title%></td>
+      	<td><%= client.contact_fname%></td>
+      	<td><%= client.contact_lname%></td>
+      	<td><%= client.business_name%></td>
+      	<td><%= client.address%></td>
+      	<td><%= client.city%></td>
+      	<td><%= client.state%></td>
+      	<td><%= client.zipcode%></td>
+      	<td><%= client.telephone%></td>
+      	<td><%= client.email%></td>      	
         <td><%= link_to 'Show', ticket %></td>
       </tr>
     <% end %>
@@ -99,18 +99,18 @@
 
   <tbody>
     <% @released_tickets.each do |ticket| %>
-    <% @client = Client.find(ticket.id)%>
+    <% client = Client.find(ticket.client_id)%>
       <tr>
-      	<td><%= @client.contact_title%></td>
-      	<td><%= @client.contact_fname%></td>
-      	<td><%= @client.contact_lname%></td>
-      	<td><%= @client.business_name%></td>
-      	<td><%= @client.address%></td>
-      	<td><%= @client.city%></td>
-      	<td><%= @client.state%></td>
-      	<td><%= @client.zipcode%></td>
-      	<td><%= @client.telephone%></td>
-      	<td><%= @client.email%></td>
+      	<td><%= client.contact_title%></td>
+      	<td><%= client.contact_fname%></td>
+      	<td><%= client.contact_lname%></td>
+      	<td><%= client.business_name%></td>
+      	<td><%= client.address%></td>
+      	<td><%= client.city%></td>
+      	<td><%= client.state%></td>
+      	<td><%= client.zipcode%></td>
+      	<td><%= client.telephone%></td>
+      	<td><%= client.email%></td>
         <td><%= link_to 'Show', ticket %></td>
       </tr>
     <% end %>

@@ -11,7 +11,6 @@ class RoutesTest < ActionDispatch::IntegrationTest
     assert_generates "/users/1/edit", {:controller => "users", :action => "edit", :id => "1"}
     assert_generates "/users", :controller => "users", :action => "create"
     assert_generates "/users/1", {:controller => "users", :action => "update", :id => "1"}
-    assert_generates "/users/input_students_parse", :controller => "users", :action => "input_students_parse"
     assert_generates "/users/1", {:controller => "users", :action => "destroy", :id => "1"}
   end
   test "test client routes" do
@@ -38,11 +37,10 @@ class RoutesTest < ActionDispatch::IntegrationTest
     assert_generates "/tickets/new", :controller => "tickets", :action => "new"
     assert_generates "/tickets", :controller => "tickets", :action => "create"
     assert_generates "/tickets/1", {:controller => "tickets", :action => "update", :id => "1"}
-    #need to test assign_user
     assert_generates "/tickets/1", {:controller => "tickets", :action => "destroy", :id => "1"}
   end
   test "test receipts routes" do
-    assert_generates "/receipts", :controller => "receipts", :action =>"index"
+    assert_generates "/receipts", :controller => "receipts", :action => "index"
     assert_generates "/receipts/1", {:controller => "receipts", :action => "show", :id => "1"}
     assert_generates "/receipts/new", :controller => "receipts", :action => "new"
     assert_generates "/receipts/1/edit", {:controller => "receipts", :action => "edit", :id => "1"}
@@ -51,12 +49,27 @@ class RoutesTest < ActionDispatch::IntegrationTest
     assert_generates "/receipts/1", {:controller => "receipts", :action => "destroy", :id => "1"}
   end
   test "test updates routes" do
-    assert_generates "/updates", :controller => "updates", :action =>"index"
+    assert_generates "/updates", :controller => "updates", :action => "index"
     assert_generates "/updates/1", {:controller => "updates", :action => "show", :id => "1"}
     assert_generates "/updates/new", :controller => "updates", :action => "new"
     assert_generates "/updates/1/edit", {:controller => "updates", :action => "edit", :id => "1"}
     assert_generates "/updates", :controller => "updates", :action => "create"
     assert_generates "/updates/1", {:controller => "updates", :action => "update", :id => "1"}
     assert_generates "/updates/1", {:controller => "updates", :action => "destroy", :id => "1"}
+  end
+  test "test reports routes" do
+    assert_generates "/reports", :controller => "updates", :action => "show_reports"
+    assert_generates "/reports/sales", :controller => "updates", :action => "sales_log"
+    assert_generates "/reports/activity", :controller => "updates", :action => "activity_log"
+    assert_generates "/reports/student_summary", :controller => "updates", :action => "student_summary"
+  end
+  test "test pending clients routes" do
+    assert_generates "/pending_clients", :controller => "clients", :action => "show_pending_clients"
+    assert_generates "/pending_clients/new", :controller => "clients", :action => "new"
+    assert_generates "/pending_clients/1/edit", {:controller => "clients", :action => "edit", :id => "1"}
+    assert_generates "/pending_clients/1", {:controller => "clients", :action => "show", :id => "1"}
+    assert_generates "/pending_clients", :controller => "clients", :action => "create"
+    assert_generates "/pending_clients", :controller => "clients", :action => "approve"
+    assert_generates "/pending_clients", :controller => "clients", :action => "deny"
   end
 end

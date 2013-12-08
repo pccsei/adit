@@ -8,6 +8,24 @@ class UsersController < ApplicationController
   def index
     @users = User.order(sort_column + " " + sort_direction)
 
+    # Move this code to the models
+    all_teachers = User.all_teachers
+    
+    teacher_ids = []
+    all_teachers.each do |t|
+      teacher_ids << t.id
+    end
+    
+    project_student_members = Member.project_members(get_selected_project).where.not(user_id: teacher_ids )
+    
+    student_users_for_selected_project = []
+    project_student_members.each do |s|
+      student_users_for_selected_project << (User.find(s.user_id))
+    end
+    
+    @current_students = student_users_for_selected_project.zip(project_student_members)
+       
+
     # set paraments for selected section
     @sections = []
     if params["section_option"]
@@ -16,22 +34,21 @@ class UsersController < ApplicationController
       @selected_section = "all"
     end
      
-    # find all sections that current students are a part of  
-    User.all.each do |f|
-      @sections.push(f.section)
-    end 
-    @sections.uniq!  
+    # Find sections for current project    
+    @sections = (Member.where("project_id = ?", (get_selected_project).id).uniq!.pluck("section_number")) 
     
     # find student managers
     @student_managers = User.where(role: 2)
-    @student_managers.each do |user|
-      @student_manager_names = user.first_name + " " + user.last_name
-    end
+    #@student_managers.each do |user|
+      #@student_manager_names = user.first_name + " " + user.last_name
+    #end
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    #@member_teachers = Member.where("role = 3 AND project_id = ?", @project.id)
+    #@section_numbers = member_teachers.section_number.uniq!
   end
   
   def teacher
@@ -70,6 +87,7 @@ class UsersController < ApplicationController
     User.all.each do |user|  
       all_student_ids.push(user.school_id)
     end
+    
 
     # Parse the input
     for i in 0..all_student_info.count-1
@@ -86,7 +104,6 @@ class UsersController < ApplicationController
         @user.major = single_student_info[8]
         @user.minor = single_student_info[9]
         @user.role = 1
-        @user.section = section_number
         @user.save
       else
         @user = User.find_by! school_id: single_student_info[1]
@@ -100,10 +117,18 @@ class UsersController < ApplicationController
         @user.major = single_student_info[8]
         @user.minor = single_student_info[9]
         @user.role = 1
-        @user.section = section_number
         @user.save
       end
+      if(@user.save)
+        @member = Member.new
+        @member.user_id = @user.id
+        @member.project_id = (get_selected_project).id
+        @member.section_number = section_number
+        @member.is_enabled = true
+        @member.save
+      end
     end
+   
     
     redirect_to users_url
   end
@@ -255,7 +280,9 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:id, :created_at, :updated_at, :school_id, :role, :section, :parent_id, :email, :phone, :first_name, :last_name, :box, :major, :minor, :classification)
+      params.require(:user).permit(:id, :created_at, :updated_at, :school_id, :role, :section, 
+                                   :parent_id, :email, :phone, :first_name, :last_name, :box, 
+                                   :major, :minor, :classification, :remember_token)
     end
     
     def sort_column

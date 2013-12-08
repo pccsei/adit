@@ -17,17 +17,12 @@ class ApplicationController < ActionController::Base
   end
   
   def get_selected_project
-    return $selected_project
+    $selected_project
   end
   
-  # def set_selected_project(project = Project.last)
-    # $selected_project = project
-    # return 
-  # end
-  
-  def set_selected_project(project_id)
-    $selected_project = Project.find_by id: project_id
-    return 
-  end
+    def set_selected_project(project = Project.last)
+      $selected_project = project
+      return $selected_project 
+    end
   
 end

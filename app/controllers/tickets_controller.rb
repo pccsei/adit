@@ -20,7 +20,7 @@ class TicketsController < ApplicationController
        ticket.save
     end
     respond_to do |format|
-        format.html { redirect_to projects_url, notice: 'Ticket was successfully created.' }
+        format.html { redirect_to users_url, notice: 'Ticket was successfully created.' }
     end
   end
 
@@ -56,6 +56,8 @@ class TicketsController < ApplicationController
     end
 
     def ticket_params
-      params.require(:ticket).permit(:id, :sale_value, :page_size, :created_at, :updated_at, :payment_type, :attachment, :attachment_name, :project_id, :client_id, :user_id, :priority_id)
+      params.require(:ticket).permit(:id, :sale_value, :page_size, :created_at, :updated_at, 
+                                     :payment_type, :attachment, :attachment_name, :project_id, 
+                                     :client_id, :user_id, :priority_id)
     end
 end
