@@ -134,20 +134,8 @@ class UpdatesController < ApplicationController
       @update = Update.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary internet, only allow the white list through.    
     def update_params
-      params[:update]
-    end
-    
-=begin
-    def project_params
-      params.require(:project).permit(:id, :year, :semester, :project_start, :project_end, 
-                                      :comment, :created_at, :updated_at, :max_clients, 
-                                      :max_green_clients, :max_white_clients, :max_yellow_clients, 
-                                      :use_max_clients, :project_type_id, :is_active)
-    end
-  
-=end
-    
-    
+      params.require(:update).permit(:is_public, :comment_text, :receipt_id)
+    end    
 end
