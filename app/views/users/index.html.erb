@@ -75,7 +75,7 @@
 		  <th><%=sortable "major"%></th>
 		  <th><%=sortable "minor"%></th>
 		  <th><%=sortable "box"%></th>
-		  <th><%=sortable "classification"%></th>
+		  <th><%=sortable "classification", "Class"%></th>
 		  <th></th>
           <th></th>	      	      	      	      	      
 	    </tr>
@@ -90,8 +90,13 @@
                 <td><%= user.last_name %></td>
                 <td><%= user.school_id%></td>
                 <td><%= user.email%></td>
-                <td><%= user.phone %></td>
-                <td><%= user.parent_id %></td>
+                <td><%= user.phone %></td>                
+                <% if user.parent_id %>
+                <% manager = User.find(user.parent_id) %>
+                <td><%= manager.first_name + ' ' + manager.last_name %></td>
+                <% else %>
+                <td></td>
+                <% end %>
                 <td><%= member.section_number %></td>
                 <td><%= user.major %></td>
                 <td><%= user.minor %></td>
