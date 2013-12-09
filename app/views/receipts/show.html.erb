@@ -1,8 +1,16 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"><%= notice %></p> 
+
+
+This will list all of the updates for a given ticket.
+<br>
+
 
 <%= debug @updates%>
 
+
 <%= link_to 'Create New Update', new_update_path(:q1 => @receipt.id)%>
 
-<%= link_to 'Edit', edit_receipt_path(@receipt) %> |
+
+<!--This does not go to the right place, there will be individual edits on each update
+	<%#= link_to 'Edit', edit_receipt_path(@receipt) %> -->
 <%= link_to 'Back', receipts_path %>
