@@ -27,6 +27,7 @@ class ReceiptsController < ApplicationController
   # GET /receipts/1.json
   # We can use this function to list the updates on a receipt
   def show
+    @updates = Update.where("receipt_id = ?", params[:id])
   end
 
   # GET /receipts/new

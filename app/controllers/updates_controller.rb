@@ -65,6 +65,7 @@ class UpdatesController < ApplicationController
   # GET /updates/new
   def new
     @update = Update.new
+    @receipt_id = params[:q1]
   end
 
   # GET /updates/1/edit
@@ -75,7 +76,7 @@ class UpdatesController < ApplicationController
   # POST /updates.json
   def create
     @update = Update.new(update_params) # was giving ForbiddenAttributesError
-    
+    @update.id = params[:receipt_id]
     #how to get receipt id? 
     
     #@update = Update.new(comment_text: params[:update_comment_text])

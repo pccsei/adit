@@ -1,5 +1,36 @@
 <h1>New update</h1>
 
-<%= render 'form' %>
+<%= debug @receipt_id%>
+<!-- replace the following with simple for tags -->
 
-<%= link_to 'Back', updates_path %>
+
+<%= form_for(@update) do |f| %>
+
+  
+  <!-- wasn't exactly sure how to use the form helper on this one so I just added the html...  - James Miyashita -->
+  <div class="check-boxes">
+  	<label> First Contact </label>
+  	<input id="first_contact" type="checkbox" value="1">
+  	<label> Presentation </label>
+  	<input id="presentation" type="checkbox" value="2">
+  	<label> Sale </label>
+  	<input id="sale" type="checkbox" value="3">  	
+  </div>
+
+  
+  <div class ="field">
+  	<%= f.label :comment_text %> <br>
+  	<%= f.text_area :comment_text%>
+  </div>
+
+    <%= f.hidden_field :receipt_id, :value => @receipt_id %>
+
+  <div class="actions">
+    <%= f.submit(data: { receipt_id: @receipt_id}) %>
+  </div>
+  
+
+  
+<% end %>
+
+<%#= link_to 'Back', receipts_path %>

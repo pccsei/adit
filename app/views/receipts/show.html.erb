@@ -1,4 +1,8 @@
 <p id="notice"><%= notice %></p>
 
+<%= debug @updates%>
+
+<%= link_to 'Create New Update', new_update_path(:q1 => @receipt.id)%>
+
 <%= link_to 'Edit', edit_receipt_path(@receipt) %> |
 <%= link_to 'Back', receipts_path %>
