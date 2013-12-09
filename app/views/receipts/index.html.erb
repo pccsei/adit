@@ -30,7 +30,8 @@
       	<td><%= client.zipcode%></td>
       	<td><%= client.telephone%></td>
       	<td><%= client.email%></td>
-        <td><%= link_to 'Show', ticket %></td>
+        <%  receipt = Receipt.where("ticket_id = ? AND user_id = ?",ticket.id, @current_user.id).first%>
+        <td><%= link_to 'Show', receipt_path(receipt) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -70,7 +71,8 @@
       	<td><%= client.zipcode%></td>
       	<td><%= client.telephone%></td>
       	<td><%= client.email%></td>      	
-        <td><%= link_to 'Show', ticket %></td>
+        <%  current_receipt = Receipt.where("ticket_id = ? AND user_id = ?",ticket.id, @current_user.id).first%>
+        <td><%= link_to 'Show', receipt_path(current_receipt) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -79,6 +81,7 @@
 <br>
 <br>
 
+<% if @released_tickets %>
 <h1>My Released Clients</h1>
 
 <table class="table">
@@ -111,11 +114,13 @@
       	<td><%= client.zipcode%></td>
       	<td><%= client.telephone%></td>
       	<td><%= client.email%></td>
-        <td><%= link_to 'Show', ticket %></td>
+        <%  receipt = Receipt.where("ticket_id = ? AND user_id = ?",ticket.id, @current_user.id).first%>
+        <td><%= link_to 'Show', receipt_path(receipt) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<% end %>
 
 <br>
 

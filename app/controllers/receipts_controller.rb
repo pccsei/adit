@@ -4,12 +4,13 @@ class ReceiptsController < ApplicationController
   # GET /receipts
   # GET /receipts.json
   def index
-    current_user = User.first
-    @active_tickets =  current_user.tickets.where("sale_value is NULL OR sale_value = 0")
-    @sold_tickets = current_user.tickets.where("sale_value is not NULL or sale_value != 0 ")  
-    @all_receipts     = current_user.receipts
-    @all_tickets      = Ticket.where("project_id = ?", get_current_project)
-    @released_tickets = Array.new  
+    
+    @current_user      = User.first
+    @active_tickets   =  current_user.tickets.where("sale_value is NULL OR sale_value = 0")
+    @sold_tickets     =  current_user.tickets.where("sale_value is not NULL or sale_value != 0 ")  
+    @all_receipts     =  current_user.receipts
+    @all_tickets      =  Ticket.where("project_id = ?", get_current_project)
+    @released_tickets =  Array.new  
    
     @all_receipts.each do |r|
       @all_tickets.each do |t|
@@ -24,6 +25,7 @@ class ReceiptsController < ApplicationController
 
   # GET /receipts/1
   # GET /receipts/1.json
+  # We can use this function to list the updates on a receipt
   def show
   end
 
