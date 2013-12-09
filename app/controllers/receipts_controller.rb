@@ -22,12 +22,39 @@ class ReceiptsController < ApplicationController
 
 
   end
+  
+  def my_receipts
+    @current_user     =  User.find(params[:id])
+    @active_tickets   =  current_user.tickets.where("sale_value is NULL OR sale_value = 0")
+    @sold_tickets     =  current_user.tickets.where("sale_value is not NULL or sale_value != 0 ")  
+    @all_receipts     =  current_user.receipts
+    @all_tickets      =  Ticket.where("project_id = ?", get_current_project)
+    @released_tickets =  Array.new  
+   
+    @all_receipts.each do |r|
+      @all_tickets.each do |t|
+        if ((t.user_id != r.user_id) && (r.ticket_id == t.id))
+          @released_tickets << t
+        end
+      end
+    end
+  end
 
   # GET /receipts/1
   # GET /receipts/1.json
   # We can use this function to list the updates on a receipt
   def show
-    @updates = Update.where("receipt_id = ?", params[:id])
+    @updates = Update.where("receipt_id = ?", params[:id]).order("created_at")
+    
+    if @updates.nil?
+      @ERROR = "Updates is nil"
+      
+    else
+            
+      @highestUserAction = Action.where("receipt_id = ?", params[:id]).maximum("action_type_id")    
+      @sale = Action.where("receipt_id = ? AND action_type_id = ?", params[:id], 3) #may need to be fixed if the DB column is changed
+      
+    end
   end
 
   # GET /receipts/new

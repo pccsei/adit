@@ -1,5 +1,29 @@
 <p id="notice"><%= notice %></p> 
 
+<h1>Listing updates</h1>
+
+    <% @updates.each do |update| %>
+    <% update.actions.each do |a| %>     
+
+  <!-- wasn't exactly sure how to use the form helper on this one so I just added the html...  - James Miyashita -->
+  <div class="check-boxes">
+  	<label> First Contact </label>
+  	<input id="first_contact" type="checkbox" value="1">
+  	<label> Presentation </label>
+  	<input id="presentation" type="checkbox" value="2">
+  	<label> Sale </label>
+  	<input id="sale" type="checkbox" value="3">  	
+  </div>
+  
+      	   <%= a.points_earned%>
+      	   <%= a.user_action_time%>
+      	<% end %>
+        <%= link_to 'Edit', edit_update_path(update) %>
+        <%= link_to 'Destroy', update, method: :delete, data: { confirm: 'Are you sure?' } %>
+
+    <% end %>
+
+
 
 This will list all of the updates for a given ticket.
 <br>

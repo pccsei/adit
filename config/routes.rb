@@ -12,6 +12,7 @@ WhiteCollar::Application.routes.draw do
   post "/users/change_student_status"
   post "/users/show_section"
   post "projects/select_project"
+  match  "receipts/my_receipts/:id", to: 'receipts#my_receipts', via: 'get'
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets
@@ -20,7 +21,7 @@ WhiteCollar::Application.routes.draw do
   resources :users
   resources :receipts
   resources :updates
-  
+    
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
 
