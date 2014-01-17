@@ -3,9 +3,12 @@
 <h1>Listing updates</h1>
 
     <% @updates.each do |update| %>
-    <% update.actions.each do |a| %>     
+    <!-- <%# update.actions.each do |a| %> -->
+    
+    <% @action_completed = Action.where("update_id = ?", update.id).maximum("action_type_id") %>  
 
   <!-- wasn't exactly sure how to use the form helper on this one so I just added the html...  - James Miyashita -->
+  <!-- The correct boxes being checked is currently not correct. I am focusing on authorization now though... Noah Conrad -->
   <div class="check-boxes">
   	<label> First Contact </label>
   	<input id="first_contact" type="checkbox" value="1">
@@ -15,9 +18,11 @@
   	<input id="sale" type="checkbox" value="3">  	
   </div>
   
-      	   <%= a.points_earned%>
-      	   <%= a.user_action_time%>
-      	<% end %>
+  <%= debug @action_completed %>
+  <%= debug @highestUserAction%>
+      	   <!-- <%#= a.points_earned%>
+      	   <%#= a.user_action_time%>
+      	<%# end %> -->
         <%= link_to 'Edit', edit_update_path(update) %>
         <%= link_to 'Destroy', update, method: :delete, data: { confirm: 'Are you sure?' } %>
 
