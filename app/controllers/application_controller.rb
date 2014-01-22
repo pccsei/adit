@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+  before_filter :signed_in_user
   protect_from_forgery with: :exception
 
   include SessionsHelper
@@ -8,7 +9,7 @@ class ApplicationController < ActionController::Base
                helper_method :are_tickets_open  
                helper_method :get_selected_project
                helper_method :set_selected_project
-               
+                              
   $selected_project = Project.last
             
   def get_current_project
@@ -24,5 +25,26 @@ class ApplicationController < ActionController::Base
       $selected_project = project
       return $selected_project 
     end
+   
+   # Restricts access to only teachers 
+   def only_teachers
+      if current_user.role != 3
+        redirect_to signin_path # What should we redirect to?
+      end
+   end
+   
+   # Restricts access to only teachers and student managers
+   def only_leadership
+     if current_user.role == 1 
+       redirect_to signin_path # What should we redirect to?
+     end
+   end
+   
+   def signed_in_user
+     unless signed_in?
+       flash[:notice] = "Please sign in."
+       redirect_to signin_url
+     end
+   end
   
 end
