@@ -1,15 +1,15 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :only_teachers, only: [:index]
+  before_action :only_teachers
 
   # GET /projects
   def index
     @projects = Project.all
     
-    hi = params['input']
-    if hi
-      render text: hi
-    end
+    #hi = params['input']
+    #if hi
+    #  render text: hi
+    #end
   end
 
   # GET /projects/1

@@ -31,6 +31,14 @@ class SessionsController < ApplicationController
      redirect_to signin_path
   end
   
+  def redirect_back_or(default)
+    redirect_to(session[:return_to] || default)
+    session.delete(:return_to)
+  end
+  
+  def store_location
+    session[:return_to] = request.url if request.get?
+  end
   # This function will work for everything except numbers in the following format: 01.....
   # It's purpose is to determine whether a teacher or a student is logging in.
   def is_number?(string)
