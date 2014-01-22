@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :signed_in_user
+  skip_before_filter :signed_in_user, only: [:new, :create]
   
   def new
     
