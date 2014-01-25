@@ -88,7 +88,7 @@ def User.parse_students(user_params, section_number, project_id)
   end
 end
 
-def User.do_selected_option(students, choice, student_manager_id)
+def User.do_selected_option(students, choice, student_manager_id, selected_project)
   if student_manager_id
     student_manager = User.find(student_manager_id)
   end
@@ -98,8 +98,10 @@ def User.do_selected_option(students, choice, student_manager_id)
     if choice == "Promote_Student"
       for i in 0..students.count-1
         user = User.find(students[i])
+        member = Member.where("user_id = ?", students[i]).last
         user.role = 2
-        user.parent_id = user.id        
+        member.parent_id = user.id
+        member.save       
         user.save
         end
       end
@@ -107,11 +109,13 @@ def User.do_selected_option(students, choice, student_manager_id)
     if choice == "Demote_Student"
       for i in 0..students.count-1
         user = User.find(students[i])
+        current_member = Member.where("user_id = ?", students[i]).last
         user.role = 1
-        User.all.each do |user2|
-          if user.parent_id == user2.parent_id
-            user2.parent_id = nil
-            user2.save
+        members = Member.where("project_id = ?", selected_project.id)
+         members.each do |m|
+          if current_member.parent_id == m.parent_id
+            m.parent_id = nil
+            m.save
           end
         end 
         user.save

@@ -91,8 +91,8 @@
                 <td><%= user.school_id%></td>
                 <td><%= user.email%></td>
                 <td><%= user.phone %></td>                
-                <% if user.parent_id %>
-                <% manager = User.find(user.parent_id) %>
+                <% if member.parent_id %>
+                <% manager = User.find(member.parent_id) %>
                 <td><%= manager.first_name + ' ' + manager.last_name %></td>
                 <% else %>
                 <td></td>
