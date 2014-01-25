@@ -70,6 +70,7 @@ class ClientsController < ApplicationController
               end
             end            
             
+            # This is done down here to allow the transaction above to finish as quickly as possible thus allowing the user to better grab the ticket
             if grabbedTicket
               receipt = Receipt.where("ticket_id = ? AND user_id = ?", ticket.id, user.id).first
               
@@ -79,7 +80,7 @@ class ClientsController < ApplicationController
             end            
           end
           
-        end                
+        end               
       end 
      
     ## Added by Noah, ugly check for existence of current project, can remove once we've 
