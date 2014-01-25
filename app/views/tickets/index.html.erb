@@ -1,35 +1,3 @@
-<!-- testing the dataTables->
-<script>
-
-	$(document).ready(function() {	
-	
-     var oTable = $('#ticketTable').dataTable({
-     "aoColumns": [{"mData": "name"}]});
-    
-     var p = {
-         name: null
-     };
-
-     // Add first row.
-     oTable.fnAddData(p); 
-
-     // Try first update.
-     //oTable.fnUpdate( {name: 'hardcoded'}, 0 ); // <--- Works
-     
-     // Change the name property.
-     p.name = 'updated';
-
-     oTable.fnUpdate(p, 0);
-
-		//$('#ticketTable').dataTable();
-		
-	});
-
-</script>
-<!-- end dataTables test-->
-
-
-
 <h1>Listing Tickets</h1>
 
 <table class="table" id="ticketTable">
