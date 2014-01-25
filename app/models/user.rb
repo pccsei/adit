@@ -33,6 +33,125 @@ def User.new_remember_token
   SecureRandom.urlsafe_base64
 end
 
+def User.parse_students(user_params, section_number, project_id)
+  # Delete the header line if present
+  if user_params.include? "Course"
+    no_description_bar = user_params.split("\n")[1..-1] 
+    all_student_info = no_description_bar
+  else
+    all_student_info = user_params.split("\n")
+  end
+
+  all_student_ids = [] 
+  User.all.each do |user|  
+    all_student_ids.push(user.school_id)
+  end
+  
+  # Parse the input
+  for i in 0..all_student_info.count-1
+    single_student_info = all_student_info[i].split("\t")
+    if !all_student_ids.include?(single_student_info[1])
+      @user = User.new
+      @user.school_id = single_student_info[1]
+      @user.first_name = single_student_info[2].split(", ")[1]
+      @user.last_name = single_student_info[2].split(", ")[0]
+      @user.classification = single_student_info[3]
+      @user.box = single_student_info[5]
+      @user.phone = single_student_info[6]
+      @user.email = single_student_info[7]
+      @user.major = single_student_info[8]
+      @user.minor = single_student_info[9]
+      @user.role = 1
+      @user.save
+      if(@user.save)
+        @member = Member.new
+        @member.user_id = @user.id
+        @member.project_id = project_id
+        @member.section_number = section_number
+        @member.is_enabled = true
+        @member.save
+      end
+    else
+      @user = User.find_by! school_id: single_student_info[1]
+      @user.school_id = single_student_info[1]
+      @user.first_name = single_student_info[2].split(", ")[1]
+      @user.last_name = single_student_info[2].split(", ")[0]
+      @user.classification = single_student_info[3]
+      @user.box = single_student_info[5]
+      @user.phone = single_student_info[6]
+      @user.email = single_student_info[7]
+      @user.major = single_student_info[8]
+      @user.minor = single_student_info[9]
+      @user.role = 1
+      @user.save
+    end
+  end
+end
+
+def User.do_selected_option(students, choice, student_manager_id)
+  if student_manager_id
+    student_manager = User.find(student_manager_id)
+  end
+  
+  # do selected option, as long as some students are selected
+  if students != nil
+    if choice == "Promote_Student"
+      for i in 0..students.count-1
+        user = User.find(students[i])
+        user.role = 2
+        user.parent_id = user.id        
+        user.save
+        end
+      end
+
+    if choice == "Demote_Student"
+      for i in 0..students.count-1
+        user = User.find(students[i])
+        user.role = 1
+        User.all.each do |user2|
+          if user.parent_id == user2.parent_id
+            user2.parent_id = nil
+            user2.save
+          end
+        end 
+        user.save
+      end
+    end
+  
+    if choice == "Delete_Student"
+      for i in 0..students.count-1
+        user = User.find(students[i])
+        if user.role == 2
+          User.all.each do |user2|
+            if user.parent_id == user2.parent_id
+              user2.parent_id = nil
+              user2.save
+            end
+          end 
+        end
+        user.destroy
+        user.save
+      end
+    end
+  
+  
+    if choice == "Create_Team"
+      for i in 0..students.count-1
+        user = User.find(students[i])
+        user.parent_id = student_manager.id
+        user.save
+      end
+    end
+  end
+
+  # obviously no students students need to be selected here  
+  if choice == "Delete_Everybody"
+    User.all.each do |f|
+      f.destroy
+      f.save
+    end
+  end
+end
 
 def User.encrypt(token)
    Digest::SHA1.hexdigest(token.to_s)
