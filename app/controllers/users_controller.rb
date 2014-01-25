@@ -83,8 +83,8 @@ class UsersController < ApplicationController
   
   
   def change_student_status
-    students        = params[:students]
-    choice          = params['selected_option']
+    students           = params[:students]
+    choice             = params['selected_option']
     student_manager_id = params['student_manager']
 
     User.do_selected_option(students, choice, student_manager_id, get_selected_project)
