@@ -1,4 +1,5 @@
 class TicketsController < ApplicationController
+  before_action :only_teachers
 
   def index
     @tickets = Ticket.all

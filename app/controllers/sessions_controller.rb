@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  skip_before_filter :signed_in_user, only: [:new, :create]
   
   def new
     
@@ -16,9 +17,9 @@ class SessionsController < ApplicationController
       user.save     
     end
      
-      if user && User.authenticate(school_id, params[:password])       
+      if user #&& User.authenticate(school_id, params[:password])       
        sign_in(user)
-       redirect_to '/clients'
+       redirect_back_or '/clients'
      else
        flash.now[:error] = 'Invalid school id or password'
        render 'new'
@@ -29,8 +30,9 @@ class SessionsController < ApplicationController
      sign_out
      redirect_to signin_path
   end
-  
+ 
   # This function will work for everything except numbers in the following format: 01.....
+  # It's purpose is to determine whether a teacher or a student is logging in.
   def is_number?(string)
     (string.to_i.to_s == string)
   end

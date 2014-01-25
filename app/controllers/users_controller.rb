@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :only_teachers
 
 
   # GET /users

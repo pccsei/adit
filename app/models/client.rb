@@ -12,5 +12,10 @@ class Client < ActiveRecord::Base
      with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,4})\z/,
      message: 'must be a valid email address'
    }
+   
+   # Returns all pending clients, needs to be refactored to remove magic number
+   def self.pending
+     where("status_id = ?", 4).all
+   end
 
 end

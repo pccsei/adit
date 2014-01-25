@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131208013043) do
+ActiveRecord::Schema.define(version: 20140125154235) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20131208013043) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "project_id"
+    t.integer  "parent_id"
   end
 
   add_index "members", ["project_id"], name: "index_members_on_project_id", using: :btree
@@ -143,7 +144,6 @@ ActiveRecord::Schema.define(version: 20131208013043) do
     t.datetime "updated_at"
     t.string   "school_id"
     t.integer  "role"
-    t.string   "parent_id"
     t.string   "email"
     t.string   "phone"
     t.string   "first_name",     limit: 30
