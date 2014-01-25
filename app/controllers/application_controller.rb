@@ -20,11 +20,11 @@ class ApplicationController < ActionController::Base
   def get_selected_project
     $selected_project
   end
-  
-    def set_selected_project(project = Project.last)
-      $selected_project = project
-      return $selected_project 
-    end
+
+  def set_selected_project(project = Project.last)
+    $selected_project = project
+    return $selected_project 
+  end
    
    # Restricts access to only teachers 
    def only_teachers

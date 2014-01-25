@@ -29,4 +29,7 @@
 
 
 
+//= require dataTables/jquery.dataTables
+
+
 //= require jquery.ui.effect
