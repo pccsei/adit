@@ -83,11 +83,11 @@ class UsersController < ApplicationController
   
   
   def change_student_status
-    students        = params[:students]
-    choice          = params['selected_option']
+    students           = params[:students]
+    choice             = params['selected_option']
     student_manager_id = params['student_manager']
 
-    User.do_selected_option(students, choice, student_manager_id)
+    User.do_selected_option(students, choice, student_manager_id, get_selected_project)
 
     redirect_to users_url
   end

@@ -88,7 +88,7 @@ def User.parse_students(user_params, section_number, project_id)
   end
 end
 
-def User.do_selected_option(students, choice, student_manager_id)
+def User.do_selected_option(students, choice, student_manager_id, selected_project)
   if student_manager_id
     student_manager = User.find(student_manager_id)
   end
@@ -98,8 +98,10 @@ def User.do_selected_option(students, choice, student_manager_id)
     if choice == "Promote_Student"
       for i in 0..students.count-1
         user = User.find(students[i])
+        member = Member.where("user_id = ?", students[i]).last
         user.role = 2
-        user.parent_id = user.id        
+        member.parent_id = user.id
+        member.save       
         user.save
         end
       end
@@ -107,30 +109,35 @@ def User.do_selected_option(students, choice, student_manager_id)
     if choice == "Demote_Student"
       for i in 0..students.count-1
         user = User.find(students[i])
+        current_member = Member.where("user_id = ?", students[i]).last
         user.role = 1
-        User.all.each do |user2|
-          if user.parent_id == user2.parent_id
-            user2.parent_id = nil
-            user2.save
+        members = Member.where("project_id = ?", selected_project.id)
+         members.each do |m|
+          if current_member.parent_id == m.parent_id
+            m.parent_id = nil
+            m.save
           end
         end 
         user.save
       end
     end
   
+  
     if choice == "Delete_Student"
       for i in 0..students.count-1
         user = User.find(students[i])
+        current_member = Member.where("user_id = ?", students[i]).last
         if user.role == 2
-          User.all.each do |user2|
-            if user.parent_id == user2.parent_id
-              user2.parent_id = nil
-              user2.save
+          members = Member.where("project_id = ?", selected_project.id)
+          members.each do |m|
+            if current_member.parent_id == m.parent_id
+              m.parent_id = nil
+              m.save
             end
           end 
         end
-        user.destroy
-        user.save
+        current_member.destroy
+        current_member.save
       end
     end
   
@@ -138,19 +145,25 @@ def User.do_selected_option(students, choice, student_manager_id)
     if choice == "Create_Team"
       for i in 0..students.count-1
         user = User.find(students[i])
-        user.parent_id = student_manager.id
-        user.save
+        member = Member.where("user_id = ?", students[i]).last
+        member.parent_id = student_manager.id
+        member.save
       end
     end
   end
 
-  # obviously no students students need to be selected here  
+
+  # This is the only function that is not currently working for the drop down box.
+  # This will need to reference the section drop-down box
+  # obviously no students students need to be selected here 
+=begin 
   if choice == "Delete_Everybody"
     User.all.each do |f|
       f.destroy
       f.save
     end
   end
+=end
 end
 
 def User.encrypt(token)
