@@ -156,5 +156,6 @@ ActiveRecord::Schema.define(version: 20140125154235) do
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
+  add_index "users", ["school_id"], name: "index_users_on_school_id", unique: true, using: :btree
 
 end
