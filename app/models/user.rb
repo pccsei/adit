@@ -84,6 +84,12 @@ def User.parse_students(user_params, section_number, project_id)
       @user.minor = single_student_info[9]
       @user.role = 1
       @user.save
+      @member = Member.find_by(user_id: (User.find_by! school_id: single_student_info[1]).id)
+      @member.user_id = @user.id
+      @member.project_id = project_id
+      @member.section_number = section_number
+      @member.is_enabled = true
+      @member.save
     end
   end
 end

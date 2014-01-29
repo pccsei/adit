@@ -25,18 +25,13 @@ class UsersController < ApplicationController
     end
     
     @current_students = student_users_for_selected_project.zip(project_student_members)
-       
+    @selected_section = get_section
 
-    # set paraments for selected section
-    @sections = []
-    if params["section_option"]
-      @selected_section = params["section_option"]
-    else
-      @selected_section = "all"
-    end
      
-    # Find sections for current project    
-    @sections = (Member.where("project_id = ?", (get_selected_project).id).uniq!.pluck("section_number")) 
+    # Find sections for current project
+    @sections = (Member.where("project_id = ?", (get_selected_project).id).uniq!.pluck("section_number"))
+    @sections.sort!
+    @sections.unshift("all")
     
     # find student managers
     @student_managers = User.where(role: 2)
@@ -53,23 +48,7 @@ class UsersController < ApplicationController
   end
   
   def teachers
-    # Move this code to the models when you have time
     @all_teachers =  User.all_teachers
-    
-    # teacher_ids = []
-    # all_teachers.each do |t|
-    #   teacher_ids << t.id
-    # end
-    
-    # project_student_members = Member.project_members(get_selected_project).where.not(user_id: teacher_ids )
-    
-    # student_users_for_selected_project = []
-    # project_student_members.each do |s|
-    #   student_users_for_selected_project << (User.find(s.user_id))
-    # end
-    
-    # @current_students = student_users_for_selected_project.zip(project_student_members)
-    # @users = User.all
   end
   
   def student_manager
@@ -82,6 +61,13 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+  end
+
+  def set_section
+    # set paraments for selected section
+    selected_section = params["section_option"]
+    set_selected_section(selected_section)
+    redirect_to users_url
   end
 
   # GET /users/1/edit

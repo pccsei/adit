@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
                helper_method :set_selected_project
                               
   $selected_project = Project.last
+  $selected_section = "all"
             
   def get_current_project
     project = Project.find_by is_active: '1'
@@ -24,6 +25,14 @@ class ApplicationController < ActionController::Base
   def set_selected_project(project = Project.last)
     $selected_project = project
     return $selected_project 
+  end
+
+  def set_selected_section section
+    $selected_section = section
+  end
+
+  def get_section
+    return $selected_section
   end
    
    # Restricts access to only teachers 
