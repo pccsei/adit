@@ -19,7 +19,22 @@
 
    statuses = Status.create([{status_type: "Not Approved" }, { status_type: "Approved"}, 
                                                        { status_type: "In House" }, { status_type: "Pending" }])
-=end   
+=end
+
+Project.create([
+{year: 2011,
+ project_type_id: 2},
+{year: 2012,
+ project_type_id: 2},
+{year: 2013,
+ project_type_id: 2},
+{year: 2011,
+ project_type_id: 1},
+{year: 2012,
+ project_type_id: 1},
+{year: 2013,
+ project_type_id: 1}])
+=begin   
    clients = Client.create([
 {business_name: '10th Avenue Hair Designs',
  address: '1000 East Cervantes Street',
@@ -6235,3 +6250,4 @@
  city: 'Pensacola',
  state: 'FL ',
  status_id: 2}])
+=end
