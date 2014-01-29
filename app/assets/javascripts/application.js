@@ -16,8 +16,6 @@
 //= require_tree .
 
 
-
-
 //= require jquery
 //= require jquery_ujs
 
@@ -27,9 +25,9 @@
 //= require jquery-ui-timepicker-addon
 //= require jquery-ui-timepicker-addon.min
 
-
-
 //= require dataTables/jquery.dataTables
 
 
 //= require jquery.ui.effect
+
+$(document).ready($('.dataTable').dataTable()); 
