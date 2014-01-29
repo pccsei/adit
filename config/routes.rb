@@ -2,7 +2,7 @@ WhiteCollar::Application.routes.draw do
   root :to => "clients#index"
   
   get "users/create_new_section"
-  get  "users/teacher"
+  get  "users/teachers"
   get  "users/student_manager"
   get  "users/student_rep"
   post "users/input_students_parse"
