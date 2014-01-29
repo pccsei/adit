@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <!-- For the students and student managers -->
+  <% if @user.role == 1 || @user.role == 2 %>
   <div class="field">
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>
@@ -50,4 +52,35 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+
+  <!-- For the teachers -->
+  <% else %>
+   <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :school_id %><br>
+    <%= f.text_field :school_id %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :box %><br>
+    <%= f.text_field :box %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div> 
+  <% end %>
 <% end %>
