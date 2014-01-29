@@ -174,6 +174,10 @@ def self.all_students
   where("role = ?", 1).all
 end
 
+def self.all_student_managers
+  where("role = ?", 1).all + where("role = ?", 2).all
+end
+
 def self.all_teachers
   where("role = ?", 3).all
 end

@@ -52,8 +52,24 @@ class UsersController < ApplicationController
     #@section_numbers = member_teachers.section_number.uniq!
   end
   
-  def teacher
-    @users = User.all
+  def teachers
+    # Move this code to the models when you have time
+    @all_teachers =  User.all_teachers
+    
+    # teacher_ids = []
+    # all_teachers.each do |t|
+    #   teacher_ids << t.id
+    # end
+    
+    # project_student_members = Member.project_members(get_selected_project).where.not(user_id: teacher_ids )
+    
+    # student_users_for_selected_project = []
+    # project_student_members.each do |s|
+    #   student_users_for_selected_project << (User.find(s.user_id))
+    # end
+    
+    # @current_students = student_users_for_selected_project.zip(project_student_members)
+    # @users = User.all
   end
   
   def student_manager
