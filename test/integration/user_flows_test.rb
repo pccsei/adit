@@ -14,16 +14,6 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     student_rep.browses_all_clients
     student_manager.browses_all_clients
     
-    # Teacher and student manager only to visit manage section
-    teacher.browses_manage_section
-    student_rep.browses_manage_section
-    student_manager.browses_manage_section
-    
-    # Teacher and student manager only to visit a specific student in manage section
-    teacher.browses_manage_section_student
-    student_rep.browses_manage_section_student
-    student_manager.browses_manage_section_student
-    
     # Teacher only to edit manage section
 =begin    teacher.browses_manage_section_edit
     student_rep.browses_manage_section_edit

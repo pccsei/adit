@@ -6,10 +6,10 @@ class User < ActiveRecord::Base
   has_many   :members
   
   before_create :create_remember_token
-=begin
-  validates :school_id, :email, :phone, presence: true
+
+  validates :school_id, :email, :phone, :section, presence: true
   validates :school_id, uniqueness: true
-  validates :email, format: {
+=begin  validates :email, format: {
     with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\z/,
     message: 'must be a valid school email address'
   }

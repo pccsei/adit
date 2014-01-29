@@ -30,10 +30,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 
-
-
-
-
 # added by James Miyashita
 gem 'jquery-ui-rails'
 gem 'jquery-rails'
@@ -82,4 +78,3 @@ group :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
 end
-

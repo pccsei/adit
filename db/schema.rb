@@ -110,6 +110,11 @@ ActiveRecord::Schema.define(version: 20140125154235) do
     t.integer  "user_id"
   end
 
+  create_table "status_tables", force: true do |t|
+    t.string  "status_type"
+    t.boolean "status_enabled"
+  end
+
   create_table "statuses", force: true do |t|
     t.string   "status_type",    limit: 30
     t.boolean  "status_enabled",            default: true

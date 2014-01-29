@@ -137,6 +137,6 @@ class UpdatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.    
     def update_params
-      params.require(:update).permit(:is_public, :comment_text, :receipt_id)
+      params.require(:update).permit(:id, :is_public, :comment_text, :created_at, :updated_at, :receipt_id)
     end    
 end

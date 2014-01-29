@@ -9,8 +9,6 @@ class UsersControllerTest < ActionController::TestCase
       updated_at: '2013-11-08 23:10:35',
       school_id: 'tshoemaker',
       role: 1,
-      section: 1,
-      parent_id: 'None',
       email: 'tshoemaker@faculty.pcci.edu',
       phone: '17-1234-1',
       first_name: 'Troy',

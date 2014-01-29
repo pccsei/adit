@@ -113,6 +113,7 @@ class ReceiptsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def receipt_params
-      params[:receipt]
+      params.require(:receipt).permit(:id, :created_at, :updated_at, :ticket_id, :user_id)
+            
     end
 end
