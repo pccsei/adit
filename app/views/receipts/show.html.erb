@@ -1,13 +1,34 @@
 <p id="notice"><%= notice %></p> 
 
-<h1>Listing updates</h1>
+<%= debug @receipt %>
 
-  
-  <%= debug @receipt %>
+<h1>My Client</h1>
 
+<h3>My Past Actions</h3>
+<br><br>
+<table class="table dataTable">
+  <thead>
+    <tr> 
+      <th>Action</th>
+      <th>Time</th>
+      <th>Comment</th>
+      <th>Points</th>
+      <th></th>
+    </tr>
+  </thead>
 
-
-<!--This does not go to the right place, there will be individual edits on each update
-	<%#= link_to 'Edit', edit_receipt_path(@receipt) %> -->
-<%= link_to 'New', new_action_path %
+<tbody>
+<% @receipt.actions.each do |a| %>
+   <tr>
+   	<td><%= a.action_type.name %></td>
+   	<td><%= a.user_action_time %></td>
+   	<td><%= a.comment %></td>
+   	<td><%= a.action_type.point_value %></td>
+    <td><%= link_to 'Delete', a, method: :delete, 
+                                         data: { confirm: 'Are you sure?' } %></td>
+   </tr>
+<% end %>
+</tbody>
+</table>
+<%= link_to 'New', new_action_path %>
 <%= link_to 'Back', receipts_path %>

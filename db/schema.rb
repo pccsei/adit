@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140129204208) do
+ActiveRecord::Schema.define(version: 20140130034008) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20140129204208) do
     t.datetime "user_action_time"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "update_id"
     t.integer  "action_type_id"
     t.integer  "receipt_id"
     t.text     "comment"

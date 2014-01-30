@@ -20,7 +20,7 @@ WhiteCollar::Application.routes.draw do
   resources :projects
   resources :users
   resources :receipts
-  resources :updates
+  resources :actions
     
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
