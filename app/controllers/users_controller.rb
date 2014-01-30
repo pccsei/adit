@@ -47,14 +47,40 @@ class UsersController < ApplicationController
     #@section_numbers = member_teachers.section_number.uniq!
   end
   
-  def teachers
-    @all_teachers =  User.all_teachers
+def teachers
+    @teachers = User.all_teachers
+    all_students = User.all_students
+    
+    student_ids = []
+    all_students.each do |t|
+      student_ids << t.id
+    end
+    
+    project_teacher_members = Member.project_members(get_selected_project).where.not(user_id: student_ids )
+    
+    teacher_users_for_selected_project = []
+    project_teacher_members.each do |s|
+      teacher_users_for_selected_project << (User.find(s.user_id))
+    end
+    
+    @current_teachers = teacher_users_for_selected_project.zip(project_teacher_members)
   end
   
   def student_manager
     @users = User.all
   end
   
+  def create_new_section
+  end
+
+  def assign_teacher_to_section
+    teacher = params[:last_name]
+    section_number = params['section']  
+
+    User.create_new_section(teacher[:id], section_number, get_selected_project.id)
+    redirect_to users_url  
+  end
+
   def student_rep
   end
 
@@ -153,8 +179,10 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   # DELETE /users/1.json
+  # Deletes the Member, not the user.
   def destroy
-    @user.destroy
+    member = Member.find_by user_id: @user.id
+    member.destroy
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
