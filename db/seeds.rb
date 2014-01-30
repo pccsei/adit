@@ -11,12 +11,13 @@
    # To add users, you can simply paste them from the student manager excel file
    
    project_types = ProjectType.create([{ name: 'Calendar' }, { name: 'Arrow' }])
-   
+=end   
    action_types = ActionType.create([{ name: 'First Contact',  role: 1, point_value: 5 },
                                      { name: 'Presentation',   role: 1, point_value: 5 },
-                                     { name: 'Sale',           role: 1, point_value: 10},
-                                     { name: 'New Sale Bonus', role: 1, point_value: 5}])
-
+                                     { name: 'Old Sale',       role: 1, point_value: 10},
+                                     { name: 'New Sale',       role: 1, point_value: 15},
+                                     { name: 'Comment',        role: 1, point_value: 0}])
+=begin
    statuses = Status.create([{status_type: "Not Approved" }, { status_type: "Approved"}, 
                                                        { status_type: "In House" }, { status_type: "Pending" }])
 =end
