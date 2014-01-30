@@ -2,44 +2,12 @@
 
 <h1>Listing updates</h1>
 
-    <% @updates.each do |update| %>
-    <!-- <%# update.actions.each do |a| %> -->
-    
-    <% @action_completed = Action.where("update_id = ?", update.id).maximum("action_type_id") %>  
-
-  <!-- wasn't exactly sure how to use the form helper on this one so I just added the html...  - James Miyashita -->
-  <!-- The correct boxes being checked is currently not correct. I am focusing on authorization now though... Noah Conrad -->
-  <div class="check-boxes">
-  	<label> First Contact </label>
-  	<input id="first_contact" type="checkbox" value="1">
-  	<label> Presentation </label>
-  	<input id="presentation" type="checkbox" value="2">
-  	<label> Sale </label>
-  	<input id="sale" type="checkbox" value="3">  	
-  </div>
   
-  <%= debug @action_completed %>
-  <%= debug @highestUserAction%>
-      	   <!-- <%#= a.points_earned%>
-      	   <%#= a.user_action_time%>
-      	<%# end %> -->
-        <%= link_to 'Edit', edit_update_path(update) %>
-        <%= link_to 'Destroy', update, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= debug @receipt %>
 
-    <% end %>
-
-
-
-This will list all of the updates for a given ticket.
-<br>
-
-
-<%= debug @updates%>
-
-
-<%= link_to 'Create New Update', new_update_path(:q1 => @receipt.id)%>
 
 
 <!--This does not go to the right place, there will be individual edits on each update
 	<%#= link_to 'Edit', edit_receipt_path(@receipt) %> -->
+<%= link_to 'New', new_action_path %
 <%= link_to 'Back', receipts_path %>

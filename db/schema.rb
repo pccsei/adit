@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140125154235) do
+ActiveRecord::Schema.define(version: 20140129204208) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140125154235) do
     t.integer  "update_id"
     t.integer  "action_type_id"
     t.integer  "receipt_id"
+    t.text     "comment"
   end
 
   create_table "bonus", force: true do |t|
@@ -129,14 +130,6 @@ ActiveRecord::Schema.define(version: 20140125154235) do
     t.integer  "client_id"
     t.integer  "user_id"
     t.integer  "priority_id"
-  end
-
-  create_table "updates", force: true do |t|
-    t.boolean  "is_public"
-    t.string   "comment_text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "receipt_id"
   end
 
   create_table "users", force: true do |t|
