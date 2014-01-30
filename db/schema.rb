@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140130034008) do
+ActiveRecord::Schema.define(version: 20140130143133) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -106,8 +106,11 @@ ActiveRecord::Schema.define(version: 20140130034008) do
   create_table "receipts", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "ticket_id"
-    t.integer  "user_id"
+    t.integer  "ticket_id",                         null: false
+    t.integer  "user_id",                           null: false
+    t.boolean  "made_contact",      default: false
+    t.boolean  "made_presentation", default: false
+    t.boolean  "made_sale",         default: false
   end
 
   create_table "statuses", force: true do |t|

@@ -1,6 +1,7 @@
 WhiteCollar::Application.routes.draw do
   root :to => "clients#index"
   
+  match "/actions/new/:id", to: 'receipts#new', via: 'get'
   get "users/create_new_section"
   get  "users/teacher"
   get  "users/student_manager"
@@ -19,7 +20,9 @@ WhiteCollar::Application.routes.draw do
   resources :clients
   resources :projects
   resources :users
-  resources :receipts
+  resources :receipts do
+    resources :actions
+  end
   resources :actions
     
   match '/signin', to: 'sessions#new', via: 'get'
