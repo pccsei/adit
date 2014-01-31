@@ -21,34 +21,21 @@ class ActionsController < ApplicationController
     
     @action = Action.new(:receipt_id => params[:receipt_id])
     @receipt = Receipt.find(@action.receipt_id)
+    if params[:action_type_name] == "Comment"
+      @action.action_type_id = (ActionType.find_by(name: params[:action_type_name])).id    
+    else
     if params[:action_type_name] != "Sale"
        @action.action_type_id = (ActionType.find_by(name: params[:action_type_name])).id
     else
-      priority = (((Receipt.find(@action.receipt_id)).ticket).priority).name
-      if priority == green
+      priority = @receipt.ticket.priority.name
+      if priority == "green"
         @action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
       else
         @action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
       end
     end
-    
-    #receipt.actions.each do |a|
-    #  if a.action_type_id 
-    #    @action.action_type_id = (Action_type.find_by :name, "Sale").id
-    #  end
-    #end
-#    if receipt.made_presentation == true
-#     @current_action = SALE
-#      else if receipt.made_contact == true
-#        @current_action = PRESENTATION
-#      else
-#        @current_action = FIRST_CONTACT
-#      end
-#    end
-  end
-  # GET receipts/:id/actions/new_comment
-  def new_comment
-    @action = Action.new
+    end
+
   end
 
   # GET /actions/1/edit
@@ -59,7 +46,37 @@ class ActionsController < ApplicationController
   # POST /actions.json
   def create
     @action = Action.new(action_params)
-
+    receipt = Receipt.find(@action.receipt_id)
+    if @action.action_type.name != "Comment"
+        receipt.made_contact = true
+        if params[:presentation]
+          new_action = Action.new
+          new_action.user_action_time = @action.user_action_time
+          new_action.comment = @action.comment
+          new_action.action_type_id = (ActionType.find_by(name: 'Presentation')).id
+          new_action.receipt_id = @action.receipt_id
+          receipt.made_presentation = true
+          new_action.save
+        end
+        
+        if params[:sale]
+        priority = receipt.ticket.priority.name
+          new_action = Action.new
+          if priority == "green"
+             new_action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
+          else
+             new_action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
+          end
+          new_action.user_action_time = @action.user_action_time
+          new_action.comment = @action.comment
+          new_action.receipt_id = @action.receipt_id
+          receipt.made_sale = true
+          new_action.save
+        end
+        receipt.save
+        else
+          @action.user_action_time = Time.now
+        end
     respond_to do |format|
       if @action.save
         format.html { redirect_to @action, notice: 'Action was successfully created.' }

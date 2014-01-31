@@ -20,18 +20,10 @@ WhiteCollar::Application.routes.draw do
   resources :projects
   resources :users
   resources :receipts do
-    resources :actions do
-      member do
-        get 'new_comment'
-      end
-    end
+    resources :actions 
   end
   
-    resources :actions do
-    member do
-      match 'new_comment', to: 'actions/new_comment', via: 'get'
-    end
-  end
+  resources :actions
   
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
