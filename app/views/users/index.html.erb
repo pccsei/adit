@@ -1,25 +1,29 @@
-<h1>Student Roster</h1>
+
+<h1 class = "col-md-3", id = "heading">Student Roster</h1>
 
 <!-- This allows teachers to view certain sections -->
-<%= form_tag('/users') do%>
-	<div>
-<h2>select section<h2>
-	<%= select_tag "section_option", options_for_select(@sections), :prompt => ""%> 
-	<%= submit_tag 'section'%>
-<% end %>
-	</div>
+<div class = "col-md-9", id = "select-section">
+   <%= form_tag('/users') do%>
+   <!--<h2 class="col-md-3">select section<h2> -->
+   <%= select_tag "section_option", options_for_select(@sections), :prompt => ""%> 
+   <%= submit_tag 'Select Section' , class: "btn btn-large btn-primary btn-sm"%>
+   <% end %>
+</div>
 
 <!-- This gets students from the teacher to be put into the database and get their section number -->
-<h2>Add Student(s)<h2>
-<%= form_tag('/users/input_students_parse') do%>
+<h2 class = "col-md-12">Please add student(s) to a section<h2>
 
-	<%= text_area_tag 'input' %>
-	<%= label_tag 'section number please:' %>
-	<%= text_field_tag 'section' %>
-	<%= submit_tag 'input'%>
-<% end %>
-<br>
-<br>
+<div class = "col-md-12">
+   <%= form_tag('/users/input_students_parse') do%>
+  
+   	   
+	   <%= text_area_tag 'input' %>
+
+	   <%= label_tag 'section number please:' %>
+	   <%= text_field_tag 'section' %>
+	   <%= submit_tag 'input', class: "btn btn-large btn-primary btn-sm"%>
+    <% end %>
+</div>
 <%= link_to 'Add One Student', new_user_path %>
 
 <!-- Everything below here is really just a big form. -->
@@ -110,8 +114,5 @@
           </tbody>
         </table>
 <%end%>
-
-
-<br>
 
 
