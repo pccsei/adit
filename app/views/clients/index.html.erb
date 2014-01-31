@@ -1,4 +1,13 @@
-<%= render :partial => "pending", :locals => { :pending_clients => @pending_clients} %>
+<% if current_user.role == 3 %>
+   <%= form_tag do %>
+       <%= render :partial => "pending", :locals => { :pending_clients => @pending_clients} %>
+       <%= submit_tag 'Approve' %>
+       <%= submit_tag 'Disapprove'%>
+   <% end %>
+<% else %>
+   <%= render :partial => "pending", :locals => { :pending_clients => @pending_clients} %>
+<% end %>
+
 
 <!-- Buttons wont appear if they were not loaded when the page was first loaded because they were not created. -->
 
@@ -32,7 +41,7 @@ $(function() {
 	});
 
 
-	setTimeout(updateClients, 1000);
+//	setTimeout(updateClients, 1000);
 
 
 	function updateClients() {

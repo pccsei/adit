@@ -1,36 +1,53 @@
 
 <h1 class = "col-md-3", id = "heading">Student Roster</h1>
 
-<!-- This allows teachers to view certain sections -->
-<div class = "col-md-9", id = "select-section">
-   <%= form_tag('/users') do%>
-   <!--<h2 class="col-md-3">select section<h2> -->
-   <%= select_tag "section_option", options_for_select(@sections), :prompt => ""%> 
-   <%= submit_tag 'Select Section' , class: "btn btn-large btn-primary btn-sm"%>
-   <% end %>
-</div>
+<% if @selected_section == "all" %>
+	<%= "Displaying all sections"%>
+<% else%>
+	<%= "This is section #{@selected_section}"%>
+<% end %>
 
-<!-- This gets students from the teacher to be put into the database and get their section number -->
+<br><br>
+
 <h2 class = "col-md-12">Please add student(s) to a section<h2>
 
-<div class = "col-md-12">
-   <%= form_tag('/users/input_students_parse') do%>
-  
-   	   
-	   <%= text_area_tag 'input' %>
-
-	   <%= label_tag 'section number please:' %>
-	   <%= text_field_tag 'section' %>
-	   <%= submit_tag 'input', class: "btn btn-large btn-primary btn-sm"%>
-    <% end %>
+<!-- This allows teachers to view certain sections -->
+<div class = "col-md-9", id = "select-section">
+<%= form_tag('/users/set_section') do%>
+	<%= select_tag "section_option", options_for_select(@sections, selected: @selected_section)%> 
+	<%= submit_tag 'select section', class: "btn btn-large btn-primary btn-sm"%>
+	<a href="/users/create_new_section">Or create a new section!</a> <!-- needs to be changed -->
+<% end %>
 </div>
+
+<br>
+
+<!-- This gets students from the teacher to be put into the database and get their section number -->
+<!-- only allow a teacher to add students to a section if a section is selected.-->
+<div class = "col-md-12">
+<% if @selected_section != "all" %>
+	<%= form_tag('/users/input_students_parse') do%>
+		<%= label_tag 'Input students you want added to this section here:' %>
+		<%= text_area_tag 'input' %>
+		<%= submit_tag 'input'%>
+	<% end %>	
+<% else%>	
+	<%= "Please select a section or add one before adding students." %>
+<% end %>
+</div>
+
+<br><br>
+
 <%= link_to 'Add One Student', new_user_path %>
+
+<br><br>
 
 <!-- Everything below here is really just a big form. -->
 <%= form_tag('/users/change_student_status') do%>
 	<!-- This is first select for what the teacher wants to do with the students -->
 	<div id="option">
-		<h2>Do stuff with the students!<h2>
+		Do stuff with the students!
+		<br>
 		<%= select_tag "selected_option", options_for_select(["Promote_Student", "Create_Team", "Demote_Student", "Delete_Student", "Delete_Everybody"]), :onchange => 'myFunction()', :prompt => 'select option'%>
 	</div>
 	
@@ -61,11 +78,11 @@
 		}
 	);
 	</script>
-	
-	<%= debug @sections %>
+
+	<br><br>
 
 	<!-- Here is huge table of all the students -->
-	<table class ="table">
+	<table class ="table dataTable">
 	  <thead>
 	    <tr>
 	      <th></th>
@@ -95,8 +112,8 @@
                 <td><%= user.school_id%></td>
                 <td><%= user.email%></td>
                 <td><%= user.phone %></td>                
-                <% if user.parent_id %>
-                <% manager = User.find(user.parent_id) %>
+                <% if member.parent_id %>
+                <% manager = User.find(member.parent_id) %>
                 <td><%= manager.first_name + ' ' + manager.last_name %></td>
                 <% else %>
                 <td></td>
@@ -108,6 +125,7 @@
                 <td><%= user.classification %></td>       
                 <td><%= link_to 'Show', user %></td>
                 <td><%= link_to 'Edit', edit_user_path(user) %></td>
+                <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                 <% end %>
               </tr>
             <% end %>
@@ -115,4 +133,10 @@
         </table>
 <%end%>
 
+<<<<<<< HEAD
 
+=======
+<br>
+
+<a href="/users/teachers">Teachers page</a>
+>>>>>>> e5e61c30fa6c76543570f2c8507392ca329ffe67

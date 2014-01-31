@@ -11,7 +11,10 @@
     </div>
   <% end %>
 
-  <div class="field">
+
+  <!-- For the teachers -->
+  <% if @user.role == 3 %>
+   <div class="field">
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>
   </div>
@@ -24,8 +27,33 @@
     <%= f.text_field :school_id %>
   </div>
   <div class="field">
-    <%= f.label :Student_Manager %><br>
-    <%= f.text_field :parent_id %>
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :box %><br>
+    <%= f.text_field :box %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div> 
+  <!-- For the students and student managers -->
+  <% else %>
+  <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :school_id %><br>
+    <%= f.text_field :school_id %>
   </div>
   <div class="field">
     <%= f.label :major %><br>
@@ -54,4 +82,7 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+
+
+  <% end %>
 <% end %>

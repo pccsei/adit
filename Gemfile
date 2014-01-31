@@ -37,7 +37,7 @@ gem 'jbuilder', '~> 1.2'
 # added by James Miyashita
 gem 'jquery-ui-rails'
 gem 'jquery-rails'
-
+gem 'jquery-datatables-rails', git: 'http://github.com/rweng/jquery-datatables-rails.git'
 
   # bundle exec rake doc:rails generates the API under doc/api.
 

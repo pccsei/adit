@@ -1,14 +1,18 @@
 <h1>Listing Tickets</h1>
 
-<table class = "table">
+<table class="table dataTable">
   <thead>
-    <tr>
+    <tr> 
       <th>Business Name</th>
       <th>Address</th>
       <th>Email</th>
-      <th>Contact Name</th>
+      <th>Contact Title</th>
+      <th>Contact First Names</th>
+      <th>Contact Last Name</th>
       <th>Telephone</th>
-      <th>Comment</th>	
+      <th>Comment</th>      
+      <th></th>	
+      <th></th>
     </tr>
   </thead>
 
@@ -22,8 +26,7 @@
       	<td><%= client.contact_fname %></td>
       	<td><%= client.contact_lname %></td>
       	<td><%= client.telephone %></td>
-      	<td><%= client.comment %></td>
-      	
+      	<td><%= client.comment %></td>      	
         <td><%= link_to 'Show', ticket %></td>
         <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
       </tr>
@@ -34,4 +37,3 @@
 <br>
 
   <%= link_to 'Create Tickets', new_ticket_path %>
-

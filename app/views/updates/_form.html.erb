@@ -1,6 +1,3 @@
-<!-- replace the following with simple for tags -->
-
-
 <%= form_for(@update) do |f| %>
   <% if @update.errors.any? %>
     <div id="error_explanation">
@@ -14,23 +11,33 @@
     </div>
   <% end %>
   
-  
-  <!-- wasn't exactly sure how to use the form helper on this one so I just added the html...  - James Miyashita -->
-  <div class="check-boxes">
-  	<label> First Contact </label>
-  	<input id="first_contact" type="checkbox" value="1">
-  	<label> Presentation </label>
-  	<input id="presentation" type="checkbox" value="2">
-  	<label> Sale </label>
-  	<input id="sale" type="checkbox" value="3">  	
+  <div>
+  	<%= f.fields_for :actions do |a| %>
+  	    <%= label_tag "first_contact", "First Contact" %>
+        <%= a.check_box :action_type_id, { :value => 1} %>
+        <%= label_tag "presentation", "Presentation"%>
+        <%= a.check_box :action_type_id, { :value => 2} %>
+        <%= label_tag "sale", "Sale" %>
+        <%= a.check_box :action_type_id, { :value => 3 } %>
+        
+  <br><br>
+  <div>
+	<%= a.label :user_action_time %>
+	<%= a.datetime_select :user_action_time %>
   </div>
-
   
+  	<% end %>
+  </div>
+  
+</br><br>  
   <div class ="field">
-  	<%= f.label :comment_text %> <br>
+  	<%= f.label :comment_text, "Comment" %> <br>
   	<%= f.text_area :comment_text%>
   </div>
+  
+  <%= f.hidden_field :receipt_id, :value => @update.receipt_id %>
 
+  <%= debug @update %>
   <div class="actions">
     <%= f.submit %>
   </div>

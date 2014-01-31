@@ -33,6 +33,189 @@ def User.new_remember_token
   SecureRandom.urlsafe_base64
 end
 
+def User.parse_students(user_params, section_number, project_id)
+  # Delete the header line if present
+  if user_params.include? "Course"
+    no_description_bar = user_params.split("\n")[1..-1] 
+    all_student_info = no_description_bar
+  else
+    all_student_info = user_params.split("\n")
+  end
+
+  all_student_ids = [] 
+  User.all.each do |user|  
+    all_student_ids.push(user.school_id)
+  end
+  
+  # Parse the input
+  for i in 0..all_student_info.count-1
+    single_student_info = all_student_info[i].split("\t")
+    if !all_student_ids.include?(single_student_info[1])
+      @user = User.new
+      @user.school_id = single_student_info[1]
+      @user.first_name = single_student_info[2].split(", ")[1]
+      @user.last_name = single_student_info[2].split(", ")[0]
+      @user.classification = single_student_info[3]
+      @user.box = single_student_info[5]
+      @user.phone = single_student_info[6]
+      @user.email = single_student_info[7]
+      @user.major = single_student_info[8]
+      @user.minor = single_student_info[9]
+      @user.role = 1
+      @user.save
+      if(@user.save)
+        @member = Member.new
+        @member.user_id = @user.id
+        @member.project_id = project_id
+        @member.section_number = section_number
+        @member.is_enabled = true
+        @member.save
+      end
+    else
+      @user = User.find_by! school_id: single_student_info[1]
+      @user.school_id = single_student_info[1]
+      @user.first_name = single_student_info[2].split(", ")[1]
+      @user.last_name = single_student_info[2].split(", ")[0]
+      @user.classification = single_student_info[3]
+      @user.box = single_student_info[5]
+      @user.phone = single_student_info[6]
+      @user.email = single_student_info[7]
+      @user.major = single_student_info[8]
+      @user.minor = single_student_info[9]
+      @user.role = 1
+      @user.save
+      if (@member = Member.find_by(user_id: (User.find_by school_id: single_student_info[1]).id))
+        @member.user_id = @user.id
+        @member.project_id = project_id
+        @member.section_number = section_number
+        @member.is_enabled = true
+        @member.save
+      else
+        @member = Member.new
+        @member.user_id = @user.id
+        @member.project_id = project_id
+        @member.section_number = section_number
+        @member.is_enabled = true
+        @member.save
+      end
+    end
+  end
+end
+
+def User.do_selected_option(students, choice, student_manager_id, selected_project)
+  if student_manager_id
+    student_manager = User.find(student_manager_id)
+  end
+  
+  # do selected option, as long as some students are selected
+  if students != nil
+    if choice == "Promote_Student"
+      for i in 0..students.count-1
+        user = User.find(students[i])
+        member = Member.where("user_id = ?", students[i]).last
+        user.role = 2
+        member.parent_id = user.id
+        member.save       
+        user.save
+        end
+      end
+
+    if choice == "Demote_Student"
+      for i in 0..students.count-1
+        user = User.find(students[i])
+        current_member = Member.where("user_id = ?", students[i]).last
+        user.role = 1
+        members = Member.where("project_id = ?", selected_project.id)
+         members.each do |m|
+          if current_member.parent_id == m.parent_id
+            m.parent_id = nil
+            m.save
+          end
+        end 
+        user.save
+      end
+    end
+  
+  
+    if choice == "Delete_Student"
+      for i in 0..students.count-1
+        user = User.find(students[i])
+        current_member = Member.where("user_id = ?", students[i]).last
+        if user.role == 2
+          members = Member.where("project_id = ?", selected_project.id)
+          members.each do |m|
+            if current_member.parent_id == m.parent_id
+              m.parent_id = nil
+              m.save
+            end
+          end 
+        end
+        current_member.destroy
+        current_member.save
+      end
+    end
+  
+  
+    if choice == "Create_Team"
+      for i in 0..students.count-1
+        user = User.find(students[i])
+        member = Member.where("user_id = ?", students[i]).last
+        member.parent_id = student_manager.id
+        member.save
+      end
+    end
+  end
+
+
+  # This is the only function that is not currently working for the drop down box.
+  # This will need to reference the section drop-down box
+  # obviously no students students need to be selected here 
+=begin 
+  if choice == "Delete_Everybody"
+    User.all.each do |f|
+      f.destroy
+      f.save
+    end
+  end
+=end
+end
+
+
+
+
+
+# Creates a new Teacher member with the section number. This is all that is done to create a new section 
+def User.create_new_section(teacher_id, section_number, project_id)
+  # Current teacher id will get the current teacher user id in the test loop below.
+  # not_a_section = true
+  # current_teacher_id =1
+
+  # Makeshift test to see if this section is already database. Hopefully this code will be rewritten to be effiecent
+  # Member.all.each do |t|
+  #   if User.find(t.user_id).role == 3
+  #     if t.section_number == section_number.to_i && t.project_id == project_id
+  #       current_teacher_id = t.user_id
+  #       not_a_section = false
+  #     end
+  #   end
+  # end
+  # Only create a new member if it is a new section, otherwise override the existing data
+  # if not_a_section
+    member = Member.new
+    member.user_id = teacher_id
+    member.project_id = project_id
+    member.section_number = section_number
+    member.is_enabled = true
+    member.save
+  # else
+  #   member = Member.find_by(user_id: current_teacher_id, section_number: section_number, project_id: project_id)
+  #   member.user_id = teacher_id
+  #   member.project_id = project_id
+  #   member.section_number = section_number
+  #   member.is_enabled = true
+  #   member.save
+  # end
+end 
 
 def User.encrypt(token)
    Digest::SHA1.hexdigest(token.to_s)
@@ -40,6 +223,10 @@ end
 
 def self.all_students
   where("role = ?", 1).all
+end
+
+def self.all_student_managers
+  where("role = ?", 1).all + where("role = ?", 2).all
 end
 
 def self.all_teachers
