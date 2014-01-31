@@ -9,10 +9,11 @@ class ApplicationController < ActionController::Base
                helper_method :are_tickets_open  
                helper_method :get_selected_project
                helper_method :set_selected_project
+               helper_method :get_section           
                               
   $selected_project = Project.last
   $selected_section = "all"
-            
+
   def get_current_project
     project = Project.find_by is_active: '1'
     return project
@@ -34,7 +35,7 @@ class ApplicationController < ActionController::Base
   def get_section
     return $selected_section
   end
-   
+
    # Restricts access to only teachers 
    def only_teachers
       if current_user.role != 3

@@ -187,44 +187,35 @@ end
 # Creates a new Teacher member with the section number. This is all that is done to create a new section 
 def User.create_new_section(teacher_id, section_number, project_id)
   # Current teacher id will get the current teacher user id in the test loop below.
-  not_a_section = true
-  current_teacher_id =1
+  # not_a_section = true
+  # current_teacher_id =1
 
   # Makeshift test to see if this section is already database. Hopefully this code will be rewritten to be effiecent
-  Member.all.each do |t|
-    if User.find(t.user_id).role == 3
-      if t.section_number == section_number.to_i && t.project_id == project_id
-        current_teacher_id = t.user_id
-        not_a_section = false
-      end
-    end
-  end
+  # Member.all.each do |t|
+  #   if User.find(t.user_id).role == 3
+  #     if t.section_number == section_number.to_i && t.project_id == project_id
+  #       current_teacher_id = t.user_id
+  #       not_a_section = false
+  #     end
+  #   end
+  # end
   # Only create a new member if it is a new section, otherwise override the existing data
-  if not_a_section
+  # if not_a_section
     member = Member.new
     member.user_id = teacher_id
     member.project_id = project_id
     member.section_number = section_number
     member.is_enabled = true
     member.save
-  else
-    member = Member.find_by(user_id: current_teacher_id, section_number: section_number, project_id: project_id)
-    member.user_id = teacher_id
-    member.project_id = project_id
-    member.section_number = section_number
-    member.is_enabled = true
-    member.save
-  end
-    not_a_section 
+  # else
+  #   member = Member.find_by(user_id: current_teacher_id, section_number: section_number, project_id: project_id)
+  #   member.user_id = teacher_id
+  #   member.project_id = project_id
+  #   member.section_number = section_number
+  #   member.is_enabled = true
+  #   member.save
+  # end
 end 
-
-
-
-
-
-
-
-
 
 def User.encrypt(token)
    Digest::SHA1.hexdigest(token.to_s)

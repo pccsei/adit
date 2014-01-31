@@ -1,10 +1,16 @@
 <h1>Student Roster</h1>
 
+<% if @selected_section == "all" %>
+<h2><%= "Displaying all sections"%></h2>
+<% else%>
+<h2><%= "This is section #{@selected_section}"%></h2>
+<% end %>
+
 <!-- This allows teachers to view certain sections -->
 <%= form_tag('/users/set_section') do%>
 	<div>
 <h2>select section<h2>
-	<%= select_tag "section_option", options_for_select(@sections)%> 
+	<%= select_tag "section_option", options_for_select(@sections, selected: @selected_section)%> 
 	<%= submit_tag 'section'%> <!--[@sections.slice(0), @sections.slice(1), @sections.slice(2)]-->
 <% end %>
 	</div>
@@ -12,10 +18,8 @@
 <!-- This gets students from the teacher to be put into the database and get their section number -->
 <h2>Add Student(s)<h2>
 <%= form_tag('/users/input_students_parse') do%>
-
+	<%= label_tag 'Input students you want added to the section here:' %>
 	<%= text_area_tag 'input' %>
-	<%= label_tag 'section number please:' %>
-	<%= text_field_tag 'section' %>
 	<%= submit_tag 'input'%>
 <% end %>
 <br>
