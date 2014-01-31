@@ -1,43 +1,46 @@
 <h1>Student Roster</h1>
 
 <% if @selected_section == "all" %>
-<h2><%= "Displaying all sections"%></h2>
+	<%= "Displaying all sections"%>
 <% else%>
-<h2><%= "This is section #{@selected_section}"%></h2>
+	<%= "This is section #{@selected_section}"%>
 <% end %>
+
+<br><br>
 
 <!-- This allows teachers to view certain sections -->
 <%= form_tag('/users/set_section') do%>
-	<div>
-<h2><h2>
 	<%= select_tag "section_option", options_for_select(@sections, selected: @selected_section)%> 
 	<%= submit_tag 'select section'%>
 	<a href="/users/create_new_section">Or create a new section!</a> <!-- needs to be changed -->
-	<br> <!--[@sections.slice(0), @sections.slice(1), @sections.slice(2)]-->
 <% end %>
-	</div>
+
+<br>
 
 <!-- This gets students from the teacher to be put into the database and get their section number -->
 <!-- only allow a teacher to add students to a section if a section is selected.-->
-<h2><h2>
 <% if @selected_section != "all" %>
-<%= form_tag('/users/input_students_parse') do%>
-	<%= label_tag 'Input students you want added to this section here:' %>
-	<%= text_area_tag 'input' %>
-	<%= submit_tag 'input'%>
-<% end %>	
+	<%= form_tag('/users/input_students_parse') do%>
+		<%= label_tag 'Input students you want added to this section here:' %>
+		<%= text_area_tag 'input' %>
+		<%= submit_tag 'input'%>
+	<% end %>	
 <% else%>	
-<%= "Please select a section or add one before adding students." %>
+	<%= "Please select a section or add one before adding students." %>
 <% end %>
-<br>
-<br>
+
+<br><br>
+
 <%= link_to 'Add One Student', new_user_path %>
+
+<br><br>
 
 <!-- Everything below here is really just a big form. -->
 <%= form_tag('/users/change_student_status') do%>
 	<!-- This is first select for what the teacher wants to do with the students -->
 	<div id="option">
-		<h2>Do stuff with the students!<h2>
+		Do stuff with the students!
+		<br>
 		<%= select_tag "selected_option", options_for_select(["Promote_Student", "Create_Team", "Demote_Student", "Delete_Student", "Delete_Everybody"]), :onchange => 'myFunction()', :prompt => 'select option'%>
 	</div>
 	
@@ -68,6 +71,8 @@
 		}
 	);
 	</script>
+
+	<br><br>
 
 	<!-- Here is huge table of all the students -->
 	<table class ="table dataTable">
