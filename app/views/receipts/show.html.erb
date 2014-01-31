@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p> 
 
 <%= debug @receipt %>
+<%= debug @action %>
 
 <h1>My Client</h1>
 
@@ -8,11 +9,11 @@
 
 <% if @receipt.made_sale == false %>
     <% if @receipt.made_contact == false %>
-	   <%= link_to "I made a first contact!", new_receipt_action_path(@receipt) %>
+	   <%= link_to "I made a first contact!", new_receipt_action_path(@receipt, :action_type_name => "First Contact") %>
        <% else if @receipt.made_presentation == false %>
-          <%= link_to "I made a presentation!", new_receipt_action_path(@receipt) %>
+          <%= link_to "I made a presentation!", new_receipt_action_path(@receipt, :action_type_name => "Presentation") %>
           <% else %>
-             <%= link_to "I made a sale!", new_receipt_action_path(@receipt) %>
+          <%= link_to "I made a sale!", new_receipt_action_path(@receipt, :action_type_name => "Sale") %>
        <% end %> 
    <% end %>
 <% end %>

@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
                helper_method :are_tickets_open  
                helper_method :get_selected_project
                helper_method :set_selected_project
-                              
+                            
   $selected_project = Project.last
             
   def get_current_project

@@ -12,8 +12,42 @@ class ActionsController < ApplicationController
   def show
   end
 
-  # GET /actions/new
+  # GET receipts/:id/actions/new
   def new
+    #sale = (ActionType.find_by :name, "Old Sale").id
+    #presentation =  (Action_Type.find_by :name, "Presentation").id
+    #first_contact = (Action_Type.find_by :name, "First Contact").id
+    #new_sale = (Action_type.find_by :name, "New Sale").id
+    
+    @action = Action.new(:receipt_id => params[:receipt_id])
+    @receipt = Receipt.find(@action.receipt_id)
+    if params[:action_type_name] != "Sale"
+       @action.action_type_id = (ActionType.find_by(name: params[:action_type_name])).id
+    else
+      priority = (((Receipt.find(@action.receipt_id)).ticket).priority).name
+      if priority == green
+        @action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
+      else
+        @action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
+      end
+    end
+    
+    #receipt.actions.each do |a|
+    #  if a.action_type_id 
+    #    @action.action_type_id = (Action_type.find_by :name, "Sale").id
+    #  end
+    #end
+#    if receipt.made_presentation == true
+#     @current_action = SALE
+#      else if receipt.made_contact == true
+#        @current_action = PRESENTATION
+#      else
+#        @current_action = FIRST_CONTACT
+#      end
+#    end
+  end
+  # GET receipts/:id/actions/new_comment
+  def new_comment
     @action = Action.new
   end
 
@@ -69,6 +103,6 @@ class ActionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def action_params
-      params[:action]
+      params.require(:foo).permit(:id, :points_earned, :user_action_time, :action_type_id, :receipt_id, :comment)
     end
 end
