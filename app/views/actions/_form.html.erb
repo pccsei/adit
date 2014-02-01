@@ -1,0 +1,61 @@
+<%= form_for [@receipt, @action], as: :foo do |f| %>
+  <% if @action.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@action.errors.count, "error") %> prohibited this action from being saved:</h2>
+
+      <ul>
+      <% @action.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+<script>
+$("#checkers2").hide();
+$(document).ready(function(){
+  $("#firstCheck").click(function(){
+    $("#checkers2").toggle();
+  });
+});
+</script>
+<% if @action.action_type.name != "Comment"%>
+   <div>
+	 <p>How did it go?</p>
+   </div>
+ 
+   <% if @action.action_type.name == "First Contact"%>
+      <div id = "firstCheck">
+        <%= label_tag("Presentation", "I made a presentation!" ) %>
+	    <%= check_box_tag(:presentation, :onclick => "myFunction()")%>
+      </div>
+   <% end %>
+
+
+      <div id = "checkers2">
+	    <%= label_tag("Sale", "I made a sale!" ) %>
+	    <%= check_box_tag(:sale)%>
+     </div>
+        
+   <% if @action.action_type.name == "Presentation"%>
+      <div id = "checkers">
+	    <%= label_tag("Sale", "I made a sale!" ) %>
+	    <%= check_box_tag(:sale)%>
+     </div>
+     <% end %>
+
+   <div>
+  	 <%= f.label :user_action_time %>
+  	 <%= f.datetime_select :user_action_time %>
+   </div>
+<% end %>
+  <div>
+  	<%= f.label :comment %>
+  	<%= f.text_area :comment %>
+  </div>
+    <%= f.hidden_field :receipt_id, :value => @action.receipt_id %>
+    <%= f.hidden_field :action_type_id, :value => @action.action_type_id %>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

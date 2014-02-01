@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140125154235) do
+ActiveRecord::Schema.define(version: 20140130143133) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(version: 20140125154235) do
     t.datetime "user_action_time"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "update_id"
     t.integer  "action_type_id"
     t.integer  "receipt_id"
+    t.text     "comment"
   end
 
   create_table "bonus", force: true do |t|
@@ -106,8 +106,11 @@ ActiveRecord::Schema.define(version: 20140125154235) do
   create_table "receipts", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "ticket_id"
-    t.integer  "user_id"
+    t.integer  "ticket_id",                         null: false
+    t.integer  "user_id",                           null: false
+    t.boolean  "made_contact",      default: false
+    t.boolean  "made_presentation", default: false
+    t.boolean  "made_sale",         default: false
   end
 
   create_table "statuses", force: true do |t|
@@ -129,14 +132,6 @@ ActiveRecord::Schema.define(version: 20140125154235) do
     t.integer  "client_id"
     t.integer  "user_id"
     t.integer  "priority_id"
-  end
-
-  create_table "updates", force: true do |t|
-    t.boolean  "is_public"
-    t.string   "comment_text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "receipt_id"
   end
 
   create_table "users", force: true do |t|

@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
                helper_method :get_selected_project
                helper_method :set_selected_project
                helper_method :get_section           
-                              
+                            
   $selected_project = Project.last
   $selected_section = "all"
 

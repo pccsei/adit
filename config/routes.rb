@@ -1,6 +1,5 @@
 WhiteCollar::Application.routes.draw do
-  root :to => "clients#index"
-  
+  root :to => "clients#index"  
   post "users/assign_teacher_to_section"
   get  "users/create_new_section"
   get  "users/teachers"
@@ -21,9 +20,12 @@ WhiteCollar::Application.routes.draw do
   resources :clients
   resources :projects
   resources :users
-  resources :receipts
-  resources :updates
-    
+  resources :receipts do
+    resources :actions 
+  end
+  
+  resources :actions
+  
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
 
