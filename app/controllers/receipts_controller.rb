@@ -23,7 +23,11 @@ class ReceiptsController < ApplicationController
   end
   
   def my_receipts
-    @current_user     =  User.find(params[:id])
+    if ((User.find(params[:id]).id == current_user.id) || current_user.role == 3)
+      @student_user     =  User.find(params[:id])
+    else
+        redirect_to "/receipts/my_receipts/#{current_user.id}", alert: 'You have been redirected to your own page'
+    end
     @active_tickets   =  current_user.tickets.where("sale_value is NULL OR sale_value = 0")
     @sold_tickets     =  current_user.tickets.where("sale_value is not NULL or sale_value != 0 ")  
     @all_receipts     =  current_user.receipts

@@ -109,8 +109,8 @@
               <tr>
               <% if (member.section_number == @selected_section.to_i || @selected_section == "" || @selected_section == "all") && (user.role != 3) %>
                 <td><%= check_box_tag "students[]", user.id%></td>
-                <td><%= link_to user.first_name, receipts_my_receipts_path %></td>
-                <td><a href="/users/create_new_section"><%= user.last_name %></a></td>
+                <td><%= link_to user.first_name, "/receipts/my_receipts/#{user.id}" %></td>
+                <td><%= link_to user.last_name, "/receipts/my_receipts/#{user.id}" %></td>
                 <td><%= user.school_id%></td>
                 <td><%= user.email%></td>
                 <td><%= user.phone %></td>                
