@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140130143133) do
+ActiveRecord::Schema.define(version: 20140201034429) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -111,6 +111,9 @@ ActiveRecord::Schema.define(version: 20140130143133) do
     t.boolean  "made_contact",      default: false
     t.boolean  "made_presentation", default: false
     t.boolean  "made_sale",         default: false
+    t.float    "sale_value"
+    t.float    "page_size"
+    t.string   "payment_type"
   end
 
   create_table "statuses", force: true do |t|

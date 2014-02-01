@@ -12,38 +12,62 @@
   <% end %>
   
 <script>
-$("#checkers2").hide();
 $(document).ready(function(){
-  $("#firstCheck").click(function(){
+$(".hidden").hide();
+});
+
+$(document).ready(function(){
+  $("#presentation").click(function(){
+  	$("#checkers2").removeClass("hidden");
     $("#checkers2").toggle();
   });
 });
+
+$(document).ready(function(){
+  $("#sale").click(function(){
+  	$("#saleMade").removeClass("hidden");
+    $("#saleMade").toggle();
+  });
+});
 </script>
+
 <% if @action.action_type.name != "Comment"%>
    <div>
 	 <p>How did it go?</p>
    </div>
  
-   <% if @action.action_type.name == "First Contact"%>
-      <div id = "firstCheck">
-        <%= label_tag("Presentation", "I made a presentation!" ) %>
-	    <%= check_box_tag(:presentation, :onclick => "myFunction()")%>
-      </div>
-   <% end %>
 
+      <% if @action.action_type.name == "First Contact"%>
+         <div id = "firstCheck">
+      <% else %>
+         <div id = "firstCheck", class = "hidden">
+      <% end%>
+           <%= label_tag("presentation", "I made a presentation!" ) %>
+	       <%= check_box_tag(:presentation, :onclick => "myFunction()")%>
+         </div>
 
-      <div id = "checkers2">
-	    <%= label_tag("Sale", "I made a sale!" ) %>
-	    <%= check_box_tag(:sale)%>
-     </div>
         
    <% if @action.action_type.name == "Presentation"%>
-      <div id = "checkers">
-	    <%= label_tag("Sale", "I made a sale!" ) %>
-	    <%= check_box_tag(:sale)%>
+      <div id = "checkers2">
+   <% else %>
+   	  <div id = "checkers2", class = "hidden">
+   <% end %>
+	    <%= label_tag("sale", "I made a sale!" ) %>
+	    <%= check_box_tag(:sale, :onclick => "function()")%>
      </div>
-     <% end %>
 
+   <% if @action.action_type.name == "Sale"%>
+      <div id = "saleMade">
+   <% else %>
+   	  <div id = "saleMade", class = "hidden">
+   <% end%>
+      	<%= label_tag("price", "Sale Amount $") %>
+      	<%= text_field_tag(:price) %>
+      	<%= label_tag("page", "Page Size") %>
+      	<%= text_field_tag(:page) %>
+      	<%= label_tag("payment_type", "Payment Type") %>
+      	<%= select_tag("payment_type", options_for_select(["Cash", "Credit", "Invoice", "Check"]))%>
+      </div>
    <div>
   	 <%= f.label :user_action_time %>
   	 <%= f.datetime_select :user_action_time %>

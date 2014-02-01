@@ -48,7 +48,18 @@ class ActionsController < ApplicationController
     @action = Action.new(action_params)
     receipt = Receipt.find(@action.receipt_id)
     if @action.action_type.name != "Comment"
-        receipt.made_contact = true
+        if receipt.made_contact == true
+           if receipt.made_presentation == true
+             receipt.made_sale = true
+             receipt.sale_value = params[:price]
+             receipt.page_size = params[:page]
+             receipt.payment_type = params[:payment_type]
+           else
+             receipt.made_presentation = true
+           end
+        else
+           receipt.made_contact = true
+        end
         if params[:presentation]
           new_action = Action.new
           new_action.user_action_time = @action.user_action_time
@@ -71,6 +82,9 @@ class ActionsController < ApplicationController
           new_action.comment = @action.comment
           new_action.receipt_id = @action.receipt_id
           receipt.made_sale = true
+          receipt.sale_value = params[:price]
+          receipt.page_size = params[:page]
+          receipt.payment_type = params[:payment_type]
           new_action.save
         end
         receipt.save
@@ -79,7 +93,7 @@ class ActionsController < ApplicationController
         end
     respond_to do |format|
       if @action.save
-        format.html { redirect_to @action, notice: 'Action was successfully created.' }
+        format.html { redirect_to("/receipts/my_receipts/#{@action.receipt.user_id}", notice: 'You successfully updated your client') }
         format.json { render action: 'show', status: :created, location: @action }
       else
         format.html { render action: 'new' }
