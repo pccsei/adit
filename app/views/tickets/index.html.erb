@@ -1,8 +1,56 @@
+<script>
+var last_update = "<%= Time.now.utc.strftime("%Y-%m-%d %H:%M:%S") %>";
+	
+$(function() {
+    
+    $(".addTicket").click(function(caller){
+
+		console.log(caller.target.id);
+		
+		$.getJSON("/tickets.json?ajax=getClient&clientID=" + caller.target.id, 
+	  			function(json) {
+	  				console.log(json);
+	  				
+	  				if (json.Success != null) {
+	  					$('#' + caller.target.id).hide();
+	  					console.log("You got the client!");
+  					}
+	  				else
+	  					console.log("You didn't get the client")
+		})
+	});
+
+	function updateClients() {
+		  $.getJSON("/tickets.json?ajax=update&timestamp=" + last_update, 
+	  			function(json) {
+
+	  				var len = json.length - 1; // compensating for system time appended to the end of JSON object 
+	  				var i;
+					for (i = 0; i < len; i++) { 
+						console.log(json[i]);
+
+						if (json[i].user_id == 0)
+						  $('#' + json[i].client_id).show();
+						else
+	  					  $('#' + json[i].client_id).hide();
+  					}
+  					last_update = json[i];
+      	   })
+      console.log("Last updated at: " + last_update);
+	  setTimeout(updateClients, 2000);
+	}
+	$(".autoHide").hide();	
+	console.log("Hiding all taken clients")
+	setTimeout(updateClients, 1000);
+});
+</script>
+
 <h1>Listing Tickets</h1>
 
 <table class="table dataTable">
   <thead>
     <tr> 
+      <th></th>
       <th>Business Name</th>
       <th>Address</th>
       <th>Email</th>
@@ -15,10 +63,11 @@
       <th></th>
     </tr>
   </thead>
-
   <tbody>
     <% @tickets.each do |ticket| %>
-      <tr><% client = Client.find_by id: ticket.client_id %>
+      <tr><% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
+      	<td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => ticketClass %>
+      	</td>
       	<td><%= client.business_name %></td>
       	<td><%= client.address %></td>
       	<td><%= client.email %></td>

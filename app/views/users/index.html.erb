@@ -7,6 +7,8 @@
 	<%= "This is section #{@selected_section}"%>
 <% end %>
 
+<%= @current.first_name %>
+
 <br><br>
 
 <h2 class = "col-md-12">Please add student(s) to a section<h2>
@@ -86,17 +88,17 @@
 	  <thead>
 	    <tr>
 	      <th></th>
-	      <th><%=sortable "first_name"%></th>
-	      <th><%=sortable "last_name"%></th>
-	      <th><%=sortable "school_id", "ID number"%></th>
-	      <th><%=sortable "email"%></th>
-	      <th><%=sortable "phone"%></th>
-	      <th><%=sortable "parent_id", "Student Manager"%></th>
-	      <th><%=sortable "section"%></th>
-		  <th><%=sortable "major"%></th>
-		  <th><%=sortable "minor"%></th>
-		  <th><%=sortable "box"%></th>
-		  <th><%=sortable "classification", "Class"%></th>
+	      <th>first_name</th>
+	      <th>last_name</th>
+	      <th>ID number</th>
+	      <th>email</th>
+	      <th>phone</th>
+	      <th>student manager</th>
+	      <th>section</th>
+		  <th>major</th>
+		  <th>minor</th>
+		  <th>box</th>
+		  <th>classification</th>
 		  <th></th>
           <th></th>	      	      	      	      	      
 	    </tr>
@@ -107,8 +109,8 @@
               <tr>
               <% if (member.section_number == @selected_section.to_i || @selected_section == "" || @selected_section == "all") && (user.role != 3) %>
                 <td><%= check_box_tag "students[]", user.id%></td>
-                <td><%= user.first_name %></td>
-                <td><%= user.last_name %></td>
+                <td><%= link_to user.first_name, "/receipts/my_receipts/#{user.id}" %></td>
+                <td><%= link_to user.last_name, "/receipts/my_receipts/#{user.id}" %></td>
                 <td><%= user.school_id%></td>
                 <td><%= user.email%></td>
                 <td><%= user.phone %></td>                
@@ -123,7 +125,6 @@
                 <td><%= user.minor %></td>
                 <td><%= user.box %></td>
                 <td><%= user.classification %></td>       
-                <td><%= link_to 'Show', user %></td>
                 <td><%= link_to 'Edit', edit_user_path(user) %></td>
                 <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                 <% end %>
