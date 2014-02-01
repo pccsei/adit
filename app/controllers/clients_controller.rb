@@ -37,11 +37,12 @@ class ClientsController < ApplicationController
   end
 
   def approve_client
-    render text: approved = params['Approve']
-    # params['disapprove']
-    # if params['Approve']
-    #   render text: "hi"
-    # end
+    status = params['commit'] == "Approve" ? 2 : 1
+    array_of_pending_clients = params['clients']
+
+    Client.approve_clients(status, array_of_pending_clients)
+
+    redirect_to clients_url
   end
 
   # GET /clients/new

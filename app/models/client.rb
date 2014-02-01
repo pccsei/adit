@@ -18,4 +18,12 @@ class Client < ActiveRecord::Base
      where("status_id = ?", 4).all
    end
 
+  def Client.approve_clients(status, array_of_pending_clients)
+    for i in 0..array_of_pending_clients.count-1
+      pending_client = Client.find(array_of_pending_clients[i].to_i)
+      pending_client.status_id = status
+      pending_client.save
+    end
+  end
+
 end
