@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  helper_method :sort_column, :sort_direction
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :only_teachers
 
@@ -7,7 +6,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.order(sort_column + " " + sort_direction)
+    @current = self.current_user
+    @users = User.all
 
     # Move this code to the models when you have time
     all_teachers = User.all_teachers
@@ -200,13 +200,4 @@ def teachers
                                    :parent_id, :email, :phone, :first_name, :last_name, :box, 
                                    :major, :minor, :classification, :remember_token)
     end
-    
-    def sort_column
-      User.column_names.include?(params[:sort]) ? params[:sort] : "last_name"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
-
 end
