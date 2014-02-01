@@ -2,7 +2,81 @@ class TicketsController < ApplicationController
   before_action :only_teachers
 
   def index
-    @tickets = Ticket.all
+    
+    currentProject = Project.select("id, use_max_clients, max_green_clients, max_yellow_clients, max_white_clients").where("is_active = 1").first
+
+    if params[:ajax] == "update"
+      updates = Ticket.updates(params[:timestamp])      
+      
+    elsif params[:ajax] == "getClient"      
+      
+      if currentProject.nil? # No current project
+        updates = {"Error" => "There is not a current project!"}        
+      else 
+                
+        # are these defined in the DB????
+        green  = 1
+        yellow = 2
+        white  = 3    
+        
+        if (currentProject.use_max_clients) == 1
+          # Check to see if the user has the max number of clients
+          if Ticket.where("user_id = ?", current_user.school_id).size > currentProject.max_clients
+            updates = { error => "You have reached the maximum number of clients!"}
+          end  
+                
+        #check each color  
+        elsif (Ticket.where("user_id = ? AND priority_id = ?", current_user.id, green)).size > currentProject.max_green_clients          
+          updates = { "Error" => "You have exceeded the number of allowed green clients"}          
+        elsif (Ticket.where("user_id = ? AND priority_id = ?", current_user.id, yellow)).size > currentProject.max_yellow_clients
+          updates = { "Error" => "You have exceeded the number of allowed yellow clients"}          
+        elsif (Ticket.where("user_id = ? AND priority_id = ?", current_user.id, white)).size > currentProject.max_white_clients
+          updates = { "Error" => "You have exceeded the number of allowed white clients"}          
+        else           
+          grabbedTicket = false
+          ticket = nil;
+          
+          Ticket.transaction do                                      
+            ticket = Ticket.where("client_id = ? AND project_id = ?", params[:clientID], currentProject.id).lock(true).first
+            
+            if ticket.nil?
+              updates = {"Error" => "Ticket does not exist for the current project"}
+            else 
+               # User is allowed to get a new client: Try to grab the client ticket               
+               if ticket.user_id.nil? || ticket.user_id == 0
+                 ticket.user_id = current_user.id
+                 ticket.save!
+                 updates = { "Success" => "You got the client"}     
+                 grabbedTicket = true         
+               else 
+                 updates = {"Someone already grabbed that client!!" => "(o_o')"}              
+               end   
+            end
+          end            
+          
+          # This is done down here to allow the transaction above to finish as quickly as possible thus allowing the user to better grab the ticket
+          if grabbedTicket
+            receipt = Receipt.where("ticket_id = ? AND user_id = ?", ticket.id, current_user.id).first
+            
+            if receipt.nil?
+              Receipt.create(ticket_id: ticket.id, user_id: current_user.id)
+            end              
+          end            
+        end
+      end 
+     
+    ## Added by Noah, ugly check for existence of current project, can remove once we've 
+    ## cleaned up the program  
+    elsif currentProject    
+      @tickets = Ticket.current_project(currentProject.id)
+    end
+    
+    respond_to do |format|      
+        format.html 
+        format.json { render json: updates}
+    end
+    
+        
   end
 
   def show

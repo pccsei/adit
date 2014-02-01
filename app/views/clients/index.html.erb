@@ -9,127 +9,48 @@
 <% end %>
 
 
-<!-- Buttons wont appear if they were not loaded when the page was first loaded because they were not created. -->
+<br /><br /><br />
 
 
-<script>
-	var last_update = "<%= Time.now.strftime("%Y-%m-%d %H:%M:%S") %>";
-	// need to have server send new timestamp!!!
-	
-$(function() {
-    console.log( "ready!" );
-  
-    //currently writing to ping server
-    $(".addTicket").click(function(caller){		
-
-		console.log(caller.target.id);		
-//		alert("Add Ticket in progress");
-		
-		$.getJSON("/clients.json?ajax=getClient&clientID=" + caller.target.id, 
-	  			function(json) {
-	  				//console.log("Response received......");
-	  				console.log(json);
-	  				
-	  				if (json.Success != null) {
-	  					$('#' + caller.target.id).hide();
-	  					console.log("You got the client!");
-  					}
-	  				else
-	  					console.log("You didn't get the client")
-		})
-		//updateClients();
-	});
-
-
-//	setTimeout(updateClients, 1000);
-
-
-	function updateClients() {
-		  $.getJSON("/clients.json?ajax=update&timestamp=" + last_update, 
-	  			function(json) {
-	  				//console.log("Response received......");
-
-	  				var len = json.length - 1; // compensating for system time appended to the end of JSON object 
-	  				var i;
-					for (i = 0; i < len; i++) { 
-						//console.log(json[i]);
-
-						if (json[i].user_id == 0)
-						  $('#' + json[i].client_id).show();
-						else
-	  					  $('#' + json[i].client_id).hide();
-  					}
-  					//temp = last_update;
-  					last_update = json[i];
-  					//last_update = temp;
-      	   })
-      	   
-      console.log("Last updated at: " + last_update);
-	  setTimeout(updateClients, 2000);
-	}
-
-});
-
-
-</script>
-
-
-
-<br /><br /><br /><br /><br /><br /><br />
-
-<% if @tickets%>
 <h1>Listing clients</h1>
 
-<%= #debug get_selected_project
-%>
-
-<table>
+<table class="dataTable">
   <thead>
     <tr>
-    	<th> </th>
       <th>Business name</th>
       <th>Address</th>
       <th>Email</th>
-      <th>Contact name</th>
+      <th>Contact title</th>
+      <th>First name</th>
+      <th>Last name</th>
       <th>Telephone</th>
       <th>Comment</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
     
   </thead>
 
   <tbody>
-<% @tickets.each do |ticket| %>    
+<% @clients.each do |client| %>    
 
-      <tr class="<%= ticket.client.id %>">
-      	
-         
-          	<td>
-          	<% if (ticket.user_id == 0) %>
-		  		<%= button_tag "add", type: 'button',  :id => ticket.id, :class => "addTicket" %>
-	  		<%end%>
-          	</td>
-          	
-          	
-        <td><%= ticket.client.business_name %></td>
-        <td><%= ticket.client.address %></td>
-        <td><%= ticket.client.email %></td>
-        <td><%= ticket.client.contact_title %></td>
-        <td><%= ticket.client.contact_fname %></td>
-        <td><%= ticket.client.contact_lname %></td>
-        <td><%= ticket.client.telephone %></td>
-        <td><%= ticket.client.comment %></td>
+      <tr class="<%= client.id %>"> 
+      	<td><%= client.business_name %></td>
+        <td><%= client.address %></td>
+        <td><%= client.email %></td>
+        <td><%= client.contact_title %></td>
+        <td><%= client.contact_fname %></td>
+        <td><%= client.contact_lname %></td>
+        <td><%= client.telephone %></td>
+        <td><%= client.comment %></td>
       </tr>
 <% end %>
    
   </tbody>
 </table>
 
-<br>
+<br/><br/><br/><br/>
 
 <%= link_to 'New Client', new_client_path %>
-<% else %>
-   Currently, there is no project for you to view. Contact you teacher for further instructions.
-<% end %>
+
+
+
+<br/><br/><br/><br/><br/><br/>
