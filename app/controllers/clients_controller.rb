@@ -122,8 +122,13 @@ class ClientsController < ApplicationController
            
   end
 
-
-
+  def approve_client
+    render text: approved = params['Approve']
+    # params['disapprove']
+    # if params['Approve']
+    #   render text: "hi"
+    # end
+  end
 
   # GET /clients/new
   def new

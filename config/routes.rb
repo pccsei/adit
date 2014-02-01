@@ -14,6 +14,7 @@ WhiteCollar::Application.routes.draw do
   post "projects/select_project"
   post "/users/set_section"
   match  "receipts/my_receipts/:id", to: 'receipts#my_receipts', via: 'get'
+  post "/clients/approve_client"
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets

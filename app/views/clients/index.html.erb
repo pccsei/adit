@@ -1,5 +1,5 @@
 <% if current_user.role == 3 %>
-   <%= form_tag do %>
+   <%= form_tag('/clients/approve_client') do %>
        <%= render :partial => "pending", :locals => { :pending_clients => @pending_clients} %>
        <%= submit_tag 'Approve' %>
        <%= submit_tag 'Disapprove'%>
