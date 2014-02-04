@@ -1,0 +1,85 @@
+<%= form_for [@receipt, @action], as: :foo do |f| %>
+  <% if @action.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@action.errors.count, "error") %> prohibited this action from being saved:</h2>
+
+      <ul>
+      <% @action.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+<script>
+$(document).ready(function(){
+$(".hidden").hide();
+});
+
+$(document).ready(function(){
+  $("#presentation").click(function(){
+  	$("#checkers2").removeClass("hidden");
+    $("#checkers2").toggle();
+  });
+});
+
+$(document).ready(function(){
+  $("#sale").click(function(){
+  	$("#saleMade").removeClass("hidden");
+    $("#saleMade").toggle();
+  });
+});
+</script>
+
+<% if @action.action_type.name != "Comment"%>
+   <div>
+	 <p>How did it go?</p>
+   </div>
+ 
+
+      <% if @action.action_type.name == "First Contact"%>
+         <div id = "firstCheck">
+      <% else %>
+         <div id = "firstCheck", class = "hidden">
+      <% end%>
+           <%= label_tag("presentation", "I made a presentation!" ) %>
+	       <%= check_box_tag(:presentation, :onclick => "myFunction()")%>
+         </div>
+
+        
+   <% if @action.action_type.name == "Presentation"%>
+      <div id = "checkers2">
+   <% else %>
+   	  <div id = "checkers2", class = "hidden">
+   <% end %>
+	    <%= label_tag("sale", "I made a sale!" ) %>
+	    <%= check_box_tag(:sale, :onclick => "function()")%>
+     </div>
+
+   <% if @action.action_type.name == "Sale"%>
+      <div id = "saleMade">
+   <% else %>
+   	  <div id = "saleMade", class = "hidden">
+   <% end%>
+      	<%= label_tag("price", "Sale Amount $") %>
+      	<%= text_field_tag(:price) %>
+      	<%= label_tag("page", "Page Size") %>
+      	<%= text_field_tag(:page) %>
+      	<%= label_tag("payment_type", "Payment Type") %>
+      	<%= select_tag("payment_type", options_for_select(["Cash", "Credit", "Invoice", "Check"]))%>
+      </div>
+   <div>
+  	 <%= f.label :user_action_time %>
+  	 <%= f.datetime_select :user_action_time %>
+   </div>
+<% end %>
+  <div>
+  	<%= f.label :comment %>
+  	<%= f.text_area :comment %>
+  </div>
+    <%= f.hidden_field :receipt_id, :value => @action.receipt_id %>
+    <%= f.hidden_field :action_type_id, :value => @action.action_type_id %>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

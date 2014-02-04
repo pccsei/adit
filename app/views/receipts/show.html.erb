@@ -1,45 +1,51 @@
 <p id="notice"><%= notice %></p> 
 
-<h1>Listing updates</h1>
+<%= debug @receipt %>
+<%= debug @action %>
 
-    <% @updates.each do |update| %>
-    <!-- <%# update.actions.each do |a| %> -->
-    
-    <% @action_completed = Action.where("update_id = ?", update.id).maximum("action_type_id") %>  
+<h1>My Client</h1>
 
-  <!-- wasn't exactly sure how to use the form helper on this one so I just added the html...  - James Miyashita -->
-  <!-- The correct boxes being checked is currently not correct. I am focusing on authorization now though... Noah Conrad -->
-  <div class="check-boxes">
-  	<label> First Contact </label>
-  	<input id="first_contact" type="checkbox" value="1">
-  	<label> Presentation </label>
-  	<input id="presentation" type="checkbox" value="2">
-  	<label> Sale </label>
-  	<input id="sale" type="checkbox" value="3">  	
-  </div>
-  
-  <%= debug @action_completed %>
-  <%= debug @highestUserAction%>
-      	   <!-- <%#= a.points_earned%>
-      	   <%#= a.user_action_time%>
-      	<%# end %> -->
-        <%= link_to 'Edit', edit_update_path(update) %>
-        <%= link_to 'Destroy', update, method: :delete, data: { confirm: 'Are you sure?' } %>
+<!-- Eventually, we probably want to turn this to a link that is styled like a button -->
 
-    <% end %>
+<% if @receipt.made_sale == false %>
+    <% if @receipt.made_contact == false %>
+	   <%= link_to "I made a first contact!", new_receipt_action_path(@receipt, :action_type_name => "First Contact") %>
+       <% else if @receipt.made_presentation == false %>
+          <%= link_to "I made a presentation!", new_receipt_action_path(@receipt, :action_type_name => "Presentation") %>
+          <% else %>
+          <%= link_to "I made a sale!", new_receipt_action_path(@receipt, :action_type_name => "Sale") %>
+       <% end %> 
+   <% end %>
+<% end %>
+<br></br>
 
+<%= link_to "I just have a comment", new_receipt_action_path(@receipt, :action_type_name => "Comment") %>
 
+<h3>My Past Actions</h3>
+<br><br>
+<table class="table dataTable">
+  <thead>
+    <tr> 
+      <th>Action</th>
+      <th>Time</th>
+      <th>Points</th>
+      <th>Comment</th>
+      <th></th>
+    </tr>
+  </thead>
 
-This will list all of the updates for a given ticket.
-<br>
-
-
-<%= debug @updates%>
-
-
-<%= link_to 'Create New Update', new_update_path(:q1 => @receipt.id)%>
-
-
-<!--This does not go to the right place, there will be individual edits on each update
-	<%#= link_to 'Edit', edit_receipt_path(@receipt) %> -->
+<tbody>
+<% @receipt.actions.each do |a| %>
+   <tr>
+   	<td><%= a.action_type.name %></td>
+   	<td><%= a.user_action_time %></td>
+   	<td><%= a.action_type.point_value %></td>
+   	<td><%= a.comment %></td>
+    <td><%= link_to 'Delete', a, method: :delete, 
+                                         data: { confirm: 'Are you sure?' } %></td>
+   </tr>
+<% end %>
+</tbody>
+</table>
+<%= link_to 'New', new_action_path %>
 <%= link_to 'Back', receipts_path %>

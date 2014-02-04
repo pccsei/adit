@@ -4,30 +4,36 @@ class ReceiptsController < ApplicationController
   # GET /receipts
   # GET /receipts.json
   def index
-    
-    @current_user      = User.first
-    @active_tickets   =  current_user.tickets.where("sale_value is NULL OR sale_value = 0")
-    @sold_tickets     =  current_user.tickets.where("sale_value is not NULL or sale_value != 0 ")  
-    @all_receipts     =  current_user.receipts
-    @all_tickets      =  Ticket.where("project_id = ?", get_current_project)
-    @released_tickets =  Array.new  
+    redirect_to "/receipts/my_receipts/#{current_user.id}"
+
+    # @current_user     =  User.first
+    # @active_tickets   =  current_user.tickets.where("sale_value is NULL OR sale_value = 0")
+    # @sold_tickets     =  current_user.tickets.where("sale_value is not NULL or sale_value != 0 ")  
+    # @all_receipts     =  current_user.receipts
+    # @all_tickets      =  Ticket.where("project_id = ?", get_current_project)
+    # @released_tickets =  Array.new  
    
-    @all_receipts.each do |r|
-      @all_tickets.each do |t|
-        if ((t.user_id != r.user_id) && (r.ticket_id == t.id))
-          @released_tickets << t
-        end
-      end
-    end
+    # @all_receipts.each do |r|
+    #   @all_tickets.each do |t|
+    #     if ((t.user_id != r.user_id) && (r.ticket_id == t.id))
+    #       @released_tickets << t
+    #     end
+    #   end
+    # end
 
 
   end
   
   def my_receipts
-    @current_user     =  User.find(params[:id])
-    @active_tickets   =  current_user.tickets.where("sale_value is NULL OR sale_value = 0")
-    @sold_tickets     =  current_user.tickets.where("sale_value is not NULL or sale_value != 0 ")  
-    @all_receipts     =  current_user.receipts
+    if ((User.find(params[:id]).id == current_user.id) || current_user.role == 3)
+      @student_user     =  User.find(params[:id])
+      student_user     =  User.find(params[:id])
+    else
+      redirect_to "/receipts/my_receipts/#{current_user.id}", alert: 'You have been redirected to your own page'
+    end
+    @active_tickets   =  student_user.tickets.where("sale_value is NULL OR sale_value = 0")
+    @sold_tickets     =  student_user.tickets.where("sale_value is not NULL or sale_value != 0 ")  
+    @all_receipts     =  student_user.receipts
     @all_tickets      =  Ticket.where("project_id = ?", get_current_project)
     @released_tickets =  Array.new  
    
@@ -44,17 +50,9 @@ class ReceiptsController < ApplicationController
   # GET /receipts/1.json
   # We can use this function to list the updates on a receipt
   def show
-    @updates = Update.where("receipt_id = ?", params[:id]).order("created_at")
-    
-    if @updates.nil?
-      @ERROR = "Updates is nil"
-      
-    else
-            
-      @highestUserAction = Action.where("receipt_id = ?", params[:id]).maximum("action_type_id")    
-      @sale = Action.where("receipt_id = ? AND action_type_id = ?", params[:id], 3) #may need to be fixed if the DB column is changed
-      
-    end
+    @receipt = Receipt.find(params[:id])            
+      #@highestUserAction = Action.where("receipt_id = ?", params[:id]).maximum("action_type_id")    
+      #@sale = Action.where("receipt_id = ? AND action_type_id = ?", params[:id], 3) #may need to be fixed if the DB column is changed
   end
 
   # GET /receipts/new

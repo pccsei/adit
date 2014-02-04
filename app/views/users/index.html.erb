@@ -1,32 +1,55 @@
-<h1>Student Roster</h1>
+
+<h1 class = "col-md-3", id = "heading">Student Roster</h1>
+
+<% if @selected_section == "all" %>
+	<%= "Displaying all sections"%>
+<% else%>
+	<%= "This is section #{@selected_section}"%>
+<% end %>
+
+<%= @current.first_name %>
+
+<br><br>
+
+<h2 class = "col-md-12">Please add student(s) to a section<h2>
 
 <!-- This allows teachers to view certain sections -->
-<%= form_tag('/users') do%>
-	<div>
-<h2>select section<h2>
-	<%= select_tag "section_option", options_for_select(@sections), :prompt => ""%> 
-	<%= submit_tag 'section'%>
+<div class = "col-md-9", id = "select-section">
+<%= form_tag('/users/set_section') do%>
+	<%= select_tag "section_option", options_for_select(@sections, selected: @selected_section)%> 
+	<%= submit_tag 'select section', class: "btn btn-large btn-primary btn-sm"%>
+	<a href="/users/create_new_section">Or create a new section!</a> <!-- needs to be changed -->
 <% end %>
-	</div>
+</div>
+
+<br>
 
 <!-- This gets students from the teacher to be put into the database and get their section number -->
-<h2>Add Student(s)<h2>
-<%= form_tag('/users/input_students_parse') do%>
-
-	<%= text_area_tag 'input' %>
-	<%= label_tag 'section number please:' %>
-	<%= text_field_tag 'section' %>
-	<%= submit_tag 'input'%>
+<!-- only allow a teacher to add students to a section if a section is selected.-->
+<div class = "col-md-12">
+<% if @selected_section != "all" %>
+	<%= form_tag('/users/input_students_parse') do%>
+		<%= label_tag 'Input students you want added to this section here:' %>
+		<%= text_area_tag 'input' %>
+		<%= submit_tag 'input'%>
+	<% end %>	
+<% else%>	
+	<%= "Please select a section or add one before adding students." %>
 <% end %>
-<br>
-<br>
+</div>
+
+<br><br>
+
 <%= link_to 'Add One Student', new_user_path %>
+
+<br><br>
 
 <!-- Everything below here is really just a big form. -->
 <%= form_tag('/users/change_student_status') do%>
 	<!-- This is first select for what the teacher wants to do with the students -->
 	<div id="option">
-		<h2>Do stuff with the students!<h2>
+		Do stuff with the students!
+		<br>
 		<%= select_tag "selected_option", options_for_select(["Promote_Student", "Create_Team", "Demote_Student", "Delete_Student", "Delete_Everybody"]), :onchange => 'myFunction()', :prompt => 'select option'%>
 	</div>
 	
@@ -57,25 +80,25 @@
 		}
 	);
 	</script>
-	
-	<%= debug @sections %>
+
+	<br><br>
 
 	<!-- Here is huge table of all the students -->
 	<table class ="table dataTable">
 	  <thead>
 	    <tr>
 	      <th></th>
-	      <th><%=sortable "first_name"%></th>
-	      <th><%=sortable "last_name"%></th>
-	      <th><%=sortable "school_id", "ID number"%></th>
-	      <th><%=sortable "email"%></th>
-	      <th><%=sortable "phone"%></th>
-	      <th><%=sortable "parent_id", "Student Manager"%></th>
-	      <th><%=sortable "section"%></th>
-		  <th><%=sortable "major"%></th>
-		  <th><%=sortable "minor"%></th>
-		  <th><%=sortable "box"%></th>
-		  <th><%=sortable "classification", "Class"%></th>
+	      <th>first_name</th>
+	      <th>last_name</th>
+	      <th>ID number</th>
+	      <th>email</th>
+	      <th>phone</th>
+	      <th>student manager</th>
+	      <th>section</th>
+		  <th>major</th>
+		  <th>minor</th>
+		  <th>box</th>
+		  <th>classification</th>
 		  <th></th>
           <th></th>	      	      	      	      	      
 	    </tr>
@@ -86,8 +109,8 @@
               <tr>
               <% if (member.section_number == @selected_section.to_i || @selected_section == "" || @selected_section == "all") && (user.role != 3) %>
                 <td><%= check_box_tag "students[]", user.id%></td>
-                <td><%= user.first_name %></td>
-                <td><%= user.last_name %></td>
+                <td><%= link_to user.first_name, "/receipts/my_receipts/#{user.id}" %></td>
+                <td><%= link_to user.last_name, "/receipts/my_receipts/#{user.id}" %></td>
                 <td><%= user.school_id%></td>
                 <td><%= user.email%></td>
                 <td><%= user.phone %></td>                
@@ -102,8 +125,8 @@
                 <td><%= user.minor %></td>
                 <td><%= user.box %></td>
                 <td><%= user.classification %></td>       
-                <td><%= link_to 'Show', user %></td>
                 <td><%= link_to 'Edit', edit_user_path(user) %></td>
+                <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                 <% end %>
               </tr>
             <% end %>
@@ -111,7 +134,6 @@
         </table>
 <%end%>
 
-
 <br>
 
-
+<a href="/users/teachers">Teachers page</a>

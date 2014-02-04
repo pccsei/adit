@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  helper_method :sort_column, :sort_direction
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :only_teachers
 
@@ -7,7 +6,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.order(sort_column + " " + sort_direction)
+    @current = self.current_user
+    @users = User.all
 
     # Move this code to the models when you have time
     all_teachers = User.all_teachers
@@ -25,18 +25,12 @@ class UsersController < ApplicationController
     end
     
     @current_students = student_users_for_selected_project.zip(project_student_members)
-       
-
-    # set paraments for selected section
-    @sections = []
-    if params["section_option"]
-      @selected_section = params["section_option"]
-    else
-      @selected_section = "all"
-    end
+    @selected_section = get_section
      
-    # Find sections for current project    
-    @sections = (Member.where("project_id = ?", (get_selected_project).id).uniq!.pluck("section_number")) 
+    # Find sections for current project
+    @sections = (Member.where("project_id = ?", (get_selected_project).id).uniq!.pluck("section_number"))
+    @sections.sort!
+    @sections.unshift("all")
     
     # find student managers
     @student_managers = User.where(role: 2)
@@ -52,14 +46,40 @@ class UsersController < ApplicationController
     #@section_numbers = member_teachers.section_number.uniq!
   end
   
-  def teacher
-    @users = User.all
+def teachers
+    @teachers = User.all_teachers
+    all_students = User.all_students
+    
+    student_ids = []
+    all_students.each do |t|
+      student_ids << t.id
+    end
+    
+    project_teacher_members = Member.project_members(get_selected_project).where.not(user_id: student_ids )
+    
+    teacher_users_for_selected_project = []
+    project_teacher_members.each do |s|
+      teacher_users_for_selected_project << (User.find(s.user_id))
+    end
+    
+    @current_teachers = teacher_users_for_selected_project.zip(project_teacher_members)
   end
   
   def student_manager
     @users = User.all
   end
   
+  def create_new_section
+  end
+
+  def assign_teacher_to_section
+    teacher = params[:last_name]
+    section_number = params['section']  
+
+    User.create_new_section(teacher[:id], section_number, get_selected_project.id)
+    redirect_to users_url  
+  end
+
   def student_rep
   end
   
@@ -73,13 +93,20 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def set_section
+    # set paraments for selected section
+    selected_section = params["section_option"]
+    set_selected_section(selected_section)
+    redirect_to users_url
+  end
+
   # GET /users/1/edit
   def edit
   end
 
   def input_students_parse
     user_params = params['input']
-    section_number = params['section']  
+    section_number = get_section 
    
     User.parse_students(user_params, section_number, get_selected_project.id) 
     redirect_to users_url
@@ -156,8 +183,10 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   # DELETE /users/1.json
+  # Deletes the Member, not the user.
   def destroy
-    @user.destroy
+    member = Member.find_by user_id: @user.id
+    member.destroy
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
@@ -176,13 +205,4 @@ class UsersController < ApplicationController
                                    :email, :phone, :first_name, :last_name, :box, 
                                    :major, :minor, :classification, :remember_token)
     end
-    
-    def sort_column
-      User.column_names.include?(params[:sort]) ? params[:sort] : "last_name"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
-
 end

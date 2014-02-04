@@ -49,12 +49,6 @@
 <%= link_to 'Edit', edit_project_path(@project) %> 
 <%= link_to 'Project list', projects_path %>
 
-
-<h1>Manage Section</h1>
-
-<br>
-<a href="/users/create_new_section">Create A New Section!</a> <!-- needs to be changed -->
-<br>
 <% if @section_numbers %>
 <% @section_numbers.each do |s|%>
 <%= link_to 'Section' + ' ' + s + ' ' , users_path %>
