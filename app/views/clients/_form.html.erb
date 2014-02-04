@@ -39,7 +39,7 @@
     <%= f.label "Contact title" %>
     <%= f.label "Contact first name" %>
     <%= f.label "Contact last name" %><br>
-    <%= f.text_field :contact_title %>
+    <%= f.select :contact_title, options_for_select(%w[Mr. Mrs. Ms. Miss]) %>
     <%= f.text_field :contact_fname %>
     <%= f.text_field :contact_lname %>
   </div>
@@ -56,3 +56,21 @@
     <%= f.submit %>
   </div>
 <% end %>
+<script>
+	$(document).ready(function () {
+		$("#new_client").validate({
+			rules: {
+				"client[business_name]": {required: true},
+				"client[address]": {required: true},
+				"client[zipcode]": {rangelength: [5,5]},
+				"client[email]": {email: true},
+				"client[telephone]": {phoneUS: true}
+			},
+			messages: {
+				"client[business_name]": "Please specify the business name",
+				"client[address]": "Please specify the address",
+				"client[zipcode]": "Please enter a valid zipcode",
+			}
+		});
+	});
+</script>

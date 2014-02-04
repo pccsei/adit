@@ -101,6 +101,10 @@ class ClientsController < ApplicationController
   def show
   end
 
+  def full_help
+    @current_user.help = false
+    @current_user.save
+  end
 
   #used when the clients page pings the server to see if there are any new actions to be performed on the table
   

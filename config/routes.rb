@@ -13,6 +13,8 @@ WhiteCollar::Application.routes.draw do
   post "/users/show_section"
   post "projects/select_project"
   match  "receipts/my_receipts/:id", to: 'receipts#my_receipts', via: 'get'
+  get  "users/full_help"
+  get  "clients/full_help"
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets

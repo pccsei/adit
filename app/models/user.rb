@@ -7,9 +7,9 @@ class User < ActiveRecord::Base
   
   before_create :create_remember_token
 
-  validates :school_id, :email, :phone, :section, presence: true
+  validates :school_id, :email, :phone, presence: true
   validates :school_id, uniqueness: true
-=begin  validates :email, format: {
+  validates :email, format: {
     with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\z/,
     message: 'must be a valid school email address'
   }
@@ -20,7 +20,6 @@ class User < ActiveRecord::Base
     minimum: 9, maximum: 9,
     message: 'is the wrong length'
   }
-=end
 
       ### BEGIN CONFIGURATION ###
       SERVER = 'studentnet.int'        # Active Directory server name or IP

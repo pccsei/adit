@@ -29,6 +29,9 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+# Added by Jake Canipe
+gem 'rails-gallery'
+gem 'jquery-validation-rails'
 
 # added by James Miyashita
 gem 'jquery-ui-rails'

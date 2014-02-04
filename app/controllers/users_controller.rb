@@ -62,6 +62,11 @@ class UsersController < ApplicationController
   
   def student_rep
   end
+  
+  def full_help
+      @current_user.help = false
+      @current_user.save
+  end
 
   # GET /users/new
   def new

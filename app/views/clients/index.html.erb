@@ -1,3 +1,7 @@
+<% if current_user.help == true %>
+	<%= render :partial => "help" %>
+<% end %>
+
 <% if current_user.role == 3 %>
    <%= form_tag do %>
        <%= render :partial => "pending", :locals => { :pending_clients => @pending_clients} %>
