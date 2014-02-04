@@ -1,15 +1,7 @@
-<<<<<<< HEAD
 <% if current_user.help == true %>
 	<%= render :partial => "help" %>
 <% end %>
 
-<% if current_user.role == 3 %>
-   <%= form_tag do %>
-       <%= render :partial => "pending", :locals => { :pending_clients => @pending_clients} %>
-       <%= submit_tag 'Approve' %>
-       <%= submit_tag 'Disapprove'%>
-   <% end %>
-=======
 <% if !(@pending_clients.empty?)%>
   <% if (current_user.role == 3)%>
       <%= form_tag('/clients/approve_client') do %>
@@ -20,7 +12,6 @@
   <% else %>
      <%= render :partial => "pending", :locals => { :pending_clients => @pending_clients} %>
   <% end %>
->>>>>>> 88f8e727acf61fc723639e7390ee389449d447ab
 <% else %>
   There are no current pending clients.
 <% end %>
