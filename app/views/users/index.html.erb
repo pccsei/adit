@@ -1,46 +1,53 @@
+<!-- PUT IN THE TITLE --> <!-- use the application helper -->
+<title><%= content_for?(:title) ? yield(:title) : "Manage Section" %></title>
 
-<h1 class = "col-md-3", id = "heading">Student Roster</h1>
+<h1 class = "col-md-3", id = "heading">Manage Section</h1>
 
+<h5 class = "col-md-9" id="section_type">
 <% if @selected_section == "all" %>
-	<%= "Displaying all sections"%>
+	<%= "Displaying all sections for"%>
 <% else%>
 	<%= "This is section #{@selected_section}"%>
 <% end %>
 
 <%= @current.first_name %>
-
+</h5>
 <br><br>
 
-<h2 class = "col-md-12">Please add student(s) to a section<h2>
 
+
+
+
+<br>
+<br>
+<!-- This gets students from the teacher to be put into the database and get their section number -->
+<!-- only allow a teacher to add students to a section if a section is selected.-->
+<div class = "col-md-12">
+<% if @selected_section == "all" %><!-- SWITCH BACK BEFORE PUSH-->
+	<%= form_tag('/users/input_students_parse') do%>
+		<%= label_tag 'Copy & Paste your student list here or ' %> <%= link_to 'Add One Student', new_user_path, class: "btn btn-large btn-primary btn-sm" %>
+		<br>
+		<%= text_area_tag 'input' %>
+		<br><%= submit_tag 'Add Students to Section', class: "btn btn-large btn-primary btn-sm"%>
+	<% end %>	
+<% else%>	
+	
+<% end %>
+</div>
+
+<br><br>
 <!-- This allows teachers to view certain sections -->
 <div class = "col-md-9", id = "select-section">
 <%= form_tag('/users/set_section') do%>
 	<%= select_tag "section_option", options_for_select(@sections, selected: @selected_section)%> 
-	<%= submit_tag 'select section', class: "btn btn-large btn-primary btn-sm"%>
-	<a href="/users/create_new_section">Or create a new section!</a> <!-- needs to be changed -->
+	<%= submit_tag 'Select Section', class: "btn btn-large btn-primary btn-sm"%>
+	<br><br><a href="/users/create_new_section" class="col-md-2 btn btn-info btn-sm">Create a New Section</a> <!-- needs to be changed -->
+<br>	
 <% end %>
 </div>
 
-<br>
 
-<!-- This gets students from the teacher to be put into the database and get their section number -->
-<!-- only allow a teacher to add students to a section if a section is selected.-->
-<div class = "col-md-12">
-<% if @selected_section != "all" %>
-	<%= form_tag('/users/input_students_parse') do%>
-		<%= label_tag 'Input students you want added to this section here:' %>
-		<%= text_area_tag 'input' %>
-		<%= submit_tag 'input'%>
-	<% end %>	
-<% else%>	
-	<%= "Please select a section or add one before adding students." %>
-<% end %>
-</div>
 
-<br><br>
-
-<%= link_to 'Add One Student', new_user_path %>
 
 <br><br>
 
@@ -48,7 +55,6 @@
 <%= form_tag('/users/change_student_status') do%>
 	<!-- This is first select for what the teacher wants to do with the students -->
 	<div id="option">
-		Do stuff with the students!
 		<br>
 		<%= select_tag "selected_option", options_for_select(["Promote_Student", "Create_Team", "Demote_Student", "Delete_Student", "Delete_Everybody"]), :onchange => 'myFunction()', :prompt => 'select option'%>
 	</div>
@@ -88,17 +94,17 @@
 	  <thead>
 	    <tr>
 	      <th></th>
-	      <th>first_name</th>
-	      <th>last_name</th>
+	      <th>First Name</th>
+	      <th>Last Name</th>
 	      <th>ID number</th>
-	      <th>email</th>
-	      <th>phone</th>
-	      <th>student manager</th>
-	      <th>section</th>
-		  <th>major</th>
-		  <th>minor</th>
-		  <th>box</th>
-		  <th>classification</th>
+	      <th>Email</th>
+	      <th>Phone</th>
+	      <th>Student Manager</th>
+	      <th>Section</th>
+		  <th>Major</th>
+		  <th>Minor</th>
+		  <th>Box</th>
+		  <th>Classification</th>
 		  <th></th>
           <th></th>	      	      	      	      	      
 	    </tr>

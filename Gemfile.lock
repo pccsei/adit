@@ -5,7 +5,6 @@ GIT
     jquery-datatables-rails (1.12.2)
       jquery-rails
       sass-rails
-
 GEM
   remote: http://rubygems.org/
   specs:
