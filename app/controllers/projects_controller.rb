@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
       if @project.save
         create_tickets(@project)
         set_selected_project(@project)
-        format.html { redirect_to projects_next_step_path, notice: 'Project was successfully created.' }
+        format.html { redirect_to projects_path, notice: 'Project was successfully created.' }
         format.html { redirect_to users_path, notice: 'Project was successfully created.' }
 
       else

@@ -82,6 +82,11 @@ def teachers
 
   def student_rep
   end
+  
+  def full_help
+      @current_user.help = false
+      @current_user.save
+  end
 
   # GET /users/new
   def new
@@ -196,8 +201,8 @@ def teachers
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:id, :created_at, :updated_at, :school_id, :role, :section, 
-                                   :parent_id, :email, :phone, :first_name, :last_name, :box, 
+      params.require(:user).permit(:id, :created_at, :updated_at, :school_id, :role, :role,
+                                   :email, :phone, :first_name, :last_name, :box, 
                                    :major, :minor, :classification, :remember_token)
     end
 end

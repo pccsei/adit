@@ -1,3 +1,7 @@
+<% if current_user.help == true %>
+	<%= render :partial => "help" %>
+<% end %>
+
 <% if !(@pending_clients.empty?)%>
   <% if (current_user.role == 3)%>
       <%= form_tag('/clients/approve_client') do %>

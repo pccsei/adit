@@ -6,8 +6,6 @@ one:
   updated_at: 2013-11-08 23:10:35
   school_id: MyString
   role: 1
-  section: 1
-  parent_id: MyString
   email: MyString
   phone: 17-1111-1
   first_name: MyString
@@ -24,8 +22,6 @@ two:
   updated_at: 2013-11-08 23:10:35
   school_id: MyStrings
   role: 1
-  section: 1
-  parent_id: MyString
   email: MyString
   phone: 17-1111-1
   first_name: MyString
@@ -42,8 +38,6 @@ teacher:
   updated_at: 2013-11-08 23:10:35
   school_id: mgeary
   role: 0
-  section: 1
-  parent_id: 0
   email: mgeary@faculty.pcci.edu
   phone: 17-1111-2
   first_name: Michael
@@ -60,8 +54,6 @@ student_rep:
   updated_at: 2013-11-08 23:10:35
   school_id: 116431
   role: 1
-  section: 1
-  parent_id: Noah Conrad
   email: jcanip5463@students.pcci.edu
   phone: 17-1303-2
   first_name: Jake
@@ -78,8 +70,6 @@ student_manager:
   updated_at: 2013-11-08 23:10:35
   school_id: 117657
   role: 2
-  section: 1
-  parent_id: Noah Conrad
   email: nconrad1234@students.pcci.edu
   phone: 17-1234-5
   first_name: Noah

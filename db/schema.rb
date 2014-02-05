@@ -116,6 +116,11 @@ ActiveRecord::Schema.define(version: 20140201034429) do
     t.string   "payment_type"
   end
 
+  create_table "status_tables", force: true do |t|
+    t.string  "status_type"
+    t.boolean "status_enabled"
+  end
+
   create_table "statuses", force: true do |t|
     t.string   "status_type",    limit: 30
     t.boolean  "status_enabled",            default: true
@@ -151,6 +156,7 @@ ActiveRecord::Schema.define(version: 20140201034429) do
     t.string   "minor",          limit: 75
     t.string   "classification", limit: 10
     t.string   "remember_token"
+    t.boolean  "help"
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree

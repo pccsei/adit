@@ -27,6 +27,8 @@
 
 //= require dataTables/jquery.dataTables
 
+//= require jquery.validate
+//= require jquery.validate.additional-methods
 
 //= require jquery.ui.effect
 

@@ -64,7 +64,6 @@ class RoutesTest < ActionDispatch::IntegrationTest
     assert_generates "/reports/student_summary", :controller => "updates", :action => "student_summary"
   end
   test "test pending clients routes" do
-    assert_generates "/pending_clients", :controller => "clients", :action => "show_pending_clients"
     assert_generates "/pending_clients/new", :controller => "clients", :action => "new"
     assert_generates "/pending_clients/1/edit", {:controller => "clients", :action => "edit", :id => "1"}
     assert_generates "/pending_clients/1", {:controller => "clients", :action => "show", :id => "1"}

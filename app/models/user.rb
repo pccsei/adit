@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many   :members
   
   before_create :create_remember_token
-=begin
+
   validates :school_id, :email, :phone, presence: true
   validates :school_id, uniqueness: true
   validates :email, format: {
@@ -20,7 +20,6 @@ class User < ActiveRecord::Base
     minimum: 9, maximum: 9,
     message: 'is the wrong length'
   }
-=end
 
       ### BEGIN CONFIGURATION ###
       SERVER = 'studentnet.int'        # Active Directory server name or IP
