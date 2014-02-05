@@ -70,7 +70,8 @@ class ActionsController < ApplicationController
           new_action.save
         end
         
-        if params[:sale]
+        # Two checks to make sure that sale checkbox was not submitted without presentation being accomplished
+        if params[:sale] && (params[:presentation] || receipt.made_presentation == true)
         priority = receipt.ticket.priority.name
           new_action = Action.new
           if priority == "green"

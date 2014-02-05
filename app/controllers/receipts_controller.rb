@@ -50,7 +50,8 @@ class ReceiptsController < ApplicationController
   # GET /receipts/1.json
   # We can use this function to list the updates on a receipt
   def show
-    @receipt = Receipt.find(params[:id])            
+    @receipt = Receipt.find(params[:id])
+    @client = @receipt.ticket.client            
       #@highestUserAction = Action.where("receipt_id = ?", params[:id]).maximum("action_type_id")    
       #@sale = Action.where("receipt_id = ? AND action_type_id = ?", params[:id], 3) #may need to be fixed if the DB column is changed
   end

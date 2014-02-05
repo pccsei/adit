@@ -10,7 +10,11 @@
       </ul>
     </div>
   <% end %>
-  
+
+<% if @action.action_type.name != "Comment"%>
+   <div>
+	 <p>How did it go?</p>
+   </div>
 <script>
 $(document).ready(function(){
 $(".hidden").hide();
@@ -29,13 +33,7 @@ $(document).ready(function(){
     $("#saleMade").toggle();
   });
 });
-</script>
-
-<% if @action.action_type.name != "Comment"%>
-   <div>
-	 <p>How did it go?</p>
-   </div>
- 
+</script> 
 
       <% if @action.action_type.name == "First Contact"%>
          <div id = "firstCheck">
@@ -43,7 +41,7 @@ $(document).ready(function(){
          <div id = "firstCheck", class = "hidden">
       <% end%>
            <%= label_tag("presentation", "I made a presentation!" ) %>
-	       <%= check_box_tag(:presentation, :onclick => "myFunction()")%>
+	       <%= check_box_tag(:presentation)%>
          </div>
 
         
@@ -53,7 +51,7 @@ $(document).ready(function(){
    	  <div id = "checkers2", class = "hidden">
    <% end %>
 	    <%= label_tag("sale", "I made a sale!" ) %>
-	    <%= check_box_tag(:sale, :onclick => "function()")%>
+	    <%= check_box_tag(:sale)%>
      </div>
 
    <% if @action.action_type.name == "Sale"%>
