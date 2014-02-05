@@ -5,7 +5,6 @@ GIT
     jquery-datatables-rails (1.12.2)
       jquery-rails
       sass-rails
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -251,7 +250,7 @@ DEPENDENCIES
   guard-rails
   high_voltage (~> 2.0.0)
   jbuilder (~> 1.2)
-  jquery-datatables-rails!
+  jquery-datatables-rails
   jquery-rails
   jquery-ui-rails
   jquery-validation-rails
