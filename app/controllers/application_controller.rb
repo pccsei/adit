@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
                helper_method :set_selected_project
                helper_method :get_section           
                             
-  $selected_project = Project.last
+  #$selected_project = Project.last
   $selected_section = "all"
 
   def get_current_project
@@ -20,12 +20,11 @@ class ApplicationController < ActionController::Base
   end
   
   def get_selected_project
-    $selected_project
+    Project.find(session[:selected_project_id]) || Project.last
   end
 
-  def set_selected_project(project = Project.last)
-    $selected_project = project
-    return $selected_project 
+  def set_selected_project(project)
+    session[:selected_project_id] = project.id
   end
 
   def set_selected_section section
