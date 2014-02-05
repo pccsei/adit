@@ -6,5 +6,19 @@ class Receipt < ActiveRecord::Base
   # def self.released_receipts
     # all :conditions => {['']}
   # end
+  
+  # Returns all the receipts for the selected project
+  def self.selected_project_receipts(project)
+    
+    tickets = Ticket.current_project(project.id)
+    receipts = []
+    
+    tickets.each do |ticket|
+      receipts << ticket.receipts unless ticket.receipts == nil
+    end
+    
+    return receipts
+  end
+ 
 end
 

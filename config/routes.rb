@@ -18,6 +18,7 @@ WhiteCollar::Application.routes.draw do
   get  "clients/full_help"
   post "/clients/approve_client"
   post "/clients/disapprove_client"
+  get "reports/student_summary"
 
 
   resources :sessions, only: [:new, :create, :destroy]

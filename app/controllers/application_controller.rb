@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     $selected_project
   end
 
-  def set_selected_project(project = Project.last)
+  def set_selected_project(project)
     $selected_project = project
     return $selected_project 
   end

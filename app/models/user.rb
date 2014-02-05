@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  belongs_to :user
+  #belongs_to :user
   has_many   :tickets
   has_many   :receipts
   has_many   :bonuses
@@ -221,7 +221,7 @@ def User.encrypt(token)
 end
 
 def self.all_students
-  where("role = ?", 1).all
+  where("role = ?", 1)
 end
 
 def self.all_student_managers
@@ -229,7 +229,11 @@ def self.all_student_managers
 end
 
 def self.all_teachers
-  where("role = ?", 3).all
+  where("role = ?", 3)
+end
+
+def self.all_teacher_ids
+  where("role = ?", 3).pluck(:id)
 end
 
 def self.authenticate(login, pass)
