@@ -12,7 +12,8 @@ class ApplicationController < ActionController::Base
   helper_method :set_selected_project
   helper_method :get_selected_project
   helper_method :get_selected_section           
-                            
+  
+  # This method will most likely be deleted soon, use selected methods below instead                          
   def get_current_project
     project = Project.find_by is_active: '1'
     return project
@@ -23,7 +24,11 @@ class ApplicationController < ActionController::Base
   end
   
   def get_selected_project
-    Project.find(session[:selected_project_id]) || Project.last
+    if session[:selected_project_id]
+       Project.find(session[:selected_project_id])
+    else
+      Project.last
+    end
   end
 
   def set_selected_section(section_number = "all")
