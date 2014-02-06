@@ -11,7 +11,11 @@ class ApplicationController < ActionController::Base
   helper_method :get_selected_project
   helper_method :set_selected_project
   helper_method :get_selected_project
-  helper_method :get_selected_section           
+  helper_method :get_selected_section
+  
+  # CONSTANTS
+  TEACHER = 3
+  STUDENT_REP = 1           
   
   # This method will most likely be deleted soon, use selected methods below instead                          
   def get_current_project
@@ -25,7 +29,7 @@ class ApplicationController < ActionController::Base
   
   def get_selected_project
     if session[:selected_project_id]
-       Project.find(session[:selected_project_id])
+      Project.find(session[:selected_project_id])
     else
       Project.last
     end
@@ -41,14 +45,14 @@ class ApplicationController < ActionController::Base
 
    # Restricts access to only teachers 
    def only_teachers
-      if current_user.role != 3
+      if current_user.role != TEACHER
         redirect_to signin_path # What should we redirect to?
       end
    end
    
    # Restricts access to only teachers and student managers
    def only_leadership
-     if current_user.role == 1 
+     if current_user.role == STUDENT_REP 
        redirect_to signin_path # What should we redirect to?
      end
    end
