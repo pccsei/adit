@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     end
     
     @current_students = student_users_for_selected_project.zip(project_student_members)
-    @selected_section = get_section
+    @selected_section = get_selected_section
      
     # Find sections for current project
     @sections = (Member.where("project_id = ?", (get_selected_project).id).uniq!.pluck("section_number"))
@@ -95,8 +95,7 @@ def teachers
 
   def set_section
     # set paraments for selected section
-    selected_section = params["section_option"]
-    set_selected_section(selected_section)
+    set_selected_section(params["section_option"])
     redirect_to users_url
   end
 
@@ -106,7 +105,7 @@ def teachers
 
   def input_students_parse
     user_params = params['input']
-    section_number = get_section 
+    section_number = get_selected_section 
    
     User.parse_students(user_params, section_number, get_selected_project.id) 
     redirect_to users_url

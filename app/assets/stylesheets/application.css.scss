@@ -38,7 +38,11 @@ body {
 
 
 textarea {
-  resize: vertical;
+  width: 600px;
+  height: 120px;
+  border: 3px solid #cccccc;
+  padding: 5px;
+  font-family: Tahoma, sans-serif;
 }
 
 
@@ -49,7 +53,10 @@ textarea {
   }
 }
 
-
+#section_type{
+  text-align: right;
+  padding-right: 20px;
+}
 /* Mixins, variables, etc. */
 $grayMediumLight: #eaeaea;
 
@@ -139,7 +146,7 @@ p {
     float: left;
   }
   ul {
-    float: left;
+    float: right;
     list-style: none;
     li {
       float: left;
@@ -154,17 +161,14 @@ p {
   font-weight: bold;
 }
 
-.navbar-nav li{
-  border: 1px solid #eaeaea;
+.navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: white !important;
+    background-color: transparent;
 }
-
 .navbar-nav a{
   background-color: #0F314A;
 }
 
-.navbar-nav li > a > hover{
-  background-color: #eaeaea;
-}
 
 
 

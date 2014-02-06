@@ -4,48 +4,55 @@ class ApplicationController < ActionController::Base
   before_filter :signed_in_user
   protect_from_forgery with: :exception
 
+  # Adding these helper methods enables them to be used in views also
   include SessionsHelper
-               helper_method :get_current_project # helper_method allow methods to be used in views
-               helper_method :are_tickets_open  
-               helper_method :get_selected_project
-               helper_method :set_selected_project
-               helper_method :get_section           
-                            
-  $selected_project = Project.last
-  $selected_section = "all"
-
+  helper_method :get_current_project 
+  helper_method :are_tickets_open  
+  helper_method :get_selected_project
+  helper_method :set_selected_project
+  helper_method :get_selected_project
+  helper_method :get_selected_section
+  
+  # CONSTANTS
+  TEACHER = 3
+  STUDENT_REP = 1           
+  
+  # This method will most likely be deleted soon, use selected methods below instead                          
   def get_current_project
     project = Project.find_by is_active: '1'
     return project
   end
-  
-  def get_selected_project
-    $selected_project
-  end
 
   def set_selected_project(project)
-    $selected_project = project
-    return $selected_project 
+    session[:selected_project_id] = project.id
+  end
+  
+  def get_selected_project
+    if session[:selected_project_id]
+      Project.find(session[:selected_project_id])
+    else
+      Project.last
+    end
   end
 
-  def set_selected_section section
-    $selected_section = section
+  def set_selected_section(section_number = "all")
+    session[:selected_section_id] = section_number
   end
 
-  def get_section
-    return $selected_section
+  def get_selected_section
+    session[:selected_section_id]
   end
 
    # Restricts access to only teachers 
    def only_teachers
-      if current_user.role != 3
+      if current_user.role != TEACHER
         redirect_to signin_path # What should we redirect to?
       end
    end
    
    # Restricts access to only teachers and student managers
    def only_leadership
-     if current_user.role == 1 
+     if current_user.role == STUDENT_REP 
        redirect_to signin_path # What should we redirect to?
      end
    end
