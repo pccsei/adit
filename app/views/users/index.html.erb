@@ -23,7 +23,7 @@
 <!-- This gets students from the teacher to be put into the database and get their section number -->
 <!-- only allow a teacher to add students to a section if a section is selected.-->
 <div class = "col-md-12">
-<% if @selected_section == "all" %><!-- SWITCH BACK BEFORE PUSH-->
+<% if @selected_section != "all" %><!-- SWITCH BACK BEFORE PUSH-->
 	<%= form_tag('/users/input_students_parse') do%>
 		<%= label_tag 'Copy & Paste your student list here or ' %> <%= link_to 'Add One Student', new_user_path, class: "btn btn-large btn-primary btn-sm" %>
 		<br>

@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   
   # CONSTANTS
   TEACHER = 3
-  STUDENT_REP = 1           
+  STUDENT_REP = 1                     
   
   # This method will most likely be deleted soon, use selected methods below instead                          
   def get_current_project
