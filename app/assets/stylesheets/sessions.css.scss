@@ -1,3 +1,19 @@
 // Place all the styles related to the Sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+input#school_id {
+	text-align: left;
+	width: 250px;
+	margin-left: 4px;
+}
+
+input#password {
+	text-align: left;
+	width: 250px;
+}
+
+
+#hide_navbar{
+	visibility:hidden ;
+}

@@ -1,5 +1,4 @@
-<!-- PUT IN THE TITLE --> <!-- use the application helper -->
-<title><%= content_for?(:title) ? yield(:title) : "Manage Section" %></title>
+<% provide(:title, "Manage Section") %>
 
 <h1 class = "col-md-3", id = "heading">Manage Section</h1>
 
@@ -25,7 +24,7 @@
 <div class = "col-md-12">
 <% if @selected_section != "all" %><!-- SWITCH BACK BEFORE PUSH-->
 	<%= form_tag('/users/input_students_parse') do%>
-		<%= label_tag 'Copy & Paste your student list here or ' %> <%= link_to 'Add One Student', new_user_path, class: "btn btn-large btn-primary btn-sm" %>
+		<%= label_tag 'Copy & Paste your student list here or' %> <%= link_to 'Add One Student', new_user_path, class: "btn btn-large btn-link btn-sm" %>
 		<br>
 		<%= text_area_tag 'input' %>
 		<br><%= submit_tag 'Add Students to Section', class: "btn btn-large btn-primary btn-sm"%>
