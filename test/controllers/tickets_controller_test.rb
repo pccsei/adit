@@ -5,13 +5,8 @@ setup do
     @ticket = tickets(:one)
     @update = {
       id: 1,
-      sale_value: 1.5,
-      page_size: 1.5,
       created_at: '2013-11-08 23:10:35',
       updated_at: '2013-11-08 23:10:35',
-      payment_type: 'MyString',
-      attachment: nil,
-      attachment_name: 'MyString',
       project_id: 1,
       client_id: 1,
       user_id: 1,
