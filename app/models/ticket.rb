@@ -1,4 +1,4 @@
-wclass Ticket < ActiveRecord::Base
+class Ticket < ActiveRecord::Base
   belongs_to :client
   belongs_to :project
   belongs_to :priority
@@ -15,11 +15,12 @@ wclass Ticket < ActiveRecord::Base
     select("client_id, user_id").where("updated_at >= ?", stamp).all << Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")
   end
   
-end
 
-def createTickets
-  clients.each do |c|
-      c.ticket.create
-    end
+
+  def createTickets
+    clients.each do |c|
+        c.ticket.create
+      end
   end
 
+end
