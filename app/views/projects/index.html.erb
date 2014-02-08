@@ -1,6 +1,6 @@
  <% if @projects.empty? %>
    <p> There are currently no projects to display. </p>
-   <% link_to new_project_path, "Create a New Project"%>
+   <%= link_to "Create a New Project", new_project_path %>
 <% else %>
 <%= form_tag('/projects/select_project') do%>
 	<% if (Project.find_by is_active: '1') %>
