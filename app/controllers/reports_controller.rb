@@ -9,7 +9,6 @@ class ReportsController < ApplicationController
        index = 0
        # Changed function name to all sold clients because error was thrown
        @sold_receipts = Receipt.all_sold_clients(get_selected_project)
-       @students = User.current_student_users(get_selected_project, get_selected_section)
 
        @sold_receipts.each do |r|
           @sales[index] = Struct::Sale.new
@@ -17,13 +16,14 @@ class ReportsController < ApplicationController
           # @sales[index].manager_id = User.get_manager_name((r.user_id), get_selected_project).id  << Add this when ready for it
           @sales[index].time_of_sale = r.updated_at
           @sales[index].company = Client.find(Ticket.find(r.ticket_id).client_id).business_name
-          @sales[index].page_size = Ticket.find(r.ticket_id).page_size
-          @sales[index].sale_amount = Ticket.find(r.ticket_id).sale_value
+          @sales[index].page_size = r.page_size
+          @sales[index].sale_amount = r.sale_value
           @sales[index].name = User.find(r.user_id).first_name + " " + User.find(r.user_id).last_name
           @sales[index].team_leader = User.get_manager_name((r.user_id), get_selected_project)
-          @sales[index].payment_type = Ticket.find(r.ticket_id).payment_type
-          @sales[index].ad_status = Action_types.find(Action.find_by(receipt_id: ).action_type_id).name
-
+          @sales[index].payment_type = r.payment_type
+          if (Action.find_by(receipt_id: r.id).action_type_id)
+            @sales[index].ad_status = ActionType.find(Action.find_by(receipt_id: r.id).action_type_id).name
+          end
           index = index + 1
        end
   end
@@ -63,26 +63,32 @@ class ReportsController < ApplicationController
     
   end
   
-  def activity
-       @sales = []                     
+  def activities
+       Struct.new("Activity", :student_id, :manager_id, :time_of_activity, :name, :team_leader,
+                            :company, :activity, :comments,  :points_earned, :cumulative_points_earned_on_client)
+
+
+       @activities = []                     
        index = 0
-       @activities = Receipt.sold_clients(get_selected_project)
-       @students = User.current_student_users(get_selected_project, get_selected_section)
+       @all_project_activities = Action.all_actions_in_project(get_selected_project)
+       render text: @activities
 
-       @activities.each do |r|
-          @sales[index] = Struct::Sale.new
-          @sales[index].student_id = r.user_id
-          # @sales[index].manager_id = User.get_manager_name((r.user_id), get_selected_project).id  << Add this when ready for it
-          @sales[index].time_of_sale = r.updated_at
-          @sales[index].company = Client.find(Ticket.find(r.ticket_id).client_id).business_name
-          @sales[index].page_size = Ticket.find(r.ticket_id).page_size
-          @sales[index].sale_amount = Ticket.find(r.ticket_id).sale_value
-          @sales[index].name = User.find(r.user_id).first_name + " " + User.find(r.user_id).last_name
-          @sales[index].team_leader = User.get_manager_name((r.user_id), get_selected_project)
-          @sales[index].payment_type = Ticket.find(r.ticket_id).payment_type
-          @sales[index].ad_status = Status.find(Client.find(Ticket.find(r.ticket_id).client_id).status_id).status_type
+       @all_project_activities.each do |a|
+        total_points = 0
+        @activities[index] = Struct::Activity.new
+        @activities[index].student_id = Receipt.find(a.receipt_id).user_id
+        # @activities[index].manager_id = User.get_manager_name((r.user_id), get_selected_project).id  << Add this when ready for it
+        @activities[index].time_of_activity = a.user_action_time
+        @activities[index].name = User.find(Receipt.find(a.receipt_id).user_id).first_name + " " + User.find(Receipt.find(a.receipt_id).user_id).last_name
+        @activities[index].team_leader = User.get_manager_name((Receipt.find(a.receipt_id).user_id), get_selected_project)
+        @activities[index].company = Client.find(Ticket.find(Receipt.find(a.receipt_id).ticket_id).client_id).business_name
+        @activities[index].activity = ActionType.find(a.action_type_id).name
+        @activities[index].comments = a.comment
+        @activities[index].points_earned = a.points_earned
 
-          index = index + 1
+
+        @activities[index].cumulative_points_earned_on_client = total_points
+        index = index + 1
        end
   end
   
