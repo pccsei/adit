@@ -28,7 +28,7 @@ class ReportsController < ApplicationController
           @student_array[index].released = (Receipt.released_clients(s.id, get_selected_project)).size
           @student_array[index].sales = Receipt.sales_total(s.id, get_selected_project)
           @student_array[index].points = Receipt.points_total(s.id, get_selected_project)
-          
+          @student_array[index].last_activity = Action.get_last_activity(s.id, get_selected_project)
           index = index + 1
        end
   end
