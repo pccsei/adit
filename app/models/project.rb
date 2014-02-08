@@ -47,6 +47,4 @@ class Project < ActiveRecord::Base
     where("year > 2013 and is_active = ?", inactive)
   end
     
-  
-  
 end

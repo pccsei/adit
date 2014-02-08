@@ -3,22 +3,25 @@
 <h1 class = "col-md-3", id = "heading">Manage Section</h1>
 
 <h5 class = "col-md-9" id="section_type">
+
+<%= @current.first_name %>, 
 <% if @selected_section == "all" %>
-	<%= "Displaying all sections for"%>
+	these are all the sections for this project.
+<% elsif @selected_section.nil? %>
+	you need to create a section. 
 <% else%>
-	<%= "This is section #{@selected_section}"%>
+	this is section <%= "#{@selected_section}, "%>%>
 <% end %>
 
-<%= @current.first_name %>
+
 </h5>
 <br><br>
 
-
-
-
-
 <br>
 <br>
+
+
+
 <!-- This gets students from the teacher to be put into the database and get their section number -->
 <!-- only allow a teacher to add students to a section if a section is selected.-->
 <div class = "col-md-12">
