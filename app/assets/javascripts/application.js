@@ -32,4 +32,7 @@
 
 //= require jquery.ui.effect
 
+//= require jquery
+//= require fancybox
+
 $(document).ready($('.dataTable').dataTable()); 

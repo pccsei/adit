@@ -14,7 +14,7 @@ WhiteCollar::Application.routes.draw do
   post "projects/select_project"
   post "/users/set_section"
   match  "receipts/my_receipts/:id", to: 'receipts#my_receipts', via: 'get'
-  get  "users/full_help"
+  get  "users/need_help"
   get  "clients/full_help"
   post "/clients/approve_client"
   post "/clients/disapprove_client"

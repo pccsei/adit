@@ -36,18 +36,14 @@
       <%= f.label :comment %><br>
       <%= f.text_field :comment %>
     </div>
-    
-    <div class="field">
-      <%= f.label :always_put_0_here %><br>
-      <%= f.text_field :is_active %>
-    </div>
 
     <div class="field">
       <%= radio_button(:project, :use_max_clients, 1, :checked => true) %>
       <%= label_tag(:max_color_clients, "Total Clients in total form") %><br>
       <%= f.label :max_clients %>
       <%= f.text_field :max_clients %><br><br>
-
+	</div>
+	<div class="field">
       <%= radio_button(:project, :use_max_clients, 0) %>
       <%= label_tag(:max_color_clients, "Total Clients in separated form") %><br>
       <%= f.label :Green %>
@@ -65,9 +61,43 @@
 <script>
 	$('#project_project_start').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
 	$('#project_project_end').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
-</script>  
-  
-  
-  
-  
+</script>    
 <% end %>
+
+<!-- This adds client-side validation -->
+<script>
+	$(document).ready(function () {
+
+	
+		$("#new_project").validate({
+			rules: {
+				"project[year]": {required: true, rangelength: [4,4]},
+				"project[project_start]": {required: true, date: true},
+				"project[project_end]": {required: true, date: true, greater_than: "project[project_start]"},
+			},
+			messages: {
+			}
+		});
+	});
+</script>
+
+<!-- This hides the radio button options -->
+<script>
+$(document).ready(function(){
+$(".hidden").hide();
+});
+
+$(document).ready(function(){
+  $("#presentation").click(function(){
+  	$("#checkers2").removeClass("hidden");
+    $("#checkers2").toggle();
+  });
+});
+
+$(document).ready(function(){
+  $("#sale").click(function(){
+  	$("#saleMade").removeClass("hidden");
+    $("#saleMade").toggle();
+  });
+});
+</script>
