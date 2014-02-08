@@ -46,11 +46,11 @@
 	<div class="field">
       <%= radio_button(:project, :use_max_clients, 0) %>
       <%= label_tag(:max_color_clients, "Total Clients in separated form") %><br>
-      <%= f.label :High Priority %>
+      <%= f.label :high_priority %>
       <%= f.text_field :max_high_priority_clients %><br>
-      <%= f.label :Yellow %>
+      <%= f.label :medium_priority %>
       <%= f.text_field :max_medium_priority_clients %><br>
-      <%= f.label :Low Priority %>
+      <%= f.label :low_priority %>
       <%= f.text_field :max_low_priority_clients %><br>
     </div>
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140208161742) do
+ActiveRecord::Schema.define(version: 20140208174919) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -100,7 +100,6 @@ ActiveRecord::Schema.define(version: 20140208161742) do
     t.boolean  "use_max_clients"
     t.integer  "project_type_id"
     t.boolean  "is_active"
-    t.datetime "ticket_close_time"
   end
 
   create_table "receipts", force: true do |t|

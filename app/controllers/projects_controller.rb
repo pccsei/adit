@@ -99,6 +99,6 @@ class ProjectsController < ApplicationController
       params.require(:project).permit(:id, :year, :semester, :tickets_open_time, :tickets_close_time, 
                                       :comment, :created_at, :updated_at, :max_clients, 
                                       :max_high_priority_clients, :max_low_priority_clients, :max_medium_priority_clients, 
-                                      :use_max_clients, :project_type_id, :is_active, :ticket_close_time)
+                                      :use_max_clients, :project_type_id, :is_active)
     end
 end
