@@ -7,7 +7,8 @@ class ReportsController < ApplicationController
        
        @sales = []                     
        index = 0
-       @sold_receipts = Receipt.sold_clients(get_selected_project)
+       # Changed function name to all sold clients because error was thrown
+       @sold_receipts = Receipt.all_sold_clients(get_selected_project)
        @students = User.current_student_users(get_selected_project, get_selected_section)
 
        @sold_receipts.each do |r|
