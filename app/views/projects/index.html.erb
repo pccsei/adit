@@ -26,7 +26,7 @@
 	    <% @projects.each do |project| %>
 	      <tr>
 	      	<% if project.is_active %>
-      			<td><%= radio_button_tag 'input', project.id, (true if project.id == (get_selected_project).id) %></td>
+      			<td><%= radio_button_tag 'input', project.id, (true if project.id == session[:selected_project_id]) %></td>
 		      	<td><%= project.year%></td>
 		      	<td><%= project.semester%></td>
 		      	<td><%= project.project_type_id%></td>
@@ -85,7 +85,7 @@
 		    <% @projects.each do |project| %>
 		      <tr>
 		      	<% if !project.is_active%>
-      				<td><%= radio_button_tag 'input', project.id, (true if project.id == (get_selected_project).id) %></td>
+      				<td><%= radio_button_tag 'input', project.id, (true if project.id == session[:selected_project_id]) %></td>
 			      	<td><%= project.year%></td>
 			      	<td><%= project.semester%></td>
 			      	<td><%= project.project_type_id%></td>

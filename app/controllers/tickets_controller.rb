@@ -90,7 +90,7 @@ class TicketsController < ApplicationController
     clients = Client.all
     clients.each do |c|
        ticket = c.tickets.create(
-         project_id: get_current_project,
+         project_id: session[:selected_project_id],
          priority_id: 2) # Will need a method to calculate)
        ticket.save
     end

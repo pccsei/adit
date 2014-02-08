@@ -6,12 +6,7 @@ class ApplicationController < ActionController::Base
 
   # Adding these helper methods enables them to be used in views also
   include SessionsHelper
-  helper_method :get_current_project 
-  helper_method :are_tickets_open  
-  helper_method :get_selected_project
-  helper_method :set_selected_project
-  helper_method :get_selected_project
-  helper_method :get_selected_section           
+  helper_method :are_tickets_open            
   
   # This method will most likely be deleted soon, use selected methods below instead                          
   def get_current_project
