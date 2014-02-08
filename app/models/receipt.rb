@@ -45,7 +45,11 @@ class Receipt < ActiveRecord::Base
     end
     return receipts - remove_receipts
   end
-  
+
+  def self.sold_clients(project)
+    receipts = Receipt.where("made_sale = ? AND ticket_id in (?)", true, Ticket.where("project_id = ?", project)).all
+  end
+ 
   def self.released_clients(student_id, project)
     receipts = Receipt.where("user_id = ?", student_id)
     remove_receipts = []

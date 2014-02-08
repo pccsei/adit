@@ -1,0 +1,29 @@
+<table class ="table dataTable">
+<thead>
+<tr>
+  <th>Date/Time sale was reported</th>
+  <th>Company</th>
+  <th>Page Size</th>
+  <th>Sales</th>
+  <th>Sales Rep</th>
+  <th>Team</th>
+  <th>Payment</th>
+  <th>Ad/Status</th>    	      	      	      	      
+</tr>
+</thead>
+<tbody>
+<tbody>
+    <% @sales.each do |sale| %>
+      <tr>
+        <td><%= sale.time_of_sale%></td>
+        <td><%= sale.company%></td>
+        <td><%= sale.page_size%></td>
+        <td><%= sale.sale_amount%></td>
+        <td><%= link_to sale.name, "/receipts/my_receipts/#{sale.student_id}"%></td>
+        <td><%= sale.team_leader%></td>
+        <td><%= sale.payment_type%></td>
+        <td><%= sale.ad_status%></td>
+      </tr>
+    <% end %>
+</tbody>
+</table>
