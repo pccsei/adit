@@ -4,7 +4,6 @@
 	<%= button_to "Yes", :controller => :users, action: "need_help"%>
 
 <% end %>
-
 <% if !(@pending_clients.empty?)%>
   <% if (current_user.role == 3)%>
       <%= form_tag('/clients/approve_client') do %>
@@ -34,8 +33,7 @@
       <th>Last name</th>
       <th>Telephone</th>
       <th>Comment</th>
-    </tr>
-    
+    </tr>    
   </thead>
 
   <tbody>

@@ -29,9 +29,9 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if @project.use_max_clients == true
-      @project.max_green_clients = 0
-      @project.max_yellow_clients = 0
-      @project.max_white_clients = 0
+      @project.max_high_priority_clients = 0
+      @project.max_medium_priority_clients = 0
+      @project.max_low_priority_clients = 0
     else 
       @project.max_clients = 0
     end
@@ -54,7 +54,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to projects_path, notice: 'Project was successfully updated.' }
       else
         format.html { render action: 'edit' }
       end
@@ -96,9 +96,9 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:id, :year, :semester, :project_start, :project_end, 
+      params.require(:project).permit(:id, :year, :semester, :tickets_open_time, :tickets_close_time, 
                                       :comment, :created_at, :updated_at, :max_clients, 
-                                      :max_green_clients, :max_white_clients, :max_yellow_clients, 
+                                      :max_high_priority_clients, :max_low_priority_clients, :max_medium_priority_clients, 
                                       :use_max_clients, :project_type_id, :is_active, :ticket_close_time)
     end
 end
