@@ -30,7 +30,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 # Added by Jake Canipe
-gem 'rails-gallery'
+gem 'fancybox-rails'
 gem 'jquery-validation-rails'
 
 # added by James Miyashita

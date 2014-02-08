@@ -1,5 +1,8 @@
 <% if current_user.help == true %>
-	<%= render :partial => "help" %>
+	<h1>First Time User?</h1>
+
+	<%= button_to "Yes", :controller => :users, action: "need_help"%>
+
 <% end %>
 
 <% if !(@pending_clients.empty?)%>
@@ -60,3 +63,18 @@
 
 
 <br/><br/><br/><br/><br/><br/>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".fancybox").fancybox({
+			maxWidth	: 800,
+			maxHeight	: 600,
+			fitToView	: false,
+			width		: '70%',
+			height		: '70%',
+			autoSize	: false,
+			closeClick	: false,
+			openEffect	: 'none',
+			closeEffect	: 'none'
+		});
+	});
+</script>
