@@ -21,7 +21,7 @@ class ReportsController < ApplicationController
           @sales[index].name = User.find(r.user_id).first_name + " " + User.find(r.user_id).last_name
           @sales[index].team_leader = User.get_manager_name((r.user_id), get_selected_project)
           @sales[index].payment_type = Ticket.find(r.ticket_id).payment_type
-          @sales[index].ad_status = Status.find(Client.find(Ticket.find(r.ticket_id).client_id).status_id).status_type
+          @sales[index].ad_status = Action_types.find(Action.find_by(receipt_id: ).action_type_id).name
 
           index = index + 1
        end
@@ -63,7 +63,26 @@ class ReportsController < ApplicationController
   end
   
   def activity
-    
+       @sales = []                     
+       index = 0
+       @activities = Receipt.sold_clients(get_selected_project)
+       @students = User.current_student_users(get_selected_project, get_selected_section)
+
+       @activities.each do |r|
+          @sales[index] = Struct::Sale.new
+          @sales[index].student_id = r.user_id
+          # @sales[index].manager_id = User.get_manager_name((r.user_id), get_selected_project).id  << Add this when ready for it
+          @sales[index].time_of_sale = r.updated_at
+          @sales[index].company = Client.find(Ticket.find(r.ticket_id).client_id).business_name
+          @sales[index].page_size = Ticket.find(r.ticket_id).page_size
+          @sales[index].sale_amount = Ticket.find(r.ticket_id).sale_value
+          @sales[index].name = User.find(r.user_id).first_name + " " + User.find(r.user_id).last_name
+          @sales[index].team_leader = User.get_manager_name((r.user_id), get_selected_project)
+          @sales[index].payment_type = Ticket.find(r.ticket_id).payment_type
+          @sales[index].ad_status = Status.find(Client.find(Ticket.find(r.ticket_id).client_id).status_id).status_type
+
+          index = index + 1
+       end
   end
   
 private
