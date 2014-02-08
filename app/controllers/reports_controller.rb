@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   
   def sales
-    render text: session[:selected_section_id]
+
   end
   
   # GET reports/student_summary
