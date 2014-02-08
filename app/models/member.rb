@@ -8,9 +8,14 @@ class Member < ActiveRecord::Base
    end
 
    # Returns all the student member objects of a given project
-   def self.student_members(project)
+   def self.student_members(project, section = "all")
      teachers = User.all_teacher_ids
-     self.where("project_id = ? AND user_id NOT IN (?)", project.id, teachers)
+     if section == "all"
+        self.where("project_id = ? AND user_id NOT IN (?)", project.id, teachers)
+     else
+        self.where("project_id = ? AND section_number = ? AND user_id NOT IN (?)", 
+           project.id, section, teachers)
+      end
    end
    
    # Returns only the ids of student members for a given project

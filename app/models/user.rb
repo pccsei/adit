@@ -220,6 +220,28 @@ def User.encrypt(token)
    Digest::SHA1.hexdigest(token.to_s)
 end
 
+# Returns all the student users for a project and section
+def self.current_student_users(project, section = "all")
+  student_members = Member.student_members_user_ids(project, section)
+  where("id in (?)", student_members)
+end
+
+# Returns the manager name for a given user and project
+def self.get_manager_name(student_id, project)
+  user = User.find(student_id).members.find_by project_id: project.id
+  if user && user.parent_id
+    manager = User.find(user.parent_id)
+    "#{manager.first_name} " + "#{manager.last_name}"
+  else
+    nil
+  end
+end
+
+# Returns the section number for a given user and project
+def self.get_section_number(student_id, project)
+  find(student_id).members.find_by(project_id: project.id).section_number
+end
+
 def self.all_students
   where("role = ?", 1)
 end
