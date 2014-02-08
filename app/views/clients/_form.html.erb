@@ -56,6 +56,8 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<!-- This adds client-side validation -->
 <script>
 	$(document).ready(function () {
 		$("#new_client").validate({
@@ -63,13 +65,12 @@
 				"client[business_name]": {required: true},
 				"client[address]": {required: true},
 				"client[zipcode]": {rangelength: [5,5]},
-				"client[email]": {email: true},
-				"client[telephone]": {phoneUS: true}
+				"client[email]": {email: true}
 			},
 			messages: {
 				"client[business_name]": "Please specify the business name",
 				"client[address]": "Please specify the address",
-				"client[zipcode]": "Please enter a valid zipcode",
+				"client[zipcode]": "Please enter a valid zipcode"			
 			}
 		});
 	});
