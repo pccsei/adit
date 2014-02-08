@@ -6,6 +6,9 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.all
     
+    @current_projects  = Project.current
+    @archived_projects = Project.archived 
+    
     #hi = params['input']
     #if hi
     #  render text: hi
@@ -84,7 +87,7 @@ class ProjectsController < ApplicationController
     project_id = params['input']
     selected_project = Project.find(project_id)
     set_selected_project selected_project
-    redirect_to projects_url
+    redirect_to users_url #projects_url
   end
 
   private

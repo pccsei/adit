@@ -13,7 +13,7 @@
 
 
   <!-- For the teachers -->
-  <% if @user.role == 3 %>
+  <!-- <% if current_user.role == 3 %> -->
   <br>
    <div class="field">
     <%= f.label :first_name %><br>
@@ -42,8 +42,8 @@
   <div class="actions">
     <%= f.submit %>
   </div> 
-  <!-- For the students and student managers -->
-  <% else %>
+  <!-- Why do we need this for the -> For the students and student managers -->
+  <!-- <% else %>
   <div class="field">
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>
@@ -85,5 +85,29 @@
   </div>
 
 
-  <% end %>
+  <% end %> -->
 <% end %>
+
+<!-- This adds client-side validation -->
+<script>
+	$(document).ready(function () {
+		$("#new_user").validate({
+			rules: {
+				"user[first_name]": {required: true},
+				"user[last_name]": {required: true},
+				"user[school_id]": {required: true},
+				"user[email]": {required: true},
+				"user[phone]": {required: true},
+				"user[box]": {required: true}
+			},
+			messages: {
+				"user[first_name]": "Please specify the student's first name",
+				"user[last_name]": "Please specify the student's last name",
+				"user[school_id]": "Please specify the student's school id",
+				"user[email]": "Please specify the student's email address",
+				"user[phone]": "Please specify the student's phone number",
+				"user[box]": "Please specify the student's box number"			
+			}
+		});
+	});
+</script>

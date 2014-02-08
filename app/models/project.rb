@@ -41,16 +41,15 @@ class Project < ActiveRecord::Base
     where("year > ?", 2013)
   end
   
-  def current_projects
+  def self.current
     active = 1
     where("is_active = ? ", active)
   end 
     
-  def archived_projects
+  def self.archived
     inactive = 0
-    where("year > 2013 and is_active = ?", inactive)
+    year_project_was_created = 2013 # Removes dummy projects used for creating ticket priority for the first few years  
+    where("year > ? and is_active = ?", year_project_was_created, inactive)
   end
     
-  
-  
 end

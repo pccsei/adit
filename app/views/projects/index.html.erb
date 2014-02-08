@@ -1,6 +1,6 @@
  <% if @projects.empty? %>
    <p> There are currently no projects to display. </p>
-   <% link_to new_project_path, "Create a New Project"%>
+   <%= link_to "Create a New Project", new_project_path %>
 <% else %>
 <%= form_tag('/projects/select_project') do%>
 	<% if (Project.find_by is_active: '1') %>
@@ -24,7 +24,7 @@
 	  </thead>
 	  	
 	  <tbody>
-	    <% @projects.each do |project| %>
+	    <% @current_projects.each do |project| %>
 	      	<% if project.is_active %>
 			  <tr>	      
       			<td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
@@ -84,7 +84,7 @@
 			</thead>
 		  
 		  <tbody>
-		    <% @projects.each do |project| %>
+		    <% @archived_projects.each do |project| %>
 		      	<% if !project.is_active%>
      		      <tr>
       				<td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
