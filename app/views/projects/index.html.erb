@@ -1,11 +1,11 @@
-<% if @projects.empty? %>
+ <% if @projects.empty? %>
    <p> There are currently no projects to display. </p>
    <% link_to new_project_path, "Create a New Project"%>
 <% else %>
 <%= form_tag('/projects/select_project') do%>
 	<% if (Project.find_by is_active: '1') %>
 	<h1>Active Project</h1>
-	<table class = "table dataTable">
+	<table class = "table">
 	  <thead>
 	    <tr>
 	      <th>Selected</th>
@@ -33,15 +33,17 @@
 		      	<td><%= project.project_type_id%></td>
 		      	<td><%= project.project_start.to_formatted_s(:long_ordinal)%></td>
 		        <td><%= project.project_end.to_formatted_s(:long_ordinal) %></td>
-			        <% if project.use_max_clients %>
-			        	<td><%= project.max_clients%></td><td></td><td></td><td></td>
-			        <% end %>
-			        <% if !project.use_max_clients %>
-			        	<td></td>
-				        <td><%= project.max_green_clients%></td>
-				        <td><%= project.max_yellow_clients%></td>
-				        <td><%= project.max_white_clients%></td>
-			        <% end %>
+		        <% if project.use_max_clients %>
+		        	<td><%= project.max_clients%></td>
+		        	<td></td>
+		        	<td></td>
+		        	<td></td>
+		        <% else %>
+		        	<td></td>
+			        <td><%= project.max_green_clients%></td>
+			        <td><%= project.max_yellow_clients%></td>
+			        <td><%= project.max_white_clients%></td>
+		        <% end %>
 		      	<td><%= project.comment%></td>	
 		        <td><%= link_to 'Edit', edit_project_path(project) %></td>
 	        <% end %>
@@ -68,15 +70,24 @@
 		<table class = "table dataTable">
 			<thead>
 		      <tr>
-		      <th>Selected<th>
+		      <!--th><th>
 		      <th>Year</th>
 		      <th>Semester</th>
 		      <th>Project Type</th>
 		      <th>Project Start</th>
 		      <th>Project End</th>
-		      <th>Clients</th>	
+		      <th>Max Clients</th>
 		      <th>Comment</th>
-		      <th></th>
+		      <th></th-->
+		      <th>Selected</th>
+		      <th>Year</th>
+		      <th>Semester</th>
+		      <th>Project Type</th>
+		      <th>Start Date</th>	
+		      <th>End Date</th>
+		      <th>Max Clients</th>
+		      <th>Comments</th>
+		      <th>Edit Button</th>
 		    </tr>
 		  </thead>
 		  
@@ -87,9 +98,9 @@
       				<td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
 			      	<td><%= project.year%></td>
 			      	<td><%= project.semester%></td>
-			      	<td><%= project.project_type_id.to_formatted_s(:long_ordinal)%></td>
+			      	<td><%= project.project_type_id%></td>
 			      	<td><%= project.project_start.to_formatted_s(:long_ordinal)%></td>
-			        <td><%= project.project_end%></td>
+			        <td><%= project.project_end.to_formatted_s(:long_ordinal)%></td>
 			        <td><%= project.max_clients%></td>
 			      	<td><%= project.comment%></td>
 			        <td><%= link_to 'Edit', edit_project_path(project) %></td>

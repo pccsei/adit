@@ -9,7 +9,11 @@
     <%= csrf_meta_tags %>
     </style>
   </head>
-  <body>  
+
+  <body>
+
+<% if current_user %>
+
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <!-- Brand and toggle get grouped for better mobile display -->
@@ -25,23 +29,19 @@
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    
-             <div class="container">
-              <%= render 'layouts/navigation' %>
-               <% flash.each do |key, value| %>
-                  <div class="alert alert-<%= key %>"><%= value %></div>
-               <% end %>
-
-             
-            
-             
-             </div>
+		 <div class="container">
+		  <%= render 'layouts/navigation' %>
+		 </div>
     </div>
-    </nav>
-    </div>
-<div class="container">
-<%= yield%>
-</div>
+</nav>
+  
+<% end %>  
+  
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>  
+  
+</nav>
 
   </body>
 </html>
