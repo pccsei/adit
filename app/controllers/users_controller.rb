@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     #@section_numbers = member_teachers.section_number.uniq!
   end
   
-def teachers
+  def teachers
     @teachers = User.all_teachers
     all_students = User.all_students
     
@@ -83,9 +83,10 @@ def teachers
   def student_rep
   end
   
-  def full_help
-      @current_user.help = false
-      @current_user.save
+  # Need to get the .help set to 0....it's not right now
+  def need_help
+    @current_user.help = 0
+    @current_user.save    
   end
 
   # GET /users/new

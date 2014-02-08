@@ -28,6 +28,13 @@ class ProjectsController < ApplicationController
   # POST /projects
   def create
     @project = Project.new(project_params)
+    if @project.use_max_clients == true
+      @project.max_green_clients = 0
+      @project.max_yellow_clients = 0
+      @project.max_white_clients = 0
+    else 
+      @project.max_clients = 0
+    end
     @project.is_active = 1
 
     respond_to do |format|
