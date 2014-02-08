@@ -35,12 +35,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_selected_section(section_number = "all")
+  def set_selected_section(section_number)
     session[:selected_section_id] = section_number
   end
 
   def get_selected_section
-    session[:selected_section_id]
+    if session[:selected_section_id]
+       session[:selected_section_id]
+    else
+       "all"
+    end
   end
 
    # Restricts access to only teachers 

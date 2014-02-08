@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       teacher_ids << t.id
     end
     
-    project_student_members = Member.project_members(Project.find(session[:selected_project_id])).where.not(user_id: teacher_ids )
+    project_student_members = Member.project_members(get_current_project).where.not(user_id: teacher_ids )
     
     student_users_for_selected_project = []
     project_student_members.each do |s|
@@ -25,8 +25,6 @@ class UsersController < ApplicationController
     end
     
     @current_students = student_users_for_selected_project.zip(project_student_members)
-    @selected_section = session[:selected_section_id]
-
      
     # Find sections for current project
     @sections = (Member.where("project_id = ?", session[:selected_project_id]).uniq!.pluck("section_number"))
@@ -38,7 +36,7 @@ class UsersController < ApplicationController
     #@student_managers.each do |user|
       #@student_manager_names = user.first_name + " " + user.last_name
     #end
-  end
+    end
 
   # GET /users/1
   # GET /users/1.json
@@ -47,16 +45,16 @@ class UsersController < ApplicationController
     #@section_numbers = member_teachers.section_number.uniq!
   end
   
-def teachers
-    @teachers = User.all_teachers
-    all_students = User.all_students
+  def teachers
+     @teachers = User.all_teachers
+     all_students = User.all_students
     
-    student_ids = []
-    all_students.each do |t|
-      student_ids << t.id
-    end
+     student_ids = []
+     all_students.each do |t|
+       student_ids << t.id
+     end
     
-    project_teacher_members = Member.project_members(Project.find(session[:selected_project_id])).where.not(user_id: student_ids )
+    project_teacher_members = Member.project_members.get_selected_project.where.not(user_id: student_ids )
     
     teacher_users_for_selected_project = []
     project_teacher_members.each do |s|
@@ -106,7 +104,6 @@ def teachers
 
   def input_students_parse
     user_params = params['input']
-    section_number = session[:selected_section_id]
    
     User.parse_students(user_params, section_number, session[:selected_project_id].id) 
     redirect_to users_url
@@ -119,7 +116,7 @@ def teachers
     choice             = params['selected_option']
     student_manager_id = params['student_manager']
 
-    User.do_selected_option(students, choice, student_manager_id, Project.find(session[:selected_project_id]))
+    User.do_selected_option(students, choice, student_manager_id, get_selected_project)
 
     redirect_to users_url
   end

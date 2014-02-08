@@ -34,7 +34,7 @@ class ReceiptsController < ApplicationController
     @active_tickets   =  student_user.tickets.where("sale_value is NULL OR sale_value = 0")
     @sold_tickets     =  student_user.tickets.where("sale_value is not NULL or sale_value != 0 ")  
     @all_receipts     =  student_user.receipts
-    @all_tickets      =  Ticket.where("project_id = ?", session[:selected_project_id])
+    @all_tickets      =  Ticket.where("project_id = ?", get_current_project.id)
     @released_tickets =  Array.new  
    
     @all_receipts.each do |r|

@@ -73,18 +73,20 @@ class Receipt < ActiveRecord::Base
   end
   
   def self.points_total(student_id, project)
-    tickets = Ticket.where("user_id = ? AND project_id = ?", student_id, project.id)
-    stu_receipts = Receipt.none
-    tickets.each do |t|
-      stu_receipts << t.receipts
-    end
-    
+    receipts = Receipt.where("user_id = ?", student_id)
+    remove_receipts = []
     points = 0
-    stu_receipts.each do |r|
-      r.actions.each do |a|
-        a.action_types.each do |t|
-          points += t.point_value
-        end
+    
+    for index in 0..(receipts.size - 1)
+      if (receipts[index].ticket).project_id != project.id
+        remove_receipts << receipts[index]
+      end
+    end
+    receipts = receipts - remove_receipts
+    
+    for index in 0..(receipts.size - 1)
+      receipts[index].actions.each do |a|
+        points += a.points_earned        
       end
     end
     
