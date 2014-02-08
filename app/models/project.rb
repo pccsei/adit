@@ -41,4 +41,16 @@ class Project < ActiveRecord::Base
     where("year > ?", 2013)
   end
   
+  def current_projects
+    active = 1
+    where("is_active = ? ", active)
+  end 
+    
+  def archived_projects
+    inactive = 0
+    where("year > 2013 and is_active = ?", inactive)
+  end
+    
+  
+  
 end
