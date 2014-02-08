@@ -15,53 +15,67 @@ class TicketsController < ApplicationController
       else 
                 
         # are these defined in the DB????
-        green  = 1
-        yellow = 2
-        white  = 3    
+        highPriority = Priority.where("name = 'high'").first.id
+        midPriority  = Priority.where("name = 'medium'").first.id
+        lowPriority  = Priority.where("name = 'low'").first.id
         
         if (currentProject.use_max_clients) == 1
           # Check to see if the user has the max number of clients
-          if Ticket.where("user_id = ?", current_user.school_id).size > currentProject.max_clients
+          if Ticket.where("user_id = ?", current_user.school_id).size >= currentProject.max_clients
             updates = { error => "You have reached the maximum number of clients!"}
           end  
-                
-        #check each color  
-        elsif (Ticket.where("user_id = ? AND priority_id = ?", current_user.id, green)).size > currentProject.max_green_clients          
-          updates = { "Error" => "You have exceeded the number of allowed green clients"}          
-        elsif (Ticket.where("user_id = ? AND priority_id = ?", current_user.id, yellow)).size > currentProject.max_yellow_clients
-          updates = { "Error" => "You have exceeded the number of allowed yellow clients"}          
-        elsif (Ticket.where("user_id = ? AND priority_id = ?", current_user.id, white)).size > currentProject.max_white_clients
-          updates = { "Error" => "You have exceeded the number of allowed white clients"}          
-        else           
-          grabbedTicket = false
-          ticket = nil;
+        else
+          requested_ticket_priority_id = Ticket.where("client_id = ? AND project_id = ?", params[:clientID], currentProject.id).first.priority_id
           
-          Ticket.transaction do                                      
-            ticket = Ticket.where("client_id = ? AND project_id = ?", params[:clientID], currentProject.id).lock(true).first
-            
-            if ticket.nil?
-              updates = {"Error" => "Ticket does not exist for the current project"}
-            else 
-               # User is allowed to get a new client: Try to grab the client ticket               
-               if ticket.user_id.nil? || ticket.user_id == 0
-                 ticket.user_id = current_user.id
-                 ticket.save!
-                 updates = { "Success" => "You got the client"}     
-                 grabbedTicket = true         
-               else 
-                 updates = {"Someone already grabbed that client!!" => "(o_o')"}              
-               end   
-            end
-          end            
+          case (requested_ticket_priority_id)
+            when highPriority
+              allowed = ((Ticket.where("user_id = ? AND priority_id = ?", current_user.id, highPriority)).size < currentProject.max_green_clients)
+            when midPriority
+              allowed = ((Ticket.where("user_id = ? AND priority_id = ?", current_user.id, midPriority)).size < currentProject.max_yellow_clients)
+            when lowPriority
+              allowed = ((Ticket.where("user_id = ? AND priority_id = ?", current_user.id, lowPriority)).size < currentProject.max_white_clients)
+            else            
+              allowed = false
+          end 
           
-          # This is done down here to allow the transaction above to finish as quickly as possible thus allowing the user to better grab the ticket
-          if grabbedTicket
-            receipt = Receipt.where("ticket_id = ? AND user_id = ?", ticket.id, current_user.id).first
+          if allowed          
+            grabbedTicket = false
+            ticket        = nil;          
+            Ticket.transaction do                                      
+              ticket = Ticket.where("client_id = ? AND project_id = ?", params[:clientID], currentProject.id).lock(true).first
+              
+              if ticket.nil?
+                updates = {"Error" => "Ticket does not exist for the current project"}
+              else 
+                 # User is allowed to get a new client: Try to grab the client ticket               
+                 if ticket.user_id.nil? || ticket.user_id == 0
+                   ticket.user_id = current_user.id
+                   ticket.save!
+                   updates = { "Success" => "You got the client"}     
+                   grabbedTicket = true         
+                 else 
+                   updates = {"Someone already grabbed that client!!" => "(o_o')"}              
+                 end   
+              end
+            end            
             
-            if receipt.nil?
-              Receipt.create(ticket_id: ticket.id, user_id: current_user.id)
-            end              
-          end            
+            # This is done down here to allow the transaction above to finish as quickly as possible thus allowing the user to better grab the ticket
+            if grabbedTicket
+              receipt = Receipt.where("ticket_id = ? AND user_id = ?", ticket.id, current_user.id).first
+              
+              if receipt.nil?
+                Receipt.create(ticket_id: ticket.id, user_id: current_user.id)
+              end              
+            end    
+          else 
+            s = requested_ticket_priority_id.to_s
+            updates = {"you already have the max number of " + s => "you fail at life"}
+          
+          
+          end
+          
+          
+                        
         end
       end 
      
@@ -90,7 +104,7 @@ class TicketsController < ApplicationController
     clients = Client.all
     clients.each do |c|
        ticket = c.tickets.create(
-         project_id: get_current_project,
+         project_id: get_selected_project.id,
          priority_id: 2) # Will need a method to calculate)
        ticket.save
     end

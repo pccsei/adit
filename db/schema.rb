@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140201034429) do
+ActiveRecord::Schema.define(version: 20140201160055) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -116,11 +116,6 @@ ActiveRecord::Schema.define(version: 20140201034429) do
     t.string   "payment_type"
   end
 
-  create_table "status_tables", force: true do |t|
-    t.string  "status_type"
-    t.boolean "status_enabled"
-  end
-
   create_table "statuses", force: true do |t|
     t.string   "status_type",    limit: 30
     t.boolean  "status_enabled",            default: true
@@ -160,6 +155,5 @@ ActiveRecord::Schema.define(version: 20140201034429) do
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
-  add_index "users", ["school_id"], name: "index_users_on_school_id", unique: true, using: :btree
 
 end
