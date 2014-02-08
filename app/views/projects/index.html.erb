@@ -31,8 +31,8 @@
 		      	<td><%= project.year%></td>
 		      	<td><%= project.semester%></td>
 		      	<td><%= project.project_type_id%></td>
-		      	<td><%= project.project_start.to_formatted_s(:long_ordinal)%></td>
-		        <td><%= project.project_end.to_formatted_s(:long_ordinal) %></td>
+		      	<td><%= project.tickets_open_time.to_formatted_s(:long_ordinal)%></td>
+		        <td><%= project.tickets_close_time.to_formatted_s(:long_ordinal) %></td>
 		        <% if project.use_max_clients %>
 		        	<td><%= project.max_clients%></td>
 		        	<td></td>
@@ -40,9 +40,9 @@
 		        	<td></td>
 		        <% else %>
 		        	<td></td>
-			        <td><%= project.max_green_clients%></td>
-			        <td><%= project.max_yellow_clients%></td>
-			        <td><%= project.max_white_clients%></td>
+			        <td><%= project.max_high_priority_clients%></td>
+			        <td><%= project.max_medium_priority_clients%></td>
+			        <td><%= project.max_low_priority_clients%></td>
 		        <% end %>
 		      	<td><%= project.comment%></td>	
 		        <td><%= link_to 'Edit', edit_project_path(project) %></td>
@@ -59,7 +59,7 @@
 		  	<%= link_to 'Create New Project', new_project_path %>
 			<br>   
 			<% @projects.each do |project| %>
-			  <% if (project.project_start && project.project_end) < Time.current %>
+			  <% if (project.tickets_open_time && project.tickets_close_time) < Time.current %>
 			  	<%= link_to 'Create New Project', new_project_path %>
 			  <% end %>
 			<% end %>
@@ -99,8 +99,8 @@
 			      	<td><%= project.year%></td>
 			      	<td><%= project.semester%></td>
 			      	<td><%= project.project_type_id%></td>
-			      	<td><%= project.project_start.to_formatted_s(:long_ordinal)%></td>
-			        <td><%= project.project_end.to_formatted_s(:long_ordinal)%></td>
+			      	<td><%= project.tickets_open_time.to_formatted_s(:long_ordinal)%></td>
+			        <td><%= project.tickets_close_time.to_formatted_s(:long_ordinal)%></td>
 			        <td><%= project.max_clients%></td>
 			      	<td><%= project.comment%></td>
 			        <td><%= link_to 'Edit', edit_project_path(project) %></td>
