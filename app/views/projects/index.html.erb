@@ -24,7 +24,7 @@
 	  </thead>
 	  	
 	  <tbody>
-	    <% @projects.each do |project| %>
+	    <% @current_projects.each do |project| %>
 	      	<% if project.is_active %>
 			  <tr>	      
       			<td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
@@ -84,7 +84,7 @@
 			</thead>
 		  
 		  <tbody>
-		    <% @projects.each do |project| %>
+		    <% @archived_projects.each do |project| %>
 		      	<% if !project.is_active%>
      		      <tr>
       				<td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
