@@ -25,12 +25,12 @@
       <%= f.collection_select :project_type_id, ProjectType.all, :id, :name  %>
     </div>
     <div class="field">
-      <%= f.label :project_start %><br>
-      <%= f.text_field :project_start, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
+      <%= f.label :tickets_open_time %><br>
+      <%= f.text_field :tickets_open_time, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
     </div>
     <div class="field">
-      <%= f.label :project_end %><br>
-      <%= f.text_field :project_end, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
+      <%= f.label :tickets_close_time %><br>
+      <%= f.text_field :tickets_close_time, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
     </div>
     <div class="field">
       <%= f.label :comment %><br>
@@ -47,11 +47,11 @@
       <%= radio_button(:project, :use_max_clients, 0) %>
       <%= label_tag(:max_color_clients, "Total Clients in separated form") %><br>
       <%= f.label :Green %>
-      <%= f.text_field :max_green_clients %><br>
+      <%= f.text_field :max_high_priority_clients %><br>
       <%= f.label :Yellow %>
-      <%= f.text_field :max_yellow_clients %><br>
+      <%= f.text_field :max_medium_priority_clients %><br>
       <%= f.label :White %>
-      <%= f.text_field :max_white_clients %><br>
+      <%= f.text_field :max_low_priority_clients %><br>
     </div>
 
 	<% if params[:id]%>	
@@ -74,8 +74,8 @@
   </div>
   
 <script>
-	$('#project_project_start').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
-	$('#project_project_end').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
+	$('#project_tickets_open_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
+	$('#project_tickets_close_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
 </script>    
 <% end %>
 
@@ -87,8 +87,8 @@
 		$("#new_project").validate({
 			rules: {
 				"project[year]": {required: true, rangelength: [4,4]},
-				"project[project_start]": {required: true, date: true},
-				"project[project_end]": {required: true, date: true, greater_than: "project[project_start]"},
+				"project[tickets_open_time]": {required: true, date: true},
+				"project[tickets_close_time]": {required: true, date: true, greater_than: "project[tickets_open_time]"},
 			},
 			messages: {
 			}
