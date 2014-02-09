@@ -121,7 +121,7 @@ class ReportsController < ApplicationController
       @activities[index].points_earned = a.points_earned
       all_actions_for_receipt = Action.find_all_by_receipt_id(Receipt.find(a.receipt_id))
       for i in 0..Action.where("receipt_id = ?", a.receipt_id).all.count-1
-        total_points =+ all_actions_for_receipt[i].points_earned
+        total_points += all_actions_for_receipt[i].points_earned
       end
       @activities[index].cumulative_points_earned_on_client = total_points
       @activities[index].comments = a.comment
