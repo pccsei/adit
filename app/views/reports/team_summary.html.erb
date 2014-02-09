@@ -1,1 +1,29 @@
-You have reached the team summary page. One day there will be content here.
+<%= debug @team_data%>
+
+	<table class ="table dataTable">
+	  <thead>
+	    <tr>
+	      <th>Team Name</th>
+	      <th>Section</th>
+	      <th>Open Clients</th>
+	      <th>Sold Clients</th>
+	      <th>Released Clients</th>
+	      <th>Sales Total</th>
+	      <th>Points</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tbody>
+            <% @team_data.each do |team_data| %>
+              <tr>
+                <td><%= team_data.student_manager %></td>
+                <td><%= team_data.section %></td>
+                <td><%= team_data.open %></td>
+                <td><%= team_data.sold %></td>
+                <td><%= team_data.released %></td>
+                <td><%= team_data.sales %></td>
+                <td><%= team_data.points %></td>                            
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
