@@ -31,7 +31,7 @@
 
 
 body {
-  padding-top: 60px;
+  padding-top: 100px;
   background-color: #EBEBEB;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
@@ -139,9 +139,9 @@ p {
   max-height: 60px;
   margin-top: 0px;
   border-top: 1px solid #0F314A;
-  background-color: #0F314A;
+  background-color: #1C2C40;
   a {
-    color: #fff;
+    color: #1C2C40;
     &:hover {
       color: #222;
     }
@@ -169,8 +169,12 @@ p {
     color: white !important;
     background-color: transparent;
 }
+.navbar-default .navbar-nav > li > a {
+    color: #6FB0FF;
+}
+
 .navbar-nav a{
-  background-color: #0F314A;
+  background-color: #1C2C40;
 }
 
 #container{
