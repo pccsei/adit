@@ -7,6 +7,8 @@ class ClientsController < ApplicationController
     @pending_clients = Client.pending
 
     @clients = Client.all
+    
+    @projects = Project.all
 
   end
 

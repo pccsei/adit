@@ -1,0 +1,15 @@
+<%= form_tag('/users/assign_teacher_to_section') do %>
+
+<%=label_tag "Please select section number:" %>
+<%=select_tag :section, options_for_select(%w[1 2 3 4 5]) %>
+
+
+<br><br>
+<%=label_tag "Please select the teacher:" %>
+<%= collection_select  :last_name, :id, User.all_teachers, :id, :last_name  %>
+
+<br><br>
+
+<%= submit_tag "Create this section" %>
+
+<% end %>

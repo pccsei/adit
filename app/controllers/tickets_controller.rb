@@ -3,7 +3,7 @@ class TicketsController < ApplicationController
 
   def index
     
-    currentProject = Project.select("id, use_max_clients, max_green_clients, max_yellow_clients, max_white_clients").where("is_active = 1").first
+    currentProject = Project.select("id, use_max_clients, max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients").where("is_active = 1").first
 
     if params[:ajax] == "update"
       updates = Ticket.updates(params[:timestamp])      
@@ -29,11 +29,11 @@ class TicketsController < ApplicationController
           
           case (requested_ticket_priority_id)
             when highPriority
-              allowed = ((Ticket.where("user_id = ? AND priority_id = ?", current_user.id, highPriority)).size < currentProject.max_green_clients)
+              allowed = ((Ticket.where("user_id = ? AND priority_id = ?", current_user.id, highPriority)).size < currentProject.max_high_priority_clients)
             when midPriority
-              allowed = ((Ticket.where("user_id = ? AND priority_id = ?", current_user.id, midPriority)).size < currentProject.max_yellow_clients)
+              allowed = ((Ticket.where("user_id = ? AND priority_id = ?", current_user.id, midPriority)).size < currentProject.max_medium_priority_clients)
             when lowPriority
-              allowed = ((Ticket.where("user_id = ? AND priority_id = ?", current_user.id, lowPriority)).size < currentProject.max_white_clients)
+              allowed = ((Ticket.where("user_id = ? AND priority_id = ?", current_user.id, lowPriority)).size < currentProject.max_low_priority_clients)
             else            
               allowed = false
           end 
@@ -145,8 +145,7 @@ class TicketsController < ApplicationController
     end
 
     def ticket_params
-      params.require(:ticket).permit(:id, :sale_value, :page_size, :created_at, :updated_at, 
-                                     :payment_type, :attachment, :attachment_name, :project_id, 
+      params.require(:ticket).permit(:id, :created_at, :updated_at,                                    :project_id, 
                                      :client_id, :user_id, :priority_id)
     end
 end

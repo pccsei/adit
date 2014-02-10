@@ -28,7 +28,7 @@ class ActionsController < ApplicationController
        @action.action_type_id = (ActionType.find_by(name: params[:action_type_name])).id
     else
       priority = @receipt.ticket.priority.name
-      if priority == "green"
+      if priority == "high"
         @action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
       else
         @action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
@@ -74,7 +74,7 @@ class ActionsController < ApplicationController
         if params[:sale] && (params[:presentation] || receipt.made_presentation == true)
         priority = receipt.ticket.priority.name
           new_action = Action.new
-          if priority == "green"
+          if priority == "high"
              new_action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
           else
              new_action.action_type_id = (ActionType.find_by(name: 'New Sale')).id

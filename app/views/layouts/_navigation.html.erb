@@ -1,6 +1,6 @@
 <ul class="nav navbar-nav">	 
 		
- <% if current_user.role == 3 %>
+ <%# if current_user.role == 3 %>
     <li><%= link_to "Manage Section",  users_path %></li>
     <li><%= link_to "Manage Clients",         root_path %></li>
     	<!-- I am not sure how to make the drop-down work, I think reports should be the title 
@@ -16,11 +16,11 @@
   </li>
     <li><%= link_to "Project Options", projects_path %></li>  
  
- <% else %>         
+ <%# else %>         
     <li><%= link_to "Choose Clients",         tickets_path %></li>
     <li><%= link_to "My Clients", "/receipts/my_receipts/#{@current_user.id}" %></li>
     <li><%= link_to "Submit Client", new_client_path %>
- <% end %>
+ <%# end %>
     	
  <% if signed_in? %>
       <li><%= link_to "Sign Out",   signout_path, method: "delete" %></li>

@@ -7,19 +7,18 @@ class ProjectsControllerTest < ActionController::TestCase
       id: 34,
       year: 2013,
       semester: 'MyString',
-      project_start: '2013-11-08 23:10:35',
-      project_end: '2013-11-08 23:10:35',
+      tickets_open_time: '2013-11-08 23:10:35',
+      tickets_close_time: '2013-11-08 23:10:35',
       comment: 'MyString',
       created_at: '2013-11-08 23:10:35',
       updated_at: '2013-11-08 23:10:35',
       max_clients: 1,
-      max_green_clients: 1,
-      max_white_clients: 1,
-      max_yellow_clients: 1,
+      max_high_priority_clients: 1,
+      max_low_priority_clients: 1,
+      max_medium_priority_clients: 1,
       use_max_clients: 0,
       project_type_id: 1,
       is_active: 1,
-      ticket_close_time: '2013-11-08 23:10:35'
     }
   end
 

@@ -1,6 +1,6 @@
  <% if @projects.empty? %>
    <p> There are currently no projects to display. </p>
-   <% link_to new_project_path, "Create a New Project"%>
+   <%= link_to "Create a New Project", new_project_path %>
 <% else %>
 <%= form_tag('/projects/select_project') do%>
 	<% if (Project.find_by is_active: '1') %>
@@ -15,39 +15,40 @@
 	      <th>Project Start</th>
 	      <th>Project End</th>
 	      <th>Total Max Clients</th>
-	      <th>Green Clients</th>
+	      <th>High Priority Clients</th>
 	      <th>Yellow Clients</th>
-	      <th>White Clients</th>
+	      <th>Low Priority Clients</th>
 	      <th>Comment</th>
 	      <th></th>
 	    </tr>
 	  </thead>
-	
+	  	
 	  <tbody>
-	    <% @projects.each do |project| %>
-	      <tr>
+	    <% @current_projects.each do |project| %>
 	      	<% if project.is_active %>
+			  <tr>	      
       			<td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
 		      	<td><%= project.year%></td>
 		      	<td><%= project.semester%></td>
 		      	<td><%= project.project_type_id%></td>
-		      	<td><%= project.project_start.to_formatted_s(:long_ordinal)%></td>
-		        <td><%= project.project_end.to_formatted_s(:long_ordinal) %></td>
+		      	<td><%= project.tickets_open_time.to_formatted_s(:long_ordinal)%></td>
+		        <td><%= project.tickets_close_time.to_formatted_s(:long_ordinal) %></td>
 		        <% if project.use_max_clients %>
 		        	<td><%= project.max_clients%></td>
-		        	<td></td>
-		        	<td></td>
-		        	<td></td>
+		        	<td>N/A</td>
+		        	<td>N/A</td>
+		        	<td>N/A</td>
 		        <% else %>
 		        	<td></td>
-			        <td><%= project.max_green_clients%></td>
-			        <td><%= project.max_yellow_clients%></td>
-			        <td><%= project.max_white_clients%></td>
+			        <td><%= project.max_high_priority_clients%></td>
+			        <td><%= project.max_medium_priority_clients%></td>
+			        <td><%= project.max_low_priority_clients%></td>
+		        	<td>N/A</td>
 		        <% end %>
 		      	<td><%= project.comment%></td>	
 		        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+		      </tr>
 	        <% end %>
-	      </tr>
 	    <% end %>
 	  </tbody>
 	</table>
@@ -59,7 +60,7 @@
 		  	<%= link_to 'Create New Project', new_project_path %>
 			<br>   
 			<% @projects.each do |project| %>
-			  <% if (project.project_start && project.project_end) < Time.current %>
+			  <% if (project.tickets_open_time && project.tickets_close_time) < Time.current %>
 			  	<%= link_to 'Create New Project', new_project_path %>
 			  <% end %>
 			<% end %>
@@ -70,42 +71,33 @@
 		<table class = "table dataTable">
 			<thead>
 		      <tr>
-		      <!--th><th>
-		      <th>Year</th>
-		      <th>Semester</th>
-		      <th>Project Type</th>
-		      <th>Project Start</th>
-		      <th>Project End</th>
-		      <th>Max Clients</th>
-		      <th>Comment</th>
-		      <th></th-->
-		      <th>Selected</th>
-		      <th>Year</th>
-		      <th>Semester</th>
-		      <th>Project Type</th>
-		      <th>Start Date</th>	
-		      <th>End Date</th>
-		      <th>Max Clients</th>
-		      <th>Comments</th>
-		      <th>Edit Button</th>
-		    </tr>
-		  </thead>
+			    <th>Selected</th>
+			    <th>Year</th>
+			    <th>Semester</th>
+			    <th>Project Type</th>
+			    <th>Start Date</th>	
+			    <th>End Date</th>
+			    <th>Max Clients</th>
+			    <th>Comments</th>
+			    <th>Edit Button</th>
+			  </tr>
+			</thead>
 		  
 		  <tbody>
-		    <% @projects.each do |project| %>
-		      <tr>
+		    <% @archived_projects.each do |project| %>
 		      	<% if !project.is_active%>
+     		      <tr>
       				<td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
 			      	<td><%= project.year%></td>
 			      	<td><%= project.semester%></td>
 			      	<td><%= project.project_type_id%></td>
-			      	<td><%= project.project_start.to_formatted_s(:long_ordinal)%></td>
-			        <td><%= project.project_end.to_formatted_s(:long_ordinal)%></td>
+			      	<td><%= project.tickets_open_time.to_formatted_s(:long_ordinal)%></td>
+			        <td><%= project.tickets_close_time.to_formatted_s(:long_ordinal)%></td>
 			        <td><%= project.max_clients%></td>
 			      	<td><%= project.comment%></td>
 			        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+    		      </tr>
 		      	<% end %>
-		      </tr>
 		    <% end %>
 		  </tbody>
 		</table>

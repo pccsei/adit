@@ -11,11 +11,16 @@ class Action < ActiveRecord::Base
           last = a.user_action_time
         end
       end
-    end  
+    end
+
     if last == "2100-JAN-1 00:00:00"
       last = nil
     else
       last
     end
+  end
+
+  def Action.all_actions_in_project(project)
+      Action.find_all_by_receipt_id(Receipt.find_all_by_ticket_id(Ticket.find_all_by_project_id(project)))
   end
 end

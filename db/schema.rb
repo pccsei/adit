@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140201160055) do
+ActiveRecord::Schema.define(version: 20140208192233) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -88,19 +88,18 @@ ActiveRecord::Schema.define(version: 20140201160055) do
   create_table "projects", force: true do |t|
     t.integer  "year"
     t.string   "semester"
-    t.datetime "project_start"
-    t.datetime "project_end"
+    t.datetime "tickets_open_time"
+    t.datetime "tickets_close_time"
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "max_clients",        limit: 2
-    t.integer  "max_green_clients",  limit: 2
-    t.integer  "max_white_clients",  limit: 2
-    t.integer  "max_yellow_clients", limit: 2
+    t.integer  "max_clients",                 limit: 2
+    t.integer  "max_high_priority_clients",   limit: 2
+    t.integer  "max_low_priority_clients",    limit: 2
+    t.integer  "max_medium_priority_clients", limit: 2
     t.boolean  "use_max_clients"
     t.integer  "project_type_id"
     t.boolean  "is_active"
-    t.datetime "ticket_close_time"
   end
 
   create_table "receipts", force: true do |t|
@@ -124,13 +123,8 @@ ActiveRecord::Schema.define(version: 20140201160055) do
   end
 
   create_table "tickets", force: true do |t|
-    t.float    "sale_value"
-    t.float    "page_size"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "payment_type"
-    t.binary   "attachment"
-    t.string   "attachment_name"
     t.integer  "project_id"
     t.integer  "client_id"
     t.integer  "user_id"
@@ -155,5 +149,6 @@ ActiveRecord::Schema.define(version: 20140201160055) do
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
+  add_index "users", ["school_id"], name: "index_users_on_school_id", unique: true, using: :btree
 
 end
