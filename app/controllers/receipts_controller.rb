@@ -17,6 +17,12 @@ class ReceiptsController < ApplicationController
     @active_receipts = Receipt.open_clients(@student_user.id, get_selected_project)
     @sold_receipts = Receipt.sold_clients(@student_user.id, get_selected_project)
     @released_receipts = Receipt.released_clients(@student_user.id, get_selected_project)
+    
+    # On the boxes themselves, client business name, total points, correct color, checkboxes empty or checked
+    
+    # For completed clients...name, total points, maybe sale information???
+    
+    # Released just points and name
   end
 
   # GET /receipts/1
