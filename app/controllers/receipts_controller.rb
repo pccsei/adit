@@ -14,8 +14,8 @@ class ReceiptsController < ApplicationController
       redirect_to "/receipts/my_receipts/#{current_user.id}", alert: 'You have been redirected to your own page'
     end
     
-    @active_receipts = Receipt.open_clients(@student_user.id, get_selected_project)
-    @sold_receipts = Receipt.sold_clients(@student_user.id, get_selected_project)
+    @active_receipts   = Receipt.open_clients(@student_user.id, get_selected_project)
+    @sold_receipts     = Receipt.sold_clients(@student_user.id, get_selected_project)
     @released_receipts = Receipt.released_clients(@student_user.id, get_selected_project)
   end
 

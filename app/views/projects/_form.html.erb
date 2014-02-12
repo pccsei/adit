@@ -17,8 +17,9 @@
       <%= f.text_field :year %>
     </div>
     <div class="field">
-      <%= f.label :semester %><br>
-      <%= f.select :semester, options_for_select(%w[Fall Spring]) %>
+      <%= f.label :semester %><br>     
+      <%= f.select :semester, options_for_select(%w[Fall Spring]), { :include_blank=>false }, { :class => 'btn btn-large btn-dropdown btn-sm' } %>
+      
     </div>
     <div class="field">
       <%= f.label :project_type_id %><br>
