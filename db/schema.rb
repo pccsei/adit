@@ -11,37 +11,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140208192233) do
+ActiveRecord::Schema.define(version: 20140214040534) do
 
   create_table "action_types", force: true do |t|
-    t.string   "name"
-    t.integer  "role"
-    t.integer  "point_value"
+    t.string   "name",        null: false
+    t.integer  "role",        null: false
+    t.integer  "point_value", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "action_types", ["name"], name: "index_action_types_on_name", unique: true, using: :btree
+
   create_table "actions", force: true do |t|
-    t.integer  "points_earned"
-    t.datetime "user_action_time"
+    t.integer  "points_earned",    null: false
+    t.datetime "user_action_time", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "action_type_id"
-    t.integer  "receipt_id"
+    t.integer  "action_type_id",   null: false
+    t.integer  "receipt_id",       null: false
     t.text     "comment"
   end
 
+  add_index "actions", ["action_type_id"], name: "index_actions_on_action_type_id", using: :btree
+  add_index "actions", ["receipt_id"], name: "index_actions_on_receipt_id", using: :btree
+
   create_table "bonus", force: true do |t|
-    t.integer  "points"
+    t.integer  "points",     default: 0, null: false
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "project_id"
-    t.integer  "user_id"
+    t.integer  "project_id",             null: false
+    t.integer  "user_id",                null: false
   end
 
+  add_index "bonus", ["project_id"], name: "index_bonus_on_project_id", using: :btree
+  add_index "bonus", ["user_id"], name: "index_bonus_on_user_id", using: :btree
+
   create_table "clients", force: true do |t|
-    t.string   "business_name"
+    t.string   "business_name",            null: false
     t.string   "address"
     t.string   "email"
     t.string   "telephone"
@@ -56,20 +64,23 @@ ActiveRecord::Schema.define(version: 20140208192233) do
     t.string   "city",          limit: 30
     t.string   "state",         limit: 2
     t.integer  "status_id"
+    t.string   "submitter"
   end
 
+  add_index "clients", ["business_name"], name: "index_clients_on_business_name", unique: true, using: :btree
   add_index "clients", ["status_id"], name: "index_clients_on_status_id", using: :btree
 
   create_table "members", force: true do |t|
-    t.integer  "section_number"
-    t.boolean  "is_enabled"
+    t.integer  "section_number",                null: false
+    t.boolean  "is_enabled",     default: true, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
-    t.integer  "project_id"
+    t.integer  "user_id",                       null: false
+    t.integer  "project_id",                    null: false
     t.integer  "parent_id"
   end
 
+  add_index "members", ["parent_id"], name: "index_members_on_parent_id", using: :btree
   add_index "members", ["project_id"], name: "index_members_on_project_id", using: :btree
   add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
 

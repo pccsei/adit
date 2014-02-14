@@ -14,6 +14,8 @@
 
 
 //= require jquery
+//= require bootstrap
+//= require dropdown
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
@@ -38,4 +40,11 @@
 //= require jquery
 //= require fancybox
 
+//= require bootstrap
+//= require bootstrap-select
+
+
+
 $(document).ready($('.dataTable').dataTable()); 
+
+$(document).ready($('.selectpicker').selectpicker());

@@ -10,20 +10,28 @@
       </ul>
     </div>
   <% end %>
-  
-    <div class="field">
-      <%= f.label :Year %><br>
-      <%= f.label 'in XXXX format' %><br>
-      <%= f.text_field :year %>
+
+    <div class = "col-mid-3" class="control-group">
+      <label class="control-label">
+      <%= f.label :Year %>
+      </label>
+      <div class="controls">
+        <%= f.text_field :year, :type =>"text", :placeholder => "", :class => "input-xlarge" %>
+        <p class="help-block">Enter the year in XXXX format</p>
+      </div>  
     </div>
-    <div class="field">
-      <%= f.label :semester %><br>     
-      <%= f.select :semester, options_for_select(%w[Fall Spring]), { :include_blank=>false }, { :class => 'btn btn-large btn-dropdown btn-sm' } %>
-      
+
+    <div class = "col-mid-3" class="control-group">
+    <label class="control-label">
+     <%= f.label :semester %>
+      </label>
+      <div class="controls">
+      <%= f.select :semester, options_for_select(%w[Fall Spring]), { :include_blank=>false }, { :class => "selectpicker"}%>
+</div>
     </div>
     <div class="field">
       <%= f.label :project_type_id %><br>
-      <%= f.collection_select :project_type_id, ProjectType.all, :id, :name  %>
+      <%= f.collection_select :project_type_id, ProjectType.all, :id, :name, { :include_blank=>false }, { :class => "btn btn-large dropdown-toggle "}  %>
     </div>
     <div class="field">
       <%= f.label :tickets_open_time %><br>

@@ -123,11 +123,12 @@ class TicketsController < ApplicationController
   end
 
   def create
-    clients = Client.all
+    clients = Client.house
     clients.each do |c|
        ticket = c.tickets.create(
          project_id: get_selected_project.id,
-         priority_id: 2) # Will need a method to calculate)
+         priority_id: 2,       # Will need a method to calculate)
+         user_id: c.submitter) 
        ticket.save
     end
     respond_to do |format|

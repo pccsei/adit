@@ -15,15 +15,23 @@ class Client < ActiveRecord::Base
    
    # Returns all pending clients, needs to be refactored to remove magic number
    def self.pending
-     where("status_id = ?", 4).all
+     where(status_id: 4).all
    end
-
-  def Client.approve_clients(status, array_of_pending_clients)
-    for i in 0..array_of_pending_clients.count-1
-      pending_client = Client.find(array_of_pending_clients[i].to_i)
-      pending_client.status_id = status
-      pending_client.save
-    end
-  end
+   
+   def self.unapprove
+     where(status_id: 1).all
+   end
+   
+   def self.house
+     where(status_id: [3,2]).all
+   end
+   
+   def Client.approve_clients(status, array_of_pending_clients)
+     for i in 0..array_of_pending_clients.count-1
+       pending_client = Client.find(array_of_pending_clients[i].to_i)
+       pending_client.status_id = status
+       pending_client.save
+     end
+   end
 
 end

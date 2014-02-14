@@ -1,3 +1,28 @@
 // Place all the styles related to the tickets controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+tr.yellow.odd{
+	background-color: yellow !important;
+}
+
+tr.yellow.even{
+	background-color: yellow !important;
+}
+
+tr.green.odd{
+	background-color: green !important;
+}
+
+tr.green.even{
+	background-color: green !important;
+}
+
+tr.white.odd{
+	background-color: white !important;
+}
+
+tr.white.even{
+	background-color: white !important;
+}

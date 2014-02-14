@@ -1,3 +1,6 @@
+<% provide(:title, "Project Options") %>
+
+
  <% if @projects.empty? %>
    <p> There are currently no projects to display. </p>
    <%= link_to "Create a New Project", new_project_path %>
@@ -46,7 +49,7 @@
 		        	<td>N/A</td>
 		        <% end %>
 		      	<td><%= project.comment%></td>	
-		        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+		        <td><%= link_to 'Edit', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
 		      </tr>
 	        <% end %>
 	    <% end %>
@@ -66,7 +69,7 @@
 			<% end %>
 	<% end %>
 	
-	<% if Project.find_by is_active: '0'%>
+	<% if Project.non_archived.find_by is_active: '0' %>
 	<h1>Archived Projects</h1>
 		<table class = "table dataTable">
 			<thead>
@@ -95,13 +98,13 @@
 			        <td><%= project.tickets_close_time.to_formatted_s(:long_ordinal)%></td>
 			        <td><%= project.max_clients%></td>
 			      	<td><%= project.comment%></td>
-			        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+			        <td><%= link_to 'Edit', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
     		      </tr>
 		      	<% end %>
 		    <% end %>
 		  </tbody>
 		</table>
 	<% end %>
-	<%= submit_tag 'View Project'%>
+	<%= submit_tag 'View Project', :class => "btn btn-primary btn-sm"%>
 <% end %>
 <% end %>

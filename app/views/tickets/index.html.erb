@@ -1,3 +1,4 @@
+<% provide(:title, "Choose Clients") %>
 <script>
 var last_update = "<%= Time.now.utc.strftime("%Y-%m-%d %H:%M:%S") %>";
 	
@@ -46,7 +47,15 @@ $(function() {
 </script>
 
 
+<<<<<<< HEAD
 need to add tooltip functionality to the table rows; check here for the javascript: http://stackoverflow.com/questions/15503839/how-to-add-a-twitter-bootstrap-tooltip-to-an-icon
+=======
+<h1 class = "col-md-3", id = "heading">Choose Clients</h1>
+
+
+Add classes to the rows for specific priority clients
+
+>>>>>>> 78542de99519e57cd5f947fa02673b965860b5cc
 
 
 <!-- ADDING project information to page -->
@@ -79,7 +88,6 @@ need to add tooltip functionality to the table rows; check here for the javascri
 
 
 
-<h1>Listing Tickets</h1>
 
 <table class="table dataTable">
   <thead>
@@ -98,9 +106,10 @@ need to add tooltip functionality to the table rows; check here for the javascri
   </thead>
   <tbody>
     <% @tickets.each do |ticket| %>
+
       <tr class='<%= Priority.find(ticket.priority_id).name %>'>
       	<% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
-      	<td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => ticketClass %>
+      	<td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => "btn btn-primary btn-sm" %>
       	</td>
       	<td><%= client.business_name %></td>
       	<td><%= client.address %></td>
@@ -110,7 +119,12 @@ need to add tooltip functionality to the table rows; check here for the javascri
       	<td><%= client.contact_lname %></td>
       	<td><%= client.telephone %></td>
       	<td><%= client.comment %></td>      	
+<<<<<<< HEAD
         <td><%= link_to 'Details', ticket %></td>
+=======
+        <td><%= link_to 'Show', ticket , :class => "btn btn-info btn-sm" %></td>
+        <td><%= link_to 'Edit', edit_ticket_path(ticket), :class => "btn btn-danger btn-sm" %></td>
+>>>>>>> 78542de99519e57cd5f947fa02673b965860b5cc
       </tr>
     <% end %>
   </tbody>
