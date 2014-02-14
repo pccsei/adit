@@ -85,7 +85,6 @@ Add classes to the rows for specific priority clients
 
 
 <h1>Listing Tickets</h1>
->>>>>>> 320367324997a647ffba99f2e6e50e8cd26807eb
 
 <table class="table dataTable">
   <thead>
@@ -105,14 +104,10 @@ Add classes to the rows for specific priority clients
   </thead>
   <tbody>
     <% @tickets.each do |ticket| %>
-<<<<<<< HEAD
-      <tr><% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
-      	<td><%= button_tag "add", type: 'button', :id => ticket.id, :class => ticketClass, :class => "btn btn-primary btn-sm" %>
-=======
+
       <tr class='<%= Priority.find(ticket.priority_id).name %>'>
       	<% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
       	<td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => ticketClass %>
->>>>>>> 320367324997a647ffba99f2e6e50e8cd26807eb
       	</td>
       	<td><%= client.business_name %></td>
       	<td><%= client.address %></td>
