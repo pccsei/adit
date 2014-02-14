@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20140214040534) do
     t.string   "city",          limit: 30
     t.string   "state",         limit: 2
     t.integer  "status_id"
+    t.string   "submitter"
   end
 
   add_index "clients", ["business_name"], name: "index_clients_on_business_name", unique: true, using: :btree

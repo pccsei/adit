@@ -72,16 +72,17 @@ class ProjectsController < ApplicationController
     end
   end
   
+  # This is in the tickets controller currently....don't know if want to delete
   # Create the tickets and move to the next step, which is to add students
-  def create_tickets(project)
-    clients = Client.all
-      clients.each do |c|
-      ticket = c.tickets.create(
-         project_id: project.id,
-         priority_id: 2) # Will need a method to calculate)
-       ticket.save
-    end    
-  end
+  # def create_tickets(project)
+    # clients = Client.all
+      # clients.each do |c|
+      # ticket = c.tickets.create(
+         # project_id: project.id,
+         # priority_id: 2) # Will need a method to calculate)
+       # ticket.save
+    # end    
+  # end
   
   def select_project
     project_id = params['input']
