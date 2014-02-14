@@ -1,5 +1,6 @@
 WhiteCollar::Application.routes.draw do
   root :to => "clients#index"  
+  
   post "users/assign_teacher_to_section"
   get  "users/create_new_section"
   get  "users/teachers"

@@ -2,6 +2,7 @@
 
 <%=debug @sections %>
 <%=debug @pro %>
+
 <h1 class = "col-md-3", id = "heading">Manage Section</h1>
 
 <h5 class = "col-md-9" id="section_type">
@@ -12,7 +13,7 @@
 <% elsif @selected_section.nil? %>
 	you need to create a section. 
 <% else%>
-	this is section <%= "#{@selected_section}, "%>%>
+	this is section <%= "#{@selected_section}, "%>
 <% end %>
 
 
@@ -50,11 +51,11 @@
 
 <div class="btn-group">
 	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-		Select Section<span class="caret"></span>
+		Change Section<span class="caret"></span>
 	</button>
 	<ul class="dropdown-menu" role="menu">
 	<% @sections.each do |s|%>
-	   <li><%= link_to s, "/users/set_section", {:selected_section => "#{s}"} %></li>
+	   <li><%= link_to "#{s}", {:controller => :users, :action => :set_section, :section_option => "#{s}"}, :method => :post %></li>
 	<% end %>
 </ul>
 </div>
