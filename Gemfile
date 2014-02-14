@@ -39,7 +39,7 @@ gem 'jquery-rails'
 gem 'jquery-datatables-rails'
 
 # added by Zach Evans
-
+gem 'bootstrap-select-rails'
 
 
   # bundle exec rake doc:rails generates the API under doc/api.

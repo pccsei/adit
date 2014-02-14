@@ -44,5 +44,5 @@
   <strong>Comment:</strong>
   <%= @project.comment %>
 </p>
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Project list',  {:controller => "tickets", :action => "create" }, method: :post %>
+<%= link_to 'Edit', edit_project_path(@project), :class => "btn btn-large btn-primary btn-sm" %> |
+<%= link_to 'Project list',  {:controller => "tickets", :action => "create" }, method: :post, :class => "btn btn-large btn-primary btn-sm" %>

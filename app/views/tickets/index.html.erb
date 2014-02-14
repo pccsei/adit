@@ -1,3 +1,4 @@
+<% provide(:title, "Choose Clients") %>
 <script>
 var last_update = "<%= Time.now.utc.strftime("%Y-%m-%d %H:%M:%S") %>";
 	
@@ -45,7 +46,7 @@ $(function() {
 });
 </script>
 
-<h1>Listing Tickets</h1>
+<h1 class = "col-md-3", id = "heading">Choose Clients</h1>
 
 <table class="table dataTable">
   <thead>
@@ -66,7 +67,7 @@ $(function() {
   <tbody>
     <% @tickets.each do |ticket| %>
       <tr><% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
-      	<td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => ticketClass %>
+      	<td><%= button_tag "add", type: 'button', :id => ticket.id, :class => ticketClass, :class => "btn btn-primary btn-sm" %>
       	</td>
       	<td><%= client.business_name %></td>
       	<td><%= client.address %></td>
@@ -76,8 +77,8 @@ $(function() {
       	<td><%= client.contact_lname %></td>
       	<td><%= client.telephone %></td>
       	<td><%= client.comment %></td>      	
-        <td><%= link_to 'Show', ticket %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
+        <td><%= link_to 'Show', ticket , :class => "btn btn-info btn-sm" %></td>
+        <td><%= link_to 'Edit', edit_ticket_path(ticket), :class => "btn btn-error btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>

@@ -38,4 +38,11 @@
 //= require jquery
 //= require fancybox
 
+//= require bootstrap
+//= require bootstrap-select
+
+
+
 $(document).ready($('.dataTable').dataTable()); 
+
+$(document).ready($('.selectpicker').selectpicker());

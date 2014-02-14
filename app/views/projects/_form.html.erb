@@ -12,17 +12,17 @@
   <% end %>
   
     <div class="field">
-      <%= f.label :Year %><br>
+      <%= f.label :Year %>
       <%= f.label 'in XXXX format' %><br>
       <%= f.text_field :year %>
     </div>
     <div class="field">
       <%= f.label :semester %><br>
-      <%= f.select :semester, options_for_select(%w[Fall Spring]) %>
+      <%= f.select :semester, options_for_select(%w[Fall Spring]), { :include_blank=>false }, { :class => "selectpicker"}%>
     </div>
     <div class="field">
       <%= f.label :project_type_id %><br>
-      <%= f.collection_select :project_type_id, ProjectType.all, :id, :name  %>
+      <%= f.collection_select :project_type_id, ProjectType.all, :id, :name, { :include_blank=>false }, { :class => "btn btn-large dropdown-toggle"}  %>
     </div>
     <div class="field">
       <%= f.label :tickets_open_time %><br>
