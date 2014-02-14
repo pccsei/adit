@@ -19,7 +19,6 @@ class ProjectsControllerTest < ActionController::TestCase
       use_max_clients: 0,
       project_type_id: 1,
       is_active: 1,
-      ticket_close_time: '2013-11-08 23:10:35'
     }
   end
 

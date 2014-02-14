@@ -3,7 +3,15 @@ class TicketsController < ApplicationController
 
   def index
     
-    currentProject = Project.select("id, use_max_clients, max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients").where("is_active = 1").first
+    # Change to reflect chosen project?    
+    currentProject = Project.select("id, max_clients, use_max_clients, max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients").where("is_active = 1").first
+
+    #add query to select which project the student is a part of?
+
+    highPriority = Priority.where("name = 'high'").first.id
+    midPriority  = Priority.where("name = 'medium'").first.id
+    lowPriority  = Priority.where("name = 'low'").first.id
+
 
     if params[:ajax] == "update"
       updates = Ticket.updates(params[:timestamp])      
@@ -13,36 +21,46 @@ class TicketsController < ApplicationController
       if currentProject.nil? # No current project
         updates = {"Error" => "There is not a current project!"}        
       else 
-                
-        # are these defined in the DB????
+=begin
         highPriority = Priority.where("name = 'high'").first.id
         midPriority  = Priority.where("name = 'medium'").first.id
         lowPriority  = Priority.where("name = 'low'").first.id
-        
+=end        
         if (currentProject.use_max_clients) == 1
           # Check to see if the user has the max number of clients
           if Ticket.where("user_id = ?", current_user.school_id).size >= currentProject.max_clients
             updates = { error => "You have reached the maximum number of clients!"}
           end  
         else
-          requested_ticket_priority_id = Ticket.where("client_id = ? AND project_id = ?", params[:clientID], currentProject.id).first.priority_id
+          
+          #TRYING TO GET TICKET's PRIORITY ID....
+          #requested_ticket_priority_id = Ticket.where("client_id = ? AND project_id = ?", params[:clientID], currentProject.id).first.priority_id
+          
+          #requested_ticket_priority_id = Ticket.where("client_id = ?", params[:clientID]).first.priority_id
+          
+          requested_ticket_priority_id = Ticket.find(params[:clientID]).priority_id
+          
+          
+          #END VAIN ATTEMPT....
+          
           
           case (requested_ticket_priority_id)
             when highPriority
-              allowed = ((Ticket.where("user_id = ? AND priority_id = ?", current_user.id, highPriority)).size < currentProject.max_high_priority_clients)
+              allowed = (@highPriority = (Ticket.where("user_id = ? AND priority_id = ?", current_user.id, highPriority)).size) < currentProject.max_high_priority_clients
             when midPriority
-              allowed = ((Ticket.where("user_id = ? AND priority_id = ?", current_user.id, midPriority)).size < currentProject.max_medium_priority_clients)
+              allowed = (@midPriority = (Ticket.where("user_id = ? AND priority_id = ?", current_user.id, midPriority)).size) < currentProject.max_medium_priority_clients
             when lowPriority
-              allowed = ((Ticket.where("user_id = ? AND priority_id = ?", current_user.id, lowPriority)).size < currentProject.max_low_priority_clients)
+              allowed = (@lowPriority = (Ticket.where("user_id = ? AND priority_id = ?", current_user.id, lowPriority)).size) < currentProject.max_low_priority_clients
             else            
               allowed = false
           end 
           
           if allowed          
             grabbedTicket = false
-            ticket        = nil;          
+            ticket        = nil          
             Ticket.transaction do                                      
-              ticket = Ticket.where("client_id = ? AND project_id = ?", params[:clientID], currentProject.id).lock(true).first
+              #ticket = Ticket.where("client_id = ? AND project_id = ?", params[:clientID], currentProject.id).lock(true).first
+              ticket = Ticket.where("id = ? ",params[:clientID]).lock(true).first
               
               if ticket.nil?
                 updates = {"Error" => "Ticket does not exist for the current project"}
@@ -69,13 +87,8 @@ class TicketsController < ApplicationController
             end    
           else 
             s = requested_ticket_priority_id.to_s
-            updates = {"you already have the max number of " + s => "you fail at life"}
-          
-          
-          end
-          
-          
-                        
+            updates = {"You already have the max number of " + s => "you fail at life"}
+          end              
         end
       end 
      
@@ -83,6 +96,15 @@ class TicketsController < ApplicationController
     ## cleaned up the program  
     elsif currentProject    
       @tickets = Ticket.current_project(currentProject.id)
+      
+      if currentProject.use_max_clients == 1
+        @clientsLeft = currentProject.max_clients - Ticket.where("user_id = ? AND project_id = ?", current_user.id, currentProject.id).size      
+      else        
+        
+        @highPriority = currentProject.max_high_priority_clients - Ticket.where("user_id = ? AND priority_id = ?", current_user.id, highPriority).size
+        @midPriority = currentProject.max_medium_priority_clients - Ticket.where("user_id = ? AND priority_id = ?", current_user.id, midPriority).size
+        @lowPriority = currentProject.max_low_priority_clients - Ticket.where("user_id = ? AND priority_id = ?", current_user.id, lowPriority).size  
+      end            
     end
     
     respond_to do |format|      
@@ -146,8 +168,7 @@ class TicketsController < ApplicationController
     end
 
     def ticket_params
-      params.require(:ticket).permit(:id, :sale_value, :page_size, :created_at, :updated_at, 
-                                     :payment_type, :attachment, :attachment_name, :project_id, 
+      params.require(:ticket).permit(:id, :created_at, :updated_at,                                    :project_id, 
                                      :client_id, :user_id, :priority_id)
     end
 end

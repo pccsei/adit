@@ -5,23 +5,6 @@ class ReceiptsController < ApplicationController
   # GET /receipts.json
   def index
     redirect_to "/receipts/my_receipts/#{current_user.id}"
-
-    # @current_user     =  User.first
-    # @active_tickets   =  current_user.tickets.where("sale_value is NULL OR sale_value = 0")
-    # @sold_tickets     =  current_user.tickets.where("sale_value is not NULL or sale_value != 0 ")  
-    # @all_receipts     =  current_user.receipts
-    # @all_tickets      =  Ticket.where("project_id = ?", get_current_project)
-    # @released_tickets =  Array.new  
-   
-    # @all_receipts.each do |r|
-    #   @all_tickets.each do |t|
-    #     if ((t.user_id != r.user_id) && (r.ticket_id == t.id))
-    #       @released_tickets << t
-    #     end
-    #   end
-    # end
-
-
   end
   
   def my_receipts
@@ -30,27 +13,16 @@ class ReceiptsController < ApplicationController
     else
       redirect_to "/receipts/my_receipts/#{current_user.id}", alert: 'You have been redirected to your own page'
     end
-    @active_tickets   =  @student_user.tickets.where("sale_value is NULL OR sale_value = 0")
-    @sold_tickets     =  @student_user.tickets.where("sale_value is not NULL AND sale_value != 0 ")  
-    @all_tickets      =  Ticket.where("project_id = ?", get_current_project)
     
-    student_receipts  =  @student_user.receipts
-    @released_tickets =  Array.new   
-    student_receipts.each do |r|
-      @all_tickets.each do |t|
-        if r.ticket_id == t.id
-          if t.user_id != r.user_id
-            @released_tickets << t
-          end          
-          break
-        end 
-=begin        
-        if ((t.user_id != r.user_id) && (r.ticket_id == t.id))
-          @released_tickets << t
-        end
-=end        
-      end
-    end
+    @active_receipts   = Receipt.open_clients(@student_user.id, get_selected_project)
+    @sold_receipts     = Receipt.sold_clients(@student_user.id, get_selected_project)
+    @released_receipts = Receipt.released_clients(@student_user.id, get_selected_project)
+    
+    # On the boxes themselves, client business name, total points, correct color, checkboxes empty or checked
+    
+    # For completed clients...name, total points, maybe sale information???
+    
+    # Released just points and name
   end
 
   # GET /receipts/1

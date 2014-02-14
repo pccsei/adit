@@ -28,7 +28,7 @@
 <% end %>
 <% if !@project.use_max_clients %>
   <p>
-    <strong>Max number of Green Clients:</strong>
+    <strong>Max number of High Priority Clients:</strong>
     <%= @project.max_high_priority_clients %>
   </p>
   <p>
@@ -36,7 +36,7 @@
     <%= @project.max_medium_priority_clients %>
   </p>
   <p>
-   <strong>Max number of White Clients:</strong>
+   <strong>Max number of Low Priority Clients:</strong>
    <%= @project.max_low_priority_clients %>
   </p>
 <% end %>

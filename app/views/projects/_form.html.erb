@@ -17,8 +17,9 @@
       <%= f.text_field :year %>
     </div>
     <div class="field">
-      <%= f.label :semester %><br>
-      <%= f.select :semester, options_for_select(%w[Fall Spring]) %>
+      <%= f.label :semester %><br>     
+      <%= f.select :semester, options_for_select(%w[Fall Spring]), { :include_blank=>false }, { :class => 'btn btn-large btn-dropdown btn-sm' } %>
+      
     </div>
     <div class="field">
       <%= f.label :project_type_id %><br>
@@ -46,11 +47,11 @@
 	<div class="field">
       <%= radio_button(:project, :use_max_clients, 0) %>
       <%= label_tag(:max_color_clients, "Total Clients in separated form") %><br>
-      <%= f.label :Green %>
+      <%= f.label :high_priority %>
       <%= f.text_field :max_high_priority_clients %><br>
-      <%= f.label :Yellow %>
+      <%= f.label :medium_priority %>
       <%= f.text_field :max_medium_priority_clients %><br>
-      <%= f.label :White %>
+      <%= f.label :low_priority %>
       <%= f.text_field :max_low_priority_clients %><br>
     </div>
 

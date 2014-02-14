@@ -21,19 +21,6 @@ class Action < ActiveRecord::Base
   end
 
   def Action.all_actions_in_project(project)
-    i = 0
-    tickets = Ticket.where("project_id = ?", project)
-    receipts = []
-    actions = []
-    tickets.each do |t|
-      receipts[i] = Receipt.where("ticket_id = ?", t.id)
-      i = i + 1
-    end
-    for i in 0..receipts.count-1
-      if Action.find_by(receipt_id: receipts[i][0])
-        actions[i] = Action.find_by(receipt_id: receipts[i][0]).id
-      end 
-    end
-    actions = Action.find(actions)
+      Action.find_all_by_receipt_id(Receipt.find_all_by_ticket_id(Ticket.find_all_by_project_id(project)))
   end
 end
