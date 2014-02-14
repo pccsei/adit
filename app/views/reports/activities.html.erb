@@ -14,7 +14,6 @@
 </tr>
 </thead>
 <tbody>
-<tbody>
     <% @activities.each do |activity| %>
       <tr>
         <td><%= link_to activity.first_name, "/receipts/my_receipts/#{activity.student_id}"%></td>
