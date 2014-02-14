@@ -1,35 +1,33 @@
-
-
-	<table class ="table dataTable">
-	  <thead>
-	    <tr>
-	      <th>First Name</th>
-	      <th>Last Name</th>
-	      <th>Student Manager</th>
-	      <th>Section</th>
-	      <th>Open Clients</th>
-	      <th>Sold Clients</th>
-	      <th>Released Clients</th>
-	      <th>Sales Total</th>
-	      <th>Points</th>
-	      <th>Last Student Activity</th>     	      	      	      	      
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tbody>
-            <% @student_array.each do |student| %>
-              <tr>
-                <td><%= link_to student.first_name, "/receipts/my_receipts/#{student.id}" %></td>
-                <td><%= link_to student.last_name, "/receipts/my_receipts/#{student.id}" %></td>
-                <td><%= student.student_manager %></td>
-                <td><%= student.section %></td>
-                <td><%= student.open %></td>
-                <td><%= student.sold %></td>
-                <td><%= student.released %></td>
-                <td><%= student.sales %></td>
-                <td><%= student.points %></td>
-                <td><%= student.last_activity %></td>                            
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+<table class ="table dataTable">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Student Manager</th>
+      <th>Section</th>
+      <th>Open Clients</th>
+      <th>Sold Clients</th>
+      <th>Released Clients</th>
+      <th>Sales Total</th>
+      <th>Points</th>
+      <th>Last Student Activity</th>     	      	      	      	      
+    </tr>
+  </thead>
+  <tbody>
+    <tbody>
+        <% @student_array.each do |student| %>
+          <tr>
+            <td><%= link_to student.first_name, "/receipts/my_receipts/#{student.id}" %></td>
+            <td><%= link_to student.last_name, "/receipts/my_receipts/#{student.id}" %></td>
+            <td><%= student.student_manager %></td>
+            <td><%= student.section %></td>
+            <td><%= student.open %></td>
+            <td><%= student.sold %></td>
+            <td><%= student.released %></td>
+            <td><%= student.sales %></td>
+            <td><%= student.points %></td>
+            <td><%= student.last_activity %></td>                            
+          </tr>
+        <% end %>
+      </tbody>
+    </table>

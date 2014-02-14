@@ -1,5 +1,73 @@
 <% provide(:title, "Manage Section") %>
 
+
+
+
+
+
+
+
+<!-- This allows teachers to view certain sections -->
+<div class = "col-md-9", id = "select-section">
+<%= form_tag('/users/set_section') do%>
+	<%= select_tag "section_option", options_for_select(@sections, selected: @selected_section), onchange: redirect_to users_url%> 
+	<%= submit_tag 'Select Section', class: "btn btn-large btn-primary btn-sm"%>
+	<br><br><a href="/users/create_new_section" class="col-md-2 btn btn-info btn-sm">Create a New Section</a> <!-- needs to be changed -->
+<br>	
+<% end %>
+</div>
+
+
+
+
+
+
+
+
+
+
+<head>
+<script>
+function showUser(str)
+{
+if (str=="")
+  {
+  document.getElementById("txtHint").innerHTML="";
+  return;
+  } 
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+
+    document.getElementById("txtHint").innerHTML="1";
+
+  }
+			  <% set_selected_section(1) %>
+}
+</script>
+</head>
+
+
+
+
+<div id="txtHint"><b>Person info will be listed here.</b></div>
+
+
+
+
+
+
+
+
+
+
 <h1 class = "col-md-3", id = "heading">Manage Section</h1>
 
 <h5 class = "col-md-9" id="section_type">
@@ -33,20 +101,12 @@
 		<br><%= submit_tag 'Add Students to Section', class: "btn btn-large btn-primary btn-sm"%>
 	<% end %>	
 <% else%>	
-	
+	Select a section if you would like to add students.
 <% end %>
 </div>
 
 <br><br>
-<!-- This allows teachers to view certain sections -->
-<div class = "col-md-9", id = "select-section">
-<%= form_tag('/users/set_section') do%>
-	<%= select_tag "section_option", options_for_select(@sections, selected: @selected_section)%> 
-	<%= submit_tag 'Select Section', class: "btn btn-large btn-primary btn-sm"%>
-	<br><br><a href="/users/create_new_section" class="col-md-2 btn btn-info btn-sm">Create a New Section</a> <!-- needs to be changed -->
-<br>	
-<% end %>
-</div>
+
 
 
 
@@ -88,6 +148,9 @@
 		}
 	);
 	</script>
+
+
+
 
 	<br><br>
 
@@ -143,5 +206,39 @@
 <%end%>
 
 <br>
+
+
+
+
+$.ajax({
+    type: "POST", // HTTP method POST or GET
+    url: "process.php", //Where to make Ajax calls
+    //dataType:"text", // Data type, HTML, json etc.
+    dataType: 'html',
+    data: {
+        name: $('#name').val(),
+        address: $('#address').val(),
+        city: $('#city').val()
+    },
+    success: function(data) {
+        $('#manage_user table > tbody:first').append(data);
+        //alert(data);
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+        //On error, we alert user
+        alert(thrownError);
+    },
+    complete: function() {
+        //alert('update success'); 
+    }
+});
+
+
+
+
+
+
+
+
 
 <a href="/users/teachers">Teachers page</a>

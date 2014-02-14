@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       teacher_ids << t.id
     end
     
-    project_student_members = Member.project_members(get_current_project).where.not(user_id: teacher_ids )
+    project_student_members = Member.project_members(get_selected_project).where.not(user_id: teacher_ids )
     
     student_users_for_selected_project = []
     project_student_members.each do |s|
@@ -30,13 +30,15 @@ class UsersController < ApplicationController
     @sections = (Member.where("project_id = ?", session[:selected_project_id]).uniq!.pluck("section_number"))
     @sections.sort!
     @sections.unshift("all")
+
+    @selected_section = get_selected_section
     
     # find student managers
     @student_managers = User.where(role: 2)
     #@student_managers.each do |user|
       #@student_manager_names = user.first_name + " " + user.last_name
     #end
-    end
+  end
 
   # GET /users/1
   # GET /users/1.json

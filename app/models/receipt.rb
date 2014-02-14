@@ -72,7 +72,6 @@ class Receipt < ActiveRecord::Base
     Receipt.where(user_id: student_id, ticket_id: Ticket.where(project_id: project)) - Receipt.where(user_id: student_id, ticket_id: Ticket.where(project_id: project), ticket_id: Ticket.where(user_id: student_id)) 
   end
 
-  # JMu changed this function
   def self.sales_total(student_id, project)
     sales = self.sold_clients(student_id, project)
     money = 0
@@ -81,7 +80,8 @@ class Receipt < ActiveRecord::Base
     end
     return money
   end
-  
+ 
+   # JMu changed this function 
   def self.points_total(student_id, project)
     receipts = Receipt.where(user_id: student_id, ticket_id: Ticket.where(project_id: project))
     points = 0
