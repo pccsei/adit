@@ -1,6 +1,7 @@
 <% provide(:title, "Manage Section") %>
 
 <%=debug @sections %>
+<%=debug @pro %>
 <h1 class = "col-md-3", id = "heading">Manage Section</h1>
 
 <h5 class = "col-md-9" id="section_type">
@@ -70,14 +71,14 @@
 		<br>
 		<%= select_tag "selected_option", options_for_select(["Promote_Student", "Create_Team", "Demote_Student", "Delete_Student", "Delete_Everybody"]), :onchange => 'myFunction()', :prompt => 'select option'%>
 	</div>
-	
+
 	<!-- This is will only appear if the teacher wants to create student managers -->	
 	<div id="show_managers">
 		<%= select_tag "student_manager", options_from_collection_for_select(@student_managers, 'id', 'last_name')%> 
 	</div>
-	
+
 	<%= submit_tag :submit%>
-	
+
 	<!-- This script code is useed to hide student manager second 
 	 Drop down when "Create_Team" is selected-->
 	<script>
@@ -122,7 +123,6 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tbody>
             <% @current_students.each do |user, member| %>
               <tr>
               <% if (member.section_number == @selected_section.to_i || @selected_section == "" || @selected_section == "all") && (user.role != 3) %>
