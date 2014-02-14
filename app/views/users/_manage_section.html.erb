@@ -1,0 +1,38 @@
+	<!-- This lists the students for a selected section -->
+
+	<table id="students", class ="table dataTable">
+	  <thead>
+	    <tr>
+	      <th></th>
+	      <th>First Name</th>
+	      <th>Last Name</th>
+	      <th>ID number</th>
+	      <th>Email</th>
+	      <th>Phone</th>
+	      <th>Section</th>
+		  <th>Major</th>
+		  <th>Minor</th>
+		  <th>Box</th>
+		  <th>Classification</th>
+		  <th></th>     	      	      	      	      
+	    </tr>
+	  </thead>
+	  <tbody>
+            <% current_students.each do |user, member| %>
+              <tr>
+                <td><%= check_box_tag "students[]", user.id%></td>
+                <td><%= link_to user.first_name, "/receipts/my_receipts/#{user.id}" %></td>
+                <td><%= link_to user.last_name, "/receipts/my_receipts/#{user.id}" %></td>
+                <td><%= user.school_id%></td>
+                <td><%= user.email%></td>
+                <td><%= user.phone %></td>                
+                <td><%= member.section_number %></td>
+                <td><%= user.major %></td>
+                <td><%= user.minor %></td>
+                <td><%= user.box %></td>
+                <td><%= user.classification %></td>       
+                <td><%= link_to 'Edit', edit_user_path(user) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
