@@ -1,5 +1,6 @@
 <% provide(:title, "Manage Section") %>
 
+<%=debug @sections %>
 <h1 class = "col-md-3", id = "heading">Manage Section</h1>
 
 <h5 class = "col-md-9" id="section_type">
@@ -31,21 +32,30 @@
 		<br>
 		<%= text_area_tag 'input' %>
 		<br><%= submit_tag 'Add Students to Section', class: "btn btn-large btn-primary btn-sm"%>
-	<% end %>	
-<% else%>	
-	
+	<% end %>		
 <% end %>
 </div>
 
 <br><br>
-<!-- This allows teachers to view certain sections -->
+<!-- This allows teachers to view certain sections 
 <div class = "col-md-9", id = "select-section">
-<%= form_tag('/users/set_section') do%>
-	<%= select_tag "section_option", options_for_select(@sections, selected: @selected_section)%> 
-	<%= submit_tag 'Select Section', class: "btn btn-large btn-primary btn-sm"%>
+<%#= form_tag('/users/set_section') do%>
+	<%#= select_tag "section_option", options_for_select(@sections, selected: @selected_section)%> 
+	<%#= submit_tag 'Select Section', class: "btn btn-large btn-primary btn-sm"%>
 	<br><br><a href="/users/create_new_section" class="col-md-2 btn btn-info btn-sm">Create a New Section</a> <!-- needs to be changed -->
-<br>	
-<% end %>
+<!--<br>	
+<%# end %>
+</div> -->
+
+<div class="btn-group">
+	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		Select Section<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu" role="menu">
+	<% @sections.each do |s|%>
+	   <li><%= link_to s, "/users/set_section", {:selected_section => "#{s}"} %></li>
+	<% end %>
+</ul>
 </div>
 
 

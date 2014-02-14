@@ -31,6 +31,7 @@ class UsersController < ApplicationController
     @sections.sort!
     @sections.unshift("all")
     
+    @selected_section = get_selected_section
     # find student managers
     @student_managers = User.where(role: 2)
     #@student_managers.each do |user|
