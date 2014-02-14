@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140208161742) do
+ActiveRecord::Schema.define(version: 20140209043924) do
 
   create_table "action_types", force: true do |t|
     t.string   "name"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20140208161742) do
     t.string   "city",          limit: 30
     t.string   "state",         limit: 2
     t.integer  "status_id"
+    t.string   "submitter"
   end
 
   add_index "clients", ["status_id"], name: "index_clients_on_status_id", using: :btree
@@ -116,6 +117,11 @@ ActiveRecord::Schema.define(version: 20140208161742) do
     t.string   "payment_type"
   end
 
+  create_table "status_tables", force: true do |t|
+    t.string  "status_type"
+    t.boolean "status_enabled"
+  end
+
   create_table "statuses", force: true do |t|
     t.string   "status_type",    limit: 30
     t.boolean  "status_enabled",            default: true
@@ -135,6 +141,14 @@ ActiveRecord::Schema.define(version: 20140208161742) do
     t.integer  "client_id"
     t.integer  "user_id"
     t.integer  "priority_id"
+  end
+
+  create_table "updates", force: true do |t|
+    t.boolean  "is_public"
+    t.string   "comment_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "receipt_id"
   end
 
   create_table "users", force: true do |t|
