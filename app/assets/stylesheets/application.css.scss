@@ -274,11 +274,9 @@ table.dataTable td.center,
 table.dataTable td.dataTables_empty {
   text-align: center; }
 
-table.dataTable tr.odd {
-  background-color: #EBEBEB !important; }
 
-table.dataTable tr.even {
-  background-color: white !important; }
+
+
 
 table.dataTable tr.odd td.sorting_1 {
   background-color: transparent !important; }
@@ -305,7 +303,7 @@ table.dataTable tr.even td.sorting_3 {
   position: relative;
   clear: both;
   *zoom: 1;
-  padding-top: 50px;
+  padding-top: 30px;
  }
 
 /*

@@ -6,7 +6,7 @@
 #  cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #  Mayor.create(name: 'Emanuel', city: cities.first)
   
- priorities = Priority.create([{ name: 'high' }, { name: 'medium' }, { name: 'low'}])
+ #priorities = Priority.create([{ name: 'green' }, { name: 'yellow' }, { name: 'white'}])
    
    # To add users, you can simply paste them from the student manager excel file
    
@@ -6254,7 +6254,7 @@ Project.create([
  state: 'FL ',
  status_id: 2}])
 
-=begin
+=end
 tickets = Ticket.create([{sale_value: 1.0,
  project_id: (Project.where('project_type_id = ? AND year = ?', 1, 2013).first).id,
  client_id: (Client.find_by business_name: 'Able Auto Repair').id,
@@ -7616,4 +7616,3 @@ tickets = Ticket.create([{sale_value: 1.0,
  client_id: (Client.find_by business_name: "Zaxby's ").id,
  priority_id: priority_id}
 ])
-=end

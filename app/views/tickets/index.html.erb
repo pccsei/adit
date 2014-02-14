@@ -84,7 +84,6 @@ Add classes to the rows for specific priority clients
 
 
 
-<h1>Listing Tickets</h1>
 
 <table class="table dataTable">
   <thead>
@@ -107,7 +106,7 @@ Add classes to the rows for specific priority clients
 
       <tr class='<%= Priority.find(ticket.priority_id).name %>'>
       	<% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
-      	<td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => ticketClass %>
+      	<td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => "btn btn-primary btn-sm" %>
       	</td>
       	<td><%= client.business_name %></td>
       	<td><%= client.address %></td>
@@ -118,7 +117,7 @@ Add classes to the rows for specific priority clients
       	<td><%= client.telephone %></td>
       	<td><%= client.comment %></td>      	
         <td><%= link_to 'Show', ticket , :class => "btn btn-info btn-sm" %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket), :class => "btn btn-error btn-sm" %></td>
+        <td><%= link_to 'Edit', edit_ticket_path(ticket), :class => "btn btn-danger btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>
