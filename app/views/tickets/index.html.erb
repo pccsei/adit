@@ -46,8 +46,7 @@ $(function() {
 </script>
 
 
-Add classes to the rows for specific priority clients
-
+need to add tooltip functionality to the table rows; check here for the javascript: http://stackoverflow.com/questions/15503839/how-to-add-a-twitter-bootstrap-tooltip-to-an-icon
 
 
 <!-- ADDING project information to page -->
@@ -95,7 +94,6 @@ Add classes to the rows for specific priority clients
       <th>Telephone</th>
       <th>Comment</th>      
       <th></th>	
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -112,8 +110,7 @@ Add classes to the rows for specific priority clients
       	<td><%= client.contact_lname %></td>
       	<td><%= client.telephone %></td>
       	<td><%= client.comment %></td>      	
-        <td><%= link_to 'Show', ticket %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
+        <td><%= link_to 'Details', ticket %></td>
       </tr>
     <% end %>
   </tbody>
