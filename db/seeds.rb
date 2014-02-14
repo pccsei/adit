@@ -21,8 +21,8 @@
 
 #priority_id = (Priority.find_by name: 'white').id
 
-#statuses = Status.create([{status_type: "Not Approved" }, { status_type: "Approved"}, 
-#                                                         { status_type: "In House" }, { status_type: "Pending" }])
+statuses = Status.create([{status_type: "Not Approved" }, { status_type: "Approved"}, 
+                                                         { status_type: "In House" }, { status_type: "Pending" }])
 =begin
 Project.create([
 {year: 2011,

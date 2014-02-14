@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   helper_method :set_selected_project
   helper_method :get_selected_project
   helper_method :get_selected_section
+  helper_method :set_selected_section
   
   # CONSTANTS
   TEACHER = 3
@@ -31,7 +32,8 @@ class ApplicationController < ActionController::Base
     if session[:selected_project_id]
       Project.find(session[:selected_project_id])
     else
-      Project.last
+      set_selected_project(Project.non_archived.last)
+      Project.non_archived.last
     end
   end
 

@@ -1,11 +1,9 @@
-<h1>Pending Clients</h1>
+<h1>Unapproved Clients</h1>
 
 <table class="table dataTable">
   <thead>
     <tr>
-      <% if current_user.role == 3%>
-         <th></th>
-      <% end %>
+      <th></th>
       <th>Business name</th>
       <th>Address</th>
       <th>Email</th>
@@ -19,13 +17,9 @@
   </thead>
 
 <tbody>
-	<% pending_clients.each do |client|%>
+	<% unapprove_clients.each do |client|%>
 	<tr>
-		<% if current_user.role == 3 %>
-		   <td><%= check_box_tag "clients[]", client.id %></td>
-		<% else %>
-		   <td><% client.id %>
-		<% end %>
+ 	    <td></td>
 		<td><%= client.business_name %></td>
         <td><%= client.address %></td>
         <td><%= client.email %></td>

@@ -36,7 +36,16 @@ class ReportsController < ApplicationController
        Struct.new("Student", :id, :first_name, :last_name, :student_manager,
                             :section, :open, :sold, :released, :sales, 
                             :points, :last_activity)
+
+       Struct.new("Student_Totals", :total_open, :total_sold, :total_released, :total_sales, 
+                    :total_points)
        
+       @student_totals = Struct::Student_Totals.new
+       @student_totals.total_open = 0
+       @student_totals.total_sold = 0
+       @student_totals.total_released = 0
+       @student_totals.total_sales = 0
+       @student_totals.total_points = 0
        @student_array = []                     
        index = 0
        @receipts = Receipt.selected_project_receipts(get_selected_project)
@@ -50,10 +59,15 @@ class ReportsController < ApplicationController
           @student_array[index].student_manager = User.get_manager_name(s.id, get_selected_project)
           @student_array[index].section = User.get_section_number(s.id, get_selected_project)
           @student_array[index].open = (Receipt.open_clients(s.id, get_selected_project)).size
+          @student_totals.total_open += @student_array[index].open
           @student_array[index].sold = (Receipt.sold_clients(s.id, get_selected_project)).size
+          @student_totals.total_sold += @student_array[index].sold
           @student_array[index].released = (Receipt.released_clients(s.id, get_selected_project)).size
+          @student_totals.total_released += @student_array[index].released
           @student_array[index].sales = Receipt.sales_total(s.id, get_selected_project)
+          @student_totals.total_sales += @student_array[index].sales
           @student_array[index].points = Receipt.points_total(s.id, get_selected_project)
+          @student_totals.total_points += @student_array[index].points
           @student_array[index].last_activity = Action.get_last_activity(s.id, get_selected_project)
 
           index = index + 1

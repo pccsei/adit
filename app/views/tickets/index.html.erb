@@ -46,7 +46,46 @@ $(function() {
 });
 </script>
 
+
 <h1 class = "col-md-3", id = "heading">Choose Clients</h1>
+
+
+Add classes to the rows for specific priority clients
+
+
+
+<!-- ADDING project information to page -->
+
+<% if @clientsLeft %>
+
+<div> <span>You can get </span><span><%= @clientsLeft %></span>more clients<span>
+	
+</div>
+<% else %>
+	<div>
+		<table>
+			<tr>
+				<td>Number of High Priority Clients you can get: </td>
+				<td id="highPriority"><%= @highPriority%></td>
+			</tr>
+			<tr>
+				<td>Number of Medium Priority Clients you can get: </td>
+				<td id="midPriority"><%= @midPriority%></td>
+			</tr>
+			<tr>
+				<td>Number of Low Priority Clients you can get</td>
+				<td id="lowPriority"><%= @lowPriority%></td>
+			</tr>
+		</table>
+	</div>
+<% end %>
+
+<!-- END new information -->
+
+
+
+<h1>Listing Tickets</h1>
+>>>>>>> 320367324997a647ffba99f2e6e50e8cd26807eb
 
 <table class="table dataTable">
   <thead>
@@ -66,8 +105,14 @@ $(function() {
   </thead>
   <tbody>
     <% @tickets.each do |ticket| %>
+<<<<<<< HEAD
       <tr><% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
       	<td><%= button_tag "add", type: 'button', :id => ticket.id, :class => ticketClass, :class => "btn btn-primary btn-sm" %>
+=======
+      <tr class='<%= Priority.find(ticket.priority_id).name %>'>
+      	<% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
+      	<td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => ticketClass %>
+>>>>>>> 320367324997a647ffba99f2e6e50e8cd26807eb
       	</td>
       	<td><%= client.business_name %></td>
       	<td><%= client.address %></td>
@@ -86,4 +131,4 @@ $(function() {
 
 <br>
 
-  <%= link_to 'Create Tickets', new_ticket_path %>
+<%= link_to 'Create Tickets', new_ticket_path %>

@@ -1,6 +1,10 @@
 <% provide(:title, "Manage Section") %>
 
-<h1 id = "heading">Manage Section</h1>
+<%=debug @sections %>
+<%=debug @pro %>
+
+<h1 class = "col-md-3", id = "heading">Manage Section</h1>
+
 
 
 <div class = "col-md-6", id = "select-section">
@@ -20,7 +24,7 @@
 <% elsif @selected_section.nil? %>
 	you need to create a section. 
 <% else%>
-	this is section <%= "#{@selected_section}, "%>%>
+	this is section <%= "#{@selected_section}, "%>
 <% end %>
 
 
@@ -48,27 +52,66 @@
 		<br>
 		<%= text_area_tag 'input' %>
 		<br><%= submit_tag 'Add Students to Section', class: "btn btn-large btn-primary btn-sm"%>
-	<% end %>	
-<% else%>	
-	
+	<% end %>		
 <% end %>
 </div>
 
+<<<<<<< HEAD
+=======
+<br><br>
+<!-- This allows teachers to view certain sections 
+<div class = "col-md-9", id = "select-section">
+<%#= form_tag('/users/set_section') do%>
+	<%#= select_tag "section_option", options_for_select(@sections, selected: @selected_section)%> 
+	<%#= submit_tag 'Select Section', class: "btn btn-large btn-primary btn-sm"%>
+	<br><br><a href="/users/create_new_section" class="col-md-2 btn btn-info btn-sm">Create a New Section</a> <!-- needs to be changed -->
+<!--<br>	
+<%# end %>
+</div> -->
+
+<div class="btn-group">
+	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		Change Section<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu" role="menu">
+	<% @sections.each do |s|%>
+	   <li><%= link_to "#{s}", {:controller => :users, :action => :set_section, :section_option => "#{s}"}, :method => :post %></li>
+	<% end %>
+</ul>
+</div>
+
+
+
+>>>>>>> 320367324997a647ffba99f2e6e50e8cd26807eb
 
 <br><br>
 
 <!-- Everything below here is really just a big form. -->
 <%= form_tag('/users/change_student_status') do%>
 	<!-- This is first select for what the teacher wants to do with the students -->
+<<<<<<< HEAD
 	<div id = "manage_dropdown">
 		<%= select_tag "selected_option",  options_for_select(["Promote_Student", "Create_Team", "Demote_Student", "Delete_Student", "Delete_Everybody"]), :onchange => 'myFunction()', :prompt => 'Choose Action', :class => "selectpicker"%>
 	
 	
+=======
+	<div id="option">
+		<br>
+		<%= select_tag "selected_option", options_for_select(["Promote_Student", "Create_Team", "Demote_Student", "Delete_Student", "Delete_Everybody"]), :onchange => 'myFunction()', :prompt => 'select option'%>
+	</div>
+
+>>>>>>> 320367324997a647ffba99f2e6e50e8cd26807eb
 	<!-- This is will only appear if the teacher wants to create student managers -->	
 		<%= select_tag "student_manager", options_from_collection_for_select(@student_managers, 'id', 'last_name')%> 
 
 	<%= submit_tag :submit, :class => "btn btn-large btn-primary btn-sm"%>
 	</div>
+<<<<<<< HEAD
+=======
+
+	<%= submit_tag :submit%>
+
+>>>>>>> 320367324997a647ffba99f2e6e50e8cd26807eb
 	<!-- This script code is useed to hide student manager second 
 	 Drop down when "Create_Team" is selected-->
 	<script>
@@ -114,7 +157,6 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tbody>
             <% @current_students.each do |user, member| %>
               <tr>
               <% if (member.section_number == @selected_section.to_i || @selected_section == "" || @selected_section == "all") && (user.role != 3) %>

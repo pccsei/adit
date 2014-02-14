@@ -1,5 +1,6 @@
 WhiteCollar::Application.routes.draw do
   root :to => "clients#index"  
+  
   post "users/assign_teacher_to_section"
   get  "users/create_new_section"
   get  "users/teachers"
@@ -15,7 +16,7 @@ WhiteCollar::Application.routes.draw do
   post "/users/set_section"
   match  "receipts/my_receipts/:id", to: 'receipts#my_receipts', via: 'get'
   post "users/need_help"
-  get  "clients/full_help"
+  get  "clients/submit"
   post "/clients/approve_client"
   post "/clients/disapprove_client"
   get "reports/student_summary"
