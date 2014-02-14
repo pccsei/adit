@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20140214040534) do
     t.datetime "updated_at"
     t.integer  "user_id",                       null: false
     t.integer  "project_id",                    null: false
-    t.integer  "parent_id",                     null: false
+    t.integer  "parent_id"
   end
 
   add_index "members", ["parent_id"], name: "index_members_on_parent_id", using: :btree
@@ -140,14 +140,6 @@ ActiveRecord::Schema.define(version: 20140214040534) do
     t.integer  "client_id"
     t.integer  "user_id"
     t.integer  "priority_id"
-  end
-
-  create_table "updates", force: true do |t|
-    t.boolean  "is_public"
-    t.string   "comment_text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "receipt_id"
   end
 
   create_table "users", force: true do |t|
