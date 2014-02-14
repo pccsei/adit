@@ -37,7 +37,7 @@ class Project < ActiveRecord::Base
       self.tickets_open_time < self.tickets_close_time
   end
   
-  def non_archived
+  def self.non_archived
     where("year > ?", 2013)
   end
   

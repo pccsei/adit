@@ -23,8 +23,7 @@ class Receipt < ActiveRecord::Base
   # JMu changed this function
   def self.open_clients(student_id, project)
     # receipts = Receipt.where("user_id = ? AND made_sale = ?", student_id, false)
-    # remove_receipts = []
-    
+    # remove_receipts = []    
     # for index in 0..(receipts.size - 1)
     #   ticket = receipts[index].ticket
     #   if ticket.project_id != project.id || ticket.user_id != student_id

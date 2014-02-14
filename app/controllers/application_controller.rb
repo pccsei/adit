@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
     if session[:selected_project_id]
       Project.find(session[:selected_project_id])
     else
-      Project.last
+      Project.non_archived.last
     end
   end
 

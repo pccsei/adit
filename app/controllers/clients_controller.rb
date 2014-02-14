@@ -5,8 +5,8 @@ class ClientsController < ApplicationController
   # GET /clients.json
   def index
     @pending_clients = Client.pending
-
-    @clients = Client.all
+        
+    @clients = Client.house
     
     @projects = Project.all
 
@@ -15,11 +15,6 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
-  end
-
-  def full_help
-    @current_user.help = false
-    @current_user.save
   end
 
   #used when the clients page pings the server to see if there are any new actions to be performed on the table
@@ -67,17 +62,18 @@ class ClientsController < ApplicationController
     if !params[:ping].nil?
       return 0
     end
-      
-    
     
     @client = Client.new(client_params)
+    @client.status_id = (Status.find_by(status_type: 'Pending')).id
+    @client.submitter = current_user.school_id
     
-    # This line should eventually place the clients on the pneding clients list instead of straight into the db
+    
+    # This line should eventually place the clients on the pending clients list instead of straight into the db
     # @client.status_id = Status.where("status_type = ?", "Pending").pluck(:id) 
 
     respond_to do |format|
       if @client.save
-        format.html { redirect_to @client, notice: 'Client was successfully created.' }
+        format.html { redirect_to clients_submit_path, notice: 'Client was successfully submitted.' }
         format.json { render action: 'show', status: :created, location: @client }
       else
         format.html { render action: 'new' }
@@ -108,6 +104,13 @@ class ClientsController < ApplicationController
       format.html { redirect_to clients_url }
       format.json { head :no_content }
     end
+  end
+  
+  # For submitting a new client from the student
+  def submit
+    @pending_clients = Client.pending
+    
+    @unapprove_clients = Client.unapprove
   end
 
   private

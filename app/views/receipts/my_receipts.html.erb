@@ -1,82 +1,8 @@
-<%= debug @unsold_receipts %>
+<%= debug @active_receipts%>
+<%= debug @released_receipts%>
+<%= debug @sold_receipts%>
 
 This page is currently under construction by Noah Conrad.
-<% if false %>
-<h1>My Current Clients</h1>
 
-<br>
-<br/>
-
-
-<% @active_tickets.each do |ticket| %>
-    <% client = Client.find(ticket.client_id)%>
-      <div class="active <%= Priority.find(ticket.priority_id).name%>">
-      	 <span><%= client.contact_title%></span> 
-      	 <span><%= client.contact_fname%></span>
-      	 <span><%= client.contact_lname%></span> 
-      	 <span><%= client.business_name%></span> 
-      	 <span><%= client.address%></span> 
-      	 <span><%= client.city%></span> 
-      	 <span><%= client.state%></span> 
-      	 <span><%= client.zipcode%></span> 
-      	 <span><%= client.telephone%></span> 
-      	 <span><%= client.email%></span> 
-         <% receipt = Receipt.where("ticket_id = ? AND user_id = ?",ticket.id, @student_user.id).first %>
-         <span><%= link_to 'Show', receipt_path(receipt) %></span> 
-      </div>
-      <br /><br />
-<% end %>
-
-
-
-<h1>My Completed Clients</h1>
-
-
-<% @sold_tickets.each do |ticket| %>
-    <% client = Client.find(ticket.client_id)%>
-      <div class="sold <%= Priority.find(ticket.priority_id).name%>">
-      	 <span><%= client.contact_title%></span> 
-      	 <span><%= client.contact_fname%></span>
-      	 <span><%= client.contact_lname%></span> 
-      	 <span><%= client.business_name%></span> 
-      	 <span><%= client.address%></span> 
-      	 <span><%= client.city%></span> 
-      	 <span><%= client.state%></span> 
-      	 <span><%= client.zipcode%></span> 
-      	 <span><%= client.telephone%></span> 
-      	 <span><%= client.email%></span> 
-         <% receipt = Receipt.where("ticket_id = ? AND user_id = ?",ticket.id, @student_user.id).first %>
-         <span><%= link_to 'Show', receipt_path(receipt) %></span> 
-      </div>
-      <br /><br />
-<% end %>
-
-<br>
-<br>
-
-<% if @released_tickets.nil? %>
-<h1>My Released Clients</h1>
-
-<% @released_tickets.each do |ticket| %>
-    <% client = Client.find(ticket.client_id)%>
-      <div class="released <%= Priority.find(ticket.priority_id).name%>">
-      	 <span><%= client.contact_title%></span> 
-      	 <span><%= client.contact_fname%></span>
-      	 <span><%= client.contact_lname%></span> 
-      	 <span><%= client.business_name%></span> 
-      	 <span><%= client.address%></span> 
-      	 <span><%= client.city%></span> 
-      	 <span><%= client.state%></span> 
-      	 <span><%= client.zipcode%></span> 
-      	 <span><%= client.telephone%></span> 
-      	 <span><%= client.email%></span> 
-         <% receipt = Receipt.where("ticket_id = ? AND user_id = ?",ticket.id, @student_user.id).first %>
-         <span><%= link_to 'Show', receipt_path(receipt) %></span> 
-      </div>
-      <br /><br />
-<% end %>
-<% end %>
-
-<br>
-
-<% end %>
+<!--<span><%#= link_to 'Show', receipt_path(receipt) %></span> 
+><div class="active <%#= Priority.find(ticket.priority_id).name%>"> -->

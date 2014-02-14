@@ -1,11 +1,8 @@
 <p id="notice"><%= notice %></p> 
 
-<%= debug @receipt %>
-<%= debug @action %>
-<%= debug @client %>
-
 <h1>My Client</h1>
-p>
+<div>
+<p>
   <strong>Business name:</strong>
   <%= @client.business_name %>
 </p>
@@ -36,6 +33,8 @@ p>
   <strong>Comment:</strong>
   <%= @client.comment %>
 </p>
+</div>
+
 <!-- Eventually, we probably want to turn this to a link that is styled like a button -->
 <div>
 	<% if @receipt.made_contact == true %>
@@ -97,5 +96,5 @@ p>
 <% end %>
 </tbody>
 </table>
-<%= link_to 'New', new_action_path %>
+<br><br/>
 <%= link_to 'Back', receipts_path %>

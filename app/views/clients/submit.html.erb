@@ -1,0 +1,15 @@
+<h1>Submit a New Client for approval</h1>
+	<%= button_to 'Submit a New Client', new_client_path, method: 'get' %>
+
+<% if !(@pending_clients.empty?)%>
+	<%= render :partial => "pending", :locals => { :pending_clients => @pending_clients} %>
+<% else %>
+    There are currently no pending clients.
+<% end %>
+
+<% if !(@unapprove_clients.empty?)%>
+	<%= render :partial => "unapprove", :locals => { :unapprove_clients => @unapprove_clients} %>
+<% else %>
+    There are currently no unapproved clients.
+<% end %>
+

@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20140208192233) do
     t.string   "city",          limit: 30
     t.string   "state",         limit: 2
     t.integer  "status_id"
+    t.string   "submitter"
   end
 
   add_index "clients", ["status_id"], name: "index_clients_on_status_id", using: :btree
@@ -129,6 +130,14 @@ ActiveRecord::Schema.define(version: 20140208192233) do
     t.integer  "client_id"
     t.integer  "user_id"
     t.integer  "priority_id"
+  end
+
+  create_table "updates", force: true do |t|
+    t.boolean  "is_public"
+    t.string   "comment_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "receipt_id"
   end
 
   create_table "users", force: true do |t|
