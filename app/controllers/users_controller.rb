@@ -25,14 +25,12 @@ class UsersController < ApplicationController
     end
     
     @current_students = student_users_for_selected_project.zip(project_student_members)
-     
+    @selected_section = get_selected_section
+    #@students = get_students_info(get_selected_project, get_selected_section) 
     # Find sections for current project
     @sections = (Member.where("project_id = ?", session[:selected_project_id]).uniq!.pluck("section_number"))
-    @pro = session[:selected_project_id]
     @sections.sort!
     @sections.unshift("all")
-
-    @selected_section = get_selected_section
     # find student managers
     @student_managers = User.where(role: 2)
     #@student_managers.each do |user|
