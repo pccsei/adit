@@ -142,14 +142,6 @@ ActiveRecord::Schema.define(version: 20140214040534) do
     t.integer  "priority_id"
   end
 
-  create_table "updates", force: true do |t|
-    t.boolean  "is_public"
-    t.string   "comment_text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "receipt_id"
-  end
-
   create_table "users", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
