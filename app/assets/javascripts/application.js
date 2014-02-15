@@ -9,42 +9,23 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
-//
-//= require dropdown
-
 
 //= require jquery
+//= require jquery_ujs
 //= require bootstrap
-//= require dropdown
-//= require jquery_ujs
-//= require turbolinks
-//= require_tree .
-
-
-//= require jquery
-//= require jquery_ujs
-
+//= require dataTables/jquery.dataTables
 //= require jquery.ui.datepicker
 //= require jquery.ui.slider
 //= require jquery-ui-sliderAccess
 //= require jquery-ui-timepicker-addon
 //= require jquery-ui-timepicker-addon.min
-
-//= require dataTables/jquery.dataTables
-
 //= require jquery.validate
 //= require jquery.validate.additional-methods
-
 //= require jquery.ui.effect
-
-//= require jquery
 //= require fancybox
-
-//= require bootstrap
-//= require bootstrap-select
-
+//= require turbolinks
+//= require_tree .
 
 
 $(document).ready($('.dataTable').dataTable()); 
 
-$(document).ready($('.selectpicker').selectpicker());

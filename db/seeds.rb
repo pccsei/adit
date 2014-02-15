@@ -6,7 +6,7 @@
 #  cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #  Mayor.create(name: 'Emanuel', city: cities.first)
   
- #priorities = Priority.create([{ name: 'green' }, { name: 'yellow' }, { name: 'white'}])
+ #priorities = Priority.create([{ name: 'high' }, { name: 'medium' }, { name: 'low'}])
    
    # To add users, you can simply paste them from the student manager excel file
    
