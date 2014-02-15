@@ -55,6 +55,16 @@ def User.new_remember_token
   SecureRandom.urlsafe_base64
 end
 
+def User.get_array_of_manager_ids_from_project_and_section(project, section)
+   array_of_manager_ids = Array.new(Member.pluck(:parent_id).uniq!)
+   array_of_manager_ids.delete(nil)
+   array_of_manager_ids.delete_if{|id| Member.find_by(user_id: id).project_id != project.id}
+   if section != "all"
+     array_of_manager_ids.delete_if{|id| Member.find_by(user_id: id).section_number != section.to_i}
+   end
+   array_of_manager_ids
+end
+
 def User.parse_students(user_params, section_number, project_id)
   # Delete the header line if present
   if user_params.include? "Course"

@@ -1,42 +1,18 @@
-<table class ="table dataTable">
-<thead>
-<tr>
-  <th>First Name</th>
-  <th>Last Name</th>
-  <th>Student Manager</th>
-  <th>Section</th>
-  <th>Date/Time activity was reported</th>
-  <th>Client</th>
-  <th>Activity</th>
-  <th>Points Received</th>
-  <th>Cumulative Points on Client</th>
-  <th>Comments</th>
-</tr>
-</thead>
-<tbody>
-    <% @activities.each do |activity| %>
-      <tr>
-        <td><%= link_to activity.first_name, "/receipts/my_receipts/#{activity.student_id}"%></td>
-        <td><%= link_to activity.last_name, "/receipts/my_receipts/#{activity.student_id}"%></td>
-        <td><%= activity.team_leader%></td>
-        <td><%= activity.section%></td>
-        <td><%= activity.time_of_activity%></td>
-        <td><%= activity.company%></td>
-        <td><%= activity.activity%></td>
-        <td><%= activity.points_earned%></td>
-        <td><%= activity.cumulative_points_earned_on_client%></td>
-        <td><%= activity.comments%></td>        
-      </tr>
-    <% end %>
-      <td>Totals</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><%= @activity_totals.points_earned%></td>
-      <td><%= @activity_totals.cumulative_points_earned_on_client %></td>
-      <td></td>
-</tbody>
-</table>
+<div class = "col-md-5", id = "select-section">
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    Change Section<span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+  <% @sections.each do |s|%>
+     <li>
+      <%= link_to "#{s}", {:controller => :users, :action => :set_section, :section_option => "#{s}"}, :method => :post %>
+     </li>
+  <% end %>
+</ul>
+</div>
+</div>
+
+<div id = "section_refresh">  
+<%= render :partial => "activities"%>
+</div>

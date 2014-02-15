@@ -49,6 +49,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def get_array_of_all_sections(selected_project)
+    selected_project_id = selected_project.id
+    sections = (Member.where("project_id = ?", selected_project_id).uniq!.pluck("section_number"))
+    sections.sort!
+    sections.unshift("all")
+  end
+
    # Restricts access to only teachers 
    def only_teachers
       if current_user.role != TEACHER
