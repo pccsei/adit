@@ -47,15 +47,11 @@ $(function() {
 </script>
 
 
-<<<<<<< HEAD
 need to add tooltip functionality to the table rows; check here for the javascript: http://stackoverflow.com/questions/15503839/how-to-add-a-twitter-bootstrap-tooltip-to-an-icon
-=======
+
 <h1 class = "col-md-3", id = "heading">Choose Clients</h1>
 
-
 Add classes to the rows for specific priority clients
-
->>>>>>> 78542de99519e57cd5f947fa02673b965860b5cc
 
 
 <!-- ADDING project information to page -->
@@ -119,12 +115,7 @@ Add classes to the rows for specific priority clients
       	<td><%= client.contact_lname %></td>
       	<td><%= client.telephone %></td>
       	<td><%= client.comment %></td>      	
-<<<<<<< HEAD
-        <td><%= link_to 'Details', ticket %></td>
-=======
-        <td><%= link_to 'Show', ticket , :class => "btn btn-info btn-sm" %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket), :class => "btn btn-danger btn-sm" %></td>
->>>>>>> 78542de99519e57cd5f947fa02673b965860b5cc
+        <td><%= link_to 'Details', ticket , :class => "btn btn-info btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>
