@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  #belongs_to :user
   has_many   :tickets
   has_many   :receipts
   has_many   :bonuses
@@ -27,6 +26,30 @@ class User < ActiveRecord::Base
       BASE = 'DC=studentnet,DC=int'    # Base to search from
       DOMAIN = 'studentnet.int'        # For simplified user@domain format login
       ### END CONFIGURATION ###
+
+def self.get_student_info(project, section)
+  members = Member.student_members(project, section)
+  Struct.new("Person", :id, :first_name, :last_name, :school_id, :email, :phone,
+                            :student_manager_name, :section_number, :major, :minor, :box, :class)
+  students = []
+  members.each_with_index do |member, i|
+     students[i]  = Struct::Person.new
+     students[i].id                   = member.user_id
+     students[i].first_name           = member.user.first_name
+     students[i].last_name            = member.user.last_name
+     students[i].school_id            = member.user.school_id
+     students[i].email                = member.user.email
+     students[i].phone                = member.user.phone
+     students[i].student_manager_name = Member.get_manager_name(member)
+     students[i].section_number       = member.section_number
+     students[i].major                = member.user.major
+     students[i].minor                = member.user.minor
+     students[i].box                  = member.user.box
+     students[i].class                = member.user.classification
+  end 
+  return students 
+end
+
 
 def User.new_remember_token
   SecureRandom.urlsafe_base64

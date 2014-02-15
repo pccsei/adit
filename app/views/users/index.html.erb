@@ -57,7 +57,7 @@
 <!-- This gets students from the teacher to be put into the database and get their section number -->
 <!-- only allow a teacher to add students to a section if a section is selected.-->
 <div class = "col-md-12">
-<% if @selected_section == "all" %>
+<% if @selected_section != "all" %>
 	<%= form_tag('/users/input_students_parse') do%>
 		<%= label_tag 'Copy & Paste your student list here or' %> <%= link_to 'Add One Student', new_user_path, class: "btn btn-large btn-link btn-sm" %>
 		<br>
@@ -78,31 +78,24 @@
 <%# end %>
 </div> -->
 
-
-
-
-
 <br><br>
 
-<!-- Everything below here is really just a big form. -->
+<!-- Everything below here is really just a big form. -->	
 <%= form_tag('/users/change_student_status') do%>
 	<!-- This is first select for what the teacher wants to do with the students -->
-	<div id = "manage_dropdown">
-		
-	
-<div class="btn-group">
-	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-		Selected option<span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu" role="menu">
-	 <%= select_tag  options_for_select(["Promote_Student", "Create_Team", "Demote_Student", "Delete_Student", "Delete_Everybody"]), :onchange => 'myFunction()', :prompt => 'Choose Action'%>
-</ul>
-</div>
-	<!-- This is will only appear if the teacher wants to create student managers -->	
-		<%= select_tag "student_manager", options_from_collection_for_select(@student_managers, 'id', 'last_name')%> 
-
-	<%= submit_tag :submit, :class => "btn btn-large btn-primary btn-sm"%>
+	<div id="option">
+		<br>
+		<%= select_tag "selected_option", options_for_select(["Promote_Student", "Create_Team", "Demote_Student", "Delete_Student", "Delete_Everybody"]), :onchange => 'myFunction()', :prompt => 'select option'%>
 	</div>
+
+	<!-- This is will only appear if the teacher wants to create student managers -->	
+	<div id="show_managers">
+		<%= select_tag "student_manager", options_from_collection_for_select(@student_managers, 'id', 'last_name')%> 
+	</div>
+
+	<%= submit_tag :submit %>
+	
+<br /><br /><br />
 
 	<!-- This script code is useed to hide student manager second 
 	 Drop down when "Create_Team" is selected-->
@@ -125,57 +118,10 @@
 	);
 	</script>
 	
+<div id = "section_refresh">	
+<%= render :partial => "manage_section", :locals => { :current_students => @select_students }%>
+</div>
 
-
-
-	<!-- Here is huge table of all the students -->
-	<table class ="table dataTable">
-	  <thead>
-	    <tr>
-	      <th></th>
-	      <th>First Name</th>
-	      <th>Last Name</th>
-	      <th>ID number</th>
-	      <th>Email</th>
-	      <th>Phone</th>
-	      <th>Student Manager</th>
-	      <th>Section</th>
-		  <th>Major</th>
-		  <th>Minor</th>
-		  <th>Box</th>
-		  <th>Classification</th>
-		  <th></th>
-          <th></th>	      	      	      	      	      
-	    </tr>
-	  </thead>
-	  <tbody>
-            <% @current_students.each do |user, member| %>
-              <tr>
-              <% if (member.section_number == @selected_section.to_i || @selected_section == "" || @selected_section == "all") && (user.role != 3) %>
-                <td><%= check_box_tag "students[]", user.id%></td>
-                <td><%= link_to user.first_name, "/receipts/my_receipts/#{user.id}" %></td>
-                <td><%= link_to user.last_name, "/receipts/my_receipts/#{user.id}" %></td>
-                <td><%= user.school_id%></td>
-                <td><%= user.email%></td>
-                <td><%= user.phone %></td>                
-                <% if member.parent_id %>
-                <% manager = User.find(member.parent_id) %>
-                <td><%= manager.first_name + ' ' + manager.last_name %></td>
-                <% else %>
-                <td></td>
-                <% end %>
-                <td><%= member.section_number %></td>
-                <td><%= user.major %></td>
-                <td><%= user.minor %></td>
-                <td><%= user.box %></td>
-                <td><%= user.classification %></td>       
-                <td><%= link_to 'Edit', edit_user_path(user) %></td>
-                <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                <% end %>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
 <%end%>
 
 <br>

@@ -8,34 +8,24 @@ class UsersController < ApplicationController
   def index
     @current = self.current_user
     @users = User.all
-
-    # Move this code to the models when you have time
-    all_teachers = User.all_teachers
     
-    teacher_ids = []
-    all_teachers.each do |t|
-      teacher_ids << t.id
-    end
-    
-    project_student_members = Member.project_members(get_selected_project).where.not(user_id: teacher_ids )
-    
-    student_users_for_selected_project = []
-    project_student_members.each do |s|
-      student_users_for_selected_project << (User.find(s.user_id))
-    end
-    
-    @current_students = student_users_for_selected_project.zip(project_student_members)
     @selected_section = get_selected_section
-    #@students = get_students_info(get_selected_project, get_selected_section) 
+    @select_students = User.get_student_info(get_selected_project, get_selected_section)
+     
     # Find sections for current project
     @sections = (Member.where("project_id = ?", session[:selected_project_id]).uniq!.pluck("section_number"))
     @sections.sort!
     @sections.unshift("all")
     # find student managers
     @student_managers = User.where(role: 2)
-    #@student_managers.each do |user|
-      #@student_manager_names = user.first_name + " " + user.last_name
-    #end
+    
+    if params[:section_option]
+      set_selected_section(params[:section_option])
+    end
+    respond_to do |format|
+        format.html 
+        format.js 
+    end
   end
 
   # GET /users/1
@@ -96,7 +86,11 @@ class UsersController < ApplicationController
   def set_section
     # set paraments for selected section
     set_selected_section(params["section_option"])
-    redirect_to users_url
+    
+    respond_to do |format|
+        format.html { redirect_to users_url } 
+        format.js 
+    end
   end
 
   # GET /users/1/edit
