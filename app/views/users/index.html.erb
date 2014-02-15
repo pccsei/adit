@@ -12,7 +12,9 @@
 	</button>
 	<ul class="dropdown-menu" role="menu">
 	<% @sections.each do |s|%>
-	   <li><%= link_to "#{s}", {:controller => :users, :action => :set_section, :section_option => "#{s}"}, :method => :post %></li>
+	   <li>
+	   	<%= link_to "#{s}", {:controller => :users, :action => :set_section, :section_option => "#{s}"}, :method => :post %>
+	   </li>
 	<% end %>
 </ul>
 </div>
@@ -49,8 +51,7 @@
 </div>
 <br><br>
 
-<br>
-<br>
+
 
 
 
@@ -87,23 +88,19 @@
 <!-- Everything below here is really just a big form. -->
 <%= form_tag('/users/change_student_status') do%>
 	<!-- This is first select for what the teacher wants to do with the students -->
-	<div id = "manage_dropdown">
+	<div id= "manage_dropdown">
+	<div id = "option">
 		
-	
-<div class="btn-group">
-	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-		Selected option<span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu" role="menu">
-	 <%= select_tag  options_for_select(["Promote_Student", "Create_Team", "Demote_Student", "Delete_Student", "Delete_Everybody"]), :onchange => 'myFunction()', :prompt => 'Choose Action'%>
-</ul>
-</div>
+	 <%= select_tag "selected_option", options_for_select(["Promote_Student", "Create_Team", "Demote_Student", "Delete_Student", "Delete_Everybody"]), :onchange => 'myFunction()', :prompt => 'Choose Action', :type => "button", :class => "btn btn-default dropdown-toggle", :datatoggle => "dropdown"%>
+
+     </div>
 	<!-- This is will only appear if the teacher wants to create student managers -->	
-		<%= select_tag "student_manager", options_from_collection_for_select(@student_managers, 'id', 'last_name')%> 
+	<div id ="show_managers">
+		<%= select_tag "student_manager", options_from_collection_for_select(@student_managers, 'id', 'last_name'), :class => "btn btn-default dropdown-toggle"%> 
 
 	<%= submit_tag :submit, :class => "btn btn-large btn-primary btn-sm"%>
 	</div>
-
+</div>
 	<!-- This script code is useed to hide student manager second 
 	 Drop down when "Create_Team" is selected-->
 	<script>

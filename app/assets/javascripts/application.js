@@ -9,8 +9,7 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
-//
-//= require dropdown
+
 
 
 //= require jquery
@@ -40,11 +39,8 @@
 //= require jquery
 //= require fancybox
 
-//= require bootstrap
-//= require bootstrap-select
-
 
 
 $(document).ready($('.dataTable').dataTable()); 
 
-$(document).ready($('.selectpicker').selectpicker());
+

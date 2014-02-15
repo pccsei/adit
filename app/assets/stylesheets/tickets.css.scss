@@ -3,26 +3,26 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-tr.yellow.odd{
-	background-color: yellow !important;
+tr.medium.odd{
+	background-color: #FFFF92 !important;
 }
 
-tr.yellow.even{
-	background-color: yellow !important;
+tr.medium.even{
+	background-color: #FFFF92 !important;
 }
 
-tr.green.odd{
-	background-color: green !important;
+tr.high.odd{
+	background-color: #93FF93 !important;
 }
 
-tr.green.even{
-	background-color: green !important;
+tr.high.even{
+	background-color: #93FF93 !important;
 }
 
-tr.white.odd{
+tr.low.odd{
 	background-color: white !important;
 }
 
-tr.white.even{
+tr.low.even{
 	background-color: white !important;
 }
