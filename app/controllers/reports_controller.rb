@@ -95,12 +95,13 @@ class ReportsController < ApplicationController
        @students = User.current_student_users(get_selected_project, get_selected_section)
        array_of_manager_ids = Array.new(Member.pluck(:parent_id).uniq!)
        array_of_manager_ids.delete(nil)
-       array_of_manager_ids.delete_if{|id| Member.find_by(parent_id: id).project_id != get_selected_project.id}
+              # render text: array_of_manager_ids
+       array_of_manager_ids.delete_if{|id| Member.find_by(user_id: id).project_id != get_selected_project.id}
        array_of_team_ids = []
+       # render text: Member.find_by(user_id: 59).project_id
        # for i in array_of_team_ids
        #   array_of_team_ids[i]
        # end
-
        for i in array_of_manager_ids
           @team_data[index] = Struct::Team.new
           @team_data[index].student_manager = User.get_manager_name(i, get_selected_project)
@@ -116,12 +117,12 @@ class ReportsController < ApplicationController
             @team_data[index].released += (Receipt.released_clients(s.user_id, get_selected_project)).size
             @team_data[index].sales += Receipt.sales_total(s.user_id, get_selected_project)
             @team_data[index].points += Receipt.points_total(s.user_id, get_selected_project)
+          end
             @team_totals.total_open +=     @team_data[index].open
             @team_totals.total_sold +=     @team_data[index].sold
             @team_totals.total_released += @team_data[index].released
             @team_totals.total_sales +=    @team_data[index].sales
             @team_totals.total_points +=   @team_data[index].points
-          end
 
           index = index + 1
        end
