@@ -14,7 +14,8 @@ class SessionsController < ApplicationController
     else
       user = User.find_or_initialize_by(school_id: school_id)
       user.role = 3
-      user.save     
+      user.save
+      sign_in(user)    
     end
      
       if user #&& User.authenticate(school_id, params[:password])       
