@@ -46,14 +46,19 @@ $(function() {
 });
 </script>
 
-
+<!--
+need to add tooltip functionality to the table rows; check here for the javascript: http://stackoverflow.com/questions/15503839/how-to-add-a-twitter-bootstrap-tooltip-to-an-icon
+-->
 <h1 class = "col-md-3", id = "heading">Choose Clients</h1>
+
+Add classes to the rows for specific priority clients
+
 
 <!-- ADDING project information to page -->
 
 <% if @clientsLeft %>
 
-<div> <span>You can get </span><span><%= @clientsLeft %></span>more clients<span>
+<div> <span>You can get </span><span><%= @clientsLeft %></span> more clients<span>
 	
 </div>
 <% else %>
@@ -75,11 +80,6 @@ $(function() {
 	</div>
 <% end %>
 
-<!-- END new information -->
-
-
-
-
 <table class="table dataTable">
   <thead>
     <tr> 
@@ -93,7 +93,6 @@ $(function() {
       <th>Telephone</th>
       <th>Comment</th>      
       <th></th>	
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -101,7 +100,7 @@ $(function() {
 
       <tr class='<%= Priority.find(ticket.priority_id).name %>'>
       	<% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
-      	<td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => "btn btn-primary btn-sm" %>
+      	<td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => "btn btn-primary btn-sm addTicket" %>
       	</td>
       	<td><%= client.business_name %></td>
       	<td><%= client.address %></td>
@@ -111,8 +110,7 @@ $(function() {
       	<td><%= client.contact_lname %></td>
       	<td><%= client.telephone %></td>
       	<td><%= client.comment %></td>      	
-        <td><%= link_to 'Show', ticket , :class => "btn btn-info btn-sm" %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket), :class => "btn btn-danger btn-sm" %></td>
+        <td><%= link_to 'Details', ticket , :class => "btn btn-info btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>

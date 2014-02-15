@@ -9,21 +9,15 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
- */
-
-/*
  *= require jquery.ui.datepicker
- *= require jquery.ui.slider	 
+ *= require jquery.ui.slider   
  *= require jquery-ui-timepicker-addon
  *= require jquery-ui-timepicker-addon.min
  *= require dataTables/jquery.dataTables
  *= require bootstrap-select
- */
-
-/*
  *= require fancybox
- */
+ *= require_tree .
+*/
 
  @import "bootstrap";
 
@@ -35,7 +29,8 @@
 
 body {
   padding-top: 100px;
-  background-color: #EBEBEB;
+//  background-color: #EBEBEB;
+  background-color: #fafafa;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
@@ -93,19 +88,23 @@ h1, h2, h3, h4, h5, h6 {
 
 
 h1 {
-  font-size: 2em;
-  letter-spacing: -1px;
+  font-size: 2.3em;
+  //letter-spacing: -1px;
   margin-bottom: 0px;
   text-align: center;
 }
 
 
 h2 {
-  font-size: 1.2em;
-  letter-spacing: -1px;
-  margin-bottom: 30px;
+  font-size: 2em;
+  //letter-spacing: -1px;
+  //margin-bottom: 30px;
   font-weight: normal;
   
+}
+
+h3 {
+  font-size: 1.5em;
 }
 
 
@@ -192,7 +191,7 @@ p {
     padding-left: 70px;
     padding-right: 70px;
     margin-top: -60px;
-    background-color: #CFCBCC;
+    /*background-color: #CFCBCC;*/
 
 }
 

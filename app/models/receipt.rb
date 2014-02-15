@@ -32,7 +32,7 @@ class Receipt < ActiveRecord::Base
     # end
     # return receipts - remove_receipts
 
-    Receipt.where(user_id: student_id, made_sale: false, ticket_id: Ticket.where(project_id: project))
+    Receipt.where(user_id: student_id, made_sale: false, ticket_id: Ticket.where(project_id: project), ticket_id: Ticket.where(user_id: student_id))
   end
   
   # JMu changed this function
