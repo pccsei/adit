@@ -2,12 +2,10 @@ class TicketsController < ApplicationController
   before_action :only_teachers
 
   def index
-    
-    # Change to reflect chosen project?    
-    currentProject = Project.select("id, max_clients, use_max_clients, max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients").where("is_active = 1").first
 
-    #add query to select which project the student is a part of?
-    
+    membership     = Member.select("project_id").where(user_id: current_user.id)
+    currentProject = Project.select("id, max_clients, use_max_clients, max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients").where(is_active: true, id: membership).first
+            
     highPriority = Priority.where("name = 'high'").first.id
     midPriority  = Priority.where("name = 'medium'").first.id
     lowPriority  = Priority.where("name = 'low'").first.id
@@ -18,17 +16,16 @@ class TicketsController < ApplicationController
     elsif params[:ajax] == "getClient"      
       
       if currentProject.nil? # No current project
-        updates = {"Error" => "There is not a current project!"}        
+        updates = {"Error" => "There is not a current project!"}          
+            
       else  
-=begin
-        highPriority = Priority.where("name = 'high'").first.id
-        midPriority  = Priority.where("name = 'medium'").first.id
-        lowPriority  = Priority.where("name = 'low'").first.id
-=end        
         if currentProject.use_max_clients
           # Check to see if the user has the max number of clients
-          if Ticket.where("user_id = ?", current_user.school_id).size >= currentProject.max_clients
-            updates = { error => "You have reached the maximum number of clients!"}
+          if Ticket.where("user_id = ?", current_user.id).size >= currentProject.max_clients
+            updates = { "error" => "You have reached the maximum number of clients!"}
+            allowed = false
+          else 
+            allowed = true
           end  
         else
           
@@ -44,65 +41,65 @@ class TicketsController < ApplicationController
             else            
               allowed = false
           end 
+        end  
           
-          if allowed          
-            grabbedTicket = false
-            ticket        = nil          
-            Ticket.transaction do                                      
-              #ticket = Ticket.where("client_id = ? AND project_id = ?", params[:clientID], currentProject.id).lock(true).first
-              ticket = Ticket.where("id = ? ",params[:clientID]).lock(true).first
-              
-              if ticket.nil?
-                updates = {"Error" => "Ticket does not exist for the current project"}
-              else 
-                 # User is allowed to get a new client: Try to grab the client ticket               
-                 if ticket.user_id.nil? || ticket.user_id == 0
-                   ticket.user_id = current_user.id
-                   ticket.save!
-                   updates = { "Success" => "You got the client"}     
-                   grabbedTicket = true         
-                 else 
-                   updates = {"Someone already grabbed that client!!" => "(o_o')"}              
-                 end   
-              end
-            end            
+        if allowed          
+          grabbedTicket = false
+          ticket        = nil          
+          Ticket.transaction do                                      
+            #ticket = Ticket.where("client_id = ? AND project_id = ?", params[:clientID], currentProject.id).lock(true).first
+            ticket = Ticket.where("id = ? ",params[:clientID]).lock(true).first
             
-            # This is done down here to allow the transaction above to finish as quickly as possible thus allowing the user to better grab the ticket
-            if grabbedTicket
-              receipt = Receipt.where("ticket_id = ? AND user_id = ?", ticket.id, current_user.id).first
-              
-              if receipt.nil?
-                Receipt.create(ticket_id: ticket.id, user_id: current_user.id)
-              end              
-            end    
-          else 
-            s = requested_ticket_priority_id.to_s
-            updates = {"You already have the max number of " + s => "you fail at life"}
-          end              
-        end
+            if ticket.nil?
+              updates = {"Error" => "Ticket does not exist for the current project"}
+            else 
+               # User is allowed to get a new client: Try to grab the client ticket               
+               if ticket.user_id.nil? || ticket.user_id == 0
+                 ticket.user_id = current_user.id
+                 ticket.save!
+                 updates = { "Success" => "You got the client"}     
+                 grabbedTicket = true         
+               else 
+                 updates = {"Someone already grabbed that client!!" => "(o_o')"}              
+               end   
+            end
+          end            
+          
+          # This is done down here to allow the transaction above to finish as quickly as possible thus allowing the user to better grab the ticket
+          if grabbedTicket
+            receipt = Receipt.where("ticket_id = ? AND user_id = ?", ticket.id, current_user.id).first
+            
+            if receipt.nil?
+              Receipt.create(ticket_id: ticket.id, user_id: current_user.id)
+            end              
+          end    
+        else 
+          s = requested_ticket_priority_id.to_s
+          updates = {"You already have the max number of " + s => "you fail at life"}
+        end              
       end 
      
     ## Added by Noah, ugly check for existence of current project, can remove once we've 
     ## cleaned up the program  
-    elsif currentProject    
+    elsif currentProject  
+              
       @tickets = Ticket.current_project(currentProject.id)
       
       if currentProject.use_max_clients
         @clientsLeft = currentProject.max_clients - Ticket.where("user_id = ? AND project_id = ?", current_user.id, currentProject.id).size      
       else                
-        @highPriority = currentProject.max_high_priority_clients - Ticket.where("user_id = ? AND priority_id = ?", current_user.id, highPriority).size
-        @midPriority = currentProject.max_medium_priority_clients - Ticket.where("user_id = ? AND priority_id = ?", current_user.id, midPriority).size
-        @lowPriority = currentProject.max_low_priority_clients - Ticket.where("user_id = ? AND priority_id = ?", current_user.id, lowPriority).size  
+        @highPriority = currentProject.max_high_priority_clients   - Ticket.where("user_id = ? AND priority_id = ?", current_user.id, highPriority).size
+        @midPriority  = currentProject.max_medium_priority_clients - Ticket.where("user_id = ? AND priority_id = ?", current_user.id, midPriority).size
+        @lowPriority  = currentProject.max_low_priority_clients    - Ticket.where("user_id = ? AND priority_id = ?", current_user.id, lowPriority).size  
       end
-      
-      @d = currentProject            
+       
+      @debug = currentProject           
     end
     
     respond_to do |format|      
         format.html 
         format.json { render json: updates}
-    end
-    
+    end    
         
   end
 
