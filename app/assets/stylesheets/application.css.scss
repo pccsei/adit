@@ -30,11 +30,12 @@
 body {
   padding-top: 100px;
 //  background-color: #EBEBEB;
-  background-color: #fafafa;
+ // background-color: #fafafa;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
+  background: url(subtlenet2.png);
 }
 
 
@@ -47,6 +48,11 @@ textarea {
   font-family: Tahoma, sans-serif;
 }
 
+
+
+.navbar-nav a.dropdown-toggle {
+    cursor: pointer;
+}
 
 .center {
   text-align: center;

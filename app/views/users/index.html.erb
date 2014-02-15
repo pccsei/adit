@@ -5,7 +5,7 @@
 
 <h1 class = "col-md-3", id = "heading">Manage Section</h1>
 
-<div class = "col-md-5", id = "select-section">
+<div class = "col-md-2", id = "select-section-1">
 <div class="btn-group">
 	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 		Change Section<span class="caret"></span>
@@ -46,8 +46,8 @@
 
 
 
-<div class = "col-md-12" id="create_section">
-<h5><a href="/users/create_new_section" class = " btn btn-info btn-sm">Create a New Section</a></h5>
+<div class = "col-md-2" id="select-section-2" id="link-1">
+<h5><a href="/users/create_new_section" class = " btn btn-link btn-sm">Create a New Section</a></h5>
 </div>
 <br><br>
 
@@ -57,10 +57,11 @@
 
 <!-- This gets students from the teacher to be put into the database and get their section number -->
 <!-- only allow a teacher to add students to a section if a section is selected.-->
-<div class = "col-md-12">
-<% if @selected_section != "all" %>
+<br><br>
+<div class = "col-md-12" id="parse_box">
+<% if @selected_section == "all" %>
 	<%= form_tag('/users/input_students_parse') do%>
-		<%= label_tag 'Copy & Paste your student list here or' %> <%= link_to 'Add One Student', new_user_path, class: "btn btn-large btn-link btn-sm" %>
+		<%= label_tag 'Copy & Paste your student list here or' %> <%= link_to 'Add One Student', new_user_path, :id => "link-2", class: "btn btn-large btn-link btn-sm"%>
 		<br>
 		<%= text_area_tag 'input' %>
 		<br><%= submit_tag 'Add Students to Section', class: "btn btn-large btn-primary btn-sm"%>
@@ -84,19 +85,20 @@
 <!-- Everything below here is really just a big form. -->	
 <%= form_tag('/users/change_student_status') do%>
 	<!-- This is first select for what the teacher wants to do with the students -->
-	
+
 	<div id= "manage_dropdown">
 	<div id = "option">
 		
-	 <%= select_tag "selected_option", options_for_select(["Promote_Student", "Create_Team", "Demote_Student", "Delete_Student", "Delete_Everybody"]), :onchange => 'myFunction()', :prompt => 'Choose Action', :type => "button", :class => "btn btn-default dropdown-toggle", :datatoggle => "dropdown"%>
+	 <%= select_tag "selected_option", options_for_select(["Promote Student", "Create Team", "Demote Student", "Delete Student", "Delete Everybody"]), :onchange => 'myFunction()', :prompt => 'Choose Action', :type => "button", :class => "btn btn-default dropdown-toggle col-md-2", :datatoggle => "dropdown"%>
 
      </div>
 	<!-- This is will only appear if the teacher wants to create student managers -->	
 	<div id ="show_managers">
-		<%= select_tag "student_manager", options_from_collection_for_select(@student_managers, 'id', 'last_name'), :class => "btn btn-default dropdown-toggle"%> 
+		<%= select_tag "student_manager", options_from_collection_for_select(@student_managers, 'id', 'last_name'), :class => "btn btn-default dropdown-toggle col-md-2"%> 
 
-	<%= submit_tag :submit, :class => "btn btn-large btn-primary btn-sm"%>
+	
 	</div>
+	<%= submit_tag :submit, :class => "btn btn-large btn-primary btn-sm col-md-1"%>
 </div>
 
 	<!-- This script code is useed to hide student manager second 
@@ -108,7 +110,7 @@
 		  	event.preventDefault();
 		  	var e = document.getElementById("selected_option");
 			var strUser = e.options[e.selectedIndex].text;
-			if(strUser=="Create_Team")
+			if(strUser=="Create Team")
 			{
 			  $( "#show_managers" ).show();
 			}
