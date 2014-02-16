@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
        @sales = []                     
        index = 0
        # Changed function name to all sold clients because error was thrown
-       @sold_receipts = Receipt.all_sold_clients(get_selected_project)
+       @sold_receipts = Receipt.all_sold_clients_in_section(get_selected_project, get_selected_section)
 
        @sold_receipts.each do |r|
           @sales[index] = Struct::Sale.new
