@@ -21,13 +21,13 @@ class Project < ActiveRecord::Base
   
 # Validates the max total clients option  
   validates :max_clients, length: {
-    minimum: 1, maximum: 1,
+    minimum: 0, maximum: 1,
     message: 'is the wrong length.  Needs to be one digit long.'
   }, numericality: { greater_than: 0 }, unless: Proc.new { |project| project.use_max_clients == false }
   
 # Validates the max seperate clients option
   validates :max_high_priority_clients, :max_medium_priority_clients, :max_low_priority_clients, length: {
-    minimum: 1, maximum: 1,
+    minimum: 0, maximum: 1,
     message: 'is the wrong length.  Needs to be one digit long.'
   }, numericality: { greater_than_or_equal_to: 0 }, unless: Proc.new { |project| project.use_max_clients == true }
   
