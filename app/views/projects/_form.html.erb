@@ -16,7 +16,7 @@
       <%= f.label :Year %>
       </label>
       <div class="controls">
-        <%= f.select :year, options_for_select([current_year(), next_year()]), { :include_blank => false}, { :class => "selectpicker"}%>
+        <%= f.select :year, [current_year(), next_year()], { :include_blank => false}, { :class => "selectpicker"}%>
       </div>  
     </div>
 
@@ -25,7 +25,7 @@
      <%= f.label :semester %>
       </label>
       <div class="controls">
-      <%= f.select :semester, options_for_select(%w[Fall Spring]), { :include_blank=>false }, { :class => "selectpicker"}%>
+      <%= f.select :semester, ["Fall", "Spring"], { :include_blank=>false }, { :class => "selectpicker"}%>
 </div>
     </div>
     <div class="field">
@@ -46,21 +46,21 @@
     </div>
     
 	<div class="field">
-      <%= radio_button(:project, :use_max_clients,  0, :checked => true) %>
+      <%= radio_button(:project, :use_max_clients, :false) %>
       <%= label_tag(:max_color_clients, "Total Clients in separated form") %><br>
       <%= f.label :high_priority %>
-      <%= f.select :max_high_priority_clients, options_for_select([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]), { :include_blank=>false }, { :class => "selectpicker"}%><br>
+      <%= f.select(:max_high_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "selectpicker"})%><br>
       <%= f.label :medium_priority %>
-      <%= f.select :max_medium_priority_clients, options_for_select([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]), { :include_blank=>false }, { :class => "selectpicker"}%><br>
+      <%= f.select :max_medium_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "selectpicker"}%><br>
       <%= f.label :low_priority %>
-      <%= f.select :max_low_priority_clients, options_for_select([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]), { :include_blank=>false }, { :class => "selectpicker"}%><br>
+      <%= f.select :max_low_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "selectpicker"}%><br>
     </div>    
 
     <div class="field">
-      <%= radio_button(:project, :use_max_clients, 1 ) %>
+      <%= radio_button(:project, :use_max_clients, :true) %>
       <%= label_tag(:max_color_clients, "Total Clients in total form") %><br>
       <%= f.label :max_clients %>
-      <%= f.select :max_clients, options_for_select([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]), { :include_blank=>false }, { :class => "selectpicker"}%>
+      <%= f.select :max_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "selectpicker"}%>
       <br /><br />
 	</div>
 
@@ -96,13 +96,13 @@
 		
 		$("#new_project").validate({
 			rules: {
-				"project[year]": {required: true, rangelength: [4,4], digits: true, min: 2014},
+				"project[year]": {required: true, min: 2014},
 				"project[tickets_open_time]": {required: true, date: true},
 				"project[tickets_close_time]": {required: true, date: true},
-				"project[max_clients]": {required: '#project_use_max_clients_1:checked', digits: true, min: 1},
-				"project[max_high_priority_clients]": {required: '#project_use_max_clients_0:checked', digits: true, min: 0},	
-				"project[max_medium_priority_clients]": {required: '#project_use_max_clients_0:checked', digits: true, min: 0},	
-				"project[max_low_priority_clients]": {required: '#project_use_max_clients_0:checked', digits: true, min: 0}
+				"project[max_clients]": {required: '#project_use_max_clients_1:checked', min: 0},
+				"project[max_high_priority_clients]": {required: '#project_use_max_clients_0:checked', min: 0},	
+				"project[max_medium_priority_clients]": {required: '#project_use_max_clients_0:checked', min: 0},	
+				"project[max_low_priority_clients]": {required: '#project_use_max_clients_0:checked', min: 0}
 				
 			},
 			messages: {
