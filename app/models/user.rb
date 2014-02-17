@@ -13,10 +13,7 @@ class User < ActiveRecord::Base
   }
 
 # Validates the user's school id
-  validates :school_id, presence: true, uniqueness: true, format: {
-    with: /\A([-a-zA-Z]*|\d[0-9]*)\z/,
-    message: 'must be a valid PCC id.'
-  }
+  validates :school_id, presence: true, uniqueness: true
   
 # Validates the email
   validates :email, presence: true, uniqueness: true, format: {
@@ -26,7 +23,7 @@ class User < ActiveRecord::Base
 
 # Validates the phone number
   validates :phone, presence: true, uniqueness: true, format: {
-    with: /\A(((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|(((\d{3})?\s*[-]\s*)*(\d{3})\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
+    with: /\A(([tT][oO][wW][nN])|((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|(((\d{3})?\s*[-]\s*)*(\d{3})\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
     message: 'must be a valid PCC phone number or valid telephone number.'
   }
   
@@ -34,7 +31,7 @@ class User < ActiveRecord::Base
   validates :box, presence: true, length: {
     minimum: 3, maximum: 4,
     message: 'is the wrong length.  Needs to be either three or four digits long.'
-  }, numericality: { greater_than: 111 }
+  }, numericality: { greater_than: 0 }
 
       ### BEGIN CONFIGURATION ###
       SERVER = 'studentnet.int'        # Active Directory server name or IP
