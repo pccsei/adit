@@ -1,4 +1,6 @@
 <% provide(:title, "Choose Clients") %>
+
+<% if @tickets %>
 <script>
 var last_update = "<%= Time.now.utc.strftime("%Y-%m-%d %H:%M:%S") %>";
 	
@@ -25,8 +27,7 @@ $(function() {
 		  $.getJSON("/tickets.json?ajax=update&timestamp=" + last_update, 
 	  			function(json) {
 
-	  				var len = json.length - 1; // compensating for system time appended to the end of JSON object 
-	  				var i;
+	  				var i, len = json.length - 1; // compensating for system time appended to the end of JSON object
 					for (i = 0; i < len; i++) { 
 						console.log(json[i]);
 
@@ -51,33 +52,22 @@ need to add tooltip functionality to the table rows; check here for the javascri
 -->
 <h1 class = "col-md-3", id = "heading">Choose Clients</h1>
 
-Add classes to the rows for specific priority clients
-
-
-<!-- ADDING project information to page -->
-
 <% if @clientsLeft %>
-
-<div> <span>You can get </span><span><%= @clientsLeft %></span> more clients<span>
-	
-</div>
+<div><span>You can get </span><span><%= @clientsLeft %></span> more clients<span></div>
 <% else %>
-	<div>
-		<table>
-			<tr>
-				<td>Number of High Priority Clients you can get: </td>
-				<td id="highPriority"><%= @highPriority%></td>
-			</tr>
-			<tr>
-				<td>Number of Medium Priority Clients you can get: </td>
-				<td id="midPriority"><%= @midPriority%></td>
-			</tr>
-			<tr>
-				<td>Number of Low Priority Clients you can get</td>
-				<td id="lowPriority"><%= @lowPriority%></td>
-			</tr>
-		</table>
-	</div>
+<div>
+  <table>
+	<tr>
+		<td id="highPriority">You can get <%= @highPriority < 0 ? 0 : @highPriority%> more high priority clients</td>
+	</tr>
+	<tr>
+		<td id="midPriority">You can get <%= @midPriority < 0 ? 0 : @midPriority%> more medium priority clients</td>
+	</tr>
+	<tr>
+		<td id="lowPriority">You can get <%= @lowPriority < 0 ? 0 : @lowPriority%>  more clients low priority clients</td>
+	</tr>
+  </table>
+</div>
 <% end %>
 
 <table class="table dataTable">
@@ -97,10 +87,9 @@ Add classes to the rows for specific priority clients
   </thead>
   <tbody>
     <% @tickets.each do |ticket| %>
-
       <tr class='<%= Priority.find(ticket.priority_id).name %>'>
       	<% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
-      	<td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => "btn btn-primary btn-sm addTicket" %>
+      	<td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => "btn btn-primary btn-sm " << ticketClass %>
       	</td>
       	<td><%= client.business_name %></td>
       	<td><%= client.address %></td>
@@ -116,6 +105,6 @@ Add classes to the rows for specific priority clients
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'Create Tickets', new_ticket_path %>
+<% else %>
+	<h1>You are currently not part of any projects. <br />If you are not here by accident, ask your instructor to add you to the project</h1>
+<% end%>
