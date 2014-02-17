@@ -18,6 +18,7 @@ class Project < ActiveRecord::Base
   
 # Validates the max total clients option  
   validates :max_clients, length: {
+<<<<<<< HEAD
     minimum: 1,
     message: 'is the wrong length.  Needs to be one digit long.'
   }, numericality: { greater_than: 0 }, unless: Proc.new { |project| project.use_max_clients == false }
@@ -42,6 +43,17 @@ class Project < ActiveRecord::Base
     message: 'is the wrong length.  Needs to be at least one digit long.'
   }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_medium_priority_clients == 0) } }, 
       unless: Proc.new { |project| project.use_max_clients == true }
+=======
+    minimum: 0, maximum: 1,
+    message: 'is the wrong length.  Needs to be one digit long.'
+  }, numericality: { greater_than: 0 }, unless: Proc.new { |project| project.use_max_clients == false }
+  
+# Validates the max seperate clients option
+  validates :max_high_priority_clients, :max_medium_priority_clients, :max_low_priority_clients, length: {
+    minimum: 0, maximum: 1,
+    message: 'is the wrong length.  Needs to be one digit long.'
+  }, numericality: { greater_than_or_equal_to: 0 }, unless: Proc.new { |project| project.use_max_clients == true }
+>>>>>>> Empty
   
 # Custom method to make sure the start date is before the end date  
   def start_before_end

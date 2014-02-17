@@ -16,8 +16,7 @@
       <%= f.label :Year %>
       </label>
       <div class="controls">
-        <%= f.text_field :year, :type =>"text", :placeholder => "", :class => "input-xlarge" %>
-        <p class="help-block">Enter the year in XXXX format</p>
+        <%= f.select :year, options_for_select([current_year(), next_year()]), { :include_blank => false}, { :class => "selectpicker"}%>
       </div>  
     </div>
 
@@ -45,23 +44,26 @@
       <%= f.label :comment %><br>
       <%= f.text_field :comment %>
     </div>
-
-    <div class="field">
-      <%= radio_button(:project, :use_max_clients, 1, :checked => true) %>
-      <%= label_tag(:max_color_clients, "Total Clients in total form") %><br>
-      <%= f.label :max_clients %>
-      <%= f.text_field :max_clients %><br><br>
-	</div>
+    
 	<div class="field">
-      <%= radio_button(:project, :use_max_clients, 0) %>
+      <%= radio_button(:project, :use_max_clients,  0, :checked => true) %>
       <%= label_tag(:max_color_clients, "Total Clients in separated form") %><br>
       <%= f.label :high_priority %>
-      <%= f.text_field :max_high_priority_clients %><br>
+      <%= f.select :max_high_priority_clients, options_for_select([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]), { :include_blank=>false }, { :class => "selectpicker"}%><br>
       <%= f.label :medium_priority %>
-      <%= f.text_field :max_medium_priority_clients %><br>
+      <%= f.select :max_medium_priority_clients, options_for_select([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]), { :include_blank=>false }, { :class => "selectpicker"}%><br>
       <%= f.label :low_priority %>
-      <%= f.text_field :max_low_priority_clients %><br>
-    </div>
+      <%= f.select :max_low_priority_clients, options_for_select([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]), { :include_blank=>false }, { :class => "selectpicker"}%><br>
+    </div>    
+
+    <div class="field">
+      <%= radio_button(:project, :use_max_clients, 1 ) %>
+      <%= label_tag(:max_color_clients, "Total Clients in total form") %><br>
+      <%= f.label :max_clients %>
+      <%= f.select :max_clients, options_for_select([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]), { :include_blank=>false }, { :class => "selectpicker"}%>
+      <br /><br />
+	</div>
+
 
 	<% if params[:id]%>	
 	  <div class="field">		

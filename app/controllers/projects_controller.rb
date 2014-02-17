@@ -40,17 +40,15 @@ class ProjectsController < ApplicationController
     end
     @project.is_active = 1
 
-    respond_to do |format|
-      if @project.save
-        create_tickets(@project)
-        set_selected_project(@project)
-        format.html { redirect_to projects_path, notice: 'Project was successfully created.' }
-        format.html { redirect_to users_path, notice: 'Project was successfully created.' }
 
+      if @project.save
+         Ticket.createTickets(@project)
+         set_selected_project(@project)
+         redirect_to users_path, notice: 'Project was successfully created.'
       else
-        format.html { render action: 'new' }
+         render action: 'new' 
       end
-    end
+
   end
 
   # PATCH/PUT /projects/1
@@ -71,18 +69,7 @@ class ProjectsController < ApplicationController
       format.html { redirect_to projects_url }
     end
   end
-  
-  # This is in the tickets controller currently....don't know if want to delete
-  # Create the tickets and move to the next step, which is to add students
-  # def create_tickets(project)
-    # clients = Client.all
-      # clients.each do |c|
-      # ticket = c.tickets.create(
-         # project_id: project.id,
-         # priority_id: 2) # Will need a method to calculate)
-       # ticket.save
-    # end    
-  # end
+
   
   def select_project
     project_id = params['input']
