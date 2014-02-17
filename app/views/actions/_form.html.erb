@@ -98,3 +98,18 @@ $(".hidden").hide();
     <%= f.submit %>
   </div>
 <% end %>
+
+<!-- This adds client-side validation -->
+<script>
+	$(document).ready(function () {
+		$("#new_action").validate({
+			rules: {
+				"action[price]": {digits: true, min: 1},
+				"action[user_action_time]": {date: true, less_than: Time.now},
+			},
+			messages: {
+				"action[price]": "Please enter a valid price",
+			}
+		});
+	});
+</script>

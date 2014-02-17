@@ -49,6 +49,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def get_array_of_all_sections(selected_project)
+    selected_project_id = selected_project.id
+    sections = (Member.where("project_id = ?", selected_project_id).uniq!.pluck("section_number"))
+    sections.sort!
+    sections.unshift("all")
+  end
+
    # Restricts access to only teachers 
    def only_teachers
       if current_user.role != TEACHER
@@ -68,15 +75,6 @@ class ApplicationController < ActionController::Base
        store_location
        redirect_to signin_url, notice: "Please sign in"
      end
-   end
-  
-  # 
-   def tooltipify(string, cellWidth = 12, className = "fullComment") # cell width was arbitrarily chosen  
-     if string.length > cellWidth
-       string[0..cellWidth - 3] << "..." << "<span class='#{className}'>#{string} </span>"
-     else 
-       string
-     end 
    end
    
 end

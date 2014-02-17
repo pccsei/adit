@@ -20,9 +20,8 @@
 	      <th>Client List Closes</th>
 	      <th>Total Max Clients</th>
 	      <th>High Priority Clients</th>
-	      <th>Yellow Clients</th>
+	      <th>Medium Priority Clients</th>
 	      <th>Low Priority Clients</th>
-	      <th>Comment</th>
 	      <th></th>
 	    </tr>
 	  </thead>
@@ -43,13 +42,11 @@
 		        	<td>N/A</td>
 		        	<td>N/A</td>
 		        <% else %>
-		        	<td></td>
+		        	<td>N/A</td>
 			        <td><%= project.max_high_priority_clients%></td>
 			        <td><%= project.max_medium_priority_clients%></td>
 			        <td><%= project.max_low_priority_clients%></td>
-		        	<td>N/A</td>
 		        <% end %>
-		      	<td><%= project.comment%></td>	
 		        <td><%= link_to 'Edit', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
 		      </tr>
 	        <% end %>

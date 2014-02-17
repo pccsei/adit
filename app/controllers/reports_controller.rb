@@ -1,6 +1,8 @@
 class ReportsController < ApplicationController
   
   def sales
+   @sections = get_array_of_all_sections(get_selected_project)
+
        Struct.new("Sale", :student_id, :manager_id, :time_of_sale, :company, :page_size,
                             :sale_amount, :first_name, :last_name, :section, :team_leader, :payment_type, 
                             :ad_status)
@@ -9,7 +11,7 @@ class ReportsController < ApplicationController
        @sales = []                     
        index = 0
        # Changed function name to all sold clients because error was thrown
-       @sold_receipts = Receipt.all_sold_clients(get_selected_project)
+       @sold_receipts = Receipt.all_sold_clients_in_section(get_selected_project, get_selected_section)
 
        @sold_receipts.each do |r|
           @sales[index] = Struct::Sale.new
@@ -34,7 +36,8 @@ class ReportsController < ApplicationController
   
   # GET reports/student_summary
   def student_summary
-    
+   @sections = get_array_of_all_sections(get_selected_project)
+
        Struct.new("Student", :id, :first_name, :last_name, :student_manager,
                             :section, :open, :sold, :released, :sales, 
                             :points, :last_activity)
@@ -78,6 +81,8 @@ class ReportsController < ApplicationController
 
   # GET reports/team_summary
   def team_summary
+   @sections = get_array_of_all_sections(get_selected_project)
+
            Struct.new("Team", :id, :student_manager, :section, :open, :sold, :released, :sales, :points, :b)
 
            Struct.new("Team_Totals", :total_open, :total_sold, :total_released, :total_sales, 
@@ -93,14 +98,12 @@ class ReportsController < ApplicationController
        index = 0
        @receipts = Receipt.selected_project_receipts(get_selected_project)
        @students = User.current_student_users(get_selected_project, get_selected_section)
-       array_of_manager_ids = Array.new(Member.pluck(:parent_id).uniq!)
-       array_of_manager_ids.delete(nil)
-       array_of_manager_ids.delete_if{|id| Member.find_by(parent_id: id).project_id != get_selected_project.id}
+       array_of_manager_ids = User.get_array_of_manager_ids_from_project_and_section(get_selected_project, get_selected_section)
        array_of_team_ids = []
+       # render text: Member.find_by(user_id: 59).project_id
        # for i in array_of_team_ids
        #   array_of_team_ids[i]
        # end
-
        for i in array_of_manager_ids
           @team_data[index] = Struct::Team.new
           @team_data[index].student_manager = User.get_manager_name(i, get_selected_project)
@@ -116,18 +119,20 @@ class ReportsController < ApplicationController
             @team_data[index].released += (Receipt.released_clients(s.user_id, get_selected_project)).size
             @team_data[index].sales += Receipt.sales_total(s.user_id, get_selected_project)
             @team_data[index].points += Receipt.points_total(s.user_id, get_selected_project)
+          end
             @team_totals.total_open +=     @team_data[index].open
             @team_totals.total_sold +=     @team_data[index].sold
             @team_totals.total_released += @team_data[index].released
             @team_totals.total_sales +=    @team_data[index].sales
             @team_totals.total_points +=   @team_data[index].points
-          end
 
           index = index + 1
        end
   end
 
   def activities
+   @sections = get_array_of_all_sections(get_selected_project)
+
     Struct.new("Activity", :student_id, :manager_id, :time_of_activity, :first_name, :last_name, :section, :team_leader,
                         :company, :activity, :comments,  :points_earned, :cumulative_points_earned_on_client)
 
@@ -138,9 +143,9 @@ class ReportsController < ApplicationController
     @activity_totals.cumulative_points_earned_on_client = 0
     @activities = []                     
     index = 0
-    @all_project_activities = Action.all_actions_in_project(get_selected_project)
+    all_current_activities = Action.all_actions_in_project(get_selected_project, get_selected_section)
 
-    @all_project_activities.each do |a|
+    all_current_activities.each do |a|
       total_points = 0
       @activities[index] = Struct::Activity.new
       @activities[index].student_id = Receipt.find(a.receipt_id).user_id
