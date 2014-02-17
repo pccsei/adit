@@ -43,6 +43,14 @@ $(function() {
 	}
 	$(".autoHide").hide();	
 	console.log("Hiding all taken clients")
+	
+	$(".defaultTooltip").tooltip();
+	
+	//////////////////////
+	$('.right').tooltip();
+	//////////////////////
+	
+	
 	//setTimeout(updateClients, 1000);
 });
 </script>
@@ -98,7 +106,7 @@ need to add tooltip functionality to the table rows; check here for the javascri
       	<td><%= client.contact_fname %></td>
       	<td><%= client.contact_lname %></td>
       	<td><%= client.telephone %></td>
-      	<td><%= client.comment %></td>      	
+      	<td ><%= tooltipify(client.comment).html_safe%></td>      	
         <td><%= link_to 'Details', ticket , :class => "btn btn-info btn-sm" %></td>
       </tr>
     <% end %>
