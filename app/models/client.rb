@@ -40,15 +40,15 @@ class Client < ActiveRecord::Base
 
    # Returns all pending clients, needs to be refactored to remove magic number
   def self.pending
-    where(status_id: 4).all
+    where(status_id: Status.where(status_type: "Pending")).all
   end
    
   def self.unapprove
-    where(status_id: 1).all
+    where(status_id: Status.where(status_type: "Unapproved")).all
   end
    
   def self.house
-    where(status_id: [3,2]).all
+    where(status_id: Status.where(status_type: ["In House", "Approved"])).all
   end
    
   def Client.approve_clients(status, array_of_pending_clients)
