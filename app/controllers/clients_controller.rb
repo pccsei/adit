@@ -53,6 +53,9 @@ class ClientsController < ApplicationController
 
   # GET /clients/1/edit
   def edit
+    # if current_user.role != 3
+    #   edited_client = Client.new
+      
   end
 
   # POST /clients
