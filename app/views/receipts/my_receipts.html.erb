@@ -1,8 +1,170 @@
-<%= debug @active_receipts%>
-<%= debug @released_receipts%>
-<%= debug @sold_receipts%>
-
-This page is currently under construction by Noah Conrad.
-
-<!--<span><%#= link_to 'Show', receipt_path(receipt) %></span> 
-><div class="active <%#= Priority.find(ticket.priority_id).name%>"> -->
+<% if Project.non_archived %>
+
+    <style type="text/css">
+
+    *:first-child {
+      margin-top: 0;
+    }
+    
+    .client:first-child {
+      margin-left: 0 !important;
+    }
+
+    #page {
+      width: 80em;
+      margin: 0 auto;
+      position: relative;
+      padding: 2em;
+  
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      clear: both;
+      margin-top: 1.5em;
+    }
+    
+    h2 {
+      font-size: 2em;
+    }
+    
+    h3.business {
+      margin-top: 0 !important;
+      clear: none;
+    }
+
+    .client {
+      box-shadow: .15em .15em 0 #999;
+      position: relative;
+      border: solid .4em rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+      display: inline-table;
+    }
+
+    .client.active {
+      width: 15em;
+      height: 20em;
+      padding: 1.2em;
+      margin: .7em;
+    }
+
+    .client.completed,
+    .client.released {
+      width: 9em;
+      height: 9em;
+      padding: .7em;
+      margin: .4em;
+    }
+
+    .client.released {
+      color: #666;
+      background: #e9e9e9 !important;
+      border-color: #ccc !important;
+    }
+
+    .client.high {
+      background: #e8ffe3;
+      border-color: #43d852;
+    }
+
+    .client.medium {
+      background: #ffffd7;
+      border-color: #f3e32f;
+    }
+
+    .client.low {
+      background: #fff;
+      border-color: #ddd;
+    }
+
+    button {
+      display: block;
+      background: rgba(0, 0, 0, .5);
+      border: none;
+      color: white;
+      font-size: 1em;
+      padding: 1em 1.5em;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .client button {
+      position: relative;
+      bottom: 0;
+    }
+
+    button.secondary {
+      background: rgba(0, 0, 0, .25)
+    }
+    
+    img.release_button {
+      width: 2em;
+      height: 2em;
+      opacity: 0;
+      transition: opacity .25s;
+      position: absolute;
+      top: -1em;
+      left: -1em;
+    }
+    
+    .client:hover img.release_button {
+      opacity: .4;
+    }
+    
+    img.release_button:hover {
+      opacity: .8 !important;
+    }
+    
+    .view_button {
+      width: 3.5em;
+      height: 3.5em;
+      float: right;
+      opacity: .15;
+      margin: 0 0 .5em .5em;
+    }
+    
+    .view_button:hover {
+      opacity: .5;
+    }
+    
+    </style>
+
+    <div id="page">
+      <h1>My Clients</h1>
+      <h2>Active Clients</h2>
+      <div id="active_clients" class="myclients">
+        <!-- Loop -->
+        <% @active_receipts.each do |receipt| %>
+        <div class="active client <%= receipt.ticket.priority.name %>" data-link="#">
+          <a href="<%= url_for(receipt_path(receipt)) %>" title="View client"><img class="view_button" src="/assets/rightarrow.svg" alt="" /></a>
+          <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
+          <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
+          <a href="#" title="Release Client"><img class="release_button" src="/assets/closebutton.svg" alt="" /></a>
+        </div>
+        <% end %>
+      </div>
+
+      <h2>Completed Clients</h2>
+      <div id="completed_clients" class="myclients">
+        <% @sold_receipts.each do |receipt| %>
+        <div class="completed client <%= receipt.ticket.priority.name %>">
+          <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
+        </div>
+        <% end %>
+      </div>
+
+      <h2>Released Clients</h2>
+      <div id="released_clients" class="myclients">
+        <% @released_receipts.each do |receipt| %>
+        <div class="released client <%= receipt.ticket.priority.name %>">
+          <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
+        </div>
+        <% end %>
+      </div>
+      
+    </div>
+
+<!--<span><%#= link_to 'Show', receipt_path(receipt) %></span> 
+><div class="active <%#= Priority.find(ticket.priority_id).name%>"> -->
+<% else %>
+<p> There are currently no projects to view. <p>
+<% end %>

@@ -1,27 +1,18 @@
-<table class ="table dataTable">
-<thead>
-<tr>
-  <th>Team Name</th>
-  <th>Section</th>
-  <th>Open Clients</th>
-  <th>Sold Clients</th>
-  <th>Released Clients</th>
-  <th>Sales Total</th>
-  <th>Points</th>
-</tr>
-</thead>
-<tbody>
-<tbody>
-    <% @team_data.each do |team_data| %>
-      <tr>
-        <td><%= team_data.student_manager %></td>
-        <td><%= team_data.section %></td>
-        <td><%= team_data.open %></td>
-        <td><%= team_data.sold %></td>
-        <td><%= team_data.released %></td>
-        <td><%= team_data.sales %></td>
-        <td><%= team_data.points %></td>                            
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class = "col-md-5", id = "select-section">
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    Change Section<span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+  <% @sections.each do |s|%>
+     <li>
+      <%= link_to "#{s}", {:controller => :users, :action => :set_section, :section_option => "#{s}"}, :method => :post %>
+     </li>
+  <% end %>
+</ul>
+</div>
+</div>
+
+<div id = "section_refresh">  
+<%= render :partial => "team_summary"%>
+</div>

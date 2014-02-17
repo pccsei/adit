@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   helper_method :set_selected_project
   helper_method :get_selected_project
   helper_method :get_selected_section
+  helper_method :set_selected_section
   
   # CONSTANTS
   TEACHER = 3
@@ -31,6 +32,7 @@ class ApplicationController < ActionController::Base
     if session[:selected_project_id]
       Project.find(session[:selected_project_id])
     else
+      set_selected_project(Project.non_archived.last)
       Project.non_archived.last
     end
   end
@@ -45,6 +47,13 @@ class ApplicationController < ActionController::Base
     else
        "all"
     end
+  end
+
+  def get_array_of_all_sections(selected_project)
+    selected_project_id = selected_project.id
+    sections = (Member.where("project_id = ?", selected_project_id).uniq!.pluck("section_number"))
+    sections.sort!
+    sections.unshift("all")
   end
 
    # Restricts access to only teachers 
@@ -68,4 +77,13 @@ class ApplicationController < ActionController::Base
      end
    end
   
+  # 
+   def tooltipify(string, cellWidth = 12, className = "fullComment") # cell width was arbitrarily chosen  
+     if string.length > cellWidth
+       string[0..cellWidth - 3] << "..." << "<span class='#{className}'>#{string} </span>"
+     else 
+       string
+     end 
+   end
+   
 end

@@ -32,7 +32,7 @@ class Receipt < ActiveRecord::Base
     # end
     # return receipts - remove_receipts
 
-    Receipt.where(user_id: student_id, made_sale: false, ticket_id: Ticket.where(project_id: project))
+    Receipt.where(user_id: student_id, made_sale: false, ticket_id: Ticket.where(project_id: project), ticket_id: Ticket.where(user_id: student_id))
   end
   
   # JMu changed this function
@@ -51,8 +51,13 @@ class Receipt < ActiveRecord::Base
     Receipt.where(user_id: student_id, made_sale: true, ticket_id: Ticket.where(project_id: project))
   end
 
-  def self.all_sold_clients(project)
-    receipts = Receipt.where("made_sale = ? AND ticket_id in (?)", true, Ticket.where("project_id = ?", project)).all
+  def self.all_sold_clients_in_section(project, section_number)
+    if section_number != "all"
+      Receipt.where(made_sale: true, ticket_id: Ticket.where(project_id: project.id)) & Receipt.where(user_id: User.where(id: Member.where(section_number: section_number).pluck(:user_id)))
+    else
+      Receipt.where(made_sale: true, ticket_id: Ticket.where(project_id: project.id))
+    end
+
   end
  
    # JMu changed this function
@@ -71,7 +76,6 @@ class Receipt < ActiveRecord::Base
     Receipt.where(user_id: student_id, ticket_id: Ticket.where(project_id: project)) - Receipt.where(user_id: student_id, ticket_id: Ticket.where(project_id: project), ticket_id: Ticket.where(user_id: student_id)) 
   end
 
-  # JMu changed this function
   def self.sales_total(student_id, project)
     sales = self.sold_clients(student_id, project)
     money = 0
@@ -80,7 +84,8 @@ class Receipt < ActiveRecord::Base
     end
     return money
   end
-  
+ 
+   # JMu changed this function 
   def self.points_total(student_id, project)
     receipts = Receipt.where(user_id: student_id, ticket_id: Ticket.where(project_id: project))
     points = 0
