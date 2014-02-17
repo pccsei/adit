@@ -45,8 +45,8 @@
   </div>
   <div class="field">
     <%= f.label :telephone %>
-    <%= f.label ', and add area code(XXX-) if different than 850' %><br>
-    <%= f.number_field :telephone, :placeholder => "(850)123-4567" %>
+    <%= f.label ', add area code if different than 850 and ext if needed.' %><br>
+    <%= f.text_field :telephone, :placeholder => "(850) 123-4567 ext.###" %>
   </div>
   <div class="field">
     <%= f.label :comment %><br>
@@ -60,17 +60,32 @@
 <!-- This adds client-side validation -->
 <script>
 	$(document).ready(function () {
+		
+		// Custom method to make sure only letters are entered
+		jQuery.validator.addMethod("letters_only", function(value, element) {
+			return this.optional(element) || /^[-a-zA-Z]+$/i.test(value);
+		});
+
 		$("#new_client").validate({
 			rules: {
 				"client[business_name]": {required: true},
 				"client[address]": {required: true},
-				"client[zipcode]": {rangelength: [5,5]},
-				"client[email]": {email: true}
+				"client[city]": {required: true, letters_only: true},
+				"client[zipcode]": {required: true, rangelength: [5,5], digits: true},
+				"client[email]": {email: true},
+				"client[contact_fname]": {required: true, letters_only: true},
+				"client[contact_lname]": {required: true, letters_only: true},
+				"client[telephone]": {required: true}
 			},
 			messages: {
-				"client[business_name]": "Please specify the business name",
-				"client[address]": "Please specify the address",
-				"client[zipcode]": "Please enter a valid zipcode"			
+				"client[business_name]": "Please enter the business name.",
+				"client[address]": "Please enter the address.",
+				"client[city]": "Please enter a valid city.",
+				"client[zipcode]": "Please enter a valid zipcode.",
+				"client[email]": "Please enter a valid email address.",
+				"client[contact_fname]": "Please enter a first name.",
+				"client[contact_lname]": "Please enter a last name.",
+				"client[telephone]": "Please enter a telephone number."
 			}
 		});
 	});

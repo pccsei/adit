@@ -7,19 +7,35 @@ class User < ActiveRecord::Base
   
   before_create :create_remember_token
 
-  validates :school_id, :email, :phone, presence: true
-  validates :school_id, uniqueness: true
-  validates :email, format: {
+# Validates the user's name
+  validates :first_name, :last_name, presence: true, format: {
+    with: /\A[-a-zA-Z]+\z/,
+    message: 'must only have letters (no digits).'
+  }
+
+# Validates the user's school id
+  validates :school_id, presence: true, uniqueness: true, format: {
+    with: /\A([-a-zA-Z]*|\d[0-9]*)\z/,
+    message: 'must be a valid PCC id.'
+  }
+  
+# Validates the email
+  validates :email, presence: true, uniqueness: true, format: {
     with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\z/,
-    message: 'must be a valid school email address'
+    message: 'must be a valid PCC email address.'
   }
-  validates :phone, uniqueness: true, format: {
-    with: /(17-)\d{4}-\d{1}/,
-    message: 'is in the wrong 17-XXXX-X format'
-  }, length: {
-    minimum: 9, maximum: 9,
-    message: 'is the wrong length'
+
+# Validates the phone number
+  validates :phone, presence: true, uniqueness: true, format: {
+    with: /\A(((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|(((\d{3})?\s*[-]\s*)*(\d{3})\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
+    message: 'must be a valid PCC phone number or valid telephone number.'
   }
+  
+# Validates the box number
+  validates :box, presence: true, length: {
+    minimum: 3, maximum: 4,
+    message: 'is the wrong length.  Needs to be either three or four digits long.'
+  }, numericality: { greater_than: 111 }
 
       ### BEGIN CONFIGURATION ###
       SERVER = 'studentnet.int'        # Active Directory server name or IP
