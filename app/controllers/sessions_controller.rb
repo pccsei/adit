@@ -14,12 +14,17 @@ class SessionsController < ApplicationController
     else
       user = User.find_or_initialize_by(school_id: school_id)
       user.role = 3
-      user.save     
+      user.save
+      sign_in(user)    
     end
      
       if user #&& User.authenticate(school_id, params[:password])       
        sign_in(user)
-       redirect_back_or '/clients'
+       if user.role == 3
+          redirect_back_or '/projects'
+       else
+         redirect_back_or '/tickets'
+       end
      else
        flash.now[:error] = 'Invalid school id or password'
        render 'new'

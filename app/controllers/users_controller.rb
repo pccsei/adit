@@ -18,9 +18,9 @@ class UsersController < ApplicationController
     # find student managers
     @student_managers = User.where(role: 2)
     
-    if params[:section_option]
-      set_selected_section(params[:section_option])
-    end
+    #if params[:section_option]
+    #  set_selected_section(params[:section_option])
+    #end
     respond_to do |format|
         format.html 
         format.js 
