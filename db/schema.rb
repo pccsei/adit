@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140218033254) do
+ActiveRecord::Schema.define(version: 20140218232204) do
 
   create_table "action_types", force: true do |t|
     t.string   "name",        null: false
@@ -71,9 +71,9 @@ ActiveRecord::Schema.define(version: 20140218033254) do
   add_index "clients", ["status_id"], name: "index_clients_on_status_id", using: :btree
 
   create_table "comments", force: true do |t|
-    t.text    "body"
-    t.integer "ticket_id"
-    t.integer "user_id"
+    t.text    "body",      null: false
+    t.integer "ticket_id", null: false
+    t.integer "user_id",   null: false
   end
 
   add_index "comments", ["ticket_id"], name: "index_comments_on_ticket_id", using: :btree
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 20140218033254) do
     t.datetime "updated_at"
     t.integer  "user_id",                       null: false
     t.integer  "project_id",                    null: false
-    t.integer  "parent_id",                     null: false
+    t.integer  "parent_id"
   end
 
   add_index "members", ["parent_id"], name: "index_members_on_parent_id", using: :btree
@@ -169,14 +169,6 @@ ActiveRecord::Schema.define(version: 20140218033254) do
   add_index "tickets", ["priority_id"], name: "index_tickets_on_priority_id", using: :btree
   add_index "tickets", ["project_id"], name: "index_tickets_on_project_id", using: :btree
   add_index "tickets", ["user_id"], name: "index_tickets_on_user_id", using: :btree
-
-  create_table "updates", force: true do |t|
-    t.boolean  "is_public"
-    t.string   "comment_text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "receipt_id"
-  end
 
   create_table "users", force: true do |t|
     t.datetime "created_at"
