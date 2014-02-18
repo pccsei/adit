@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140214040534) do
+ActiveRecord::Schema.define(version: 20140217220445) do
 
   create_table "action_types", force: true do |t|
     t.string   "name",        null: false
@@ -69,6 +69,15 @@ ActiveRecord::Schema.define(version: 20140214040534) do
 
   add_index "clients", ["business_name"], name: "index_clients_on_business_name", unique: true, using: :btree
   add_index "clients", ["status_id"], name: "index_clients_on_status_id", using: :btree
+
+  create_table "comments", force: true do |t|
+    t.text    "body"
+    t.integer "ticket_id"
+    t.integer "user_id"
+  end
+
+  add_index "comments", ["ticket_id"], name: "index_comments_on_ticket_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "members", force: true do |t|
     t.integer  "section_number",                null: false

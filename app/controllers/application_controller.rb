@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   helper_method :get_current_project 
   helper_method :are_tickets_open  
-  helper_method :get_selected_project
   helper_method :set_selected_project
   helper_method :get_selected_project
   helper_method :get_selected_section
@@ -31,9 +30,12 @@ class ApplicationController < ActionController::Base
   def get_selected_project
     if session[:selected_project_id]
       Project.find(session[:selected_project_id])
+    elsif Project.current.last
+      set_selected_project(Project.current.last)
+      Project.current.last
     else
-      set_selected_project(Project.non_archived.last)
-      Project.current.last || Project.non_archived.last
+      set_selected_project(Project.archived.last)
+      Project.archived.last
     end
   end
 

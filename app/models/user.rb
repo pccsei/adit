@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many   :receipts
   has_many   :bonuses
   has_many   :members
+  has_many   :comments
   
   before_create :create_remember_token
 
