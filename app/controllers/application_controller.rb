@@ -78,14 +78,5 @@ class ApplicationController < ActionController::Base
        redirect_to signin_url, notice: "Please sign in"
      end
    end
-  
-  # 
-   def tooltipify(string, cellWidth = 12, className = "fullComment") # cell width was arbitrarily chosen  
-     if string.length > cellWidth
-       string[0..cellWidth - 3] << "..." << "<span class='#{className}'>#{string} </span>"
-     else 
-       string
-     end 
-   end
    
 end
