@@ -31,13 +31,15 @@
 
 <h5 class = "col-md-4" id="section_type" >
 <p class = "text-success">
+<% if @current.first_name%>
 <%= @current.first_name %>, 
+<% end %>
 <% if @selected_section == "all" %>
-	these are all the sections for this project.
+	These are all the sections for this project.
 <% elsif @selected_section.nil? %>
-	you need to create a section. 
+	You need to create a section. 
 <% else%>
-	this is section <%= "#{@selected_section}, "%>
+	This is section <%= "#{@selected_section}. "%>
 <% end %>
 
 </p>
