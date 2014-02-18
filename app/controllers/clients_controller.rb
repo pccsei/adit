@@ -53,9 +53,9 @@ class ClientsController < ApplicationController
 
   # GET /clients/1/edit
   def edit
-    # if current_user.role != 3
-    #   edited_client = Client.new
-      
+    if current_user.role != 3
+      edited_client = @client
+    end
   end
 
   # POST /clients
@@ -69,7 +69,6 @@ class ClientsController < ApplicationController
     @client = Client.new(client_params)
     @client.status_id = (Status.find_by(status_type: 'Pending')).id
     @client.submitter = current_user.school_id
-    
     
     # This line should eventually place the clients on the pending clients list instead of straight into the db
     # @client.status_id = Status.where("status_type = ?", "Pending").pluck(:id) 
@@ -88,15 +87,27 @@ class ClientsController < ApplicationController
   # PATCH/PUT /clients/1
   # PATCH/PUT /clients/1.json
   def update
-    respond_to do |format|
-      if @client.update(client_params)
-        format.html { redirect_to @client, notice: 'Client was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
+  #   if current_user.role != 3
+  #     edited_client = Client.where(id: @client).clone
+  #     edited_client.assign_attributes(client_params)
+  #     # render text: edited_client.contact_lname
+  #     if @client == Client.where(id: @client)
+  #       redirect_to "/receipts/my_receipts/#{current_user.id}", notice: 'No change has been made to the client.'
+  #     else
+  #       render text: "yes!"
+  #     end
+  #     # if edited_client ==
+  #   else
+      respond_to do |format|
+        if @client.update(client_params)
+          format.html { redirect_to @client, notice: 'Client was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'edit' }
+          format.json { render json: @client.errors, status: :unprocessable_entity }
+        end
       end
-    end
+    # end
   end
 
   # DELETE /clients/1
