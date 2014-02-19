@@ -42,6 +42,10 @@ class Client < ActiveRecord::Base
   def self.pending
     where(status_id: 4).all
   end
+
+  def self.edited_pending
+    where(status_id: 5).all
+  end
    
   def self.unapprove
     where(status_id: 1).all
@@ -56,6 +60,19 @@ class Client < ActiveRecord::Base
       pending_client = Client.find(array_of_pending_clients[i].to_i)
       pending_client.status_id = status
       pending_client.save
+    end
+  end
+
+  def Client.approve_edited_clients(status, array_of_edited_pending_clients)
+    for i in 0..array_of_edited_pending_clients.count-1
+      pending_edited_client = Client.find(array_of_edited_pending_clients[i][0].to_i)
+      current_client = Clint.find(array_of_edited_pending_clients[i][1].to_i)
+      if status == 2
+        current_client = pending_edited_client.attributes.except(:id, :created_at, :updated_at)
+        current_client.save
+      else
+        pending_edited_client.delete
+      end
     end
   end
 

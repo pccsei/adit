@@ -5,6 +5,8 @@ class ClientsController < ApplicationController
   # GET /clients.json
   def index
     @pending_clients = Client.pending
+
+    @edited_pending_clients = Client.edited_pending
         
     @clients = Client.house
     
@@ -45,6 +47,16 @@ class ClientsController < ApplicationController
 
     redirect_to clients_url
   end
+
+  def approve_client_edit
+    status = params['commit'] == "Approve" ? 2 : 1
+    array_of_edited_pending_clients = params['clients']
+
+    Client.approve_clients(status, array_of_edited_pending_clients)
+
+    redirect_to clients_url
+  end
+
 
   # GET /clients/new
   def new
@@ -87,17 +99,27 @@ class ClientsController < ApplicationController
   # PATCH/PUT /clients/1
   # PATCH/PUT /clients/1.json
   def update
-  #   if current_user.role != 3
-  #     edited_client = Client.where(id: @client).clone
-  #     edited_client.assign_attributes(client_params)
-  #     # render text: edited_client.contact_lname
-  #     if @client == Client.where(id: @client)
-  #       redirect_to "/receipts/my_receipts/#{current_user.id}", notice: 'No change has been made to the client.'
-  #     else
-  #       render text: "yes!"
-  #     end
-  #     # if edited_client ==
-  #   else
+    if current_user.role != 3
+      edited_client = Client.new
+      edited_client = Client.find(@client).clone
+      edited_client.assign_attributes(client_params)
+                  # render text: edited_client.contact_lname
+      if edited_client.attributes == Client.find(@client).attributes
+        redirect_to "/receipts/my_receipts/#{current_user.id}", notice: 'No change has been made to the client.'
+      else
+        pending_edited_client = Client.new
+        # pending_edited_client.save 
+        # render text: pending_edited_client.id
+        edited_client = Client.find(@client).dup
+        pending_edited_client.assign_attributes(client_params)
+        pending_edited_client.status_id = 5
+        pending_edited_client.parent_id = Client.find(@client).id
+        pending_edited_client.business_name        
+        pending_edited_client.telephone
+        pending_edited_client.save(:validate => false)  
+        redirect_to "/receipts/my_receipts/#{current_user.id}", notice: 'Your change has been submitted.'
+      end
+    else
       respond_to do |format|
         if @client.update(client_params)
           format.html { redirect_to @client, notice: 'Client was successfully updated.' }
@@ -107,7 +129,7 @@ class ClientsController < ApplicationController
           format.json { render json: @client.errors, status: :unprocessable_entity }
         end
       end
-    # end
+    end
   end
 
   # DELETE /clients/1

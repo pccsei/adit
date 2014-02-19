@@ -25,7 +25,7 @@
   </div>
   <div class="field">
     <%= f.label :state %><br>
-    <%= f.select :state, options_for_select(%w[FL AL]) %>
+    <%= f.select(:state, ["FL", "AL"], { :include_blank=>false }, { :class => "selectpicker"})%>
   </div>
   <div class="field">
     <%= f.label :zipcode %><br>
@@ -35,7 +35,7 @@
     <%= f.label "Contact title" %>
     <%= f.label "Contact first name" %>
     <%= f.label "Contact last name" %><br>
-    <%= f.select :contact_title, options_for_select(%w[Mr. Mrs. Ms. Miss Dr.]) %>
+    <%= f.select(:contact_title, ["Mr.", "Mrs.", "Ms.", "Miss", "Dr."], { :include_blank=>false }, { :class => "selectpicker"})%>
     <%= f.text_field :contact_fname %>
     <%= f.text_field :contact_lname %>
   </div>
