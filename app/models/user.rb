@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   before_create :create_remember_token
 
 # Validates the user's name
-  validates :first_name, :last_name, presence: true, format: {
+  validates :first_name, :last_name, format: {
     with: /\A[-a-zA-Z]+\z/,
     message: 'must only have letters (no digits).'
   }
@@ -20,19 +20,19 @@ class User < ActiveRecord::Base
   }
   
 # Validates the email
-  validates :email, presence: true, uniqueness: true, format: {
-    with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\z/,
+  validates :email, uniqueness: true, format: {
+    with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\Z/,
     message: 'must be a valid PCC email address.'
   }
 
 # Validates the phone number
-  validates :phone, presence: true, uniqueness: true, format: {
-    with: /\A(((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|(((\d{3})?\s*[-]\s*)*(\d{3})\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
+  validates :phone, uniqueness: true, format: {
+    with: /\A(17\s*-\s*\d{4}\s*-\s*[1-4]|(\d{3}\s*-\s*){1,2}\d{4}(\s*[Ee][Xx][Tt]\.?\s*\d{1,7})?)\Z/,
     message: 'must be a valid PCC phone number or valid telephone number.'
   }
   
 # Validates the box number
-  validates :box, presence: true, length: {
+  validates :box, length: {
     minimum: 3, maximum: 4,
     message: 'is the wrong length.  Needs to be either three or four digits long.'
   }, numericality: { greater_than: 111 }

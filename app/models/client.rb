@@ -27,14 +27,14 @@ class Client < ActiveRecord::Base
   }
    
 # Validates the contact first and last name
-  validates :contact_fname, :contact_lname, presence: true, format: {
+  validates :contact_fname, :contact_lname, format: {
     with: /\A[-a-zA-Z]+\z/,
     message: 'must only have letters (no digits).'
   }
    
 # Validates the telephone
   validates :telephone, presence: true, uniqueness: true, format: {
-    with: /\A(\((\d{3})\)|(\d{3}))?\s*[-\/\.]?\s*(\d{3})\s*[-\/\.]?\s*(\d{4})\s*(([xX]|[eE][xX][tT])\.?\s*(\d+))*\z/,
+    with: /\A(17\s*-\s*\d{4}\s*-\s*[1-4]|(\d{3}\s*-\s*){1,2}\d{4}(\s*[Ee][Xx][Tt]\.?\s*\d{1,7})?)\Z/,
     message: 'must be a valid telephone number.'
   }
 

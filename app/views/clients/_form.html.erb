@@ -25,7 +25,11 @@
   </div>
   <div class="field">
     <%= f.label :state %><br>
-    <%= f.select(:state, ["FL", "AL"], { :include_blank=>false }, { :class => "selectpicker"})%>
+    <%= f.select :state, ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", 
+    	                  "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", 
+    	                  "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", 
+    	                  "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", 
+    	                  "UT", "VT", "VA", "WA", "WV", "WI", "WY"], :selected => @client.state || "FL" %>
   </div>
   <div class="field">
     <%= f.label :zipcode %><br>
@@ -35,7 +39,7 @@
     <%= f.label "Contact title" %>
     <%= f.label "Contact first name" %>
     <%= f.label "Contact last name" %><br>
-    <%= f.select(:contact_title, ["Mr.", "Mrs.", "Ms.", "Miss", "Dr."], { :include_blank=>false }, { :class => "selectpicker"})%>
+    <%= f.select :contact_title, ["Mr.", "Mrs.", "Ms.", "Miss", "Dr."], :include_blank => :true %>
     <%= f.text_field :contact_fname %>
     <%= f.text_field :contact_lname %>
   </div>
