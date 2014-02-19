@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140219020428) do
+ActiveRecord::Schema.define(version: 20140219211947) do
 
   create_table "action_types", force: true do |t|
     t.string   "name",        null: false
@@ -68,7 +68,6 @@ ActiveRecord::Schema.define(version: 20140219020428) do
     t.integer  "parent_id"
   end
 
-  add_index "clients", ["business_name"], name: "index_clients_on_business_name", unique: true, using: :btree
   add_index "clients", ["status_id"], name: "index_clients_on_status_id", using: :btree
 
   create_table "comments", force: true do |t|
