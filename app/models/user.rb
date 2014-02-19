@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many   :receipts
   has_many   :bonuses
   has_many   :members
+  has_many   :comments
   
   before_create :create_remember_token
 
@@ -154,7 +155,7 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
   
   # do selected option, as long as some students are selected
   if students != nil
-    if choice == "Promote_Student"
+    if choice == "Promote Student"
       for i in 0..students.count-1
         user = User.find(students[i])
         member = Member.where("user_id = ?", students[i]).last
@@ -165,7 +166,7 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
         end
       end
 
-    if choice == "Demote_Student"
+    if choice == "Demote Student"
       for i in 0..students.count-1
         user = User.find(students[i])
         current_member = Member.where("user_id = ?", students[i]).last
@@ -182,7 +183,7 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
     end
   
   
-    if choice == "Delete_Student"
+    if choice == "Delete Student"
       for i in 0..students.count-1
         user = User.find(students[i])
         current_member = Member.where("user_id = ?", students[i]).last
@@ -201,7 +202,7 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
     end
   
   
-    if choice == "Create_Team"
+    if choice == "Create Team"
       for i in 0..students.count-1
         user = User.find(students[i])
         member = Member.where("user_id = ?", students[i]).last

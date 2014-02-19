@@ -28,7 +28,6 @@
 	  	
 	  <tbody>
 	    <% @current_projects.each do |project| %>
-	      	<% if project.is_active %>
 			  <tr>	      
       			<td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
 		      	<td><%= project.year%></td>
@@ -49,7 +48,6 @@
 		        <% end %>
 		        <td><%= link_to 'Edit', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
 		      </tr>
-	        <% end %>
 	    <% end %>
 	  </tbody>
 	</table>
@@ -84,7 +82,6 @@
 		  
 		  <tbody>
 		    <% @archived_projects.each do |project| %>
-		      	<% if !project.is_active%>
      		      <tr>
       				<td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
 			      	<td><%= project.year%></td>
@@ -94,7 +91,6 @@
 			      	<td><%= project.comment%></td>
 			        <td><%= link_to 'Edit', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
     		      </tr>
-		      	<% end %>
 		    <% end %>
 		  </tbody>
 		</table>

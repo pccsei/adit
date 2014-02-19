@@ -27,7 +27,9 @@
         <td align ="center"><%= activity.cumulative_points_earned_on_client%></td>
         <td align ="center"><%= activity.comments%></td>        
       </tr>
+    </tbody>
     <% end %>
+    </tbody>
     <tfoot>
       <td align ="center">Totals</td>
       <td align ="center"></td>
@@ -40,5 +42,4 @@
       <td align ="center"><%= @activity_totals.cumulative_points_earned_on_client %></td>
       <td align ="center"></td>
     </tfoot>
-</tbody>
 </table>
