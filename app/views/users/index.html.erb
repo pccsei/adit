@@ -61,7 +61,7 @@
 <!-- only allow a teacher to add students to a section if a section is selected.-->
 <br><br>
 <div class = "col-md-12" id="parse_box">
-<% if @selected_section == "all" %>
+<% if @selected_section != "all" %>
 	<%= form_tag('/users/input_students_parse') do%>
 		<%= label_tag 'Copy & Paste your student list here or' %> <%= link_to 'Add One Student', new_user_path, :id => "link-2", class: "btn btn-large btn-link btn-sm"%>
 		<br>

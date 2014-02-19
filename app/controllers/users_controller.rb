@@ -99,7 +99,7 @@ class UsersController < ApplicationController
   def input_students_parse
     user_params = params['input']
    
-    User.parse_students(user_params, get_selected_section, session[:selected_project_id].id) 
+    User.parse_students(user_params, get_selected_section, session[:selected_project_id]) 
     redirect_to users_url
   end
   
