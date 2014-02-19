@@ -27,7 +27,7 @@ class Client < ActiveRecord::Base
   }
    
 # Validates the contact first and last name
-  validates :contact_fname, :contact_lname, presence: true, format: {
+  validates :contact_fname, :contact_lname, format: {
     with: /\A[-a-zA-Z]+\z/,
     message: 'must only have letters (no digits).'
   }
