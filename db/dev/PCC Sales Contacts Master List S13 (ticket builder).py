@@ -26,6 +26,7 @@ def main():
         with open(IN_PATH, newline='') as file:
             first_line = True
             for row in csv.DictReader(file):
+                strip_all(row)
                 for column in PROJECT_TYPES:
                     for year in create_years(row[column]):
                         if first_line:
@@ -38,7 +39,11 @@ def main():
                             client_name=client_name(row)).encode())
         out_file.seek(-3, io.SEEK_CUR)
         out_file.write(b'])')
-                            
+
+def strip_all(row):
+    for key, value in row.items():
+        if value is not None:
+            row[key] = value.strip()
 
 def create_years(column):
     if column is not None:
