@@ -8,7 +8,7 @@ class Client < ActiveRecord::Base
    
 # Validates the city, this should allow blanks in the business name
   validates :city, allow_blank: true, format: {
-    with: /\A[-a-zA-Z]+\z/,
+    with: /\A[ a-zA-Z]+\Z/,
     message: 'must only have letters (no digits).'
   }
  
@@ -20,13 +20,13 @@ class Client < ActiveRecord::Base
    
 # Validaates the email
   validates :email, allow_blank: true, uniqueness: true, format: {
-    with: /\A([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}\z/,
+    with: /\A([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}\Z/,
     message: 'must be a valid email address.'
   }
    
 # Validates the contact first and last name
   validates :contact_fname, :contact_lname, allow_blank: true, format: {
-    with: /\A[-a-zA-Z\s]*\z/,
+    with: /\A[A-Za-z ()'\/&-\.]+\Z/,
     message: 'must only have letters (no digits).'
   }
    

@@ -21,6 +21,10 @@ city: {city!r}, \
 state: {state!r}, \
 status_id: (Status.find_by status_type: {status_type!r}).id}},\r\n'
 
+class Nil:
+    def __repr__(self):
+        return 'nil'
+
 ################################################################################
 
 def main():
@@ -29,6 +33,7 @@ def main():
         with open(IN_PATH, newline='') as in_file:
             first_line = True
             for row in csv.DictReader(in_file):
+                strip_all(row)
                 if first_line:
                     first_line = False
                 else:
@@ -51,6 +56,11 @@ def main():
                     status_type=calculate_status(row)).encode())
         out_file.seek(-3, io.SEEK_CUR)
         out_file.write(b'])')
+
+def strip_all(row):
+    for key, value in row.items():
+        if value is not None:
+            row[key] = value.strip()
 
 def extract_contact_parts(row):
     contact = row['Contact']
@@ -83,7 +93,7 @@ def calculate_zipcode(row):
     try:
         return int(row['Zip'])
     except ValueError:
-        return 0
+        return Nil()
 
 def calculate_status(row):
     if row['Company Name (print your name)'].strip().upper().startswith('PCC '):

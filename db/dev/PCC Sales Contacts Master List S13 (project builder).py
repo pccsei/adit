@@ -27,6 +27,7 @@ def main():
     years_by_project = {name: set() for name in PROJECT_TYPES}
     with open(IN_PATH, newline='') as in_file:
         for row in csv.DictReader(in_file):
+            strip_all(row)
             for name, years in years_by_project.items():
                 years.update(create_years(row[name]))
     with open(OUT_PATH, 'wb') as out_file:
@@ -50,6 +51,11 @@ def main():
                     project_type_name=name).encode())
         out_file.seek(-3, io.SEEK_CUR)
         out_file.write(b'])')
+
+def strip_all(row):
+    for key, value in row.items():
+        if value is not None:
+            row[key] = value.strip()
 
 def create_years(column):
     if column is not None:
