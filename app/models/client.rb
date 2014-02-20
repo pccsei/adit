@@ -65,15 +65,18 @@ class Client < ActiveRecord::Base
 
   def Client.approve_edited_clients(status, array_of_edited_pending_clients)
     for i in 0..array_of_edited_pending_clients.count-1
-      pending_edited_client = Client.find(array_of_edited_pending_clients[i][0].to_i)
-      current_client = Clint.find(array_of_edited_pending_clients[i][1].to_i)
+      pending_edited_client = Client.find(array_of_edited_pending_clients[i].to_i)
+      current_client = Client.find(Client.find(array_of_edited_pending_clients[i].to_i).parent_id)
       if status == 2
-        current_client = pending_edited_client.attributes.except(:id, :created_at, :updated_at)
-        current_client.save
-      else
-        pending_edited_client.delete
-      end
+        current_client = pending_edited_client.dup
+        current_client.id = Client.find(array_of_edited_pending_clients[i].to_i).parent_id    
+    #     current_client.save
+    #     pending_edited_client.delete
+    #   else
+    #     pending_edited_client.delete
+    #   end
     end
+    current_client
   end
 
 end

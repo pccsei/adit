@@ -19,7 +19,7 @@
   </thead>
 
 <tbody>
-	<% edited_pending_clients.each do |client|%>
+	<% @edited_pending_clients.each do |client|%>
 	<tr>
 		<% if current_user.role == 3 %>
 		   <td><%= check_box_tag "clients[]", client.id %></td>

@@ -51,10 +51,10 @@ class ClientsController < ApplicationController
   def approve_client_edit
     status = params['commit'] == "Approve" ? 2 : 1
     array_of_edited_pending_clients = params['clients']
+    # Client.approve_edited_clients(status, array_of_edited_pending_clients)
+    render text: Client.approve_edited_clients(status, array_of_edited_pending_clients).id
 
-    Client.approve_clients(status, array_of_edited_pending_clients)
-
-    redirect_to clients_url
+    # redirect_to clients_url
   end
 
 
