@@ -8,3 +8,5 @@ $ ->
   
   $(document).ready(load_datatable)  
   $(document).on('page:load', load_datatable)
+
+

@@ -272,9 +272,33 @@ table.dataTable tfoot th {
   border-top: 1px solid black;
   font-weight: normal !important; }  /*changed*/
 
+TD.dataTables_empty{
+  background-color: #85a7d1 !important;
+}
 
+tr.medium.odd{
+  background-color: #fffd71 !important;
+}
 
+tr.medium.even{
+  background-color: #fffd71 !important;
+}
 
+tr.high.odd{
+  background-color: #68ff5d !important;
+}
+
+tr.high.even{
+  background-color: #68ff5d !important;
+}
+
+tr.low.odd{
+  background-color: white !important;
+}
+
+tr.low.even{
+  background-color: white !important;
+}
 
 
 table.dataTable tr.odd td.sorting_1 {
