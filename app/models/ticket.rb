@@ -3,7 +3,9 @@ class Ticket < ActiveRecord::Base
   belongs_to :project
   belongs_to :priority
   belongs_to :user
+  has_many   :comments
   has_many   :receipts  
+  
   
   
   def self.current_project(project_id)
@@ -22,7 +24,7 @@ class Ticket < ActiveRecord::Base
     clients.each do |c|
         # Will be used once we have priorities to work from
           #c.ticket.create(:project_id => project.id, :priority_id => Priority.retrieve(c))
-          c.tickets.create(:project_id => project.id)
+          c.tickets.create(:project_id => project.id, :priority_id => 1)
       end
   end
 

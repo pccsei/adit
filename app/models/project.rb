@@ -9,7 +9,7 @@ class Project < ActiveRecord::Base
   validates :year, presence: true, length: {
     minimum: 4, maximum: 4,
     message: 'is the wrong length.  Needs to be only four digits long.'
-  }, numericality: { greater_than_or_equal_to: 2014}
+  }
   
 # Validates the tickets open and close times  
   validates :tickets_open_time, presence: true, uniqueness: true
@@ -22,7 +22,7 @@ class Project < ActiveRecord::Base
     message: 'is the wrong length.  Needs to be one digit long.'
   }, numericality: { greater_than: 0 }, unless: Proc.new { |project| project.use_max_clients == false }
   
-# Validates the max hight priority clients option
+# Validates the max high priority clients option
   validates :max_high_priority_clients, length: {
     minimum: 1,
     message: 'is the wrong length.  Needs to be at least one digit long.'
@@ -49,20 +49,17 @@ class Project < ActiveRecord::Base
       self.tickets_open_time < self.tickets_close_time
     end
   end
-  
+
   def self.non_archived
     where("year > ?", 2013)
   end
   
   def self.current
-    active = 1
-    where("is_active = ? ", active)
+    where("is_active = ?", true)
   end 
     
   def self.archived
-    inactive = 0
-    year_project_was_created = 2013 # Removes dummy projects used for creating ticket priority for the first few years  
-    where("year > ? and is_active = ?", year_project_was_created, inactive)
+    where("year < ? and is_active = ?", 2014, false)
   end
     
 end

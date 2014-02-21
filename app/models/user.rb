@@ -3,11 +3,12 @@ class User < ActiveRecord::Base
   has_many   :receipts
   has_many   :bonuses
   has_many   :members
+  has_many   :comments
   
   before_create :create_remember_token
 
 # Validates the user's name
-  validates :first_name, :last_name, presence: true, format: {
+  validates :first_name, :last_name, format: {
     with: /\A[-a-zA-Z]+\z/,
     message: 'must only have letters (no digits).'
   }
@@ -19,19 +20,19 @@ class User < ActiveRecord::Base
   }
   
 # Validates the email
-  validates :email, presence: true, uniqueness: true, format: {
-    with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\z/,
+  validates :email, uniqueness: true, format: {
+    with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\Z/,
     message: 'must be a valid PCC email address.'
   }
 
 # Validates the phone number
-  validates :phone, presence: true, uniqueness: true, format: {
-    with: /\A(((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|(((\d{3})?\s*[-]\s*)*(\d{3})\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
+  validates :phone, uniqueness: true, format: {
+    with: /\A(17\s*-\s*\d{4}\s*-\s*[1-4]|(\d{3}\s*-\s*){1,2}\d{4}(\s*[Ee][Xx][Tt]\.?\s*\d{1,7})?)\Z/,
     message: 'must be a valid PCC phone number or valid telephone number.'
   }
   
 # Validates the box number
-  validates :box, presence: true, length: {
+  validates :box, length: {
     minimum: 3, maximum: 4,
     message: 'is the wrong length.  Needs to be either three or four digits long.'
   }, numericality: { greater_than: 111 }
@@ -99,52 +100,52 @@ def User.parse_students(user_params, section_number, project_id)
   for i in 0..all_student_info.count-1
     single_student_info = all_student_info[i].split("\t")
     if !all_student_ids.include?(single_student_info[1])
-      @user = User.new
-      @user.school_id = single_student_info[1]
-      @user.first_name = single_student_info[2].split(", ")[1]
-      @user.last_name = single_student_info[2].split(", ")[0]
-      @user.classification = single_student_info[3]
-      @user.box = single_student_info[5]
-      @user.phone = single_student_info[6]
-      @user.email = single_student_info[7]
-      @user.major = single_student_info[8]
-      @user.minor = single_student_info[9]
-      @user.role = 1
-      @user.save
-      if(@user.save)
-        @member = Member.new
-        @member.user_id = @user.id
-        @member.project_id = project_id
-        @member.section_number = section_number
-        @member.is_enabled = true
-        @member.save
+      user = User.new
+      user.school_id = single_student_info[1]
+      user.first_name = single_student_info[2].split(", ")[1]
+      user.last_name = single_student_info[2].split(", ")[0]
+      user.classification = single_student_info[3]
+      user.box = single_student_info[5]
+      user.phone = single_student_info[6]
+      user.email = single_student_info[7]
+      user.major = single_student_info[8]
+      user.minor = single_student_info[9]
+      user.role = 1
+      user.save
+      if(user.save)
+        member = Member.new
+        member.user_id = user.id
+        member.project_id = project_id
+        member.section_number = section_number
+        member.is_enabled = true
+        member.save
       end
     else
-      @user = User.find_by! school_id: single_student_info[1]
-      @user.school_id = single_student_info[1]
-      @user.first_name = single_student_info[2].split(", ")[1]
-      @user.last_name = single_student_info[2].split(", ")[0]
-      @user.classification = single_student_info[3]
-      @user.box = single_student_info[5]
-      @user.phone = single_student_info[6]
-      @user.email = single_student_info[7]
-      @user.major = single_student_info[8]
-      @user.minor = single_student_info[9]
-      @user.role = 1
-      @user.save
-      if (@member = Member.find_by(user_id: (User.find_by school_id: single_student_info[1]).id))
-        @member.user_id = @user.id
-        @member.project_id = project_id
-        @member.section_number = section_number
-        @member.is_enabled = true
-        @member.save
+      user = User.find_by! school_id: single_student_info[1]
+      user.school_id = single_student_info[1]
+      user.first_name = single_student_info[2].split(", ")[1]
+      user.last_name = single_student_info[2].split(", ")[0]
+      user.classification = single_student_info[3]
+      user.box = single_student_info[5]
+      user.phone = single_student_info[6]
+      user.email = single_student_info[7]
+      user.major = single_student_info[8]
+      user.minor = single_student_info[9]
+      user.role = 1
+      user.save
+      if (member = Member.find_by(user_id: (User.find_by school_id: single_student_info[1]).id))
+        member.user_id = user.id
+        member.project_id = project_id
+        member.section_number = section_number
+        member.is_enabled = true
+        member.save
       else
-        @member = Member.new
-        @member.user_id = @user.id
-        @member.project_id = project_id
-        @member.section_number = section_number
-        @member.is_enabled = true
-        @member.save
+        member = Member.new
+        member.user_id = user.id
+        member.project_id = project_id
+        member.section_number = section_number
+        member.is_enabled = true
+        member.save
       end
     end
   end
@@ -157,7 +158,7 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
   
   # do selected option, as long as some students are selected
   if students != nil
-    if choice == "Promote_Student"
+    if choice == "Promote Student"
       for i in 0..students.count-1
         user = User.find(students[i])
         member = Member.where("user_id = ?", students[i]).last
@@ -168,7 +169,7 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
         end
       end
 
-    if choice == "Demote_Student"
+    if choice == "Demote Student"
       for i in 0..students.count-1
         user = User.find(students[i])
         current_member = Member.where("user_id = ?", students[i]).last
@@ -185,7 +186,7 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
     end
   
   
-    if choice == "Delete_Student"
+    if choice == "Delete Student"
       for i in 0..students.count-1
         user = User.find(students[i])
         current_member = Member.where("user_id = ?", students[i]).last
@@ -204,7 +205,7 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
     end
   
   
-    if choice == "Create_Team"
+    if choice == "Create Team"
       for i in 0..students.count-1
         user = User.find(students[i])
         member = Member.where("user_id = ?", students[i]).last

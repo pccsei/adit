@@ -55,17 +55,18 @@ class TicketsController < ApplicationController
                # User is allowed to get a new client: Try to grab the client ticket               
                if ticket.user_id.nil? || ticket.user_id == 0
                  ticket.user_id = current_user.id
-                 ticket.save!
-                 updates = { "Success" => "You got the client", "ticketPriority" => Priority.find(ticket.priority_id).name.to_s }     
+                 ticket.save!      
                  grabbedTicket = true         
                else 
                  updates = {"userMessage" => "Someone already grabbed that client!!"}              
                end   
             end
-          end            
+          end         
           
           # This is done down here to allow the transaction above to finish as quickly as possible thus allowing the user to better grab the ticket
           if grabbedTicket
+            updates = { "Success"        => "You are now assigned to " + Client.find(ticket.client_id).business_name.to_s, 
+                        "ticketPriority" => Priority.find(ticket.priority_id).name.to_s}
             receipt = Receipt.where("ticket_id = ? AND user_id = ?", ticket.id, current_user.id).first
             
             if receipt.nil?
@@ -73,8 +74,6 @@ class TicketsController < ApplicationController
             end              
           end    
         else 
-          #s = requested_ticket_priority_id.to_s
-          #updates = {"You already have the max number of " + Status.find(s) + "priority clients."=> "you fail at life" , "userMessage" => "You already have the max number of " + Status.find(s) + "priority clients."}
           updates = {"userMessage" => "You already have the max number of " + Priority.find(requested_ticket_priority_id).name.to_s + " priority clients."}
         end              
       end 

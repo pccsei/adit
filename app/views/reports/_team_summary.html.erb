@@ -1,4 +1,4 @@
-<table class ="table dataTable">
+<table class ="display">
 <thead>
 <tr>
   <th>Team Name</th>
@@ -22,6 +22,7 @@
         <td align ="center"><%= team_data.points %></td>                            
       </tr>
     <% end %>
+      </tbody>
     <tfoot>
       <td align ="center">Totals</td>
       <td align ="center"></td>
@@ -31,5 +32,4 @@
       <td align ="center"><%= @team_totals.total_sales %></td>
       <td align ="center"><%= @team_totals.total_points %></td>
     </tfoot>
-  </tbody>
 </table>
