@@ -39,6 +39,10 @@
     <%= f.label :box %><br>
     <%= f.text_field :box %>
   </div>
+  <div class="field">
+  <%= f.label "Type of User"%><br>
+  <%= f.select :role, [['Student', 1], ['Teacher', 3]] %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div> 
@@ -94,7 +98,7 @@
 		
 		// Custom method to make sure only letters are entered
 		jQuery.validator.addMethod("letters_only", function(value, element) {
-			return this.optional(element) || /^[-a-zA-Z]+$/i.test(value);
+			return this.optional(element) || /^[-a-zA-Z\s]+$/i.test(value);
 		});
 		
 		// Custom method to make sure only letters and numbers are entered (no symbols or punctuation)

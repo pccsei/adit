@@ -8,6 +8,7 @@ WhiteCollar::Application.routes.draw do
   get  "users/student_rep"
   post "users/input_students_parse"
   get  "users/settings"
+  delete "users/delete_incorrect"
   get  "projects/next_step"
   post "projects/change_project"
   post "/users/change_student_status"
