@@ -18,7 +18,7 @@ class Client < ActiveRecord::Base
     message: 'is the wrong length.  Needs to be only five digits long.'
   }, numericality: { greater_than: 0 }
    
-# Validaates the email
+# Validates the email
   validates :email, allow_blank: true, uniqueness: true, format: {
     with: /\A([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}\Z/,
     message: 'must be a valid email address.'
