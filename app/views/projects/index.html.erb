@@ -9,7 +9,7 @@
 <%= form_tag('/projects/select_project') do%>
 	<% if (Project.find_by is_active: '1') %>
 	<h3>Active Project</h3>
-	<table class = "table">
+	<table class = "display">
 	  <thead>
 	    <tr>
 	      <th>Selected</th>
@@ -67,7 +67,7 @@
 	
 	<% if Project.non_archived.find_by is_active: '0' %>
 	<h3>Archived Projects</h3>
-		<table class = "table dataTable">
+		<table class = "display">
 			<thead>
 		      <tr>
 			    <th>Selected</th>
