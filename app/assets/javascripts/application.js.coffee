@@ -11,9 +11,10 @@
 // about supported directives.
 
 //= require jquery
+//= requier jquery.turbolinks
+//= require jquery_ujs
 //= require bootstrap
 //= require dataTables/jquery.dataTables
-//= require jquery_ujs
 //= require jquery.ui.datepicker
 //= require jquery.ui.slider
 //= require jquery-ui-sliderAccess
@@ -25,3 +26,5 @@
 //= require fancybox
 //= require turbolinks
 //= require_tree .
+
+$(document).ready($('.dataTable').dataTable());
