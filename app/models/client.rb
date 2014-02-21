@@ -18,7 +18,7 @@ class Client < ActiveRecord::Base
     message: 'is the wrong length.  Needs to be only five digits long.'
   }, numericality: { greater_than: 0 }
    
-# Validaates the email
+# Validates the email
   validates :email, allow_blank: true, uniqueness: true, format: {
     with: /\A([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}\Z/,
     message: 'must be a valid email address.'
@@ -32,7 +32,7 @@ class Client < ActiveRecord::Base
    
 # Validates the telephone
   validates :telephone, allow_blank: true, format: {
-    with: /\A(17\s*-\s*\d{4}\s*-\s*[1-4]|(\d{3}\s*-\s*){1,2}\d{4}(\s*[Ee][Xx][Tt]\.?\s*\d{1,7})?)\Z/,
+    with: /\A(17\s*-\s*\d{4}\s*-\s*[1-4]|((\d{3}\s*-\s*){1,2}\d{4})?(\s*[Ee][Xx][Tt]\.?\s*\d{1,7})?)\Z/,
     message: 'must be a valid telephone number.'
   }
 
@@ -61,6 +61,47 @@ class Client < ActiveRecord::Base
     end
   end
 
+  def self.for_selected_project(pid)
+    basic_client_info = Client.house
+    
+    Struct.new("Client_detail", :id,    :business_name, :contact_fname, :telephone, :website, :student_lname, :zipcode, :email, :city, 
+                                :state, :contact_lname, :contact_title, :ticket_id, :address, :student_fname, :student_id, :comment)
+    client_info = []  
+    basic_client_info.each_with_index do |c, i|
+      client_info[i] = Struct::Client_detail.new
+      client_info[i].id = c.id
+      client_info[i].business_name = c.business_name
+      client_info[i].contact_fname = c.contact_fname
+      client_info[i].email = c.email
+      client_info[i].telephone = c.telephone
+      client_info[i].website = c.website
+      client_info[i].zipcode = c.zipcode
+      client_info[i].state = c.state
+      client_info[i].contact_lname = c.contact_lname
+      client_info[i].contact_title = c.contact_title
+      client_info[i].city = c.city
+      client_info[i].comment = c.comment
+      
+      client_ticket = Ticket.where(client_id: c.id, project_id: pid).first
+      
+      if client_ticket && client_ticket.user_id != 0
+        user = User.find(client_ticket.user_id)
+        
+        client_info[i].ticket_id     = client_ticket.id
+        client_info[i].student_fname = user.first_name
+        client_info[i].student_lname = user.last_name
+        client_info[i].student_id    = user.school_id
+      else 
+        client_info[i].ticket_id     = nil
+        client_info[i].student_fname = nil
+        client_info[i].student_lname = nil
+        client_info[i].student_id    = nil        
+      end
+      
+    end
+    client_info
+  end 
+    
   def Client.make_pending_edited_client(edited_client, client, client_params)
     if edited_client.attributes == Client.find(client).attributes
       redirect_to "/receipts/my_receipts/#{current_user.id}", notice: 'No change has been made to the client.'

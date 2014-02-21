@@ -50,7 +50,7 @@ def self.get_student_info(project, section)
                             :student_manager_name, :section_number, :major, :minor, :box, :class)
   students = []
   members.each_with_index do |member, i|
-     students[i]  = Struct::Person.new
+     students[i]                      = Struct::Person.new
      students[i].id                   = member.user_id
      students[i].first_name           = member.user.first_name
      students[i].last_name            = member.user.last_name

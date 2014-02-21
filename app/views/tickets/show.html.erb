@@ -1,0 +1,24 @@
+<h1><%= @clientInfo.business_name%></h1>
+
+<h2>
+<%= @clientInfo.address %>
+</h2>
+<h4>
+<%= @clientInfo.city%><% if @clientInfo.state%>, <%end%><%= @clientInfo.state%> <%= @clientInfo.zipcode%>
+</h4>
+<br /><br />
+
+
+<% if @clientInfo.email %>
+<h3><%= @clientInfo.email%></h3>
+<% end %>
+<br /><br />
+<% if @clientInfo.telephone %>
+<h3>Phone: <%= @clientInfo.telephone%></h3>
+<% end %>
+
+
+
+<h3>Person to contact: <%=@clientInfo.contact_title %> <%= @clientInfo.contact_fname %> <%= @clientInfo.contact_lname%></h3>
+
+

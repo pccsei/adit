@@ -11,59 +11,53 @@
     </div>
   <% end %>
 
-    <div class = "col-mid-3" class="control-group">
-      <label class="control-label">
+<div id = "project_options">
       <%= f.label :Year %>
-      </label>
-      <div class="controls">
-        <%= f.select :year, [current_year(), next_year()], { :include_blank => false}, { :class => "selectpicker"}%>
-      </div>  
-    </div>
-
-    <div class = "col-mid-3" class="control-group">
-    <label class="control-label">
+        <%= f.select :year, [current_year(), next_year()], { :include_blank => false}, { :class => "btn btn-small dropdown-toggle "}%>
+    &nbsp; &nbsp;
      <%= f.label :semester %>
-      </label>
-      <div class="controls">
-      <%= f.select :semester, ["Fall", "Spring"], { :include_blank=>false }, { :class => "selectpicker"}%>
+      <%= f.select :semester, ["Fall", "Spring"], { :include_blank=>false }, { :class => "btn btn-small dropdown-toggle "}%>
+
+   &nbsp; &nbsp;
+      <%= f.label :project_type_id %>
+      <%= f.collection_select :project_type_id, ProjectType.all, :id, :name, 
+                            { :include_blank=>false }, { :class => "btn btn-small"}  %>
 </div>
-    </div>
-    <div class="field">
-      <%= f.label :project_type_id %><br>
-      <%= f.collection_select :project_type_id, ProjectType.all, :id, :name, { :include_blank=>false }, { :class => "btn btn-large dropdown-toggle "}  %>
-    </div>
-    <div class="field">
-      <%= f.label :tickets_open_time %><br>
-      <%= f.text_field :tickets_open_time, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
-    </div>
-    <div class="field">
-      <%= f.label :tickets_close_time %><br>
-      <%= f.text_field :tickets_close_time, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
-    </div>
-    <div class="field">
-      <%= f.label :comment %><br>
-      <%= f.text_field :comment %>
-    </div>
-    
-	<div class="field">
+
+
+ <div id = "project_options">
+
+ <h3 class = "col-md-12 alert alert-info">&nbsp;How many clients can the students choose?</h3><br>  
+
       <%= radio_button(:project, :use_max_clients, :false) %>
-      <%= label_tag(:max_color_clients, "Total Clients in separated form") %><br>
-      <%= f.label :high_priority %>
-      <%= f.select(:max_high_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "selectpicker"})%><br>
+      <%= label_tag(:max_color_clients, "Total Clients in different Priorities:") %><br>
+      <div id = "priority_dropdown">
+      <%= f.label :high_priority%>
+      <%= f.select(:max_high_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "btn btn-small dropdown-toggle"})%>
+       &nbsp; &nbsp;
       <%= f.label :medium_priority %>
-      <%= f.select :max_medium_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "selectpicker"}%><br>
-      <%= f.label :low_priority %>
-      <%= f.select :max_low_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "selectpicker"}%><br>
+      <%= f.select :max_medium_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "btn btn-small dropdown-toggle"}%>
+       &nbsp; &nbsp;
+      <%= f.label :low_priority %> 
+      <%= f.select :max_low_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "btn btn-small dropdown-toggle"}%>
+      </div>
     </div>    
 
-    <div class="field">
+ 
       <%= radio_button(:project, :use_max_clients, :true) %>
       <%= label_tag(:max_color_clients, "Total Clients in total form") %><br>
       <%= f.label :max_clients %>
-      <%= f.select :max_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "selectpicker"}%>
+      <%= f.select :max_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "btn btn-small dropdown-toggle "}%>
       <br /><br />
-	</div>
 
+<div id = "project_options">
+  <h3 class = "col-md-12 alert alert-info">&nbsp;When can the students start adding clients?</h3><br>  
+      <%= f.label :tickets_open_time, "Start Time" %>
+      <%= f.text_field :tickets_open_time, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
+  
+      <%= f.label :tickets_close_time, "End Time" %>
+      <%= f.text_field :tickets_close_time, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
+</div>
 
 	<% if params[:id]%>	
 	  <div class="field">		

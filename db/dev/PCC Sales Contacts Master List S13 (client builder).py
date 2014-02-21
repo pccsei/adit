@@ -25,6 +25,9 @@ class Nil:
     def __repr__(self):
         return 'nil'
 
+PHONE_TRANS = str.maketrans('ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                            '22233344455566677778889999')
+
 ################################################################################
 
 def main():
@@ -33,7 +36,6 @@ def main():
         with open(IN_PATH, newline='') as in_file:
             first_line = True
             for row in csv.DictReader(in_file):
-                strip_all(row)
                 if first_line:
                     first_line = False
                 else:
@@ -44,7 +46,7 @@ def main():
                     business_name=e_to_e(row['Company Name (print your name)']),
                     address=row['Address'],
                     email='',
-                    telephone=row['Telephone'],
+                    telephone=phone_letter_to_number(row['Telephone']),
                     comment=none_to_empty(row['Comments (Done?)']),
                     website='',
                     zipcode=calculate_zipcode(row),
@@ -56,11 +58,6 @@ def main():
                     status_type=calculate_status(row)).encode())
         out_file.seek(-3, io.SEEK_CUR)
         out_file.write(b'])')
-
-def strip_all(row):
-    for key, value in row.items():
-        if value is not None:
-            row[key] = value.strip()
 
 def extract_contact_parts(row):
     contact = row['Contact']
@@ -85,6 +82,10 @@ def extract_city_state(row):
 
 def e_to_e(value):
     return value.replace('é', 'e')
+
+def phone_letter_to_number(text):
+    return text.upper().replace('EXT.', '\0').translate(PHONE_TRANS) \
+           .replace('\0', 'Ext.')
 
 def none_to_empty(value):
     return '' if value is None else value
