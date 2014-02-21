@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 
 # Validates the phone number
   validates :phone, format: {
-    with: /\A(((17)\s-\s\d{4}\s-\s[1-4])|((\d{3}\s*-\s*){1,2}\d{4}(\s*[Ee][Xx][Tt]\.?\s*\d{1,7}))?)\z/,
+    with: /\A(([tT][oO][wW][nN])|((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|(((\d{3})?\s*[-]\s*)*(\d{3})\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
     message: 'must be a valid PCC phone number or valid telephone number.'
   }, unless: Proc.new { |user| user.role == -1 }
   
