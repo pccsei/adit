@@ -43,18 +43,28 @@ class ClientsController < ApplicationController
     status = params['commit'] == "Approve" ? 2 : 1
     array_of_pending_clients = params['clients']
 
-    Client.approve_clients(status, array_of_pending_clients)
+    if !array_of_edited_pending_clients.nil?
+      Client.approve_clients(status, array_of_pending_clients)
+    end
 
     redirect_to clients_url
   end
 
   def approve_client_edit
-    status = params['commit'] == "Approve" ? 2 : 1
-    array_of_edited_pending_clients = params['clients']
-    # Client.approve_edited_clients(status, array_of_edited_pending_clients)
-    render text: Client.approve_edited_clients(status, array_of_edited_pending_clients).id
+    status = 2 if params['commit'] == "Approve" 
+    status = 1 if params['commit'] == "Disapprove" 
+    status = 3 if params['commit'] == "Approve All" 
 
-    # redirect_to clients_url
+    if status != 3
+      array_of_edited_pending_clients = params['clients']
+    else
+      array_of_edited_pending_clients = Client.where(status_id: 5).ids
+    end
+    if !array_of_edited_pending_clients.nil?
+      Client.approve_edited_clients(status, array_of_edited_pending_clients)   
+    end
+    
+    redirect_to clients_url
   end
 
 
@@ -103,22 +113,9 @@ class ClientsController < ApplicationController
       edited_client = Client.new
       edited_client = Client.find(@client).clone
       edited_client.assign_attributes(client_params)
-                  # render text: edited_client.contact_lname
-      if edited_client.attributes == Client.find(@client).attributes
-        redirect_to "/receipts/my_receipts/#{current_user.id}", notice: 'No change has been made to the client.'
-      else
-        pending_edited_client = Client.new
-        # pending_edited_client.save 
-        # render text: pending_edited_client.id
-        edited_client = Client.find(@client).dup
-        pending_edited_client.assign_attributes(client_params)
-        pending_edited_client.status_id = 5
-        pending_edited_client.parent_id = Client.find(@client).id
-        pending_edited_client.business_name        
-        pending_edited_client.telephone
-        pending_edited_client.save(:validate => false)  
-        redirect_to "/receipts/my_receipts/#{current_user.id}", notice: 'Your change has been submitted.'
-      end
+      # render text: client_params
+      Client.make_pending_edited_client(edited_client, @client, client_params) 
+      redirect_to "/receipts/my_receipts/#{current_user.id}", notice: 'Your change has been submitted.'     
     else
       respond_to do |format|
         if @client.update(client_params)
