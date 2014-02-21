@@ -78,14 +78,12 @@ need to add tooltip functionality to the table rows; check here for the javascri
   <thead>
     <tr> 
       <th></th>
+      <th>Priority</th> 
       <th>Business Name</th>
       <th>Address</th>
-      <th>Email</th>
-      <th>Contact Title</th>
-      <th>Contact First Names</th>
-      <th>Contact Last Name</th>
+      <th>Contact Name</th>
       <th>Telephone</th>
-      <th>Comment</th>      
+      <th>Comment</th> 
       <th></th>	
     </tr>
   </thead>
@@ -95,12 +93,10 @@ need to add tooltip functionality to the table rows; check here for the javascri
       	<% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
       	<td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => "btn btn-primary btn-sm " << ticketClass %>
       	</td>
+      	<td><%= Priority.find(ticket.priority_id).name.capitalize %></td>
       	<td><%= client.business_name %></td>
       	<td><%= client.address %></td>
-      	<td><%= client.email %></td>
-      	<td><%= client.contact_title %></td>
-      	<td><%= client.contact_fname %></td>
-      	<td><%= client.contact_lname %></td>
+      	<td><%= client.contact_title +  " " + client.contact_fname + " " +  client.contact_lname%></td>
       	<td><%= client.telephone %></td>
       	<td ><%= tooltipify(client.comment).html_safe%></td>      	
         <td><%= link_to 'Details', ticket , :class => "btn btn-info btn-sm" %></td>

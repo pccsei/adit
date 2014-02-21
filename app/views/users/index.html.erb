@@ -3,109 +3,83 @@
 <%#=debug @sections %>
 <%#=debug @pro %>
 
+<!--Heading-->
 <h1 class = "col-md-3", id = "heading">Manage Section</h1>
 
+<!--Change Section dropdown-->
 <div class = "col-md-2", id = "select-section-1">
-<div class="btn-group">
-	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-		Change Section<span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu" role="menu">
-	<% @sections.each do |s|%>
-	   <li>
-	   	<%= link_to "#{s}", {:controller => :users, :action => :set_section, :section_option => "#{s}"}, :method => :post %>
-	   </li>
-	<% end %>
-</ul>
+	<div class="btn-group">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			Change Section<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<% @sections.each do |s|%>
+	   			<li>
+	   				<%= link_to "#{s}", {:controller => :users, :action => :set_section, 
+	   					                 :section_option => "#{s}"}, :method => :post %>
+	   			</li>
+			<% end %>
+		</ul>
+	</div>
 </div>
-</div>
-<!--
-<div class = "col-md-6", id = "select-section">
-<%#= form_tag('/users/set_section') do%>
-	<%#= select_tag "section_option", options_for_select(@sections, selected: @selected_section)%> 
-	<%#= submit_tag 'Select Section', class: "btn btn-large btn-primary btn-sm"%>
-	 <!-- needs to be changed 
-<br>	
-<#% end %>-->
 
-
+<!--Tells the teacher what section is active-->
 <h5 class = "col-md-4" id="section_type" >
-<p class = "text-success">
-<% if @current.first_name%>
-<%= @current.first_name %>, 
-<% end %>
-<% if @selected_section == "all" %>
-	These are all the sections for this project.
-<% elsif @selected_section.nil? %>
-	You need to create a section. 
-<% else%>
-	This is section <%= "#{@selected_section}. "%>
-<% end %>
+	<p class = "text-success">
+		<%= @current.first_name %>, 
+			<% if @selected_section == "all" %>
+				these are all the sections for this project.
+			<% elsif @selected_section.nil? %>
+				you need to create a section. 
+			<% else%>
+				this is section <%= "#{@selected_section} "%>
+			<% end %>
+	</p>
 
-</p>
 </h5>
 
-
-
-
+<!--Creates a new Section link-->
 <div class = "col-md-2" id="select-section-2" id="link-1">
-<h5><a href="/users/create_new_section" class = " btn btn-link btn-sm">Create a New Section</a></h5>
+	<h5><a href="/users/create_new_section" class = " btn btn-link btn-sm">Create a New Section</a></h5>
 </div>
 <br><br>
 
-
-
-
-
-<!-- This gets students from the teacher to be put into the database and get their section number -->
-<!-- only allow a teacher to add students to a section if a section is selected.-->
+<!-- Adds students to a section and is only allowed for a teacher-->
 <br><br>
 <div class = "col-md-12" id="parse_box">
-<% if @selected_section != "all" %>
-	<%= form_tag('/users/input_students_parse') do%>
-		<%= label_tag 'Copy & Paste your student list here or' %> <%= link_to 'Add One Student', new_user_path, :id => "link-2", class: "btn btn-large btn-link btn-sm"%>
+	<% if @selected_section != "all" %>
+		<%= form_tag('/users/input_students_parse') do%>
+		<%= label_tag 'Copy & Paste your student list here or' %> <%= link_to 'Add One Student', new_user_path, 
+																	  :id => "link-2", 
+																	  class: "btn btn-large btn-link btn-sm"%>
 		<br>
 		<%= text_area_tag 'input' %>
 		<br><%= submit_tag 'Add Students to Section', class: "btn btn-large btn-primary btn-sm"%>
 	<% end %>		
 <% end %>
 </div>
-
 <br><br>
-<!-- This allows teachers to view certain sections 
-<div class = "col-md-9", id = "select-section">
-<%#= form_tag('/users/set_section') do%>
-	<%#= select_tag "section_option", options_for_select(@sections, selected: @selected_section)%> 
-	<%#= submit_tag 'Select Section', class: "btn btn-large btn-primary btn-sm"%>
-	<br><br><a href="/users/create_new_section" class="col-md-2 btn btn-info btn-sm">Create a New Section</a> <!-- needs to be changed -->
-<!--<br>	
-<%# end %>
-</div> -->
-
 <br><br>
 
-<!-- Everything below here is really just a big form. -->	
+<!--Actions for the teacher to do with the students and sections-->
 <%= form_tag('/users/change_student_status') do%>
-	<!-- This is first select for what the teacher wants to do with the students -->
-
 	<div id= "manage_dropdown">
-	<div id = "option">
-		
-	 <%= select_tag "selected_option", options_for_select(["Promote Student", "Create Team", "Demote Student", "Delete Student", "Delete Everybody"]), :onchange => 'myFunction()', :prompt => 'Choose Action', :type => "button", :class => "btn btn-default dropdown-toggle col-md-2", :datatoggle => "dropdown"%>
-
-     </div>
-	<!-- This is will only appear if the teacher wants to create student managers -->	
-	<div id ="show_managers">
-		<%= select_tag "student_manager", options_from_collection_for_select(@student_managers, 'id', 'last_name'), :class => "btn btn-default dropdown-toggle col-md-2"%> 
-
-	
+		<div id = "option">
+			<%= select_tag "selected_option", 
+	       		options_for_select(["Promote Student", "Create Team", "Demote Student", "Delete Student", "Delete Everybody"]), 
+	                           		 :onchange => 'myFunction()', :prompt => 'Choose Action', :type => "button", 
+	                           		 :class => "btn btn-default dropdown-toggle col-md-2", :datatoggle => "dropdown"%>
+ 		</div>
+<!-- This only appears if the teacher wants to create student managers -->	
+		<div id ="show_managers">
+			<%= select_tag "student_manager", options_from_collection_for_select(@student_managers, 'id', 'last_name'), 
+		   		:class => "btn btn-default dropdown-toggle col-md-2"%> 
+		</div>
+		<%= submit_tag :submit, :class => "btn btn-large btn-primary btn-sm col-md-1", :id => "action_submit"%>
 	</div>
-	<%= submit_tag :submit, :class => "btn btn-large btn-primary btn-sm col-md-1"%>
-</div>
 
-	<!-- This script code is useed to hide student manager second 
-	 Drop down when "Create_Team" is selected-->
-	<script>
+<!-- This script code is useed to hide student manager second Drop down when "Create_Team" is selected-->
+<script>
 	$( "#show_managers").hide();
 	$( "#option" ).click(
 		function( event) {
@@ -122,15 +96,12 @@
 			}
 		}
 	);
-	</script>
-	
+</script>
+
+<!--Refreshes page using ajax-->	
 <div id = "section_refresh">	
-<%= render :partial => "manage_section", :locals => { :current_students => @select_students }%>
+	<%= render :partial => "manage_section", :locals => { :current_students => @select_students }%>
 </div>
 
 <%end%>
-
 <br>
-
-
-<a href="/users/teachers">Teachers page</a>
