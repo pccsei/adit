@@ -36,6 +36,7 @@ def main():
         with open(IN_PATH, newline='') as in_file:
             first_line = True
             for row in csv.DictReader(in_file):
+                strip_all(row)
                 if first_line:
                     first_line = False
                 else:
@@ -58,6 +59,11 @@ def main():
                     status_type=calculate_status(row)).encode())
         out_file.seek(-3, io.SEEK_CUR)
         out_file.write(b'])')
+
+def strip_all(row):
+    for key, value in row.items():
+        if value is not None:
+            row[key] = value.strip()
 
 def extract_contact_parts(row):
     contact = row['Contact']
@@ -97,7 +103,7 @@ def calculate_zipcode(row):
         return Nil()
 
 def calculate_status(row):
-    if row['Company Name (print your name)'].strip().upper().startswith('PCC '):
+    if starts_with(row['Company Name (print your name)'], 'PCC ', 'PCA '):
         return 'In House'
     try:
         comments = row['Comments (Done?)'].lower()
@@ -108,6 +114,10 @@ def calculate_status(row):
     except AttributeError:
         pass
     return 'Approved'
+
+def starts_with(string, *values):
+    canonical = string.strip().upper()
+    return any(canonical.startswith(prefix.upper()) for prefix in values)
 
 ################################################################################
 
