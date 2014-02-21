@@ -1,5 +1,5 @@
 class TicketsController < ApplicationController
-  before_action :only_teachers
+  before_action :only_teachers, only: [:new, :create]
 
   def index
 
