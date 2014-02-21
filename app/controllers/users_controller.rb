@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :only_teachers
+  before_action :only_teachers, except: [:unauthorized]
 
   # GET /users
   # GET /users.json
@@ -29,6 +29,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def unauthorized    
+  end
+  
   # GET /users/1
   # GET /users/1.json
   def show

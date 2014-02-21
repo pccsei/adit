@@ -1,5 +1,5 @@
 <ul class="nav navbar-nav">	 
-  <%# if current_user.role == 3 %>
+  <% if current_user.role == 3 %>
     <li><%= link_to "Manage Section",  users_path %></li>
 
     <li><%= link_to "Manage Clients",  clients_path %></li>
@@ -13,11 +13,11 @@
        </ul>
     </li>
     <li><%= link_to "Projects", projects_path %></li>   
- <%# else %>         
+ <% else %>         
     <li><%= link_to "Choose Clients",         tickets_path %></li>
     <li><%= link_to "My Clients", "/receipts/my_receipts/#{@current_user.id}" %></li>
     <li><%= link_to "Submit Client", clients_submit_path %>
- <%# end %>
+ <% end %>
     	
  <% if signed_in? %>
       <li><%= link_to "Sign Out", signout_path, method: "delete" %></li>
