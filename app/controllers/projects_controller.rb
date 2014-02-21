@@ -7,12 +7,7 @@ class ProjectsController < ApplicationController
     @projects = Project.all
     
     @current_projects  = Project.current
-    @archived_projects = Project.archived 
-    
-    #hi = params['input']
-    #if hi
-    #  render text: hi
-    #end
+    @archived_projects = Project.non_archived.where("is_active = ?", false) 
   end
 
   # GET /projects/1

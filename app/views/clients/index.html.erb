@@ -14,6 +14,12 @@
          <%= submit_tag 'Approve' %>
          <%= submit_tag 'Disapprove'%>
       <% end %>
+      <%= form_tag('/clients/approve_client_edit') do %>
+         <%= render :partial => "edited_pending", :locals => { :pending_clients => @edited_pending_clients.each} %>
+         <%= submit_tag 'Approve' %>
+         <%= submit_tag 'Approve All' %>
+         <%= submit_tag 'Disapprove'%>
+      <% end %>
   <% else %>
      <%= render :partial => "pending", :locals => { :pending_clients => @pending_clients} %>
   <% end %>
@@ -25,7 +31,7 @@
 
 <h1>Listing clients</h1>
 
-<table class="dataTable">
+<table class="display">
   <thead>
     <tr>
       <th>Business name</th>

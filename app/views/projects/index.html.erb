@@ -9,7 +9,7 @@
 <%= form_tag('/projects/select_project') do%>
 	<% if (Project.find_by is_active: '1') %>
 	<h3>Active Project</h3>
-	<table class = "table">
+	<table class = "display">
 	  <thead>
 	    <tr>
 	      <th>Selected</th>
@@ -28,7 +28,6 @@
 	  	
 	  <tbody>
 	    <% @current_projects.each do |project| %>
-	      	<% if project.is_active %>
 			  <tr>	      
       			<td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
 		      	<td><%= project.year%></td>
@@ -49,7 +48,6 @@
 		        <% end %>
 		        <td><%= link_to 'Edit', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
 		      </tr>
-	        <% end %>
 	    <% end %>
 	  </tbody>
 	</table>
@@ -69,7 +67,7 @@
 	
 	<% if Project.non_archived.find_by is_active: '0' %>
 	<h3>Archived Projects</h3>
-		<table class = "table dataTable">
+		<table class = "display">
 			<thead>
 		      <tr>
 			    <th>Selected</th>
@@ -84,7 +82,6 @@
 		  
 		  <tbody>
 		    <% @archived_projects.each do |project| %>
-		      	<% if !project.is_active%>
      		      <tr>
       				<td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
 			      	<td><%= project.year%></td>
@@ -94,7 +91,6 @@
 			      	<td><%= project.comment%></td>
 			        <td><%= link_to 'Edit', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
     		      </tr>
-		      	<% end %>
 		    <% end %>
 		  </tbody>
 		</table>

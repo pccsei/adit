@@ -34,8 +34,8 @@
 			<% else%>
 				this is section <%= "#{@selected_section} "%>
 			<% end %>
-
 	</p>
+
 </h5>
 
 <!--Creates a new Section link-->
@@ -47,7 +47,7 @@
 <!-- Adds students to a section and is only allowed for a teacher-->
 <br><br>
 <div class = "col-md-12" id="parse_box">
-	<% if @selected_section == "all" %>
+	<% if @selected_section != "all" %>
 		<%= form_tag('/users/input_students_parse') do%>
 		<%= label_tag 'Copy & Paste your student list here or' %> <%= link_to 'Add One Student', new_user_path, 
 																	  :id => "link-2", 
