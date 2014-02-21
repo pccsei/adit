@@ -1,0 +1,41 @@
+<h1>Edited Clients</h1>
+
+<table class="table dataTable">
+  <thead>
+    <tr>
+      <% if current_user.role == 3%>
+         <th></th>
+      <% end %>
+      <th>Business name</th>
+      <th>Address</th>
+      <th>Email</th>
+      <th>Title</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Telephone</th>
+      <th>Comment</th>
+    </tr>
+    
+  </thead>
+
+<tbody>
+	<% @edited_pending_clients.each do |client|%>
+	<tr>
+		<% if current_user.role == 3 %>
+		   <td><%= check_box_tag "clients[]", client.id %></td>
+		<% else %>
+		   <td><% client.id %>
+		<% end %>
+		<td><%= client.business_name %></td>
+        <td><%= client.address %></td>
+        <td><%= client.email %></td>
+        <td><%= client.contact_title %></td>
+        <td><%= client.contact_fname %></td>
+        <td><%= client.contact_lname %></td>
+        <td><%= client.telephone %></td>
+        <td><%= client.comment %></td>
+      </tr>
+	</tr>
+	<% end %>
+	</tbody>
+	</table>

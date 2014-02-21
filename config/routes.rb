@@ -18,6 +18,7 @@ WhiteCollar::Application.routes.draw do
   post "users/need_help"
   get  "clients/submit"
   post "/clients/approve_client"
+  post "/clients/approve_client_edit"
   post "/clients/disapprove_client"
   get "reports/student_summary"
   get "reports/activities"
