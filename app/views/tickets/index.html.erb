@@ -5,55 +5,47 @@
 var last_update = "<%= Time.now.utc.strftime("%Y-%m-%d %H:%M:%S") %>";
 	
 $(function() {
-    
+	    
     $(".addTicket").click(function(caller){
-
-		console.log(caller.target.id);
-		
-		$.getJSON("/tickets.json?ajax=getClient&clientID=" + caller.target.id, 
-	  			function(json) {
-	  				console.log(json);
-	  				
-	  				if (json.Success != null) {
-	  					$('#' + caller.target.id).hide();
-	  					console.log("You got the client!");
-  					}
-	  				else
-	  					console.log("You didn't get the client")
-		})
-	});
+	  //console.log(caller.target.id);
+	  $.getJSON("/tickets.json?ajax=getClient&clientID=" + caller.target.id, 
+        function(json) {
+          if (json.Success != null) {
+            $('#' + caller.target.id).hide();
+            console.log("You got the client!");
+            selector =  $('#' + json.ticketPriority + "PriorityCount");
+	        selector.html(selector.html() - 1);
+          }
+          else
+	        $("#userMessage").hide().html(json.userMessage).fadeIn(1000);
+      })
+    });
 
 	function updateClients() {
-		  $.getJSON("/tickets.json?ajax=update&timestamp=" + last_update, 
-	  			function(json) {
+      $.getJSON("/tickets.json?ajax=update&timestamp=" + last_update, 
+	    function(json) {
+	  	  var i, len = json.length - 1; // compensating for system time appended to the end of JSON object
+		  for (i = 0; i < len; i++) { 
+			//console.log(json[i]);
 
-	  				var i, len = json.length - 1; // compensating for system time appended to the end of JSON object
-					for (i = 0; i < len; i++) { 
-						console.log(json[i]);
-
-						if (json[i].user_id == 0)
-						  $('#' + json[i].client_id).show();
-						else
-	  					  $('#' + json[i].client_id).hide();
-  					}
-  					last_update = json[i];
-      	   })
-      console.log("Last updated at: " + last_update);
-	  setTimeout(updateClients, 2000);
+              if (json[i].user_id == 0)
+			    $('#' + json[i].client_id).show();
+			  else
+			    $('#' + json[i].client_id).hide();
+  		   }
+  		   last_update = json[i];
+      	 })
+      //console.log("Last updated at: " + last_update);
+      setTimeout(updateClients, 2000);
 	}
+	
 	$(".autoHide").hide();	
-	console.log("Hiding all taken clients")
-	
 	$(".defaultTooltip").tooltip();
-	
-	
 	//setTimeout(updateClients, 1000);
 });
 </script>
 
-<!--
-need to add tooltip functionality to the table rows; check here for the javascript: http://stackoverflow.com/questions/15503839/how-to-add-a-twitter-bootstrap-tooltip-to-an-icon
--->
+
 <h1 class = "col-md-3", id = "heading">Choose Clients</h1>
 
 <% if @clientsLeft %>
@@ -62,27 +54,43 @@ need to add tooltip functionality to the table rows; check here for the javascri
 <div>
   <table>
 	<tr>
-		<td id="highPriority">You can get <%= @highPriority < 0 ? 0 : @highPriority%> more high priority clients</td>
+		<td id="highPriority">You can get <span id='highPriorityCount'><%= @highPriority < 0 ? 0 : @highPriority%></span> more high priority clients</td>
 	</tr>
 	<tr>
-		<td id="midPriority">You can get <%= @midPriority < 0 ? 0 : @midPriority%> more medium priority clients</td>
+		<td id="midPriority">You can get <span id='mediumPriorityCount'><%= @midPriority < 0 ? 0 : @midPriority%></span> more medium priority clients</td>
 	</tr>
 	<tr>
-		<td id="lowPriority">You can get <%= @lowPriority < 0 ? 0 : @lowPriority%>  more clients low priority clients</td>
+		<td id="lowPriority">You can get <span id='lowPriorityCount'><%= @lowPriority < 0 ? 0 : @lowPriority%></span>  more clients low priority clients</td>
 	</tr>
   </table>
 </div>
 <% end %>
 
+
+<div><span>
+<% if open = (@currentProject.tickets_close_time > Time.now) %>
+  You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.
+<% else %>
+  You are no longer able to select clients.
+<% end %>
+</span></div>
+
+<div class="message">
+  <h2>
+    <span id="userMessage">THIS_IS_WHERE_THE_USER_MESSAGE_IS_TO_BE_DISPLAYED</span>	
+  </h2>
+</div>
+
 <table class="table dataTable">
   <thead>
     <tr> 
+      <% if open %>
       <th></th>
+      <% end %>
       <th>Business Name</th>
       <th>Address</th>
-      <th>Email</th>
       <th>Contact Title</th>
-      <th>Contact First Names</th>
+      <th>Contact First Name</th>
       <th>Contact Last Name</th>
       <th>Telephone</th>
       <th>Comment</th>      
@@ -93,11 +101,12 @@ need to add tooltip functionality to the table rows; check here for the javascri
     <% @tickets.each do |ticket| %>
       <tr class='<%= Priority.find(ticket.priority_id).name %>'>
       	<% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
-      	<td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => "btn btn-primary btn-sm " << ticketClass %>
-      	</td>
+      	<% if open %>	   	  
+ 	  	  <td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => "btn btn-primary btn-sm " << ticketClass %>
+       	  </td>
+      	<% end %>
       	<td><%= client.business_name %></td>
       	<td><%= client.address %></td>
-      	<td><%= client.email %></td>
       	<td><%= client.contact_title %></td>
       	<td><%= client.contact_fname %></td>
       	<td><%= client.contact_lname %></td>

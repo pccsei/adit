@@ -59,4 +59,45 @@ class Client < ActiveRecord::Base
     end
   end
 
+  def self.for_selected_project(pid)
+    basic_client_info = Client.house
+    
+    Struct.new("Client_detail", :id,    :business_name, :contact_fname, :telephone, :website, :student_lname, :zipcode, :email, :city, 
+                                :state, :contact_lname, :contact_title, :ticket_id, :address, :student_fname, :student_id, :comment)
+    client_info = []  
+    basic_client_info.each_with_index do |c, i|
+      client_info[i] = Struct::Client_detail.new
+      client_info[i].id = c.id
+      client_info[i].business_name = c.business_name
+      client_info[i].contact_fname = c.contact_fname
+      client_info[i].email = c.email
+      client_info[i].telephone = c.telephone
+      client_info[i].website = c.website
+      client_info[i].zipcode = c.zipcode
+      client_info[i].state = c.state
+      client_info[i].contact_lname = c.contact_lname
+      client_info[i].contact_title = c.contact_title
+      client_info[i].city = c.city
+      client_info[i].comment = c.comment
+      
+      client_ticket = Ticket.where(client_id: c.id, project_id: pid).first
+      
+      if client_ticket && client_ticket.user_id != 0
+        user = User.find(client_ticket.user_id)
+        
+        client_info[i].ticket_id     = client_ticket.id
+        client_info[i].student_fname = user.first_name
+        client_info[i].student_lname = user.last_name
+        client_info[i].student_id    = user.school_id
+      else 
+        client_info[i].ticket_id     = nil
+        client_info[i].student_fname = nil
+        client_info[i].student_lname = nil
+        client_info[i].student_id    = nil        
+      end
+      
+    end
+    client_info
+  end
+
 end
