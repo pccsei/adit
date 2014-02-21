@@ -5,8 +5,15 @@ class ClientsController < ApplicationController
   # GET /clients.json
   def index
     @pending_clients = Client.pending
+
+    @edited_pending_clients = Client.edited_pending
         
-    @clients = Client.house
+    #@clients = Client.house
+    
+    @clients = Client.for_selected_project(get_selected_project.id)
+    
+    
+    
     
     @projects = Project.all
 
@@ -15,36 +22,48 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
+    @client = Client.find(params[:id])
   end
 
-  #used when the clients page pings the server to see if there are any new actions to be performed on the table
-  
-  #need to add the .js page 
-  def ping
-    
-    
-    #logger.debug("APPLICATION WAS SUCCESSFULLY PINGED")
-    #logger.flush
-    
-    #updates = Ticket.find(:all, :select => "id, user_id", :conditions => ["DATE(created_at) >= ?", params[:timestamp]]) #this should give all the updates since the last ping. not sure though
-    
-    @up = Ticket.find(params[:id])
-    render json: @up
-    
-    
-    
-    #how to return JSON???
-           
+  def assign
+    if (params[:tid])
+      @ticket = Ticket.find(params[:tid])    
+    else
+      @ticket = Ticket.select("id, client_id").where(client_id: params[:id], project_id: get_selected_project.id).first
+    end      
+    @client = Client.find(params[:cid])
   end
+  
+
 
   def approve_client
     status = params['commit'] == "Approve" ? 2 : 1
     array_of_pending_clients = params['clients']
 
-    Client.approve_clients(status, array_of_pending_clients)
+    if !array_of_edited_pending_clients.nil?
+      Client.approve_clients(status, array_of_pending_clients)
+    end
 
     redirect_to clients_url
   end
+
+  def approve_client_edit
+    status = 2 if params['commit'] == "Approve" 
+    status = 1 if params['commit'] == "Disapprove" 
+    status = 3 if params['commit'] == "Approve All" 
+
+    if status != 3
+      array_of_edited_pending_clients = params['clients']
+    else
+      array_of_edited_pending_clients = Client.where(status_id: 5).ids
+    end
+    if !array_of_edited_pending_clients.nil?
+      Client.approve_edited_clients(status, array_of_edited_pending_clients)   
+    end
+    
+    redirect_to clients_url
+  end
+
 
   # GET /clients/new
   def new
@@ -87,17 +106,14 @@ class ClientsController < ApplicationController
   # PATCH/PUT /clients/1
   # PATCH/PUT /clients/1.json
   def update
-  #   if current_user.role != 3
-  #     edited_client = Client.where(id: @client).clone
-  #     edited_client.assign_attributes(client_params)
-  #     # render text: edited_client.contact_lname
-  #     if @client == Client.where(id: @client)
-  #       redirect_to "/receipts/my_receipts/#{current_user.id}", notice: 'No change has been made to the client.'
-  #     else
-  #       render text: "yes!"
-  #     end
-  #     # if edited_client ==
-  #   else
+    if current_user.role != 3
+      edited_client = Client.new
+      edited_client = Client.find(@client).clone
+      edited_client.assign_attributes(client_params)
+      # render text: client_params
+      Client.make_pending_edited_client(edited_client, @client, client_params) 
+      redirect_to "/receipts/my_receipts/#{current_user.id}", notice: 'Your change has been submitted.'     
+    else
       respond_to do |format|
         if @client.update(client_params)
           format.html { redirect_to @client, notice: 'Client was successfully updated.' }
@@ -107,7 +123,7 @@ class ClientsController < ApplicationController
           format.json { render json: @client.errors, status: :unprocessable_entity }
         end
       end
-    # end
+    end
   end
 
   # DELETE /clients/1

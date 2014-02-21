@@ -45,7 +45,7 @@ class UsersController < ApplicationController
        student_ids << t.id
      end
     
-    project_teacher_members = Member.project_members.get_selected_project.where.not(user_id: student_ids )
+    project_teacher_members = Member.project_members(get_selected_project).where.not(user_id: student_ids )
     
     teacher_users_for_selected_project = []
     project_teacher_members.each do |s|
@@ -75,10 +75,11 @@ class UsersController < ApplicationController
   end
 
   def assign_teacher_to_section
-    teacher = params[:last_name]
+    teacher = params[:school_id]
     section_number = params['section']  
 
     User.create_new_section(teacher[:id], section_number, session[:selected_project_id])
+    set_selected_section(section_number)
     redirect_to users_url  
   end
 
@@ -112,7 +113,9 @@ class UsersController < ApplicationController
 
   def input_students_parse
     user_params = params['input']
+
     User.parse_students(user_params, get_selected_section, session[:selected_project_id])
+
     redirect_to users_url
   end
   

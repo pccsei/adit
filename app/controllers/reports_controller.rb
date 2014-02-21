@@ -17,16 +17,16 @@ class ReportsController < ApplicationController
           @sales[index] = Struct::Sale.new
           @sales[index].student_id = r.user_id
           # @sales[index].manager_id = User.get_manager_name((r.user_id), get_selected_project).id  << Add this when ready for it
-          @sales[index].first_name = User.find(r.user_id).first_name
-          @sales[index].last_name = User.find(r.user_id).last_name
+          @sales[index].first_name   = User.find(r.user_id).first_name
+          @sales[index].last_name    = User.find(r.user_id).last_name
           @sales[index].time_of_sale = Action.find_by(receipt_id: r.id).user_action_time
-          @sales[index].company = Client.find(Ticket.find(r.ticket_id).client_id).business_name
-          @sales[index].page_size = r.page_size
-          @sales[index].sale_amount = r.sale_value
-          @sale_total += r.sale_value
-          @sales[index].team_leader = User.get_manager_name((r.user_id), get_selected_project)
+          @sales[index].company      = Client.find(Ticket.find(r.ticket_id).client_id).business_name
+          @sales[index].page_size    = r.page_size
+          @sales[index].sale_amount  = r.sale_value
+          @sale_total               += r.sale_value
+          @sales[index].team_leader  = User.get_manager_name((r.user_id), get_selected_project)
           @sales[index].payment_type = r.payment_type
-          @sales[index].section = User.get_section_number(r.user_id, get_selected_project)
+          @sales[index].section      = User.get_section_number(r.user_id, get_selected_project)
           if (Action.find_by(receipt_id: r.id).action_type_id)
             @sales[index].ad_status = ActionType.find(Action.find_by(receipt_id: r.id).action_type_id).name
           end

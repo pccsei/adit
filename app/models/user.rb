@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   before_create :create_remember_token
 
 # Validates the user's name
-  validates :first_name, :last_name, presence: true, format: {
+  validates :first_name, :last_name, format: {
     with: /\A[-a-zA-Z]+\z/,
     message: 'must only have letters (no digits).'
   }, unless: Proc.new { |user| user.role == -1 }
@@ -17,19 +17,19 @@ class User < ActiveRecord::Base
   validates :school_id, presence: true, uniqueness: true, unless: Proc.new { |user| user.role == -1 }
   
 # Validates the email
-  validates :email, presence: true, uniqueness: true, format: {
-    with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\z/,
+  validates :email, uniqueness: true, format: {
+    with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\Z/,
     message: 'must be a valid PCC email address.'
   }, unless: Proc.new { |user| user.role == -1 }
 
 # Validates the phone number
-  validates :phone, presence: true, uniqueness: true, format: {
-    with: /\A(([tT][oO][wW][nN])|((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|(((\d{3})?\s*[-]\s*)*(\d{3})\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
+  validates :phone, format: {
+    with: /\A(([tT][oO][wW][nN])|\17\s*-\s*\d{4}\s*-\s*[1-4]|(\d{3}\s*-\s*){1,2}\d{4}(\s*[Ee][Xx][Tt]\.?\s*\d{1,7})?)Z/,
     message: 'must be a valid PCC phone number or valid telephone number.'
   }, unless: Proc.new { |user| user.role == -1 }
   
 # Validates the box number
-  validates :box, presence: true, length: {
+  validates :box, length: {
     minimum: 3, maximum: 4,
     message: 'is the wrong length.  Needs to be either three or four digits long.'
   }, numericality: { greater_than: 0 }, unless: Proc.new { |user| user.role == -1 }
@@ -47,7 +47,7 @@ def self.get_student_info(project, section)
                             :student_manager_name, :section_number, :major, :minor, :box, :class)
   students = []
   members.each_with_index do |member, i|
-     students[i]  = Struct::Person.new
+     students[i]                      = Struct::Person.new
      students[i].id                   = member.user_id
      students[i].first_name           = member.user.first_name
      students[i].last_name            = member.user.last_name
@@ -141,12 +141,12 @@ def User.parse_students(user_params, section_number, project_id)
         @member.section_number = section_number
         @member.is_enabled = true
       else
-        @member = Member.new
-        @member.user_id = @user.id
-        @member.project_id = project_id
-        @member.section_number = section_number
-        @member.is_enabled = true
-        @member.save
+        member = Member.new
+        member.user_id = user.id
+        member.project_id = project_id
+        member.section_number = section_number
+        member.is_enabled = true
+        member.save
       end
     end
   end

@@ -1,15 +1,13 @@
 <% provide(:title, "Projects") %>
-
 <h1 class = "col-md-3", id = "heading">Projects</h1>
 <br /><br /><br /><br />
- <% if @projects.empty? %>
-   <p> There are currently no projects to display. </p>
-   <%= link_to "Create a New Project", new_project_path %>
-<% else %>
+
+<% if @current_projects.present? || @archived_projects.present? %>
 <%= form_tag('/projects/select_project') do%>
-	<% if (Project.find_by is_active: '1') %>
+	<% if @current_projects.present? %>
 	<h3>Active Project</h3>
-	<table class = "table">
+	<p>There can only be 1 active project at a time. You can archive your project on the edit project page. </p>
+	<table class = "display">
 	  <thead>
 	    <tr>
 	      <th>Selected</th>
@@ -53,21 +51,16 @@
 	</table>
 	
 	<% else %>
-			<br>
-			   Currently, no active project exists. Please create a new project or view archived projects.
-			<br>
-		  	<%= link_to 'Create New Project', new_project_path %>
-			<br>   
-			<% @projects.each do |project| %>
-			  <% if (project.tickets_open_time && project.tickets_close_time) < Time.current %>
-			  	<%= link_to 'Create New Project', new_project_path %>
-			  <% end %>
-			<% end %>
+	   <br />
+	   <p>Currently, no active project exists. Please create a new project or view archived projects.</p>
+	      <br />
+		  <%= link_to 'Create New Project', new_project_path %>
+		  <br />   
 	<% end %>
 	
-	<% if Project.non_archived.find_by is_active: '0' %>
+	<% if @archived_projects.present? %>
 	<h3>Archived Projects</h3>
-		<table class = "table dataTable">
+		<table class = "display">
 			<thead>
 		      <tr>
 			    <th>Selected</th>
@@ -94,7 +87,15 @@
 		    <% end %>
 		  </tbody>
 		</table>
+	<% else %>
+	<br />
+	   <p> There are currently no archived projects to view. In the future, they will appear here.</p>
+	<br />
 	<% end %>
-	<%= submit_tag 'View This Project', :class => "btn btn-primary btn-sm"%>
+	<br />
+	<%= submit_tag 'Go to selected Project', :class => "btn btn-primary btn-sm"%>
 <% end %>
+<% else %>
+   <p> There are currently no projects to display. Would you like to create a new project? </p>
+   <%= link_to "Create a New Project", new_project_path %>
 <% end %>

@@ -1,6 +1,6 @@
-<h1>Pending Clients</h1>
+<h1>Edited Clients</h1>
 
-<table class="display">
+<table class="table dataTable">
   <thead>
     <tr>
       <% if current_user.role == 3%>
@@ -19,7 +19,7 @@
   </thead>
 
 <tbody>
-	<% pending_clients.each do |client|%>
+	<% @edited_pending_clients.each do |client|%>
 	<tr>
 		<% if current_user.role == 3 %>
 		   <td><%= check_box_tag "clients[]", client.id %></td>
