@@ -43,7 +43,7 @@ class UsersController < ApplicationController
        student_ids << t.id
      end
     
-    project_teacher_members = Member.project_members.get_selected_project.where.not(user_id: student_ids )
+    project_teacher_members = Member.project_members(get_selected_project).where.not(user_id: student_ids )
     
     teacher_users_for_selected_project = []
     project_teacher_members.each do |s|
