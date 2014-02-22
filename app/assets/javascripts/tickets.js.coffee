@@ -8,6 +8,8 @@ $ ->
        "iDisplayLength": 50
        "bJQueryUI": true
        "bDestroy": true
+       "sPaginationType": "full_numbers"
+       
   
   $(document).ready(load_datatable)
   $(document).on('page:load', load_datatable)
