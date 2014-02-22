@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   TEACHER = 3
   STUDENT_REP = 1                     
   
+  
   # This method will most likely be deleted soon, use selected methods below instead                          
   def get_current_project
     project = Project.find_by is_active: '1'

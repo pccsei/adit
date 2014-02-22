@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :only_teachers, except: [:unauthorized]
+  before_action :only_teachers, except: [:unauthorized, :need_help]
 
   # GET /users
   # GET /users.json
@@ -91,7 +91,8 @@ class UsersController < ApplicationController
   
   # Need to get the .help set to 0....it's not right now
   def need_help
-    @current_user.help = 0
+    @help_page = params[page]
+    @current_user.help = false
     @current_user.save    
   end
 

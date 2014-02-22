@@ -14,12 +14,15 @@ $(function{
 });
 </script>
 
-
+<%= form_tag('/users/need_help') do %>
+	<% page = request.original_url %>
+<%= submit_tag 'Help!'%>
+<% end %>
 
 <% if current_user.help == true %>
-	<h1>First Time User?</h1>
+	<h1>Confused?</h1>
 
-	<%= button_to "Yes", :controller => :users, action: "need_help"%>
+	<%= button_to "Yes I need Help!", :controller => :users, action: "need_help"%>
 
 <% end %>
 

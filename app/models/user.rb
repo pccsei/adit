@@ -142,7 +142,7 @@ def User.parse_students(user_params, section_number, project_id)
         @member.is_enabled = true
       else
         member = Member.new
-        member.user_id = user.id
+        member.user_id = @user.id
         member.project_id = project_id
         member.section_number = section_number
         member.is_enabled = true

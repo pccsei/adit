@@ -1,0 +1,51 @@
+<h1>Complete Walkthrough as a </h1>
+
+<% if current_user.role == 3 %>
+	<h1>Teacher</h1>
+
+	<a class="fancybox fancybox.iframe" href="/clients/new">This goes to iframe</a>
+	<div id="full_help_teacher">
+		<img src="/assets/Lighthouse.jpg" alt="" width="150" height="150" title="Hello"/></br></br>
+		<img src="/assets/Penguins.jpg" alt="" width="0" height="0" />
+	</div>
+<% else %>
+	<h1>Student</h1>
+	
+	<div id="full_help_student">
+		<img src="/assets/Lighthouse.jpg" alt="" width="150" height="150" /></br></br>
+		<img src="/assets/Tulips.jpg" alt="" width="0" height="0" />
+	</div>
+<% end %>
+
+<script type="text/javascript">
+
+	$("#full_help_teacher img").click(function(e) {
+ 		$.fancybox([
+  			'/assets/Lighthouse.jpg',
+  			'/assets/Penguins.jpg'
+  		],{
+   			'type'     : 'image',
+   			nextEffect : 'fade',
+   			prevEffect : 'fade'
+ 		});
+	});
+	
+	$("#full_help_student img").click(function(e) {
+ 		$.fancybox([
+  			'/assets/Lighthouse.jpg',
+  			'/assets/Tulips.jpg'
+  		],{
+   			'type'     : 'image',
+   			nextEffect : 'fade',
+   			prevEffect : 'fade'
+ 		});
+	});
+	
+	$("a.fancybox").fancybox({
+		autoScale : true,
+		afterClose : function() {
+			location.reload();
+			return;
+		}
+	});
+</script>

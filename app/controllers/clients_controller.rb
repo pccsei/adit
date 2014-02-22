@@ -40,9 +40,9 @@ class ClientsController < ApplicationController
     status = params['commit'] == "Approve" ? 2 : 1
     array_of_pending_clients = params['clients']
 
-    if !array_of_edited_pending_clients.nil?
-      Client.approve_clients(status, array_of_pending_clients)
-    end
+    # if !array_of_edited_pending_clients.nil?
+       Client.approve_clients(status, array_of_pending_clients)
+    # end
 
     redirect_to clients_url
   end
