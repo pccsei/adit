@@ -13,16 +13,32 @@ class Member < ActiveRecord::Base
      end
    end
 
-   # Returns all the student member objects of a given project
-   def self.student_members(project, section = "all")
-     teachers = User.all_teacher_ids
-     if section == "all"
-        self.where("project_id = ? AND user_id NOT IN (?)", project.id, teachers)
-     else
-        self.where("project_id = ? AND section_number = ? AND user_id NOT IN (?)", 
-           project.id, section, teachers)
+    # Returns all the student member objects of a given project
+    def self.student_members(project, section = "all", choice = 1)
+      teachers = User.all_teacher_ids
+      if choice == 1
+        if section == "all"
+          self.where("project_id = ? AND user_id NOT IN (?) AND is_enabled", project.id, teachers, 1)
+        else
+          self.where("project_id = ? AND section_number = ? AND user_id NOT IN (?) AND is_enabled = ?", 
+          project.id, section, teachers, 1)
+        end
+      elsif choice == 2
+        if section == "all"
+          self.where("project_id = ? AND user_id NOT IN (?) AND is_enabled", project.id, teachers, 0)
+        else
+          self.where("project_id = ? AND section_number = ? AND user_id NOT IN (?) AND is_enabled = ?", 
+          project.id, section, teachers, 0)
+        end
+      else 
+        if section == "all"
+          self.where("project_id = ? AND user_id NOT IN (?)", project.id, teachers)
+        else
+          self.where("project_id = ? AND section_number = ? AND user_id NOT IN (?)", 
+          project.id, section, teachers)
+        end
       end
-   end
+    end
    
    # Returns only the ids of student members for a given project
    def self.student_member_ids(project)
@@ -39,5 +55,10 @@ class Member < ActiveRecord::Base
         self.where("project_id = ? AND section_number = ? AND user_id NOT IN (?)", 
            project.id, section, teachers).pluck(:user_id)
      end
-   end   
+   end 
+
+  def change_student_status(member)
+    member.is_enabled ? member.is_enabled = false : member.is_enabled = true
+    member.save!
+  end
 end

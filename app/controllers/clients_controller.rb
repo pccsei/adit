@@ -4,40 +4,37 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @pending_clients = Client.pending
-
-    @edited_pending_clients = Client.edited_pending
-        
-    @clients = Client.house
+     
+    #@clients = Client.house
+    
+    @clients = Client.for_selected_project(get_selected_project.id)   
     
     @projects = Project.all
 
+  end
+  
+  def approve
+    @pending_clients = Client.pending
+    @edited_pending_clients = Client.edited_pending
+    @unapproved = Client.unapprove
   end
 
   # GET /clients/1
   # GET /clients/1.json
   def show
+    @client = Client.find(params[:id])
   end
 
-  #used when the clients page pings the server to see if there are any new actions to be performed on the table
-  
-  #need to add the .js page 
-  def ping
-    
-    
-    #logger.debug("APPLICATION WAS SUCCESSFULLY PINGED")
-    #logger.flush
-    
-    #updates = Ticket.find(:all, :select => "id, user_id", :conditions => ["DATE(created_at) >= ?", params[:timestamp]]) #this should give all the updates since the last ping. not sure though
-    
-    @up = Ticket.find(params[:id])
-    render json: @up
-    
-    
-    
-    #how to return JSON???
-           
+  def assign
+    if (params[:tid])
+      @ticket = Ticket.find(params[:tid])    
+    else
+      @ticket = Ticket.select("id, client_id").where(client_id: params[:id], project_id: get_selected_project.id).first
+    end      
+    @client = Client.find(params[:cid])
   end
+  
+
 
   def approve_client
     status = params['commit'] == "Approve" ? 2 : 1

@@ -23,6 +23,19 @@ class ApplicationController < ActionController::Base
     return project
   end
 
+  # 1 = active students only, 2 = inactive students only, 3 = all students
+  def set_students_to_show(choice)
+    session[:students_to_show] = choice
+  end
+
+  def get_students_to_show
+    if session[:students_to_show]
+      session[:students_to_show]
+    else
+      1
+    end
+  end
+
   def set_selected_project(project)
     session[:selected_project_id] = project.id
   end

@@ -2,6 +2,7 @@ class Receipt < ActiveRecord::Base
   belongs_to :ticket
   belongs_to :user
   has_many   :actions
+  has_one :client, through: :tickets
   
   # def self.released_receipts
     # all :conditions => {['']}
