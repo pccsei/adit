@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @users = User.all
     
     @selected_section = get_selected_section
-    @select_students = User.get_student_info(get_selected_project, get_selected_section)
+    @select_students = User.get_student_info(get_selected_project, get_selected_section, get_students_to_show)
     
     # Get array of all the incorrectly entered students
     @incorrect_students = User.incorrect_students
@@ -127,7 +127,16 @@ class UsersController < ApplicationController
     choice             = params['selected_option']
     student_manager_id = params['student_manager']
 
+  # I temporarily have these choices in the controller because it calls an application controller function
+  if choice == "Show Only Inactive Students"
+    set_students_to_show(2)
+  elsif choice == "Show only Active Studnets"
+    set_students_to_show(1)
+  elsif choice == "Show Both Inactive and Active Students"
+    set_students_to_show(3)
+  else
     User.do_selected_option(students, choice, student_manager_id, get_selected_project)
+  end
 
     redirect_to users_url
   end
@@ -204,8 +213,7 @@ class UsersController < ApplicationController
   # Deletes the Member, not the user.
   def change_is_enabled
     member = Member.find_by user_id: params[:id]
-    member.is_enabled ? member.is_enabled = false : member.is_enabled = true
-    member.save!
+    Member.change_student_status(member)
     redirect_to users_path
   end
   
