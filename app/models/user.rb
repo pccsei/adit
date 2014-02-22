@@ -41,10 +41,10 @@ class User < ActiveRecord::Base
       DOMAIN = 'studentnet.int'        # For simplified user@domain format login
       ### END CONFIGURATION ###
 
-def self.get_student_info(project, section)
-  members = Member.student_members(project, section)
+def self.get_student_info(project, section, choice = 1)
+  members = Member.student_members(project, section, choice)
   Struct.new("Person", :id, :first_name, :last_name, :school_id, :email, :phone,
-                            :student_manager_name, :section_number, :major, :minor, :box, :class)
+                            :student_manager_name, :section_number, :major, :minor, :box, :class, :is_enabled)
   students = []
   members.each_with_index do |member, i|
      students[i]                      = Struct::Person.new
@@ -60,6 +60,7 @@ def self.get_student_info(project, section)
      students[i].minor                = member.user.minor
      students[i].box                  = member.user.box
      students[i].class                = member.user.classification
+     students[i].is_enabled           = member.is_enabled
   end 
   return students 
 end
@@ -200,8 +201,7 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
             end
           end 
         end
-        current_member.destroy
-        current_member.save
+        Member.change_student_status()
       end
     end
   
