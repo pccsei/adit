@@ -27,7 +27,11 @@
 /* universal */
 
 
-
+.fake-link {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
 body {
   padding-top: 100px;
 //  background-color: #EBEBEB;

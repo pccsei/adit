@@ -1,4 +1,4 @@
-<% provide(:title, "Manage Clients") %>
+<% provide(:title, "Assign Clients") %>
 
 <script>
 
@@ -25,27 +25,6 @@ $(function{
 	<%= button_to "Yes I need Help!", :controller => :users, action: "need_help"%>
 
 <% end %>
-
-<% if !(@pending_clients.empty?)%>
-  <% if (current_user.role == 3)%>
-      <%= form_tag('/clients/approve_client') do %>
-         <%= render :partial => "pending", :locals => { :pending_clients => @pending_clients} %>
-         <%= submit_tag 'Approve' %>
-         <%= submit_tag 'Disapprove'%>
-      <% end %>
-      <%= form_tag('/clients/approve_client_edit') do %>
-         <%= render :partial => "edited_pending", :locals => { :pending_clients => @edited_pending_clients.each} %>
-         <%= submit_tag 'Approve' %>
-         <%= submit_tag 'Approve All' %>
-         <%= submit_tag 'Disapprove'%>
-      <% end %>
-  <% else %>
-     <%= render :partial => "pending", :locals => { :pending_clients => @pending_clients} %>
-  <% end %>
-<% else %>
-  There are currently no pending clients.
-<% end %>
-
 <!-- Buttons wont appear if they were not loaded when the page was first loaded because they were not created. -->
 
 

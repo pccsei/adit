@@ -1,6 +1,7 @@
 class Client < ActiveRecord::Base
   has_many :tickets
   belongs_to :status
+  has_many :receipts, through: :tickets
 
 # Add back validation for address and city and telephone
 # Validates the business name
@@ -14,7 +15,7 @@ class Client < ActiveRecord::Base
  
 # Validates the zipcode
   validates :zipcode, allow_blank: true, length:{
-    minimum: 5, maximum: 5,
+    minimum: 4, maximum: 5,
     message: 'is the wrong length.  Needs to be only five digits long.'
   }, numericality: { greater_than: 0 }
    
@@ -26,7 +27,7 @@ class Client < ActiveRecord::Base
    
 # Validates the contact first and last name
   validates :contact_fname, :contact_lname, allow_blank: true, format: {
-    with: /\A[A-Za-z ()'\/&-\.]+\Z/,
+    with: /\A[A-Za-z ?()'\/&-\.]+\Z/,
     message: 'must only have letters (no digits).'
   }
    
