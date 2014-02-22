@@ -1,6 +1,7 @@
 class Client < ActiveRecord::Base
   has_many :tickets
   belongs_to :status
+  has_many :receipts, through: :tickets
 
 # Add back validation for address and city and telephone
 # Validates the business name

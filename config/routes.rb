@@ -26,6 +26,7 @@ WhiteCollar::Application.routes.draw do
   get "reports/sales"
   get "reports/team_summary"
   get "clients/assign"
+  get "clients/approve"
   get "users/unauthorized"
 
   resources :sessions, only: [:new, :create, :destroy]

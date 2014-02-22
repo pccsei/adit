@@ -1,0 +1,30 @@
+<% provide(:title, "Approve Clients") %>
+
+<h1> Approve Clients </h1>
+
+<% if @pending_clients.present? %>
+      <%= form_tag('/clients/approve_client') do %>
+         <%= render :partial => "pending", :locals => { :pending_clients => @pending_clients} %>
+         <%= submit_tag 'Approve' %>
+         <%= submit_tag 'Disapprove'%>
+      <% end %>
+<% else %>
+  <p>There are currently no pending clients.</p>
+<% end %>
+
+<% if @edited_pending_clients.present? %> 
+      <%= form_tag('/clients/approve_client_edit') do %>
+         <%= render :partial => "edited_pending", :locals => { :pending_clients => @edited_pending_clients.each} %>
+         <%= submit_tag 'Approve' %>
+         <%= submit_tag 'Approve All' %>
+         <%= submit_tag 'Disapprove'%>
+      <% end %>
+<% else %>
+  <p>There are currently no edited clients.</p>
+<% end %>
+
+<% if @unapproved.present?%>
+   <%= render :partial => "unapprove", :locals => { :unapproved => @unapproved}%>
+<% else %>
+   <p>There are currently no unapproved clients.</p>
+<% end %>
