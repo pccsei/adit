@@ -24,7 +24,7 @@ class Ticket < ActiveRecord::Base
     clients.each do |c|
         # Will be used once we have priorities to work from
           #c.ticket.create(:project_id => project.id, :priority_id => Priority.retrieve(c))
-          c.tickets.create(:project_id => project.id, :priority_id => Priority.retrieve(c,project))
+          #c.tickets.create(:project_id => project.id, :priority_id => Priority.retrieve(c,project))
       end
   end
 
