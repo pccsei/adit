@@ -202,13 +202,11 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   # Deletes the Member, not the user.
-  def destroy
-    member = Member.find_by user_id: @user.id
-    member.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
-    end
+  def change_is_enabled
+    member = Member.find_by user_id: params[:id]
+    member.is_enabled ? member.is_enabled = false : member.is_enabled = true
+    member.save!
+    redirect_to users_path
   end
   
   def delete_incorrect
