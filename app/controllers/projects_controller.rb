@@ -33,12 +33,10 @@ class ProjectsController < ApplicationController
     else 
       @project.max_clients = 0
     end
-    @project.is_active = 1
-    @project.project_type_id = 1
 
       if @project.save
-         Ticket.createTickets(@project)
          set_selected_project(@project)
+         Ticket.createTickets(@project)
          redirect_to users_path, notice: 'Project was successfully created.'
       else
          render action: 'new' 
