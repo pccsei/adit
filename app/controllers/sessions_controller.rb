@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
        if user.role == 3
           redirect_back_or '/projects'
        else
-         redirect_back_or '/tickets'
+          redirect_back_or '/tickets'
        end
      else
        flash.now[:error] = 'Invalid school id or password'

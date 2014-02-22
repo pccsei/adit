@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :only_teachers
-
+  before_action :only_teachers, except: [:unauthorized]
 
   # GET /users
   # GET /users.json
@@ -11,7 +10,10 @@ class UsersController < ApplicationController
     
     @selected_section = get_selected_section
     @select_students = User.get_student_info(get_selected_project, get_selected_section)
-     
+    
+    # Get array of all the incorrectly entered students
+    @incorrect_students = User.incorrect_students
+    
     # Get array of all sections
     @sections = get_array_of_all_sections(get_selected_project)
 
@@ -27,6 +29,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def unauthorized    
+  end
+  
   # GET /users/1
   # GET /users/1.json
   def show
@@ -58,6 +63,18 @@ class UsersController < ApplicationController
   end
   
   def create_new_section
+    @teacher = User.all_teachers.first
+    members = Member.all
+    @selection = Array[] 
+    @good_selection = Array[1,2,3,4,5,6,7,8,9,10]
+    for i in 1..10 
+      members.each do |member| 
+        if (i == member.section_number && member.project_id == session[:selected_project_id] && !@selection.include?(i)) 
+          @selection.push(i) 
+        end
+      end 
+    end 
+    @good_selection = @good_selection - @selection 
   end
 
   def assign_teacher_to_section
@@ -99,12 +116,11 @@ class UsersController < ApplicationController
 
   def input_students_parse
     user_params = params['input']
-   
-    User.parse_students(user_params, get_selected_section, session[:selected_project_id]) 
+
+    User.parse_students(user_params, get_selected_section, session[:selected_project_id])
+
     redirect_to users_url
   end
-  
-  
   
   def change_student_status
     students           = params[:students]
@@ -116,16 +132,13 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
-  def create_new_section
-    @teacher = User.all_teachers.first
-  end
-  
   # POST /users
   # POST /users.json
   def create
     @user = User.new(user_params)
 
     @user.role = 1
+    @user.help = true
 
     all_student_ids = [] 
     User.all.each do |user|  
@@ -147,10 +160,17 @@ class UsersController < ApplicationController
       redirect_to @user_same
     
     else
+      
       respond_to do |format|
         if @user.save
+          @member = Member.new
+          @member.user_id = @user.id
+          @member.project_id = session[:selected_project_id]
+          @member.section_number = get_selected_section
+          @member.is_enabled = true
+          @member.save
           format.html { redirect_to @user, notice: 'User was successfully created.' }
-          format.json { render action: 'show', status: :created, location: @user }
+          format.json { render action: 'index', status: :created, location: @user }
         else
           format.html { render action: 'new' }
           format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -164,6 +184,12 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
+          @member = Member.new
+          @member.user_id = @user.id
+          @member.project_id = session[:selected_project_id]
+          @member.section_number = get_selected_section
+          @member.is_enabled = true
+          @member.save
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -179,6 +205,15 @@ class UsersController < ApplicationController
   def destroy
     member = Member.find_by user_id: @user.id
     member.destroy
+    respond_to do |format|
+      format.html { redirect_to users_url }
+      format.json { head :no_content }
+    end
+  end
+  
+  def delete_incorrect
+    user = User.find(params[:id])
+    user.destroy
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }

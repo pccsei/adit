@@ -8,6 +8,7 @@ WhiteCollar::Application.routes.draw do
   get  "users/student_rep"
   post "users/input_students_parse"
   get  "users/settings"
+  delete "users/delete_incorrect"
   get  "projects/next_step"
   post "projects/change_project"
   post "/users/change_student_status"
@@ -25,6 +26,8 @@ WhiteCollar::Application.routes.draw do
   get "reports/sales"
   get "reports/team_summary"
   get "clients/assign"
+  get "clients/approve"
+  get "users/unauthorized"
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets

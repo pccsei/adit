@@ -4,19 +4,19 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @pending_clients = Client.pending
-
-    @edited_pending_clients = Client.edited_pending
-        
+     
     #@clients = Client.house
     
-    @clients = Client.for_selected_project(get_selected_project.id)
-    
-    
-    
+    @clients = Client.for_selected_project(get_selected_project.id)   
     
     @projects = Project.all
 
+  end
+  
+  def approve
+    @pending_clients = Client.pending
+    @edited_pending_clients = Client.edited_pending
+    @unapproved = Client.unapprove
   end
 
   # GET /clients/1

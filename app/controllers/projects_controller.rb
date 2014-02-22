@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
       @project.max_clients = 0
     end
     @project.is_active = 1
-
+    @project.project_type_id = 1
 
       if @project.save
          Ticket.createTickets(@project)
