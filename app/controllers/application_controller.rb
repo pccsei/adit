@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
    # Restricts access to only teachers and student managers
    def only_leadership
      if current_user.role == STUDENT_REP 
-       redirect_to signin_path # What should we redirect to?
+       redirect_to users_unauthorized_path# What should we redirect to?
      end
    end
    
