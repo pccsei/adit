@@ -2,9 +2,6 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
-#
-#  cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#  Mayor.create(name: 'Emanuel', city: cities.first)
 
 statuses = Status.create([{status_type: 'Not Appoved'}, {status_type: 'Approved'}, {status_type: 'In House'}, {status_type: 'Pending'}, {status_type: 'Edited'}])
 
