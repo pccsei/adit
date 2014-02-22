@@ -1,12 +1,23 @@
+<% provide(:title, "Create Section") %>
+
+<h1>Create A New Section</h1>
+<br /><br /><br />
+
+
 <%= form_tag('/users/assign_teacher_to_section') do %>
 
-<%=label_tag "Please select section number:" %>
-<%=select_tag :section, options_for_select(%w[1 2 3 4 5]) %>
+<!-- Gets rid of the section number if it has already been taken -->
+<% select = Array[]%>
+<% @good_selection.each do |selection| %>
+	<% select.push(selection) %>
+<% end %>
 
+<%=label_tag "Please select the section number:" %>
+<%=select_tag :section, options_for_select(select) %>
 
 <br><br>
 <%=label_tag "Please select the teacher:" %>
-<%= collection_select  :last_name, :id, User.all_teachers, :id, :last_name  %>
+<%= collection_select  :school_id, :id, User.all_teachers, :id, :school_id  %>
 
 <br><br>
 

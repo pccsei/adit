@@ -1,6 +1,7 @@
 class Client < ActiveRecord::Base
   has_many :tickets
   belongs_to :status
+  has_many :receipts, through: :tickets
 
 # Add back validation for address and city and telephone
 # Validates the business name
@@ -14,7 +15,7 @@ class Client < ActiveRecord::Base
  
 # Validates the zipcode
   validates :zipcode, allow_blank: true, length:{
-    minimum: 5, maximum: 5,
+    minimum: 4, maximum: 5,
     message: 'is the wrong length.  Needs to be only five digits long.'
   }, numericality: { greater_than: 0 }
    
@@ -26,7 +27,7 @@ class Client < ActiveRecord::Base
    
 # Validates the contact first and last name
   validates :contact_fname, :contact_lname, allow_blank: true, format: {
-    with: /\A[A-Za-z ()'\/&-\.]+\Z/,
+    with: /\A[A-Za-z ?()'\/&-\.]+\Z/,
     message: 'must only have letters (no digits).'
   }
    
@@ -38,7 +39,7 @@ class Client < ActiveRecord::Base
 
    # Returns all pending clients, needs to be refactored to remove magic number
   def self.pending
-    where(status_id: 4).all
+    where(status_id: Status.where(status_type: "Pending")).all
   end
 
   def self.edited_pending
@@ -46,11 +47,11 @@ class Client < ActiveRecord::Base
   end
    
   def self.unapprove
-    where(status_id: 1).all
+    where(status_id: Status.where(status_type: "Unapproved")).all
   end
    
   def self.house
-    where(status_id: [3,2]).all
+    where(status_id: Status.where(status_type: ["In House", "Approved"])).all
   end
    
   def Client.approve_clients(status, array_of_pending_clients)
@@ -61,6 +62,47 @@ class Client < ActiveRecord::Base
     end
   end
 
+  def self.for_selected_project(pid)
+    basic_client_info = Client.house
+    
+    Struct.new("Client_detail", :id,    :business_name, :contact_fname, :telephone, :website, :student_lname, :zipcode, :email, :city, 
+                                :state, :contact_lname, :contact_title, :ticket_id, :address, :student_fname, :student_id, :comment)
+    client_info = []  
+    basic_client_info.each_with_index do |c, i|
+      client_info[i] = Struct::Client_detail.new
+      client_info[i].id = c.id
+      client_info[i].business_name = c.business_name
+      client_info[i].contact_fname = c.contact_fname
+      client_info[i].email = c.email
+      client_info[i].telephone = c.telephone
+      client_info[i].website = c.website
+      client_info[i].zipcode = c.zipcode
+      client_info[i].state = c.state
+      client_info[i].contact_lname = c.contact_lname
+      client_info[i].contact_title = c.contact_title
+      client_info[i].city = c.city
+      client_info[i].comment = c.comment
+      
+      client_ticket = Ticket.where(client_id: c.id, project_id: pid).first
+      
+      if client_ticket && client_ticket.user_id != 0
+        user = User.find(client_ticket.user_id)
+        
+        client_info[i].ticket_id     = client_ticket.id
+        client_info[i].student_fname = user.first_name
+        client_info[i].student_lname = user.last_name
+        client_info[i].student_id    = user.school_id
+      else 
+        client_info[i].ticket_id     = nil
+        client_info[i].student_fname = nil
+        client_info[i].student_lname = nil
+        client_info[i].student_id    = nil        
+      end
+      
+    end
+    client_info
+  end 
+    
   def Client.make_pending_edited_client(edited_client, client, client_params)
     if edited_client.attributes == Client.find(client).attributes
       redirect_to "/receipts/my_receipts/#{current_user.id}", notice: 'No change has been made to the client.'
