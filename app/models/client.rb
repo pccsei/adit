@@ -46,7 +46,7 @@ class Client < ActiveRecord::Base
     where(status_id: 5).all
   end
    
-  def self.unapprove
+  def self.unapproved
     where(status_id: Status.where(status_type: "Unapproved")).all
   end
    
@@ -54,13 +54,24 @@ class Client < ActiveRecord::Base
     where(status_id: Status.where(status_type: ["In House", "Approved"])).all
   end
    
-  def Client.approve_clients(status, array_of_pending_clients)
+  def self.approve_clients(array_of_pending_clients)
     for i in 0..array_of_pending_clients.count-1
       pending_client = Client.find(array_of_pending_clients[i].to_i)
-      pending_client.status_id = status
+      pending_client.status_id = Status.where("status_type = ?", "Approved").first.id
       pending_client.save
+      ticket = Ticket.where("client_id = ?", pending_client.id).first
+      Receipt.create(:ticket_id => ticket.id, :user_id => ticket.user_id)
     end
   end
+  
+    def self.unapprove_clients(array_of_pending_clients)
+     for i in 0..array_of_pending_clients.count-1
+      pending_client = Client.find(array_of_pending_clients[i].to_i)
+      pending_client.status_id = Status.where("status_type = ?", "Unapproved").first.id
+      pending_client.save
+      Ticket.where("client_id = ?", pending_client.id).first.destroy
+     end
+    end
 
   def self.for_selected_project(pid)
     basic_client_info = Client.house

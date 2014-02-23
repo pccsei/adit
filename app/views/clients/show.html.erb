@@ -11,15 +11,23 @@
 </p>
 
 <p>
-  <strong>Email:</strong>
-  <%= @client.email %>
+  <strong>City:</strong>
+  <%= @client.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @client.state %>
+</p>
+
+<p>
+  <strong>Zipcode:</strong>
+  <%= @client.zipcode%>
 </p>
 
 <p>
   <strong>Contact name:</strong>
-  <%= @client.contact_title %>
-  <%= @client.contact_fname %>
-  <%= @client.contact_lname %>
+  <%= @client.contact_title + " " + @client.contact_fname + " " + @client.contact_lname %>
 </p>
 
 <p>
@@ -32,6 +40,12 @@
   <%= @client.comment %>
 </p>
 
+<p>
+  <strong>Owner:</strong>
+  <%= @client.submitter %>
+</p>
 
-<%= link_to 'Edit', edit_client_path(@client) %> |
+<% if current_user.role == 3%>
+<%= link_to 'Edit', edit_client_path(@client) %>
+<% end %>
 <%= link_to 'Back', clients_path %>
