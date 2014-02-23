@@ -1,5 +1,3 @@
-<h1>Pending Clients</h1>
-
 <table class="display">
   <thead>
     <tr>
@@ -8,14 +6,14 @@
       <% end %>
       <th>Business name</th>
       <th>Address</th>
-      <th>Email</th>
       <th>Title</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Telephone</th>
       <th>Comment</th>
-    </tr>
-    
+      <th>Owner</th>
+      <th></th>
+    </tr>    
   </thead>
 
 <tbody>
@@ -23,18 +21,16 @@
 	<tr>
 		<% if current_user.role == 3 %>
 		   <td><%= check_box_tag "clients[]", client.id %></td>
-		<% else %>
-		   <td><% client.id %></td>
 		<% end %>
 		<td><%= client.business_name %></td>
         <td><%= client.address %></td>
-        <td><%= client.email %></td>
         <td><%= client.contact_title %></td>
         <td><%= client.contact_fname %></td>
         <td><%= client.contact_lname %></td>
         <td><%= client.telephone %></td>
         <td><%= client.comment %></td>
-      </tr>
+        <td><%= client.submitter %></td>
+        <td><%= link_to 'Details', client %></td>
 	</tr>
 	<% end %>
 	</tbody>

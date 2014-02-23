@@ -22,10 +22,8 @@ class Ticket < ActiveRecord::Base
   def self.createTickets(project)
     clients = Client.house
     clients.each do |c|
-        # Will be used once we have priorities to work from
-          #c.ticket.create(:project_id => project.id, :priority_id => Priority.retrieve(c))
-          #c.tickets.create(:project_id => project.id, :priority_id => Priority.retrieve(c,project))
-      end
+       c.tickets.create(:project_id => project.id, :priority_id => (Priority.retrieve(c,project)))
+    end
   end
 
 end

@@ -38,14 +38,18 @@ class ClientsController < ApplicationController
 
 
   def approve_client
-    status = params['commit'] == "Approve" ? 2 : 1
+    status = params['commit']
     array_of_pending_clients = params['clients']
 
-    # if !array_of_edited_pending_clients.nil?
-       Client.approve_clients(status, array_of_pending_clients)
-    # end
+    if array_of_pending_clients.present?
+      if status == "Approve"
+        Client.approve_clients(array_of_pending_clients)
+      else 
+        Client.unapprove_clients(array_of_pending_clients)
+      end
+    end
 
-    redirect_to clients_url
+    redirect_to clients_approve_url
   end
 
   def approve_client_edit
@@ -82,19 +86,22 @@ class ClientsController < ApplicationController
   # POST /clients.json
   def create
     
-    if !params[:ping].nil?
-      return 0
-    end
-    
     @client = Client.new(client_params)
     @client.status_id = (Status.find_by(status_type: 'Pending')).id
-    @client.submitter = current_user.school_id
+    @client.submitter = current_user.first_name + " " + current_user.last_name
     
     # This line should eventually place the clients on the pending clients list instead of straight into the db
     # @client.status_id = Status.where("status_type = ?", "Pending").pluck(:id) 
 
     respond_to do |format|
       if @client.save
+        if current_user.role == 3
+          user = nil
+        else
+          user = current_user.id
+        end
+        Ticket.create(:user_id => user, :client_id => @client.id, 
+                      :project_id => get_current_project.id, :priority_id => Priority.where("name = ?", "low").first.id)
         format.html { redirect_to clients_submit_path, notice: 'Client was successfully submitted.' }
         format.json { render action: 'show', status: :created, location: @client }
       else
@@ -139,9 +146,9 @@ class ClientsController < ApplicationController
   
   # For submitting a new client from the student
   def submit
-    @pending_clients = Client.pending
-    
-    @unapprove_clients = Client.unapprove
+    @client = Client.new
+    @pending_clients = Client.pending    
+    @unapproved_clients = Client.unapproved
   end
 
   private

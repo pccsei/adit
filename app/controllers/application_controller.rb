@@ -20,8 +20,21 @@ class ApplicationController < ActionController::Base
   
   # This method will most likely be deleted soon, use selected methods below instead                          
   def get_current_project
-    project = Project.find_by is_active: '1'
+    project = Project.find_by is_active: true
     return project
+  end
+
+  # 1 = active students only, 2 = inactive students only, 3 = all students
+  def set_students_to_show(choice)
+    session[:students_to_show] = choice
+  end
+
+  def get_students_to_show
+    if session[:students_to_show]
+      session[:students_to_show]
+    else
+      1
+    end
   end
 
   def set_selected_project(project)
