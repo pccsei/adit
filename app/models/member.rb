@@ -18,14 +18,14 @@ class Member < ActiveRecord::Base
       teachers = User.all_teacher_ids
       if choice == 1
         if section == "all"
-          self.where("project_id = ? AND user_id NOT IN (?) AND is_enabled", project.id, teachers, 1)
+          self.where("project_id = ? AND user_id NOT IN (?) AND is_enabled = ?", project.id, teachers, 1)
         else
           self.where("project_id = ? AND section_number = ? AND user_id NOT IN (?) AND is_enabled = ?", 
           project.id, section, teachers, 1)
         end
       elsif choice == 2
         if section == "all"
-          self.where("project_id = ? AND user_id NOT IN (?) AND is_enabled", project.id, teachers, 0)
+          self.where("project_id = ? AND user_id NOT IN (?) AND is_enabled = ?", project.id, teachers, 0)
         else
           self.where("project_id = ? AND section_number = ? AND user_id NOT IN (?) AND is_enabled = ?", 
           project.id, section, teachers, 0)
@@ -57,8 +57,44 @@ class Member < ActiveRecord::Base
      end
    end 
 
-  def change_student_status(member)
+  # Flip the student's status. Currectly this is only done by pressing the activate/inactivate button on the manage section page.
+  def self.change_student_status(member)
     member.is_enabled ? member.is_enabled = false : member.is_enabled = true
     member.save!
+  end
+
+  # Set is_enabled to true
+  def self.inactivate_student_status(member)
+    member.is_enabled = false
+    member.save!
+  end
+
+  # Set is_enabled to false
+  def self.activate_student_status(member)
+    member.is_enabled = true
+    member.save!
+  end
+
+  # Unassign team leader and have all his team members nil
+  def self.destroy_team(team_leader, inactivate_team_leader = false)
+    # Accept either the user team leader or member team leader
+    if team_leader.instance_of?(User)
+      team_leader.role = 1
+      team_leader.save
+      team_leader = Member.find_by(user_id: team_leader)
+    else 
+      u_team_leader = User.find(team_leader.user_id).role = 1
+      u_team_leader.save
+    end
+
+    if team_members = Member.where(parent_id: team_leader.user_id)
+      team_members.all.each do |m|
+        m.parent_id = nil
+        m.save
+      end
+    end
+    if inactivate_team_leader
+      inactivate_student_status(team_leader)
+    end
   end
 end

@@ -163,7 +163,7 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
     if choice == "Promote Student"
       for i in 0..students.count-1
         user = User.find(students[i])
-        member = Member.where("user_id = ?", students[i]).last
+        member = Member.find(user_id: students[i])
         user.role = 2
         member.parent_id = user.id
         member.save       
@@ -173,66 +173,46 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
 
     if choice == "Demote Student"
       for i in 0..students.count-1
-        user = User.find(students[i])
-        current_member = Member.where("user_id = ?", students[i]).last
-        user.role = 1
-        members = Member.where("project_id = ?", selected_project.id)
-         members.each do |m|
-          if current_member.parent_id == m.parent_id
-            m.parent_id = nil
-            m.save
-          end
-        end 
-        user.save
+        team_leader = User.find(students[i])
+        Member.destroy_team(team_leader)
       end
     end
   
   
-    if choice == "Delete Student"
+    if choice == "Inactivate Students"
       for i in 0..students.count-1
-        user = User.find(students[i])
-        current_member = Member.where("user_id = ?", students[i]).last
-        if user.role == 2
-          members = Member.where("project_id = ?", selected_project.id)
-          members.each do |m|
-            if current_member.parent_id == m.parent_id
-              m.parent_id = nil
-              m.save
-            end
-          end 
-        end
-        Member.change_student_status()
+        # Destory team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
+        member = Member.find_by(user_id: students[i])
+        member.parent_id = nil
+        User.find(students[i]).role == 2 ? Member.destroy_team(User.find(students[i]), true) : nil
+        Member.inactivate_student_status(member)
       end
     end
   
+    if choice == "Activate Students"
+      for i in 0..students.count-1
+        member = Member.find_by(user_id: students[i])
+        Member.activate_student_status(member)
+      end
+    end
   
     if choice == "Create Team"
       for i in 0..students.count-1
-        user = User.find(students[i])
-        member = Member.where("user_id = ?", students[i]).last
-        member.parent_id = student_manager.id
-        member.save
+        member = Member.find_by(user_id: students[i])
+        if Member.find_by(parent_id: student_manager).section_number == member.section_number
+          User.find(students[i]).role == 2 ? Member.destroy_team(User.find(students[i])) : nil        
+          member.parent_id = student_manager.id
+          member.save
+        end
       end
     end
   end
-
-
-  # This is the only function that is not currently working for the drop down box.
-  # This will need to reference the section drop-down box
-  # obviously no students students need to be selected here 
-=begin 
-  if choice == "Delete_Everybody"
-    User.all.each do |f|
-      f.destroy
-      f.save
-    end
-  end
-=end
 end
 
 
-
-
+def full_name
+   "#{first_name} #{last_name} #{school_id}"
+end
 
 # Creates a new Teacher member with the section number. This is all that is done to create a new section 
 def User.create_new_section(teacher_id, section_number, project_id)
