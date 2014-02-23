@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
-  
+  before_action :must_have_project
+
   def sales
    @sections = get_array_of_all_sections(get_selected_project)
 
@@ -104,6 +105,7 @@ class ReportsController < ApplicationController
        # for i in array_of_team_ids
        #   array_of_team_ids[i]
        # end
+       if array_of_manager_ids.present?
        for i in array_of_manager_ids
           @team_data[index] = Struct::Team.new
           @team_data[index].student_manager = User.get_manager_name(i, get_selected_project)
@@ -127,6 +129,7 @@ class ReportsController < ApplicationController
             @team_totals.total_points +=   @team_data[index].points
 
           index = index + 1
+       end
        end
   end
 

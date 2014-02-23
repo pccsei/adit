@@ -6,7 +6,7 @@
 <% else %>
     There are currently no pending clients.
 <% end %>
-
+<br><br><br>
 <% if !(@unapprove_clients.empty?)%>
 	<%= render :partial => "unapprove", :locals => { :unapprove_clients => @unapprove_clients} %>
 <% else %>

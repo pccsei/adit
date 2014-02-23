@@ -24,7 +24,7 @@
 		<% if current_user.role == 3 %>
 		   <td><%= check_box_tag "clients[]", client.id %></td>
 		<% else %>
-		   <td><% client.id %>
+		   <td><% client.id %></td>
 		<% end %>
 		<td><%= client.business_name %></td>
         <td><%= client.address %></td>

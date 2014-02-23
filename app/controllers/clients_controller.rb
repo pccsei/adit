@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :must_have_project
 
   # GET /clients
   # GET /clients.json
@@ -16,7 +17,7 @@ class ClientsController < ApplicationController
   def approve
     @pending_clients = Client.pending
     @edited_pending_clients = Client.edited_pending
-    @unapproved = Client.unapprove
+    @unapprove_clients = Client.unapprove
   end
 
   # GET /clients/1

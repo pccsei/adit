@@ -17,7 +17,7 @@
   </thead>
 
 <tbody>
-	<% unapproved.each do |client|%>
+	<% unapprove_clients.each do |client|%>
 	<tr>
  	    <td></td>
 		<td><%= client.business_name %></td>
@@ -29,7 +29,6 @@
         <td><%= client.telephone %></td>
         <td><%= client.comment %></td>
       </tr>
-	</tr>
 	<% end %>
 	</tbody>
 	</table>

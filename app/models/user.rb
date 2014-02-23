@@ -70,6 +70,8 @@ def User.new_remember_token
 end
 
 def User.get_array_of_manager_ids_from_project_and_section(project, section)
+  members = Member.all
+  if !members.empty?
    array_of_manager_ids = Array.new(Member.pluck(:parent_id).uniq!)
    array_of_manager_ids.delete(nil)
    array_of_manager_ids.delete_if{|id| Member.find_by(user_id: id).project_id != project.id}
@@ -77,6 +79,7 @@ def User.get_array_of_manager_ids_from_project_and_section(project, section)
      array_of_manager_ids.delete_if{|id| Member.find_by(user_id: id).section_number != section.to_i}
    end
    array_of_manager_ids
+  end
 end
 
 def User.parse_students(user_params, section_number, project_id)
