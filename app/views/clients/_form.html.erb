@@ -44,13 +44,12 @@
     <%= f.text_field :contact_lname %>
   </div>
   <div class="field">
-    <%= f.label :telephone %>
-    <%= f.label ', add area code if different than 850 and ext if needed.' %><br>
-    <%= f.text_field :telephone, :placeholder => "(850) 123-4567 ext.###" %>
+    <%= f.label :telephone, "Telephone (Area code 850 is default)" %>
+    <%= f.text_field :telephone, :placeholder => "(850) 123-4567 Ext.####" %>
   </div>
   <div class="field">
     <%= f.label :comment %><br>
-    <%= f.text_area :comment %>
+    <%= f.text_area :comment, :placeholder => "This field is optional. Only leave comments if absolutely necessary." %>
   </div>
 
   <% if current_user.role == 3 %>

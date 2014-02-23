@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   
   # This method will most likely be deleted soon, use selected methods below instead                          
   def get_current_project
-    project = Project.find_by is_active: '1'
+    project = Project.find_by is_active: true
     return project
   end
 
