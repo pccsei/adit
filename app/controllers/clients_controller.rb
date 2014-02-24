@@ -17,7 +17,7 @@ class ClientsController < ApplicationController
   def approve
     @pending_clients = Client.pending
     @edited_pending_clients = Client.edited_pending
-    @unapprove_clients = Client.unapprove
+    @unapproved_clients = Client.unapproved
   end
 
   # GET /clients/1
