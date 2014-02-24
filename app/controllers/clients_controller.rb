@@ -65,7 +65,7 @@ class ClientsController < ApplicationController
       Client.approve_edited_clients(status, array_of_edited_pending_clients)   
     end
     
-    redirect_to clients_url
+    redirect_to clients_approve_url
   end
 
 

@@ -1,7 +1,7 @@
 <%= form_for [@receipt, @action], as: :foo do |f| %>
   <% if @action.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@action.errors.count, "error") %> prohibited this action from being saved:</h2>
+      <h2><%= pluralize(@action.errors.count, 'error') %> prohibited this action from being saved:</h2>
 
       <ul>
       <% @action.errors.full_messages.each do |msg| %>
@@ -11,10 +11,6 @@
     </div>
   <% end %>
 
-<% if @action.action_type.name != "Comment"%>
-   <div>
-	 <p>How did it go?</p>
-   </div>
 <script>
 $(document).ready(function(){
 $(".hidden").hide();
@@ -24,79 +20,67 @@ $(".hidden").hide();
   	$("#presentation").click(function () {
     if ($("#presentation").is(':checked')) 
     {
-      $("#checkers2").removeClass("hidden");
-      $("#checkers2").show();
+      $("#checkers2").removeClass("hidden").show();
     } 
     else 
     {
-      $("#checkers2").addClass("hidden");
-      $("#checkers2").hide();
+      $("#checkers2").addClass("hidden").hide();
       $("#saleMade").hide();
       $("#sale").attr('checked', false);
     }
-    })
+    });
     
     $("#sale").click(function () {
     if ($("#sale").is(':checked')) 
-    {
-      $("#saleMade").removeClass("hidden");
-      $("#saleMade").show();
-    } 
+        {
+            $("#saleMade").removeClass("hidden").show();
+        }
     else 
     {
-      $("#saleMade").addClass("hidden");
-      $("#saleMade").hide();
+      $("#saleMade").addClass("hidden").hide();
     }
     }) 
    });
  
-</script> 
+</script>
 
-      <% if @action.action_type.name == "First Contact"%>
-         <div id = "firstCheck">
-      <% else %>
-         <div id = "firstCheck", class = "hidden">
-      <% end%>
-           <%= label_tag("presentation", "I made a presentation!" ) %>
-	       <%= check_box_tag(:presentation)%>
-         </div>
+    <% if @action.action_type.name != 'Comment'%>
+        <div>
+          <p>How did it go?</p>
+        </div>
+        <div id = "firstCheck" <%= 'class = hidden' unless @action.action_type.name == 'First Contact' %>>
+          <%= label_tag('presentation', 'I made a presentation!') %>
+          <%= check_box_tag(:presentation)%>
+        </div>
 
-        
-   <% if @action.action_type.name == "Presentation"%>
-      <div id = "checkers2">
-   <% else %>
-   	  <div id = "checkers2", class = "hidden">
-   <% end %>
-	    <%= label_tag("sale", "I made a sale!" ) %>
-	    <%= check_box_tag(:sale)%>
-     </div>
 
-   <% if @action.action_type.name == "Sale"%>
-      <div id = "saleMade">
-   <% else %>
-   	  <div id = "saleMade", class = "hidden">
-   <% end%>
-      	<%= label_tag("price", "Sale Amount $") %>
-      	<%= text_field_tag(:price) %>
-      	<%= label_tag("page", "Page Size") %>
-      	<%= text_field_tag(:page) %>
-      	<%= label_tag("payment_type", "Payment Type") %>
-      	<%= select_tag("payment_type", options_for_select(["Cash", "Credit", "Invoice", "Check"]))%>
-      </div>
-   <div>
-  	 <%= f.label :user_action_time, "When did you do this?" %>
-  	 <%= f.datetime_select :user_action_time %>
-   </div>
-<% end %>
-  <div>
-  	<%= f.label :comment %>
-  	<%= f.text_area :comment %>
-  </div>
+        <div id = "checkers2" <%= 'class = hidden' unless @action.action_type.name == 'Presentation' %>>
+          <%= label_tag('sale', 'I made a sale!') %>
+          <%= check_box_tag(:sale)%>
+        </div>
+
+        <div id = "saleMade" <%= 'class = hidden' unless @action.action_type.name == ('New Sale' || 'Old Sale') %>>
+          <%= label_tag('price', 'Sale Amount $') %>
+          <%= text_field_tag(:price) %>
+          <%= label_tag('page', 'Page Size') %>
+          <%= text_field_tag(:page) %>
+          <%= label_tag('payment_type', 'Payment Type') %>
+          <%= select_tag('payment_type', options_for_select(%w(Cash Credit Invoice Check)))%>
+        </div>
+        <div>
+          <%= f.label :user_action_time, 'When did you do this?' %>
+          <%= f.datetime_select :user_action_time %>
+        </div>
+    <% end %>
+    <div>
+      <%= f.label :comment %>
+      <%= f.text_area :comment %>
+    </div>
     <%= f.hidden_field :receipt_id, :value => @action.receipt_id %>
     <%= f.hidden_field :action_type_id, :value => @action.action_type_id %>
-  <div>
-    <%= f.submit %>
-  </div>
+    <div>
+      <%= f.submit %>
+    </div>
 <% end %>
 
 <!-- This adds client-side validation -->
@@ -104,11 +88,11 @@ $(".hidden").hide();
 	$(document).ready(function () {
 		$("#new_action").validate({
 			rules: {
-				"action[price]": {digits: true, min: 1},
-				"action[user_action_time]": {date: true, less_than: Time.now},
+				"action[price]": {digits: true, min: 1}
+				//"action[user_action_time]": {date: true, less_than: Time.now}
 			},
 			messages: {
-				"action[price]": "Please enter a valid price",
+				"action[price]": "Please enter a valid price"
 			}
 		});
 	});

@@ -1,22 +1,21 @@
 <h1>Listing actions</h1>
-
 <table>
   <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @actions.each do |action| %>
+  <% @actions.each do |action| %>
       <tr>
         <td><%= link_to 'Show', action %></td>
         <td><%= link_to 'Edit', edit_action_path(action) %></td>
         <td><%= link_to 'Destroy', action, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 
