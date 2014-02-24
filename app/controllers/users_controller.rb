@@ -90,10 +90,7 @@ class UsersController < ApplicationController
   end
   
   # Need to get the .help set to 0....it's not right now
-  def need_help
-    @help_page = params[page]
-    @current_user.help = false
-    @current_user.save    
+  def need_help  
   end
 
   # GET /users/new

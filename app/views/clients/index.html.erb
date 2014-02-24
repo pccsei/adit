@@ -23,7 +23,8 @@ $(function{
 <% if current_user.help == true %>
 	<h1>Confused?</h1>
 
-	<%= button_to "Yes I need Help!", :controller => :users, action: "need_help"%>
+	<%= link_to "Manage Section!", users_need_help_path(:anchor => "manage_section") %>
+	<%= link_to "Manage Clients!", users_need_help_path(:anchor => "manage_clients") %>
 
 <% end %>
 <!-- Buttons wont appear if they were not loaded when the page was first loaded because they were not created. -->

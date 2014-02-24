@@ -166,7 +166,7 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
     if choice == "Promote Student"
       for i in 0..students.count-1
         user = User.find(students[i])
-        member = Member.find(user_id: students[i])
+        member = Member.find_by(user_id: students[i])
         user.role = 2
         member.parent_id = user.id
         member.save       

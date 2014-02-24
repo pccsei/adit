@@ -97,7 +97,7 @@ class Client < ActiveRecord::Base
       client_ticket = Ticket.where(client_id: c.id, project_id: pid).first
       
       if client_ticket && client_ticket.user_id != 0
-        user = User.find(client_ticket.user_id)
+        user = User.find_by(client_ticket.user_id)
         
         client_info[i].ticket_id     = client_ticket.id
         client_info[i].student_fname = user.first_name
