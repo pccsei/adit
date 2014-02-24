@@ -1,6 +1,6 @@
-<% provide(:title, "Assign Clients") %>
+<% provide(:title, 'Assign Clients') %>
 <!--Heading-->
-<h1 class = "col-md-3", id = "heading">Assign Clients</h1>
+<h1 class = "col-md-3" id = "heading">Assign Clients</h1>
 <script>
 
 $(function{
@@ -15,31 +15,32 @@ $(function{
 });
 </script>
 
+
 <!-- Buttons wont appear if they were not loaded when the page was first loaded because they were not created. -->
 
 
 <table class="display">
   <thead>
-    <tr>
-      <th>Business name</th>
-      <th>Address</th>
-      <th>Email</th>
-      <th>Contact title</th>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Telephone</th>
-      <th>Comment</th>
-      <% if get_selected_project.is_active == true %>
+  <tr>
+    <th>Business name</th>
+    <th>Address</th>
+    <th>Email</th>
+    <th>Contact title</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Telephone</th>
+    <th>Comment</th>
+    <% if get_selected_project.is_active == true %>
         <th></th>
-      <% end %>
-      <th>details</th>
-    </tr>    
+    <% end %>
+    <th>details</th>
+  </tr>
   </thead>
 
   <tbody>
-	<% @clients.each do |client| %>
-	  <tr>    
-      	<td><%= client.business_name %></td>
+  <% @clients.each do |client| %>
+      <tr>
+        <td><%= client.business_name %></td>
         <td><%= client.address %></td>
         <td><%= client.email %></td>
         <td><%= client.contact_title %></td>
@@ -48,17 +49,17 @@ $(function{
         <td><%= client.telephone %></td>
         <td><%= client.comment %></td>
         <% if get_selected_project.is_active == true %>
-	      <td>
-	        <% if client.ticket_id %>	          
-	          <%= (client.student_fname + " " +  client.student_lname + "<br />(" + client.student_id + ")").html_safe %>
-	        <% else %>
-	          <%= link_to 'assign', clients_assign_path(:id => client.id), {:id => client.id, :class => "btn btn-info btn-sm"} %>
-	        <% end %>
-          </td>
+            <td>
+              <% if client.ticket_id %>
+                  <%= (client.student_fname + ' ' +  client.student_lname + '<br />(' + client.student_id + ')').html_safe %>
+              <% else %>
+                  <%= link_to 'assign', clients_assign_path(:id => client.id), {:id => client.id, :class => 'btn btn-info btn-sm'} %>
+              <% end %>
+            </td>
         <% end %>
-        <td><%= link_to 'details', clients_assign_path(:cid => client.id, :tid => client.ticket_id), {:id => client.id, :class => "btn btn-info btn-sm"} %></td>
+        <td><%= link_to 'details', clients_assign_path(:cid => client.id, :tid => client.ticket_id), {:id => client.id, :class => 'btn btn-info btn-sm'} %></td>
       </tr>
-     <% end %>   
+  <% end %>
   </tbody>
 </table>
 <br/><br/><br/><br/>

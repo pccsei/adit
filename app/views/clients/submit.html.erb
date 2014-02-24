@@ -1,4 +1,4 @@
-<h1 class = "col-md-3", id = "heading">Submit New Client</h1>
+<h1 class = "col-md-3" id = "heading">Submit New Client</h1>
 <br /><br /><br /><br />
 
 <div>
@@ -8,7 +8,7 @@
 <br />
 <h3>Clients Waiting for Approval</h3>
 <% if @pending_clients.present?%>
-	<%= render :partial => "pending", :locals => { :pending_clients => @pending_clients} %>
+	<%= render :partial => 'pending', :locals => { :pending_clients => @pending_clients} %>
 <% else %>
     There are currently no pending clients.
 <% end %>
