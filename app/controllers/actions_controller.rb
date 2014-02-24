@@ -22,7 +22,8 @@ class ActionsController < ApplicationController
     @action = Action.new(:receipt_id => params[:receipt_id])
     @receipt = Receipt.find(@action.receipt_id)
     if params[:action_type_name] == "Comment"
-      @action.action_type_id = (ActionType.find_by(name: params[:action_type_name])).id    
+      @action.action_type_id = (ActionType.find_by(name: params[:action_type_name])).id
+      @action.points_earned = (ActionType.find_by(name: 'Comment')).point_value
     else
     if params[:action_type_name] != "Sale"
        @action.action_type_id = (ActionType.find_by(name: params[:action_type_name])).id
@@ -67,6 +68,7 @@ class ActionsController < ApplicationController
           new_action.action_type_id = (ActionType.find_by(name: 'Presentation')).id
           new_action.receipt_id = @action.receipt_id
           receipt.made_presentation = true
+          new_action.points_earned = (ActionType.find_by(name: 'Presentation')).point_value
           new_action.save
         end
         
@@ -76,8 +78,10 @@ class ActionsController < ApplicationController
           new_action = Action.new
           if priority == "high"
              new_action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
+             new_action.points_earned = (ActionType.find_by(name: 'Old Sale')).point_value
           else
              new_action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
+             new_action.points_earned = (ActionType.find_by(name: 'New Sale')).point_value
           end
           new_action.user_action_time = @action.user_action_time
           new_action.comment = @action.comment
