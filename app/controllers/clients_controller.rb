@@ -29,7 +29,7 @@ class ClientsController < ApplicationController
     if (params[:tid])
       @ticket = Ticket.find(params[:tid])    
     else
-      @ticket = Ticket.select("id, client_id").where(client_id: params[:id], project_id: get_selected_project.id).first
+      @ticket = Ticket.select('id, client_id').where(client_id: params[:id], project_id: get_selected_project.id).first
     end      
     @client = Client.find(params[:cid])
   end
@@ -41,7 +41,7 @@ class ClientsController < ApplicationController
     array_of_pending_clients = params['clients']
 
     if array_of_pending_clients.present?
-      if status == "Approve"
+      if status == 'Approve'
         Client.approve_clients(array_of_pending_clients)
       else 
         Client.unapprove_clients(array_of_pending_clients)
@@ -52,9 +52,9 @@ class ClientsController < ApplicationController
   end
 
   def approve_client_edit
-    status = 2 if params['commit'] == "Approve" 
-    status = 1 if params['commit'] == "Disapprove" 
-    status = 3 if params['commit'] == "Approve All" 
+    status = 2 if params['commit'] == 'Approve'
+    status = 1 if params['commit'] == 'Disapprove'
+    status = 3 if params['commit'] == 'Approve All'
 
     if status != 3
       array_of_edited_pending_clients = params['clients']
@@ -87,7 +87,7 @@ class ClientsController < ApplicationController
     
     @client = Client.new(client_params)
     @client.status_id = (Status.find_by(status_type: 'Pending')).id
-    @client.submitter = current_user.first_name + " " + current_user.last_name
+    @client.submitter = current_user.first_name + ' ' + current_user.last_name
     
     # This line should eventually place the clients on the pending clients list instead of straight into the db
     # @client.status_id = Status.where("status_type = ?", "Pending").pluck(:id) 
@@ -100,7 +100,7 @@ class ClientsController < ApplicationController
           user = current_user.id
         end
         Ticket.create(:user_id => user, :client_id => @client.id, 
-                      :project_id => get_current_project.id, :priority_id => Priority.where("name = ?", "low").first.id)
+                      :project_id => get_current_project.id, :priority_id => Priority.where('name = ?', 'low').first.id)
         format.html { redirect_to clients_submit_path, notice: 'Client was successfully submitted.' }
         format.json { render action: 'show', status: :created, location: @client }
       else
