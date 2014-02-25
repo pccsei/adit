@@ -55,6 +55,7 @@
         <%= f.submit %>
     <% elsif more_tickets_allowed %>
         <%= f.submit "Submit for teacher's approval"%>
+
     <% else %>
         <p>You already have the maximum allowable students.</p>
         <p>Please go to <%= link_to 'My Clients', "/receipts/my_receipts/#{current_user.id}" %>

@@ -94,14 +94,15 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       if @client.save
-        if current_user.role == 3
+       if current_user.role == 3
           user = nil
         else
           user = current_user.id
         end
         Ticket.create(:user_id => user, :client_id => @client.id, 
                       :project_id => get_current_project.id, :priority_id => Priority.where('name = ?', 'low').first.id)
-        format.html { redirect_to clients_submit_path, notice: 'Client was successfully submitted.' }
+        flash[:success] = 'Your client has been submitted for approval.'
+        format.html { redirect_to clients_submit_path }
         format.json { render action: 'show', status: :created, location: @client }
       else
         format.html { render action: 'new' }

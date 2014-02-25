@@ -4,7 +4,7 @@
 $ ->
   load_datatable = ->
     $('.display').dataTable
-       "iDisplayLength": 50
+       "iDisplayLength": 25
        "bJQueryUI": true
        "bDestroy": true
   
