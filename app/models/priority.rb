@@ -6,7 +6,8 @@ class Priority < ActiveRecord::Base
    
      value = (Priority.find_by name: "medium").id
      if (project.semester == "Spring")      
-        if (client.receipts.where("made_sale = ? AND ticket_id IN (?)", true, (client.tickets.where("project_id IN (?)", Project.where("year = ?", (project.year - 1)).ids)))).present?          
+        if (client.receipts.where("made_sale = ? AND ticket_id IN (?)", true,
+           (client.tickets.where("project_id IN (?)", Project.where("year = ?", (project.year - 1)).ids)))).present?
           value = (Priority.find_by name: "high").id    
         elsif (client.receipts.where("made_sale = ? AND ticket_id NOT IN (?)", true, (client.tickets.where("project_id IN (?)", Project.where("year < ?", (project.year - 3)).ids)))).present?
           value = (Priority.find_by name: "low").id
