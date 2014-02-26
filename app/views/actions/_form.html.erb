@@ -83,10 +83,15 @@ $(".hidden").hide();
       <%= f.text_area :comment, :placeholder => 'Do you have any details or notes for this entry?' %>
     </div>
     <br />
+    <% if @action.action_type.name != 'Comment' %>
     <div>
       <%= f.label :user_action_time, 'When did you do this?' %>
       <%= f.text_field :user_action_time, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
     </div>
+    <% else %>
+        <%= f.hidden_field :user_action_time, :value => Time.now %>
+    <% end %>
+
     <%= f.hidden_field :receipt_id, :value => @action.receipt_id %>
     <%= f.hidden_field :action_type_id, :value => @action.action_type_id %>
     <%= f.hidden_field :points_earned, :value => @action.points_earned %>

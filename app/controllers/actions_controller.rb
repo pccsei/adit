@@ -119,6 +119,16 @@ class ActionsController < ApplicationController
   # DELETE /actions/1
   # DELETE /actions/1.json
   def destroy
+    if @action.action_type.name == 'Presentation'
+      @action.receipt.made_presentation = false
+    elsif @action.action_type.name == 'First Contact'
+      @action.receipt.made_contact == false
+    elsif @action.action_type.name == ('New Sale' || 'Old Sale')
+      @action.receipt.made_sale == false
+      @action.receipt.sale_value = 0
+      @action.receipt.page_size = 0
+      @action.receipt.payment_type = nil
+    end
     @action.destroy
     respond_to do |format|
       format.html { redirect_to actions_url }
