@@ -90,23 +90,13 @@
 		
 		$("#new_project").validate({
 			rules: {
-				"project[year]": {required: true, min: 2014},
 				"project[tickets_open_time]": {required: true, date: true},
-				"project[tickets_close_time]": {required: true, date: true},
-				"project[max_clients]": {required: '#project_use_max_clients_1:checked', min: 0},
-				"project[max_high_priority_clients]": {required: '#project_use_max_clients_0:checked', min: 0},	
-				"project[max_medium_priority_clients]": {required: '#project_use_max_clients_0:checked', min: 0},	
-				"project[max_low_priority_clients]": {required: '#project_use_max_clients_0:checked', min: 0}
+				"project[tickets_close_time]": {required: true, date: true}
 				
 			},
 			messages: {
-				"project[year]": "Please enter a current year.",
 				"project[tickets_open_time]": "Please select an open time.",
-				"project[tickets_close_time]": "Please select a close time.",
-				"project[max_clients]": "Please enter the max number of clients.",
-				"project[max_high_priority_clients]": "Please enter the amount of high priority clients.",
-				"project[max_medium_priority_clients]": "Please enter the amount of medium priority clients.",
-				"project[max_low_priority_clients]": "Please enter the amount of low priority clients."			
+				"project[tickets_close_time]": "Please select a close time."		
 			}
 		});
 	});

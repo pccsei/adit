@@ -1,51 +1,55 @@
-<h1>Complete Walkthrough as a </h1>
+<a id="top" name="top"></a>
+<br /><br /><br />
 
-<% if current_user.role == 3 %>
-	<h1>Teacher</h1>
+<h1>Need help for </h1>
 
-	<a class="fancybox fancybox.iframe" href="/clients/new">This goes to iframe</a>
-	<div id="full_help_teacher">
-		<img src="/assets/Lighthouse.jpg" alt="" width="150" height="150" title="Hello"/></br></br>
-		<img src="/assets/Penguins.jpg" alt="" width="0" height="0" />
-	</div>
+<ul class="nav">
+	<% if current_user.role == 3 %>
+		<li class="dropdown-menu">
+			<a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Manage Section <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li><%= link_to "Create and View a Section", :anchor => "manage_section" %></li>
+				<li><%= link_to "Add Students to a Section", :anchor => "manage_section" %></li>
+				<li><%= link_to "Edit Student Managers and Teams", :anchor => "manage_section" %></li>
+				<li><%= link_to "View a Student's Report??????", :anchor => "manage_section" %></li>
+			</ul>
+		</li>
+		<li class="dropdown-menu">
+			<a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Assign Clients <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li><%= link_to "Finding a Client", :anchor => "manage_clients" %></li>
+			</ul>
+		</li>
+	<% end %>
+</ul>
+	<% if current_user.role == 3 %>
+
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<a id="manage_section" name="manage_section"></a>
+<br /><br />
+	<h1>Manage Section</h1>
+	<img src="/assets/choose1.JPG" width="300" height="214" alt=""/>
+	
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />	
+
+<%=  link_to "Back to the Top", :anchor => "top" %>
+<a id="manage_clients" name="manage_clients"></a>
+<br /><br />
+	<h1>Manage Clients</h1>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
 <% else %>
-	<h1>Student</h1>
+	<h1>Choose Clients</h1>
 	
-	<div id="full_help_student">
-		<img src="/assets/Lighthouse.jpg" alt="" width="150" height="150" /></br></br>
-		<img src="/assets/Tulips.jpg" alt="" width="0" height="0" />
+	<a class="fancybox" rel="gallery" href="/assets/choose1.JPG"><img src="/assets/choose1.JPG" width="300" height="214" alt=""/></a>
+	<div class="hidden">
+	<a class="fancybox" rel="gallery" href="/assets/my1.JPG"><img src="/assets/my1.JPG" alt=""/></a>
 	</div>
+	<h1>My Clients</h1>
+	
+	<h1>Submit Client</h1>
 <% end %>
-
-<script type="text/javascript">
-
-	$("#full_help_teacher img").click(function(e) {
- 		$.fancybox([
-  			'/assets/Lighthouse.jpg',
-  			'/assets/Penguins.jpg'
-  		],{
-   			'type'     : 'image',
-   			nextEffect : 'fade',
-   			prevEffect : 'fade'
- 		});
-	});
-	
-	$("#full_help_student img").click(function(e) {
- 		$.fancybox([
-  			'/assets/Lighthouse.jpg',
-  			'/assets/Tulips.jpg'
-  		],{
-   			'type'     : 'image',
-   			nextEffect : 'fade',
-   			prevEffect : 'fade'
- 		});
-	});
-	
-	$("a.fancybox").fancybox({
-		autoScale : true,
-		afterClose : function() {
-			location.reload();
-			return;
-		}
-	});
-</script>

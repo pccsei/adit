@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :only_teachers, except: [:unauthorized]
+  before_action :only_teachers, :must_have_project, except: [:unauthorized, :need_help]
 
   # GET /users
   # GET /users.json
@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @users = User.all
     
     @selected_section = get_selected_section
-    @select_students = User.get_student_info(get_selected_project, get_selected_section)
+    @select_students = User.get_student_info(get_selected_project, get_selected_section, get_students_to_show)
     
     # Get array of all the incorrectly entered students
     @incorrect_students = User.incorrect_students
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     @sections = get_array_of_all_sections(get_selected_project)
 
     # find student managers
-    @student_managers = User.where(role: 2)
+    @student_managers = User.get_managers_from_current_section(get_selected_section)
     
     #if params[:section_option]
     #  set_selected_section(params[:section_option])
@@ -58,10 +58,6 @@ class UsersController < ApplicationController
     @current_teachers = teacher_users_for_selected_project.zip(project_teacher_members)
   end
   
-  def student_manager
-    @users = User.all
-  end
-  
   def create_new_section
     @teacher = User.all_teachers.first
     members = Member.all
@@ -85,14 +81,9 @@ class UsersController < ApplicationController
     set_selected_section(section_number)
     redirect_to users_url  
   end
-
-  def student_rep
-  end
   
   # Need to get the .help set to 0....it's not right now
-  def need_help
-    @current_user.help = 0
-    @current_user.save    
+  def need_help  
   end
 
   # GET /users/new
@@ -127,7 +118,16 @@ class UsersController < ApplicationController
     choice             = params['selected_option']
     student_manager_id = params['student_manager']
 
-    User.do_selected_option(students, choice, student_manager_id, get_selected_project)
+    # I temporarily have these choices in the controller because it calls an application controller function
+    if choice == "Show Only Inactive Students"
+      set_students_to_show(2)
+    elsif choice == "Show only Active Students"
+      set_students_to_show(1)
+    elsif choice == "Show Both Inactive and Active Students"
+      set_students_to_show(3)
+    else
+      User.do_selected_option(students, choice, student_manager_id, get_selected_project)
+    end
 
     redirect_to users_url
   end
@@ -199,16 +199,11 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
-  # Deletes the Member, not the user.
-  def destroy
-    member = Member.find_by user_id: @user.id
-    member.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
-    end
+  # Change the students status
+  def change_is_enabled
+    member = Member.find_by user_id: params[:id]
+    Member.change_student_status(member)
+    redirect_to users_path
   end
   
   def delete_incorrect

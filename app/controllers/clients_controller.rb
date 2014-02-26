@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :must_have_project
 
   # GET /clients
   # GET /clients.json
@@ -16,7 +17,7 @@ class ClientsController < ApplicationController
   def approve
     @pending_clients = Client.pending
     @edited_pending_clients = Client.edited_pending
-    @unapproved = Client.unapprove
+    @unapproved_clients = Client.unapproved
   end
 
   # GET /clients/1
@@ -29,7 +30,7 @@ class ClientsController < ApplicationController
     if (params[:tid])
       @ticket = Ticket.find(params[:tid])    
     else
-      @ticket = Ticket.select("id, client_id").where(client_id: params[:id], project_id: get_selected_project.id).first
+      @ticket = Ticket.select('id, client_id').where(client_id: params[:id], project_id: get_selected_project.id).first
     end      
     @client = Client.find(params[:cid])
   end
@@ -37,20 +38,24 @@ class ClientsController < ApplicationController
 
 
   def approve_client
-    status = params['commit'] == "Approve" ? 2 : 1
+    status = params['commit']
     array_of_pending_clients = params['clients']
 
-    if !array_of_edited_pending_clients.nil?
-      Client.approve_clients(status, array_of_pending_clients)
+    if array_of_pending_clients.present?
+      if status == 'Approve'
+        Client.approve_clients(array_of_pending_clients)
+      else 
+        Client.unapprove_clients(array_of_pending_clients)
+      end
     end
 
-    redirect_to clients_url
+    redirect_to clients_approve_url
   end
 
   def approve_client_edit
-    status = 2 if params['commit'] == "Approve" 
-    status = 1 if params['commit'] == "Disapprove" 
-    status = 3 if params['commit'] == "Approve All" 
+    status = 2 if params['commit'] == 'Approve'
+    status = 1 if params['commit'] == 'Disapprove'
+    status = 3 if params['commit'] == 'Approve All'
 
     if status != 3
       array_of_edited_pending_clients = params['clients']
@@ -61,7 +66,7 @@ class ClientsController < ApplicationController
       Client.approve_edited_clients(status, array_of_edited_pending_clients)   
     end
     
-    redirect_to clients_url
+    redirect_to clients_approve_url
   end
 
 
@@ -81,20 +86,24 @@ class ClientsController < ApplicationController
   # POST /clients.json
   def create
     
-    if !params[:ping].nil?
-      return 0
-    end
-    
     @client = Client.new(client_params)
     @client.status_id = (Status.find_by(status_type: 'Pending')).id
-    @client.submitter = current_user.school_id
+    @client.submitter = current_user.first_name + ' ' + current_user.last_name
     
     # This line should eventually place the clients on the pending clients list instead of straight into the db
     # @client.status_id = Status.where("status_type = ?", "Pending").pluck(:id) 
 
     respond_to do |format|
       if @client.save
-        format.html { redirect_to clients_submit_path, notice: 'Client was successfully submitted.' }
+       if current_user.role == 3
+          user = nil
+        else
+          user = current_user.id
+        end
+        Ticket.create(:user_id => user, :client_id => @client.id, 
+                      :project_id => get_current_project.id, :priority_id => Priority.where('name = ?', 'low').first.id)
+        flash[:success] = 'Your client has been submitted for approval.'
+        format.html { redirect_to clients_submit_path }
         format.json { render action: 'show', status: :created, location: @client }
       else
         format.html { render action: 'new' }
@@ -138,9 +147,9 @@ class ClientsController < ApplicationController
   
   # For submitting a new client from the student
   def submit
-    @pending_clients = Client.pending
-    
-    @unapprove_clients = Client.unapprove
+    @client = Client.new
+    @pending_clients = Client.pending    
+    @unapproved_clients = Client.unapproved
   end
 
   private
