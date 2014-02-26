@@ -16,33 +16,47 @@
   <!-- <% if current_user.role == 3 %> -->
   <br>
    <div class="field">
-    <%= f.label :first_name %><br>
+    <%= f.label :first_name, 'First Name' %><br>
     <%= f.text_field :first_name %>
   </div>
   <div class="field">
-    <%= f.label :last_name %><br>
+    <%= f.label :last_name, 'Last Name' %><br>
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
-    <%= f.label :school_id %><br>
+    <%= f.label :school_id, 'School ID' %><br>
     <%= f.text_field :school_id %>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
+    <%= f.label :email, 'E-mail Address' %><br>
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :phone %><br>
+    <%= f.label :phone, 'Telephone Number' %><br>
     <%= f.text_field :phone %>
   </div>
   <div class="field">
-    <%= f.label :box %><br>
+    <%= f.label :box, 'PCC Box Number' %><br>
     <%= f.text_field :box %>
   </div>
   <div class="field">
-  <%= f.label "Type of User"%><br>
-  <%= f.select :role, [['Student', 1], ['Teacher', 3]] %>
+    <%= f.label :major, 'Major of Study' %><br>
+    <%= f.text_field :major %>
   </div>
+  <div class="field">
+    <%= f.label :minor, 'Minor of Study' %><br>
+    <%= f.text_field :minor %>
+  </div>
+  <div class="field">
+  	<%= f.label :classification, 'Classification' %><br>
+  	<%= f.select :classification, [['Freshman', 'Freshman'], ['Sophmore', 'Sophmore'], ['Junior', 'Junior'], ['Senior', 'Senior']] %>
+  </div>
+  <!--
+  <div class="field">
+  	<%= f.label :role, 'Role of User' %><br>
+  	<%= f.select :role, [['Student', 1], ['Manager', 2], ['Teacher', 3]] %>
+  </div>
+  -->
   <div class="actions">
     <%= f.submit %>
   </div> 
