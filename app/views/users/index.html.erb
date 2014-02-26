@@ -76,7 +76,7 @@ Please select a section to create a team or add students.
       <div id = "option">
         <% if @selected_section != "all" %>
             <%= select_tag "selected_option",
-                           options_for_select(["Promote Student", "Create Team", "Demote Student", "Inactivate Students", "Activate Students", "Show Only Inactive Students", "Show only Active Students", "Show Both Inactive and Active Students"]),
+                           options_for_select(["Promote Student", "Assign Team", "Demote Student", "Inactivate Students", "Activate Students", "Show Only Inactive Students", "Show only Active Students", "Show Both Inactive and Active Students"]),
                            :onchange => 'myFunction()', :prompt => 'Choose Action', :type => "button",
                            :class => "btn btn-default dropdown-toggle col-md-2", :datatoggle => "dropdown"%>
         <% else %>
@@ -86,7 +86,7 @@ Please select a section to create a team or add students.
                            :class => "btn btn-default dropdown-toggle col-md-2", :datatoggle => "dropdown"%>
         <% end %>
       </div>
-<!-- This only appears if the teacher wants to create student managers -->
+<!-- This only appears if the teacher wants to assign a team to a student manager -->
 		<div id ="show_managers">
 			<%= select_tag "student_manager", options_from_collection_for_select(@student_managers, 'id', :full_name),
 		   		:class => "btn btn-default dropdown-toggle col-md-2"%> 
@@ -103,7 +103,7 @@ Please select a section to create a team or add students.
 		  	event.preventDefault();
 		  	var e = document.getElementById("selected_option");
 			var strUser = e.options[e.selectedIndex].text;
-			if(strUser=="Create Team")
+			if(strUser=="Assign Team")
 			{
 			  $( "#show_managers" ).show();
 			}

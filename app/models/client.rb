@@ -9,14 +9,14 @@ class Client < ActiveRecord::Base
    
 # Validates the city, this should allow blanks in the business name
   validates :city, allow_blank: true, format: {
-    with: /\A[ a-zA-Z]+\Z/,
+    with: /\A[-a-zA-Z ?()'\/&-\.]+\Z/,
     message: 'must only have letters (no digits).'
   }
  
 # Validates the zipcode
   validates :zipcode, allow_blank: true, length:{
     minimum: 4, maximum: 5,
-    message: 'is the wrong length.  Needs to be only five digits long.'
+    message: 'is the wrong length.  Needs to be between four to five digits long.'
   }, numericality: { greater_than: 0 }
    
 # Validates the email
@@ -27,13 +27,13 @@ class Client < ActiveRecord::Base
    
 # Validates the contact first and last name
   validates :contact_fname, :contact_lname, allow_blank: true, format: {
-    with: /\A[A-Za-z ?()'\/&-\.]+\Z/,
+    with: /\A[-a-zA-Z ?()'\/&-\.]+\Z/,
     message: 'must only have letters (no digits).'
   }
    
 # Validates the telephone
   validates :telephone, allow_blank: true, format: {
-    with: /\A((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|(((\d{3})?\s*[-]\s*)*(\d{3})\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*)\z/,
+    with: /\A(((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|(((\d{3})?\s*[-]\s*)*(\d{3})\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
     message: 'must be a valid telephone number.'
   }
 

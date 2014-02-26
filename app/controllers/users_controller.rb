@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     @sections = get_array_of_all_sections(get_selected_project)
 
     # find student managers
-    @student_managers = User.where(role: 2)
+    @student_managers = User.get_managers_from_current_section(get_selected_section)
     
     #if params[:section_option]
     #  set_selected_section(params[:section_option])
@@ -58,10 +58,6 @@ class UsersController < ApplicationController
     @current_teachers = teacher_users_for_selected_project.zip(project_teacher_members)
   end
   
-  def student_manager
-    @users = User.all
-  end
-  
   def create_new_section
     @teacher = User.all_teachers.first
     members = Member.all
@@ -84,9 +80,6 @@ class UsersController < ApplicationController
     User.create_new_section(teacher[:id], section_number, session[:selected_project_id])
     set_selected_section(section_number)
     redirect_to users_url  
-  end
-
-  def student_rep
   end
   
   # Need to get the .help set to 0....it's not right now

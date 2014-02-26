@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
 # Validates the user's name
   validates :first_name, :last_name, format: {
-    with: /\A[-a-zA-Z]+\z/,
+    with: /\A[-a-zA-Z ?()'\/&-\.]+\Z/,
     message: 'must only have letters (no digits).'
   }, unless: Proc.new { |user| user.role == -1 }
 
@@ -171,8 +171,8 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
         member.parent_id = user.id
         member.save       
         user.save
-        end
       end
+    end
 
     if choice == "Demote Student"
       for i in 0..students.count-1
@@ -199,13 +199,14 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
       end
     end
   
-    if choice == "Create Team"
+    if choice == "Assign Team"
       for i in 0..students.count-1
         member = Member.find_by(user_id: students[i])
         if Member.find_by(parent_id: student_manager).section_number == member.section_number
-          User.find(students[i]).role == 2 ? Member.destroy_team(User.find(students[i])) : nil        
-          member.parent_id = student_manager.id
-          member.save
+          if User.find(students[i]).role != 2
+            member.parent_id = student_manager.id
+            member.save 
+          end
         end
       end
     end
@@ -252,6 +253,21 @@ end
 
 def User.encrypt(token)
    Digest::SHA1.hexdigest(token.to_s)
+end
+
+# Returns the managers name for the current section to assign a team
+def self.get_managers_from_current_section(section)
+  users = User.where(role: 2)
+  members = Member.where(section_number: section)
+  student_manager = Array[]
+  users.each do |user|
+    members.each do |member|
+      if user.id == member.user_id
+        student_manager.push(user)
+      end
+    end
+  end
+  return student_manager
 end
 
 # Returns all the student users for a project and section

@@ -3,6 +3,9 @@ class ReportsController < ApplicationController
 
   def sales
    @sections = get_array_of_all_sections(get_selected_project)
+   @selected_section = get_selected_section
+   @current = self.current_user
+
 
        Struct.new("Sale", :student_id, :manager_id, :time_of_sale, :company, :page_size,
                             :sale_amount, :first_name, :last_name, :section, :team_leader, :payment_type, 
@@ -38,6 +41,8 @@ class ReportsController < ApplicationController
   # GET reports/student_summary
   def student_summary
    @sections = get_array_of_all_sections(get_selected_project)
+   @selected_section = get_selected_section
+   @current = self.current_user
 
        Struct.new("Student", :id, :first_name, :last_name, :student_manager,
                             :section, :open, :sold, :released, :sales, 
@@ -83,6 +88,8 @@ class ReportsController < ApplicationController
   # GET reports/team_summary
   def team_summary
    @sections = get_array_of_all_sections(get_selected_project)
+   @selected_section = get_selected_section
+   @current = self.current_user
 
            Struct.new("Team", :id, :student_manager, :section, :open, :sold, :released, :sales, :points, :b)
 
@@ -135,6 +142,8 @@ class ReportsController < ApplicationController
 
   def activities
    @sections = get_array_of_all_sections(get_selected_project)
+   @selected_section = get_selected_section
+   @current = self.current_user
 
     Struct.new("Activity", :student_id, :manager_id, :time_of_activity, :first_name, :last_name, :section, :team_leader,
                         :company, :activity, :comments,  :points_earned, :cumulative_points_earned_on_client)

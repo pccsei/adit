@@ -27,7 +27,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 # Added by Jake Canipe
-gem 'fancybox-rails'
 gem 'jquery-validation-rails'
 
 # added by James Miyashita
@@ -52,7 +51,6 @@ gem 'jquery-datatables-rails'
 gem 'bootstrap-sass', '~> 3.0.2.0'
 gem 'figaro'
 gem 'high_voltage', '~> 2.0.0'
-gem 'simple_form', '>= 3.0.0.rc'
 gem 'thin'
 gem 'ffi', '~> 1.9.3'
 
@@ -68,13 +66,7 @@ group :development do
   gem 'rb-inotify', :require=>false
 end
 
-group :test, :development do
-  gem 'rspec-rails'
-end
-
 group :test do
-  gem 'capybara'
   gem 'selenium-webdriver'
-  gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
 end
