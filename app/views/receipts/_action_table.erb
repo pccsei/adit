@@ -1,0 +1,26 @@
+<h3>My Past Actions</h3>
+<br><br>
+<table class="display">
+  <thead>
+  <tr>
+    <th>Action</th>
+    <th>Time</th>
+    <th>Points</th>
+    <th>Comment</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% receipt.actions.each do |a| %>
+      <tr>
+        <td><%= a.action_type.name %></td>
+        <td><%= a.user_action_time.to_formatted_s(:long_ordinal) %></td>
+        <td><%= a.action_type.point_value %></td>
+        <td><%= a.comment %></td>
+        <td><%= link_to 'Delete', a, method: :delete,
+                        data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
