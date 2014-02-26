@@ -45,46 +45,62 @@ $(".hidden").hide();
 </script>
 
     <% if @action.action_type.name != 'Comment'%>
-        <div>
-          <p>How did it go?</p>
-        </div>
+
         <div id = "firstCheck" <%= 'class = hidden' unless @action.action_type.name == 'First Contact' %>>
+          <div>
+            <p>Congratulations on making contact with your client!</p>
+            <p>Were you able accomplish anything else?</p>
+          </div>
           <%= label_tag('presentation', 'I made a presentation!') %>
           <%= check_box_tag(:presentation)%>
         </div>
 
 
         <div id = "checkers2" <%= 'class = hidden' unless @action.action_type.name == 'Presentation' %>>
+          <div>
+            <p>Awesome, you made a presentation!</p>
+            <p>Were you able to make a sale?</p>
+          </div>
           <%= label_tag('sale', 'I made a sale!') %>
           <%= check_box_tag(:sale)%>
         </div>
 
         <div id = "saleMade" <%= 'class = hidden' unless @action.action_type.name == ('New Sale' || 'Old Sale') %>>
+          <div>
+            <p>Way to Ad It!</p>
+          </div>
           <%= label_tag('price', 'Sale Amount $') %>
-          <%= text_field_tag(:price) %>
+          <%= text_field_tag(:price, nil, :placeholder => 'Examples: 50 or 75') %>
           <%= label_tag('page', 'Page Size') %>
-          <%= text_field_tag(:page) %>
+          <%= text_field_tag(:page, nil, :placeholder => 'Examples: .25 or 1.5 ')%>
           <%= label_tag('payment_type', 'Payment Type') %>
           <%= select_tag('payment_type', options_for_select(%w(Cash Credit Invoice Check)))%>
         </div>
-        <div>
-          <%= f.label :user_action_time, 'When did you do this?' %>
-          <%= f.datetime_select :user_action_time %>
-        </div>
     <% end %>
+    <br />
     <div>
       <%= f.label :comment %>
-      <%= f.text_area :comment %>
+      <%= f.text_area :comment, :placeholder => 'Do you have any details or notes for this entry?' %>
+    </div>
+    <br />
+    <div>
+      <%= f.label :user_action_time, 'When did you do this?' %>
+      <%= f.text_field :user_action_time, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
     </div>
     <%= f.hidden_field :receipt_id, :value => @action.receipt_id %>
     <%= f.hidden_field :action_type_id, :value => @action.action_type_id %>
+    <%= f.hidden_field :points_earned, :value => @action.points_earned %>
     <div>
       <%= f.submit %>
     </div>
 <% end %>
 
+<script>
+$('#foo_user_action_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
+</script>
 <!-- This adds client-side validation -->
 <script>
+
 	$(document).ready(function () {
 		$("#new_action").validate({
 			rules: {

@@ -14,27 +14,21 @@ class ActionsController < ApplicationController
 
   # GET receipts/:id/actions/new
   def new
-    #sale = (ActionType.find_by :name, "Old Sale").id
-    #presentation =  (Action_Type.find_by :name, "Presentation").id
-    #first_contact = (Action_Type.find_by :name, "First Contact").id
-    #new_sale = (Action_type.find_by :name, "New Sale").id
-    
     @action = Action.new(:receipt_id => params[:receipt_id])
     @receipt = Receipt.find(@action.receipt_id)
-    if params[:action_type_name] == "Comment"
-      @action.action_type_id = (ActionType.find_by(name: params[:action_type_name])).id
-      @action.points_earned = (ActionType.find_by(name: 'Comment')).point_value
-    else
-    if params[:action_type_name] != "Sale"
-       @action.action_type_id = (ActionType.find_by(name: params[:action_type_name])).id
-    else
-      priority = @receipt.ticket.priority.name
-      if priority == "high"
+    action_received = params[:action_type_name]
+
+    if action_received == 'Sale'
+      if @receipt.ticket.priority.name == 'high'
         @action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
+        @action.points_earned = (ActionType.find_by(name: 'Old Sale')).point_value
       else
         @action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
+        @action.points_earned = (ActionType.find_by(name: 'New Sale')).point_value
       end
-    end
+    else
+      @action.action_type_id = (ActionType.find_by(name: action_received)).id
+      @action.points_earned = (ActionType.find_by(name: action_received)).point_value
     end
 
   end
@@ -48,56 +42,57 @@ class ActionsController < ApplicationController
   def create
     @action = Action.new(action_params)
     receipt = Receipt.find(@action.receipt_id)
-    if @action.action_type.name != "Comment"
-        if receipt.made_contact == true
-           if receipt.made_presentation == true
-             receipt.made_sale = true
-             receipt.sale_value = params[:price]
-             receipt.page_size = params[:page]
-             receipt.payment_type = params[:payment_type]
-           else
-             receipt.made_presentation = true
-           end
-        else
-           receipt.made_contact = true
-        end
-        if params[:presentation]
-          new_action = Action.new
-          new_action.user_action_time = @action.user_action_time
-          new_action.comment = @action.comment
-          new_action.action_type_id = (ActionType.find_by(name: 'Presentation')).id
-          new_action.receipt_id = @action.receipt_id
-          receipt.made_presentation = true
-          new_action.points_earned = (ActionType.find_by(name: 'Presentation')).point_value
-          new_action.save
-        end
-        
-        # Two checks to make sure that sale checkbox was not submitted without presentation being accomplished
-        if params[:sale] && (params[:presentation] || receipt.made_presentation == true)
-        priority = receipt.ticket.priority.name
-          new_action = Action.new
-          if priority == "high"
-             new_action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
-             new_action.points_earned = (ActionType.find_by(name: 'Old Sale')).point_value
-          else
-             new_action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
-             new_action.points_earned = (ActionType.find_by(name: 'New Sale')).point_value
-          end
-          new_action.user_action_time = @action.user_action_time
-          new_action.comment = @action.comment
-          new_action.receipt_id = @action.receipt_id
-          receipt.made_sale = true
-          receipt.sale_value = params[:price]
-          receipt.page_size = params[:page]
-          receipt.payment_type = params[:payment_type]
-          new_action.save
-        end
-        receipt.save
-        else
-          @action.user_action_time = Time.now
-        end
+
+    action_name = @action.action_type.name
+
+    if action_name == 'First Contact'
+       receipt.made_contact = true
+    elsif action_name == 'Presentation'
+      receipt.made_presentation = true
+    else
+      receipt.made_sale    = true
+      receipt.sale_value   = params[:price]
+      receipt.page_size    = params[:page]
+      receipt.payment_type = params[:payment_type]
+    end
+
+    if params[:presentation]
+      new_action                  = Action.new
+      new_action.user_action_time = @action.user_action_time
+      new_action.comment          = @action.comment
+      new_action.action_type_id   = (ActionType.find_by(name: 'Presentation')).id
+      new_action.receipt_id       = @action.receipt_id
+      new_action.points_earned    = (ActionType.find_by(name: 'Presentation')).point_value
+      receipt.made_presentation   = true
+    end
+
+    if params[:sale]
+      priority = receipt.ticket.priority.name
+      next_action = Action.new
+      if priority == 'high'
+        next_action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
+        next_action.points_earned  = (ActionType.find_by(name: 'Old Sale')).point_value
+      else
+        next_action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
+        next_action.points_earned  = (ActionType.find_by(name: 'New Sale')).point_value
+      end
+      next_action.user_action_time = @action.user_action_time
+      next_action.comment          = @action.comment
+      next_action.receipt_id       = @action.receipt_id
+      receipt.made_sale            = true
+      receipt.sale_value           = params[:price]
+      receipt.page_size            = params[:page]
+      receipt.payment_type         = params[:payment_type]
+    end
+
     respond_to do |format|
-      if @action.save
+      if @action.save && receipt.save
+         if new_action
+           new_action.save
+         end
+         if next_action
+           next_action.save
+         end
         format.html { redirect_to("/receipts/my_receipts/#{@action.receipt.user_id}", notice: 'You successfully updated your client') }
         format.json { render action: 'show', status: :created, location: @action }
       else
