@@ -15,7 +15,7 @@
 
 <h3>Unapproved Clients</h3>
 <% if @unapproved_clients.present? %>
-	<%= render :partial => 'unapprove', :locals => { :unapproved => @unapproved_clients} %>
+	<%= render :partial => "unapprove", :locals => { :unapproved_clients => @unapproved_clients} %>
 <% else %>
     There are currently no unapproved clients.
 <% end %>

@@ -17,9 +17,11 @@
  <% else %>         
     <li><%= link_to "Choose Clients",         tickets_path %></li>
     <li><%= link_to "My Clients", "/receipts/my_receipts/#{@current_user.id}" %></li>
-    <li><%= link_to "Submit Client", clients_submit_path %>
+    <li><%= link_to "Submit Client", clients_submit_path %></li>
  <% end %>
-    	
+    
+    <li><%= link_to "Help", users_need_help_path %></li>
+    
  <% if signed_in? %>
       <li><%= link_to "Sign Out", signout_path, method: "delete" %></li>
  <% else %>

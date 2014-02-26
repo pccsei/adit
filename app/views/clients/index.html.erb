@@ -16,17 +16,8 @@ $(function{
 </script>
 
 
-
-<% if current_user.help == true %>
-	<h1>First Time User?</h1>
-
-	<%= button_to 'Yes', :controller => :users, action: 'need_help'%>
-
-<% end %>
 <!-- Buttons wont appear if they were not loaded when the page was first loaded because they were not created. -->
 
-
-<h1>Listing clients</h1>
 
 <table class="display">
   <thead>
