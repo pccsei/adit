@@ -202,7 +202,6 @@ p {
     padding-left: 70px;
     padding-right: 70px;
     margin-top: -60px;
-    /*background-color: #CFCBCC;*/
 
 }
 
@@ -251,31 +250,6 @@ footer {
   @extend .error;
 }
 
-/* tables */
-/*
- * Table
- */
-table.dataTable {
-  margin: 0 auto;
-  clear: both;
-  width: 100%; 
-  padding-top: 20px;
-  }
-
-table.dataTable thead th {
-  padding: 3px 5px 3px 5px;
-  border-bottom: 1px #1C2C40;
-  font-weight: bold !important;    /*changed*/
-  cursor: pointer;
-  *cursor: hand; 
-  text-align: center;
-  color: #1C2C40 ;
-}
-
-table.dataTable tfoot th {
-  padding: 3px 18px 3px 10px;
-  border-top: 1px solid black;
-  font-weight: normal !important; }  /*changed*/
 
 TD.dataTables_empty{
   background-color: #85a7d1 !important;

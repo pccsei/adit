@@ -49,6 +49,8 @@ $(function() {
 
 <h1 class = "col-md-3", id = "heading">Choose Clients</h1>
 
+ <div class="scroller_anchor"></div>  
+<div class="scroller alert alert-info" id = "alerts">
 <% if @clientsLeft %>
 <div><span>You can get </span><span><%= @clientsLeft %></span> more clients<span></div>
 <% else %>
@@ -73,13 +75,12 @@ $(function() {
 <% else %>
   You are no longer able to select clients.
 <% end %>
-</span></div>
+</span>
 
-<div class="message">
-  <h2>
-    <span id="userMessage">THIS_IS_WHERE_THE_USER_MESSAGE_IS_TO_BE_DISPLAYED</span>	
-  </h2>
-</div>
+
+  
+MESSAGES</div>
+</span></div>
 
 <table class="display">
   <thead>
