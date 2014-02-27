@@ -276,6 +276,27 @@ def self.current_student_users(project, section = "all")
   where("id in (?)", student_members)
 end
 
+def self.current_teachers(project)
+  Struct.new("Teacher", :id, :first_name, :last_name, :section_number, :email, :phone, :school_id, :is_enabled)
+
+  teachers = []
+  index = 0
+  Member.where(project: project, user_id: User.where(role: 3).ids).each do |m|
+    t = User.find(m.user_id)
+    teachers[index]                = Struct::Teacher.new
+    teachers[index].id             = t.id
+    teachers[index].first_name     = t.first_name
+    teachers[index].last_name      = t.last_name
+    teachers[index].email          = t.email
+    teachers[index].phone          = t.phone
+    teachers[index].school_id      = t.school_id
+    teachers[index].section_number = m.section_number
+    teachers[index].is_enabled     = m.is_enabled
+    index = index + 1
+  end
+  teachers
+end
+
 # Returns the manager name for a given user and project
 def self.get_manager_name(student_id, project)
   user = User.find(student_id).members.find_by project_id: project.id
@@ -305,7 +326,7 @@ def self.all_teachers
 end
 
 def self.all_teacher_ids
-  where("role = ?", 3).pluck(:id)
+  where("role = ?", 3).ids
 end
 
 def self.incorrect_students
