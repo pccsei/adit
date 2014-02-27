@@ -24,7 +24,7 @@
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
-    <%= f.label :school_id %><br>
+    <%= f.label :school_id, "ID Number" %><br>
     <%= f.text_field :school_id %>
   </div>
   <div class="field">
@@ -38,27 +38,6 @@
   <div class="field">
     <%= f.label :box %><br>
     <%= f.text_field :box %>
-  </div>
-  <div class="field">
-  <%= f.label "Type of User"%><br>
-  <%= f.select :role, [['Student', 1], ['Teacher', 3]] %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div> 
-  <!-- Why do we need this for the -> For the students and student managers -->
-  <!-- <% else %>
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :school_id %><br>
-    <%= f.text_field :school_id %>
   </div>
   <div class="field">
     <%= f.label :major %><br>
@@ -69,27 +48,13 @@
     <%= f.text_field :minor %>
   </div> 
   <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :phone %><br>
-    <%= f.text_field :phone %>
-  </div>
-  <div class="field">
-    <%= f.label :box %><br>
-    <%= f.text_field :box %>
-  </div>
-  <div class="field">
     <%= f.label :classification %><br>
     <%= f.text_field :classification %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
-
-
-  <% end %> -->
+  <% end %>
 <% end %>
 
 <!-- This adds client-side validation -->

@@ -40,22 +40,8 @@ class UsersController < ApplicationController
   end
   
   def teachers
-     @teachers = User.all_teachers
-     all_students = User.all_students
-    
-     student_ids = []
-     all_students.each do |t|
-       student_ids << t.id
-     end
-    
-    project_teacher_members = Member.project_members(get_selected_project).where.not(user_id: student_ids )
-    
-    teacher_users_for_selected_project = []
-    project_teacher_members.each do |s|
-      teacher_users_for_selected_project << (User.find(s.user_id))
-    end
-    
-    @current_teachers = teacher_users_for_selected_project.zip(project_teacher_members)
+    @all_teachers = User.all_teachers
+    @current_teachers = User.current_teachers(get_selected_project)                
   end
   
   def student_manager
@@ -212,7 +198,7 @@ class UsersController < ApplicationController
   def change_is_enabled
     member = Member.find_by user_id: params[:id]
     Member.change_student_status(member)
-    redirect_to users_path
+    redirect_to :back
   end
   
   def delete_incorrect
