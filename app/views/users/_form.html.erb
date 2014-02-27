@@ -11,45 +11,43 @@
     </div>
   <% end %>
 
-
-  <!-- For the teachers -->
-  <!-- <% if current_user.role == 3 %> -->
   <br>
    <div class="field">
-    <%= f.label :first_name %><br>
+    <%= f.label :first_name, 'First Name' %><br>
     <%= f.text_field :first_name %>
   </div>
   <div class="field">
-    <%= f.label :last_name %><br>
+    <%= f.label :last_name, 'Last Name' %><br>
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
-    <%= f.label :school_id, "ID Number" %><br>
+    <%= f.label :school_id, 'School ID' %><br>
     <%= f.text_field :school_id %>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
+    <%= f.label :email, 'E-mail Address' %><br>
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :phone %><br>
+    <%= f.label :phone, 'Telephone Number' %><br>
     <%= f.text_field :phone %>
   </div>
   <div class="field">
-    <%= f.label :box %><br>
+    <%= f.label :box, 'PCC Box Number' %><br>
     <%= f.text_field :box %>
   </div>
+  	<%= f.hidden_field :role, :value => 1 %>
   <div class="field">
-    <%= f.label :major %><br>
+    <%= f.label :major, 'Major of Study' %><br>
     <%= f.text_field :major %>
   </div>
   <div class="field">
-    <%= f.label :minor %><br>
+    <%= f.label :minor, 'Minor of Study' %><br>
     <%= f.text_field :minor %>
-  </div> 
+  </div>
   <div class="field">
-    <%= f.label :classification %><br>
-    <%= f.text_field :classification %>
+  	<%= f.label :classification, 'Classification' %><br>
+  	<%= f.select :classification, [['Freshman', 'Freshman'], ['Sophmore', 'Sophmore'], ['Junior', 'Junior'], ['Senior', 'Senior']] %>
   </div>
   <div class="actions">
     <%= f.submit %>
@@ -63,13 +61,23 @@
 		
 		// Custom method to make sure only letters are entered
 		jQuery.validator.addMethod("letters_only", function(value, element) {
-			return this.optional(element) || /^[-a-zA-Z\s]+$/i.test(value);
+			return this.optional(element) || /^[-a-zA-Z\s ?()'\/&-\.]+$/i.test(value);
 		});
 		
 		// Custom method to make sure only letters and numbers are entered (no symbols or punctuation)
 		jQuery.validator.addMethod("id_valid", function(value, element) {
         	return this.optional(element) || /^[-a-zA-Z0-9]+$/i.test(value);
     	});
+    	
+    	// Custom method to make sure the user does not put in all zeros
+		jQuery.validator.addMethod('min_digit', function (value, el, param) {
+    		return value > param;
+		});
+    	
+    	// Custom method to make sure the telephone is valid
+		jQuery.validator.addMethod("valid_telephone", function(value, element) {
+			return this.optional(element) || /^(([tT][oO][wW][nN])|((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|((([1-9][0-9][0-9])?\s*[-]\s*)*([1-9][0-9][0-9])\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))$/.test(value);
+		});
 		
 		$("#new_user").validate({
 			rules: {
@@ -77,14 +85,14 @@
 				"user[last_name]": {required: true, letters_only: true},
 				"user[school_id]": {required: true, id_valid: true},
 				"user[email]": {required: true, email: true},
-				"user[phone]": {required: true},
-				"user[box]": {required: true, digits: true, rangelength: [3,4]}
+				"user[phone]": {required: true, valid_telephone: true},
+				"user[box]": {required: true, digits: true, rangelength: [3,4], min_digit: 1}
 			},
 			messages: {
 				"user[first_name]": "Please enter the user's first name.",
 				"user[last_name]": "Please enter the user's last name.",
 				"user[school_id]": "Please enter the user's school id.",
-				"user[email]": "Please enter the user's email address.",
+				"user[email]": "Please enter the user's PCC email address.",
 				"user[phone]": "Please enter the user's phone number.",
 				"user[box]": "Please enter the user's box number."			
 			}

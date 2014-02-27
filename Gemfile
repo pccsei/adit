@@ -23,11 +23,11 @@ gem 'coffee-rails', '~> 4.0.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
 # Added by Jake Canipe
-gem 'fancybox-rails'
 gem 'jquery-validation-rails'
 
 # added by James Miyashita
@@ -35,9 +35,8 @@ gem 'jquery-ui-rails'
 gem 'jquery-rails'
 gem 'jquery-datatables-rails'
 
-# added by Zach Evans
-gem 'bootstrap-select-rails'
-
+# Added by Rob Yoder
+gem "therubyracer" # for execjs
 
   # bundle exec rake doc:rails generates the API under doc/api.
 
@@ -56,7 +55,6 @@ gem 'bootstrap-select-rails'
 gem 'bootstrap-sass', '~> 3.0.2.0'
 gem 'figaro'
 gem 'high_voltage', '~> 2.0.0'
-gem 'simple_form', '>= 3.0.0.rc'
 gem 'thin'
 gem 'ffi', '~> 1.9.3'
 
@@ -72,13 +70,7 @@ group :development do
   gem 'rb-inotify', :require=>false
 end
 
-group :test, :development do
-  gem 'rspec-rails'
-end
-
 group :test do
-  gem 'capybara'
   gem 'selenium-webdriver'
-  gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
 end

@@ -1,34 +1,30 @@
 WhiteCollar::Application.routes.draw do
   root :to => "tickets#index"  
   
-  post "users/assign_teacher_to_section"
-  get  "users/create_new_section"
-  get  "users/teachers"
-  get  "users/student_manager"
-  get  "users/student_rep"
-  post "users/input_students_parse"
-  get  "users/settings"
-  delete "users/delete_incorrect"
-  post "users/change_is_enabled"
-  get  "projects/next_step"
-  post "projects/change_project"
-  post "/users/change_student_status"
-  post "/users/show_section"
-  post "projects/select_project"
-  post "/users/set_section"
-  match  "receipts/my_receipts/:id", to: 'receipts#my_receipts', via: 'get'
-  post "users/need_help"
-  get  "clients/submit"
-  post "/clients/approve_client"
-  post "/clients/approve_client_edit"
-  post "/clients/disapprove_client"
-  get "reports/student_summary"
-  get "reports/activities"
-  get "reports/sales"
-  get "reports/team_summary"
-  get "clients/assign"
-  get "clients/approve"
-  get "users/unauthorized"
+  get    "/clients/submit"  
+  get    "/clients/assign"
+  get    "/clients/approve"
+  post   "/clients/approve_client"
+  post   "/clients/approve_client_edit"
+  post   "/clients/disapprove_client"
+  post   "/projects/change_project"
+  post   "/projects/select_project"
+  match  "/receipts/my_receipts/:id", to: 'receipts#my_receipts', via: 'get'
+  get    "/reports/student_summary"
+  get    "/reports/activities"
+  get    "/reports/sales"
+  get    "/reports/team_summary"
+  get    "/users/need_help"
+  get    "/users/unauthorized"
+  get    "/users/create_new_section"
+  get    "/users/teachers"
+  post   "/users/assign_teacher_to_section"
+  post   "/users/input_students_parse"
+  post   "/users/change_is_enabled"
+  post   "/users/change_student_status"
+  post   "/users/show_section"
+  post   "/users/set_section"
+  delete "/users/delete_incorrect"
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets
@@ -43,7 +39,7 @@ WhiteCollar::Application.routes.draw do
   
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
-  match 'receipts/index/user', to: 'receipts#index', via: 'get'
+  match '/receipts/index/user', to: 'receipts#index', via: 'get'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

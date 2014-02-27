@@ -1,7 +1,7 @@
 <%= form_for(@client) do |f| %>
   <% if @client.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@client.errors.count, "error") %> prohibited this client from being saved:</h2>
+      <h2><%= pluralize(@client.errors.count, 'error') %> prohibited this client from being saved:</h2>
 
       <ul>
       <% @client.errors.full_messages.each do |msg| %>
@@ -25,43 +25,43 @@
   </div>
   <div class="field">
     <%= f.label :state %><br>
-    <%= f.select :state, ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", 
-    	                  "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", 
-    	                  "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", 
-    	                  "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", 
-    	                  "UT", "VT", "VA", "WA", "WV", "WI", "WY"], :selected => @client.state || "FL" %>
+    <%= f.select :state, %w(AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME
+                            MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI
+                            SC SD TN TX UT VT VA WA WV WI WY), :selected => @client.state || 'FL' %>
   </div>
   <div class="field">
     <%= f.label :zipcode %><br>
     <%= f.text_field :zipcode %>
   </div>  
   <div class="field">
-    <%= f.label "Contact title" %>
-    <%= f.label "Contact first name" %>
-    <%= f.label "Contact last name" %><br>
-    <%= f.select :contact_title, ["Mr.", "Mrs.", "Ms.", "Miss", "Dr."], :include_blank => :true %>
+    <%= f.label 'Contact title' %>
+    <%= f.label 'Contact first name' %>
+    <%= f.label 'Contact last name' %><br>
+    <%= f.select :contact_title, %w(Mr. Mrs. Ms. Miss Dr.), :include_blank => :true %>
     <%= f.text_field :contact_fname %>
     <%= f.text_field :contact_lname %>
   </div>
   <div class="field">
-    <%= f.label :telephone %>
-    <%= f.label ', add area code if different than 850 and ext if needed.' %><br>
-    <%= f.text_field :telephone, :placeholder => "(850) 123-4567 ext.###" %>
+    <%= f.label :telephone, 'Telephone' %>
+    <%= f.text_field :telephone, :placeholder => '(850) 123-4567 Ext.####' %>
   </div>
   <div class="field">
     <%= f.label :comment %><br>
-    <%= f.text_area :comment %>
+    <%= f.text_area :comment, :placeholder => 'This field is optional. Only leave comments if absolutely necessary.' %>
   </div>
 
-  <% if current_user.role == 3 %>
   <div class="actions">
-    <%= f.submit %>
+    <% if current_user.role == 3 %>
+        <%= f.submit %>
+    <% elsif more_tickets_allowed %>
+        <%= f.submit "Submit for teacher's approval"%>
+
+    <% else %>
+        <p>You already have the maximum allowable students.</p>
+        <p>Please go to <%= link_to 'My Clients', "/receipts/my_receipts/#{current_user.id}" %>
+           and release one of your clients before asking for another.</p>
+    <% end %>
   </div>
-  <% else %>
-    <div class="actions">
-    <%= f.submit "Submit for teacher's approval"%>
-  </div>
-  <% end %>
 <% end %>
 
 <!-- This adds client-side validation -->
@@ -70,7 +70,17 @@
 		
 		// Custom method to make sure only letters are entered
 		jQuery.validator.addMethod("letters_only", function(value, element) {
-			return this.optional(element) || /^[-a-zA-Z\s]+$/i.test(value);
+			return this.optional(element) || /^[-a-zA-Z\s ?()'\/&-\.]+$/i.test(value);
+		});
+		
+		// Custom method to make sure the zipcode is not all zeros
+		jQuery.validator.addMethod('min_digit', function (value, el, param) {
+    		return value > param;
+		});
+		
+		// Custom method to make sure the telephone is valid
+		jQuery.validator.addMethod("valid_telephone", function(value, element) {
+			return this.optional(element) || /^(((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|((([1-9][0-9][0-9])?\s*[-]\s*)*([1-9][0-9][0-9])\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))$/.test(value);
 		});
 
 		$("#new_client").validate({
@@ -78,11 +88,11 @@
 				"client[business_name]": {required: true},
 				"client[address]": {required: true},
 				"client[city]": {required: true, letters_only: true},
-				"client[zipcode]": {required: true, rangelength: [5,5], digits: true},
+				"client[zipcode]": {required: true, rangelength: [4,5], digits: true, min_digit: 1},
 				"client[email]": {email: true},
 				"client[contact_fname]": {required: true, letters_only: true},
 				"client[contact_lname]": {required: true, letters_only: true},
-				"client[telephone]": {required: true}
+				"client[telephone]": {required: true, valid_telephone: true}
 			},
 			messages: {
 				"client[business_name]": "Please enter the business name.",

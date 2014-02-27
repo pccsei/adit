@@ -2,7 +2,7 @@ class Receipt < ActiveRecord::Base
   belongs_to :ticket
   belongs_to :user
   has_many   :actions
-  belongs_to :client
+  has_one :client, through: :tickets
   
   # def self.released_receipts
     # all :conditions => {['']}
@@ -107,6 +107,10 @@ class Receipt < ActiveRecord::Base
     end
     
     return points
+  end
+  
+  def self.release!
+    self.ticket.user_id = nil
   end
     
  

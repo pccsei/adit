@@ -17,9 +17,10 @@ class ApplicationController < ActionController::Base
   TEACHER = 3
   STUDENT_REP = 1                     
   
+  
   # This method will most likely be deleted soon, use selected methods below instead                          
   def get_current_project
-    project = Project.find_by is_active: '1'
+    project = Project.find_by is_active: true
     return project
   end
 
@@ -46,9 +47,11 @@ class ApplicationController < ActionController::Base
     elsif Project.current.last
       set_selected_project(Project.current.last)
       Project.current.last
+    elsif Project.non_archived.last
+      set_selected_project(Project.non_archived.last)
+      Project.non_archived.last
     else
-      set_selected_project(Project.archived.last)
-      Project.archived.last
+      nil
     end
   end
 
@@ -89,6 +92,14 @@ class ApplicationController < ActionController::Base
      unless signed_in?
        store_location
        redirect_to signin_url, notice: "Please sign in"
+     end
+   end
+   
+   def must_have_project
+     if current_user.role == TEACHER
+       if get_selected_project == nil
+         redirect_to projects_url
+       end
      end
    end
    

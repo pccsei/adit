@@ -13,5 +13,8 @@ module ClientsHelper
       true
     end        
   end
-  
+
+  def more_tickets_allowed
+    Ticket.more_clients_allowed(current_user, get_current_project)
+  end
 end
