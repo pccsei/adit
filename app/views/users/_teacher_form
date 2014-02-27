@@ -1,0 +1,81 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <!-- For the teachers -->
+  <!-- <% if current_user.role == 3 %> -->
+  <br>
+   <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :school_id %><br>
+    <%= f.text_field :school_id %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :box %><br>
+    <%= f.text_field :box %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div> 
+  <% end %>
+<% end %>
+
+<!-- This adds client-side validation -->
+<script>
+	$(document).ready(function () {
+		
+		// Custom method to make sure only letters are entered
+		jQuery.validator.addMethod("letters_only", function(value, element) {
+			return this.optional(element) || /^[-a-zA-Z\s]+$/i.test(value);
+		});
+		
+		// Custom method to make sure only letters and numbers are entered (no symbols or punctuation)
+		jQuery.validator.addMethod("id_valid", function(value, element) {
+        	return this.optional(element) || /^[-a-zA-Z0-9]+$/i.test(value);
+    	});
+		
+		$("#new_user").validate({
+			rules: {
+				"user[first_name]": {required: true, letters_only: true},
+				"user[last_name]": {required: true, letters_only: true},
+				"user[school_id]": {required: true, id_valid: true},
+				"user[email]": {required: true, email: true},
+				"user[phone]": {required: true},
+				"user[box]": {required: true, digits: true, rangelength: [3,4]}
+			},
+			messages: {
+				"user[first_name]": "Please enter the user's first name.",
+				"user[last_name]": "Please enter the user's last name.",
+				"user[school_id]": "Please enter the user's school id.",
+				"user[email]": "Please enter the user's email address.",
+				"user[phone]": "Please enter the user's phone number.",
+				"user[box]": "Please enter the user's box number."			
+			}
+		});
+	});
+</script>
