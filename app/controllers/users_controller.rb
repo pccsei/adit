@@ -75,6 +75,11 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    if params['commit'] == "Add New Teacher" || @user.role == 3
+      @user.role = 3
+    else
+      @user.role = 1
+    end
   end
 
   def set_section
@@ -123,15 +128,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    @user.role = 1
     @user.help = true
 
-    all_student_ids = [] 
-    User.all.each do |user|  
-      all_student_ids.push(user.school_id)
-    end
-
-    if all_student_ids.include?(@user.school_id)
+    if User.pluck(:school_id).include?(@user.school_id)
       @user_same = User.find_by! school_id: @user.school_id
       @user_same.school_id = @user.school_id
       @user_same.first_name = @user.first_name
@@ -144,17 +143,17 @@ class UsersController < ApplicationController
       @user_same.minor = @user.minor   
       @user_same.save
       redirect_to @user_same
-    
     else
-      
       respond_to do |format|
         if @user.save
-          @member = Member.new
-          @member.user_id = @user.id
-          @member.project_id = session[:selected_project_id]
-          @member.section_number = get_selected_section
-          @member.is_enabled = true
-          @member.save
+          if @user.role != 3
+            @member = Member.new
+            @member.user_id = @user.id
+            @member.project_id = session[:selected_project_id]
+            @member.section_number = get_selected_section
+            @member.is_enabled = true
+            @member.save
+          end
           format.html { redirect_to @user, notice: 'User was successfully created.' }
           format.json { render action: 'index', status: :created, location: @user }
         else
@@ -225,7 +224,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:id, :created_at, :updated_at, :school_id, :role, :role,
+      params.require(:user).permit(:id, :created_at, :updated_at, :school_id, :role,
                                    :email, :phone, :first_name, :last_name, :box, 
                                    :major, :minor, :classification, :remember_token)
     end

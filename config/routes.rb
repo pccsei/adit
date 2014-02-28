@@ -26,6 +26,8 @@ WhiteCollar::Application.routes.draw do
   post   "/users/show_section"
   post   "/users/set_section"
   delete "/users/delete_incorrect"
+  post   "/users/new"
+
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets
