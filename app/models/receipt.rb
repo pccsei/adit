@@ -4,6 +4,7 @@ class Receipt < ActiveRecord::Base
   has_many   :actions
   has_one :client, through: :tickets
   
+  
   # def self.released_receipts
     # all :conditions => {['']}
   # end

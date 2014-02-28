@@ -18,6 +18,7 @@
       <div id="completed_clients" class="myclients">
         <% @sold_receipts.each do |receipt| %>
         <div class="completed client <%= receipt.ticket.priority.name %>">
+          <a href="<%= url_for(receipt_path(receipt)) %>" title="View client"><img class="view_button" src="/assets/rightarrow.svg" alt="" /></a>
           <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
         </div>
         <% end %>

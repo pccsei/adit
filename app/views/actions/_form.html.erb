@@ -39,7 +39,18 @@ $(".hidden").hide();
     {
       $("#saleMade").addClass("hidden").hide();
     }
-    }) 
+    });
+    
+    $("#comments").click(function () {
+    if ($("#comments").is(':checked'))
+    	{
+    		$("#justComment").removeClass("hidden").show();
+    	}
+    else
+    {
+    	$("#justComment").addClass("hidden").hide();
+    }
+    });
    });
  
 </script>
@@ -52,9 +63,8 @@ $(".hidden").hide();
             <p>Were you able accomplish anything else?</p>
           </div>
           <%= label_tag('presentation', 'I made a presentation!') %>
-          <%= check_box_tag(:presentation)%>
+          <%= check_box_tag(:presentation) %>
         </div>
-
 
         <div id = "checkers2" <%= 'class = hidden' unless @action.action_type.name == 'Presentation' %>>
           <div>
@@ -62,7 +72,7 @@ $(".hidden").hide();
             <p>Were you able to make a sale?</p>
           </div>
           <%= label_tag('sale', 'I made a sale!') %>
-          <%= check_box_tag(:sale)%>
+          <%= check_box_tag(:sale) %>
         </div>
 
         <div id = "saleMade" <%= 'class = hidden' unless @action.action_type.name == ('New Sale' || 'Old Sale') %>>
@@ -78,10 +88,16 @@ $(".hidden").hide();
         </div>
     <% end %>
     <br />
-    <div>
-      <%= f.label :comment %>
+    
+    <div <%= 'class = hidden' unless @action.action_type.name != 'Comment' %>>
+      <%= label_tag('comment', 'I have a comment.') %>
+      <%= check_box_tag('comments') %>    
+    </div>
+    <div id = "justComment" <%= 'class = hidden' unless @action.action_type.name == 'Comment' %>>
+      <%= label_tag('comments', 'Any Comments') %>
       <%= f.text_area :comment, :placeholder => 'Do you have any details or notes for this entry?' %>
     </div>
+    
     <br />
     <% if @action.action_type.name != 'Comment' %>
     <div>
@@ -101,20 +117,31 @@ $(".hidden").hide();
 <% end %>
 
 <script>
-$('#foo_user_action_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
+$('#foo_user_action_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT", maxDate: new Date });
 </script>
 
 <!-- This adds client-side validation -->
 <script>
 
 	$(document).ready(function () {
-		$("#new_action").validate({
+		
+		jQuery.validator.addMethod("floating_number", function(value, element) {
+			return this.optional(element) || /^(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/i.test(value);
+		});
+		
+		$("#new_foo").validate({
 			rules: {
-				"action[price]": {digits: true, min: 1}
+				"price": {min: 1, required: true, floating_number: true },
+				"page": {min: .01, required: true },
+				"foo[comment]": {required: true},
+				"foo[user_action_time]": {required: true, date: true }
 				//"action[user_action_time]": {date: true, less_than: Time.now}
 			},
 			messages: {
-				"action[price]": "Please enter a valid price"
+				"price": "Please enter a valid price.",
+				"page": "Please enter a valid page size.",
+				"foo[comment]": "If you have a comment, please enter it.",
+				"foo[user_action_time]": "Please enter in when you did this."
 			}
 		});
 	});

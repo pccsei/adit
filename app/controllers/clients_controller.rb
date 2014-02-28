@@ -1,11 +1,13 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
   before_action :must_have_project
+  before_action :only_teachers, only: [:index, :approve, :assign, :approve_client, :approve_client_edit, :destroy]
+
 
   # GET /clients
   # GET /clients.json
   def index
-     
+     before_action :only_teachers
     #@clients = Client.house
     
     @clients = Client.for_selected_project(get_selected_project.id)   
