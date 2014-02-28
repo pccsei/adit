@@ -35,9 +35,9 @@
         <td><%= link_to 'Show', "/users/#{t.id}" %></td>
         <td><%= link_to 'Edit', edit_user_path(t.id) %></td>
         <% if t.is_enabled %>
-          <td><%= link_to 'Inactivate', {controller: :users, action: :change_is_enabled, id: t.id}, method: :post %></td>
+          <td><%= link_to 'Inactivate', {controller: :users, action: :change_is_enabled, id: t.m_id}, method: :post %></td>
         <% else %>
-          <td><%= link_to 'Activate', {controller: :users, action: :change_is_enabled, id: t.id}, method: :post %></td>
+          <td><%= link_to 'Activate', {controller: :users, action: :change_is_enabled, id: t.m_id}, method: :post %></td>
         <% end %>
       </tr>
     <% end %>
