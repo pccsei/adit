@@ -4,14 +4,14 @@ class ReceiptsController < ApplicationController
   # GET /receipts
   # GET /receipts.json
   def index
-    redirect_to "/receipts/my_receipts/#{current_user.id}"
+    redirect_to my_receipts_path(id: current_user.id)
   end
   
   def my_receipts
     if ((User.find(params[:id]).id == current_user.id) || current_user.role == 3)
       @student_user     =  User.find(params[:id])
     else
-      redirect_to "/receipts/my_receipts/#{current_user.id}", alert: 'You have been redirected to your own page'
+      redirect_to my_receipts_path(id: current_user.id), alert: 'You have been redirected to your own page'
     end
     
     @active_receipts   = Receipt.open_clients(@student_user.id, get_selected_project)

@@ -5,12 +5,8 @@
 #
 #  cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #  Mayor.create(name: 'Emanuel', city: cities.first)
-=begin
-statuses = Status.create([{status_type: 'Not Appoved'}, {status_type: 'Approved'}, {status_type: 'In House'}, {status_type: 'Pending'}, {status_type: 'Edited'}])
-=======
 
 statuses = Status.create([{status_type: 'Unapproved'}, {status_type: 'Approved'}, {status_type: 'In House'}, {status_type: 'Pending'}, {status_type: 'Edited'}])
->>>>>>> 6c9c91e9ba96a78c39acd4dc5bad661be54610b6
 
 clients = Client.create([{business_name: '10th Avenue Hair Designs', address: '1000 East Cervantes Street', email: '', telephone: '433-5207', comment: '', website: '', zipcode: 32501, contact_fname: '', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id},
                          {business_name: '32 Degrees Yogurt Bar', address: '5046 Bayou Boulevard', email: '', telephone: '471-2000', comment: '', website: '', zipcode: 32504, contact_fname: 'Eric', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id},

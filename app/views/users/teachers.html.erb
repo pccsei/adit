@@ -1,8 +1,13 @@
 <h1> Teacher's Page </h1>
 
-<%= link_to 'Add New Teacher', new_user_path, 
+<% params.merge!(per_page: 20) %>
+<% i = 10 %>
+<%=  i  %>
+<%= params[:per_page] %>
+<%= link_to 'Add New Teacher', new_user_path(params),
                                     :id => "link-2", 
                                     class: "btn btn-large btn-link btn-sm"%>
+
 
 
 <br><br><br>

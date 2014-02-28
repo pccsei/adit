@@ -9,7 +9,7 @@ WhiteCollar::Application.routes.draw do
   post   "/clients/disapprove_client"
   post   "/projects/change_project"
   post   "/projects/select_project"
-  match  "/receipts/my_receipts/:id", to: 'receipts#my_receipts', via: 'get'
+  match  "/receipts/my_receipts/:id", to: 'receipts#my_receipts', via: 'get', as: 'my_receipts'
   get    "/reports/student_summary"
   get    "/reports/activities"
   get    "/reports/sales"
