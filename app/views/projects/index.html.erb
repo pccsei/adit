@@ -1,5 +1,5 @@
 <% provide(:title, "Projects") %>
-<h1 class = "col-md-3", id = "heading">Projects</h1>
+<h1 class = "col-md-3" id = "heading">Projects</h1>
 <br /><br /><br /><br />
 
 <% if @current_projects.present? || @archived_projects.present? %>
@@ -97,5 +97,6 @@
 <% end %>
 <% else %>
    <p> There are currently no projects to display. Would you like to create a new project? </p>
+   <p> You will need to create a new project before you can access any other page. </p>
    <%= link_to "Create a New Project", new_project_path %>
 <% end %>

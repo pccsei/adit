@@ -1,99 +1,42 @@
-<p id="notice"><%= notice %></p> 
-
-<h1>My Client</h1>
-<div>
-<p>
-  <strong>Business name:</strong>
-  <%= @client.business_name %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @client.address %>
-</p>
-
-<p>
-  <strong>Contact name:</strong>
-  <%= @client.contact_title %>
-  <%= @client.contact_fname %>
-  <%= @client.contact_lname %>
-</p>
-
-<p>
-  <strong>Telephone:</strong>
-  <%= @client.telephone %>
-</p>
-
-<p>
-  <strong>Comment:</strong>
-  <%= @client.comment %>
-</p>
+<div id = "client_info">
+  <%= render :partial => 'show_client_info', :locals => { :client => @client }%>
 </div>
 
 <div>
-<%= link_to 'Edit this client!', edit_client_path(@client.id) %>
-</div>
+  <% if @receipt.made_contact %>
+      <strong>Made Contact!</strong>
+  <% else %>
+      <strong>Make Contact.</strong>
+  <% end %>
+  <br>
+  <% if @receipt.made_presentation %>
+      <strong>Made Presentation!</strong>
+  <% else %>
+      <strong>Make Presentation.</strong>
+  <% end %>
+  <br>
+  <% if @receipt.made_sale %>
+      <strong>Made Sale!</strong>
+  <% else %>
+      <strong>Make Sale.</strong>
+  <% end %>
+  <br>
 
-<!-- Eventually, we probably want to turn this to a link that is styled like a button -->
-<div>
-	<% if @receipt.made_contact == true %>
-	   <strong>Made Contact!</strong>
-	<% else %>
-	   <strong>Make Contact!</strong>
-	<% end %>
-	<br>
-    <% if @receipt.made_presentation == true %>
-	<strong>Made Presentation!</strong>
-	<% else %>
-	<strong>Make Presentation</strong>
-	<% end %>
-	<br>
-	<% if @receipt.made_sale == true %>
-	<strong>Made Sale </strong>
-	<% else %>
-	<strong>Make Sale</strong>
-	<% end %>
-	<br>
-
-<% if @receipt.made_sale == false %>
-    <% if @receipt.made_contact == false %>
-	   <%= link_to "I made a first contact!", new_receipt_action_path(@receipt, :action_type_name => "First Contact") %>
-       <% else if @receipt.made_presentation == false %>
-          <%= link_to "I made a presentation!", new_receipt_action_path(@receipt, :action_type_name => "Presentation") %>
+  <% if @receipt.made_sale == false %>
+      <% if @receipt.made_contact == false %>
+          <%= link_to 'I made a first contact!', new_receipt_action_path(@receipt, :action_type_name => 'First Contact') %>
+      <% elsif @receipt.made_presentation == false %>
+              <%= link_to 'I made a presentation!', new_receipt_action_path(@receipt, :action_type_name => 'Presentation') %>
           <% else %>
-          <%= link_to "I made a sale!", new_receipt_action_path(@receipt, :action_type_name => "Sale") %>
-       <% end %> 
-   <% end %>
-<% end %>
-<br></br>
+              <%= link_to 'I made a sale!', new_receipt_action_path(@receipt, :action_type_name => 'Sale') %>
+          <% end %>
+  <% end %>
+  <br /><br />
+</div>
+  <%= link_to 'I just have a comment', new_receipt_action_path(@receipt, :action_type_name => 'Comment') %>
 
-<%= link_to "I just have a comment", new_receipt_action_path(@receipt, :action_type_name => "Comment") %>
-
-<h3>My Past Actions</h3>
-<br><br>
-<table class="display">
-  <thead>
-    <tr> 
-      <th>Action</th>
-      <th>Time</th>
-      <th>Points</th>
-      <th>Comment</th>
-      <th></th>
-    </tr>
-  </thead>
-
-<tbody>
-<% @receipt.actions.each do |a| %>
-   <tr>
-   	<td><%= a.action_type.name %></td>
-   	<td><%= a.user_action_time %></td>
-   	<td><%= a.action_type.point_value %></td>
-   	<td><%= a.comment %></td>
-    <td><%= link_to 'Delete', a, method: :delete, 
-                                         data: { confirm: 'Are you sure?' } %></td>
-   </tr>
-<% end %>
-</tbody>
-</table>
-<br><br/>
-<%= link_to 'Back', receipts_path %>
+<div id = "show_action_table">
+  <%= render :partial => 'action_table', :locals => { :receipt => @receipt }%>
+</div>
+  <br><br/>
+  <%= link_to 'Back', receipts_path(@receipt.user_id) %>

@@ -3,11 +3,9 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= full_title(yield(:title))%> </title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "WhiteCollar" %>">
-    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
-    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
-    </style>
   </head>
 
   <body>
@@ -21,7 +19,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <%= link_to image_tag('logo.png', size: "150x25", alt: "WhiteCollar"),
+        <%= link_to image_tag('logo.png', size: '150x25', alt: 'WhiteCollar'),
             root_path, class: 'navbar-brand' %>
       </div>
 
@@ -31,11 +29,14 @@
 		    </div>
       </div>
     </nav>
-  
+
     <% end %>  
 
     <div id="container">
- 	    <%= yield%>
+      <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+ 	  <%= yield%>
     </div>
   </body>
 </html>

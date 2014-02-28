@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <% if @message %>
   <%= @message %>
 <% end %>
@@ -11,13 +12,32 @@
 	<%= button_to "Yes", :controller => :users, action: "need_help"%>
 
 <% end %>
+=======
+<% provide(:title, 'Assign Clients') %>
+<!--Heading-->
+<h1 class = "col-md-3" id = "heading">Assign Clients</h1>
+<script>
+
+$(function{
+	
+	$(".assign").click(function{
+		
+		
+	});
+	
+	
+	
+});
+</script>
+
+
+>>>>>>> 1882438cc94f05cb2b697603385dff7129834f3f
 <!-- Buttons wont appear if they were not loaded when the page was first loaded because they were not created. -->
 
 
-<h1>Listing clients</h1>
-
 <table class="display">
   <thead>
+<<<<<<< HEAD
     <tr>
       <th>Business name</th>
       <th>Address</th>
@@ -29,9 +49,9 @@
       <th>Comment</th>
       <% if (project = get_selected_project).is_active == true %>
         <th></th>
-      <% end %>
-      <th>details</th>
-    </tr>    
+    <% end %>
+    <th>details</th>
+  </tr>
   </thead>
 
   <tbody>
@@ -60,7 +80,7 @@
         <% end %>
         <td><%= link_to 'details', client_path(:id => ticket.id), {:id => ticket.id, :class => "btn btn-info btn-sm"} %></td>
       </tr>
-     <% end %>   
+  <% end %>
   </tbody>
 </table>
 <br/><br/><br/><br/>

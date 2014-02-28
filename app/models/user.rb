@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
 # Validates the user's name
   validates :first_name, :last_name, format: {
-    with: /\A[-a-zA-Z]+\z/,
+    with: /\A[-a-zA-Z ?()'\/&-\.]+\Z/,
     message: 'must only have letters (no digits).'
   }, unless: Proc.new { |user| user.role == -1 }
 
@@ -41,14 +41,15 @@ class User < ActiveRecord::Base
       DOMAIN = 'studentnet.int'        # For simplified user@domain format login
       ### END CONFIGURATION ###
 
-def self.get_student_info(project, section)
-  members = Member.student_members(project, section)
+def self.get_student_info(project, section, choice = 1)
+  members = Member.student_members(project, section, choice)
   Struct.new("Person", :id, :first_name, :last_name, :school_id, :email, :phone,
-                            :student_manager_name, :section_number, :major, :minor, :box, :class)
+                            :student_manager_name, :section_number, :major, :minor, :box, :class, :is_enabled, :m_id)
   students = []
   members.each_with_index do |member, i|
      students[i]                      = Struct::Person.new
      students[i].id                   = member.user_id
+     students[i].m_id                 = member.id
      students[i].first_name           = member.user.first_name
      students[i].last_name            = member.user.last_name
      students[i].school_id            = member.user.school_id
@@ -60,6 +61,7 @@ def self.get_student_info(project, section)
      students[i].minor                = member.user.minor
      students[i].box                  = member.user.box
      students[i].class                = member.user.classification
+     students[i].is_enabled           = member.is_enabled
   end 
   return students 
 end
@@ -70,6 +72,8 @@ def User.new_remember_token
 end
 
 def User.get_array_of_manager_ids_from_project_and_section(project, section)
+  members = Member.all
+  if !members.empty?
    array_of_manager_ids = Array.new(Member.pluck(:parent_id).uniq!)
    array_of_manager_ids.delete(nil)
    array_of_manager_ids.delete_if{|id| Member.find_by(user_id: id).project_id != project.id}
@@ -77,6 +81,7 @@ def User.get_array_of_manager_ids_from_project_and_section(project, section)
      array_of_manager_ids.delete_if{|id| Member.find_by(user_id: id).section_number != section.to_i}
    end
    array_of_manager_ids
+  end
 end
 
 def User.parse_students(user_params, section_number, project_id)
@@ -142,7 +147,7 @@ def User.parse_students(user_params, section_number, project_id)
         @member.is_enabled = true
       else
         member = Member.new
-        member.user_id = user.id
+        member.user_id = @user.id
         member.project_id = project_id
         member.section_number = section_number
         member.is_enabled = true
@@ -162,77 +167,57 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
     if choice == "Promote Student"
       for i in 0..students.count-1
         user = User.find(students[i])
-        member = Member.where("user_id = ?", students[i]).last
+        member = Member.find_by(user_id: students[i])
         user.role = 2
         member.parent_id = user.id
         member.save       
         user.save
-        end
       end
+    end
 
     if choice == "Demote Student"
       for i in 0..students.count-1
-        user = User.find(students[i])
-        current_member = Member.where("user_id = ?", students[i]).last
-        user.role = 1
-        members = Member.where("project_id = ?", selected_project.id)
-         members.each do |m|
-          if current_member.parent_id == m.parent_id
-            m.parent_id = nil
-            m.save
+        team_leader = User.find(students[i])
+        Member.destroy_team(team_leader)
+      end
+    end
+  
+  
+    if choice == "Inactivate Students"
+      for i in 0..students.count-1
+        # Destory team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
+        member = Member.find_by(user_id: students[i])
+        member.parent_id = nil
+        User.find(students[i]).role == 2 ? Member.destroy_team(User.find(students[i]), true) : nil
+        Member.inactivate_student_status(member)
+      end
+    end
+  
+    if choice == "Activate Students"
+      for i in 0..students.count-1
+        member = Member.find_by(user_id: students[i])
+        Member.activate_student_status(member)
+      end
+    end
+  
+    if choice == "Assign Team"
+      for i in 0..students.count-1
+        member = Member.find_by(user_id: students[i])
+        if Member.find_by(parent_id: student_manager).section_number == member.section_number
+          if User.find(students[i]).role != 2
+            member.parent_id = student_manager.id
+            member.save 
           end
-        end 
-        user.save
-      end
-    end
-  
-  
-    if choice == "Delete Student"
-      for i in 0..students.count-1
-        user = User.find(students[i])
-        current_member = Member.where("user_id = ?", students[i]).last
-        if user.role == 2
-          members = Member.where("project_id = ?", selected_project.id)
-          members.each do |m|
-            if current_member.parent_id == m.parent_id
-              m.parent_id = nil
-              m.save
-            end
-          end 
         end
-        current_member.destroy
-        current_member.save
-      end
-    end
-  
-  
-    if choice == "Create Team"
-      for i in 0..students.count-1
-        user = User.find(students[i])
-        member = Member.where("user_id = ?", students[i]).last
-        member.parent_id = student_manager.id
-        member.save
       end
     end
   end
-
-
-  # This is the only function that is not currently working for the drop down box.
-  # This will need to reference the section drop-down box
-  # obviously no students students need to be selected here 
-=begin 
-  if choice == "Delete_Everybody"
-    User.all.each do |f|
-      f.destroy
-      f.save
-    end
-  end
-=end
 end
 
 
-
-
+def full_name
+   "#{first_name} #{last_name} #{school_id}"
+end
 
 # Creates a new Teacher member with the section number. This is all that is done to create a new section 
 def User.create_new_section(teacher_id, section_number, project_id)
@@ -271,10 +256,47 @@ def User.encrypt(token)
    Digest::SHA1.hexdigest(token.to_s)
 end
 
+# Returns the managers name for the current section to assign a team
+def self.get_managers_from_current_section(section)
+  users = User.where(role: 2)
+  members = Member.where(section_number: section)
+  student_manager = Array[]
+  users.each do |user|
+    members.each do |member|
+      if user.id == member.user_id
+        student_manager.push(user)
+      end
+    end
+  end
+  return student_manager
+end
+
 # Returns all the student users for a project and section
 def self.current_student_users(project, section = "all")
   student_members = Member.student_members_user_ids(project, section)
   where("id in (?)", student_members)
+end
+
+def self.current_teachers(project)
+  Struct.new("Teacher", :id, :first_name, :last_name, :section_number, :email, :phone, :school_id, :is_enabled, :m_id)
+
+  teachers = []
+  index = 0
+  Member.where(project: project, user_id: User.where(role: 3).ids).each do |m|
+    t = User.find(m.user_id)
+    teachers[index]                = Struct::Teacher.new
+    teachers[index].id             = t.id
+    teachers[index].m_id           = m.id
+    teachers[index].first_name     = t.first_name
+    teachers[index].last_name      = t.last_name
+    teachers[index].email          = t.email
+    teachers[index].phone          = t.phone
+    teachers[index].school_id      = t.school_id
+    teachers[index].section_number = m.section_number
+    teachers[index].is_enabled     = m.is_enabled
+    index = index + 1
+  end
+  teachers
 end
 
 # Returns the manager name for a given user and project
@@ -306,7 +328,7 @@ def self.all_teachers
 end
 
 def self.all_teacher_ids
-  where("role = ?", 3).pluck(:id)
+  where("role = ?", 3).ids
 end
 
 def self.incorrect_students

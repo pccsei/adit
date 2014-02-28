@@ -22,7 +22,5 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require jquery.ui.effect
-//= require fancybox
 //= require turbolinks
-//= require jquery.ui.selectable
 //= require_tree .

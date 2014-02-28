@@ -16,8 +16,11 @@
  *= require jquery.ui.slider
  *= require jquery-ui-timepicker-addon
  *= require jquery-ui-timepicker-addon.min
+<<<<<<< HEAD
  *= require fancybox
  *= require jquery.ui.selectable  
+=======
+>>>>>>> 1882438cc94f05cb2b697603385dff7129834f3f
  *= require_tree .
 */
 
@@ -123,6 +126,7 @@ h3 {
 p {
   font-size: 1.1em;
   line-height: 1.7em;
+  margin: 1em 0 0 0;
 }
 
 
@@ -203,7 +207,6 @@ p {
     padding-left: 70px;
     padding-right: 70px;
     margin-top: -60px;
-    /*background-color: #CFCBCC;*/
 
 }
 
@@ -252,31 +255,6 @@ footer {
   @extend .error;
 }
 
-/* tables */
-/*
- * Table
- */
-table.dataTable {
-  margin: 0 auto;
-  clear: both;
-  width: 100%; 
-  padding-top: 20px;
-  }
-
-table.dataTable thead th {
-  padding: 3px 5px 3px 5px;
-  border-bottom: 1px #1C2C40;
-  font-weight: bold !important;    /*changed*/
-  cursor: pointer;
-  *cursor: hand; 
-  text-align: center;
-  color: #1C2C40 ;
-}
-
-table.dataTable tfoot th {
-  padding: 3px 18px 3px 10px;
-  border-top: 1px solid black;
-  font-weight: normal !important; }  /*changed*/
 
 TD.dataTables_empty{
   background-color: #85a7d1 !important;

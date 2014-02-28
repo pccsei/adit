@@ -1,3 +1,19 @@
+<h1> Teacher's Page </h1>
+
+<% params.merge!(per_page: 20) %>
+<% i = 10 %>
+<%=  i  %>
+<%= params[:per_page] %>
+<%= link_to 'Add New Teacher', new_user_path(params),
+                                    :id => "link-2", 
+                                    class: "btn btn-large btn-link btn-sm"%>
+
+
+
+<br><br><br>
+
+<h2>Current Teachers</h2>
+<br>
 <table class ="table dataTable">
   <thead>
     <tr>
@@ -13,18 +29,52 @@
     </tr>
   </thead>
   <tbody>
-    <% @current_teachers.each do |user, member| %>
+    <% @current_teachers.each do |t| %>
       <tr align ="center">
-        <td><%= user.first_name %></td>
-        <td><%= user.last_name %></td>
-        <td><%= user.school_id%></td>
-        <td><%= user.email%></td>
-        <td><%= user.phone %></td>                
-        <td><%= member.section_number %></td>      
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= t.first_name %></td>
+        <td><%= t.last_name %></td>
+        <td><%= t.school_id%></td>
+        <td><%= t.email%></td>
+        <td><%= t.phone %></td>                
+        <td><%= t.section_number %></td>      
+        <td><%= link_to 'Show', "/users/#{t.id}" %></td>
+        <td><%= link_to 'Edit', edit_user_path(t.id) %></td>
+        <% if t.is_enabled %>
+          <td><%= link_to 'Inactivate', {controller: :users, action: :change_is_enabled, id: t.m_id}, method: :post %></td>
+        <% else %>
+          <td><%= link_to 'Activate', {controller: :users, action: :change_is_enabled, id: t.m_id}, method: :post %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
+</table>
+
+<br><br>
+<h2>Teacher Roster</h2>
+<table class ="table dataTable">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>ID number</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th></th>
+      <th></th>                                     
+    </tr>
+  </thead>
+  <tbody>
+    <% @all_teachers.each do |t| %>
+      <tr align ="center">
+        <td><%= t.first_name %></td>
+        <td><%= t.last_name %></td>
+        <td><%= t.school_id%></td>
+        <td><%= t.email%></td>
+        <td><%= t.phone %></td>                      
+        <td><%= link_to 'Show', "/users/#{t.id}" %></td>
+        <td><%= link_to 'Edit', edit_user_path(t) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
 </table>

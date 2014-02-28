@@ -49,6 +49,8 @@ $(function() {
 
 <h1 class = "col-md-3", id = "heading">Choose Clients</h1>
 
+ <div class="scroller_anchor"></div>  
+<div class="scroller alert alert-info" id = "alerts">
 <% if @clientsLeft %>
 <div><span>You can get </span><span><%= @clientsLeft < 0 ? 0 : @clientsLeft%></span> more clients<span></div>
 <% else %>
@@ -75,10 +77,17 @@ $(function() {
   You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.
 <% else %>
   You are no longer able to select clients.
-<% end %>    	
-	</span>	
+<% end %>
+    </span>
   </h2>
-</div>
+  
+MESSAGES</div>
+</span></div>
+
+<% if current_user.help == true %>
+	<h1>First Time User?</h1>
+	<%= button_to "Yes", :controller => :users, action: "need_help"%>
+<% end %>
 
 <table class="display">
   <thead>
