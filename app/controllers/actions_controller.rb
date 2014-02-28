@@ -93,7 +93,7 @@ class ActionsController < ApplicationController
          if next_action
            next_action.save
          end
-        format.html { redirect_to("/receipts/my_receipts/#{@action.receipt.user_id}", notice: 'You successfully updated your client') }
+        format.html { redirect_to(my_receipts_path(id: @action.receipt.user_id), notice: 'You successfully updated your client') }
         format.json { render action: 'show', status: :created, location: @action }
       else
         format.html { render action: 'new' }

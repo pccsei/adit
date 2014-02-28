@@ -116,7 +116,7 @@ class Client < ActiveRecord::Base
     
   def Client.make_pending_edited_client(edited_client, client, client_params)
     if edited_client.attributes == Client.find(client).attributes
-      redirect_to "/receipts/my_receipts/#{current_user.id}", notice: 'No change has been made to the client.'
+      redirect_to my_receipts_path(id: current_user.id), notice: 'No change has been made to the client.'
     else
       pending_edited_client = Client.new
       # pending_edited_client.save 
