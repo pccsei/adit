@@ -66,12 +66,8 @@ class TicketsController < ApplicationController
           # This is done down here to allow the transaction above to finish as quickly as possible thus allowing the user to better grab the ticket
           if grabbedTicket
             updates = { 'Success' => 'You are now assigned to ' + Client.find(ticket.client_id).business_name.to_s,
-                        'ticketPriority' => Priority.find(ticket.priority_id).name.to_s}
-            receipt = Receipt.where('ticket_id = ? AND user_id = ?', ticket.id, current_user.id).first
-            
-            if receipt.nil?
-              Receipt.create(ticket_id: ticket.id, user_id: current_user.id)
-            end              
+                        'ticketPriority' => Priority.find(ticket.priority_id).name.to_s}            
+            Receipt.find_or_create_by(ticket_id: ticket.id, user_id: current_user.id)                          
           end    
         else 
           updates = {'userMessage' => 'You already have the max number of ' + Priority.find(requested_ticket_priority_id).name.to_s + ' priority clients.'}
@@ -146,14 +142,27 @@ class TicketsController < ApplicationController
         format.html { redirect_to clients_url, notice: 'Client was successfully added.' }
     end
   end
+
+##########################################################################################
   
-  # RY's work
   def release
-    
-    if (params[:id])
-      Ticket.find(params[:id]).user_id = nil
+    t = Ticket.find(params[:id])  
+    # if the person accessing the page is a teacher or the ticket holder
+    if params[:id] && (current_user.role == 3 || t.user_id = current_user.id)    
+      t = Ticket.find(params[:id])
+      t.user_id = 0
+      t.save
+      
+      response = {"status" => "true"}  
+    else 
+      response = {"status" => "false"}
+    end    
+    respond_to do |format|
+      format.js {render json: response}
     end
   end
+
+##########################################################################################
 
   def destroy
     @ticket.destroy

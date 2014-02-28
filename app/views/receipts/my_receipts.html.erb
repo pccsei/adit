@@ -1,4 +1,18 @@
 <% if Project.non_archived %>
+
+    <script>
+      
+    $(function() {
+      
+      $(".release_button").click(function() {
+        console.log("release button clicked");
+        
+        if (confirm("Are you sure you want to release this client?"))
+          $.get("<%= url_for '/tickets/release.js?id='%>" + this.id);
+      });
+    });  
+    </script>
+  
     <div id="page">
       <h1>My Clients</h1>
       <h2>Active Clients</h2>
@@ -6,10 +20,10 @@
         <!-- Loop -->
         <% @active_receipts.each do |receipt| %>
         <div class="active client <%= receipt.ticket.priority.name %>" data-link="#">
-          <a href="<%= url_for(receipt_path(receipt)) %>" title="View client"><img class="view_button" src="/assets/rightarrow.svg" alt="" /></a>
+          <a href="<%= url_for(receipt_path(receipt)) %>" title="View client"><img class="view_button" src="<%= url_for '/assets/rightarrow.svg'%>" alt="" /></a>
           <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
           <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
-          <a href="#" title="Release Client"><img class="release_button" src="/assets/closebutton.svg" alt="" /></a>
+          <a href="#" title="Release Client"><img class="release_button" id="<%= receipt.ticket.id%>" src="<%= url_for '/assets/closebutton.svg' %>" alt="" /></a>
         </div>
         <% end %>
       </div>
@@ -18,6 +32,7 @@
       <div id="completed_clients" class="myclients">
         <% @sold_receipts.each do |receipt| %>
         <div class="completed client <%= receipt.ticket.priority.name %>">
+          <a href="<%= url_for(receipt_path(receipt)) %>" title="View client"><img class="view_button" src="<%= url_for '/assets/rightarrow.svg' %>" alt="" /></a>
           <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
         </div>
         <% end %>

@@ -3,30 +3,47 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-tr.medium.odd{
-	background-color: #fffd71 !important;
-}
-
-tr.medium.even{
-	background-color: #fffd71 !important;
-}
-
-tr.high.odd{
+.addTicket.autoHidehigh{
 	background-color: #68ff5d !important;
+	color: black;
+	border: 1px solid black !important;
+	border-radius: 3px;
 }
 
-tr.high.even{
-	background-color: #68ff5d !important;
+.addTickethigh{
+background-color: #68ff5d !important;
+color: black;
+border: 1px solid black !important;
+border-radius: 3px;
 }
 
-tr.low.odd{
+.addTicket.autoHidemedium{
+	background-color: #fffd71 !important;
+	color: black;
+	border: 1px solid black !important;
+	border-radius: 3px;
+}
+
+.addTicketmedium{
+background-color: #fffd71 !important;
+color: black;
+border: 1px solid black !important;
+border-radius: 3px;
+}
+
+.addTicket.autoHidelow{
 	background-color: white !important;
+	color: black;
+	border: 1px solid black !important;
+	border-radius: 3px;
 }
 
-tr.low.even{
-	background-color: white !important;
+.addTicketlow{
+background-color: white !important;
+color: black;
+border: 1px solid black !important;
+border-radius: 3px;
 }
-
 
 
 
@@ -39,7 +56,7 @@ tr.low.even{
 	height: 70px; 
 	font-size:18px;  
 	text-align:right; 
-	margin-top: 56px;
+	margin-top: 67px;
 	margin-bottom: -30px;
 	}
 
