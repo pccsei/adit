@@ -187,7 +187,7 @@ class UsersController < ApplicationController
 
   # Change the students status
   def change_is_enabled
-    member = Member.find_by user_id: params[:id]
+    member = Member.find params[:id]
     Member.change_student_status(member)
     redirect_to :back
   end
