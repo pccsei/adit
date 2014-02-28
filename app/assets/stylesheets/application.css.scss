@@ -321,10 +321,10 @@ table.dataTable tr.even td.sorting_3 {
  * Table wrapper
  */
 .dataTables_wrapper {
-  position: fixed !important;
+  position: relative !important;
   clear: both;
   *zoom: 1;
-  padding-top: 30px;
+  padding-top:60px;
  }
 
 
