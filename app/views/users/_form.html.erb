@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <br>
+  <br><br><br>
    <div class="field">
     <%= f.label :first_name, 'First Name' %><br>
     <%= f.text_field :first_name %>
@@ -50,7 +50,7 @@
   	<%= f.select :classification, [['Freshman', 'Freshman'], ['Sophmore', 'Sophmore'], ['Junior', 'Junior'], ['Senior', 'Senior']] %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit  :class => 'btn btn-large btn-primary btn-sm'%>
   </div>
 
 
