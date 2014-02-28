@@ -2,7 +2,7 @@ WhiteCollar::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In production, we use a different URL
-  config.action_controller.asset_host = "cslinux/adit"
+  #config.action_controller.asset_host = "cslinux"
 
   # Code is not reloaded between requests.
   config.cache_classes = true
