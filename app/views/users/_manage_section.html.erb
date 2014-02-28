@@ -1,5 +1,6 @@
 <!-- Here is huge table of all the students -->
 <table id="manageSection" class="display">
+
   <thead>
 	<tr>
 	  <th></th>
@@ -22,8 +23,8 @@
     <% current_students.each do |student| %>
       <tr>
         <td><%= check_box_tag "students[]", student.id%></td>
-        <td><%= link_to student.first_name, "/receipts/my_receipts/#{student.id}" %></td>
-        <td><%= link_to student.last_name, "/receipts/my_receipts/#{student.id}" %></td>
+        <td><%= link_to student.first_name, my_receipts_path(id: student.id) %></td>
+        <td><%= link_to student.last_name, my_receipts_path(id: student.id) %></td>
         <td><%= student.school_id %></td>
         <td><%= student.email %></td>
         <td><%= student.phone %></td>                

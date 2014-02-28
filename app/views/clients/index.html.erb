@@ -1,36 +1,31 @@
-<% provide(:title, 'Assign Clients') %>
-<!--Heading-->
+<% if @message %>
+  <%= @message %>
+<% end %>
+
+
+<% provide(:title, "Assign Clients") %>
+
+<% if current_user.help == true %>
+	<h1>First Time User?</h1>
+
+	<%= button_to "Yes", :controller => :users, action: "need_help"%>
+
+<% end %>
+
 <h1 class = "col-md-3" id = "heading">Assign Clients</h1>
-<script>
-
-$(function{
-	
-	$(".assign").click(function{
-		
-		
-	});
-	
-	
-	
-});
-</script>
-
-
-<!-- Buttons wont appear if they were not loaded when the page was first loaded because they were not created. -->
-
 
 <table class="display">
   <thead>
-  <tr>
-    <th>Business name</th>
-    <th>Address</th>
-    <th>Email</th>
-    <th>Contact title</th>
-    <th>First name</th>
-    <th>Last name</th>
-    <th>Telephone</th>
-    <th>Comment</th>
-    <% if get_selected_project.is_active == true %>
+    <tr>
+      <th>Business name</th>
+      <th>Address</th>
+      <th>Email</th>
+      <th>Contact title</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Telephone</th>
+      <th>Comment</th>
+      <% if (project = get_selected_project).is_active == true %>
         <th></th>
     <% end %>
     <th>details</th>
@@ -38,26 +33,30 @@ $(function{
   </thead>
 
   <tbody>
-  <% @clients.each do |client| %>
-      <tr>
-        <td><%= client.business_name %></td>
-        <td><%= client.address %></td>
-        <td><%= client.email %></td>
-        <td><%= client.contact_title %></td>
-        <td><%= client.contact_fname %></td>
-        <td><%= client.contact_lname %></td>
-        <td><%= client.telephone %></td>
-        <td><%= client.comment %></td>
-        <% if get_selected_project.is_active == true %>
-            <td>
-              <% if client.ticket_id %>
-                  <%= (client.student_fname + ' ' +  client.student_lname + '<br />(' + client.student_id + ')').html_safe %>
-              <% else %>
-                  <%= link_to 'assign', clients_assign_path(:id => client.id), {:id => client.id, :class => 'btn btn-info btn-sm'} %>
-              <% end %>
-            </td>
+	<% @tickets.each do |ticket| %>
+	  <tr>    
+      	<td><%= ticket.business_name %></td>
+        <td><%= ticket.address %></td>
+        <td><%= ticket.email %></td>
+        <td><%= ticket.contact_title %></td>
+        <td><%= ticket.contact_fname %></td>
+        <td><%= ticket.contact_lname %></td>
+        <td><%= ticket.telephone %></td>
+        <td><%= ticket.comment %></td>
+        <% if project.is_active == true %>
+	      <td>
+	        <% if ticket.id %>
+	          <% if ticket.student_fname %>
+	          	<%= (ticket.student_fname + " " +  ticket.student_lname + "<br />(" + ticket.student_id + ")").html_safe %>
+	          <% else %>
+	          	<%= link_to 'assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => "btn btn-info btn-sm"} %>
+	          <% end %>
+	        <% else %> 
+	          <%= "Ticket does not exist for this client" %>	          
+	        <% end %>
+          </td>
         <% end %>
-        <td><%= link_to 'details', clients_assign_path(:cid => client.id, :tid => client.ticket_id), {:id => client.id, :class => 'btn btn-info btn-sm'} %></td>
+        <td><%= link_to 'details', client_path(:id => ticket.id), {:id => ticket.id, :class => "btn btn-info btn-sm"} %></td>
       </tr>
   <% end %>
   </tbody>

@@ -84,7 +84,7 @@ $(".hidden").hide();
           <%= label_tag('page', 'Page Size') %>
           <%= text_field_tag(:page, nil, :placeholder => 'Examples: .25 or 1.5 ')%>
           <%= label_tag('payment_type', 'Payment Type') %>
-          <%= select_tag('payment_type', options_for_select(%w(Cash Credit Invoice Check)))%>
+          <%= select_tag('payment_type', options_for_select(%w(Cash Credit Invoice Check Dept. Trans.)))%>
         </div>
     <% end %>
     <br />

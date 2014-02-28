@@ -6,8 +6,10 @@
 <%= form_tag('/projects/select_project') do%>
 	<% if @current_projects.present? %>
 	<h3>Active Project</h3>
-	<p>There can only be 1 active project at a time. You can archive your project on the edit project page. </p>
-	<table class = "display">
+	<p><h5 class = "col-md-12 alert alert-info">&nbsp;There can only be 1 active project at a time. You can archive your project on the edit project page. </h5></p>
+	<div id="active_project">
+	<br>
+	<table>
 	  <thead>
 	    <tr>
 	      <th>Selected</th>
@@ -49,10 +51,10 @@
 	    <% end %>
 	  </tbody>
 	</table>
-	
+	</div>
 	<% else %>
 	   <br />
-	   <p>Currently, no active project exists. Please create a new project or view archived projects.</p>
+	   <p><h5>Currently, no active project exists. Please create a new project or view archived projects.</h5></p>
 	      <br />
 		  <%= link_to 'Create New Project', new_project_path %>
 		  <br />   
@@ -89,14 +91,14 @@
 		</table>
 	<% else %>
 	<br />
-	   <p> There are currently no archived projects to view. In the future, they will appear here.</p>
+	   <p><h5> There are currently no archived projects to view. In the future, they will appear here.</h5></p>
 	<br />
 	<% end %>
 	<br />
 	<%= submit_tag 'Go to selected Project', :class => "btn btn-primary btn-sm"%>
 <% end %>
 <% else %>
-   <p> There are currently no projects to display. Would you like to create a new project? </p>
-   <p> You will need to create a new project before you can access any other page. </p>
+   <p><h5> There are currently no projects to display. Would you like to create a new project? </h5></p>
+   <p><h5> You will need to create a new project before you can access any other page. </h5></p>
    <%= link_to "Create a New Project", new_project_path %>
 <% end %>

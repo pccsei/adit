@@ -16,8 +16,8 @@
   <tbody>
     <% @sales.each do |sale| %>
       <tr>
-        <td align ="center"><%= link_to sale.first_name, "/receipts/my_receipts/#{sale.student_id}"%></td>
-        <td align ="center"><%= link_to sale.last_name, "/receipts/my_receipts/#{sale.student_id}"%></td>
+        <td align ="center"><%= link_to sale.first_name, my_receipts_path(id: sale.student_id) %></td>
+        <td align ="center"><%= link_to sale.last_name, my_receipts_path(id: sale.student_id) %></td>
         <td align ="center"><%= sale.team_leader%></td>
         <td align ="center"><%= sale.section %></td>
         <td align ="center"><%= sale.time_of_sale%></td>

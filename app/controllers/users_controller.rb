@@ -200,7 +200,23 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+###################################################################################################################
+  def in_section
+    
+    if params[:sn]
+    
+      if params[:sn] == "all"
+        response = User.current_student_users(get_selected_project).pluck(:school_id, :first_name, :last_name)
+      else 
+        response = User.current_student_users(get_selected_project, params[:sn]).pluck(:school_id, :first_name, :last_name)
+      end
+    
+    else 
+      response = {"Please Don't" => "Come Here...."}  
+    end
+    render json: response
+  end
+###################################################################################################################
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
