@@ -32,10 +32,10 @@ class Client < ActiveRecord::Base
   }
    
 # Validates the telephone
-#  validates :telephone, allow_blank: true, format: {
-#    with: /\A(((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|(((\d{3})?\s*[-]\s*)*(\d{3})\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
-#    message: 'must be a valid telephone number.'
-#  }
+  validates :telephone, allow_blank: true, format: {
+    with: /\A(((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|((((\d{3})?\s*[-]*\s*)*(\d{3})\s*[-]*\s*(\d{4}))*\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
+    message: 'must be a valid telephone number.'
+  }
 
    # Returns all pending clients, needs to be refactored to remove magic number
   def self.pending
@@ -110,7 +110,7 @@ class Client < ActiveRecord::Base
     
   def Client.make_pending_edited_client(edited_client, client, client_params)
     if edited_client.attributes == Client.find(client).attributes
-      redirect_to "/receipts/my_receipts/#{current_user.id}", notice: 'No change has been made to the client.'
+      redirect_to my_receipts_path(id: current_user.id), notice: 'No change has been made to the client.'
     else
       pending_edited_client = Client.new
       # pending_edited_client.save 

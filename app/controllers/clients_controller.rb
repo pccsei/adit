@@ -1,11 +1,13 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
   before_action :must_have_project
+  before_action :only_teachers, only: [:index, :approve, :assign, :approve_client, :approve_client_edit, :destroy]
+
 
   # GET /clients
   # GET /clients.json
   def index
-     
+     before_action :only_teachers
     #@clients = Client.house
     
     #@clients  = Client.for_selected_project(get_selected_project.id)    
@@ -149,7 +151,7 @@ class ClientsController < ApplicationController
       edited_client.assign_attributes(client_params)
       # render text: client_params
       Client.make_pending_edited_client(edited_client, @client, client_params) 
-      redirect_to "/receipts/my_receipts/#{current_user.id}", notice: 'Your change has been submitted.'     
+      redirect_to my_receipts_path(id: current_user.id), notice: 'Your change has been submitted.'     
     else
       respond_to do |format|
         if @client.update(client_params)

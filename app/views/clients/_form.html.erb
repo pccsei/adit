@@ -58,7 +58,7 @@
 
     <% else %>
         <p>You already have the maximum allowable students.</p>
-        <p>Please go to <%= link_to 'My Clients', "/receipts/my_receipts/#{current_user.id}" %>
+        <p>Please go to <%= link_to 'My Clients', my_receipts_path(id: current_user.id) %>
            and release one of your clients before asking for another.</p>
     <% end %>
   </div>

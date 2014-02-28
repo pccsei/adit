@@ -37,8 +37,8 @@
         <td><%= t.email%></td>
         <td><%= t.phone %></td>                
         <td><%= t.section_number %></td>      
-        <td><%= link_to 'Show', "/users/#{t.id}" %></td>
-        <td><%= link_to 'Edit', edit_user_path(t.id) %></td>
+        <td><%= link_to 'Show', user_path(t) %></td>
+        <td><%= link_to 'Edit', edit_user_path(t) %></td>
         <% if t.is_enabled %>
           <td><%= link_to 'Inactivate', {controller: :users, action: :change_is_enabled, id: t.m_id}, method: :post %></td>
         <% else %>
@@ -71,7 +71,7 @@
         <td><%= t.school_id%></td>
         <td><%= t.email%></td>
         <td><%= t.phone %></td>                      
-        <td><%= link_to 'Show', "/users/#{t.id}" %></td>
+        <td><%= link_to 'Show', user_path(t) %></td>
         <td><%= link_to 'Edit', edit_user_path(t) %></td>
       </tr>
     <% end %>

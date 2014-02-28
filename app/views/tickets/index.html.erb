@@ -81,13 +81,8 @@ $(function() {
     </span>
   </h2>
   
-MESSAGES</div>
+</div>
 </span></div>
-
-<% if current_user.help == true %>
-	<h1>First Time User?</h1>
-	<%= button_to "Yes", :controller => :users, action: "need_help"%>
-<% end %>
 
 <table class="display">
   <thead>
@@ -106,11 +101,13 @@ MESSAGES</div>
   </thead>
   <tbody>
     <% @tickets.each do |ticket| %>
-      <tr class='<%= Priority.find(ticket.priority_id).name %>'>
+      <tr>
       	<% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
-      	<% if open %>	   	  
- 	  	  <td><%= button_tag "add", type: 'button',  :id => ticket.id, :class => "btn btn-primary btn-sm " << ticketClass %>
+      	<% if open %>	
+        <% color =  Priority.find(ticket.priority_id).name %> 
+ 	  	  <td><%= button_tag "add", type: 'button', :id => ticket.id, :class =>"" << ticketClass << color %>
        	  </td>
+  
       	<% end %>
       	<td><%= Priority.find(ticket.priority_id).name.capitalize %></td>
       	<td><%= client.business_name %></td>

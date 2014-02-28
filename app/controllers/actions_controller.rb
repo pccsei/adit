@@ -93,7 +93,7 @@ class ActionsController < ApplicationController
          if next_action
            next_action.save
          end
-        format.html { redirect_to("/receipts/my_receipts/#{@action.receipt.user_id}", notice: 'You successfully updated your client') }
+        format.html { redirect_to(my_receipts_path(id: @action.receipt.user_id), notice: 'You successfully updated your client') }
         format.json { render action: 'show', status: :created, location: @action }
       else
         format.html { render action: 'new' }
@@ -119,21 +119,32 @@ class ActionsController < ApplicationController
   # DELETE /actions/1
   # DELETE /actions/1.json
   def destroy
+    receipt = Receipt.find(@action.receipt_id)
+      
     if @action.action_type.name == 'Presentation'
       @action.receipt.made_presentation = false
+      receipt.made_presentation = false
     elsif @action.action_type.name == 'First Contact'
-      @action.receipt.made_contact == false
+      @action.receipt.made_contact = false
+      receipt.made_contact = false
     elsif @action.action_type.name == ('New Sale' || 'Old Sale')
       @action.receipt.made_sale = false
       @action.receipt.sale_value = 0
       @action.receipt.page_size = 0
       @action.receipt.payment_type = nil
+      receipt.made_sale = false
+      receipt.sale_value   = nil
+      receipt.page_size    = nil
+      receipt.payment_type = nil
     end
     @action.receipt.save
     @action.destroy
+    receipt.save
     respond_to do |format|
-      format.html { redirect_to receipt_path(@action.receipt),
+      format.html { redirect_to :back, 
                       notice: "You have successfully deleted that entry." }
+      # format.html { redirect_to receipt_path(@action.receipt),
+                      # notice: "You have successfully deleted that entry." }
       format.json { head :no_content }
     end
   end
