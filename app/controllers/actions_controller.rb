@@ -49,7 +49,7 @@ class ActionsController < ApplicationController
        receipt.made_contact = true
     elsif action_name == 'Presentation'
       receipt.made_presentation = true
-    else
+    elsif action_name == ('New Sale' || 'Old Sale')
       receipt.made_sale    = true
       receipt.sale_value   = params[:price]
       receipt.page_size    = params[:page]
@@ -124,14 +124,16 @@ class ActionsController < ApplicationController
     elsif @action.action_type.name == 'First Contact'
       @action.receipt.made_contact == false
     elsif @action.action_type.name == ('New Sale' || 'Old Sale')
-      @action.receipt.made_sale == false
+      @action.receipt.made_sale = false
       @action.receipt.sale_value = 0
       @action.receipt.page_size = 0
       @action.receipt.payment_type = nil
     end
+    @action.receipt.save
     @action.destroy
     respond_to do |format|
-      format.html { redirect_to actions_url }
+      format.html { redirect_to receipt_path(@action.receipt),
+                      notice: "You have successfully deleted that entry." }
       format.json { head :no_content }
     end
   end

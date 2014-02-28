@@ -1,24 +1,31 @@
-<h1><%= @clientInfo.business_name%></h1>
+<h2>Here is the information we have on <%= @clientInfo.business_name%>:</h1>
 
-<h2>
+<h3>
+Address: <br /> 
 <%= @clientInfo.address %>
-</h2>
-<h4>
+</h3>
+<h5>
 <%= @clientInfo.city%><% if @clientInfo.state%>, <%end%><%= @clientInfo.state%> <%= @clientInfo.zipcode%>
-</h4>
+</h5>
 <br /><br />
 
-
 <% if @clientInfo.email %>
-<h3><%= @clientInfo.email%></h3>
+<h4><%= @clientInfo.email%></h4>
 <% end %>
 <br /><br />
 <% if @clientInfo.telephone %>
-<h3>Phone: <%= @clientInfo.telephone%></h3>
+<h4>Phone: <%= @clientInfo.telephone%></h4>
 <% end %>
 
+<h4>Person to contact: <%=@clientInfo.contact_title %> <%= @clientInfo.contact_fname %> <%= @clientInfo.contact_lname%></h4>
+<br /><br /><br /><br />
+<div>
+	<h3>
+		Here is our past interaction with this client:
+	</h3>
+	<h2>yadayadayadayadayadayadayadayada</h2>
+</div>
 
 
-<h3>Person to contact: <%=@clientInfo.contact_title %> <%= @clientInfo.contact_fname %> <%= @clientInfo.contact_lname%></h3>
 
 
