@@ -146,6 +146,14 @@ class TicketsController < ApplicationController
         format.html { redirect_to clients_url, notice: 'Client was successfully added.' }
     end
   end
+  
+  # RY's work
+  def release
+    
+    if (params[:id])
+      Ticket.find(params[:id]).user_id = nil
+    end
+  end
 
   def destroy
     @ticket.destroy
