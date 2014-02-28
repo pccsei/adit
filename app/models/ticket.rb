@@ -6,8 +6,6 @@ class Ticket < ActiveRecord::Base
   has_many   :comments
   has_many   :receipts  
   
-  
-  
   def self.current_project(project_id)
     where("project_id = ?", project_id)
   end
@@ -17,8 +15,6 @@ class Ticket < ActiveRecord::Base
     select("client_id, user_id").where("updated_at >= ?", stamp).all << Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")
   end
   
-
-
   def self.createTickets(project)
     clients = Client.house
     clients.each do |c|

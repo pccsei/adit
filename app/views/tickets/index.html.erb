@@ -50,7 +50,7 @@ $(function() {
 <h1 class = "col-md-3", id = "heading">Choose Clients</h1>
 
 <% if @clientsLeft %>
-<div><span>You can get </span><span><%= @clientsLeft %></span> more clients<span></div>
+<div><span>You can get </span><span><%= @clientsLeft < 0 ? 0 : @clientsLeft%></span> more clients<span></div>
 <% else %>
 <div>
   <table>
@@ -67,17 +67,16 @@ $(function() {
 </div>
 <% end %>
 
-<div><span>
+
+<div class="message">
+  <h2>
+    <span id="userMessage">
 <% if open = (@currentProject.tickets_close_time > Time.now) %>
   You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.
 <% else %>
   You are no longer able to select clients.
-<% end %>
-</span></div>
-
-<div class="message">
-  <h2>
-    <span id="userMessage">THIS_IS_WHERE_THE_USER_MESSAGE_IS_TO_BE_DISPLAYED</span>	
+<% end %>    	
+	</span>	
   </h2>
 </div>
 

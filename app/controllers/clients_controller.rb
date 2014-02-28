@@ -7,9 +7,10 @@ class ClientsController < ApplicationController
      
     #@clients = Client.house
     
-    @clients = Client.for_selected_project(get_selected_project.id)   
-    
+    #@clients  = Client.for_selected_project(get_selected_project.id)    
     @projects = Project.all
+    
+    @tickets = Client.tickets_for_selected_project(get_selected_project.id) #Ticket.where(project_id: get_selected_project.id)
 
   end
   
@@ -22,18 +23,35 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
-    @client = Client.find(params[:id])
+    #@client = Client.find(params[:id])
+    @client = Ticket.find(params[:id]).client
   end
 
   def assign
-    if (params[:tid])
-      @ticket = Ticket.find(params[:tid])    
-    else
-      @ticket = Ticket.select("id, client_id").where(client_id: params[:id], project_id: get_selected_project.id).first
-    end      
-    @client = Client.find(params[:cid])
+    @ticket = Ticket.find(params[:tid])    
+    @client = @ticket.client
+        
+    @sections = get_array_of_all_sections(get_selected_project)
   end
   
+
+  def actually_assign
+    
+    #t = Ticket.where(user_id: params[:studentID], project_id: get_current_project.id) #ind(params[:studentID]);
+    t = Ticket.find(params[:tid])    
+    t.user_id =  User.where(school_id: params[:studentID]).first.id
+    t.save    
+                
+    # Create a ticket for the student if he does not already have one.0
+    if Receipt.where("ticket_id = ? AND user_id = ?", params[:tid], params[:studentID]).first.nil?
+      Receipt.create(ticket_id: t.id, user_id: current_user.id)
+    end
+    
+    @message = User.where(school_id: params[:studentID]).first.to_s + "is now assigned to " + t.client.business_name.to_s    
+    
+    redirect_to clients_url, flash[:alert] => 'Client was successfully submitted.'    
+  end
+
 
 
   def approve_client
@@ -146,7 +164,8 @@ class ClientsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client
-      @client = Client.find(params[:id])
+      #@client = Client.find(params[:id])
+      @client = Ticket.find(params[:id]).client
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

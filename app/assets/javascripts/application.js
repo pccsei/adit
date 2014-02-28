@@ -24,4 +24,5 @@
 //= require jquery.ui.effect
 //= require fancybox
 //= require turbolinks
+//= require jquery.ui.selectable
 //= require_tree .

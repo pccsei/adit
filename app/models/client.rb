@@ -62,45 +62,42 @@ class Client < ActiveRecord::Base
     end
   end
 
-  def self.for_selected_project(pid)
-    basic_client_info = Client.house
+  def self.tickets_for_selected_project(pid)
     
-    Struct.new("Client_detail", :id,    :business_name, :contact_fname, :telephone, :website, :student_lname, :zipcode, :email, :city, 
-                                :state, :contact_lname, :contact_title, :ticket_id, :address, :student_fname, :student_id, :comment)
-    client_info = []  
-    basic_client_info.each_with_index do |c, i|
-      client_info[i] = Struct::Client_detail.new
-      client_info[i].id = c.id
-      client_info[i].business_name = c.business_name
-      client_info[i].contact_fname = c.contact_fname
-      client_info[i].email = c.email
-      client_info[i].telephone = c.telephone
-      client_info[i].website = c.website
-      client_info[i].zipcode = c.zipcode
-      client_info[i].state = c.state
-      client_info[i].contact_lname = c.contact_lname
-      client_info[i].contact_title = c.contact_title
-      client_info[i].city = c.city
-      client_info[i].comment = c.comment
-      
-      client_ticket = Ticket.where(client_id: c.id, project_id: pid).first
-      
-      if client_ticket && client_ticket.user_id != 0
-        user = User.find(client_ticket.user_id)
+    # Make sure tickets are being created for in-house, but non-selectable for students.
         
-        client_info[i].ticket_id     = client_ticket.id
-        client_info[i].student_fname = user.first_name
-        client_info[i].student_lname = user.last_name
-        client_info[i].student_id    = user.school_id
-      else 
-        client_info[i].ticket_id     = nil
-        client_info[i].student_fname = nil
-        client_info[i].student_lname = nil
-        client_info[i].student_id    = nil        
-      end
+    ticket_info = Ticket.where(project_id: pid)
+        
+    Struct.new("Client_ticket", :email, :business_name, :contact_fname, :telephone, :website, :student_lname, :zipcode, :city, :id,    
+                                :state, :contact_lname, :contact_title, :client_id, :address, :student_fname, :student_id, :comment)
+    client_ticket = []  
+    ticket_info.each_with_index do |t, i|
+      client_ticket[i]               = Struct::Client_ticket.new
+      client_ticket[i].id            = t.id
+      client_ticket[i].business_name = t.client.business_name
+      client_ticket[i].contact_fname = t.client.contact_fname
+      client_ticket[i].email         = t.client.email
+      client_ticket[i].telephone     = t.client.telephone
+      client_ticket[i].website       = t.client.website
+      client_ticket[i].zipcode       = t.client.zipcode
+      client_ticket[i].state         = t.client.state
+      client_ticket[i].contact_lname = t.client.contact_lname
+      client_ticket[i].contact_title = t.client.contact_title
+      client_ticket[i].city          = t.client.city
+      client_ticket[i].comment       = t.client.comment
+      client_ticket[i].client_id     = t.id
       
-    end
-    client_info
+      if t.user_id == nil || t.user_id == 0 # If the ticket does not have a holder
+        client_ticket[i].student_fname = nil
+        client_ticket[i].student_lname = nil
+        client_ticket[i].student_id    = nil 
+      else
+        client_ticket[i].student_fname = t.user.first_name
+        client_ticket[i].student_lname = t.user.last_name
+        client_ticket[i].student_id    = t.user.school_id  
+      end
+    end 
+    client_ticket
   end 
     
   def Client.make_pending_edited_client(edited_client, client, client_params)

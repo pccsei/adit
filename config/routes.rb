@@ -28,6 +28,8 @@ WhiteCollar::Application.routes.draw do
   get "clients/assign"
   get "clients/approve"
   get "users/unauthorized"
+  get "users/in_section"
+  post "clients/actually_assign"
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets
