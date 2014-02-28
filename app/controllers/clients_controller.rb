@@ -7,7 +7,6 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-     before_action :only_teachers
     #@clients = Client.house
     
     #@clients  = Client.for_selected_project(get_selected_project.id)    
