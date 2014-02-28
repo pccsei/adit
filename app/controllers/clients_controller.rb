@@ -35,7 +35,11 @@ class ClientsController < ApplicationController
     else
       @ticket = Ticket.select('id, client_id').where(client_id: params[:id], project_id: get_selected_project.id).first
     end      
-    @client = Client.find(params[:cid])
+    @client = Client.find(@ticket.client_id)
+    
+    @sections = get_array_of_all_sections(get_current_project)
+    
+    
   end
   
 
@@ -46,11 +50,15 @@ class ClientsController < ApplicationController
     t.user_id =  User.where(school_id: params[:studentID]).first.id
     t.save    
                 
-    # Create a ticket for the student if he does not already have one.0
-    if Receipt.where("ticket_id = ? AND user_id = ?", params[:tid], params[:studentID]).first.nil?
-      Receipt.create(ticket_id: t.id, user_id: current_user.id)
+    # Create a ticket for the student if he does not already have one.
+    receipt = Receipt.where("ticket_id = ? AND user_id = ?", t.id, params[:studentID]).first
+
+    Receipt.find_or_create_by(ticket_id: t.id, user_id: User.where(school_id: params[:studentID]).first.id)
+=begin            
+    if receipt.nil?
+      Receipt.create(ticket_id: t.id, user_id: User.where(school_id: params[:studentID]).first.id )
     end
-    
+=end    
     @message = User.where(school_id: params[:studentID]).first.to_s + "is now assigned to " + t.client.business_name.to_s    
     
     redirect_to clients_url, flash[:alert] => 'Client was successfully submitted.'    
