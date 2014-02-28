@@ -108,6 +108,10 @@ class Receipt < ActiveRecord::Base
     
     return points
   end
+  
+  def self.release!
+    self.ticket.user_id = nil
+  end
     
  
 end

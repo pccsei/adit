@@ -1,19 +1,146 @@
-
-
-
-
 <div class="clientInfo">
-
-
-
-<%= debug @ticket %>
-
-<%= debug @client %>
-	
-		
+  <h1>Business Information</h1>  
+  <div class="basicInfo">
+    <h2><%= @client.business_name%></h2><br>
+    <h3>
+      <%= @client.address %>
+      <%= @client.city%>, <%= @client.state%> <%= @client.zipcode%>
+    </h3>
+    <br /><br />
+  </div>  
+  <div class="contactInfo">
+    <h2>
+      <%= @client.contact_title%> <%= @client.contact_fname %> <%= @client.contact_lname%>
+    </h2>
+    <% if @client.telephone %>      
+      <h3><%= "Phone: " + @client.telephone%></h3>
+    <% end %>  
+    <% if @client.email && @client.email != "" %>
+      <h3><%= "Email: " + @client.email%></h3>
+    <% end %>
+    <h3>  
+      <% if @client.status_id == Status.where(status_type: "In House") %> 
+        <%= "This is an in-house client" %>
+      <% else %>
+        <%= "This is a " + @ticket.priority.name + " priority client"%>
+      <% end %>
+    </h3>
+  </div>
 </div>
+ 
+<style>  
+#feedback { font-size: 1.4em; }
+#students .ui-selecting { background: #FECA40; }
+#students .ui-selected { background: #F39814; color: white; }
+#students { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+#students li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: auto; }
+</style>
+
+<script>
+$(function() { 
+
+  $("#sectionNum").change( function() {
+    console.log("Something was selected!");
+    
+    console.log("Need to deselect the selected student when");
+  
+    if (this.value != null) {      
+      console.log("Got a value");      
+      $.getJSON("/users/in_section.json?sn=" + this.value,
+        function(json) {
+          //console.log("got a response");
+          //console.log(json);
+          if (json.length > 0) {
+            $("#students").empty()
+            for (i = 0; i<json.length; i++) {
+              //console.log(json[i]);
+              $("#students").append("<li class='ui-widget-content clicker' value='" + json[i][0]+"'>"+json[i][2]+", "+json[i][1]+" ("+json[i][0]+")</li>");
+            }
+          }
+        });
+    }
+  });
+  
+  $('#students').selectable({
+    stop:function(event, ui){
+        $(event.target).children('.ui-selected').not(':first').removeClass('ui-selected'); // thanks to http://stackoverflow.com/questions/861668/how-to-prevent-multiple-selection-in-jquery-ui-selectable-plugin
+    }
+  });
+    
+  $("#assignClient").click(function() {
+    $("#studentID").val($('#students .ui-selected').attr('value'));
+
+    alert($("#studentID").val());
+
+  });
+  
+  $("#studentID").hide();
+  $("#tid").hide();
+  //$("#assignClient").prop("disabled", true);
+
+/*    
+  $(document).click(function() {
+    console.log("page click!");
+    
+    console.log($("#studentID").val());
+    
+    if ($(".ui-selected").length>0) {
+      $("#assignClient").prop("disabled", false);      
+    }
+    else
+      $("#assignClient").prop("disabled", true);
+  });
+*/
+
+});
+</script>
+
 
 <div class="studentInfo">
+			
+	------------------------------------------------------- <br />	
 	
+	<%= label_tag(:section, "Choose a section:") %>
+  <%= select_tag :section, options_for_select(@sections), :include_blank =>  "Choose a section", :id => "sectionNum" %>
 	
+	<%= form_tag(controller: "clients", action: "actually_assign") do %>
+    <%= text_field_tag(:studentID) %>
+    
+    <%= text_field_tag(:tid, @ticket.id) %>
+    <%= submit_tag("Actually assign the client", :id => "assignClient") %>
+  <% end %>
+	
+  <!--button id="assignClient">assign this</button-->
+	
+	<div class="studentList">
+    <ol id="students">
+      <li class='ui-widget-content'>Please choose a section number</li>
+    </ol>  
+	</div>
+	
+<!--ol id="selectable">
+  <li class="ui-widget-content">Item 1</li>
+  <li class="ui-widget-content">Item 2</li>
+  <li class="ui-widget-content">Item 3</li>
+  <li class="ui-widget-content">Item 4</li>
+  <li class="ui-widget-content">Item 5</li>
+  <li class="ui-widget-content">Item 6</li>
+  <li class="ui-widget-content">Item 7</li>
+</ol-->
+
+<!--	
+	
+	Get the current project. <br />
+	get all sections associated with that project.<br />	
+	
+	inside details box, add link to student's my_receipts page.<br />
+	
+	We need a query that will fetch the student information and display it to the teacher.<br /> 
+	
+	Create Dropdowns selectable with jquery ui?	<br />
+	
+	Check to see if the student has the maximum number of that priority. If they do, ask the teacher for confirmation.	<br />
+	
+	>>>display more details when the teacher selects a student?<<< -- yes <br />
+-->
 </div>

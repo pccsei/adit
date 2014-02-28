@@ -60,10 +60,11 @@
 		<%= text_area_tag 'input' %>
 		<br><%= submit_tag 'Add Students to Section', class: "btn btn-large btn-primary btn-sm"%>
 	<% end %>
+	</div>
 <% else %>
 Please select a section to create a team or add students.
 <% end %>
-</div>
+
 
 <!-- Displays the incorrect students if any -->
 <% if @incorrect_students.present? %>

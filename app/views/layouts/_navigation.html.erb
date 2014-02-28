@@ -16,7 +16,7 @@
     <li><%= link_to "Projects", projects_path %></li>   
  <%# else %>         
     <li><%= link_to "Choose Clients",         tickets_path %></li>
-    <li><%= link_to "My Clients", "/receipts/my_receipts/#{@current_user.id}" %></li>
+    <li><%= link_to "My Clients",             my_receipts_path(id: current_user.id) %></li>
 
     <li><%#= link_to "Submit Client", clients_submit_path %>
  <%# end %>

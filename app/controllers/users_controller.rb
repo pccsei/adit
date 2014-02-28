@@ -40,22 +40,8 @@ class UsersController < ApplicationController
   end
   
   def teachers
-     @teachers = User.all_teachers
-     all_students = User.all_students
-    
-     student_ids = []
-     all_students.each do |t|
-       student_ids << t.id
-     end
-    
-    project_teacher_members = Member.project_members(get_selected_project).where.not(user_id: student_ids )
-    
-    teacher_users_for_selected_project = []
-    project_teacher_members.each do |s|
-      teacher_users_for_selected_project << (User.find(s.user_id))
-    end
-    
-    @current_teachers = teacher_users_for_selected_project.zip(project_teacher_members)
+    @all_teachers = User.all_teachers
+    @current_teachers = User.current_teachers(get_selected_project)                
   end
   
   def create_new_section
@@ -201,9 +187,9 @@ class UsersController < ApplicationController
 
   # Change the students status
   def change_is_enabled
-    member = Member.find_by user_id: params[:id]
+    member = Member.find params[:id]
     Member.change_student_status(member)
-    redirect_to users_path
+    redirect_to :back
   end
   
   def delete_incorrect
@@ -214,7 +200,23 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+###################################################################################################################
+  def in_section
+    
+    if params[:sn]
+    
+      if params[:sn] == "all"
+        response = User.current_student_users(get_selected_project).pluck(:school_id, :first_name, :last_name)
+      else 
+        response = User.current_student_users(get_selected_project, params[:sn]).pluck(:school_id, :first_name, :last_name)
+      end
+    
+    else 
+      response = {"Please Don't" => "Come Here...."}  
+    end
+    render json: response
+  end
+###################################################################################################################
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

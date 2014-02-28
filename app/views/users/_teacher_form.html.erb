@@ -1,0 +1,30 @@
+<%= form_for(@user)  do |f| %>
+  <br>
+   <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :school_id %><br>
+    <%= f.text_field :school_id %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :box %><br>
+    <%= f.text_field :box %>
+  </div>
+  <%= f.hidden :role, :value => 3 %>
+  <div class="actions">
+    <%= f.submit %>
+    
+  </div> 
+  <% end %>
+
+
