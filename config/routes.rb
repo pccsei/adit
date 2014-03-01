@@ -2,7 +2,7 @@ WhiteCollar::Application.routes.draw do
   root :to => "tickets#index"  
   
   get    "/clients/submit"  
-  post   "/clients/actually_assign"
+  post   "clients/actually_assign"
   get    "/clients/assign"
   get    "/clients/approve"
   post   "/clients/approve_client"
@@ -26,6 +26,9 @@ WhiteCollar::Application.routes.draw do
   post   "/users/show_section"
   post   "/users/set_section"
   delete "/users/delete_incorrect"
+  post   "/users/new"
+  get    "/users/in_section"
+  get    "/tickets/release"
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets
