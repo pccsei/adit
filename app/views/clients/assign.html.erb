@@ -50,7 +50,7 @@ $(function() {
         function(json) {
           //console.log("got a response");
           //console.log(json);
-          if (json.length > 0) {
+          if (json.length >= 0) {
             $("#students").empty()
             for (i = 0; i<json.length; i++) {
               //console.log(json[i]);
@@ -70,7 +70,7 @@ $(function() {
   $("#assignClient").click(function() {
     $("#studentID").val($('#students .ui-selected').attr('value'));
 
-    alert($("#studentID").val());
+    //alert($("#studentID").val());
 
   });
   
@@ -117,16 +117,6 @@ $(function() {
       <li class='ui-widget-content'>Please choose a section number</li>
     </ol>  
 	</div>
-	
-<!--ol id="selectable">
-  <li class="ui-widget-content">Item 1</li>
-  <li class="ui-widget-content">Item 2</li>
-  <li class="ui-widget-content">Item 3</li>
-  <li class="ui-widget-content">Item 4</li>
-  <li class="ui-widget-content">Item 5</li>
-  <li class="ui-widget-content">Item 6</li>
-  <li class="ui-widget-content">Item 7</li>
-</ol-->
 
 <!--	
 	
