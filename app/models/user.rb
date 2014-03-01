@@ -214,9 +214,39 @@ def User.do_selected_option(students, choice, student_manager_id, selected_proje
   end
 end
 
+# Delete the old teacher Member and add a new teacher member
+def self.change_teacher(p_new_teacher, p_old_teacher)
+  new_teacher = Member.new
+
+  new_teacher.user_id = p_new_teacher.id
+  new_teacher.project_id = p_old_teacher.project_id
+  new_teacher.section_number = p_old_teacher.section_number
+  new_teacher.is_enabled = true
+
+  p_old_teacher.destory
+  new_teacher.save
+end
+
+def self.number_of_teacher_per_section(array_of_all_sections, project)
+  array_of_all_sections.delete "all"
+
+  number_of_teachers_per_section = []
+  for i in array_of_all_sections
+    number_of_teachers_per_section[i] = Member.where(user_id: User.all_teachers, section_number: i, project_id: project).count
+    i = i + 1
+  end
+
+  number_of_teachers_per_section.delete nil
+
+  array_of_all_sections.zip number_of_teachers_per_section
+end
 
 def full_name
    "#{first_name} #{last_name} #{school_id}"
+end
+
+def teacher_full_name
+  "#{first_name} #{last_name}"
 end
 
 # Creates a new Teacher member with the section number. This is all that is done to create a new section 

@@ -21,7 +21,7 @@ WhiteCollar::Application.routes.draw do
   get    "/users/teachers"
   post   "/users/assign_teacher_to_section"
   post   "/users/input_students_parse"
-  post   "/users/change_is_enabled"#
+  post   "/users/change_is_enabled"
   post   "/users/change_student_status"
   post   "/users/show_section"
   post   "/users/set_section"
@@ -29,6 +29,8 @@ WhiteCollar::Application.routes.draw do
   post   "/users/new"
   get    "/users/in_section"
   get    "/tickets/release"
+  post   "/users/change_teacher"
+
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets

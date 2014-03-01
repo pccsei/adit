@@ -1,6 +1,7 @@
 <% if @user.role != 3 %>
 	<h1 class = "col-md-12" id = "heading">Add Student</h1>
 	<%= params[:per_page] %>
+	<%= render 'form' %>
 <% else %>
 	<h1>New teacher</h1>
 	<%= render 'teacher_form' %>

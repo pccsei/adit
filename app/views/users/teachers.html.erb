@@ -6,43 +6,58 @@
 
 <br><br><br>
 
+    <div class = "col-md-12" id="Change_Teacher">
+    <%= form_tag('change_teacher_path') do%>
+      <p>Change the selected teacher to <p>
+      <%= select_tag "Change_Teacher_Selection", options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name)%> 
+    <% end %>
+  </div>
+
+
 <h2>Current Teachers</h2>
-<br>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
+      <th>Teaches section(s)</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>ID number</th>
       <th>Email</th>
       <th>Phone</th>
-      <th>Teaches section(s)</th>
       <th></th>
       <th></th>  
+      <th></th> 
       <th></th>                                      
     </tr>
   </thead>
   <tbody>
     <% @current_teachers.each do |t| %>
       <tr>
+        <td align ="center"><%= t.section_number %></td>   
         <td><%= t.first_name %></td>
         <td><%= t.last_name %></td>
         <td><%= t.school_id%></td>
         <td><%= t.email%></td>
         <td><%= t.phone %></td>                
-        <td align ="center"><%= t.section_number %></td>      
         <td><%= link_to 'Show', user_path(t) %></td>
         <td><%= link_to 'Edit', edit_user_path(t) %></td>
-        <% if t.is_enabled %>
-          <td><%= link_to 'Inactivate', {controller: :users, action: :change_is_enabled, id: t.m_id}, method: :post %></td>
-        <% else %>
-          <td><%= link_to 'Activate', {controller: :users, action: :change_is_enabled, id: t.m_id}, method: :post %></td>
-        <% end %>
+        <td><span id="Change_Teacher_Link" class="fake-link btn btn-large btn-link btn-sm">Change Teacher</span></td>
+        <% if number_of_teacher_per_section[t.section_number]
+        <td><%= link_to 'delete', delete_user_path(t) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<script>
+  $("#Change_Teacher").hide();
+  $(function() {
+    $("#Change_Teacher_Link").click(
+    function() {
 
+    $("#Change_Teacher").toggle();
+    });
+  });
+</script>
 <br><br>
 <h2>Teacher Roster</h2>
 <table class ="table dataTable">
@@ -59,7 +74,7 @@
   </thead>
   <tbody>
     <% @all_teachers.each do |t| %>
-      <tr align ="center">
+      <tr>
         <td><%= t.first_name %></td>
         <td><%= t.last_name %></td>
         <td><%= t.school_id%></td>
