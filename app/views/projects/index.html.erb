@@ -1,6 +1,5 @@
 <% provide(:title, "Projects") %>
-<h1 class = "col-md-3" id = "heading">Projects</h1>
-<br /><br /><br /><br />
+<h1 id="heading">Projects</h1>
 
 <% if @current_projects.present? || @archived_projects.present? %>
 <%= form_tag('/projects/select_project') do%>
