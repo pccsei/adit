@@ -25,7 +25,7 @@
         <td align ="center"><%= student.released %></td>
         <td align ="center"><%= student.sales %></td>
         <td align ="center"><%= student.points %></td>
-        <td align ="center"><%= student.last_activity %></td> 
+        <td align ="center"><%= time_ago_in_words(student.last_activity) + ' ago'%> </td>
       </tr>                           
     <% end %>
   </tbody>
