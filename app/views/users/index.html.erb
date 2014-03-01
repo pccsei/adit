@@ -75,7 +75,7 @@ Please select a section to create a team or add students.
 <br><br>
 
 <!--Actions for the teacher to do with the students and sections-->
-<%= form_tag('/users/change_student_status') do%>
+<%= form_tag(users_change_student_status_path) do%>
     <div id= "manage_dropdown">
       <div id = "option">
         <% if @selected_section != "all" %>
