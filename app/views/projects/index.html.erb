@@ -7,10 +7,10 @@
 	<p><h5 class = "col-md-12 alert alert-info">&nbsp;There can only be 1 active project at a time. You can archive your project on the edit project page. </h5></p>
 	<div id="active_project">
 	<br>
-	<table>
+	<table class = "table table-condensed">
 	  <thead>
 	    <tr>
-	      <th>Selected</th>
+	<!--      <th>Selected</th>-->
 	      <th>Year</th>
 	      <th>Semester</th>
 	      <th>Type</th>
@@ -27,7 +27,7 @@
 	  <tbody>
 	    <% @current_projects.each do |project| %>
 			  <tr>	      
-      			<td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
+      			<!--<td><%#= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>-->
 		      	<td><%= project.year%></td>
 		      	<td><%= project.semester%></td>
 		      	<td><%= project.project_type.name%></td>
@@ -60,7 +60,7 @@
 	
 	<% if @archived_projects.present? %>
 	<h3>Archived Projects</h3>
-		<table class = "display">
+		<table class = "table table-condensed">
 			<thead>
 		      <tr>
 			    <th>Selected</th>
@@ -69,7 +69,7 @@
 			    <th>Project Type</th>
 			    <th>Max Clients</th>
 			    <th>Comments</th>
-			    <th>Edit Button</th>
+			    <th></th>
 			  </tr>
 			</thead>
 		  
