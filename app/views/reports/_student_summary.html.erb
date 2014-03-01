@@ -14,6 +14,7 @@
     </tr>
   </thead>
   <tbody>
+    <% if @student_array.present? %>
     <% @student_array.each do |student| %>
       <tr>
         <td align ="center"><%= link_to student.first_name, my_receipts_path(id: student.id) %></td>
@@ -28,6 +29,7 @@
         <td align ="center"><%= time_ago_in_words(student.last_activity) + ' ago'%> </td>
       </tr>                           
     <% end %>
+  <% end %>
   </tbody>
   <tfoot>
     <td align ="center">Totals</td>
