@@ -1,5 +1,5 @@
 <% provide(:title, 'Projects') %>
-<h1 id="heading">Projects</h1>
+
 <% if @project || @archived_projects.present? %>
     <% if @project && get_selected_project.id == @project.id %>
         <%= render 'form' %>

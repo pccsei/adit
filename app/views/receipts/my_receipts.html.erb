@@ -1,3 +1,5 @@
+<% provide(:title, 'My Clients') %>
+
 <% if Project.non_archived %>
 
     <script>
@@ -13,8 +15,6 @@
     });  
     </script>
   
-    <div id="page">
-      <h1>My Clients</h1>
       <h2>Active Clients</h2>
       <div id="active_clients" class="myclients">
         <!-- Loop -->
@@ -46,8 +46,6 @@
         </div>
         <% end %>
       </div>
-      
-    </div>
 
 <!--<span><%#= link_to 'Show', receipt_path(receipt) %></span> 
 ><div class="active <%#= Priority.find(ticket.priority_id).name%>"> -->

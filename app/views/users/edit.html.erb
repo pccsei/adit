@@ -1,12 +1,8 @@
-
-<h1 class = "col-md-12", id = "heading">Edit User</h1>
-
+<% provide(:title, 'Editing User') %>
 
 <% if @user.role != 3 %>
-	<h1>Editing student</h1>
 	<%= render 'form' %>
 <% else %>
-	<h1>Editing teacher</h1>
 	<%= render 'teacher_form' %>
 <% end %>
 
