@@ -17,9 +17,6 @@ $(window).scroll (e) ->
     $(".scroller_anchor").css "height", "0px"
     $(".scroller").css
       position: "relative"
-     
-      
-
   return
 
 

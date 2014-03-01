@@ -6,7 +6,7 @@
 <h1 id="heading">Manage Section</h1>
 
 <!--Change Section drop down-->
-<div class = "col-md-2" id = "select-section-1">
+<div class = "col-md-2">
 	<div class="btn-group">
 		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 			Change Section<span class="caret"></span>
@@ -24,7 +24,7 @@
 
 
 <!--Creates a new Section link-->
-<div id="select-section-2" class = "col-md-2">
+<div id="new_section" class = "col-md-2">
 	<h5><%=link_to 'Create a New Section', users_create_new_section_path, :class => 'btn btn-link btn-sm'%></h5>
 </div>
 <br><br>
@@ -51,7 +51,7 @@
 <!-- Adds students to a section and is only allowed for a teacher-->
 <br><br>
 <% if @selected_section != 'all' %>
-		<span id="paste" class="fake-link btn btn-large btn-link btn-sm">Copy and paste your student roster here</span> <span id="paste" >or</span> <%= link_to 'Add One Student', new_user_path, :id => 'link-2', class: 'btn btn-large btn-link btn-sm'%>
+		<span id="paste" class="fake-link btn btn-large btn-link btn-sm">Copy and paste your student roster here</span> <span id="paste" >or</span> <%= link_to 'Add One Student', new_user_path, :id => 'add_student', class: 'btn btn-large btn-link btn-sm'%>
 
 <div class = "col-md-12" id="parse_box">
 		<%= form_tag(users_input_students_parse_path) do%>
