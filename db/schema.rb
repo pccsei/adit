@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140219225114) do
+ActiveRecord::Schema.define(version: 20140301043025) do
 
   create_table "action_types", force: true do |t|
     t.string   "name",        null: false
@@ -145,11 +145,6 @@ ActiveRecord::Schema.define(version: 20140219225114) do
   add_index "receipts", ["ticket_id", "user_id"], name: "index_receipts_on_ticket_id_and_user_id", unique: true, using: :btree
   add_index "receipts", ["ticket_id"], name: "index_receipts_on_ticket_id", using: :btree
   add_index "receipts", ["user_id"], name: "index_receipts_on_user_id", using: :btree
-
-  create_table "status_tables", force: true do |t|
-    t.string  "status_type"
-    t.boolean "status_enabled"
-  end
 
   create_table "statuses", force: true do |t|
     t.string   "status_type",                   null: false
