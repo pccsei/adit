@@ -79,16 +79,15 @@ $(function() {
   You are no longer able to select clients.
 <% end %>
     </span>
-  </h2>
-  
-MESSAGES</div>
-</span></div>
+  </h2> 
+</div>
+</span>
+</div>
 
 <% if current_user.help == true %>
 	<h1>First Time User?</h1>
 	<%= button_to "Yes", :controller => :users, action: "need_help"%>
 <% end %>
-
 <table class="display">
   <thead>
     <tr> 
@@ -109,8 +108,8 @@ MESSAGES</div>
       <tr>
       	<% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
       	<% if open %>	
-        <% color =  Priority.find(ticket.priority_id).name %> 
- 	  	  <td><%= button_tag "add", type: 'button', :id => ticket.id, :class =>"" << ticketClass << color %>
+        <% priorityColor =  Priority.find(ticket.priority_id).name %> 
+ 	  	  <td><%= button_tag "add", type: 'button', :id => ticket.id, :class =>"" << ticketClass << priorityColor %>
        	  </td>
   
       	<% end %>
@@ -125,7 +124,6 @@ MESSAGES</div>
     <% end %>
   </tbody>
 </table>
-
 <% else %>
 	<h1>You are currently not part of any projects. <br />If you are not here by accident, ask your instructor to add you to the project</h1>
 <% end%>

@@ -31,7 +31,8 @@ $ ->
        "bJQueryUI": true
        "bDestroy": true
        "sPaginationType": "full_numbers"
-       
+       "sScrollX": "100%"
+     
   
   $(document).ready(load_datatable)
   $(document).on('page:load', load_datatable)

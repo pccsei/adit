@@ -146,8 +146,10 @@ p {
     width: 30px;
     margin-left: 130px;
     margin-right: 20px;
+    //background: url(logo.png);
     background-repeat: no-repeat;
     background-position: 28px 14px;
+
 }
 
 
@@ -325,6 +327,5 @@ table.dataTable tr.even td.sorting_3 {
   clear: both;
   *zoom: 1;
   padding-top:60px;
+  overflow: hidden;
  }
-
-
