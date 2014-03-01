@@ -12,8 +12,6 @@
 
 <% end %>
 
-<h1 id="heading">Assign Clients</h1>
-
 <table class="display" id="client_list">
   <thead>
     <tr>
@@ -54,6 +52,7 @@
 	        <% end %>
           </td>
         <% end %>
+        <%# TODO: Just make the business name a link to the details and drop this button %>
         <td><%= link_to 'details', client_path(:id => ticket.id), {:id => ticket.id, :class => "btn btn-info btn-sm"} %></td>
       </tr>
   <% end %>
