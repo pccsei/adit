@@ -53,7 +53,7 @@ class UsersController < ApplicationController
   def teachers
     @all_teachers = User.all_teachers
     @current_teachers = User.current_teachers(get_selected_project)
-    @number_of_teacher_per_section = User.number_of_teacher_per_section(get_array_of_all_sections(get_selected_project), get_selected_project)     
+    @number_of_teachers_per_section = User.get_number_of_teachers_per_section(get_array_of_all_sections(get_selected_project), get_selected_project)     
   end
   
   def create_new_section
@@ -134,6 +134,10 @@ class UsersController < ApplicationController
 
     redirect_to users_url
   end
+
+  def delete_member
+    member =  Member.find
+  end
   
   # POST /users
   # POST /users.json
@@ -209,6 +213,15 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
+    end
+  end
+
+  def destroy
+    member = Member.find_by(user_id: @user)
+
+    member.destroy
+    respond_to do |format|
+      format.html { redirect_to :back }
     end
   end
 ###################################################################################################################

@@ -30,6 +30,7 @@ WhiteCollar::Application.routes.draw do
   get    "/users/in_section"
   get    "/tickets/release"
   post   "/users/change_teacher"
+  delete "/users/delete_member"
 
 
   resources :sessions, only: [:new, :create, :destroy]

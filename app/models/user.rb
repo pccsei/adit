@@ -227,18 +227,15 @@ def self.change_teacher(p_new_teacher, p_old_teacher)
   new_teacher.save
 end
 
-def self.number_of_teacher_per_section(array_of_all_sections, project)
+def self.get_number_of_teachers_per_section(array_of_all_sections, project)
   array_of_all_sections.delete "all"
 
   number_of_teachers_per_section = []
   for i in array_of_all_sections
     number_of_teachers_per_section[i] = Member.where(user_id: User.all_teachers, section_number: i, project_id: project).count
-    i = i + 1
   end
 
-  number_of_teachers_per_section.delete nil
-
-  array_of_all_sections.zip number_of_teachers_per_section
+  number_of_teachers_per_section
 end
 
 def full_name
@@ -308,7 +305,7 @@ def self.current_student_users(project, section = "all")
 end
 
 def self.current_teachers(project)
-  Struct.new("Teacher", :id, :first_name, :last_name, :section_number, :email, :phone, :school_id, :is_enabled, :m_id)
+  Struct.new("Teacher", :id, :first_name, :last_name, :section_number, :email, :phone, :school_id, :is_enabled, :m_id, :full_name)
 
   teachers = []
   index = 0
@@ -317,6 +314,7 @@ def self.current_teachers(project)
     teachers[index]                = Struct::Teacher.new
     teachers[index].id             = t.id
     teachers[index].m_id           = m.id
+    teachers[index].full_name      = t.first_name + " " + t.last_name
     teachers[index].first_name     = t.first_name
     teachers[index].last_name      = t.last_name
     teachers[index].email          = t.email
