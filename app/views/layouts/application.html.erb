@@ -9,24 +9,20 @@
   </head>
   <body class="<%= controller_path %> <%= action_name %>">
   <% if current_user %>
-    <div id = "header">
-      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <div id = "logo"></div>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-  		    <div class="container" >
-  		      <%= render 'layouts/navigation' %>
-  		    </div>
-        </div>
-      </nav>
-    </div>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <!-- <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div> -->
+      <div class="collapse navbar-collapse container" id="bs-example-navbar-collapse-1">
+        <div id="logo"></div>
+	      <%= render 'layouts/navigation' %>
+      </div>
+    </nav>
   <% end %>  
     <div id="container">
     <% flash.each do |key, value| %>

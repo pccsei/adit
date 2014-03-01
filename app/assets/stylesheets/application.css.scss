@@ -8,7 +8,7 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
+ *= require framework_and_overrides
  *= require jquery.ui.core
  *= require jquery.ui.theme
  *= require dataTables/src/demo_table_jui
@@ -18,11 +18,9 @@
  *= require jquery-ui-timepicker-addon.min
  *= require fancybox
  *= require jquery.ui.selectable  
+ *= require_self
  *= require_tree .
 */
-
- @import "bootstrap";
-
 
 
 /* universal */
@@ -36,15 +34,21 @@
 }
 
 body {
-  padding-top: 120px;
-  color: black;
+  padding: 0;
+  color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
-  line-height: 18px;
+  line-height: 1.4em;
   background: url(subtlenet2.png);
 }
 
+* {
+  margin-bottom: 0 !important;
+}
 
+*:first-child {
+  margin-top: 0;
+}
 
 textarea {
   width: 600px;
@@ -54,17 +58,14 @@ textarea {
   font-family: Tahoma, sans-serif;
 }
 
-
-
 .navbar-nav a.dropdown-toggle {
-    cursor: pointer;
-
+  cursor: pointer;
 }
 
 .center {
   text-align: center;
   h1 {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
   }
 }
 
@@ -72,6 +73,7 @@ textarea {
   text-align: right;
   padding-right: 20px;
 }
+
 /* Mixins, variables, etc. */
 $grayMediumLight: #eaeaea;
 
@@ -80,7 +82,6 @@ $grayMediumLight: #eaeaea;
   -webkit-box-sizing: border-box;
   box-sizing: border-box
 }
-
 
 /* Miscellaneous */
 .debug_dump {
@@ -91,22 +92,18 @@ $grayMediumLight: #eaeaea;
   @include box_sizing;
 }
 
-
 /* typography */
-
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
 
-
 h1 {
   font-size: 2.3em;
   //letter-spacing: -1px;
-  margin-bottom: 0px;
-  text-align: center;
+  //margin-bottom: 0px;
+  //text-align: center;
 }
-
 
 h2 {
   font-size: 2em;
@@ -130,26 +127,17 @@ p {
 
 /* header */
 
-
-
-
-
 #logo {
-      display: block;
-    float: left;
-    background-color: #005baf;
-    padding: 18px 80px 45px;
-    height: 44px;
-    width: 30px;
-    margin-left: 130px;
-    margin-right: 20px;
-    background-repeat: no-repeat;
-    background-position: 28px 14px;
+  display: block;
+  float: left;
+  background-color: #005baf;
+  font-size: 1.1em;
+  height: 4em;
+  width: 12em;
+  margin-right: 1.5em;
+  background-repeat: no-repeat;
+  background-position: 28px 14px;
 }
-
-
-
-
 
 #logo:hover {
   color: #fff;
@@ -157,9 +145,8 @@ p {
 }
 
 .navbar-default {
-  max-height: 68px;
-  border-top: 4px solid #005baf;
-  border-bottom: 1px solid #005baf;
+  border-top: .4em solid #005baf;
+  border-bottom: .1em solid #005baf;
   margin-top: 0px;
   background-color: rgba(255, 255, 255, 0.9);
   a {
@@ -177,29 +164,31 @@ p {
     list-style: none;
     li {
       float: left;
-      margin-left: 10px;
     }
   }
 }
 
 .navbar-default .navbar-nav > li > a {
-
-display: block;
-border-right: 1px solid #999;
-border-bottom: medium none;
-font-weight: 400;
-font-size: 14px;
-color: #999;
-padding: 21px 20px 22px 0px;
-margin-right: 15px;
-margin-top: 0px;
-text-decoration: none;
-
+  display: block;
+  border-right: 1px solid #999;
+  border-bottom: medium none;
+  font-weight: 400;
+  font-size: 1.1em;
+  color: #999;
+  padding: 0 1.5em;
+  line-height: 4em;
+  height: 4em;
+  margin: 0;
+  text-decoration: none;
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
     background-color: transparent !important;
     color: rgb(85, 85, 85);
+}
+
+.navbar-collapse {
+  padding: 0;
 }
 
 .dropdown-menu > li > a {
@@ -211,14 +200,17 @@ ul.dropdown-menu{
 }
 
 
-#container{
-    margin-right: 60px;
-    margin-left: 60px;
-    padding-top: 20px;
-    padding-left: 70px;
-    padding-right: 70px;
-    margin-top: -60px;
+.container,
+#container {
+    margin: 0 auto;
+    max-width: 90em;
+}
 
+#container {
+  padding: 3em 4em 4em;
+  margin-top: 8em;
+  margin-bottom: 8em !important;
+  background: white;
 }
 
 #create_section{
@@ -321,7 +313,5 @@ table.dataTable tr.even td.sorting_3 {
   position: relative !important;
   clear: both;
   *zoom: 1;
-  padding-top:60px;
- }
-
-
+  margin-top: 2em;
+}
