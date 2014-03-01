@@ -27,12 +27,13 @@ $(window).scroll (e) ->
 $ ->
   load_datatable = ->
     $('.display').dataTable
-       "iDisplayLength": 50
-       "bJQueryUI": true
-       "bDestroy": true
-       "sPaginationType": "full_numbers"
-       "sScrollX": "100%"
-     
+      "sPaginationType" : "full_numbers"
+      "sScrollX" : "100%"
+      "bScrollCollapse" : true
+      "iDisplayLength": 50
+      "bJQueryUI": true
+      "bDestroy": true
+       
   
   $(document).ready(load_datatable)
   $(document).on('page:load', load_datatable)

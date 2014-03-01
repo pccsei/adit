@@ -26,6 +26,9 @@ WhiteCollar::Application.routes.draw do
   post   "/users/show_section"
   post   "/users/set_section"
   delete "/users/delete_incorrect"
+  post   "/users/new"
+  get    "/users/in_section"
+  get    "/tickets/release"
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets
@@ -40,7 +43,7 @@ WhiteCollar::Application.routes.draw do
   
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
-  match 'receipts/index/user', to: 'receipts#index', via: 'get'
+  match '/receipts/index/user', to: 'receipts#index', via: 'get'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

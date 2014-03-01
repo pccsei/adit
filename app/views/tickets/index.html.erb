@@ -47,9 +47,9 @@ $(function() {
 </script>
 
 
-<h1 class = "col-md-3", id = "heading">Choose Clients</h1>
+<h1 id="heading">Choose Clients</h1>
 
- <div class="scroller_anchor"></div>  
+<div class="scroller_anchor"></div>  
 <div class="scroller alert alert-info" id = "alerts">
 <% if @clientsLeft %>
 <div><span>You can get </span><span><%= @clientsLeft < 0 ? 0 : @clientsLeft%></span> more clients<span></div>
@@ -79,6 +79,7 @@ $(function() {
   You are no longer able to select clients.
 <% end %>
     </span>
+<<<<<<< HEAD
   </h2> 
 </div>
 </span>
@@ -88,6 +89,13 @@ $(function() {
 	<h1>First Time User?</h1>
 	<%= button_to "Yes", :controller => :users, action: "need_help"%>
 <% end %>
+=======
+  </h2>
+  
+</div>
+</span></div>
+
+>>>>>>> 1be698277880365eb5282d5c430319b34b6d66f2
 <table class="display">
   <thead>
     <tr> 

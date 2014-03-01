@@ -89,7 +89,6 @@
 				"client[address]": {required: true},
 				"client[city]": {required: true, letters_only: true},
 				"client[zipcode]": {required: true, rangelength: [4,5], digits: true, min_digit: 1},
-				"client[email]": {email: true},
 				"client[contact_fname]": {required: true, letters_only: true},
 				"client[contact_lname]": {required: true, letters_only: true},
 				"client[telephone]": {required: true, valid_telephone: true}
@@ -99,7 +98,6 @@
 				"client[address]": "Please enter the address.",
 				"client[city]": "Please enter a valid city.",
 				"client[zipcode]": "Please enter a valid zipcode.",
-				"client[email]": "Please enter a valid email address.",
 				"client[contact_fname]": "Please enter a first name.",
 				"client[contact_lname]": "Please enter a last name.",
 				"client[telephone]": "Please enter a telephone number."

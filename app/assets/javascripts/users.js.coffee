@@ -4,7 +4,10 @@
 $ ->
   load_datatable = ->
     $('#manageSection').dataTable
-       "iDisplayLength": 50
+       "sPaginationType" : "full_numbers"
+       "sScrollX" : "100%"
+       "bScrollCollapse" : true
+       "iDisplayLength": 25
        "bJQueryUI": true
        "bDestroy": true
   
@@ -12,6 +15,6 @@ $ ->
   $(document).on('page:load', load_datatable)
 
   # Will add this function once it is ready
-  $(document).on('page:change', load_datatable)
+  #$(document).on('page:change', load_datatable)
 
   #research the bDestroy feature

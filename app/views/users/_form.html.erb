@@ -52,6 +52,7 @@
   <div class="actions">
     <%= f.submit  :class => 'btn btn-large btn-primary btn-sm'%>
   </div>
+>>>>>>> 288c2a4ac522468cd290fbe3d483ca57b6b94c82
 <% end %>
 
 <!-- This adds client-side validation -->
@@ -72,6 +73,10 @@
 		jQuery.validator.addMethod('min_digit', function (value, el, param) {
     		return value > param;
 		});
+
+    jQuery.validator.addMethod("email_valid", function(value, element) {
+        return this.optional(element) || /^([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)$/i.test(value);
+    });
     	
     	// Custom method to make sure the telephone is valid
 		jQuery.validator.addMethod("valid_telephone", function(value, element) {
@@ -83,7 +88,7 @@
 				"user[first_name]": {required: true, letters_only: true},
 				"user[last_name]": {required: true, letters_only: true},
 				"user[school_id]": {required: true, id_valid: true},
-				"user[email]": {required: true, email: true},
+				"user[email]": {required: true, email: true, email_valid: true}},
 				"user[phone]": {required: true, valid_telephone: true},
 				"user[box]": {required: true, digits: true, rangelength: [3,4], min_digit: 1}
 			},

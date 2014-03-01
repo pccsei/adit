@@ -20,7 +20,7 @@
         <td align ="center"><%= link_to sale.last_name, my_receipts_path(id: sale.student_id) %></td>
         <td align ="center"><%= sale.team_leader%></td>
         <td align ="center"><%= sale.section %></td>
-        <td align ="center"><%= sale.time_of_sale%></td>
+        <td align ="center"><%= sale.time_of_sale.to_formatted_s(:long_ordinal)%></td>
         <td align ="center"><%= sale.company%></td>
         <td align ="center"><%= sale.page_size%></td>
         <td align ="center"><%= sale.sale_amount%></td>
