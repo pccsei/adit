@@ -15,7 +15,6 @@
  *= require jquery.ui.datepicker
  *= require jquery.ui.slider
  *= require jquery-ui-timepicker-addon
- *= require jquery-ui-timepicker-addon.min
  *= require fancybox
  *= require jquery.ui.selectable  
  *= require_self
@@ -47,7 +46,7 @@ body {
 }
 
 *:first-child {
-  margin-top: 0;
+  margin-top: 0 !important;
 }
 
 textarea {
@@ -96,6 +95,8 @@ $grayMediumLight: #eaeaea;
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
+  clear: both;
+  margin-top: 1.5em;
 }
 
 h1 {
@@ -137,6 +138,7 @@ p {
   margin-right: 1.5em;
   background-repeat: no-repeat;
   background-position: 28px 14px;
+
 }
 
 #logo:hover {
@@ -314,4 +316,40 @@ table.dataTable tr.even td.sorting_3 {
   clear: both;
   *zoom: 1;
   margin-top: 2em;
+  border: 1px solid #aaaaaa;
+  border-radius: 4px;
+}
+
+.dataTables_wrapper > * {
+  border: none;
+}
+
+.ui-widget-header {
+  background-image: none;
+  background: #ccc;
+}
+
+.ui-state-default {
+  background-image: none;
+  background: #eee;
+}
+
+.dataTables_scroll {
+  overflow-x: auto;
+}
+
+.dataTable {
+  width: 100% !important;
+  border: none;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.dataTable td,
+.dataTable th {
+  //width: auto !important;
+}
+
+table.display thead th div.DataTables_sort_wrapper span {
+  top: 10%;
 }

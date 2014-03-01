@@ -1,8 +1,5 @@
 <% provide(:title, 'Approve Clients') %>
 
-<!--Heading-->
-<h1 id="heading">Approve Clients</h1>
-
 <h3>Pending Clients</h3>
 <% if @pending_clients.present? %>
       <%= form_tag(clients_approve_client_path) do %>

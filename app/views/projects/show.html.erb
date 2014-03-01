@@ -1,3 +1,5 @@
+<% provide(:title, 'Show Project') %>
+
 <% if(@project) %>
 <p id="notice"><%= notice %></p>
 
@@ -52,12 +54,8 @@
 <% if @section_numbers %>
 <% @section_numbers.each do |s|%>
 <%= link_to 'Section' + ' ' + s + ' ' , users_path %>
-<br>
 <% end %>
 <% end %>
-<br>
-<br>
-
 <% end %>
 
 <%= debug @section_numbers %>
