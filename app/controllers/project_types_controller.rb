@@ -1,2 +1,0 @@
-class ProjectTypesController < ApplicationController
-end

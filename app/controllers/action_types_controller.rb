@@ -1,2 +1,0 @@
-class ActionTypesController < ApplicationController
-end

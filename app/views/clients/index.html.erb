@@ -12,14 +12,13 @@
 
 <% end %>
 
-<h1 class = "col-md-3" id = "heading">Assign Clients</h1>
+<h1 id="heading">Assign Clients</h1>
 
-<table class="display">
+<table class="display" id="client_list">
   <thead>
     <tr>
       <th>Business name</th>
       <th>Address</th>
-      <th>Email</th>
       <th>Contact title</th>
       <th>First name</th>
       <th>Last name</th>
@@ -37,7 +36,6 @@
 	  <tr>    
       	<td><%= ticket.business_name %></td>
         <td><%= ticket.address %></td>
-        <td><%= ticket.email %></td>
         <td><%= ticket.contact_title %></td>
         <td><%= ticket.contact_fname %></td>
         <td><%= ticket.contact_lname %></td>
@@ -61,6 +59,3 @@
   <% end %>
   </tbody>
 </table>
-<br/><br/><br/><br/>
-
-<br/><br/><br/><br/><br/><br/>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140219225114) do
+ActiveRecord::Schema.define(version: 20140301043747) do
 
   create_table "action_types", force: true do |t|
     t.string   "name",        null: false
@@ -51,12 +51,10 @@ ActiveRecord::Schema.define(version: 20140219225114) do
   create_table "clients", force: true do |t|
     t.string   "business_name",            null: false
     t.string   "address"
-    t.string   "email"
     t.string   "telephone"
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "website"
     t.integer  "zipcode"
     t.string   "contact_fname", limit: 30
     t.string   "contact_lname", limit: 30
@@ -146,14 +144,8 @@ ActiveRecord::Schema.define(version: 20140219225114) do
   add_index "receipts", ["ticket_id"], name: "index_receipts_on_ticket_id", using: :btree
   add_index "receipts", ["user_id"], name: "index_receipts_on_user_id", using: :btree
 
-  create_table "status_tables", force: true do |t|
-    t.string  "status_type"
-    t.boolean "status_enabled"
-  end
-
   create_table "statuses", force: true do |t|
-    t.string   "status_type",                   null: false
-    t.boolean  "status_enabled", default: true
+    t.string   "status_type", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -174,14 +166,6 @@ ActiveRecord::Schema.define(version: 20140219225114) do
   add_index "tickets", ["priority_id"], name: "index_tickets_on_priority_id", using: :btree
   add_index "tickets", ["project_id"], name: "index_tickets_on_project_id", using: :btree
   add_index "tickets", ["user_id"], name: "index_tickets_on_user_id", using: :btree
-
-  create_table "updates", force: true do |t|
-    t.boolean  "is_public"
-    t.string   "comment_text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "receipt_id"
-  end
 
   create_table "users", force: true do |t|
     t.datetime "created_at"
