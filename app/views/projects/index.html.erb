@@ -2,7 +2,7 @@
 <h1 id="heading">Projects</h1>
 
 <% if @current_projects.present? || @archived_projects.present? %>
-<%= form_tag('/projects/select_project') do%>
+<%= form_tag(projects_select_project_path) do%>
 	<% if @current_projects.present? %>
 	<h3>Active Project</h3>
 	<p><h5 class = "col-md-12 alert alert-info">&nbsp;There can only be 1 active project at a time. You can archive your project on the edit project page. </h5></p>
