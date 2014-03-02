@@ -39,4 +39,5 @@
   <%= render :partial => 'action_table', :locals => { :receipt => @receipt }%>
 </div>
   <br><br/>
-  <%= link_to 'Back', receipts_path(@receipt.user_id) %>
+  <%= link_to 'Back to My Clients', receipts_path(@receipt.user_id), :class => 'btn btn-large btn-primary btn-sm' %>
+<br /><br /><br /><br /><br /><br />

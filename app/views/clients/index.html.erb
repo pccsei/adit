@@ -5,13 +5,6 @@
 
 <% provide(:title, "Assign Clients") %>
 
-<% if current_user.help == true %>
-	<h1>First Time User?</h1>
-
-	<%= button_to "Yes", :controller => :users, action: "need_help"%>
-
-<% end %>
-
 <h1 class = "col-md-3" id = "heading">Assign Clients</h1>
 
 <table class="display">

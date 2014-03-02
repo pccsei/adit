@@ -105,7 +105,7 @@ $(function() {
       	<% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
       	<% if open %>	
         <% color =  Priority.find(ticket.priority_id).name %> 
- 	  	  <td><%= button_tag "add", type: 'button', :id => ticket.id, :class =>"" << ticketClass << color %>
+ 	  	  <td><%= button_tag "add", type: 'button', :id => ticket.id, :class =>"" << ticketClass << color, :disabled => (no_more_tickets ? true : false) %>
        	  </td>
   
       	<% end %>

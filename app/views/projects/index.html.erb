@@ -84,7 +84,11 @@
 			      	<td><%= project.project_type.name%></td>
 			        <td><%= project.max_clients%></td>
 			      	<td><%= project.comment%></td>
-			        <td><%= link_to 'Edit', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
+			      	<% if get_current_project %>
+			        	<td><%= link_to 'Show', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
+			        <% else %>
+			   			<td><%= link_to 'Edit', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
+			        <% end %>
     		      </tr>
 		    <% end %>
 		  </tbody>
