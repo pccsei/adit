@@ -57,7 +57,7 @@
       <br /><br />
 
 <div id = "project_options">
-  <h3 class = "col-md-12 alert alert-info">&nbsp;When can the students start adding clients?</h3><br>  
+  <h3 class = "col-md-12 alert alert-info">&nbsp;When can the students add clients?</h3><br>
       <%= f.label :tickets_open_time, "Start Time" %>
       <%= f.text_field :tickets_open_time, :placeholder => "YYYY/MM/DD 00:00 AM/PM", :disabled => (get_current_project && !@project.is_active ? true : false) %>
   

@@ -1,10 +1,6 @@
 <% provide(:title, "Create Section") %>
 
-<h1 class = "col-md-3" id = "heading">Create Section</h1>
-<br /><br /><br /><br>
-
-
-<%= form_tag('/users/assign_teacher_to_section') do %>
+<%= form_tag(users_assign_teacher_to_section_path) do %>
 
 <!-- Gets rid of the section number if it has already been taken -->
 <% select = Array[]%>
@@ -15,11 +11,8 @@
 <%=label_tag "Please select the section number:" %>
 <%=select_tag :section, options_for_select(select), :class => 'btn btn-large btn-dropdown btn-sm' %>
 
-<br><br>
 <%=label_tag "Please select the teacher:" %>
 <%= collection_select  :school_id, :id, User.all_teachers, :id, :school_id, :class => 'btn btn-large btn-dropdown btn-sm'   %>
-
-<br><br>
 
 <%= submit_tag "Create this section", :class => 'btn btn-large btn-primary btn-sm' %>
 <br /><br />

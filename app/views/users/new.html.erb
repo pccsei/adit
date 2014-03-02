@@ -1,11 +1,9 @@
 
-<%= params[:per_page] %>
-
+<% provide(:title, 'New user') %>
 <% if @user.role != 3 %>
-	<h1 class = "col-md-12" id = "heading">New student</h1>
+	<%= params[:per_page] %>
 	<%= render 'form' %>
 <% else %>
-	<h1 class = "col-md-12" id = "heading">Editing teacher</h1>
 	<%= render 'teacher_form' %>
 <% end %>
 

@@ -20,10 +20,10 @@ class Client < ActiveRecord::Base
   }, numericality: { greater_than: 0 }
    
 # Validates the email
-  validates :email, allow_blank: true, uniqueness: true, format: {
-    with: /\A([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}\Z/,
-    message: 'must be a valid email address.'
-  }
+#  validates :email, allow_blank: true, uniqueness: true, format: {
+#    with: /\A([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}\Z/,
+#    message: 'must be a valid email address.'
+#  }
    
 # Validates the contact first and last name
   validates :contact_fname, :contact_lname, allow_blank: true, format: {
@@ -76,7 +76,7 @@ class Client < ActiveRecord::Base
   def self.tickets_for_selected_project(pid)
     ticket_info = Ticket.where(project_id: pid)
         
-    Struct.new("Client_ticket", :email, :business_name, :contact_fname, :telephone, :website, :student_lname, :zipcode, :city, :id,    
+    Struct.new("Client_ticket", :business_name, :contact_fname, :telephone, :student_lname, :zipcode, :city, :id,    
                                 :state, :contact_lname, :contact_title, :client_id, :address, :student_fname, :student_id, :comment)
     client_ticket = []  
     ticket_info.each_with_index do |t, i|
@@ -84,9 +84,7 @@ class Client < ActiveRecord::Base
       client_ticket[i].id            = t.id
       client_ticket[i].business_name = t.client.business_name
       client_ticket[i].contact_fname = t.client.contact_fname
-      client_ticket[i].email         = t.client.email
       client_ticket[i].telephone     = t.client.telephone
-      client_ticket[i].website       = t.client.website
       client_ticket[i].zipcode       = t.client.zipcode
       client_ticket[i].state         = t.client.state
       client_ticket[i].contact_lname = t.client.contact_lname

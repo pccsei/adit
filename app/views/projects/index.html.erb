@@ -1,108 +1,57 @@
-<% provide(:title, "Projects") %>
-<h1 class = "col-md-3" id = "heading">Projects</h1>
-<br /><br /><br /><br />
+<% provide(:title, 'Projects') %>
 
-<% if @current_projects.present? || @archived_projects.present? %>
-<%= form_tag('/projects/select_project') do%>
-	<% if @current_projects.present? %>
-	<h3>Active Project</h3>
-	<p><h5 class = "col-md-12 alert alert-info">&nbsp;There can only be 1 active project at a time. You can archive your project on the edit project page. </h5></p>
-	<div id="active_project">
-	<br>
-	<table>
-	  <thead>
-	    <tr>
-	      <th>Selected</th>
-	      <th>Year</th>
-	      <th>Semester</th>
-	      <th>Type</th>
-	      <th>Client List Opens</th>
-	      <th>Client List Closes</th>
-	      <th>Total Max Clients</th>
-	      <th>High Priority Clients</th>
-	      <th>Medium Priority Clients</th>
-	      <th>Low Priority Clients</th>
-	      <th></th>
-	    </tr>
-	  </thead>
-	  	
-	  <tbody>
-	    <% @current_projects.each do |project| %>
-			  <tr>	      
-      			<td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
-		      	<td><%= project.year%></td>
-		      	<td><%= project.semester%></td>
-		      	<td><%= project.project_type.name%></td>
-		      	<td><%= project.tickets_open_time.to_formatted_s(:long_ordinal)%></td>
-		        <td><%= project.tickets_close_time.to_formatted_s(:long_ordinal) %></td>
-		        <% if project.use_max_clients %>
-		        	<td><%= project.max_clients%></td>
-		        	<td>N/A</td>
-		        	<td>N/A</td>
-		        	<td>N/A</td>
-		        <% else %>
-		        	<td>N/A</td>
-			        <td><%= project.max_high_priority_clients%></td>
-			        <td><%= project.max_medium_priority_clients%></td>
-			        <td><%= project.max_low_priority_clients%></td>
-		        <% end %>
-		        <td><%= link_to 'Edit', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
-		      </tr>
-	    <% end %>
-	  </tbody>
-	</table>
-	</div>
-	<% else %>
-	   <br />
-	   <p><h5>Currently, no active project exists. Please create a new project or view archived projects.</h5></p>
-	      <br />
-		  <%= link_to 'Create New Project', new_project_path %>
-		  <br />   
-	<% end %>
-	
-	<% if @archived_projects.present? %>
-	<h3>Archived Projects</h3>
-		<table class = "display">
-			<thead>
-		      <tr>
-			    <th>Selected</th>
-			    <th>Year</th>
-			    <th>Semester</th>
-			    <th>Project Type</th>
-			    <th>Max Clients</th>
-			    <th>Comments</th>
-			    <th>Edit Button</th>
-			  </tr>
-			</thead>
-		  
-		  <tbody>
-		    <% @archived_projects.each do |project| %>
-     		      <tr>
-      				<td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
-			      	<td><%= project.year%></td>
-			      	<td><%= project.semester%></td>
-			      	<td><%= project.project_type.name%></td>
-			        <td><%= project.max_clients%></td>
-			      	<td><%= project.comment%></td>
-			      	<% if get_current_project %>
+<% if @project || @archived_projects.present? %>
+    <% if @project && get_selected_project.id == @project.id %>
+        <%= render 'form' %>
+    <% elsif @project %>
+        <%= link_to 'View Active Project', {controller: 'projects', action: 'select_project', input: @project.id},
+                                             method: :post, :class => 'btn btn-primary btn-sm'%>
+    <% else %>
+        <p><h5>Currently, no active project exists. Please create a new project or view archived projects.</h5></p>
+        <%= link_to 'Create New Project', new_project_path %>
+    <% end %>
+
+    <% if @archived_projects.present? %>
+        <%= form_tag(projects_select_project_path) do%>
+            <h3>Archived Projects</h3>
+            <table class = "table table-condensed">
+              <thead>
+              <tr>
+                <th>Selected</th>
+                <th>Year</th>
+                <th>Semester</th>
+                <th>Project Type</th>
+                <th>Comments</th>
+                <th></th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <% @archived_projects.each do |project| %>
+                  <tr>
+                    <td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
+                    <td><%= project.year%></td>
+                    <td><%= project.semester%></td>
+                    <td><%= project.project_type.name%></td>
+                    <td><%= project.comment%></td>
+					<% if get_current_project %>
 			        	<td><%= link_to 'Show', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
 			        <% else %>
 			   			<td><%= link_to 'Edit', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
-			        <% end %>
-    		      </tr>
-		    <% end %>
-		  </tbody>
-		</table>
-	<% else %>
-	<br />
-	   <p><h5> There are currently no archived projects to view. In the future, they will appear here.</h5></p>
-	<br />
-	<% end %>
-	<br />
-	<%= submit_tag 'Go to selected Project', :class => "btn btn-primary btn-sm"%>
-<% end %>
+			        <% end %>                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+
+            <%= submit_tag 'View Selected Archived Project', :class => 'btn btn-primary btn-sm'%>
+        <% end %>
+    <% else %>
+
+        <p><h5> There are currently no archived projects to view. In the future, they will appear here.</h5></p>
+
+    <% end %>
 <% else %>
-   <p><h5> There are currently no projects to display. Would you like to create a new project? </h5></p>
-   <p><h5> You will need to create a new project before you can access any other page. </h5></p>
-   <%= link_to "Create a New Project", new_project_path %>
+    <p><h5> There are currently no projects to display. Would you like to create a new project? </h5></p>
+    <p><h5> You will need to create a new project before you can access any other page. </h5></p>
+    <%= link_to 'Create a New Project', new_project_path %>
 <% end %>

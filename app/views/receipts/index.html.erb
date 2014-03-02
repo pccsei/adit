@@ -1,5 +1,5 @@
 <% provide(:title, "My Clients") %>
-<h1 class = "col-md-3" id = "heading">My Current Clients</h1>
+
 <table class="display">
   <thead>
     <tr>
@@ -12,7 +12,6 @@
       <th>State</th>
       <th>Zipcode</th>
       <th>Telephone</th>
-      <th>Email</th>
       <th></th>
     </tr>
   </thead>
@@ -30,15 +29,12 @@
       	<td><%= client.state%></td>
       	<td><%= client.zipcode%></td>
       	<td><%= client.telephone%></td>
-      	<td><%= client.email%></td>
         <%  receipt = Receipt.where("ticket_id = ? AND user_id = ?",ticket.id, @student_user.id).first%>
         <td><%= link_to 'Show', receipt_path(receipt) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<br>
-<br/>
 
 <h1>My Completed Clients</h1>
 
@@ -54,7 +50,6 @@
       <th>State</th>
       <th>Zipcode</th>
       <th>Telephone</th>
-      <th>Email</th>
       <th></th>
     </tr>
   </thead>
@@ -71,8 +66,7 @@
       	<td><%= client.city%></td>
       	<td><%= client.state%></td>
       	<td><%= client.zipcode%></td>
-      	<td><%= client.telephone%></td>
-      	<td><%= client.email%></td>      	
+      	<td><%= client.telephone%></td>      	
         <%  current_receipt = Receipt.where("ticket_id = ? AND user_id = ?",ticket.id, @current_user.id).first%>
         <td><%= link_to 'Show', receipt_path(current_receipt) %></td>
       </tr>
@@ -80,8 +74,6 @@
   </tbody>
 </table>
 
-<br>
-<br>
 
 <% if @released_tickets %>
 <h1>My Released Clients</h1>
@@ -98,7 +90,6 @@
       <th>State</th>
       <th>Zipcode</th>
       <th>Telephone</th>
-      <th>Email</th>
       <th></th>
     </tr>
   </thead>
@@ -116,7 +107,6 @@
       	<td><%= client.state%></td>
       	<td><%= client.zipcode%></td>
       	<td><%= client.telephone%></td>
-      	<td><%= client.email%></td>
         <%  receipt = Receipt.where("ticket_id = ? AND user_id = ?",ticket.id, @current_user.id).first%>
         <td><%= link_to 'Show', receipt_path(receipt) %></td>
       </tr>
@@ -124,7 +114,3 @@
   </tbody>
 </table>
 <% end %>
-
-<br>
-
-

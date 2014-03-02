@@ -1,5 +1,6 @@
+<% provide(:title, 'Business Information') %>  
+
 <div class="clientInfo">
-  <h1>Business Information</h1>  
   <div class="basicInfo">
     <h2><%= @client.business_name%></h2><br>
     <h3>
@@ -15,9 +16,6 @@
     <% if @client.telephone %>      
       <h3><%= "Phone: " + @client.telephone%></h3>
     <% end %>  
-    <% if @client.email && @client.email != "" %>
-      <h3><%= "Email: " + @client.email%></h3>
-    <% end %>
     <h3>  
       <% if @client.status_id == Status.where(status_type: "In House") %> 
         <%= "This is an in-house client" %>

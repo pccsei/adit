@@ -31,6 +31,16 @@ class UsersController < ApplicationController
 
   def unauthorized    
   end
+
+  # Delete the old teacher Member and add a new teacher member
+  def change_teacher
+    teacher_to_changed = params[]
+    new_teacher = params[]
+
+    User.change_teachers(new_teacher, teacher_to_changed)
+
+    redirect_to teachers_path
+  end
   
   # GET /users/1
   # GET /users/1.json
@@ -39,9 +49,11 @@ class UsersController < ApplicationController
     #@section_numbers = member_teachers.section_number.uniq!
   end
   
+  # Show teacher and assistants for section and allow for modifications
   def teachers
     @all_teachers = User.all_teachers
-    @current_teachers = User.current_teachers(get_selected_project)                
+    @current_teachers = User.current_teachers(get_selected_project)
+    @number_of_teachers_per_section = User.get_number_of_teachers_per_section(get_array_of_all_sections(get_selected_project), get_selected_project)     
   end
   
   def create_new_section
@@ -75,6 +87,11 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    if params['commit'] == "Add New Teacher" || @user.role == 3
+      @user.role = 3
+    else
+      @user.role = 1
+    end
   end
 
   def set_section
@@ -117,21 +134,19 @@ class UsersController < ApplicationController
 
     redirect_to users_url
   end
+
+  def delete_member
+    member =  Member.find
+  end
   
   # POST /users
   # POST /users.json
   def create
     @user = User.new(user_params)
 
-    @user.role = 1
     @user.help = true
 
-    all_student_ids = [] 
-    User.all.each do |user|  
-      all_student_ids.push(user.school_id)
-    end
-
-    if all_student_ids.include?(@user.school_id)
+    if User.pluck(:school_id).include?(@user.school_id)
       @user_same = User.find_by! school_id: @user.school_id
       @user_same.school_id = @user.school_id
       @user_same.first_name = @user.first_name
@@ -144,17 +159,17 @@ class UsersController < ApplicationController
       @user_same.minor = @user.minor   
       @user_same.save
       redirect_to @user_same
-    
     else
-      
       respond_to do |format|
         if @user.save
-          @member = Member.new
-          @member.user_id = @user.id
-          @member.project_id = session[:selected_project_id]
-          @member.section_number = get_selected_section
-          @member.is_enabled = true
-          @member.save
+          if @user.role != 3
+            @member = Member.new
+            @member.user_id = @user.id
+            @member.project_id = session[:selected_project_id]
+            @member.section_number = get_selected_section
+            @member.is_enabled = true
+            @member.save
+          end
           format.html { redirect_to @user, notice: 'User was successfully created.' }
           format.json { render action: 'index', status: :created, location: @user }
         else
@@ -200,6 +215,15 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def destroy
+    member = Member.find_by(user_id: @user)
+
+    member.destroy
+    respond_to do |format|
+      format.html { redirect_to :back }
+    end
+  end
 ###################################################################################################################
   def in_section
     
@@ -225,7 +249,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:id, :created_at, :updated_at, :school_id, :role, :role,
+      params.require(:user).permit(:id, :created_at, :updated_at, :school_id, :role,
                                    :email, :phone, :first_name, :last_name, :box, 
                                    :major, :minor, :classification, :remember_token)
     end

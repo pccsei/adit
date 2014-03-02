@@ -20,7 +20,8 @@
         <td><%= link_to activity.last_name, my_receipts_path(id: activity.student_id) %></td>
         <td><%= activity.team_leader%></td>
         <td align ="center"><%= activity.section%></td>
-        <td><%= activity.time_of_activity%></td>
+        <!-- Change this to javascript function-->
+        <td><%= time_ago_in_words(activity.time_of_activity) + ' ago'%> </td>
         <td><%= activity.company%></td>
         <td><%= activity.activity%></td>
         <td align ="center"><%= activity.points_earned%></td>

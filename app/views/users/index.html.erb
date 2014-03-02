@@ -2,8 +2,6 @@
 
 <%#=debug @sections %>
 <%#=debug @pro %>
-<!--Heading-->
-<h1 class = "col-md-3" id = "heading">Manage Section</h1>
 
 <!--Change Section drop down-->
 <div class = "col-md-2" id = "select-section-1">
@@ -25,10 +23,8 @@
 
 <!--Creates a new Section link-->
 <div id="select-section-2" class = "col-md-2">
-	<h5><a href="/users/create_new_section" class = "btn btn-link btn-sm">Create a New Section</a></h5>
+	<h5><%=link_to 'Create a New Section', users_create_new_section_path, :class => 'btn btn-link btn-sm'%></h5>
 </div>
-<br><br>
-
 
 <!--Tells the teacher what section is active-->
 <h5 class = "col-md-5" id="section_type" >
@@ -49,16 +45,15 @@
 
 
 <!-- Adds students to a section and is only allowed for a teacher-->
-<br><br>
 <% if @selected_section != 'all' %>
-		<span id="paste" class="fake-link btn btn-large btn-link btn-sm">Copy and paste your student roster here</span> <span id="paste" class="btn btn-large btn-link btn-sm">or</span> <%= link_to 'Add One Student', new_user_path, :id => 'link-2', class: 'btn btn-large btn-link btn-sm'%>
+		<span id="paste" class="fake-link btn btn-large btn-link btn-sm">Copy and paste your student roster here</span> <span id="paste" >or</span> <%= link_to 'Add One Student', new_user_path, :id => 'link-2', class: 'btn btn-large btn-link btn-sm'%>
+
 
 <div class = "col-md-12" id="parse_box">
-		<%= form_tag('/users/input_students_parse') do%>
-
+		<%= form_tag(users_input_students_parse_path) do%>
 		<br>
 		<%= text_area_tag 'input' %>
-		<br><%= submit_tag 'Add Students to Section', class: "btn btn-large btn-primary btn-sm"%>
+		<br><%= submit_tag 'Add Students to Section', class: 'btn btn-large btn-primary btn-sm'%>
 	<% end %>
 	</div>
 <% else %>
@@ -71,29 +66,26 @@ Please select a section to create a team or add students.
 <%= render :partial => 'incorrect_students' %>
 <% end %>
 
-<br><br>
-<br><br>
-
 <!--Actions for the teacher to do with the students and sections-->
-<%= form_tag('/users/change_student_status') do%>
+<%= form_tag(users_change_student_status_path) do%>
     <div id= "manage_dropdown">
       <div id = "option">
-        <% if @selected_section != "all" %>
-            <%= select_tag "selected_option",
-                           options_for_select(["Promote Student", "Assign Team", "Demote Student", "Inactivate Students", "Activate Students", "Show Only Inactive Students", "Show only Active Students", "Show Both Inactive and Active Students"]),
-                           :onchange => 'myFunction()', :prompt => 'Choose Action', :type => "button",
-                           :class => "btn btn-default dropdown-toggle col-md-2", :datatoggle => "dropdown"%>
+        <% if @selected_section != 'all' %>
+            <%= select_tag 'selected_option',
+                           options_for_select(['Promote Student', 'Assign Team', 'Demote Student', 'Inactivate Students', 'Activate Students', 'Show Only Inactive Students', 'Show only Active Students', 'Show Both Inactive and Active Students']),
+                           :onchange => 'myFunction()', :prompt => 'Choose Action', :type => 'button',
+                           :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
         <% else %>
-            <%= select_tag "selected_option",
-                           options_for_select(["Promote Student", "Demote Student", "Inactivate Students", "Activate Students", "Show Only Inactive Students", "Show only Active Students", "Show Both Inactive and Active Students"]),
-                           :onchange => 'myFunction()', :prompt => 'Choose Action', :type => "button",
-                           :class => "btn btn-default dropdown-toggle col-md-2", :datatoggle => "dropdown"%>
+            <%= select_tag 'selected_option',
+                           options_for_select(['Promote Student', 'Demote Student', 'Inactivate Students', 'Activate Students', 'Show Only Inactive Students', 'Show only Active Students', 'Show Both Inactive and Active Students']),
+                           :onchange => 'myFunction()', :prompt => 'Choose Action', :type => 'button',
+                           :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
         <% end %>
       </div>
 <!-- This only appears if the teacher wants to assign a team to a student manager -->
 		<div id ="show_managers">
-			<%= select_tag "student_manager", options_from_collection_for_select(@student_managers, 'id', :full_name),
-		   		:class => "btn btn-default dropdown-toggle col-md-2"%> 
+			<%= select_tag 'student_manager', options_from_collection_for_select(@student_managers, 'id', :full_name),
+		   		:class => 'btn btn-default dropdown-toggle col-md-2'%>
 		</div>
 		<%= submit_tag :submit, :class => 'btn btn-large btn-primary btn-sm col-md-1', :id => 'action_submit'%>
 	</div>
@@ -132,5 +124,3 @@ Please select a section to create a team or add students.
 </div>
 
 <%end%>
-<br>
-

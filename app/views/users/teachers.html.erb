@@ -1,54 +1,106 @@
-<h1> Teacher's Page </h1>
+<% provide(:title, "Teacher's Page") %>
 
-<% params.merge!(per_page: 20) %>
-<% i = 10 %>
-<%=  i  %>
-<%= params[:per_page] %>
-<%= link_to 'Add New Teacher', new_user_path(params),
-                                    :id => "link-2", 
-                                    class: "btn btn-large btn-link btn-sm"%>
-
+<%= form_tag(new_user_path) do %>
+<%= submit_tag 'Add New Teacher' %>
+<% end %>
 
 
 <br><br><br>
 
+  <div id="Change_Teacher">
+    <%= form_tag(users_change_teacher_path) do%>
+      <p>Change <span id='oldTeacher'></span> to <p>
+      <%= select_tag "Change_Teacher_Selection", options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name)%> 
+    <% end %>
+  </div>
+
+  <div  id="New_Teacher">
+    <%= form_tag(users_change_teacher_path) do%>
+      <p>Add another teacher for section <span id='sectionNumber'></span><p>
+      <%= select_tag "Change_Teacher_Selection", options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name)%> 
+    <% end %>
+  </div>
+
+
 <h2>Current Teachers</h2>
-<br>
-<table class ="table dataTable">
+
+<table class="table table-bordered table-striped">
   <thead>
     <tr>
+      <th>Teaches section(s)</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>ID number</th>
       <th>Email</th>
       <th>Phone</th>
-      <th>Teaches section(s)</th>
       <th></th>
       <th></th>  
+      <th></th> 
       <th></th>                                      
     </tr>
   </thead>
   <tbody>
+  <% trid = 0 %>
     <% @current_teachers.each do |t| %>
-      <tr align ="center">
+      <tr>
+        <td align ="center"><%= t.section_number %></td>   
         <td><%= t.first_name %></td>
         <td><%= t.last_name %></td>
         <td><%= t.school_id%></td>
         <td><%= t.email%></td>
         <td><%= t.phone %></td>                
-        <td><%= t.section_number %></td>      
-        <td><%= link_to 'Show', user_path(t) %></td>
-        <td><%= link_to 'Edit', edit_user_path(t) %></td>
-        <% if t.is_enabled %>
-          <td><%= link_to 'Inactivate', {controller: :users, action: :change_is_enabled, id: t.m_id}, method: :post %></td>
+        <td><%= link_to 'Show', user_path(t.id) %></td>
+        <td><%= link_to 'Edit', edit_user_path(t.id) %></td>
+        <td><span id="newtrid<%= trid %>" name="<%= t.section_number  %>" class="fake-link btn btn-large btn-link btn-sm New_Teacher_Link">Add Another Teacher</span></td>
+        <td><span id="changetrid<%= trid; trid = trid + 1%>" name="<%= t.full_name %>" class="fake-link btn btn-large btn-link btn-sm Change_Teacher_Link">Change Teacher</span></td>
+        <% if @number_of_teachers_per_section[t.section_number] > 1  %>
+          <td><%= link_to 'Destroy', User.find(t.id), confirm: 'Are you sure?', method: :delete %></td>
         <% else %>
-          <td><%= link_to 'Activate', {controller: :users, action: :change_is_enabled, id: t.m_id}, method: :post %></td>
+            <th></th> 
         <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<script>
+  $(function() {
+
+    $("#Change_Teacher").hide();
+    $("#New_Teacher").hide();
+
+    $(".Change_Teacher_Link").click(
+      function(caller) {
+
+      if ($("#Change_Teacher").is(":hidden") ){
+        $("#New_Teacher").hide();
+        $("#Change_Teacher").show();
+      }
+
+      console.log(
+          $("#" + caller.target.id).attr("name")
+        );
+
+      $("#oldTeacher").html( $("#" + caller.target.id).attr("name") );
+      });
+
+
+    $(".New_Teacher_Link").click(
+      function(caller) {
+
+      if ($("#New_Teacher").is(":hidden") ){
+        $("#Change_Teacher").hide();
+        $("#New_Teacher").show();
+      }
+
+      console.log(
+          $("#" + caller.target.id).attr("name")
+        );
+
+      $("#sectionNumber").html( $("#" + caller.target.id).attr("name") )
+      });
+  });
+</script>
 <br><br>
 <h2>Teacher Roster</h2>
 <table class ="table dataTable">
@@ -65,7 +117,7 @@
   </thead>
   <tbody>
     <% @all_teachers.each do |t| %>
-      <tr align ="center">
+      <tr>
         <td><%= t.first_name %></td>
         <td><%= t.last_name %></td>
         <td><%= t.school_id%></td>
