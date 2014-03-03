@@ -74,8 +74,7 @@ textarea {
   padding-right: 20px;
 }
 
-/* Mixins, variables, etc. */
-$grayMediumLight: #eaeaea;
+
 
 @mixin box_sizing {
   -moz-box-sizing: border-box;
@@ -130,7 +129,7 @@ p {
 #logo {
   display: block;
   float: left;
-  background-color: #005baf;
+  background-color: #9099A2;
   font-size: 1.1em;
   height: 4em;
   width: 12em;
@@ -145,9 +144,30 @@ p {
   text-decoration: none;
 }
 
+.btn-primary {
+  background-color: #006dcc;
+  color: #ffffff;
+  background-image: -moz-linear-gradient(top, #a82525, #891414);
+  background-image: -ms-linear-gradient(top, #a82525, #891414);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#a82525), to(#891414));
+  background-image: -webkit-linear-gradient(top, #a82525, #891414);
+  background-image: -o-linear-gradient(top, #a82525, #891414);
+  background-image: linear-gradient(top, #a82525, #891414);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#'a82525, endColorstr='#'891414, GradientType=0);
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+  background-color: #891414;
+}
+
+
 .navbar-default {
-  border-top: .4em solid #005baf;
-  border-bottom: .1em solid #005baf;
+  border-top: .4em solid #DC0000;
+  border-bottom: .1em solid #DC0000;
   margin-top: 0px;
   background-color: rgba(255, 255, 255, 0.9);
   a {
@@ -195,9 +215,6 @@ p {
 .dropdown-menu > li > a {
     background-color: white;
 
-}
-ul.dropdown-menu{
-  margin-left: -25px;
 }
 
 

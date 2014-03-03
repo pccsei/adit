@@ -6,6 +6,11 @@
 
 #paste{
 	font-size: 15px;
+	padding-left: 0em;
+	float: left;
+}
+#info_message{
+	margin-top: 5em;
 }
 
 #parse_box{
@@ -32,7 +37,9 @@ h1{
 }
 
 
-
+#manage_dropdown{
+	margin-top: 8em;
+}
 #new_section{
 	padding-top: 10px;
 	font-size: 15px;
@@ -55,6 +62,8 @@ textarea #input{
 #add_student{
 	font-size: 15px;
 	margin-left: -10px;
+	padding-top: 1.34em;
+	float: left;
 }
 
 

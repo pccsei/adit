@@ -27,9 +27,10 @@ $ ->
       "sPaginationType" : "full_numbers"
       "sScrollX" : "100%"
       "bScrollCollapse" : true
-      "iDisplayLength": 50
+      "iDisplayLength": "1000"
       "bJQueryUI": true
       "bDestroy": true
+	  
        
   
   $(document).ready(load_datatable)
