@@ -17,6 +17,9 @@ class SessionsController < ApplicationController
         sign_in(user)
         redirect_back_or tickets_path
       end
+    else
+      flash.now[:error] = 'Invalid school id or password'
+      render 'new'
     end
   end
 
