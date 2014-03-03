@@ -48,7 +48,7 @@ $(function() {
 <div class="scroller_anchor"></div>  
 
 <div class="scroller alert alert-info" id = "alerts">
-<% if @clientsLeft > 0 %>
+<% if @clientsLeft && @clientsLeft > 0 %>
   <p>You can get <%= @clientsLeft %> more clients</p>
 <% else %>
 	<p id="highPriority">You can get <%= @highPriority < 0 ? 0 : @highPriority%> more high priority clients</p>
