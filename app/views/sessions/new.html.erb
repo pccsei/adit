@@ -1,5 +1,18 @@
 <% provide(:title, "Sign in") %>
 
+<% if true %>
+
+    <!--WARNING!!! If you change the button text, you must change sessions controller create action to match -->
+<%= link_to 'I want to be a teacher.', {controller: :sessions, action: :create, id: :teacher},
+            method: :post, class: 'btn btn-lg btn-primary btn-block' %>
+
+    <%= link_to 'I want to be a student.', {controller: :sessions, action: :create, id: :student},
+                method: :post, class: 'btn btn-lg btn-primary btn-block' %>
+
+
+
+
+<% else %>
 <div class="panel panel-default">
 	<div class="panel-heading">
   	<h3 class="panel-title">Please Sign In</h3>
@@ -18,3 +31,5 @@
   	</fieldset>
   </div>
 </div>
+
+<% end %>
