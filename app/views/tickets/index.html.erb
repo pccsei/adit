@@ -49,7 +49,7 @@ $(function() {
 <div class="scroller_anchor"></div>  
 <div class="scroller alert alert-info" id = "alerts">
 <% if @clientsLeft %>
-<div><span>You can get </span><span><%= @clientsLeft < 0 ? 0 : @clientsLeft%></span> more clients<span></div>
+<div><span>You can get </span><span><%= @clientsLeft < 0 ? 0 : @clientsLeft%></span> more clients</div>
 <% else %>
 <div>
   <table>
@@ -78,7 +78,6 @@ $(function() {
     </span>
   </h2> 
 </div>
-</span>
 </div>
 
 <% if current_user.help == true %>
