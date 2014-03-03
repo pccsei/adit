@@ -5,6 +5,23 @@ class SessionsController < ApplicationController
 
   end
 
+
+  # This is the temporary authentication while developing
+  def create
+    user = User.find_by(school_id: params['school_id'])
+    if user
+      if user.role == 3
+        sign_in(user)
+        redirect_back_or projects_path
+      elsif user.role == 1
+        sign_in(user)
+        redirect_back_or tickets_path
+      end
+    end
+  end
+
+# This is the expo create function
+=begin
   def create
 
     if params[:id] == 'teacher'
@@ -22,7 +39,7 @@ class SessionsController < ApplicationController
       render 'new'
     end
   end
-
+=end
   def destroy
     sign_out
     redirect_to signin_path
@@ -36,7 +53,7 @@ class SessionsController < ApplicationController
 end
 
 
-# This is the old authentication system, saved for reference, do not destroy
+# This is authentication with active directory saved for future use
 =begin
 def create
 
@@ -51,12 +68,12 @@ def create
     sign_in(user)
   end
 
-  if user #&& User.authenticate(school_id, params[:password])
+  if user && User.authenticate(school_id, params[:password])
     sign_in(user)
     if user.role == 3
-      redirect_back_or '/projects'
+      redirect_back_or projects_path
     else
-      redirect_back_or '/tickets'
+      redirect_back_or tickets_path
     end
   else
     flash.now[:error] = 'Invalid school id or password'

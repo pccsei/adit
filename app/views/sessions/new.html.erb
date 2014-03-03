@@ -1,8 +1,9 @@
 <% provide(:title, "Sign in") %>
 
-<% if true %>
 
-    <!--WARNING!!! If you change the button text, you must change sessions controller create action to match -->
+<% if false %>
+
+    <!-- I used link_to's that looked like buttons because button_to was not sending commit parameter correctly -->
 <%= link_to 'I want to be a teacher.', {controller: :sessions, action: :create, id: :teacher},
             method: :post, class: 'btn btn-lg btn-primary btn-block' %>
 
