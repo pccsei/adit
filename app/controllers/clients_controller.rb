@@ -13,7 +13,6 @@ class ClientsController < ApplicationController
     @projects = Project.all
     
     @tickets = Client.tickets_for_selected_project(get_selected_project.id) #Ticket.where(project_id: get_selected_project.id)
-
   end
   
   def approve

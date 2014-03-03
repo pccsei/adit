@@ -1,8 +1,3 @@
-<% if @message %>
-  <%= @message %>
-<% end %>
-
-
 <% provide(:title, "Assign Clients") %>
 
 <% if current_user.help == true %>
@@ -12,6 +7,32 @@
 
 <% end %>
 
+
+
+<table id="ajaxTable" class="display" data-source="<%= clients_url(format: "json")%>">
+  <thead>
+    <tr>
+      <th>Business name</th>
+      <th>Address</th>
+      <th>Contact title</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Telephone</th>
+      <th>Comment</th>
+      <% if (project = get_selected_project).is_active == true %>
+        <th></th>
+    <% end %>
+    <th>details</th>
+  </tr>
+  </thead>
+
+  <tbody>
+    
+    
+  </tbody>
+
+
+#################################################################################
 <table class="display" id="client_list">
   <thead>
     <tr>

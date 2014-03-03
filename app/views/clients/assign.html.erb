@@ -35,13 +35,38 @@
 </style>
 
 <script>
+
+function dState(){
+  if ($("#assignClient").is(":enabled"))
+    $("#assignClient").prop("disabled", true);  
+}
+
+function eState(){
+  if ($("#assignClient").is(":disabled"))
+    $("#assignClient").prop("disabled", false);
+  
+}
+
 $(function() { 
 
-  $("#sectionNum").change( function() {
-    console.log("Something was selected!");
-    
-    console.log("Need to deselect the selected student when");
+  $('#students').selectable({
+    stop:function(event, ui){
+        $(event.target).children('.ui-selected').not(':first').removeClass('ui-selected'); // thanks to http://stackoverflow.com/questions/861668/how-to-prevent-multiple-selection-in-jquery-ui-selectable-plugin
+    },
+    unselected:function(event, ui){
+      dState()
+    },
+    selected:function(event, ui){
+      $("#studentID").val($('#students .ui-selected').attr('value'));
+      eState();
+    }
+  });
   
+  
+  $("#sectionNum").change( function() {  
+    
+    dState();
+    
     if (this.value != null) {      
       console.log("Got a value");      
       $.getJSON("/users/in_section.json?sn=" + this.value,
@@ -58,39 +83,22 @@ $(function() {
         });
     }
   });
+
   
-  $('#students').selectable({
-    stop:function(event, ui){
-        $(event.target).children('.ui-selected').not(':first').removeClass('ui-selected'); // thanks to http://stackoverflow.com/questions/861668/how-to-prevent-multiple-selection-in-jquery-ui-selectable-plugin
-    }
-  });
-    
+  
   $("#assignClient").click(function() {
     $("#studentID").val($('#students .ui-selected').attr('value'));
+  });
 
-    //alert($("#studentID").val());
-
+  
+  $(".ui-widget-content").change(function() {
+    $("#assignClient").prop("disabled", false);
+    
   });
   
-  $("#studentID").hide();
-  $("#tid").hide();
-  //$("#assignClient").prop("disabled", true);
-
-/*    
-  $(document).click(function() {
-    console.log("page click!");
-    
-    console.log($("#studentID").val());
-    
-    if ($(".ui-selected").length>0) {
-      $("#assignClient").prop("disabled", false);      
-    }
-    else
-      $("#assignClient").prop("disabled", true);
-  });
-*/
-
+  
 });
+
 </script>
 
 
@@ -102,10 +110,9 @@ $(function() {
   <%= select_tag :section, options_for_select(@sections), :include_blank =>  "Choose a section", :id => "sectionNum" %>
 	
 	<%= form_tag(controller: "clients", action: "actually_assign") do %>
-    <%= text_field_tag(:studentID) %>
-    
-    <%= text_field_tag(:tid, @ticket.id) %>
-    <%= submit_tag("Actually assign the client", :id => "assignClient") %>
+    <%= hidden_field_tag(:studentID) %>    
+    <%= hidden_field_tag(:tid, @ticket.id) %>
+    <%= submit_tag("Actually assign the client", :id => "assignClient", :disabled => true) %>
   <% end %>
 	
   <!--button id="assignClient">assign this</button-->
