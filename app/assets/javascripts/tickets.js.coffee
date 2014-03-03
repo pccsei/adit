@@ -17,9 +17,6 @@ $(window).scroll (e) ->
     $(".scroller_anchor").css "height", "0px"
     $(".scroller").css
       position: "relative"
-     
-      
-
   return
 
 
@@ -28,11 +25,11 @@ $ ->
   load_datatable = ->
     $('.display').dataTable
       "sPaginationType" : "full_numbers"
-      "sScrollX" : "100%"
-      "bScrollCollapse" : true
-      "iDisplayLength": 50
+      "bScrollCollapse" : false
+      "iDisplayLength": 100
       "bJQueryUI": true
       "bDestroy": true
+	  
        
   
   $(document).ready(load_datatable)
