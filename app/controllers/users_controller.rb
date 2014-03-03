@@ -88,6 +88,9 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     if params['commit'] == "Add New Teacher" || @user.role == 3
+      # TODO: This code ^^^ is not correct. 
+      # Teachers create teachers and students, not just teachers.
+      # Need to find a better distinction method.
       @user.role = 3
     else
       @user.role = 1

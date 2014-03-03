@@ -18,15 +18,16 @@ class SessionsController < ApplicationController
       sign_in(user)    
     end
      
-      if user #&& User.authenticate(school_id, params[:password])       
+      if user && (!Rails.env.production? || 
+        (Rails.env.production? && User.authenticate(school_id, params[:password])))
        sign_in(user)
        if user.role == 3
-          redirect_back_or '/projects'
+          redirect_back_or projects_path
        else
-          redirect_back_or '/tickets'
+          redirect_back_or tickets_path
        end
      else
-       flash.now[:error] = 'Invalid school id or password'
+       flash.now[:error] = 'Invalid PCC ID or password'
        render 'new'
      end
   end
