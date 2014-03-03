@@ -8,6 +8,8 @@ class SessionsController < ApplicationController
 
    # This is active directory authentication
    def create
+
+      user = User.find_by school_id: params[:school_id]
       if user && (!Rails.env.production? || 
         (Rails.env.production? && User.authenticate(school_id, params[:password])))
        sign_in(user)
