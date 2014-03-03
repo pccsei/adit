@@ -6,38 +6,37 @@ var last_update = "<%= Time.now.utc.strftime("%Y-%m-%d %H:%M:%S") %>";
 	
 $(function() {
 	    
-    $(".addTicket").click(function(caller){
-	  //console.log(caller.target.id);
-	  $.getJSON("/tickets.json?ajax=getClient&clientID=" + caller.target.id, 
-        function(json) {
-          if (json.Success != null) {
-            $('#' + caller.target.id).hide();
-            console.log("You got the client!");
-            selector =  $('#' + json.ticketPriority + "PriorityCount");
-	        selector.html(selector.html() - 1);
-	        $("#userMessage").hide().html(json.Success).fadeIn(1000);
-          }
-          else
-	        $("#userMessage").hide().html(json.userMessage).fadeIn(1000);
-      })
+  $(".addTicket").click(function(caller) {
+  //console.log(caller.target.id);
+    $.getJSON("/tickets.json?ajax=getClient&clientID=" + caller.target.id, function(json) {
+      // TODO: Change URL above ^^^ to use Rails helper
+      if (json.Success != null) {
+        $('#' + caller.target.id).hide();
+        console.log("You got the client!");
+        selector =  $('#' + json.ticketPriority + "PriorityCount");
+        selector.html(selector.html() - 1);
+        $("#userMessage").hide().html(json.Success).fadeIn(1000);
+      }
+      else
+        $("#userMessage").hide().html(json.userMessage).fadeIn(1000);
     });
+  });
 
 	function updateClients() {
-      $.getJSON("/tickets.json?ajax=update&timestamp=" + last_update, 
-	    function(json) {
-	  	  var i, len = json.length - 1; // compensating for system time appended to the end of JSON object
+    $.getJSON("/tickets.json?ajax=update&timestamp=" + last_update, function(json) {
+      // TODO: Change URL above ^^^ to use Rails helper
+  	  var i, len = json.length - 1; // compensating for system time appended to the end of JSON object
 		  for (i = 0; i < len; i++) { 
 			//console.log(json[i]);
-
-              if (json[i].user_id == 0)
+        if (json[i].user_id == 0)
 			    $('#' + json[i].client_id).show();
 			  else
 			    $('#' + json[i].client_id).hide();
-  		   }
-  		   last_update = json[i];
-      	 })
-      //console.log("Last updated at: " + last_update);
-      setTimeout(updateClients, 2000);
+  		}
+		  last_update = json[i];
+    });
+    //console.log("Last updated at: " + last_update);
+    setTimeout(updateClients, 2000);
 	}
 	
 	$(".autoHide").hide();	
@@ -47,44 +46,29 @@ $(function() {
 </script>
 
 <div class="scroller_anchor"></div>  
+
 <div class="scroller alert alert-info" id = "alerts">
-<% if @clientsLeft %>
-<div><span>You can get </span><span><%= @clientsLeft < 0 ? 0 : @clientsLeft%></span> more clients<span></div>
+<% if @clientsLeft > 0 %>
+  <p>You can get <%= @clientsLeft %> more clients</p>
 <% else %>
-<div>
-  <table>
-	<tr>
-		<td id="highPriority">You can get <span id='highPriorityCount'><%= @highPriority < 0 ? 0 : @highPriority%></span> more high priority clients</td>
-	</tr>
-	<tr>
-		<td id="midPriority">You can get <span id='mediumPriorityCount'><%= @midPriority < 0 ? 0 : @midPriority%></span> more medium priority clients</td>
-	</tr>
-	<tr>
-		<td id="lowPriority">You can get <span id='lowPriorityCount'><%= @lowPriority < 0 ? 0 : @lowPriority%></span>  more clients low priority clients</td>
-	</tr>
-  </table>
-</div>
+	<p id="highPriority">You can get <%= @highPriority < 0 ? 0 : @highPriority%> more high priority clients</p>
+	<p id="midPriority">You can get <%= @midPriority < 0 ? 0 : @midPriority%> more medium priority clients</p>
+	<p id="lowPriority">You can get <%= @lowPriority < 0 ? 0 : @lowPriority%> more clients low priority clients</p>
 <% end %>
-
-
-<div class="message">
-  <h2>
-    <span id="userMessage">
-<% if open = (@currentProject.tickets_close_time > Time.now) %>
-  You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.
-<% else %>
-  You are no longer able to select clients.
-<% end %>
-    </span>
-  </h2> 
-</div>
-</span>
+  <p id="userMessage">
+  <% if open = (@currentProject.tickets_close_time > Time.now) %>
+    You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.
+  <% else %>
+    You are no longer able to select clients.
+  <% end %>
+  </p>
 </div>
 
 <% if current_user.help == true %>
-	<h1>First Time User?</h1>
-	<%= button_to "Yes", :controller => :users, action: "need_help"%>
+<h2>First Time User?</h2>
+<%= button_to "Yes", :controller => :users, action: "need_help"%>
 <% end %>
+
 <table class="display">
   <thead>
     <tr> 
@@ -101,26 +85,28 @@ $(function() {
     </tr>
   </thead>
   <tbody>
-    <% @tickets.each do |ticket| %>
-      <tr>
-      	<% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
-      	<% if open %>	
-        <% priorityColor =  Priority.find(ticket.priority_id).name %> 
- 	  	  <td><%= button_tag "add", type: 'button', :id => ticket.id, :class =>"" << ticketClass << priorityColor %>
-       	  </td>
-  
-      	<% end %>
-      	<td><%= Priority.find(ticket.priority_id).name.capitalize %></td>
-      	<td><%= client.business_name %></td>
-      	<td><%= client.address %></td>
-      	<td><%= client.contact_title +  " " + client.contact_fname + " " +  client.contact_lname%></td>
-      	<td><%= client.telephone %></td>
-      	<td ><%= tooltipify(client.comment).html_safe%></td>      	
-        <td><%= link_to 'Details', ticket , :class => "btn btn-info btn-sm" %></td>
-      </tr>
-    <% end %>
+  <% @tickets.each do |ticket| %>
+    <tr>
+  	<% client = Client.find(ticket.client_id); 
+       ticketClass = "addTicket"; 
+       ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); 
+    %>
+  	<% if open %>	
+    <% priorityColor =  Priority.find(ticket.priority_id).name %> 
+  	  <td><%= button_tag "add", type: 'button', :id => ticket.id, :class =>"" << ticketClass << priorityColor %></td>
+  	<% end %>
+    	<td><%= Priority.find(ticket.priority_id).name.capitalize %></td>
+    	<td><%= client.business_name %></td>
+    	<td><%= client.address %></td>
+    	<td><%= client.contact_title +  " " + client.contact_fname + " " +  client.contact_lname%></td>
+    	<td><%= client.telephone %></td>
+    	<td><%= tooltipify(client.comment).html_safe%></td>      	
+      <td><%= link_to 'Details', ticket , :class => "btn btn-info btn-sm" %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
+
 <% else %>
-	<h1>You are currently not part of any projects. <br />If you are not here by accident, ask your instructor to add you to the project</h1>
+	<p class="message">You are currently not part of any projects.<br />If you are not here by accident, ask your instructor to add you to the project</p>
 <% end%>
