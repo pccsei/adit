@@ -6,21 +6,20 @@ class SessionsController < ApplicationController
   end
 
 
-  # This is the temporary authentication while developing
-  def create
-    user = User.find_by(school_id: params['school_id'])
-    if user
-      if user.role == 3
-        sign_in(user)
-        redirect_back_or projects_path
-      elsif user.role == 1
-        sign_in(user)
-        redirect_back_or tickets_path
-      end
-    else
-      flash.now[:error] = 'Invalid school id or password'
-      render 'new'
-    end
+   # This is active directory authentication
+   def create
+      if user && (!Rails.env.production? || 
+        (Rails.env.production? && User.authenticate(school_id, params[:password])))
+       sign_in(user)
+       if user.role == 3
+          redirect_back_or projects_path
+       else
+          redirect_back_or tickets_path
+       end
+     else
+       flash.now[:error] = 'Invalid PCC ID or password'
+       render 'new'
+     end
   end
 
 # This is the expo create function
@@ -54,33 +53,3 @@ class SessionsController < ApplicationController
     (string.to_i.to_s == string)
   end
 end
-
-
-# This is authentication with active directory saved for future use
-=begin
-def create
-
-  school_id = params[:school_id]
-
-  if is_number?(school_id)
-    user = User.find_by(school_id: school_id)
-  else
-    user = User.find_or_initialize_by(school_id: school_id)
-    user.role = 3
-    user.save
-    sign_in(user)
-  end
-
-  if user && User.authenticate(school_id, params[:password])
-    sign_in(user)
-    if user.role == 3
-      redirect_back_or projects_path
-    else
-      redirect_back_or tickets_path
-    end
-  else
-    flash.now[:error] = 'Invalid school id or password'
-    render 'new'
-  end
-end
-=end

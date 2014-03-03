@@ -2,18 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.sessions.new .form-group input {
+.sessions .form-group input {
   padding: .4em .6em;
   margin: .5em 0;
   width: 100%;
   display: block;
 }
 
-.sessions.new input.btn {
+.sessions input.btn {
   margin-top: 1em;
 }
 
-.sessions.new .panel {
+.sessions .panel {
   font-size: 1.2em;
   width: 20em;
   position: relative;
@@ -21,7 +21,11 @@
   //box-shadow: 0 5px 14px rgba(0,0,0,0.2);
 }
 
-.sessions.new #container {
+.sessions #container {
   background: none;
   margin-top: 4em !important;
+}
+
+.sessions h1#heading {
+  display: none;
 }
