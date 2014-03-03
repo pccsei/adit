@@ -25,9 +25,8 @@ $ ->
   load_datatable = ->
     $('.display').dataTable
       "sPaginationType" : "full_numbers"
-      "sScrollX" : "100%"
-      "bScrollCollapse" : true
-      "iDisplayLength": "1000"
+      "bScrollCollapse" : false
+      "iDisplayLength": 100
       "bJQueryUI": true
       "bDestroy": true
 	  

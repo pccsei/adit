@@ -47,38 +47,34 @@ $(function() {
 </script>
 
 <div class="scroller_anchor"></div>  
-
-<div class="scroller" id = "alerts">
+<div class="alert_info">
+<div class="scroller">
   <% if @clientsLeft %>
     <div><span>You can get </span><span><%= @clientsLeft < 0 ? 0 : @clientsLeft%></span> more clients</div>
   <% else %>
-<div>
-    <table>
+  	<table>
 	     <tr>
-		      <td id="highPriority">You can get <span id='highPriorityCount'><%= @highPriority < 0 ? 0 : @highPriority%></span> more high priority clients</td>
+		      <td id="highPriority">You can get <span id='highPriorityCount'><%= @highPriority < 0 ? 0 : 				@highPriority%></span> more high priority clients</td>
 	     </tr>
 	     <tr>
-		      <td id="midPriority">You can get <span id='mediumPriorityCount'><%= @midPriority < 0 ? 0 : @midPriority%></span> more medium priority clients</td>
+		      <td id="midPriority">You can get <span id='mediumPriorityCount'><%= @midPriority < 0 ? 0 : 				@midPriority%></span> more medium priority clients</td>
     	</tr>
 	     <tr>
-	     	<td id="lowPriority">You can get <span id='lowPriorityCount'><%= @lowPriority < 0 ? 0 : @lowPriority%></span>  more clients low priority clients</td>
+	     	<td id="lowPriority">You can get <span id='lowPriorityCount'><%= @lowPriority < 0 ? 0 : @lowPriority%></span>  				more clients low priority clients</td>
 	     </tr>
     </table>
-</div>
-
-<% end %>
-
-
-<div class="message">
-  <h2>
-    <span id="userMessage">
-<% if open = (@currentProject.tickets_close_time > Time.now) %>
-  You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.
-<% else %>
-  You are no longer able to select clients.
-<% end %>
-    </span>
-  </h2> 
+	<% end %>
+	<div class="message">
+  	  <h2>
+    	  <span id="userMessage">
+			  <% if open = (@currentProject.tickets_close_time > Time.now) %>
+ 			 You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.
+			 <% else %>
+  		   You are no longer able to select clients.
+		   <% end %>
+    	</span>
+  	</h2> 
+	</div>
 </div>
 </div>
 
@@ -101,7 +97,6 @@ $(function() {
       <th>Person to Contact</th>
       <th>Telephone</th>
       <th>Comment</th> 
-      <th></th>	
     </tr>
   </thead>
   <tbody>
@@ -115,12 +110,12 @@ $(function() {
   
       	<% end %>
       	<td><%= Priority.find(ticket.priority_id).name.capitalize %></td>
-      	<td><%= client.business_name %></td>
+      	<td><%= link_to client.business_name, ticket, :class => "btn btn-link btn-sm"  %></td>
       	<td><%= client.address %></td>
       	<td><%= client.contact_title +  " " + client.contact_fname + " " +  client.contact_lname%></td>
       	<td><%= client.telephone %></td>
       	<td ><%= tooltipify(client.comment).html_safe%></td>      	
-        <td><%= link_to 'Details', ticket , :class => "btn btn-info btn-sm" %></td>
+       <!-- <td><%#= link_to 'Details', ticket , :class => "btn btn-info btn-sm" %></td> -->
       </tr>
     <% end %>
   </tbody>

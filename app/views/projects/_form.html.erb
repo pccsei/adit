@@ -26,9 +26,11 @@
 
 
  <div id = "project_options">
-
- <h3 class = "col-md-12 alert alert-info">&nbsp;How many clients can the students choose?</h3><br>  
-
+	 <div class = "panel panel-primary">
+	<div class = "panel-heading">	 
+ <h3 class = "col-md-12">&nbsp;How many clients can the students choose?</h3><br>  
+</div>
+<div class = "panel-body">
       <%= radio_button(:project, :use_max_clients, :false) %>
       <%= label_tag(:max_color_clients, "Total Clients in different Priorities:") %><br>
       <div id = "priority_dropdown">
@@ -41,15 +43,16 @@
       <%= f.label :low_priority %> 
       <%= f.select :max_low_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "btn btn-small dropdown-toggle"}%>
       </div>
-    </div>    
+     
 
- 
+
       <%= radio_button(:project, :use_max_clients, :true) %>
       <%= label_tag(:max_color_clients, "Total Clients in total form") %><br>
       <%= f.label :max_clients %>
       <%= f.select :max_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "btn btn-small dropdown-toggle "}%>
       <br /><br />
-
+</div>
+</div>
 <div id = "project_options">
   <h3 class = "col-md-12 alert alert-info">&nbsp;When can the students add clients?</h3><br>
       <%= f.label :tickets_open_time, "Start Time" %>

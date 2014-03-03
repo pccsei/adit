@@ -6,8 +6,8 @@
 
 #paste{
 	font-size: 15px;
-	padding-left: 0em;
-	float: left;
+	margin-left: -15.8em;
+	margin-top: 5em;
 }
 #info_message{
 	margin-top: 5em;
@@ -28,23 +28,17 @@
 }
 
 
-.col-md-12{
-	padding-left: 0px !important;
-}
-
 h1{
   padding-top: 0px;
 }
 
 
 #manage_dropdown{
-	margin-top: 8em;
+	margin-top: 2em;
 }
 #new_section{
-	padding-top: 10px;
-	font-size: 15px;
-	padding-top: 12px;
-	padding-left: 0px
+	margin-left: 30em;
+	margin-top: -2.25em;
 }
 
 #new_section h5 .btn-link{
@@ -61,14 +55,12 @@ textarea #input{
 
 #add_student{
 	font-size: 15px;
-	margin-left: -10px;
-	padding-top: 1.34em;
-	float: left;
+	margin-top: 5em;
 }
 
 
 
 #action_submit{
-	margin-left: 10px;
-
+	margin-left: 1em;
+margin-bottom: 2em !important;
 }

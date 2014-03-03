@@ -9,7 +9,7 @@ $ ->
       "sPaginationType" : "full_numbers"
       "sScrollX" : "100%"
       "bScrollCollapse" : true
-      "iDisplayLength": 50
+      "iDisplayLength": 100
       "bJQueryUI": true
       "bDestroy": true
   

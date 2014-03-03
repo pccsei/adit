@@ -23,8 +23,9 @@
 
 /* universal */
 
-#select-section-1{
-  padding-top: 5px;
+#select-section{
+  margin-top: -3em;
+  margin-left: 18em;
 }
 
 .fake-link {
@@ -37,7 +38,8 @@ body {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 1.4em;
-  background: url(subtlenet2.png);
+  //background: url(subtlenet2.png);
+  
 }
 
 * {
@@ -54,6 +56,7 @@ textarea {
   border: 3px solid #cccccc;
   padding: 5px;
   font-family: Tahoma, sans-serif;
+  margin-left: -1em;
 }
 
 .navbar-nav a.dropdown-toggle {
@@ -129,7 +132,7 @@ p {
 #logo {
   display: block;
   float: left;
-  background-color: #9099A2;
+  background-color: white;
   font-size: 1.1em;
   height: 4em;
   width: 12em;
@@ -144,37 +147,19 @@ p {
   text-decoration: none;
 }
 
-.btn-primary {
-  background-color: #006dcc;
-  color: #ffffff;
-  background-image: -moz-linear-gradient(top, #a82525, #891414);
-  background-image: -ms-linear-gradient(top, #a82525, #891414);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#a82525), to(#891414));
-  background-image: -webkit-linear-gradient(top, #a82525, #891414);
-  background-image: -o-linear-gradient(top, #a82525, #891414);
-  background-image: linear-gradient(top, #a82525, #891414);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#'a82525, endColorstr='#'891414, GradientType=0);
-}
-
-.btn-primary:hover,
-.btn-primary:active,
-.btn-primary.active,
-.btn-primary.disabled,
-.btn-primary[disabled] {
-  background-color: #891414;
-}
 
 
 .navbar-default {
   border-top: .4em solid #DC0000;
-  border-bottom: .1em solid #DC0000;
+  border-bottom: none;
   margin-top: 0px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: black;
+  color: white;
   a {
     color: #1C2C40;
     &:hover {
       border-bottom: 0px none;
-    
+	  color:white;
     }
   }
   small {
@@ -195,7 +180,7 @@ p {
   border-bottom: medium none;
   font-weight: 400;
   font-size: 1.1em;
-  color: #999;
+  color: white;
   padding: 0 1.5em;
   line-height: 4em;
   height: 4em;
@@ -203,10 +188,10 @@ p {
   text-decoration: none;
 }
 
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-    background-color: transparent !important;
-    color: rgb(85, 85, 85);
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+	color: #BEBEBE;
 }
+
 
 .navbar-collapse {
   padding: 0;
@@ -228,7 +213,7 @@ p {
   padding: 3em 4em 4em;
   margin-top: 8em;
   margin-bottom: 8em !important;
-  background: white;
+  border-radius: 4px;
 }
 
 #create_section{
@@ -277,32 +262,13 @@ footer {
 }
 
 
-TD.dataTables_empty{
-  background-color: #85a7d1 !important;
+td.dataTables_empty{
+  background-color: #5E0000 !important;
+  color: white !important;
 }
 
-tr.medium.odd{
-  background-color: #fffd71 !important;
-}
-
-tr.medium.even{
-  background-color: #fffd71 !important;
-}
-
-tr.high.odd{
-  background-color: #68ff5d !important;
-}
-
-tr.high.even{
-  background-color: #68ff5d !important;
-}
-
-tr.low.odd{
-  background-color: white !important;
-}
-
-tr.low.even{
-  background-color: white !important;
+tr.odd {
+background-color: #FFCFCF;
 }
 
 
@@ -327,12 +293,12 @@ table.dataTable tr.even td.sorting_3 {
 /*
  * Table wrapper
  */
+
 .dataTables_wrapper {
   position: relative !important;
   clear: both;
   *zoom: 1;
-  padding-top: 1em;
-  margin-top: 2em;
+  margin-top: 3em !important;
   border: 1px solid #aaaaaa;
   border-radius: 4px;
 }
