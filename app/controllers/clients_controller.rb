@@ -53,14 +53,9 @@ class ClientsController < ApplicationController
     receipt = Receipt.where("ticket_id = ? AND user_id = ?", t.id, params[:studentID]).first
 
     Receipt.find_or_create_by(ticket_id: t.id, user_id: User.where(school_id: params[:studentID]).first.id)
-=begin            
-    if receipt.nil?
-      Receipt.create(ticket_id: t.id, user_id: User.where(school_id: params[:studentID]).first.id )
-    end
-=end    
     @message = User.where(school_id: params[:studentID]).first.to_s + "is now assigned to " + t.client.business_name.to_s    
     
-    redirect_to clients_url, flash[:alert] => 'Client was successfully submitted.'    
+    redirect_to clients_url, :notice => User.find_by_school_id(params[:studentID]).first_name.to_s + ' is now assigned to ' + t.client.business_name    
   end
 
 
