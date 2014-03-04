@@ -3,21 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 # This one is the default '.display' class options, add id to future tables to modify
-$ ->
-  double_datatable = ->
-    $('.display').dataTable
-      "sPaginationType" : "full_numbers"
-      "sScrollX" : "100%"
-      "bScrollCollapse" : true
-      "iDisplayLength": 100
-      "bJQueryUI": true
-      "bDestroy": true
-  
-  $(document).ready(double_datatable)
-  $(document).on('page:load', double_datatable)
-  # Will add this function once it is ready 
-  #$(document).on('page:change', load_datatable)
-
 
 ###
 jQuery ->
