@@ -1,17 +1,24 @@
 
-<h5 class = "col-md-5" id="section_type" >
-  <div>
-    Project: <%= get_selected_project.semester + ' ' + get_selected_project.year.to_s %>
+<div class="panel panel-default teacher_info" >
+<div class="panel-heading">	
+	<h5>Information Box</h5>
+</div>
+<div class="panel-body">
+
+    <strong>Project:</strong> <span class="badge"><%= get_selected_project.semester + ' ' + get_selected_project.year.to_s %>
     <% if get_selected_project.is_active %>
-        (current)
+        (current)</span>
+	
     <% else %>
-        (archived)
+        (archived)</span>
+	
     <% end %>
     <% if get_selected_section == 'all' %>
-        Sections: All
+        <strong>Sections:</strong> <span class="badge">All</span>
     <% else %>
-        Section: <%= get_selected_section %>
+        <strong>Section:</strong> <span class="badge"><%= get_selected_section %></span>
     <% end %>
-    Current User: <%= @current_user.last_name  || @current_user.school_id%>
-  </div>
-</h5>
+    <br /><strong>Current User:</strong> <span class="badge"><%= @current_user.last_name  || @current_user.school_id%></span>
+
+</div>
+</div>

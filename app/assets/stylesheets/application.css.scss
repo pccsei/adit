@@ -22,9 +22,45 @@
 
 /* universal */
 
+.info_bar{
+	width: 40em;
+	margin-top: 1em;
+}
+
+.users #info_message{
+	width: 40em;
+	margin-top: 6em;
+}
+
+.teacher_info .panel-body {
+padding: 5px;
+font-size: 12px;
+}
+.teacher_info .panel-heading {
+padding: .2em;
+text-align: right;
+}
+
+.users{
+	padding-top: 2em;
+}
+
+.teacher_info{
+	font-size: 1.2em;
+	width: 15.6em;
+	margin: 0 auto;
+	float: right;
+	margin-top: -40px;
+	height: 6em;
+	margin-bottom: 3em !important;
+}
+
+
+
 #select-section{
-  margin-top: -3em;
-  margin-left: 18em;
+	float: right;
+	padding-right: 2em;
+	margin-top: -3em;
 }
 
 .fake-link {
@@ -129,15 +165,17 @@ p {
 /* header */
 
 #logo {
-  display: block;
-  float: left;
-  background-color: white;
-  font-size: 1.1em;
-  height: 4em;
-  width: 12em;
-  margin-right: 1.5em;
-  background-repeat: no-repeat;
-  background-position: 28px 14px;
+	display: block;
+	float: left;
+	background-color: 
+	white;
+	font-size: 1.1em;
+	height: 4em;
+	width: 11.5em;
+	margin-right: 1.5em;
+	background-repeat: no-repeat;
+	background-position: 28px 14px;
+	margin-left: -8em;
 
 }
 
@@ -210,7 +248,7 @@ p {
 
 #container {
   padding: 3em 4em 4em;
-  margin-top: 8em;
+  margin-top: 4em;
   margin-bottom: 8em !important;
   border-radius: 4px;
 }
