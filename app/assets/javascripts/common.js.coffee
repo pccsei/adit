@@ -3,7 +3,7 @@ $ ->
     $('.display').dataTable
       "sPaginationType" : "full_numbers"
       "sScrollX" : "100%"
-      "bScrollCollapse" : false
+      "bScrollCollapse" : true
       "iDisplayLength": 50
       "bJQueryUI": true
       "bDestroy": true

@@ -342,6 +342,8 @@ table.display thead th div.DataTables_sort_wrapper span {
   border-color: #eed3d7;
   color: #b94a48;
   text-align: left;
+  margin-top: 20px;
+  margin-bottom: 20px !important
 }
 
 .alert-alert {
@@ -349,6 +351,8 @@ table.display thead th div.DataTables_sort_wrapper span {
   border-color: #eed3d7;
   color: #b94a48;
   text-align: left;
+  margin-top: 20px;
+  margin-bottom: 20px !important
 }
 
 .alert-success {
@@ -356,6 +360,9 @@ table.display thead th div.DataTables_sort_wrapper span {
   border-color: #d6e9c6;
   color: #468847;
   text-align: left;
+  margin-top: 20px;
+  margin-bottom: 20px !important;
+
 }
 
 .alert-notice {
@@ -363,4 +370,6 @@ table.display thead th div.DataTables_sort_wrapper span {
   border-color: #d6e9c6;
   color: #468847;
   text-align: left;
+  margin-top: 20px;
+  margin-bottom: 20px !important;
 }
