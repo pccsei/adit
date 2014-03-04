@@ -39,27 +39,27 @@ class Client < ActiveRecord::Base
 
    # Returns all pending clients, needs to be refactored to remove magic number
   def self.pending
-    where(status_id: Status.where(status_type: "Pending")).all
+    where(status_id: Status.where(status_type: 'Pending'))
   end
 
   def self.edited_pending
-    where(status_id: 5).all
+    where(status_id: 5)
   end
    
   def self.unapproved
-    where(status_id: Status.where(status_type: "Unapproved")).all
+    where(status_id: Status.where(status_type: 'Unapproved'))
   end
    
   def self.house
-    where(status_id: Status.where(status_type: ["In House", "Approved"])).all
+    where(status_id: Status.where(status_type: ['In House', 'Approved']))
   end
    
   def self.approve_clients(array_of_pending_clients)
     for i in 0..array_of_pending_clients.count-1
       pending_client = Client.find(array_of_pending_clients[i].to_i)
-      pending_client.status_id = Status.where("status_type = ?", "Approved").first.id
+      pending_client.status_id = Status.where('status_type = ?', 'Approved').first.id
       pending_client.save
-      ticket = Ticket.where("client_id = ?", pending_client.id).first
+      ticket = Ticket.where('client_id = ?', pending_client.id).first
       Receipt.create(:ticket_id => ticket.id, :user_id => ticket.user_id)
     end
   end
@@ -67,16 +67,16 @@ class Client < ActiveRecord::Base
     def self.unapprove_clients(array_of_pending_clients)
      for i in 0..array_of_pending_clients.count-1
       pending_client = Client.find(array_of_pending_clients[i].to_i)
-      pending_client.status_id = Status.where("status_type = ?", "Unapproved").first.id
+      pending_client.status_id = Status.where('status_type = ?', 'Unapproved').first.id
       pending_client.save
-      Ticket.where("client_id = ?", pending_client.id).first.destroy
+      Ticket.where('client_id = ?', pending_client.id).first.destroy
      end
     end
 
   def self.tickets_for_selected_project(pid)
     ticket_info = Ticket.where(project_id: pid)
         
-    Struct.new("Client_ticket", :business_name, :contact_fname, :telephone, :student_lname, :zipcode, :city, :id,    
+    Struct.new('Client_ticket', :business_name, :contact_fname, :telephone, :student_lname, :zipcode, :city, :id,
                                 :state, :contact_lname, :contact_title, :client_id, :address, :student_fname, :student_id, :comment)
     client_ticket = []  
     ticket_info.each_with_index do |t, i|
@@ -129,7 +129,7 @@ class Client < ActiveRecord::Base
       current_client = Client.find(Client.find(array_of_edited_pending_clients[i].to_i).parent_id)
       if status == 2 || status == 3
         # Anything you don't want copied into the orginal list here
-        current_client.update(pending_edited_client.attributes.except("id", "status_id", "created_at", "parent_id"))
+        current_client.update(pending_edited_client.attributes.except('id', 'status_id', 'created_at', 'parent_id'))
         current_client.save(:validate => false)
         pending_edited_client.delete
       else

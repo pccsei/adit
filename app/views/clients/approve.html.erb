@@ -11,13 +11,12 @@
 <% else %>
   <p>There are currently no pending clients.</p>
 <% end %>
-<br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br />
 
 <h3>Edited Clients</h3>
 <% if @edited_pending_clients.present? %> 
       <%= form_tag(clients_approve_client_edit_path) do %>
-         <%= render :partial => 'edited_pending', :locals => { :pending_clients => @edited_pending_clients.each} %>
-         <br/>
+         <%= render :partial => 'edited_pending', :locals => { :pending_clients => @edited_pending_clients} %>
          <%= submit_tag 'Approve' %>
          <%= submit_tag 'Approve All' %>
          <%= submit_tag 'Disapprove'%>
@@ -25,7 +24,7 @@
 <% else %>
   <p>There are currently no edited clients.</p>
 <% end %>
-<br /><br />
+<br /><br /><br /><br /><br />
 
 <h3>Unapproved Clients</h3>
 <% if @unapproved_clients.present?%>

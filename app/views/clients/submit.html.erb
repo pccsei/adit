@@ -5,6 +5,8 @@
 </div>
 <%= render 'form'%>
 <br />
+
+
 <h3>Clients Waiting for Approval</h3>
 <% if @pending_clients.present?%>
 	<%= render :partial => 'pending', :locals => { :pending_clients => @pending_clients} %>
@@ -18,4 +20,5 @@
 <% else %>
     There are currently no unapproved clients.
 <% end %>
+
 
