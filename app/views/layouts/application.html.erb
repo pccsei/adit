@@ -30,6 +30,9 @@
       <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
       <h1 id="heading"><%= yield(:title)%></h1>
+    <% if @current_user && @current_user.role == 3 %>
+      <%= render 'layouts/teacher_info' %>
+    <% end %>
       <%= yield %>
     </div>
   </body>

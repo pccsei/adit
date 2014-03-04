@@ -26,24 +26,6 @@
 	<h5><%=link_to 'Create a New Section', users_create_new_section_path, :class => 'btn btn-link btn-sm'%></h5>
 </div>
 
-<!--Tells the teacher what section is active-->
-<h5 class = "col-md-5" id="section_type" >
-	<p class = "text-success">
-
-		<%= @current.first_name || @current.school_id.capitalize %>,
-			<% if @selected_section == 'all' %>
-				these are all the sections for this project.
-			<% elsif @selected_section.nil? %>
-				you need to create a section.
-			<% else%>
-				this is section <%= "#{@selected_section} "%>
-			<% end %>
-	</p>
-
-</h5>
-
-
-
 <!-- Adds students to a section and is only allowed for a teacher-->
 <% if @selected_section != 'all' %>
 		<span id="paste" class="fake-link btn btn-large btn-link btn-sm">Copy and paste your student roster here</span> <span id="paste" >or</span> <%= link_to 'Add One Student', new_user_path, :id => 'link-2', class: 'btn btn-large btn-link btn-sm'%>
