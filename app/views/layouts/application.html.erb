@@ -29,7 +29,27 @@
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
-      <h1 id="heading"><%= yield(:title)%></h1>
+      <h1 id="heading" class = "page-header"><%= yield(:title)%></h1>
+	   <% if current_user %>
+	   <h5 class = "col-md-5" id="section_type" >
+	   	<p>
+			 Section:
+	   			<% if @selected_section == 'all' %>
+				<span class = "badge">
+	   				ALL
+					</span>
+	   			<% elsif @selected_section.nil? %>
+				<span class = "badge">
+	   				Section Not Created
+				</span>
+	   			<% else%>
+				<span class = "badge">
+	   				<%= "#{@selected_section} "%>
+				</span>
+	   			<% end %>
+	   	</p>
+	   </h5>
+	   <%end%>
       <%= yield %>
     </div>
   </body>

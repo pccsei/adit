@@ -31,6 +31,7 @@ gem 'jquery-validation-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-rails'
 gem 'jquery-datatables-rails'
+gem 'will_paginate'
 
   # bundle exec rake doc:rails generates the API under doc/api.
 
