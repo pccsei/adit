@@ -5,8 +5,8 @@ class Project < ActiveRecord::Base
   has_many   :members
   has_many   :semesters
 
-# Validates the year text field
-  validates :year, presence: true
+# Validates the year field
+  validates :year, presence: true, uniqueness: { scope: :semester, message: "can only be one active project per semester of each year."}
   
 # Validates the ticket open and close times  
   validates :tickets_open_time, presence: true, uniqueness: true
@@ -52,9 +52,12 @@ class Project < ActiveRecord::Base
   
 # Custom method to make sure the selected year is within the ticket open time year
   def current_selected_year
+    time = Time.new
     if(tickets_open_time)
       errors.add(:tickets_open_time, "must be in the year you selected above.") unless
         self.tickets_open_time.year == self.year
+      errors.add(:tickets_open_time, "must not start before today.") unless
+        self.tickets_open_time.day == time.day
       errors.add(:tickets_close_time, "must be in the year you selected above.") unless
         self.tickets_close_time.year == self.year
     end

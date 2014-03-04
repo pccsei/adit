@@ -35,6 +35,21 @@ class Ticket < ActiveRecord::Base
     end
     return result
   end
+  
+  def self.cannot_select_clients(user, project)
+    current_tickets  = user.tickets.where('project_id = ? AND id IN (?)',
+                                          project.id, Receipt.where('user_id = ? AND made_sale = ?',
+                                                                    user.id, false).pluck(:ticket_id))
+    result = true
+    if project.use_max_clients
+      result = false if project.max_clients > current_tickets.size
+    else
+      result = false if (project.max_low_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'low')).size &&
+                        project.max_medium_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'medium')).size &&
+                        project.max_high_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'high')).size)
+    end
+    return result
+  end
 
 
 end

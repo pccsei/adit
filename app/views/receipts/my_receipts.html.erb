@@ -1,4 +1,15 @@
-<% provide(:title, 'My Clients') %>
+
+<% if current_user.role == 3 %>
+<% provide(:title, @student_user.first_name + '\'s Clients') %>
+<br />
+	<% if @page_title == 'Manage Section'%>
+		<%= link_to "Back to Manage Section", @previous_page, :class => 'btn btn-large btn-primary btn-sm' %>
+	<% else %>
+		<%= link_to "Back to Reports", @previous_page, :class => 'btn btn-large btn-primary btn-sm' %>
+	<% end %>
+<% else %>
+	<% provide(:title, 'My Clients')%>
+<% end %>
 
 <% if Project.non_archived %>
 
@@ -20,7 +31,7 @@
         <!-- Loop -->
         <% @active_receipts.each do |receipt| %>
         <div class="active client <%= receipt.ticket.priority.name %>" data-link="#">
-          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
+          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt, page: @previous_page, page_title: @page_title), title: "View client" %>
           <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
           <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
           <%= link_to image_tag("closebutton.svg", class: "release_button", id: receipt.ticket.id), "#", title: "Release client" %>
@@ -32,7 +43,7 @@
       <div id="completed_clients" class="myclients">
         <% @sold_receipts.each do |receipt| %>
         <div class="completed client <%= receipt.ticket.priority.name %>">
-          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
+          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt, page: @previous_page, page_title: @page_title), title: "View client" %>
           <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
         </div>
         <% end %>
@@ -42,7 +53,7 @@
       <div id="released_clients" class="myclients">
         <% @released_receipts.each do |receipt| %>
         <div class="released client <%= receipt.ticket.priority.name %>">
-          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
+          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt, page: @previous_page, page_title: @page_title), title: "View client" %>
           <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
         </div>
         <% end %>

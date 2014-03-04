@@ -10,6 +10,12 @@
       </ul>
     </div>
   <% end %>
+  
+<div id = "cannot_edit">
+	<% if !@project.is_active && get_current_project %>
+		<p>You cannot edit archived projects.</p>
+	<% end %>	
+</div>
 
 <div id = "project_options">
       <%= f.label :Year %>
@@ -56,10 +62,10 @@
 <div id = "project_options">
   <h3 class = "col-md-12 alert alert-info">&nbsp;When can the students add clients?</h3><br>
       <%= f.label :tickets_open_time, 'Start Time' %>
-      <%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM' %>
+      <%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :disabled => (get_current_project && !@project.is_active ? true : false) %>
   
       <%= f.label :tickets_close_time, 'End Time' %>
-      <%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM' %>
+      <%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :disabled => (get_current_project && !@project.is_active ? true : false) %>
 </div>
 
 	<% if params[:id] || get_selected_project.is_active %>
