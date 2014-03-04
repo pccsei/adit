@@ -6,6 +6,11 @@
 
 #paste{
 	font-size: 15px;
+	margin-left: -15.8em;
+	margin-top: 5em;
+}
+#info_message{
+	margin-top: 5em;
 }
 
 #parse_box{
@@ -23,24 +28,20 @@
 }
 
 
-.col-md-12{
-	padding-left: 0px !important;
-}
-
 h1{
   padding-top: 0px;
 }
 
 
-
-#select-section-2{
-	padding-top: 10px;
-	font-size: 15px;
-	padding-top: 12px;
-	margin-left: -50px;
+#manage_dropdown{
+	margin-top: 2em;
+}
+#new_section{
+	margin-left: 30em;
+	margin-top: -2.25em;
 }
 
-#select-section-2 h5 .btn-link{
+#new_section h5 .btn-link{
 font-size: 15px;
 
 }
@@ -52,14 +53,14 @@ textarea #input{
 
 	
 
-#link-2{
+#add_student{
 	font-size: 15px;
-	margin-left: -10px;
+	margin-top: 5em;
 }
 
 
 
 #action_submit{
-	margin-left: 10px;
-	margin-top: 5px;
+	margin-left: 1em;
+margin-bottom: 2em !important;
 }
