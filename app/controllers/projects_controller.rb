@@ -49,7 +49,8 @@ class ProjectsController < ApplicationController
       if @project.update(project_params)
         format.html { redirect_to projects_path, notice: 'Project was successfully updated.' }
       else
-        format.html { render action: 'edit' }
+        @archived_projects = Project.non_archived.where('is_active = ?', false)
+        format.html { render action: 'index' }
       end
     end
   end
