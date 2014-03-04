@@ -66,8 +66,9 @@ class ProjectsController < ApplicationController
   def select_project
     project_id = params['input']
     selected_project = Project.find(project_id)
-    set_selected_project selected_project
-    redirect_to users_url #projects_url
+    set_selected_project(selected_project)
+    redirect_to projects_url, notice: 'You are now viewing the ' + selected_project.semester + ' ' +
+                                          selected_project.year.to_s + ' project.'
   end
 
   private

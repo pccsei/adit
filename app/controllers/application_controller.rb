@@ -44,9 +44,9 @@ class ApplicationController < ActionController::Base
   def get_selected_project
     if session[:selected_project_id]
       Project.find(session[:selected_project_id])
-    elsif Project.current.last
-      set_selected_project(Project.current.last)
-      Project.current.last
+    elsif get_current_project
+      set_selected_project(get_current_project)
+      get_current_project
     elsif Project.non_archived.last
       set_selected_project(Project.non_archived.last)
       Project.non_archived.last
@@ -63,15 +63,15 @@ class ApplicationController < ActionController::Base
     if session[:selected_section_id]
        session[:selected_section_id]
     else
-       "all"
+      'all'
     end
   end
 
   def get_array_of_all_sections(selected_project)
     selected_project_id = selected_project.id
-    sections = (Member.where("project_id = ?", selected_project_id).uniq!.pluck("section_number"))
+    sections = (Member.where('project_id = ?', selected_project_id).uniq!.pluck('section_number'))
     sections.sort!
-    sections.unshift("all")
+    sections.unshift('all')
   end
 
    # Restricts access to only teachers 
@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
    def signed_in_user
      unless signed_in?
        store_location
-       redirect_to signin_url, notice: "Please sign in"
+       redirect_to signin_url
      end
    end
    
