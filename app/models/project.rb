@@ -39,8 +39,8 @@ class Project < ActiveRecord::Base
   validates :max_low_priority_clients, length: {
     minimum: 1,
     message: 'is the wrong length.  Needs to be at least one digit long.'
-  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_medium_priority_clients == 0) } }, 
-      unless: Proc.new { |project| project.use_max_clients == true }  
+  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_medium_priority_clients == 0) } },
+      unless: Proc.new { |project| project.use_max_clients == true }
 
 # Custom method to make sure the open date is before the close date  
   def start_before_end

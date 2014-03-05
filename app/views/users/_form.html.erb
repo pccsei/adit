@@ -1,7 +1,7 @@
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(@user.errors.count, 'error') %> prohibited this user from being saved:</h2>
 
       <ul>
       <% @user.errors.full_messages.each do |msg| %>
@@ -86,12 +86,12 @@
 				"user[first_name]": {required: true, letters_only: true},
 				"user[last_name]": {required: true, letters_only: true},
 				"user[school_id]": {required: true, id_valid: true},
-				"user[email]": {required: true, email: true, email_valid: true}},
+				"user[email]": {required: true, email: true, email_valid: true},
 				"user[phone]": {required: true, valid_telephone: true},
 				"user[box]": {required: true, digits: true, rangelength: [3,4], min_digit: 1}
 			},
 			messages: {
-				"user[first_name]": "Please enter the user's first name.",
+		        "user[first_name]": "Please enter the user's first name.",
 				"user[last_name]": "Please enter the user's last name.",
 				"user[school_id]": "Please enter the user's school id.",
 				"user[email]": "Please enter the user's PCC email address.",
