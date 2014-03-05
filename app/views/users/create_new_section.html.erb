@@ -15,5 +15,8 @@
 <%= collection_select  :school_id, :id, User.all_teachers, :id, :school_id, :class => 'btn btn-large btn-dropdown btn-sm'   %>
 
 <%= submit_tag "Create this section", :class => 'btn btn-large btn-primary btn-sm' %>
+<br /><br />
+<%= link_to 'Back to Manage Section', users_path, :class => 'btn btn-large btn-primary btn-sm' %>
+
 
 <% end %>

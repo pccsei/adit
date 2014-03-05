@@ -110,6 +110,9 @@ class TicketsController < ApplicationController
     @ticket = Ticket.new
   end
 
+  def edit
+  end
+
   def create
     clients = Client.house
     clients.each do |c|

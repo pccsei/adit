@@ -1,46 +1,45 @@
 <div>
-    <h1><%= client.business_name %></h1>
+    <h1><%= @client.business_name %></h1>
 </div>
 
 <div>
   <p>
     <strong>Address:</strong>
-    <%= client.address %>
+    <%= @client.address %>
   </p>
 
   <p>
     <strong>City:</strong>
-    <%= client.city %>
+    <%= @client.city %>
   </p>
 
   <p>
     <strong>State:</strong>
-    <%= client.state %>
+    <%= @client.state %>
   </p>
 
   <p>
     <strong>Zipcode:</strong>
-    <%= client.zipcode %>
+    <%= @client.zipcode %>
   </p>
 
   <p>
     <strong>Contact name:</strong>
-    <%= client.contact_title %>
-    <%= client.contact_fname %>
-    <%= client.contact_lname %>
+    <%= @client.contact_title %>
+    <%= @client.contact_fname %>
+    <%= @client.contact_lname %>
   </p>
 
   <p>
     <strong>Telephone:</strong>
-    <%= client.telephone %>
+    <%= @client.telephone %>
   </p>
 
   <p>
     <strong>Comment:</strong>
-    <%= client.comment %>
+    <%= @client.comment %>
   </p>
 </div>
-
 <div>
-  <%= link_to 'Edit this client!', edit_client_path(client.id) %>
+  <%= link_to 'Edit this client!', edit_client_path(@client.id) %>
 </div>
