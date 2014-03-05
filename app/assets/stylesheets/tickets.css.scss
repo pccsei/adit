@@ -3,11 +3,25 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+
+.btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
+border-color: transparent;
+color: #000;
+}
+
+
+#alert_info{
+	border: 1px solid #ccc;
+	background-color: #DC0000;
+}
+
+
 .addTicket.autoHidehigh{
 	background-color: #68ff5d !important;
 	color: black;
 	border: 1px solid black !important;
 	border-radius: 3px;
+	padding: .5em;
 }
 
 .addTickethigh{
@@ -15,6 +29,7 @@ background-color: #68ff5d !important;
 color: black;
 border: 1px solid black !important;
 border-radius: 3px;
+padding: .5em;
 }
 
 .addTicket.autoHidemedium{
@@ -22,6 +37,7 @@ border-radius: 3px;
 	color: black;
 	border: 1px solid black !important;
 	border-radius: 3px;
+	padding: .5em;
 }
 
 .addTicketmedium{
@@ -29,6 +45,7 @@ background-color: #fffd71 !important;
 color: black;
 border: 1px solid black !important;
 border-radius: 3px;
+padding: .5em;
 }
 
 .addTicket.autoHidelow{
@@ -36,6 +53,7 @@ border-radius: 3px;
 	color: black;
 	border: 1px solid black !important;
 	border-radius: 3px;
+	padding: .5em;
 }
 
 .addTicketlow{
@@ -43,6 +61,7 @@ background-color: white !important;
 color: black;
 border: 1px solid black !important;
 border-radius: 3px;
+padding: .5em;
 }
 
 
@@ -57,7 +76,7 @@ border-radius: 3px;
 	font-size:18px;  
 	text-align:right; 
 	margin-top: 67px;
-	margin-bottom: -30px;
+	border: 1px solid #aaa;
 	}
 
 #alerts{

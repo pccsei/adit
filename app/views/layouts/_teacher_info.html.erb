@@ -1,0 +1,17 @@
+
+<h5 class = "col-md-5" id="section_type" >
+  <div>
+    Project: <%= get_selected_project.semester + ' ' + get_selected_project.year.to_s %>
+    <% if get_selected_project.is_active %>
+        (current)
+    <% else %>
+        (archived)
+    <% end %>
+    <% if get_selected_section == 'all' %>
+        Sections: All
+    <% else %>
+        Section: <%= get_selected_section %>
+    <% end %>
+    Current User: <%= @current_user.last_name  || @current_user.school_id%>
+  </div>
+</h5>
