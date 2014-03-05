@@ -7,7 +7,7 @@
     <%= stylesheet_link_tag :application, media: 'all', 'data-turbolinks-track' => true %>
     <%= stylesheet_link_tag 'controller/' + params[:controller], media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag :application, 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag params[:controller], 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'controller/' + params[:controller], 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
   </head>
@@ -23,7 +23,7 @@
         </button>
       </div>
       <div class="collapse navbar-collapse container" id="bs-example-navbar-collapse-1">
-        <div id="logo"></div>
+        <div id="logo"><%= image_tag 'adit_logo.svg' %></div>
 	      <%= render 'layouts/navigation' %>
       </div>
     </nav>
