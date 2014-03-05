@@ -22,6 +22,43 @@
 
 /* universal */
 
+.clients .panel-primary{
+	margin-top: 3em;
+	border-color: black;
+}
+
+.clients .panel-primary > .panel-heading {
+    color: #FFF;
+    background-color: black;
+    border-color: black;
+	height: 3em;
+}
+
+.clients .panel-heading h3{
+	margin-bottom: 2em;
+}
+
+.users .panel-primary{
+	margin-top: 7em;
+	border-color: black;
+}
+
+.users .panel-primary > .panel-heading {
+    color: #FFF;
+    background-color: black;
+    border-color: black;
+	height: 3em;
+}
+
+.users .panel-heading h3{
+	margin-bottom: 2em;
+}
+
+.page-header {
+    width: 10em;
+}
+
+
 .info_bar{
 	width: 40em;
 	margin-top: 1em;

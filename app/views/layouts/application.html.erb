@@ -52,7 +52,7 @@
 	   </h5>
 	   <%end%>
 <% end %>
-      <h1 id="heading"><%= yield(:title)%></h1>
+      <h1 id="heading" class="page-header"><%= yield(:title)%></h1>
     <% if @current_user && @current_user.role == 3 %>
       <%= render 'layouts/teacher_info' %>
     <% end %>

@@ -7,3 +7,55 @@
 #students .ui-selected { background: #F39814; color: white; }
 #students { list-style-type: none; margin: 0; padding: 0; width: 60%; }
 #students li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: auto; }
+
+.clients .alert{
+	width: 45em;
+}
+
+#business_name{
+	margin-top:2em;
+}
+
+#add_city_st{
+	margin-top:2em;
+}
+#add_city_st #client_address{
+	margin-left: 3.94em;
+	
+}
+
+#add_city_st input {
+	margin-right: 1em;
+}
+
+#add_city_st select {
+	margin-right: 1em;
+}
+
+#contact_info{
+	margin-top: 2em;
+}
+
+#contact_info #client_contact_title{
+	margin-left: 1.59em;
+}
+
+#contact_info input{
+	margin-right: 1em;
+}
+
+#contact_info select {
+	margin-right: 1em;
+}
+
+#comment{
+	margin-top: 2em;
+}
+
+#comment textarea{
+	margin-left: 3em;
+}
+
+.actions input{
+	margin-left: 1em;
+}
