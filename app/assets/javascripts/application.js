@@ -24,4 +24,4 @@
 //= require jquery.ui.effect
 //= require jquery.ui.selectable
 //= require turbolinks
-//= require_tree .
+//= require_directory .
