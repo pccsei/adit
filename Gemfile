@@ -3,6 +3,13 @@
 # That setting will be saved so you can run just 
 # `bundle install` in the future
 
+# All gems have been at least loosely versioned so 
+# that an unexpected update doesn't break anything
+# in the last month of development. Run the command
+# `bundle outdated` to see which gems could be updated
+# and test on your system before changing the version
+# number here.
+
 source 'http://rubygems.org'
 
 ruby '1.9.3'
@@ -20,7 +27,7 @@ gem 'jquery-ui-rails',         '~> 4.2.0'
 gem 'jquery-validation-rails', '~> 1.11.1'  # Validating form input (Added by Jake Canipe)
 gem 'mysql2',                  '0.3.11'     # For both dev and production side
 gem 'net-ldap',                '0.3.1'      # For Active Directory support? -Rob
-gem 'sass-rails',              '~> 4.0.0'   # SASS for stylesheets
+gem 'sass-rails',              '~> 4.0.0'   # SASS for stylesheets (.css.scss)
 gem 'thin',                    '~> 1.6.2'   # Rails server
 gem 'turbolinks',              '~> 2.2.1'   # Makes following links faster
 gem 'uglifier',                '>= 1.3.0'   # Compressor for JavaScript assets
