@@ -1,3 +1,9 @@
+<% if current_user.role == 3 %>
+	<% student_name = User.find_by(id: Receipt.find_by(id: @receipt.user_id)) %>
+  	<%= link_to 'Back to ' + student_name.first_name + '\'s Clients', my_receipts_path(@receipt.user_id, page: @previous_page, page_title: @page_title), :class => 'btn btn-large btn-primary btn-sm' %>
+<br /><br />
+<% end %>
+
 <div id = "client_info">
   <%= render :partial => 'show_client_info', :locals => { :client => @client }%>
 </div>
@@ -39,5 +45,7 @@
   <%= render :partial => 'action_table', :locals => { :receipt => @receipt }%>
 </div>
   <br><br/>
-  <%= link_to 'Back to My Clients', receipts_path(@receipt.user_id), :class => 'btn btn-large btn-primary btn-sm' %>
-<br /><br /><br /><br /><br /><br />
+<% if current_user.role != 3 %>
+  <%= link_to 'Back to My Clients', my_receipts_path(@receipt.user_id), :class => 'btn btn-large btn-primary btn-sm' %>
+<% end %>
+

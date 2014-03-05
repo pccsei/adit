@@ -23,8 +23,8 @@
     <% current_students.each do |student| %>
       <tr>
         <td><%= check_box_tag 'students[]', student.id%></td>
-        <td><%= link_to student.first_name, my_receipts_path(id: student.id) %></td>
-        <td><%= link_to student.last_name, my_receipts_path(id: student.id) %></td>
+        <td><%= link_to student.first_name, my_receipts_path(id: student.id, page: store_location, page_title: 'Manage Section') %></td>
+        <td><%= link_to student.last_name, my_receipts_path(id: student.id, page: store_location, page_title: 'Manage Section') %></td>
         <td><%= student.school_id %></td>
         <td><%= student.email %></td>
         <td><%= student.phone %></td>                

@@ -2,10 +2,7 @@
 
 <%= render 'form' %>
 
-<% if current_user.role == 3 %>
-	<%= link_to 'Show', @client, :class => 'btn btn-large btn-primary btn-sm' %> |
-	<%= link_to 'Back', clients_path, :class => 'btn btn-large btn-primary btn-sm' %>
-<% else %>
-	<% receipt = Receipt.find_by(ticket_id: Ticket.find_by(client_id: @client)) %>
-	<%= link_to 'Back to your client', receipt_path(receipt), :class => 'btn btn-large btn-primary btn-sm' %>
-<% end %>
+<br /><br />
+<% receipt = Receipt.find_by(ticket_id: Ticket.find_by(client_id: @client)) %>
+<%= link_to 'Back to Client', receipt_path(receipt), :class => 'btn btn-large btn-primary btn-sm' %>
+
