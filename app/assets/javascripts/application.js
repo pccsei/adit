@@ -25,9 +25,7 @@
 //= require jquery.ui.selectable
 //= require turbolinks
 //= require_self
-//= require_tree .
-
-// application.js
+//= require_directory .
 
 window.onLoad = function(callback) {
     // binds ready event and turbolink page:load event
