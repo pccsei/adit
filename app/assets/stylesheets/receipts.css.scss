@@ -2,6 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+*:first-child {
+      margin-top: 0;
+    }
 
 .sticky {
     /* General */
@@ -29,6 +32,7 @@
 }
 
 
+>>>>>>> 20963d402a1492431483c6ea7a4e4944b4ca6483
 .client:first-child {
       margin-left: 0 !important;
     }

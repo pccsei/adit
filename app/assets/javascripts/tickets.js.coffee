@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http:#coffeescript.org/
 
 
-
+###
 $(window).scroll (e) ->
   scroller_anchor = $(".scroller_anchor").offset().top
   if $(this).scrollTop() >= scroller_anchor and $(".scroller").css("position") isnt "fixed"
@@ -17,10 +17,8 @@ $(window).scroll (e) ->
     $(".scroller_anchor").css "height", "0px"
     $(".scroller").css
       position: "relative"
-     
-      
-
   return
+###
 
 
 
@@ -28,11 +26,11 @@ $ ->
   load_datatable = ->
     $('.display').dataTable
       "sPaginationType" : "full_numbers"
-      "sScrollX" : "100%"
-      "bScrollCollapse" : true
-      "iDisplayLength": 50
+      "bScrollCollapse" : false
+      "iDisplayLength": 100
       "bJQueryUI": true
       "bDestroy": true
+	  
        
   
   $(document).ready(load_datatable)

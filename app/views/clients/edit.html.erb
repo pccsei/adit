@@ -2,5 +2,7 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @client %> |
-<%= link_to 'Back', clients_path %>
+<br /><br />
+<% receipt = Receipt.find_by(ticket_id: Ticket.find_by(client_id: @client)) %>
+<%= link_to 'Back to Client', receipt_path(receipt), :class => 'btn btn-large btn-primary btn-sm' %>
+

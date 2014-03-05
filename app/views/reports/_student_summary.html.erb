@@ -14,10 +14,11 @@
     </tr>
   </thead>
   <tbody>
+    <% if @student_array.present? %>
     <% @student_array.each do |student| %>
       <tr>
-        <td align ="center"><%= link_to student.first_name, my_receipts_path(id: student.id) %></td>
-        <td align ="center"><%= link_to student.last_name, my_receipts_path(id: student.id) %></td>
+        <td align ="center"><%= link_to student.first_name, my_receipts_path(id: student.id, page: store_location) %></td>
+        <td align ="center"><%= link_to student.last_name, my_receipts_path(id: student.id, page: store_location) %></td>
         <td align ="center"><%= student.student_manager %></td>
         <td align ="center"><%= student.section %></td>
         <td align ="center"><%= student.open%></td>
@@ -25,9 +26,14 @@
         <td align ="center"><%= student.released %></td>
         <td align ="center"><%= student.sales %></td>
         <td align ="center"><%= student.points %></td>
-        <td align ="center"><%= time_ago_in_words(student.last_activity) + ' ago'%> </td>
+        <% if student.last_activity.present? %>
+        	<td align ="center"><%= time_ago_in_words(student.last_activity) + ' ago' %></td>
+        <% else %>
+        	<td></td>
+        <% end %>
       </tr>                           
     <% end %>
+  <% end %>
   </tbody>
   <tfoot>
     <td align ="center">Totals</td>

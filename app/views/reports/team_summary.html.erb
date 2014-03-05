@@ -1,6 +1,6 @@
-<% provide(:title, "Team Summary") %>
+<% provide(:title, 'Team Summary') %>
 
-<div class = "col-md-5", id = "select-section">
+<div class = "col-md-5" id = "select-section">
 <div class="btn-group">
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
     Change Section<span class="caret"></span>
@@ -14,21 +14,6 @@
 </ul>
 </div>
 </div>
-
-<!--Tells the teacher what section is active-->
-<h5 class = "col-md-4" id="section_type" >
-	<p class = "text-success">
-		<%= @current.first_name || @current.school_id.capitalize %>,
-			<% if @selected_section == 'all' %>
-				these are all the sections for this project.
-			<% elsif @selected_section.nil? %>
-				you need to create a section.
-			<% else%>
-				this is section <%= "#{@selected_section} "%>
-			<% end %>
-	</p>
-</h5>
-
 
 <div id = "section_refresh">  
 <%= render :partial => "team_summary"%>

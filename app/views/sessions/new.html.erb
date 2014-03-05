@@ -1,5 +1,19 @@
 <% provide(:title, "Sign in") %>
 
+
+<% if false %>
+
+    <!-- I used link_to's that looked like buttons because button_to was not sending commit parameter correctly -->
+<%= link_to 'I want to be a teacher.', {controller: :sessions, action: :create, id: :teacher},
+            method: :post, class: 'btn btn-lg btn-primary btn-block' %>
+
+    <%= link_to 'I want to be a student.', {controller: :sessions, action: :create, id: :student},
+                method: :post, class: 'btn btn-lg btn-primary btn-block' %>
+
+
+
+
+<% else %>
 <div class="panel panel-default">
 	<div class="panel-heading">
   	<h3 class="panel-title">Please Sign In</h3>
@@ -18,3 +32,5 @@
   	</fieldset>
   </div>
 </div>
+
+<% end %>

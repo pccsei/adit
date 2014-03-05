@@ -1,2 +1,0 @@
-class BonusController < ApplicationController
-end
