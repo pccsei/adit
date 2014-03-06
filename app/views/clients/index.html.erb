@@ -6,7 +6,7 @@
 	<%= button_to 'Yes', :controller => :users, action: 'need_help'%>
 
 <% end %>
-
+<% if false %>
 <table id="ajaxTable" class="display" data-source="<%= clients_url(format: 'json')%>">
   <thead>
     <tr>
@@ -31,6 +31,8 @@
 
 </table>
 #################################################################################
+
+    <% end %>
 <table class="display" id="client_list">
   <thead>
     <tr>
