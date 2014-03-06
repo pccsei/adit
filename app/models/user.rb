@@ -216,10 +216,10 @@ class User < ActiveRecord::Base
   end
 
 # Delete the old teacher Member and add a new teacher member
-  def self.change_teacher(p_new_teacher, p_old_teacher)
+  def self.change_teacher(p_new_teacher_id, p_old_teacher)
     new_teacher = Member.new
 
-    new_teacher.user_id = p_new_teacher.id
+    new_teacher.user_id = p_new_teacher_id
     new_teacher.project_id = p_old_teacher.project_id
     new_teacher.section_number = p_old_teacher.section_number
     new_teacher.is_enabled = true

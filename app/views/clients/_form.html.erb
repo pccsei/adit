@@ -10,58 +10,67 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :business_name %><br>
+ <div class = "panel panel-primary">
+<div class = "panel-heading">
+    <h3>&nbsp;Business Information</h3> 
+   </div>
+   <div class = "panel-body">
+ 
+	   <div id="business_name">
+    <%= f.label :business_name %>
     <%= f.text_field :business_name %>
-  </div>
-  <div class="field">
-    <%= f.label :address %><br>
+</div>
+<div id="add_city_st">
+    <%= f.label :address %>
     <%= f.text_field :address %>
-  </div>
-  <div class="field">
-    <%= f.label :city %><br>
+
+ 
+    <%= f.label :city %>
     <%= f.text_field :city %>
-  </div>
-  <div class="field">
-    <%= f.label :state %><br>
+
+ 
+    <%= f.label :state %>
     <%= f.select :state, %w(AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME
                             MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI
                             SC SD TN TX UT VT VA WA WV WI WY), :selected => @client.state || 'FL' %>
-  </div>
-  <div class="field">
-    <%= f.label :zipcode %><br>
-    <%= f.text_field :zipcode %>
-  </div>  
-  <div class="field">
-    <%= f.label 'Contact title' %>
-    <%= f.label 'Contact first name' %>
-    <%= f.label 'Contact last name' %><br>
-    <%= f.select :contact_title, %w(Mr. Mrs. Ms. Miss Dr.), :include_blank => :true %>
-    <%= f.text_field :contact_fname %>
-    <%= f.text_field :contact_lname %>
-  </div>
-  <div class="field">
-    <%= f.label :telephone, 'Telephone' %>
-    <%= f.text_field :telephone, :placeholder => '(850) 123-4567 Ext.####' %>
-  </div>
-  <div class="field">
-    <%= f.label :comment %><br>
-    <%= f.text_area :comment, { :placeholder => 'This field is optional. Only comment if absolutely necessary.' }%>
-  </div>
 
+
+
+    <%= f.label :zipcode %>
+    <%= f.text_field :zipcode %>
+</div>  
+<div id="contact_info">
+    <%= f.label 'Contact title' %>
+	 <%= f.select :contact_title, %w(Mr. Mrs. Ms. Miss Dr.), :include_blank => :true %>
+    <%= f.label 'First name' %>
+	 <%= f.text_field :contact_fname %>
+    <%= f.label 'Last name' %> 
+    <%= f.text_field :contact_lname %>
+
+    <%= f.label :telephone, 'Phone:' %>
+    <%= f.text_field :telephone, :placeholder => '(850) 123-4567 Ext.####' %>
+
+</div> 
+<div id="comment" class="field">
+    <%= f.label :comment %>
+    <%= f.text_area :comment %>
+  </div>
+</div>
+</div>
   <div class="actions">
     <% if current_user.role == 3 %>
-        <%= f.submit %>
+        <%= f.submit "Submit Client", :class => 'btn btn-small btn-primary'%>
     <% elsif more_tickets_allowed %>
-        <%= f.submit "Submit for teacher's approval"%>
-
+        <%= f.submit "Submit for teacher's approval", :class => 'btn btn-small btn-primary'%>
+	</div>
     <% else %>
         <p>You already have the maximum allowable students.</p>
         <p>Please go to <%= link_to 'My Clients', my_receipts_path(id: current_user.id) %>
            and release one of your clients before asking for another.</p>
+		   
     <% end %>
-  </div>
+
+
 <% end %>
 
 <!-- This adds client-side validation -->
