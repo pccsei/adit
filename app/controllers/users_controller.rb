@@ -32,14 +32,18 @@ class UsersController < ApplicationController
   def unauthorized    
   end
 
+  # Add a new teacher to the section
+  def another_teacher_to_section   
+    User.create_new_section(params["new_teacher_to_add"], params["section"], session[:selected_project_id])
+
+    redirect_to users_teachers_path
+  end
+
   # Delete the old teacher Member and add a new teacher member
   def change_teacher
-    teacher_to_changed = params[]
-    new_teacher = params[]
+    User.change_teacher(params["teacher_to_change_to"], Member.find(params["member_id"]))
 
-    User.change_teachers(new_teacher, teacher_to_changed)
-
-    redirect_to teachers_path
+    redirect_to users_teachers_path
   end
   
   # GET /users/1

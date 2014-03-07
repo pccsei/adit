@@ -16,55 +16,72 @@ color: #000;
 }
 
 
-.addTicket.autoHidehigh{
+.addTicket.high, .addTicket.autoHide.high{
 	background-color: #68ff5d !important;
 	color: black;
 	border: 1px solid black !important;
 	border-radius: 3px;
-	padding: .5em;
+	padding-top: .2em;
+	padding-bottom: .2em;
 }
 
+<<<<<<< HEAD:app/assets/stylesheets/tickets.css.scss
+.addTicket.medium, .addTicket.autoHide.medium{
+=======
 .addTickethigh{
 background-color: #68ff5d !important;
 color: black;
 border: 1px solid black !important;
 border-radius: 3px;
-padding: .5em;
+padding-top: .2em;
+padding-bottom: .2em;
 }
 
 .addTicket.autoHidemedium{
+>>>>>>> 374b04e9c386a6be34b4a0f762249feec557fdd4:app/assets/stylesheets/controller/tickets.css.scss
 	background-color: #fffd71 !important;
 	color: black;
 	border: 1px solid black !important;
 	border-radius: 3px;
-	padding: .5em;
+	padding-top: .2em;
+	padding-bottom: .2em;
 }
 
+<<<<<<< HEAD:app/assets/stylesheets/tickets.css.scss
+.addTicket.low, .addTicket.autoHide.low{
+=======
 .addTicketmedium{
 background-color: #fffd71 !important;
 color: black;
 border: 1px solid black !important;
 border-radius: 3px;
-padding: .5em;
+padding-top: .2em;
+padding-bottom: .2em;
 }
 
 .addTicket.autoHidelow{
+>>>>>>> 374b04e9c386a6be34b4a0f762249feec557fdd4:app/assets/stylesheets/controller/tickets.css.scss
 	background-color: white !important;
 	color: black;
 	border: 1px solid black !important;
 	border-radius: 3px;
-	padding: .5em;
+	padding-top: .2em;
+	padding-bottom: .2em;
 }
 
+<<<<<<< HEAD:app/assets/stylesheets/tickets.css.scss
+=======
 .addTicketlow{
 background-color: white !important;
 color: black;
 border: 1px solid black !important;
 border-radius: 3px;
-padding: .5em;
+padding-top: .2em;
+padding-bottom: .2em;
 }
 
 
+>>>>>>> 374b04e9c386a6be34b4a0f762249feec557fdd4:app/assets/stylesheets/controller/tickets.css.scss
 
 .scroller_anchor{
 

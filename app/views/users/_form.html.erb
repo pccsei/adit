@@ -1,7 +1,7 @@
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(@user.errors.count, 'error') %> prohibited this user from being saved:</h2>
 
       <ul>
       <% @user.errors.full_messages.each do |msg| %>
@@ -10,49 +10,46 @@
       </ul>
     </div>
   <% end %>
-
-<br /><br /><br />
-  <div class="field">
-    <%= f.label :first_name, 'First Name' %><br>
+  <div class = "panel panel-primary">
+ <div class = "panel-heading">
+     <h3>&nbsp;New User Information</h3> 
+    </div>
+    <div class = "panel-body">
+  <div id="full_name">
+    <%= f.label :first_name, 'First Name' %>
     <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name, 'Last Name' %><br>
+    <%= f.label :last_name, 'Last Name' %>
     <%= f.text_field :last_name %>
   </div>
-  <div class="field">
-    <%= f.label :school_id, 'School ID' %><br>
+  <div id="school_info">
+    <%= f.label :school_id, 'School ID' %>
     <%= f.text_field :school_id %>
-  </div>
-  <div class="field">
-    <%= f.label :email, 'E-mail Address' %><br>
+    <%= f.label :email, 'E-mail Address' %>
     <%= f.text_field :email %>
   </div>
-  <div class="field">
-    <%= f.label :phone, 'Telephone Number' %><br>
+  <div id="phone_box_num">
+    <%= f.label :phone, 'PCC Phone' %>
     <%= f.text_field :phone %>
-  </div>
-  <div class="field">
-    <%= f.label :box, 'PCC Box Number' %><br>
+    <%= f.label :box, 'PCC Box Number' %>
     <%= f.text_field :box %>
   </div>
   	<%= f.hidden_field :role, :value => 1 %>
-  <div class="field">
-    <%= f.label :major, 'Major of Study' %><br>
+  <div id="major_minor">
+    <%= f.label :major, 'Major' %>
     <%= f.text_field :major %>
-  </div>
-  <div class="field">
-    <%= f.label :minor, 'Minor of Study' %><br>
+    <%= f.label :minor, 'Minor' %>
     <%= f.text_field :minor %>
   </div>
-  <div class="field">
-  	<%= f.label :classification, 'Classification' %><br>
+  <div id="class">
+  	<%= f.label :classification, 'Classification' %>
   	<%= f.select :classification, [['Freshman', 'Freshman'], ['Sophmore', 'Sophmore'], ['Junior', 'Junior'], ['Senior', 'Senior']] %>
   </div>
   <br />
   <div class="actions">
     <%= f.submit  :class => 'btn btn-large btn-primary btn-sm'%>
   </div>
+</div>
+</div>
 <% end %>
 
 <!-- This adds client-side validation -->
@@ -98,7 +95,7 @@
 				"user[school_id]": "Please enter the student's school id.",
 				"user[email]": "Please enter the student's PCC email address.",
 				"user[phone]": "Please enter the student's phone number.",
-				"user[box]": "Please enter the student's box number."			
+				"user[box]": "Please enter the student's box number."
 			}
 		});
 	});
