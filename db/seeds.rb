@@ -1017,10 +1017,10 @@ anon = User.first.id
 Ticket.all.each do |t|
   t.receipts.create(:user_id => anon, :made_contact => true, :made_presentation => true, :made_sale => true)  
 end
+=end
   
 action_types = ActionType.create([{ name: 'First Contact',  role: 1, point_value: 5 },
                                   { name: 'Presentation',   role: 1, point_value: 5 },
                                   { name: 'Old Sale',       role: 1, point_value: 10},
                                   { name: 'New Sale',       role: 1, point_value: 15},
                                   { name: 'Comment',        role: 1, point_value: 0}])
-=end

@@ -56,4 +56,6 @@ onLoad(function() {
             "foo[user_action_time]": "Please enter in when you did this."
         }
     });
+    
+    $('#foo_user_action_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT", minDate: new Date });
 });

@@ -23,7 +23,6 @@ class TicketsController < ApplicationController
             allowed = true
           end
         else
-
           requested_ticket_priority_id = Ticket.find(params[:clientID]).priority_id
 
           case (requested_ticket_priority_id)
@@ -164,6 +163,14 @@ class TicketsController < ApplicationController
       format.html { redirect_to tickets_url }
     end
   end
+  
+  #####################################################################################
+  
+  def get_sys_time
+    Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')
+  end
+  
+  #####################################################################################
   
   private
     def set_ticket

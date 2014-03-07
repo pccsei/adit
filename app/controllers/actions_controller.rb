@@ -21,14 +21,14 @@ class ActionsController < ApplicationController
     if action_received == 'Sale'
       if @receipt.ticket.priority.name == 'high'
         @action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
-        @action.points_earned = (ActionType.find_by(name: 'Old Sale')).point_value
+        @action.points_earned  = (ActionType.find_by(name: 'Old Sale')).point_value
       else
         @action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
-        @action.points_earned = (ActionType.find_by(name: 'New Sale')).point_value
+        @action.points_earned  = (ActionType.find_by(name: 'New Sale')).point_value
       end
     else
       @action.action_type_id = (ActionType.find_by(name: action_received)).id
-      @action.points_earned = (ActionType.find_by(name: action_received)).point_value
+      @action.points_earned  = (ActionType.find_by(name: action_received)).point_value
     end
 
   end
