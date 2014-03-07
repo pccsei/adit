@@ -1,5 +1,6 @@
 import csv
 import io
+import security
 
 ################################################################################
 
@@ -23,7 +24,7 @@ def main():
     with open(OUT_PATH, 'wb') as out_file:
         out_file.write(b"priority_id = (Priority.find_by name: 'low').id\r\n")
         out_file.write(b'tickets = Ticket.create([')
-        with open(IN_PATH, newline='') as file:
+        with security.open(IN_PATH, newline='') as file:
             first_line = True
             for row in csv.DictReader(file):
                 strip_all(row)
