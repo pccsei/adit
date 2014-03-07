@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
   before_action :must_have_project
+  before_action :only_teachers, except: [:unauthorized]
 
   def sales
    @sections = get_array_of_all_sections(get_selected_project)

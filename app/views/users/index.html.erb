@@ -4,7 +4,7 @@
 <%#=debug @pro %>
 
 <!--Change Section drop down-->
-<div class = "col-md-2" id = "select-section">
+<div id = "select-section">
 	<div class="btn-group">
 		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 			Change Section<span class="caret"></span>
@@ -22,35 +22,30 @@
 
 
 <!--Creates a new Section link-->
-<div id="new_section" class = "col-md-2">
+<div id="new_section">
 	<h5><%=link_to 'Create a New Section', users_create_new_section_path, :class => 'btn btn-link btn-sm'%></h5>
 </div>
 
-<!--Tells the teacher what section is active-->
-
-
-
-
 <!-- Adds students to a section and is only allowed for a teacher-->
-<% if @selected_section == 'all' %>
-		<p id="paste" class="fake-link btn btn-large btn-link btn-sm ">Copy and paste your student roster here or</p> <%= link_to 'Add One Student', new_user_path, :id => 'add_student', class: 'btn btn-large btn-link btn-sm'%>
+<% if @selected_section != 'all' %>
+    <p id="paste" class="fake-link btn btn-large btn-link btn-sm ">Copy and paste your student roster here or</p> <%= link_to 'Add One Student', new_user_path, :id => 'add_student', class: 'btn btn-large btn-link btn-sm'%>
 
 
-<div class = "col-md-12" id="parse_box">
-		<%= form_tag(users_input_students_parse_path) do%>
-		<br>
-		<%= text_area_tag 'input' %>
-		<br><%= submit_tag 'Add Students to Section', class: 'btn btn-large btn-primary btn-sm'%>
-	<% end %>
-	</div>
+    <div class = "col-md-12" id="parse_box">
+      <%= form_tag(users_input_students_parse_path) do%>
+          <br>
+          <%= text_area_tag 'input' %>
+          <br><%= submit_tag 'Add Students to Section', class: 'btn btn-large btn-primary btn-sm'%>
+      <% end %>
+    </div>
 <% else %>
-<p id = "info_message" class = "alert alert-info">Please select a section to create a team or add students.</p>
+    <p id = "info_message" class = "alert alert-info">Please select a section to create a team or add students.</p>
 <% end %>
 
 
 <!-- Displays the incorrect students if any -->
 <% if @incorrect_students.present? %>
-<%= render :partial => 'incorrect_students' %>
+	<%= render :partial => 'incorrect_students' %>
 <% end %>
 
 <!--Actions for the teacher to do with the students and sections-->
@@ -69,45 +64,45 @@
                            :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
         <% end %>
       </div>
-<!-- This only appears if the teacher wants to assign a team to a student manager -->
-		<div id ="show_managers">
-			<%= select_tag 'student_manager', options_from_collection_for_select(@student_managers, 'id', :full_name),
-		   		:class => 'btn btn-default dropdown-toggle col-md-2'%>
-		</div>
-		<%= submit_tag :submit, :class => 'btn btn-large btn-primary btn-sm col-md-1', :id => 'action_submit'%>
-	</div>
+      <!-- This only appears if the teacher wants to assign a team to a student manager -->
+      <div id ="show_managers">
+        <%= select_tag 'student_manager', options_from_collection_for_select(@student_managers, 'id', :full_name),
+                       :class => 'btn btn-default dropdown-toggle col-md-2'%>
+      </div>
+      <%= submit_tag :submit, :class => 'btn btn-large btn-primary btn-sm col-md-1', :id => 'action_submit'%>
+    </div>
 
-<!-- This script code is used to hide student manager second Drop down when "Create_Team" is selected-->
-<script>
-	$( "#show_managers").hide();
-	$("#parse_box").hide();
-	$( "#option" ).click(
-		function( event) {
-		  	event.preventDefault();
-		  	var e = document.getElementById("selected_option");
-			var strUser = e.options[e.selectedIndex].text;
-			if(strUser=="Assign Team")
-			{
-			  $( "#show_managers" ).show();
-			}
-			else
-			{
-			  $( "#show_managers" ).hide();
-			}
-		}
-	);
-	$(function() {
-		$("#paste").click(
-		function() {
+    <!-- This script code is used to hide student manager second Drop down when "Create_Team" is selected-->
+    <script>
+        $( "#show_managers").hide();
+        $("#parse_box").hide();
+        $( "#option" ).click(
+                function( event) {
+                    event.preventDefault();
+                    var e = document.getElementById("selected_option");
+                    var strUser = e.options[e.selectedIndex].text;
+                    if(strUser=="Assign Team")
+                    {
+                        $( "#show_managers" ).show();
+                    }
+                    else
+                    {
+                        $( "#show_managers" ).hide();
+                    }
+                }
+        );
+        $(function() {
+            $("#paste").click(
+                    function() {
 
-		$("#parse_box").toggle();
-		});
-	});
-</script>
+                        $("#parse_box").toggle();
+                    });
+        });
+    </script>
 
-<!--Refreshes page using ajax, actually just normally right now-->
-<div id = "section_refresh">
-	<%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
-</div>
+    <!--Refreshes page using ajax, actually just normally right now-->
+    <div id = "section_refresh">
+      <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
+    </div>
 
 <%end%>

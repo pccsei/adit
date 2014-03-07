@@ -1,40 +1,42 @@
 WhiteCollar::Application.routes.draw do
   root :to => 'tickets#index'
 
-  get '/clients/submit'
-  post 'clients/actually_assign'
-  get '/clients/assign'
-  get '/clients/approve'
-  post '/clients/approve_client'
-  post '/clients/approve_client_edit'
-  post '/clients/disapprove_client'
-  post '/projects/change_project'
-  post '/projects/select_project'
+  post   '/clients/approve_client_edit'
+  post   'clients/actually_assign'
+  get    '/clients/assign'
+  get    '/clients/approve'
+  post   '/clients/approve_client'
+  post   '/clients/disapprove_client'
+  get    '/clients/submit'
+  get    '/clients/more_allowed'
+  post   '/projects/change_project'
+  post   '/projects/select_project'
   match  '/receipts/my_receipts/:id', to: 'receipts#my_receipts', via: 'get', as: 'my_receipts'
-  get '/reports/student_summary'
-  get '/reports/activities'
-  get '/reports/sales'
-  get '/reports/team_summary'
-  get '/users/need_help'
-  get '/users/unauthorized'
-  get '/users/create_new_section'
-  get '/users/teachers'
-  post '/users/assign_teacher_to_section'
-  post '/users/input_students_parse'
-  post '/users/change_is_enabled'
-  post '/users/change_student_status'
-  post '/users/show_section'
-  post '/users/set_section'
+  get    '/reports/student_summary'
+  get    '/reports/activities'
+  get    '/reports/sales'
+  get    '/reports/team_summary'
+  post   '/users/assign_teacher_to_section'
+  post   '/users/another_teacher_to_section'
+  post   '/users/change_teacher'
+  get    '/users/create_new_section'
+  get    '/users/need_help'
+  get    '/users/unauthorized'
+  get    '/users/teachers'
+  post   '/users/input_students_parse'
+  post   '/users/change_is_enabled'
+  post   '/users/change_student_status'
+  post   '/users/show_section'
+  post   '/users/set_section'
   delete '/users/delete_incorrect'
-  post '/users/new'
-  get '/users/in_section'
-  get '/tickets/release'
-  get '/clients/more_allowed'
+  post   '/users/new'
+  get    '/users/in_section'
+  get    '/tickets/release'
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets
   resources :clients
-  resources :projects
+  resources :projects, except: :show
   resources :users
   resources :receipts do
     resources :actions 
@@ -45,6 +47,9 @@ WhiteCollar::Application.routes.draw do
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
   match '/receipts/index/user', to: 'receipts#index', via: 'get'
+
+  # Safety net if the projects update somehow gets stopped
+  match'/projects/:id', to: 'projects#index', via: 'get'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

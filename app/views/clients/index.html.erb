@@ -1,15 +1,13 @@
-<% provide(:title, "Assign Clients") %>
+<% provide(:title, 'Assign Clients') %>
 
 <% if current_user.help == true %>
 	<h2>First Time User?</h2>
 
-	<%= button_to "Yes", :controller => :users, action: "need_help"%>
+	<%= button_to 'Yes', :controller => :users, action: 'need_help'%>
 
 <% end %>
-
-
-
-<table id="ajaxTable" class="display" data-source="<%= clients_url(format: "json")%>">
+<% if false %>
+<table id="ajaxTable" class="display" data-source="<%= clients_url(format: 'json')%>">
   <thead>
     <tr>
       <th>Business name</th>
@@ -31,8 +29,10 @@
     
   </tbody>
 
-
+</table>
 #################################################################################
+
+    <% end %>
 <table class="display" id="client_list">
   <thead>
     <tr>
@@ -64,17 +64,17 @@
 	      <td>
 	        <% if ticket.id %>
 	          <% if ticket.student_fname %>
-	          	<%= (ticket.student_fname + " " +  ticket.student_lname + "<br />(" + ticket.student_id + ")").html_safe %>
+	          	<%= (ticket.student_fname + ' ' +  ticket.student_lname + '<br />(' + ticket.student_id + ')').html_safe %>
 	          <% else %>
-	          	<%= link_to 'assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => "btn btn-primary btn-sm"} %>
+	          	<%= link_to 'assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-primary btn-sm'} %>
 	          <% end %>
 	        <% else %> 
-	          <%= "Ticket does not exist for this client" %>	          
+	          <%= 'Ticket does not exist for this client' %>
 	        <% end %>
           </td>
         <% end %>
         <%# TODO: Just make the business name a link to the details and drop this button %>
-        <td><%= link_to 'details', client_path(:id => ticket.id), {:id => ticket.id, :class => "btn btn-info btn-sm"} %></td>
+        <td><%= link_to 'details', client_path(:id => ticket.id), {:id => ticket.id, :class => 'btn btn-info btn-sm'} %></td>
       </tr>
   <% end %>
   </tbody>

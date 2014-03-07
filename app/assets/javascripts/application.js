@@ -24,4 +24,11 @@
 //= require jquery.ui.effect
 //= require jquery.ui.selectable
 //= require turbolinks
-//= require_tree .
+//= require_self
+//= require_directory .
+
+window.onLoad = function(callback) {
+    // binds ready event and turbolink page:load event
+    $(document).ready(callback);
+    $(document).on('page:load',callback);
+};

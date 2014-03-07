@@ -49,7 +49,8 @@ class ProjectsController < ApplicationController
       if @project.update(project_params)
         format.html { redirect_to projects_path, notice: 'Project was successfully updated.' }
       else
-        format.html { render action: 'edit' }
+        @archived_projects = Project.non_archived.where('is_active = ?', false)
+        format.html { render action: 'index' }
       end
     end
   end
@@ -66,8 +67,9 @@ class ProjectsController < ApplicationController
   def select_project
     project_id = params['input']
     selected_project = Project.find(project_id)
-    set_selected_project selected_project
-    redirect_to users_url #projects_url
+    set_selected_project(selected_project)
+    redirect_to projects_url, notice: 'You are now viewing the ' + selected_project.semester + ' ' +
+                                          selected_project.year.to_s + ' project.'
   end
 
   private

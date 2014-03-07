@@ -14,6 +14,9 @@ class ReceiptsController < ApplicationController
       redirect_to my_receipts_path(id: current_user.id), alert: 'You have been redirected to your own page'
     end
     
+    @previous_page = params[:page]
+    @page_title = params[:page_title]
+    
     @active_receipts   = Receipt.open_clients(@student_user.id, get_selected_project)
     @sold_receipts     = Receipt.sold_clients(@student_user.id, get_selected_project)
     @released_receipts = Receipt.released_clients(@student_user.id, get_selected_project)
@@ -29,6 +32,8 @@ class ReceiptsController < ApplicationController
   # GET /receipts/1.json
   # We can use this function to list the updates on a receipt
   def show
+    @previous_page = params[:page]
+    @page_title = params[:page_title]
     @receipt = Receipt.find(params[:id])
     @client = @receipt.ticket.client            
       #@highestUserAction = Action.where("receipt_id = ?", params[:id]).maximum("action_type_id")    

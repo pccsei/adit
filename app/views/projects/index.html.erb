@@ -4,7 +4,7 @@
     <% if @project && get_selected_project.id == @project.id %>
         <%= render 'form' %>
     <% elsif @project %>
-        <%= link_to 'View Active Project', {controller: 'projects', action: 'select_project', input: @project.id},
+        <%= link_to 'View Current Project', {controller: 'projects', action: 'select_project', input: @project.id},
                                              method: :post, :class => 'btn btn-primary btn-sm'%>
     <% else %>
         <p><h5>Currently, no active project exists. Please create a new project or view archived projects.</h5></p>
@@ -34,8 +34,11 @@
                     <td><%= project.semester%></td>
                     <td><%= project.project_type.name%></td>
                     <td><%= project.comment%></td>
-                    <td><%= link_to 'Edit', edit_project_path(project), :class => 'btn btn-primary btn-sm' %></td>
-                  </tr>
+					<% if get_current_project %>
+			        	<td><%= link_to 'Show', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
+			        <% else %>
+			   			<td><%= link_to 'Edit', edit_project_path(project), :class => "btn btn-primary btn-sm" %></td>
+			        <% end %>                  </tr>
               <% end %>
               </tbody>
             </table>

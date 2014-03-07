@@ -6,26 +6,26 @@ class TicketsController < ApplicationController
     @currentProject = Project.select('id, max_clients, use_max_clients, max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients, tickets_close_time').where(is_active: true, id: Member.select('project_id').where(user_id: current_user.id)).first
 
     if params[:ajax] == 'update'
-      updates = Ticket.updates(params[:timestamp])      
-      
+      updates = Ticket.updates(params[:timestamp])
+
     elsif params[:ajax] == 'getClient'
 
       if @currentProject.nil? # No current project
         updates = {'userMessage' => 'There is not a current project!'}
-            
-      else  
+
+      else
         if @currentProject.use_max_clients
           # Check to see if the user has the max number of clients
           if Ticket.where('user_id = ? AND project_id = ?', current_user.id, get_current_project.id).size - (0) >= @currentProject.max_clients
             updates = {'userMessage' => 'You have reached the maximum number of clients!'}
             allowed = false
-          else 
+          else
             allowed = true
-          end  
+          end
         else
-          
+
           requested_ticket_priority_id = Ticket.find(params[:clientID]).priority_id
-                    
+
           case (requested_ticket_priority_id)
             when Priority.where("name = 'high'").first.id
               allowed = Ticket.more_high_allowed(current_user.id, get_selected_project) 
@@ -35,38 +35,38 @@ class TicketsController < ApplicationController
               allowed = Ticket.more_low_allowed(current_user.id, get_selected_project)
             else            
               allowed = false
-          end 
-        end  
-          
-        if allowed          
+          end
+        end
+
+        if allowed
           grabbedTicket = false
           ticket        = nil          
           Ticket.transaction do
             ticket = Ticket.where('id = ? ',params[:clientID]).lock(true).first
-            
+
             if ticket.nil?
               updates = {'userMessage' => 'Ticket does not exist for the current project'}
             else 
                # User is allowed to get a new client: Try to grab the client ticket               
                if no_holder(ticket.user_id)
                  ticket.user_id = current_user.id
-                 ticket.save!      
-                 grabbedTicket = true         
-               else 
+                 ticket.save!
+                 grabbedTicket = true
+               else
                  updates = {'userMessage' => 'Someone already grabbed that client!!'}
-               end   
+               end
             end
-          end         
-          
+          end
+
           # This is done down here to allow the transaction above to finish as quickly as possible thus allowing the user to better grab the ticket
           if grabbedTicket
             updates = { 'Success' => 'You are now assigned to ' + Client.find(ticket.client_id).business_name.to_s,
-                        'ticketPriority' => Priority.find(ticket.priority_id).name.to_s}            
-            Receipt.find_or_create_by(ticket_id: ticket.id, user_id: current_user.id)                          
-          end    
-        else 
+                        'ticketPriority' => Priority.find(ticket.priority_id).name.to_s}
+            Receipt.find_or_create_by(ticket_id: ticket.id, user_id: current_user.id)
+          end
+        else
           updates = {'userMessage' => 'You already have the max number of ' + Priority.find(requested_ticket_priority_id).name.to_s + ' priority clients.'}
-        end              
+        end
       end 
      
     ## Added by Noah, ugly check for existence of current project, can remove once we've 
@@ -103,6 +103,9 @@ class TicketsController < ApplicationController
 
   def new
     @ticket = Ticket.new
+  end
+
+  def edit
   end
 
   def create

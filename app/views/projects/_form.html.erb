@@ -1,106 +1,107 @@
 <%= form_for(@project) do |f| %>
-  <% if @project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+    <% if @project.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@project.errors.count, 'error') %> prohibited this project from being saved:</h2>
+          <ul>
+            <% @project.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
 
-      <ul>
-      <% @project.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+    <div id = "cannot_edit">
+      <% if !@project.is_active && get_current_project %>
+          <p>You cannot edit archived projects.</p>
       <% end %>
-      </ul>
     </div>
-  <% end %>
 
-<div id = "project_options">
+    <div id = "project_options">
       <%= f.label :Year %>
-        <%= f.select :year, [current_year(), next_year()], { :include_blank => false}, { :class => "btn btn-small dropdown-toggle "}%>
-    &nbsp; &nbsp;
-     <%= f.label :semester %>
-      <%= f.select :semester, ["Fall", "Spring"], { :include_blank=>false }, { :class => "btn btn-small dropdown-toggle "}%>
+      <%= f.select :year, [current_year, next_year], { :include_blank => false}, { :class => 'btn btn-small dropdown-toggle '}%>
+      &nbsp; &nbsp;
+      <%= f.label :semester %>
+      <%= f.select :semester, %w(Fall Spring), { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle '}%>
 
-   &nbsp; &nbsp;
+      &nbsp; &nbsp;
       <%= f.label :project_type_id %>
-      <%= f.collection_select :project_type_id, ProjectType.all, :id, :name, 
-                            { :include_blank=>false }, { :class => "btn btn-small"}  %>
-</div>
+      <%= f.collection_select :project_type_id, ProjectType.all, :id, :name,
+                              { :include_blank=>false }, { :class => 'btn btn-small'}  %>
+    </div>
 
+    <div id = "project_options">
+      <div class = "panel panel-primary">
+        <div class = "panel-heading">
+          <h3>&nbsp;How many clients can the students choose?</h3><br>
+        </div>
+        <div class = "panel-body">
+          <%= radio_button(:project, :use_max_clients, :false) %>
+          <%= label_tag(:max_color_clients, 'Total Clients in different Priorities:') %><br>
+          <div id = "priority_dropdown">
+            <%= f.label :high_priority%>
+            <%= f.select(:max_high_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle'})%>
+            &nbsp; &nbsp;
+            <%= f.label :medium_priority %>
+            <%= f.select :max_medium_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle'}%>
+            &nbsp; &nbsp;
+            <%= f.label :low_priority %>
+            <%= f.select :max_low_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle'}%>
 
- <div id = "project_options">
-	 <div class = "panel panel-primary">
-	<div class = "panel-heading">	 
- <h3 class = "col-md-12">&nbsp;How many clients can the students choose?</h3><br>  
-</div>
-<div class = "panel-body">
-      <%= radio_button(:project, :use_max_clients, :false) %>
-      <%= label_tag(:max_color_clients, "Total Clients in different Priorities:") %><br>
-      <div id = "priority_dropdown">
-      <%= f.label :high_priority%>
-      <%= f.select(:max_high_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "btn btn-small dropdown-toggle"})%>
-       &nbsp; &nbsp;
-      <%= f.label :medium_priority %>
-      <%= f.select :max_medium_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "btn btn-small dropdown-toggle"}%>
-       &nbsp; &nbsp;
-      <%= f.label :low_priority %> 
-      <%= f.select :max_low_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "btn btn-small dropdown-toggle"}%>
-      </div>
-     
+            <%= radio_button(:project, :use_max_clients, :true) %>
+            <%= label_tag(:max_color_clients, 'Total Clients in total form') %><br>
+            <%= f.label :max_clients %>
+            <%= f.select :max_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle '}%>
+            <br /><br />
+          </div>
+        </div>
+        <div id = "project_options">
+          <h3 class = "col-md-12 alert alert-info">&nbsp;When can the students add clients?</h3><br>
+          <%= f.label :tickets_open_time, 'Start Time' %>
+          <%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :disabled => (get_current_project && !@project.is_active ? true : false) %>
 
+          <%= f.label :tickets_close_time, 'End Time' %>
+          <%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :disabled => (get_current_project && !@project.is_active ? true : false) %>
+        </div>
+        <% if params[:id] || get_selected_project.is_active %>
+            <div class="field">
 
-      <%= radio_button(:project, :use_max_clients, :true) %>
-      <%= label_tag(:max_color_clients, "Total Clients in total form") %><br>
-      <%= f.label :max_clients %>
-      <%= f.select :max_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => "btn btn-small dropdown-toggle "}%>
-      <br /><br />
-</div>
-</div>
-<div id = "project_options">
-  <h3 class = "col-md-12 alert alert-info">&nbsp;When can the students add clients?</h3><br>
-      <%= f.label :tickets_open_time, "Start Time" %>
-      <%= f.text_field :tickets_open_time, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
-  
-      <%= f.label :tickets_close_time, "End Time" %>
-      <%= f.text_field :tickets_close_time, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
-</div>
+              <% if @project.is_active %>
+                  <%= label_tag(:is_active, 'Would you like to move this project to the archives?') %><br>
+                  Yes: <%= f.radio_button :is_active, '0' %>
+                  No:  <%= f.radio_button :is_active, '1', :checked => true %>
+              <% else %>
+                  <%= label_tag(:is_active, 'Would you like to re-activate this project?') %><br>
+                  yes: <%= f.radio_button :is_active, '1' %>
+                  no:  <%= f.radio_button :is_active, '0', :checked => true %>
+              <% end %>
+            </div>
+        <% end %>
 
-	<% if params[:id]%>	
-	  <div class="field">		
-	  		
-		<% if @project.is_active %>
-			<%= label_tag(:is_active, "Would you like to move this project to the archives?") %><br>
-			Yes: <%= f.radio_button :is_active, "0" %>
-			No:  <%= f.radio_button :is_active, "1", :checked => true %>		
-		<% else %>
-			<%= label_tag(:is_active, "Would you like to re-activate this project?") %><br>
-			yes: <%= f.radio_button :is_active, "1" %>
-			no:  <%= f.radio_button :is_active, "0", :checked => true %>		
-		<% end %>
-	  </div>
-	<% end %>
+        <div class="actions">
+          <%= f.submit :'Update Project', :class => 'btn btn-small btn-primary' %>
+        </div>
 
-  <div class="actions">
-    <%= f.submit :"Update Project", :class => "btn btn-small btn-primary" %>
-  </div>
-  
-<script>
-	$('#project_tickets_open_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT", minDate: new Date });
-	$('#project_tickets_close_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
-</script>    
+        <script>
+            $('#project_tickets_open_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT", minDate: new Date });
+            $('#project_tickets_close_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
+        </script>
 <% end %>
-
+</div>
+</div>
 <!-- This adds client-side validation -->
 <script>
-	$(document).ready(function () {
-		
-		$("#new_project").validate({
-			rules: {
-				"project[tickets_open_time]": {required: true, date: true},
-				"project[tickets_close_time]": {required: true, date: true}
-				
-			},
-			messages: {
-				"project[tickets_open_time]": "Please select an open time.",
-				"project[tickets_close_time]": "Please select a close time."		
-			}
-		});
-	});
+    $(document).ready(function () {
+
+        $("#new_project").validate({
+            rules: {
+                "project[tickets_open_time]": {required: true, date: true},
+                "project[tickets_close_time]": {required: true, date: true}
+
+            },
+            messages: {
+                "project[tickets_open_time]": "Please select an open time.",
+                "project[tickets_close_time]": "Please select a close time."
+            }
+        });
+    });
 </script>

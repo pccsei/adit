@@ -1,0 +1,24 @@
+
+<div class="panel panel-default teacher_info" >
+<div class="panel-heading">	
+	<h5>Information Box</h5>
+</div>
+<div class="panel-body">
+
+    <strong>Project:</strong> <span class="badge"><%= get_selected_project.semester + ' ' + get_selected_project.year.to_s %>
+    <% if get_selected_project.is_active %>
+        (current)</span>
+	
+    <% else %>
+        (archived)</span>
+	
+    <% end %>
+    <% if get_selected_section == 'all' %>
+        <strong>Sections:</strong> <span class="badge">All</span>
+    <% else %>
+        <strong>Section:</strong> <span class="badge"><%= get_selected_section %></span>
+    <% end %>
+    <br /><strong>Current User:</strong> <span class="badge"><%= @current_user.last_name  || @current_user.school_id%></span>
+
+</div>
+</div>

@@ -1,3 +1,11 @@
 <% provide(:title, "New Project") %>
 
-<%= render 'form' %>
+<% if get_current_project %>
+    <br /><br />
+	<h2 class = "center">You cannot create another active project.</h2>
+	<h4 class = "center">Please archive your current project or stop trying to get around the system.</h4>
+<% else %>
+	<%= render 'form' %>
+<% end %>
+
+	<%= link_to "Back to Projects", projects_path, :class => 'btn btn-large btn-primary btn-sm' %>

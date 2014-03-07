@@ -5,8 +5,8 @@ class Project < ActiveRecord::Base
   has_many   :members
   has_many   :semesters
 
-# Validates the year text field
-  validates :year, presence: true
+# Validates the year field
+  validates :year, presence: true, uniqueness: { scope: :semester, message: "can only be one active project per semester of each year."}
   
 # Validates the ticket open and close times  
   validates :tickets_open_time, presence: true, uniqueness: true
@@ -39,8 +39,8 @@ class Project < ActiveRecord::Base
   validates :max_low_priority_clients, length: {
     minimum: 1,
     message: 'is the wrong length.  Needs to be at least one digit long.'
-  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_medium_priority_clients == 0) } }, 
-      unless: Proc.new { |project| project.use_max_clients == true }  
+  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_medium_priority_clients == 0) } },
+      unless: Proc.new { |project| project.use_max_clients == true }
 
 # Custom method to make sure the open date is before the close date  
   def start_before_end
@@ -52,9 +52,12 @@ class Project < ActiveRecord::Base
   
 # Custom method to make sure the selected year is within the ticket open time year
   def current_selected_year
+    time = Time.new
     if(tickets_open_time)
       errors.add(:tickets_open_time, "must be in the year you selected above.") unless
         self.tickets_open_time.year == self.year
+      errors.add(:tickets_open_time, "must not start before today.") unless
+        self.tickets_open_time.day == time.day
       errors.add(:tickets_close_time, "must be in the year you selected above.") unless
         self.tickets_close_time.year == self.year
     end
