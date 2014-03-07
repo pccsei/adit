@@ -88,8 +88,7 @@ $(function() {
 
     <% @tickets.each do |ticket| %>
       <tr>
-      	<% client = Client.find(ticket.client_id); ticketClass = 'addTicket'
-           ; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? '' : ' autoHide'); %>
+      	<% client = Client.find(ticket.client_id); ticketClass = "addTicket "; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : "autoHide "); %>
       	<% if open %>	
         <% priorityColor =  Priority.find(ticket.priority_id).name %>
  	  	  <td><%= button_tag 'add', type: 'button', :id => ticket.id, :class => '' << ticketClass << priorityColor, :disabled => (no_more_tickets ? true : false) %>
