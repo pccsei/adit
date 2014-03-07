@@ -5,7 +5,7 @@
 #
 #  cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #  Mayor.create(name: 'Emanuel', city: cities.first)
-=begin
+
 statuses = Status.create([{status_type: 'Unapproved'}, {status_type: 'Approved'}, {status_type: 'In House'}, {status_type: 'Pending'}, {status_type: 'Edited'}])
 
 clients = Client.create([{business_name: '10th Avenue Hair Designs', address: '1000 East Cervantes Street', telephone: '433-5207', comment: '', zipcode: 32501, contact_fname: '', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id},
@@ -486,7 +486,7 @@ clients = Client.create([{business_name: '10th Avenue Hair Designs', address: '1
                          {business_name: "Zaxby's", address: '2640 Creighton Road', telephone: '477-0025', comment: '', zipcode: 32504, contact_fname: 'Joe', contact_lname: 'Yates', contact_title: 'Mr.', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id},
                          {business_name: "Zorba's (Cordova Mall)", address: '5100 North 9th Avenue', telephone: '', comment: 'approved 12', zipcode: 32504, contact_fname: '', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id}])
 
-=begin
+
 project_types = ProjectType.create([{name: 'Calendar'}, {name: 'Arrow'}])
 
 projects = Project.create([{year: 2008, semester: 'Fall', tickets_open_time: Date.new(2008, 9, 1), tickets_close_time: Date.new(2008, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false, use_max_clients: true},
@@ -505,7 +505,7 @@ priorities = Priority.create([{name: 'high'}, {name: 'medium'}, {name: 'low'}])
 users = User.create([{school_id: 'Anonymous', role: 0, first_name: 'John', last_name: 'Doe', email: 'noreply@faculty.pcci.edu', phone: '000-0000', box: 9999}])
 
 priority_id = (Priority.find_by name: 'low').id
-=begin
+
 tickets = Ticket.create([{project_id: (Project.where('project_type_id = ? AND year = ?', (ProjectType.find_by name: 'Calendar').id, 2010).first).id, client_id: (Client.find_by business_name: '6 Flags Cleaners Laundry').id, user_id: (User.find_by school_id: 'Anonymous').id, priority_id: priority_id}])
 tickets = Ticket.create([{project_id: (Project.where('project_type_id = ? AND year = ?', (ProjectType.find_by name: 'Arrow').id, 2013).first).id, client_id: (Client.find_by business_name: 'Able Auto Repair').id, user_id: (User.find_by school_id: 'Anonymous').id, priority_id: priority_id}])
 tickets = Ticket.create([{project_id: (Project.where('project_type_id = ? AND year = ?', (ProjectType.find_by name: 'Arrow').id, 2012).first).id, client_id: (Client.find_by business_name: 'Able Auto Repair').id, user_id: (User.find_by school_id: 'Anonymous').id, priority_id: priority_id}])
@@ -1023,4 +1023,3 @@ action_types = ActionType.create([{ name: 'First Contact',  role: 1, point_value
                                   { name: 'Old Sale',       role: 1, point_value: 10},
                                   { name: 'New Sale',       role: 1, point_value: 15},
                                   { name: 'Comment',        role: 1, point_value: 0}])
-=end

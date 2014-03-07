@@ -24,12 +24,13 @@ class Ticket < ActiveRecord::Base
 
   # Returns true or false depending on whether a student is able to add another client
   def self.more_clients_allowed(user, project)
-    current_tickets  = user.tickets.where('project_id = ? AND id IN (?)',
+    current_tickets = user.tickets.where('project_id = ? AND id IN (?)',
                                           project.id, Receipt.where('user_id = ? AND made_sale = ?',
                                                                     user.id, false).pluck(:ticket_id))
+    current_pending = Client.where(status_id: Status.where(status_type: 'Pending'), submitter: (user.first_name + ' ' + user.last_name))
     result = false
     if project.use_max_clients
-      result = true if project.max_clients > current_tickets.size
+      result = true if (project.max_clients > current_tickets.size && project.max_clients > current_pending.size)
     else
       result = true if project.max_low_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'low')).size
     end

@@ -67,24 +67,28 @@
       <%= f.label :tickets_close_time, 'End Time' %>
       <%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :disabled => (get_current_project && !@project.is_active ? true : false) %>
 </div>
-
-	<% if params[:id] || get_selected_project.is_active %>
-	  <div class="field">		
+	<% if get_selected_project.present? %>
+		<% if params[:id] || get_selected_project.is_active %>
+		<div class="field">		
 	  		
-		<% if @project.is_active %>
-			<%= label_tag(:is_active, 'Would you like to move this project to the archives?') %><br>
-			Yes: <%= f.radio_button :is_active, '0' %>
-			No:  <%= f.radio_button :is_active, '1', :checked => true %>
-		<% else %>
-			<%= label_tag(:is_active, 'Would you like to re-activate this project?') %><br>
-			yes: <%= f.radio_button :is_active, '1' %>
-			no:  <%= f.radio_button :is_active, '0', :checked => true %>
+			<% if @project.is_active %>
+				<%= label_tag(:is_active, 'Would you like to move this project to the archives?') %><br>
+				Yes: <%= f.radio_button :is_active, '0' %>
+				No:  <%= f.radio_button :is_active, '1', :checked => true %>
+			<% else %>
+				<%= label_tag(:is_active, 'Would you like to re-activate this project?') %><br>
+				yes: <%= f.radio_button :is_active, '1' %>
+				no:  <%= f.radio_button :is_active, '0', :checked => true %>
+			<% end %>
+	  	</div>
 		<% end %>
-	  </div>
 	<% end %>
-
   <div class="actions">
-    <%= f.submit :'Update Project', :class => 'btn btn-small btn-primary' %>
+  	<% if get_current_project == nil %>
+  		<%= f.submit :'Create Project', :class => 'btn btn-small btn-primary' %>
+  	<% else %>
+    	<%= f.submit :'Update Project', :class => 'btn btn-small btn-primary' %>
+    <% end %>
   </div>
   
 <script>
