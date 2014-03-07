@@ -74,8 +74,6 @@
           </td>
         <% end %>
         <%# TODO: Just make the business name a link to the details and drop this button %>
-        <% client = Client.where(id: ticket.client_id) %>
-        <td><%= link_to 'details', client_path(:id => client, :tid => ticket.id), {:id => client, :tid => ticket.id, :class => "btn btn-info btn-sm"} %></td>
         <td><%= link_to 'details', client_path(:id => ticket.id), {:id => ticket.id, :class => 'btn btn-info btn-sm'} %></td>
       </tr>
   <% end %>
