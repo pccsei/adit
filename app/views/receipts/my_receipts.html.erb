@@ -9,8 +9,10 @@
       $(".release_button").click(function() {
         console.log("release button clicked");
         
-        if (confirm("Are you sure you want to release this client?"))
+        if (confirm("Are you sure you want to release this client?")) {
           $.get("<%= url_for '/tickets/release.js?id='%>" + this.id);
+          location.reload();
+        }
       });
     });  
     </script>

@@ -16,12 +16,13 @@
     <% if @client.telephone %>      
       <h3><%= "Phone: " + @client.telephone%></h3>
     <% end %>  
-    <h3>  
+    <h3>
+        
       <% if @client.status_id == Status.where(status_type: "In House") %> 
-        <%= "This is an in-house client" %>
+        <%= "This is an <span id='clientPriority'>in-house</span> client".html_safe %>
       <% else %>
-        <%= "This is a " + @ticket.priority.name + " priority client"%>
-      <% end %>
+        <%= ("This is a <span id='clientPriority'>" + @ticket.priority.name + "</span> priority client").html_safe %>
+      <% end %>        
     </h3>
   </div>
 </div>
@@ -50,39 +51,37 @@ $(function() {
       dState()
     },
     selected:function(event, ui){
-      $("#studentID").val($('#students .ui-selected').attr('value'));
-      eState(ui["selected"].value);
+      $.get( "/clients/more_allowed?school_id=" + ui["selected"].value + "&priority=" + $('#clientPriority').html(),
+        function( data ) {
+          if (data === "true") {
+            $("#studentID").val($('#students .ui-selected').attr('value'));
+            eState(ui["selected"].value);
+            $('#warnTeacher').empty()
+          }
+          else {
+            dState();
+            $('#warnTeacher').html(ui["selected"].innerHTML + " cannot get any more " + $('#clientPriority').html() + " priority clients"); 
+          }
+        });
     }
   });
   
   
-  $("#sectionNum").change( function() {  
-    
-    dState();
-    
-    if (this.value != null) {      
-      console.log("Got a value");      
+  $("#sectionNum").change( function() {    
+    dState();    
+    if (this.value != null) {
       $.getJSON("/users/in_section.json?sn=" + this.value,
         function(json) {
-          //console.log("got a response");
-          //console.log(json);
-          
-          $("#students").empty();
-          
-          if (json.length > 0) {
-            for (i = 0; i<json.length; i++) {
-              //console.log(json[i]);
+          $("#students").empty();          
+          if (json.length > 0) 
+            for (i = 0; i<json.length; i++)
               $("#students").append("<li class='ui-widget-content clicker' value='" + json[i][0]+"'>"+json[i][2]+", "+json[i][1]+" ("+json[i][0]+")</li>");
-            }
-          }
           else
             $("#students").append("<li id='noAssign' class='ui-widget-content'>"+"There are no students in this section"+"</li>");
         });
     }
   });
 
-  
-  
   $("#assignClient").click(function() {
     $("#studentID").val($('#students .ui-selected').attr('value'));
   });
@@ -92,10 +91,7 @@ $(function() {
     $("#assignClient").prop("disabled", false);
     
   });
-  
-  
 });
-
 </script>
 
 
@@ -103,8 +99,9 @@ $(function() {
 			
 	------------------------------------------------------- <br />	
 	
-	<%= label_tag(:section, "Choose a section:") %>
+	<%= label_tag(:section, "Choose a section:") %>	
   <%= select_tag :section, options_for_select(@sections), :include_blank =>  "Choose a section", :id => "sectionNum" %>
+	<span id='warnTeacher' class="warning"></span>	
 	
 	<%= form_tag(controller: "clients", action: "actually_assign") do %>
     <%= hidden_field_tag(:studentID) %>    
@@ -112,27 +109,10 @@ $(function() {
     <%= submit_tag("Actually assign the client", :id => "assignClient", :disabled => true) %>
   <% end %>
 	
-  <!--button id="assignClient">assign this</button-->
-	
 	<div class="studentList">
     <ol id="students">
       <li id="noAssign" class='ui-widget-content'>Please choose a section number</li>
     </ol>  
 	</div>
 
-<!--	
-	
-	Get the current project. <br />
-	get all sections associated with that project.<br />	
-	
-	inside details box, add link to student's my_receipts page.<br />
-	
-	We need a query that will fetch the student information and display it to the teacher.<br /> 
-	
-	Create Dropdowns selectable with jquery ui?	<br />
-	
-	Check to see if the student has the maximum number of that priority. If they do, ask the teacher for confirmation.	<br />
-	
-	>>>display more details when the teacher selects a student?<<< -- yes <br />
--->
 </div>

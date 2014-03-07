@@ -29,6 +29,7 @@ WhiteCollar::Application.routes.draw do
   post '/users/new'
   get '/users/in_section'
   get '/tickets/release'
+  get '/clients/more_allowed'
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets

@@ -24,7 +24,7 @@ class Ticket < ActiveRecord::Base
 
   # Returns true or false depending on whether a student is able to add another client
   def self.more_clients_allowed(user, project)
-    current_tickets  = user.tickets.where('project_id = ? AND id IN (?)',
+    current_tickets = user.tickets.where('project_id = ? AND id IN (?)',
                                           project.id, Receipt.where('user_id = ? AND made_sale = ?',
                                                                     user.id, false).pluck(:ticket_id))
     result = false
@@ -35,6 +35,41 @@ class Ticket < ActiveRecord::Base
     end
     return result
   end
+  
+  def self.get_current_tickets(uid, pid)
+    Ticket.where('project_id = ? AND id IN (?) AND user_id = ?', pid, Receipt.where('user_id = ? AND made_sale = ?', uid, false).pluck(:ticket_id), uid)
+  end
+  
+  def self.total_allowed_left(uid, pid)
+    project.max_clients - get_current_tickets(uid, pid)
+  end
+    
+  def self.high_allowed_left(uid, project)
+    project.max_high_priority_clients - get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'high')).size
+  end
+  
+  def self.medium_allowed_left(uid, project)
+    project.max_medium_priority_clients - get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'medium')).size
+  end
 
+  def self.low_allowed_left(uid, project)
+    project.max_low_priority_clients - get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'low')).size
+  end
+  
+  def self.more_allowed(uid, project)
+    total_allowed_left(uid, project) > 0
+  end
+  
+  def self.more_high_allowed(uid, project)
+    high_allowed_left(uid, project) > 0
+  end
+  
+  def self.more_medium_allowed(uid, project)
+    medium_allowed_left(uid, project) > 0
+  end  
+
+  def self.more_low_allowed(uid, project)
+    low_allowed_left(uid, project) > 0
+  end
 
 end

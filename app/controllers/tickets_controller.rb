@@ -4,10 +4,6 @@ class TicketsController < ApplicationController
   def index
 
     @currentProject = Project.select('id, max_clients, use_max_clients, max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients, tickets_close_time').where(is_active: true, id: Member.select('project_id').where(user_id: current_user.id)).first
-            
-    highPriority = Priority.where("name = 'high'").first.id
-    midPriority  = Priority.where("name = 'medium'").first.id
-    lowPriority  = Priority.where("name = 'low'").first.id
 
     if params[:ajax] == 'update'
       updates = Ticket.updates(params[:timestamp])      
@@ -20,7 +16,7 @@ class TicketsController < ApplicationController
       else  
         if @currentProject.use_max_clients
           # Check to see if the user has the max number of clients
-          if Ticket.where('user_id = ? AND project_id = ?', current_user.id, get_current_project.id).size >= @currentProject.max_clients
+          if Ticket.where('user_id = ? AND project_id = ?', current_user.id, get_current_project.id).size - (0) >= @currentProject.max_clients
             updates = {'userMessage' => 'You have reached the maximum number of clients!'}
             allowed = false
           else 
@@ -31,12 +27,12 @@ class TicketsController < ApplicationController
           requested_ticket_priority_id = Ticket.find(params[:clientID]).priority_id
                     
           case (requested_ticket_priority_id)
-            when highPriority
-              allowed = (@highPriority = (Ticket.where('user_id = ? AND priority_id = ?', current_user.id, highPriority)).size) < @currentProject.max_high_priority_clients
-            when midPriority
-              allowed = (@midPriority = (Ticket.where('user_id = ? AND priority_id = ?', current_user.id, midPriority)).size) < @currentProject.max_medium_priority_clients
-            when lowPriority
-              allowed = (@lowPriority = (Ticket.where('user_id = ? AND priority_id = ?', current_user.id, lowPriority)).size) < @currentProject.max_low_priority_clients
+            when Priority.where("name = 'high'").first.id
+              allowed = Ticket.more_high_allowed(current_user.id, get_selected_project) 
+            when Priority.where("name = 'medium'").first.id
+              allowed = Ticket.more_medium_allowed(current_user.id, get_selected_project)
+            when Priority.where("name = 'low'").first.id
+              allowed = Ticket.more_low_allowed(current_user.id, get_selected_project)
             else            
               allowed = false
           end 
@@ -45,15 +41,14 @@ class TicketsController < ApplicationController
         if allowed          
           grabbedTicket = false
           ticket        = nil          
-          Ticket.transaction do                                      
-            #ticket = Ticket.where("client_id = ? AND project_id = ?", params[:clientID], @currentProject.id).lock(true).first
+          Ticket.transaction do
             ticket = Ticket.where('id = ? ',params[:clientID]).lock(true).first
             
             if ticket.nil?
               updates = {'userMessage' => 'Ticket does not exist for the current project'}
             else 
                # User is allowed to get a new client: Try to grab the client ticket               
-               if ticket.user_id.nil? || ticket.user_id == 0
+               if no_holder(ticket.user_id)
                  ticket.user_id = current_user.id
                  ticket.save!      
                  grabbedTicket = true         
@@ -82,9 +77,9 @@ class TicketsController < ApplicationController
       if @currentProject.use_max_clients
         @clientsLeft = @currentProject.max_clients - Ticket.where('user_id = ? AND project_id = ?', current_user.id, @currentProject.id).size
       else                
-        @highPriority = @currentProject.max_high_priority_clients   - Ticket.where('user_id = ? AND priority_id = ?', current_user.id, highPriority).size
-        @midPriority  = @currentProject.max_medium_priority_clients - Ticket.where('user_id = ? AND priority_id = ?', current_user.id, midPriority).size
-        @lowPriority  = @currentProject.max_low_priority_clients    - Ticket.where('user_id = ? AND priority_id = ?', current_user.id, lowPriority).size
+        @highPriority = Ticket.high_allowed_left(current_user.id, get_selected_project) 
+        @midPriority  = Ticket.medium_allowed_left(current_user.id, get_selected_project)
+        @lowPriority  = Ticket.low_allowed_left(current_user.id, get_selected_project)
       end
                   
     end
@@ -143,8 +138,6 @@ class TicketsController < ApplicationController
     end
   end
 
-##########################################################################################
-  
   def release
     t = Ticket.find(params[:id])  
     # if the person accessing the page is a teacher or the ticket holder
@@ -162,8 +155,6 @@ class TicketsController < ApplicationController
     end
   end
 
-##########################################################################################
-
   def destroy
     @ticket.destroy
     respond_to do |format|
@@ -177,7 +168,12 @@ class TicketsController < ApplicationController
     end
 
     def ticket_params
-      params.require(:ticket).permit(:id, :created_at, :updated_at,                                    :project_id, 
+      params.require(:ticket).permit(:id, :created_at, :updated_at, :project_id, 
                                      :client_id, :user_id, :priority_id)
     end
+    
+    def no_holder(user)
+      user.nil? || user == 0    
+    end
+    
 end
