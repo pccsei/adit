@@ -16,8 +16,8 @@
   <tbody>
     <% @activities.each do |activity| %>
       <tr>
-        <td><%= link_to activity.first_name, my_receipts_path(id: activity.student_id, page: store_location) %></td>
-        <td><%= link_to activity.last_name, my_receipts_path(id: activity.student_id, page: store_location) %></td>
+        <td><%= link_to activity.first_name, my_receipts_path(id: activity.student_id, page: request.url) %></td>
+        <td><%= link_to activity.last_name, my_receipts_path(id: activity.student_id, page: request.url) %></td>
         <td><%= activity.team_leader%></td>
         <td align ="center"><%= activity.section%></td>
         <!-- Change this to javascript function-->

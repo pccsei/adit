@@ -25,7 +25,7 @@ class ClientsController < ApplicationController
   # GET /clients/1.json
   def show
     #@client = Client.find(params[:id])
-    @client = Ticket.find(params[:id]).client
+    @client = Client.find(params[:id])
   end
 
   def assign
@@ -204,7 +204,7 @@ class ClientsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_client
       #@client = Client.find(params[:id])
-      @client = Ticket.find(params[:id]).client
+      @client = Ticket.find(params[:tid]).client
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

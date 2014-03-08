@@ -59,7 +59,7 @@
         <td><%= ticket.contact_fname %></td>
         <td><%= ticket.contact_lname %></td>
         <td><%= ticket.telephone %></td>
-        <td><%= ticket.comment %></td>
+        <td><%= tooltipify(ticket.comment).html_safe%></td>
         <% if project.is_active == true %>
 	      <td>
 	        <% if ticket.id %>

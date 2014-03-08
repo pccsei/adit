@@ -192,12 +192,22 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-          @member = Member.new
-          @member.user_id = @user.id
-          @member.project_id = session[:selected_project_id]
-          @member.section_number = get_selected_section
-          @member.is_enabled = true
-          @member.save
+          members = Member.all
+          available = false
+          members.each do |current_member|
+            if current_member.user_id == @user.id
+              available = true
+            end
+          end
+          if available == false
+            @member = Member.new
+            @member.user_id = @user.id
+            @member.project_id = session[:selected_project_id]
+            @member.section_number = get_selected_section
+            @member.is_enabled = true
+            @member.save
+          end
+          
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else

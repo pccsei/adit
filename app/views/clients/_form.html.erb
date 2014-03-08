@@ -33,9 +33,7 @@
           <%= f.select :state, %w(AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME
                             MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI
                             SC SD TN TX UT VT VA WA WV WI WY), :selected => @client.state || 'FL' %>
-
-
-
+                            
           <%= f.label :zipcode %>
           <%= f.text_field :zipcode %>
         </div>
@@ -48,7 +46,7 @@
           <%= f.text_field :contact_lname %>
 
           <%= f.label :telephone, 'Phone:' %>
-          <%= f.text_field :telephone, :placeholder => '(850) 123-4567 Ext.####' %>
+          <%= f.text_field :telephone, :placeholder => '850-123-4567 Ext.####' %>
 
         </div>
         <div id="comment" class="field">
@@ -64,7 +62,7 @@
           <%= f.submit "Submit for teacher's approval", :class => 'btn btn-small btn-primary'%>
           </div>
       <% else %>
-          <p>You already have the maximum allowable students.</p>
+          <p>You already have the maximum allowable clients.</p>
           <p>Please go to <%= link_to 'My Clients', my_receipts_path(id: current_user.id) %>
             and release one of your clients before asking for another.</p>
 

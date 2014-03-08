@@ -23,7 +23,6 @@ class TicketsController < ApplicationController
             allowed = true
           end
         else
-
           requested_ticket_priority_id = Ticket.find(params[:clientID]).priority_id
 
           case (requested_ticket_priority_id)
@@ -75,11 +74,11 @@ class TicketsController < ApplicationController
       @tickets = Ticket.current_project(@currentProject.id)
       
       if @currentProject.use_max_clients
-        @clientsLeft = @currentProject.max_clients - Ticket.where('user_id = ? AND project_id = ?', current_user.id, @currentProject.id).size
+        @clientsLeft =  Ticket.total_allowed_left(current_user.id, @currentProject.id) # @currentProject.max_clients - Ticket.where('user_id = ? AND project_id = ?', current_user.id, @currentProject.id).size
       else                
-        @highPriority = Ticket.high_allowed_left(current_user.id, get_selected_project) 
-        @midPriority  = Ticket.medium_allowed_left(current_user.id, get_selected_project)
-        @lowPriority  = Ticket.low_allowed_left(current_user.id, get_selected_project)
+        @highPriority = Ticket.high_allowed_left(current_user.id, @currentProject) 
+        @midPriority  = Ticket.medium_allowed_left(current_user.id, @currentProject)
+        @lowPriority  = Ticket.low_allowed_left(current_user.id, @currentProject)
       end
                   
     end
@@ -164,6 +163,14 @@ class TicketsController < ApplicationController
       format.html { redirect_to tickets_url }
     end
   end
+  
+  #####################################################################################
+  
+  def get_sys_time
+    render :text => Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')
+  end
+  
+  #####################################################################################
   
   private
     def set_ticket

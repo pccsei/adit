@@ -19,7 +19,7 @@
     	<% ordered_delete[0] = "yes" %>
     <% elsif a.action_type.name == 'Presentation' %>
         <% ordered_delete[1] = "yes" %>
-    <% elsif a.action_type.name == ('New Sale' || 'Old Sale') %>
+    <% elsif (a.action_type.name == 'New Sale' || a.action_type.name == 'Old Sale') %>
         <% ordered_delete[2] = "yes" %>
     <% elsif a.action_type.name == 'Comment' %>
     	<% ordered_delete[3] = "yes" %>
@@ -42,7 +42,7 @@
         	<td></td>
         <% else %>
         	<td><%= link_to 'Delete', a, method: :delete,
-                        data: { confirm: 'Are you sure?' } unless a.receipt.user_id != a.receipt.ticket.user_id%></td>
+                        data: { confirm: 'Are you sure?' } unless Receipt.is_released(receipt) %></td>
         <% end %>
       </tr>
   <% end %>
