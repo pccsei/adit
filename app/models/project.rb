@@ -56,8 +56,6 @@ class Project < ActiveRecord::Base
     if(tickets_open_time)
       errors.add(:tickets_open_time, "must be in the year you selected above.") unless
         self.tickets_open_time.year == self.year
-#      errors.add(:tickets_open_time, "must not start before today.") unless
-#        self.tickets_open_time.day == time.day
       errors.add(:tickets_close_time, "must be in the year you selected above.") unless
         self.tickets_close_time.year == self.year
     end
