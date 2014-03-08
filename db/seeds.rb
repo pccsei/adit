@@ -8,7 +8,6 @@
 
 statuses = Status.create!([{status_type: 'Unapproved'}, {status_type: 'Approved'}, {status_type: 'In House'}, {status_type: 'Pending'}, {status_type: 'Edited'}])
 
-
 clients = Client.create!([{business_name: '10th Avenue Hair Designs', address: '1000 East Cervantes Street', telephone: '433-5207', comment: '', zipcode: 32501, contact_fname: '', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id},
                          {business_name: '32 Degrees Yogurt Bar', address: '5046 Bayou Boulevard', telephone: '471-2000', comment: '', zipcode: 32504, contact_fname: 'Eric', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id},
                          {business_name: '6 Flags Cleaners Laundry', address: '916 W. Michigan Ave., Suite A', telephone: '456-6888', comment: '', zipcode: 32505, contact_fname: 'Rhanh', contact_lname: 'Nguyen', contact_title: '', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id},
@@ -504,19 +503,19 @@ projects = Project.create!([{year: 2008, semester: 'Fall', tickets_open_time: Da
 priorities = Priority.create!([{name: 'high'}, {name: 'medium'}, {name: 'low'}])
 
 users = User.create!([{school_id: 'Anonymous', role: 0, first_name: 'John', last_name: 'Doe', email: 'noreply@faculty.pcci.edu', phone: '000-0000', box: 9999},
-                      {school_id: '117288', role: 1, first_name: 'John', last_name: 'Doe', email: 'gbadge5789@students.pcci.edu', phone: '17-6808-1', box: 9999},
-                      {school_id: '116431', role: 1, first_name: 'John', last_name: 'Doe', email: 'jcanip5463@students.pcci.edu', phone: '17-1303-2', box: 9999},
-                      {school_id: '116042', role: 1, first_name: 'John', last_name: 'Doe', email: 'schapp1161@students.pcci.edu', phone: '17-6904-1', box: 9999},
-                      {school_id: '117751', role: 1, first_name: 'John', last_name: 'Doe', email: 'cchord1692@students.pcci.edu', phone: '17-6328-1', box: 9999},
-                      {school_id: '117567', role: 1, first_name: 'John', last_name: 'Doe', email: 'nconra2202@students.pcci.edu', phone: '17-6510-1', box: 9999},
-                      {school_id: '116766', role: 1, first_name: 'John', last_name: 'Doe', email: 'zevans8222@students.pcci.edu', phone: '17-1403-4', box: 9999},
-                      {school_id: '114369', role: 1, first_name: 'John', last_name: 'Doe', email: 'aharpe1129@students.pcci.edu', phone: '17-1169-2', box: 9999},
-                      {school_id: '118679', role: 1, first_name: 'John', last_name: 'Doe', email: 'jmiyas1311@students.pcci.edu', phone: '17-6727-2', box: 9999},
-                      {school_id: '115245', role: 1, first_name: 'John', last_name: 'Doe', email: 'jmulvi1261@students.pcci.edu', phone: '17-6308-1', box: 9999},
-                      {school_id: '117602', role: 1, first_name: 'John', last_name: 'Doe', email: 'dscull4171@students.pcci.edu', phone: '17-1315-1', box: 9999},
-                      {school_id: '116730', role: 1, first_name: 'John', last_name: 'Doe', email: 'sweave3686@students.pcci.edu', phone: '17-6622-2', box: 9999},
-                      {school_id: '115749', role: 1, first_name: 'John', last_name: 'Doe', email: 'kwodom1512@students.pcci.edu', phone: '17-2111-1', box: 9999},
-                      {school_id: '116156', role: 1, first_name: 'John', last_name: 'Doe', email: 'ryoder0017@students.pcci.edu', phone: '17-6324-1', box: 9999}])
+                      {school_id: '117288', role: 1, first_name: 'Gordon', last_name: 'Badgett', email: 'gbadge5789@students.pcci.edu', phone: '17-6808-1', box: 9999},
+                      {school_id: '116431', role: 1, first_name: 'Jake', last_name: 'Canipe', email: 'jcanip5463@students.pcci.edu', phone: '17-1303-2', box: 9999},
+                      {school_id: '116042', role: 1, first_name: 'Stephen', last_name: 'Chappell', email: 'schapp1161@students.pcci.edu', phone: '17-6904-1', box: 9999},
+                      {school_id: '117751', role: 1, first_name: 'Chris', last_name: 'Chord', email: 'cchord1692@students.pcci.edu', phone: '17-6328-1', box: 9999},
+                      {school_id: '117567', role: 1, first_name: 'Noah', last_name: 'Conrad', email: 'nconra2202@students.pcci.edu', phone: '17-6510-1', box: 9999},
+                      {school_id: '116766', role: 1, first_name: 'Zach', last_name: 'Evans', email: 'zevans8222@students.pcci.edu', phone: '17-1403-4', box: 9999},
+                      {school_id: '114369', role: 1, first_name: 'Alex', last_name: 'Harper', email: 'aharpe1129@students.pcci.edu', phone: '17-1169-2', box: 9999},
+                      {school_id: '118679', role: 1, first_name: 'James', last_name: 'Miyashita', email: 'jmiyas1311@students.pcci.edu', phone: '17-6727-2', box: 9999},
+                      {school_id: '115245', role: 1, first_name: 'James', last_name: 'Mulvihill', email: 'jmulvi1261@students.pcci.edu', phone: '17-6308-1', box: 9999},
+                      {school_id: '117602', role: 1, first_name: 'Dannie', last_name: 'Scull', email: 'dscull4171@students.pcci.edu', phone: '17-1315-1', box: 9999},
+                      {school_id: '116730', role: 1, first_name: 'Stephen', last_name: 'Weaver', email: 'sweave3686@students.pcci.edu', phone: '17-6622-2', box: 9999},
+                      {school_id: '115749', role: 1, first_name: 'Koffi', last_name: 'Wodome', email: 'kwodom1512@students.pcci.edu', phone: '17-2111-1', box: 9999},
+                      {school_id: '116156', role: 1, first_name: 'Rob', last_name: 'Yoder', email: 'ryoder0017@students.pcci.edu', phone: '17-6324-1', box: 9999}])
 
 priority_id = (Priority.find_by name: 'low').id
 
@@ -1036,5 +1035,4 @@ action_types = ActionType.create!([{ name: 'First Contact',  role: 1, point_valu
                                   { name: 'Presentation',   role: 1, point_value: 5 },
                                   { name: 'Old Sale',       role: 1, point_value: 10},
                                   { name: 'New Sale',       role: 1, point_value: 15},
-                                  { name: 'Comment',        role: 1, point_value: 0}])                                                              
-                                  
+                                  { name: 'Comment',        role: 1, point_value: 0}])
