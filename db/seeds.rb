@@ -8,6 +8,7 @@
 
 statuses = Status.create!([{status_type: 'Unapproved'}, {status_type: 'Approved'}, {status_type: 'In House'}, {status_type: 'Pending'}, {status_type: 'Edited'}])
 
+
 clients = Client.create!([{business_name: '10th Avenue Hair Designs', address: '1000 East Cervantes Street', telephone: '433-5207', comment: '', zipcode: 32501, contact_fname: '', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id},
                          {business_name: '32 Degrees Yogurt Bar', address: '5046 Bayou Boulevard', telephone: '471-2000', comment: '', zipcode: 32504, contact_fname: 'Eric', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id},
                          {business_name: '6 Flags Cleaners Laundry', address: '916 W. Michigan Ave., Suite A', telephone: '456-6888', comment: '', zipcode: 32505, contact_fname: 'Rhanh', contact_lname: 'Nguyen', contact_title: '', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id},
@@ -1035,4 +1036,5 @@ action_types = ActionType.create!([{ name: 'First Contact',  role: 1, point_valu
                                   { name: 'Presentation',   role: 1, point_value: 5 },
                                   { name: 'Old Sale',       role: 1, point_value: 10},
                                   { name: 'New Sale',       role: 1, point_value: 15},
-                                  { name: 'Comment',        role: 1, point_value: 0}])
+                                  { name: 'Comment',        role: 1, point_value: 0}])                                                              
+                                  

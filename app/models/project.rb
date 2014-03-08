@@ -6,14 +6,14 @@ class Project < ActiveRecord::Base
   has_many   :semesters
 
 # Validates the year field
-  validates :year, presence: true, uniqueness: { scope: :semester, message: "can only be one active project per semester of each year."}
+  validates :year, presence: true#, uniqueness: { #scope: :semester, message: "can only be one active project per semester of each year."}
   
 # Validates the ticket open and close times  
   validates :tickets_open_time, presence: true, uniqueness: true
   validates :tickets_close_time, presence: true
   validate :start_before_end
-  validate :current_selected_year
-  validate :current_semester
+  #validate :current_selected_year
+ # validate :current_semester
   
 # Validates the max total clients option  
   validates :max_clients, length: {
