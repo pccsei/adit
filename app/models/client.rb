@@ -136,4 +136,7 @@ class Client < ActiveRecord::Base
     end
   end
 
+  def full_name
+    "#{contact_fname} #{contact_lname}"
+  end
 end
