@@ -2,7 +2,49 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#ticket_message{
+	margin-left: 12em;
+	font-size: 20px;
+	margin-top: -1em !important;
+}
 
+
+#userMessage{
+	padding-top: 1em;
+}
+
+
+#ticket_info{
+	font-size: 15px;
+	text-align: right;
+	margin-right: 1em;
+	margin-bottom: -1em !important;
+}
+
+
+#client_heading{
+	height: 5em;
+}
+
+#midPriority{
+	float: left;
+	float: left;
+	margin-left: 1em;
+	margin-top: 1em;
+}
+#highPriority{
+	float: left;
+	float: left;
+	margin-left: 1em;
+	margin-top: 1em !important;
+	
+}
+#lowPriority{
+	float: left;
+	float: left;
+	margin-left: 1em;
+	margin-top: 1em;
+}
 
 .btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
 border-color: transparent;
@@ -78,11 +120,15 @@ padding-bottom: .2em;
 
 .scroller{
 	z-index:100; 
-	height: 70px; 
-	font-size:18px;  
-	text-align:right; 
-	margin-top: 67px;
+	//height: 70px; 
+	font-size:12px;  
+	 
+	margin-top: 5em;
 	border: 1px solid #aaa;
+	width: 88.9em;
+	margin-bottom: -3.2em !important;
+	background-color: black;
+	color: white;
 	}
 
 #alerts{

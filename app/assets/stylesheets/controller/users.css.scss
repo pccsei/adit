@@ -3,12 +3,80 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+#full_name{
+	margin-top: 2em;
+}
+
+#full_name input{
+	margin-left: 1em;
+	margin-right: 2em;
+}
+
+#full_name #user_last_name{
+	margin-left: 1.3em;
+	margin-right: 2em;
+}
+
+#school_info{
+	margin-top: 2em;
+}
+
+#school_info input{
+	margin-left: 1.7em;
+}
+
+#school_info #user_email{
+	margin-left: .95em;
+}
+
+#school_info{
+	margin-right:2em;
+}
+
+
+#phone_box_num{
+	margin-top: 2em;
+}
+
+#phone_box_num input{
+	margin-left: 1em;
+}
+
+#phone_box_num #user_box{
+	margin-left: 0em;
+}
+
+#major_minor{
+	margin-top: 2em;
+}
+#major_minor input{
+	margin-left:3.8em;
+}
+
+#major_minor #user_minor{
+	margin-left:6.4em;
+}
+
+#class{
+	margin-top: 2em;
+}
+
+.actions{
+	margin-top: 2em;
+	margin-left: -1em;
+}
+
+
+.btn.btn-large.btn-primary.btn-sm{
+	margin-top:2em !important;
+}
+
 
 
 
 #paste{
 	font-size: 15px;
-	margin-left: -15.8em;
+	margin-left: -20.7em;
 	margin-top: 5em;
 	float: left;
 }
@@ -65,4 +133,5 @@ textarea #input{
 #action_submit{
 	margin-left: 1em;
 margin-bottom: 2em !important;
+margin-top: -.1em !important;
 }

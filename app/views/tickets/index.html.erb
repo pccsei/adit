@@ -45,23 +45,22 @@ $(function() {
 });
 </script>
 
-<div class="scroller_anchor"></div>  
-
-<div class="scroller alert alert-info" id = "alerts">
+<div class="scroller_anchor"></div>    
+<div class="scroller" id ="alerts">
 <% if @clientsLeft && @clientsLeft > 0 %>
   <p>You can get <%= @clientsLeft %> more clients</p>
 <% else %>
-	<p id="highPriority">You can get <%= @highPriority < 0 ? 0 : @highPriority%> more high priority clients</p>
-	<p id="midPriority">You can get <%= @midPriority < 0 ? 0 : @midPriority%> more medium priority clients</p>
-	<p id="lowPriority">You can get <%= @lowPriority < 0 ? 0 : @lowPriority%> more clients low priority clients</p>
+	<p id="highPriority"> High priority: <span class="badge"><%= @highPriority < 0 ? 0 : @highPriority%></span></p>
+	<p id="midPriority">  Medium priority: <span class="badge"><%= @midPriority < 0 ? 0 : @midPriority%></span></p>
+	<p id="lowPriority"> Low priority:  <span class="badge"><%= @lowPriority < 0 ? 0 : @lowPriority%></span></p>
 <% end %>
-  <p id="userMessage">
+  
   <% if open = (@currentProject.tickets_close_time > Time.now) %>
-    You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.
+    <p id="ticket_info">You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.</p>
   <% else %>
     You are no longer able to select clients.
   <% end %>
-  </p>
+  <p id="userMessage"></p>
 </div>
 
 
