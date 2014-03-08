@@ -35,6 +35,7 @@ def main():
     with open(OUT_PATH, 'wb') as out_file:
         out_file.write(b'clients = Client.create([')
         with security.open(IN_PATH, newline='') as in_file:
+            in_file.readline(); in_file.readline()
             first_line = True
             for row in csv.DictReader(in_file):
                 strip_all(row)
