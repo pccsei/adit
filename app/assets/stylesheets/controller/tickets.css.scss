@@ -2,6 +2,23 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+#no_clients{
+	float: left;
+	margin-left: 1em;
+	margin-top: .9em !important;
+	font-size: 16px;	
+}
+
+
+#max_clients{
+	float: left;
+	margin-left: 1em;
+	margin-top: 1em !important;
+}
+
+
+
 #ticket_message{
 	margin-left: 12em;
 	font-size: 20px;
@@ -10,7 +27,8 @@
 
 
 #userMessage{
-	padding-top: 1em;
+	font-size: 18px;
+	text-align: center;
 }
 
 
@@ -59,7 +77,7 @@ color: #000;
 
 
 .addTicket.high, .addTicket.autoHide.high{
-	background-color: #68ff5d !important;
+	background-color: #BFF5BB !important;
 	color: black;
 	border: 1px solid black !important;
 	border-radius: 3px;
@@ -68,7 +86,7 @@ color: #000;
 }
 
 .addTicket.medium, .addTicket.autoHide.medium{
-	background-color: #fffd71 !important;
+	background-color: #FAF9B1 !important;
 	color: black;
 	border: 1px solid black !important;
 	border-radius: 3px;

@@ -42,8 +42,8 @@ class Ticket < ActiveRecord::Base
     Ticket.where('project_id = ? AND id IN (?) AND user_id = ?', pid, Receipt.where('user_id = ? AND made_sale = ?', uid, false).pluck(:ticket_id), uid)
   end
   
-  def self.total_allowed_left(uid, pid)
-    project.max_clients - get_current_tickets(uid, pid)
+  def self.total_allowed_left(uid, project)
+    project.max_clients - get_current_tickets(uid, project.id).size
   end
     
   def self.high_allowed_left(uid, project)

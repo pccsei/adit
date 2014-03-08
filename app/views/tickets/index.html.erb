@@ -61,9 +61,9 @@ $(function() {
 <div class="scroller" id ="alerts">
 <% if @clientsLeft %>
 	<% if @clientsLeft > 0 %>
-  		<p>You can get <%= @clientsLeft %> more clients</p>
+  		<p id="max_clients">Clients left: <span class="badge"> <%= @clientsLeft %></span></p>
 	<% else %>
-		<p>You cannot get anymore clients</p>
+		<p id="no_clients" class="text-danger">You cannot get anymore clients</p>
 	<% end %>
 <% else %>
 	<p id="highPriority"> High priority: <span id='highPriorityCount' class="badge"><%= @highPriority < 0 ? 0 : @highPriority%></span></p>
@@ -76,7 +76,7 @@ $(function() {
   <% else %>
     You are no longer able to select clients.
   <% end %>
-  <p id="userMessage"></p>
+  <p id="userMessage" class="text-danger"></p>
 </div>
 
 
