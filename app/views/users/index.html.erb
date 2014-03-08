@@ -1,8 +1,5 @@
 <% provide(:title, 'Manage Section') %>
 
-<%#=debug @sections %>
-<%#=debug @pro %>
-
 <!--Change Section drop down-->
 <div id = "select-section">
 	<div class="btn-group">
@@ -71,34 +68,6 @@
       </div>
       <%= submit_tag :submit, :class => 'btn btn-large btn-primary btn-sm col-md-1', :id => 'action_submit'%>
     </div>
-
-    <!-- This script code is used to hide student manager second Drop down when "Create_Team" is selected-->
-    <script>
-        $( "#show_managers").hide();
-        $("#parse_box").hide();
-        $( "#option" ).click(
-                function( event) {
-                    event.preventDefault();
-                    var e = document.getElementById("selected_option");
-                    var strUser = e.options[e.selectedIndex].text;
-                    if(strUser=="Assign Team")
-                    {
-                        $( "#show_managers" ).show();
-                    }
-                    else
-                    {
-                        $( "#show_managers" ).hide();
-                    }
-                }
-        );
-        $(function() {
-            $("#paste").click(
-                    function() {
-
-                        $("#parse_box").toggle();
-                    });
-        });
-    </script>
 
     <!--Refreshes page using ajax, actually just normally right now-->
     <div id = "section_refresh">
