@@ -75,7 +75,7 @@ class TicketsController < ApplicationController
       @tickets = Ticket.current_project(@currentProject.id)
       
       if @currentProject.use_max_clients
-        @clientsLeft = @currentProject.max_clients - Receipt.where('user_id = ? AND made_sale = ?', current_user.id, 0).size
+        @clientsLeft = @currentProject.max_clients - Receipt.where('user_id = ? AND made_sale = ?', current_user.id, false).size
       else                
         @highPriority = Ticket.high_allowed_left(current_user.id, get_selected_project) 
         @midPriority  = Ticket.medium_allowed_left(current_user.id, get_selected_project)

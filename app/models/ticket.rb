@@ -31,15 +31,15 @@ class Ticket < ActiveRecord::Base
     current_low_tickets = current_tickets.where('priority_id = ?', Priority.where('name = ?', 'low')).size
     result = true
     if project.use_max_clients
-      result = false if (project.max_clients <= current_tickets.size || project.max_clients <= (current_pending.size + current_tickets.size))
+      result = false if (project.max_clients <= (current_pending.size + current_tickets.size))
     else
-      result = false if (project.max_low_priority_clients <= current_low_tickets || project.max_low_priority_clients <= (current_pending.size + current_low_tickets))
+      result = false if (project.max_low_priority_clients <= (current_pending.size + current_low_tickets))
     end
     return result
   end
   
   def self.get_current_tickets(uid, pid)
-    Ticket.where('project_id = ? AND id IN (?) AND user_id = ?', pid, Receipt.where('user_id = ? AND made_sale = ?', uid, false).pluck(:ticket_id), uid)
+    where('project_id = ? AND id IN (?) AND user_id = ?', pid, Receipt.where('user_id = ? AND made_sale = ?', uid, false).pluck(:ticket_id), uid)
   end
   
   def self.total_allowed_left(uid, pid)

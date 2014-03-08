@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   }, unless: Proc.new { |user| user.role == -1 }
 
 # Validates the box number
-  validates :box, length: {
+  validates :box, allow_blank: true, length: {
       minimum: 3, maximum: 4,
       message: 'is the wrong length.  Needs to be either three or four digits long.'
   }, numericality: { greater_than: 0 }, unless: Proc.new { |user| user.role == -1 }

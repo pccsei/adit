@@ -1,4 +1,4 @@
-<% provide(:title, "Teacher's Page") %>
+<% provide(:title, ("Teacher's Page").html_safe) %>
 
 <%= form_tag(new_user_path) do %>
 <%= submit_tag 'Add New Teacher' %>
