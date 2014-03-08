@@ -51,10 +51,9 @@ $(function() {
     setTimeout(updateClients, 2000);
 	}
 	
-	$(".autoHide").hide();	
-	$(".defaultTooltip").tooltip();
 	//setTimeout(updateClients, 1000);
 });
+
 </script>
 
 <div class="scroller_anchor"></div>  
@@ -97,7 +96,6 @@ $(function() {
     </tr>
   </thead>
   <tbody>
-
     <% @tickets.each do |ticket| %>
       <tr>
       	<% client = Client.find(ticket.client_id); ticketClass = "addTicket "; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : "autoHide "); %>

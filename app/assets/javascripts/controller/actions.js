@@ -1,4 +1,5 @@
 onLoad(function() {
+
     $(".hidden").hide();
 
 
@@ -37,6 +38,8 @@ onLoad(function() {
         }
     });
 
+    $('#foo_user_action_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT", maxDate: new Date });
+
     jQuery.validator.addMethod("floating_number", function(value, element) {
         return this.optional(element) || /^(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/i.test(value);
     });
@@ -47,7 +50,6 @@ onLoad(function() {
             "page": {min: .01, required: true },
             "foo[comment]": {required: true},
             "foo[user_action_time]": {required: true, date: true }
-            //"action[user_action_time]": {date: true, less_than: Time.now}
         },
         messages: {
             "price": "Please enter a valid price.",

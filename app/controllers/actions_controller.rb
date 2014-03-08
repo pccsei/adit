@@ -4,7 +4,11 @@ class ActionsController < ApplicationController
   # GET /actions
   # GET /actions.json
   def index
-    @actions = Action.all
+    if current_user.role != 3
+      redirect_to my_receipts_path(current_user[:id])
+    else
+      redirect_to users_path
+    end
   end
 
   # GET /actions/1
@@ -15,22 +19,7 @@ class ActionsController < ApplicationController
   # GET receipts/:id/actions/new
   def new
     @action = Action.new(:receipt_id => params[:receipt_id])
-    @receipt = Receipt.find(@action.receipt_id)
-    action_received = params[:action_type_name]
-
-    if action_received == 'Sale'
-      if @receipt.ticket.priority.name == 'high'
-        @action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
-        @action.points_earned  = (ActionType.find_by(name: 'Old Sale')).point_value
-      else
-        @action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
-        @action.points_earned  = (ActionType.find_by(name: 'New Sale')).point_value
-      end
-    else
-      @action.action_type_id = (ActionType.find_by(name: action_received)).id
-      @action.points_earned  = (ActionType.find_by(name: action_received)).point_value
-    end
-
+    Action.new_action(@action, Receipt.find(@action.receipt_id), params[:action_type_name])
   end
 
   # GET /actions/1/edit
@@ -43,47 +32,7 @@ class ActionsController < ApplicationController
     @action = Action.new(action_params)
     receipt = Receipt.find(@action.receipt_id)
 
-    action_name = @action.action_type.name
-
-    if action_name == 'First Contact'
-       receipt.made_contact = true
-    elsif action_name == 'Presentation'
-      receipt.made_presentation = true
-    elsif action_name == ('New Sale' || 'Old Sale')
-      receipt.made_sale    = true
-      receipt.sale_value   = params[:price]
-      receipt.page_size    = params[:page]
-      receipt.payment_type = params[:payment_type]
-    end
-
-    if params[:presentation]
-      new_action                  = Action.new
-      new_action.user_action_time = @action.user_action_time
-      new_action.comment          = @action.comment
-      new_action.action_type_id   = (ActionType.find_by(name: 'Presentation')).id
-      new_action.receipt_id       = @action.receipt_id
-      new_action.points_earned    = (ActionType.find_by(name: 'Presentation')).point_value
-      receipt.made_presentation   = true
-    end
-
-    if params[:sale]
-      priority = receipt.ticket.priority.name
-      next_action = Action.new
-      if priority == 'high'
-        next_action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
-        next_action.points_earned  = (ActionType.find_by(name: 'Old Sale')).point_value
-      else
-        next_action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
-        next_action.points_earned  = (ActionType.find_by(name: 'New Sale')).point_value
-      end
-      next_action.user_action_time = @action.user_action_time
-      next_action.comment          = @action.comment
-      next_action.receipt_id       = @action.receipt_id
-      receipt.made_sale            = true
-      receipt.sale_value           = params[:price]
-      receipt.page_size            = params[:page]
-      receipt.payment_type         = params[:payment_type]
-    end
+    @action, receipt, next_action, new_action = Action.create_action(params[:price], params[:page], params[:payment_type], params[:presentation], params[:sale], @action, receipt)
 
     respond_to do |format|
       if @action.save && receipt.save
@@ -93,7 +42,7 @@ class ActionsController < ApplicationController
          if next_action
            next_action.save
          end
-        format.html { redirect_to(my_receipts_path(id: @action.receipt.user_id), notice: 'You successfully updated your client') }
+        format.html { redirect_to receipt_path(id: @action.receipt.id), notice: 'You successfully updated your client' }
         format.json { render action: 'show', status: :created, location: @action }
       else
         format.html { render action: 'new' }
@@ -121,25 +70,8 @@ class ActionsController < ApplicationController
   def destroy
     receipt = Receipt.find(@action.receipt_id)
       
-    if @action.action_type.name == 'Presentation'
-      @action.receipt.made_presentation = false
-      receipt.made_presentation = false
-    elsif @action.action_type.name == 'First Contact'
-      @action.receipt.made_contact = false
-      receipt.made_contact = false
-    elsif @action.action_type.name == ('New Sale' || 'Old Sale')
-      @action.receipt.made_sale = false
-      @action.receipt.sale_value = 0
-      @action.receipt.page_size = 0
-      @action.receipt.payment_type = nil
-      receipt.made_sale = false
-      receipt.sale_value   = nil
-      receipt.page_size    = nil
-      receipt.payment_type = nil
-    end
-    @action.receipt.save
-    @action.destroy
-    receipt.save
+    Action.delete_activity(@action, receipt)
+
     respond_to do |format|
       format.html { redirect_to :back, 
                       notice: "You have successfully deleted that entry." }

@@ -1,7 +1,4 @@
-<div>
-    <h1><%= @client.business_name %></h1>
-</div>
-
+<% provide(:title, @client.business_name) %>
 <div>
   <p>
     <strong>Address:</strong>
@@ -39,7 +36,4 @@
     <strong>Comment:</strong>
     <%= @client.comment %>
   </p>
-</div>
-<div>
-  <%= link_to 'Edit this client!', edit_client_path(@client.id) %>
 </div>
