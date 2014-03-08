@@ -1,4 +1,4 @@
-<% provide(:title, "Teacher's Page") %>
+<% provide(:title, ("Teacher's Page").html_safe) %>
 
 <%= form_tag(new_user_path) do %>
 <%= submit_tag 'Add New Teacher' %>
@@ -66,46 +66,6 @@
 	</tbody>
 </table>
 
-<script>
-	$(function() {
-
-		$("#Change_Teacher").hide();
-		$("#New_Teacher").hide();
-
-		$(".Change_Teacher_Link").click(
-			function(caller) {
-
-			if ($("#Change_Teacher").is(":hidden") ){
-				$("#New_Teacher").hide();
-				$("#Change_Teacher").show();
-			}
-
-			console.log(
-					$("#" + caller.target.id).attr("name")
-				);
-
-			$("#oldTeacher").html( $("#" + caller.target.id).attr("name") );
-			$("#memberId").val( $("#" + caller.target.id).attr("value") )
-			});
-
-
-		$(".New_Teacher_Link").click(
-			function(caller) {
-
-			if ($("#New_Teacher").is(":hidden") ){
-				$("#Change_Teacher").hide();
-				$("#New_Teacher").show();
-			}
-
-			console.log(
-					$("#" + caller.target.id).attr("name")
-				);
-
-			$("#sectionNumber").html( $("#" + caller.target.id).attr("name") );
-			$("#section").val( $("#" + caller.target.id).attr("name") )
-			});
-	});
-</script>
 <br><br>
 <h2>Teacher Roster</h2>
 <table class ="table dataTable">
