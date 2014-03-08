@@ -15,7 +15,8 @@ class ActionsController < ApplicationController
   # GET receipts/:id/actions/new
   def new
     @action = Action.new(:receipt_id => params[:receipt_id])
-    Action.new_action(@action, Receipt.find(@action.receipt_id), params[:action_type_name])
+    @receipt = Receipt.find(@action.receipt.id)
+    Action.new_action(@action, @receipt, params[:action_type_name])
   end
 
   # GET /actions/1/edit

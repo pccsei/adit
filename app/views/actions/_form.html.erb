@@ -31,7 +31,7 @@
           <%= check_box_tag(:sale) %>
         </div>
 
-        <div id = "saleMade" <%= 'class = hidden' unless @action.action_type.name == ('New Sale' || 'Old Sale') %>>
+        <div id = "saleMade" <%= 'class = hidden' unless (@action.action_type.name == 'New Sale' || @action.action_type.name == 'Old Sale') %>>
           <div>
             <p>Way to Ad It!</p>
           </div>

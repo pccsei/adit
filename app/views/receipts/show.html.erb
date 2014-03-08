@@ -8,6 +8,7 @@
   <%= render :partial => 'show_client_info', :locals => { :client => @client }%>
 </div>
 
+<% if @released_receipt == false %>
 <div>
   <% if @receipt.made_contact %>
       <strong>Made Contact!</strong>
@@ -39,6 +40,9 @@
   <% end %>
   <br /><br />
 </div>
+<% else %>
+<p>You have released this client, so you can not add an action to it anymore.</p>
+<% end %>
   <%= link_to 'I just have a comment', new_receipt_action_path(@receipt, :action_type_name => 'Comment') %>
 
 <div id = "show_action_table">

@@ -28,11 +28,12 @@ class Ticket < ActiveRecord::Base
                                           project.id, Receipt.where('user_id = ? AND made_sale = ?',
                                                                     user.id, false).pluck(:ticket_id))
     current_pending = Client.where(status_id: Status.where(status_type: 'Pending'), submitter: (user.first_name + ' ' + user.last_name))
-    result = false
+    current_low_tickets = current_tickets.where('priority_id = ?', Priority.where('name = ?', 'low')).size
+    result = true
     if project.use_max_clients
-      result = true if (project.max_clients > current_tickets.size && project.max_clients > current_pending.size)
+      result = false if (project.max_clients <= current_tickets.size || project.max_clients <= (current_pending.size + current_tickets.size))
     else
-      result = true if project.max_low_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'low')).size
+      result = false if (project.max_low_priority_clients <= current_low_tickets || project.max_low_priority_clients <= (current_pending.size + current_low_tickets))
     end
     return result
   end
@@ -57,11 +58,11 @@ class Ticket < ActiveRecord::Base
     current_tickets  = user.tickets.where('project_id = ? AND id IN (?)',
                                           project.id, Receipt.where('user_id = ? AND made_sale = ?',
                                                                     user.id, false).pluck(:ticket_id))
-    result = true
+    result = false
     if project.use_max_clients
-      result = false if project.max_clients > current_tickets.size
+      result = true if project.max_clients > current_tickets.size
     else
-      result = false if (project.max_low_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'low')).size &&
+      result = true if (project.max_low_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'low')).size &&
                         project.max_medium_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'medium')).size &&
                         project.max_high_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'high')).size)
     end
