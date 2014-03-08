@@ -52,12 +52,12 @@ class Project < ActiveRecord::Base
   
 # Custom method to make sure the selected year is within the ticket open time year
   def current_selected_year
-    time = Time.now
+    time = Time.now.day
     if(tickets_open_time)
       errors.add(:tickets_open_time, "must be in the year you selected above.") unless
         self.tickets_open_time.year == self.year
       errors.add(:tickets_open_time, "must not start before today.") unless
-        self.tickets_open_time > time
+        self.tickets_open_time.day > time
       errors.add(:tickets_close_time, "must be in the year you selected above.") unless
         self.tickets_close_time.year == self.year
     end
