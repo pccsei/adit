@@ -195,23 +195,23 @@ class ReportsController < ApplicationController
     sold_receipts = Receipt.all_sold_clients_in_section(get_selected_project)
 
     sold_receipts.each do |a|
-      @end_data[index]           = Struct::EndData.new
-      @end_data[index].date      = Action.find_by(action_type_id: [3, 4], receipt_id: a.id).user_action_time
-      @end_data[index].company   = Client.find(Ticket.find(a.ticket_id).client_id).business_name
-      @end_data[index].address   = Client.find(Ticket.find(a.ticket_id).client_id).address
-      @end_data[index].city      = Client.find(Ticket.find(a.ticket_id).client_id).city
-      @end_data[index].state     = Client.find(Ticket.find(a.ticket_id).client_id).state
-      @end_data[index].zip       = Client.find(Ticket.find(a.ticket_id).client_id).zipcode
-      @end_data[index].contact   = Client.find(Ticket.find(a.ticket_id).client_id).full_name
-      @end_data[index].telephone = Client.find(Ticket.find(a.ticket_id).client_id).telephone
-      @end_data[index].arrow     = Receipt.years_client_has_bought_class(Client.find(Ticket.find(a.ticket_id).client_id), get_selected_project)[0]
-      @end_data[index].calendar  = Receipt.years_client_has_bought_class(Client.find(Ticket.find(a.ticket_id).client_id), get_selected_project)[1]
-      @end_data[index].page_size = a.page_size
-      @end_data[index].sales     = a.sale_value
-      @end_data[index].first_name = User.find(a.user_id).first_name
-      @end_data[index].last_name = User.find(a.user_id).last_name
-      @end_data[index].team      = User.get_manager_name(a.user_id, get_selected_project)
-      @end_data[index].payment   = a.payment_type
+      @end_data[index]             = Struct::EndData.new
+      @end_data[index].date        = Action.find_by(action_type_id: [3, 4], receipt_id: a.id).user_action_time
+      @end_data[index].company     = Client.find(Ticket.find(a.ticket_id).client_id).business_name
+      @end_data[index].address     = Client.find(Ticket.find(a.ticket_id).client_id).address
+      @end_data[index].city        = Client.find(Ticket.find(a.ticket_id).client_id).city
+      @end_data[index].state       = Client.find(Ticket.find(a.ticket_id).client_id).state
+      @end_data[index].zip         = Client.find(Ticket.find(a.ticket_id).client_id).zipcode
+      @end_data[index].contact     = Client.find(Ticket.find(a.ticket_id).client_id).full_name
+      @end_data[index].telephone   = Client.find(Ticket.find(a.ticket_id).client_id).telephone
+      @end_data[index].arrow       = Receipt.years_client_has_bought_class(Client.find(Ticket.find(a.ticket_id).client_id), get_selected_project)[0][0]
+      @end_data[index].calendar    = Receipt.years_client_has_bought_class(Client.find(Ticket.find(a.ticket_id).client_id), get_selected_project)[1][0]
+      @end_data[index].page_size   = a.page_size
+      @end_data[index].sales       = a.sale_value
+      @end_data[index].first_name  = User.find(a.user_id).first_name
+      @end_data[index].last_name   = User.find(a.user_id).last_name
+      @end_data[index].team        = User.get_manager_name(a.user_id, get_selected_project)
+      @end_data[index].payment     = a.payment_type
       if (Action.find_by(receipt_id: a.id).action_type_id)
         @end_data[index].ad_status = ActionType.find(Action.find_by(receipt_id: a.id).action_type_id).name
       end
