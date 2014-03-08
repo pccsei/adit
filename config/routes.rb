@@ -32,6 +32,7 @@ WhiteCollar::Application.routes.draw do
   post   '/users/new'
   get    '/users/in_section'
   get    '/tickets/release'
+  get    '/tickets/get_sys_time'
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets

@@ -17,13 +17,12 @@ class TicketsController < ApplicationController
         if @currentProject.use_max_clients
           # Check to see if the user has the max number of clients
           if Ticket.where('user_id = ? AND project_id = ?', current_user.id, get_current_project.id).size - (0) >= @currentProject.max_clients
-            updates = {'userMessage' => 'You have reached the maximum number of clients!'}
+            updates = {'userMessage' => '<span class="text-danger" id="ticket_message">You have reached the maximum number of clients!</span>'}
             allowed = false
           else
             allowed = true
           end
         else
-
           requested_ticket_priority_id = Ticket.find(params[:clientID]).priority_id
 
           case (requested_ticket_priority_id)
@@ -45,7 +44,7 @@ class TicketsController < ApplicationController
             ticket = Ticket.where('id = ? ',params[:clientID]).lock(true).first
 
             if ticket.nil?
-              updates = {'userMessage' => 'Ticket does not exist for the current project'}
+              updates = {'userMessage' => '<span class="text-danger" id="ticket_message">Ticket does not exist for the current project</span'}
             else 
                # User is allowed to get a new client: Try to grab the client ticket               
                if no_holder(ticket.user_id)
@@ -53,7 +52,7 @@ class TicketsController < ApplicationController
                  ticket.save!
                  grabbedTicket = true
                else
-                 updates = {'userMessage' => 'Someone already grabbed that client!!'}
+                 updates = {'userMessage' => '<span class="text-danger" id="ticket_message">Someone already grabbed that client!!</span>'}
                end
             end
           end
@@ -65,7 +64,7 @@ class TicketsController < ApplicationController
             Receipt.find_or_create_by(ticket_id: ticket.id, user_id: current_user.id)
           end
         else
-          updates = {'userMessage' => 'You already have the max number of ' + Priority.find(requested_ticket_priority_id).name.to_s + ' priority clients.'}
+          updates = {'userMessage' => '<p class="text-danger" id="ticket_message">You already have the max number of ' + Priority.find(requested_ticket_priority_id).name.to_s + ' priority clients.</p>'}
         end
       end 
      
@@ -77,9 +76,9 @@ class TicketsController < ApplicationController
       if @currentProject.use_max_clients
         @clientsLeft = @currentProject.max_clients - Receipt.where('user_id = ? AND made_sale = ?', current_user.id, false).size
       else                
-        @highPriority = Ticket.high_allowed_left(current_user.id, get_selected_project) 
-        @midPriority  = Ticket.medium_allowed_left(current_user.id, get_selected_project)
-        @lowPriority  = Ticket.low_allowed_left(current_user.id, get_selected_project)
+        @highPriority = Ticket.high_allowed_left(current_user.id, @currentProject) 
+        @midPriority  = Ticket.medium_allowed_left(current_user.id, @currentProject)
+        @lowPriority  = Ticket.low_allowed_left(current_user.id, @currentProject)
       end
                   
     end
@@ -164,6 +163,14 @@ class TicketsController < ApplicationController
       format.html { redirect_to tickets_url }
     end
   end
+  
+  #####################################################################################
+  
+  def get_sys_time
+    render :text => Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')
+  end
+  
+  #####################################################################################
   
   private
     def set_ticket
