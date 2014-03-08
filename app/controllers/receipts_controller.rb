@@ -33,14 +33,7 @@ class ReceiptsController < ApplicationController
   # GET /receipts/1.json
   # We can use this function to list the updates on a receipt
   def show
-    released_receipts = Receipt.released_clients(current_user.id, get_selected_project)
     @receipt = Receipt.find(params[:id])
-    @released_receipt = false
-    released_receipts.each do |released|
-      if released.id == @receipt.id
-        @released_receipt = true
-      end
-    end
     @client = @receipt.ticket.client            
       #@highestUserAction = Action.where("receipt_id = ?", params[:id]).maximum("action_type_id")    
       #@sale = Action.where("receipt_id = ? AND action_type_id = ?", params[:id], 3) #may need to be fixed if the DB column is changed
