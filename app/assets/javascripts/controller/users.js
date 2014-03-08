@@ -74,7 +74,7 @@ onLoad(function() {
 
     // Custom method to make sure only letters and numbers are entered (no symbols or punctuation)
     jQuery.validator.addMethod("id_valid", function(value, element) {
-        return this.optional(element) || /^[-a-zA-Z0-9]+$/i.test(value);
+        return this.optional(element) || /^([-a-zA-Z]|[0-9])+$/i.test(value);
     });
 
     // Custom method to make sure the user does not put in all zeros
@@ -97,8 +97,8 @@ onLoad(function() {
             "user[last_name]": {required: true, letters_only: true},
             "user[school_id]": {required: true, id_valid: true},
             "user[email]": {required: true, email: true, email_valid: true},
-            "user[phone]": {required: true, valid_telephone: true},
-            "user[box]": {required: true, digits: true, rangelength: [3,4], min_digit: 1}
+            "user[phone]": {valid_telephone: true},
+            "user[box]": {digits: true, rangelength: [3,4], min_digit: 1}
         },
         messages: {
             "user[first_name]": "Please enter the user's first name.",

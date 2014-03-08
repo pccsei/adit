@@ -59,8 +59,12 @@ $(function() {
 <div class="scroller_anchor"></div>  
 
 <div class="scroller alert alert-info" id = "alerts">
-<% if @clientsLeft && @clientsLeft > 0 %>
-  <p>You can get <%= @clientsLeft %> more clients</p>
+<% if @clientsLeft %>
+	<% if @clientsLeft > 0 %>
+  		<p>You can get <%= @clientsLeft %> more clients</p>
+  	<% else %>
+  		<p>You cannot get anymore clients</p>
+  	<% end %>
 <% else %>
 	<p id="highPriority">You can get <span id='highPriorityCount'><%= @highPriority < 0 ? 0 : @highPriority%></span> more high priority clients</p>
 	<p id="mediumPriority">You can get <span id='mediumPriorityCount'><%= @midPriority < 0 ? 0 : @midPriority%></span> more medium priority clients</p>
@@ -100,8 +104,8 @@ $(function() {
       <tr>
       	<% client = Client.find(ticket.client_id); ticketClass = "addTicket "; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : "autoHide "); %>
       	<% if open %>	
-        <% priorityColor =  Priority.find(ticket.priority_id).name %>
- 	  	  <td><%= button_tag 'add', type: 'button', :id => ticket.id, :class => '' << ticketClass << priorityColor, :disabled => (no_more_tickets ? true : false) %>
+        <% priorityColor = Priority.find(ticket.priority_id).name %>
+ 	  	  <td><%= button_tag 'add', type: 'button', :id => ticket.id, :class => '' << ticketClass << priorityColor %>
        	  </td>
   
       	<% end %>
