@@ -32,14 +32,18 @@ class UsersController < ApplicationController
   def unauthorized    
   end
 
+  # Add a new teacher to the section
+  def another_teacher_to_section   
+    User.create_new_section(params["new_teacher_to_add"], params["section"], session[:selected_project_id])
+
+    redirect_to users_teachers_path
+  end
+
   # Delete the old teacher Member and add a new teacher member
   def change_teacher
-    teacher_to_changed = params[]
-    new_teacher = params[]
+    User.change_teacher(params["teacher_to_change_to"], Member.find(params["member_id"]))
 
-    User.change_teachers(new_teacher, teacher_to_changed)
-
-    redirect_to teachers_path
+    redirect_to users_teachers_path
   end
   
   # GET /users/1
@@ -188,12 +192,22 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-          @member = Member.new
-          @member.user_id = @user.id
-          @member.project_id = session[:selected_project_id]
-          @member.section_number = get_selected_section
-          @member.is_enabled = true
-          @member.save
+          members = Member.all
+          available = false
+          members.each do |current_member|
+            if current_member.user_id == @user.id
+              available = true
+            end
+          end
+          if available == false
+            @member = Member.new
+            @member.user_id = @user.id
+            @member.project_id = session[:selected_project_id]
+            @member.section_number = get_selected_section
+            @member.is_enabled = true
+            @member.save
+          end
+          
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else

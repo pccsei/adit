@@ -25,7 +25,7 @@ class ClientsController < ApplicationController
   # GET /clients/1.json
   def show
     #@client = Client.find(params[:id])
-    @client = Ticket.find(params[:id]).client
+    @client = Client.find(params[:id])
   end
 
   def assign
@@ -74,6 +74,33 @@ class ClientsController < ApplicationController
 
     redirect_to clients_approve_url
   end
+
+#######################
+
+  # checks to see if the student is allowed to have more clients
+  def more_allowed
+    
+    uid = User.find_by_school_id(params[:school_id])
+    r = false
+    
+    if get_current_project.use_max_clients
+      r = Ticket.more_allowed(uid, get_current_project)
+      
+    else #check relevant color
+      case (params[:priority])
+      when "high"
+        r = Ticket.more_high_allowed(uid, get_current_project)
+      when "medium"
+        r = Ticket.more_medium_allowed(uid, get_current_project)
+      when "low"
+        r = Ticket.more_low_allowed(uid, get_current_project)
+      end      
+    end
+    render :text => r
+  end
+  
+#######################
+
 
   def approve_client_edit
     status = 2 if params['commit'] == 'Approve'
@@ -177,7 +204,7 @@ class ClientsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_client
       #@client = Client.find(params[:id])
-      @client = Ticket.find(params[:id]).client
+      @client = Ticket.find(params[:tid]).client
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

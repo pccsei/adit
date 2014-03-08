@@ -1,8 +1,8 @@
-<% provide(:title, "Choose Clients") %>
+<% provide(:title, 'Choose Clients') %>
 
 <% if @tickets %>
 <script>
-var last_update = "<%= Time.now.utc.strftime("%Y-%m-%d %H:%M:%S") %>";
+var last_update = "<%= Time.now.utc.strftime('%Y-%m-%d %H:%M:%S') %>";
 	
 $(function() {
 	    
@@ -45,6 +45,7 @@ $(function() {
 });
 </script>
 
+<<<<<<< HEAD
 <div class="scroller_anchor"></div>    
 <div class="scroller" id ="alerts">
 <% if @clientsLeft && @clientsLeft > 0 %>
@@ -53,6 +54,21 @@ $(function() {
 	<p id="highPriority"> High priority: <span class="badge"><%= @highPriority < 0 ? 0 : @highPriority%></span></p>
 	<p id="midPriority">  Medium priority: <span class="badge"><%= @midPriority < 0 ? 0 : @midPriority%></span></p>
 	<p id="lowPriority"> Low priority:  <span class="badge"><%= @lowPriority < 0 ? 0 : @lowPriority%></span></p>
+=======
+<div class="scroller_anchor"></div>  
+
+<div class="scroller alert alert-info" id = "alerts">
+<% if @clientsLeft %>
+	<% if @clientsLeft > 0 %>
+  		<p>You can get <%= @clientsLeft %> more clients</p>
+  	<% else %>
+  		<p>You cannot get anymore clients</p>
+  	<% end %>
+<% else %>
+	<p id="highPriority">You can get <span id='highPriorityCount'><%= @highPriority < 0 ? 0 : @highPriority%></span> more high priority clients</p>
+	<p id="mediumPriority">You can get <span id='mediumPriorityCount'><%= @midPriority < 0 ? 0 : @midPriority%></span> more medium priority clients</p>
+	<p id="lowPriority">You can get <span id='lowPriorityCount'><%= @lowPriority < 0 ? 0 : @lowPriority%></span> more clients low priority clients</p>
+>>>>>>> fb3c1d6a3bafff9f9116b66ce4e065554c8a2a81
 <% end %>
   
   <% if open = (@currentProject.tickets_close_time > Time.now) %>
@@ -66,7 +82,7 @@ $(function() {
 
 <% if current_user.help == true %>
 <h2>First Time User?</h2>
-<%= button_to "Yes", :controller => :users, action: "need_help"%>
+<%= button_to 'Yes', :controller => :users, action: 'need_help'%>
 <% end %>
 
 <table class="display">
@@ -87,18 +103,18 @@ $(function() {
 
     <% @tickets.each do |ticket| %>
       <tr>
-      	<% client = Client.find(ticket.client_id); ticketClass = "addTicket"; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : " autoHide"); %>
+      	<% client = Client.find(ticket.client_id); ticketClass = "addTicket "; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : "autoHide "); %>
       	<% if open %>	
-        <% priorityColor =  Priority.find(ticket.priority_id).name %> 
- 	  	  <td><%= button_tag "add", type: 'button', :id => ticket.id, :class =>"" << ticketClass << priorityColor, :disabled => (no_more_tickets ? true : false) %>
+        <% priorityColor = Priority.find(ticket.priority_id).name %>
+ 	  	  <td><%= button_tag 'add', type: 'button', :id => ticket.id, :class => '' << ticketClass << priorityColor %>
        	  </td>
   
       	<% end %>
       	<td><%= Priority.find(ticket.priority_id).name.capitalize %></td>
-      	<td><%= link_to client.business_name, ticket, :class => "btn btn-link btn-sm"  %></td>
+      	<td><%= link_to client.business_name, ticket, :class => 'btn btn-link btn-sm' %></td>
       	<td><%= client.address %></td>
-      	<td><%= client.contact_title +  " " + client.contact_fname + " " +  client.contact_lname%></td>
-      	<td><%= client.telephone %></td>
+      	<td><%= client.contact_title + ' ' + client.contact_fname + ' ' +  client.contact_lname%></td>
+      	<td align="right"><%= client.telephone %></td>
       	<td ><%= tooltipify(client.comment).html_safe%></td>      	
        <!-- <td><%#= link_to 'Details', ticket , :class => "btn btn-info btn-sm" %></td> -->
       </tr>

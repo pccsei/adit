@@ -1,3 +1,4 @@
+
 <table class="display">
   <thead>
   <tr>
@@ -13,6 +14,7 @@
     <th>Comment</th>
     <th>Owner</th>
     <th></th>
+ 	<th></th>
   </tr>
   </thead>
 
@@ -20,7 +22,7 @@
   <% pending_clients.each do |client|%>
       <tr>
         <% if current_user.role == 3 %>
-            <td><%= check_box_tag "clients[]", client.id %></td>
+            <td><%= check_box_tag 'clients[]', client.id %></td>
         <% end %>
         <td><%= client.business_name %></td>
         <td><%= client.address %></td>
@@ -30,6 +32,9 @@
         <td><%= client.telephone %></td>
         <td><%= client.comment %></td>
         <td><%= client.submitter %></td>
+        <% if (current_user.role == 3 || (current_user.first_name + ' ' + current_user.last_name) == client.submitter) %>
+        	<td><%= link_to 'Edit', edit_client_path(client) %></td>
+        <% end %>
         <td><%= link_to 'Details', client %></td>
       </tr>
   <% end %>

@@ -1,9 +1,7 @@
 <table class="display">
   <thead>
   <tr>
-    <% if current_user.role == 3 %>
-        <th> </th>
-    <% end %>
+    <th> </th>
     <th>Business name</th>
     <th>Address</th>
     <th>Title</th>
@@ -18,9 +16,7 @@
   <tbody>
   <% pending_clients.each do |client|%>
       <tr>
-        <% if current_user.role == 3 %>
-            <td><%= check_box_tag 'clients[]', client.id %></td>
-        <% end %>
+        <td><%= check_box_tag 'clients[]', client.id %></td>
         <td><%= client.business_name %></td>
         <td><%= client.address %></td>
         <td><%= client.contact_title %></td>

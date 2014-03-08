@@ -31,8 +31,6 @@
     background: linear-gradient(top, #fefdca 0%,#f7f381 100%); /* W3C; A catch-all for everything else */
 }
 
-
->>>>>>> 20963d402a1492431483c6ea7a4e4944b4ca6483
 .client:first-child {
       margin-left: 0 !important;
     }
@@ -72,10 +70,10 @@
 
     .client.completed,
     .client.released {
-      width: 9em;
-      height: 9em;
-      padding: .7em;
-      margin: .4em;
+      width: 15em;
+      height: 12em;
+      padding: .9em;
+      margin: .5em;
     }
 
     .client.released {

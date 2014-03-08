@@ -1,11 +1,11 @@
 
 <% if current_user.role == 3 %>
-<% provide(:title, @student_user.first_name + '\'s Clients') %>
+<% provide(:title, (@student_user.first_name.capitalize + '\'s Clients').html_safe)%>
 <br />
-	<% if @page_title == 'Manage Section'%>
-		<%= link_to "Back to Manage Section", @previous_page, :class => 'btn btn-large btn-primary btn-sm' %>
+	<% if session[:return_to] == users_url %>
+		<%= link_to "Back to Manage Section", session[:return_to], :class => 'btn btn-large btn-primary btn-sm' %>
 	<% else %>
-		<%= link_to "Back to Reports", @previous_page, :class => 'btn btn-large btn-primary btn-sm' %>
+		<%= link_to "Back to Reports", session[:return_to], :class => 'btn btn-large btn-primary btn-sm' %>
 	<% end %>
 <% else %>
 	<% provide(:title, 'My Clients')%>
@@ -14,27 +14,31 @@
 <% if Project.non_archived %>
 
     <script>
-      
-    $(function() {
-      
+
+    onLoad ( function() {
+
       $(".release_button").click(function() {
         console.log("release button clicked");
-        
-        if (confirm("Are you sure you want to release this client?"))
+
+        if (confirm("Are you sure you want to release this client?")) {
           $.get("<%= url_for '/tickets/release.js?id='%>" + this.id);
+          location.reload();
+        }
       });
-    });  
+    });
     </script>
-  
+
       <h2>Active Clients</h2>
       <div id="active_clients" class="myclients">
         <!-- Loop -->
         <% @active_receipts.each do |receipt| %>
         <div class="active client <%= receipt.ticket.priority.name %>" data-link="#">
-          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt, page: @previous_page, page_title: @page_title), title: "View client" %>
+          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
           <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
+          <p>Made Contact? <%= receipt.made_contact ? 'Yes!' : 'Not yet' %></p>
+          <p>Made Presentation? <%= receipt.made_presentation ? 'Yes!' : 'Not yet' %></p>
           <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
-          <%= link_to image_tag("closebutton.svg", class: "release_button", id: receipt.ticket.id), "#", title: "Release client" %>
+          <%= link_to image_tag('closebutton.svg', class: 'release_button', id: receipt.ticket.id), '#', title: 'Release client' %>
         </div>
         <% end %>
       </div>
@@ -43,8 +47,9 @@
       <div id="completed_clients" class="myclients">
         <% @sold_receipts.each do |receipt| %>
         <div class="completed client <%= receipt.ticket.priority.name %>">
-          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt, page: @previous_page, page_title: @page_title), title: "View client" %>
+          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
           <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
+          <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
         </div>
         <% end %>
       </div>
@@ -53,8 +58,9 @@
       <div id="released_clients" class="myclients">
         <% @released_receipts.each do |receipt| %>
         <div class="released client <%= receipt.ticket.priority.name %>">
-          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt, page: @previous_page, page_title: @page_title), title: "View client" %>
+          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
           <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
+          <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
         </div>
         <% end %>
       </div>

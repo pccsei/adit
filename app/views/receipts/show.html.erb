@@ -1,13 +1,17 @@
 <% if current_user.role == 3 %>
 	<% student_name = User.find_by(id: Receipt.find_by(id: @receipt.user_id)) %>
-  	<%= link_to 'Back to ' + student_name.first_name + '\'s Clients', my_receipts_path(@receipt.user_id, page: @previous_page, page_title: @page_title), :class => 'btn btn-large btn-primary btn-sm' %>
+  	<%= link_to 'Back to ' + student_name.first_name + '\'s Clients', my_receipts_path(@receipt.user_id), :class => 'btn btn-large btn-primary btn-sm' %>
 <br /><br />
 <% end %>
 
 <div id = "client_info">
   <%= render :partial => 'show_client_info', :locals => { :client => @client }%>
 </div>
+<div>
+  <%= link_to 'Edit this client!', edit_client_path(@client.id) unless @receipt.user_id != @receipt.ticket.user_id%>
+</div>
 
+<% if Receipt.is_released(@receipt) == false %>
 <div>
   <% if @receipt.made_contact %>
       <strong>Made Contact!</strong>
@@ -35,12 +39,14 @@
               <%= link_to 'I made a presentation!', new_receipt_action_path(@receipt, :action_type_name => 'Presentation') %>
           <% else %>
               <%= link_to 'I made a sale!', new_receipt_action_path(@receipt, :action_type_name => 'Sale') %>
-          <% end %>
+      <% end %>
   <% end %>
   <br /><br />
 </div>
+<% else %>
+<p>You have released this client, so you can not add an action to it anymore.</p>
+<% end %>
   <%= link_to 'I just have a comment', new_receipt_action_path(@receipt, :action_type_name => 'Comment') %>
-
 <div id = "show_action_table">
   <%= render :partial => 'action_table', :locals => { :receipt => @receipt }%>
 </div>

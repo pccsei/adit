@@ -11,50 +11,6 @@
     </div>
   <% end %>
 
-<script>
-$(document).ready(function(){
-$(".hidden").hide();
-});
-
-  $(document).ready(function(){
-  	$("#presentation").click(function () {
-    if ($("#presentation").is(':checked')) 
-    {
-      $("#checkers2").removeClass("hidden").show();
-    } 
-    else 
-    {
-      $("#checkers2").addClass("hidden").hide();
-      $("#saleMade").hide();
-      $("#sale").attr('checked', false);
-    }
-    });
-    
-    $("#sale").click(function () {
-    if ($("#sale").is(':checked')) 
-        {
-            $("#saleMade").removeClass("hidden").show();
-        }
-    else 
-    {
-      $("#saleMade").addClass("hidden").hide();
-    }
-    });
-    
-    $("#comments").click(function () {
-    if ($("#comments").is(':checked'))
-    	{
-    		$("#justComment").removeClass("hidden").show();
-    	}
-    else
-    {
-    	$("#justComment").addClass("hidden").hide();
-    }
-    });
-   });
- 
-</script>
-
     <% if @action.action_type.name != 'Comment'%>
 
         <div id = "firstCheck" <%= 'class = hidden' unless @action.action_type.name == 'First Contact' %>>
@@ -75,7 +31,7 @@ $(".hidden").hide();
           <%= check_box_tag(:sale) %>
         </div>
 
-        <div id = "saleMade" <%= 'class = hidden' unless @action.action_type.name == ('New Sale' || 'Old Sale') %>>
+        <div id = "saleMade" <%= 'class = hidden' unless (@action.action_type.name == 'New Sale' || @action.action_type.name == 'Old Sale') %>>
           <div>
             <p>Way to Ad It!</p>
           </div>
@@ -102,7 +58,7 @@ $(".hidden").hide();
     <% if @action.action_type.name != 'Comment' %>
     <div>
       <%= f.label :user_action_time, 'When did you do this?' %>
-      <%= f.text_field :user_action_time, :placeholder => "YYYY/MM/DD 00:00 AM/PM" %>
+      <%= f.text_field :user_action_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM' %>
     </div>
     <% else %>
         <%= f.hidden_field :user_action_time, :value => Time.now %>
@@ -116,33 +72,4 @@ $(".hidden").hide();
     </div>
 <% end %>
 
-<script>
-$('#foo_user_action_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT", maxDate: new Date });
-</script>
 
-<!-- This adds client-side validation -->
-<script>
-
-	$(document).ready(function () {
-		
-		jQuery.validator.addMethod("floating_number", function(value, element) {
-			return this.optional(element) || /^(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/i.test(value);
-		});
-		
-		$("#new_foo").validate({
-			rules: {
-				"price": {min: 1, required: true, floating_number: true },
-				"page": {min: .01, required: true },
-				"foo[comment]": {required: true},
-				"foo[user_action_time]": {required: true, date: true }
-				//"action[user_action_time]": {date: true, less_than: Time.now}
-			},
-			messages: {
-				"price": "Please enter a valid price.",
-				"page": "Please enter a valid page size.",
-				"foo[comment]": "If you have a comment, please enter it.",
-				"foo[user_action_time]": "Please enter in when you did this."
-			}
-		});
-	});
-</script>
