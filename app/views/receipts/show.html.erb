@@ -7,8 +7,11 @@
 <div id = "client_info">
   <%= render :partial => 'show_client_info', :locals => { :client => @client }%>
 </div>
+<div>
+  <%= link_to 'Edit this client!', edit_client_path(@client.id) unless @receipt.user_id != @receipt.ticket.user_id%>
+</div>
 
-<% if @released_receipt == false %>
+<% if @receipt.is_released == false %>
 <div>
   <% if @receipt.made_contact %>
       <strong>Made Contact!</strong>
@@ -44,7 +47,7 @@
 <p>You have released this client, so you can not add an action to it anymore.</p>
 <% end %>
   <%= link_to 'I just have a comment', new_receipt_action_path(@receipt, :action_type_name => 'Comment') %>
-
+<% end %>
 <div id = "show_action_table">
   <%= render :partial => 'action_table', :locals => { :receipt => @receipt }%>
 </div>

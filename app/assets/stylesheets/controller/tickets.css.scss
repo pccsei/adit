@@ -25,16 +25,7 @@ color: #000;
 	padding-bottom: .2em;
 }
 
-.addTickethigh{
-background-color: #68ff5d !important;
-color: black;
-border: 1px solid black !important;
-border-radius: 3px;
-padding-top: .2em;
-padding-bottom: .2em;
-}
-
-.addTicket.autoHidemedium{
+.addTicket.medium, .addTicket.autoHide.medium{
 	background-color: #fffd71 !important;
 	color: black;
 	border: 1px solid black !important;
@@ -43,16 +34,7 @@ padding-bottom: .2em;
 	padding-bottom: .2em;
 }
 
-.addTicketmedium{
-background-color: #fffd71 !important;
-color: black;
-border: 1px solid black !important;
-border-radius: 3px;
-padding-top: .2em;
-padding-bottom: .2em;
-}
-
-.addTicket.autoHidelow{
+.addTicket.low, .addTicket.autoHide.low{
 	background-color: white !important;
 	color: black;
 	border: 1px solid black !important;
@@ -60,17 +42,6 @@ padding-bottom: .2em;
 	padding-top: .2em;
 	padding-bottom: .2em;
 }
-
-.addTicketlow{
-background-color: white !important;
-color: black;
-border: 1px solid black !important;
-border-radius: 3px;
-padding-top: .2em;
-padding-bottom: .2em;
-}
-
-
 
 .scroller_anchor{
 

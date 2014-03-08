@@ -22,7 +22,7 @@
   <% pending_clients.each do |client|%>
       <tr>
         <% if current_user.role == 3 %>
-            <td><%= check_box_tag "clients[]", client.id %></td>
+            <td><%= check_box_tag 'clients[]', client.id %></td>
         <% end %>
         <td><%= client.business_name %></td>
         <td><%= client.address %></td>

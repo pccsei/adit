@@ -14,20 +14,20 @@
 <% if Project.non_archived %>
 
     <script>
-      
-    $(function() {
-      
+
+    onLoad ( function() {
+
       $(".release_button").click(function() {
         console.log("release button clicked");
-        
+
         if (confirm("Are you sure you want to release this client?")) {
           $.get("<%= url_for '/tickets/release.js?id='%>" + this.id);
           location.reload();
         }
       });
-    });  
+    });
     </script>
-  
+
       <h2>Active Clients</h2>
       <div id="active_clients" class="myclients">
         <!-- Loop -->
@@ -35,8 +35,10 @@
         <div class="active client <%= receipt.ticket.priority.name %>" data-link="#">
           <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
           <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
+          <p>Made Contact? <%= receipt.made_contact ? 'Yes!' : 'Not yet' %></p>
+          <p>Made Presentation? <%= receipt.made_presentation ? 'Yes!' : 'Not yet' %></p>
           <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
-          <%= link_to image_tag("closebutton.svg", class: "release_button", id: receipt.ticket.id), "#", title: "Release client" %>
+          <%= link_to image_tag('closebutton.svg', class: 'release_button', id: receipt.ticket.id), '#', title: 'Release client' %>
         </div>
         <% end %>
       </div>
@@ -47,6 +49,7 @@
         <div class="completed client <%= receipt.ticket.priority.name %>">
           <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
           <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
+          <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
         </div>
         <% end %>
       </div>
@@ -57,6 +60,7 @@
         <div class="released client <%= receipt.ticket.priority.name %>">
           <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
           <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
+          <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
         </div>
         <% end %>
       </div>

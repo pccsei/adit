@@ -42,7 +42,7 @@
         	<td></td>
         <% else %>
         	<td><%= link_to 'Delete', a, method: :delete,
-                        data: { confirm: 'Are you sure?' } %></td>
+                        data: { confirm: 'Are you sure?' } unless receipt.is_released %></td>
         <% end %>
       </tr>
   <% end %>

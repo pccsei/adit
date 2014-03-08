@@ -4,7 +4,11 @@ class ActionsController < ApplicationController
   # GET /actions
   # GET /actions.json
   def index
-    @actions = Action.all
+    if current_user.role != 3
+      redirect_to my_receipts_path(current_user[:id])
+    else
+      redirect_to users_path
+    end
   end
 
   # GET /actions/1
@@ -39,7 +43,7 @@ class ActionsController < ApplicationController
          if next_action
            next_action.save
          end
-        format.html { redirect_to(my_receipts_path(id: @action.receipt.user_id), notice: 'You successfully updated your client') }
+        format.html { redirect_to receipt_path(id: @action.receipt.id), notice: 'You successfully updated your client' }
         format.json { render action: 'show', status: :created, location: @action }
       else
         format.html { render action: 'new' }

@@ -27,6 +27,7 @@ PROJECT_TYPES = {'Calendar': ProjectInfo('Spring', 2, 5),
 def main():
     years_by_project = {name: set() for name in PROJECT_TYPES}
     with security.open(IN_PATH, newline='') as in_file:
+        in_file.readline(); in_file.readline()
         for row in csv.DictReader(in_file):
             strip_all(row)
             for name, years in years_by_project.items():
