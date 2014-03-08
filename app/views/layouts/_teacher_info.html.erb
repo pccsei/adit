@@ -5,20 +5,20 @@
 </div>
 <div class="panel-body">
 
-    <strong>Project:</strong> <span class="badge"><%= get_selected_project.semester + ' ' + get_selected_project.year.to_s %>
+    <strong>Project:</strong> <%= get_selected_project.semester + ' ' + get_selected_project.year.to_s %>
     <% if get_selected_project.is_active %>
-        (current)</span>
+        (current)
 	
     <% else %>
-        (archived)</span>
+        (archived)
 	
     <% end %>
     <% if get_selected_section == 'all' %>
-        <strong>Sections:</strong> <span class="badge">All</span>
+        <strong>Sections:</strong> All
     <% else %>
-        <strong>Section:</strong> <span class="badge"><%= get_selected_section %></span>
+        <strong>Section:</strong> <%= get_selected_section %>
     <% end %>
-    <br /><strong>Current User:</strong> <span class="badge"><%= @current_user.last_name  || @current_user.school_id%></span>
+    <br /><strong>Current User:</strong> <%= @current_user.last_name  || @current_user.school_id%>
 
 </div>
 </div>

@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http:#coffeescript.org/
 
 
-###
+
 $(window).scroll (e) ->
   scroller_anchor = $(".scroller_anchor").offset().top
   if $(this).scrollTop() >= scroller_anchor and $(".scroller").css("position") isnt "fixed"
@@ -18,6 +18,6 @@ $(window).scroll (e) ->
     $(".scroller").css
       position: "relative"
   return
-###
+
 
 
