@@ -16,13 +16,8 @@ class TicketsController < ApplicationController
       else
         if @currentProject.use_max_clients
           # Check to see if the user has the max number of clients
-<<<<<<< HEAD
-          if Ticket.where('user_id = ? AND project_id = ?', current_user.id, get_current_project.id).size >= @currentProject.max_clients
-            updates = {'userMessage' => '<span class="text-danger" id="ticket_message">You have reached the maximum number of clients!</span>'}
-=======
           if Ticket.where('user_id = ? AND project_id = ?', current_user.id, get_current_project.id).size - (0) >= @currentProject.max_clients
-            updates = {'userMessage' => 'You have reached the maximum number of clients!'}
->>>>>>> fb3c1d6a3bafff9f9116b66ce4e065554c8a2a81
+            updates = {'userMessage' => '<span class="text-danger" id="ticket_message">You have reached the maximum number of clients!</span>'}
             allowed = false
           else
             allowed = true

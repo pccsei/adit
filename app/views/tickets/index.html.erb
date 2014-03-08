@@ -45,30 +45,19 @@ $(function() {
 });
 </script>
 
-<<<<<<< HEAD
+
 <div class="scroller_anchor"></div>    
 <div class="scroller" id ="alerts">
-<% if @clientsLeft && @clientsLeft > 0 %>
-  <p>You can get <%= @clientsLeft %> more clients</p>
-<% else %>
-	<p id="highPriority"> High priority: <span class="badge"><%= @highPriority < 0 ? 0 : @highPriority%></span></p>
-	<p id="midPriority">  Medium priority: <span class="badge"><%= @midPriority < 0 ? 0 : @midPriority%></span></p>
-	<p id="lowPriority"> Low priority:  <span class="badge"><%= @lowPriority < 0 ? 0 : @lowPriority%></span></p>
-=======
-<div class="scroller_anchor"></div>  
-
-<div class="scroller alert alert-info" id = "alerts">
 <% if @clientsLeft %>
 	<% if @clientsLeft > 0 %>
   		<p>You can get <%= @clientsLeft %> more clients</p>
-  	<% else %>
-  		<p>You cannot get anymore clients</p>
-  	<% end %>
+	<% else %>
+		<p>You cannot get anymore clients</p>
+	<% end %>
 <% else %>
-	<p id="highPriority">You can get <span id='highPriorityCount'><%= @highPriority < 0 ? 0 : @highPriority%></span> more high priority clients</p>
-	<p id="mediumPriority">You can get <span id='mediumPriorityCount'><%= @midPriority < 0 ? 0 : @midPriority%></span> more medium priority clients</p>
-	<p id="lowPriority">You can get <span id='lowPriorityCount'><%= @lowPriority < 0 ? 0 : @lowPriority%></span> more clients low priority clients</p>
->>>>>>> fb3c1d6a3bafff9f9116b66ce4e065554c8a2a81
+	<p id="highPriority"> High priority: <span id='highPriorityCount' class="badge"><%= @highPriority < 0 ? 0 : @highPriority%></span></p>
+	<p id="midPriority">  Medium priority: <span id='mediumPriorityCount' class="badge"><%= @midPriority < 0 ? 0 : @midPriority%></span></p>
+	<p id="lowPriority"> Low priority:  <span id='lowPriorityCount' class="badge"><%= @lowPriority < 0 ? 0 : @lowPriority%></span></p>
 <% end %>
   
   <% if open = (@currentProject.tickets_close_time > Time.now) %>
