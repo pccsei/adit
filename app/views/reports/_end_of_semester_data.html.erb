@@ -1,0 +1,69 @@
+<table class ="display">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Company</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Contact</th>
+      <th>Telephone</th>
+      <th>Sold Arrow Years</th>
+      <th>Sold Calendar Years</th>
+      <th>Page Size</th>
+      <th>Sales</th>      
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Team Leader</th>
+      <th>Payment</th>
+      <th>Ad/Status</th>
+      <!--th>Comments</th--> 
+
+    </tr>
+  </thead>
+  <tbody>
+    <% @end_data.each do |d| %>
+      <tr>
+        <td><%= d.date %></td>
+        <td><%= d.company %></td>
+        <td><%= d.address %></td>
+        <td><%= d.city %></td>
+        <td><%= d.state %></td>
+        <td><%= d.zip %></td>
+        <td><%= d.contact %></td>
+        <td><%= d.telephone %></td>
+        <td><%= d.arrow %></td>
+        <td><%= d.calendar %></td>
+        <td><%= d.page_size %></td>
+        <td><%= d.sales %></td>
+        <td><%= d.first_name %></td>
+        <td><%= d.last_name %></td>
+        <td><%= d.team %></td>
+        <td><%= d.payment %></td>
+        <td><%= d.ad_status %></td>
+      </tr> 
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td align ="center">Totals</td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"><%= @end_sale_total %></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+    </tr> 
+  </tfoot>
+</table>

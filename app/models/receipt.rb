@@ -53,7 +53,7 @@ class Receipt < ActiveRecord::Base
     Receipt.where(user_id: student_id, made_sale: true, ticket_id: Ticket.where(project_id: project))
   end
 
-  def self.all_sold_clients_in_section(project, section_number)
+  def self.all_sold_clients_in_section(project, section_number="all")
     if section_number != "all"
       Receipt.where(made_sale: true, ticket_id: Ticket.where(project_id: project.id)) & Receipt.where(user_id: User.where(id: Member.where(section_number: section_number).pluck(:user_id)))
     else
@@ -114,6 +114,14 @@ class Receipt < ActiveRecord::Base
     self.ticket.user_id = nil
   end
     
- 
+  def self.get_sold_receipts_for_client_up_to_project(client, project)
+      client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? OR semester = ? AND year < ?", "Spring", (project.year), "Fall", (project.year - 1)).ids))
+  end
+
+  def self.years_client_has_bought_class(client, project)
+      arrow =    Project.where(id: Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? AND project_type_id = ? OR semester = ? AND year < ? AND project_type_id = ? ", "Spring", (project.year), ProjectType.find_by(name: "Arrow"),    "Fall", (project.year - 1), ProjectType.find_by(name: "Arrow"   )).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year)
+      calendar = Project.where(id: Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? AND project_type_id = ? OR semester = ? AND year < ? AND project_type_id = ? ", "Spring", (project.year), ProjectType.find_by(name: "Calendar"), "Fall", (project.year - 1), ProjectType.find_by(name: "Calendar")).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year)
+      return calendar, arrow
+  end
 end
 
