@@ -502,7 +502,20 @@ projects = Project.create!([{year: 2008, semester: 'Fall', tickets_open_time: Da
 
 priorities = Priority.create!([{name: 'high'}, {name: 'medium'}, {name: 'low'}])
 
-users = User.create!([{school_id: 'Anonymous', role: 0, first_name: 'John', last_name: 'Doe', email: 'noreply@faculty.pcci.edu', phone: '000-0000', box: 9999}])
+users = User.create!([{school_id: 'Anonymous', role: 0, first_name: 'John', last_name: 'Doe', email: 'noreply@faculty.pcci.edu', phone: '000-0000', box: 9999},
+                      {school_id: '117288', role: 1, first_name: 'John', last_name: 'Doe', email: 'gbadge5789@students.pcci.edu', phone: '17-6808-1', box: 9999},
+                      {school_id: '116431', role: 1, first_name: 'John', last_name: 'Doe', email: 'jcanip5463@students.pcci.edu', phone: '17-1303-2', box: 9999},
+                      {school_id: '116042', role: 1, first_name: 'John', last_name: 'Doe', email: 'schapp1161@students.pcci.edu', phone: '17-6904-1', box: 9999},
+                      {school_id: '117751', role: 1, first_name: 'John', last_name: 'Doe', email: 'cchord1692@students.pcci.edu', phone: '17-6328-1', box: 9999},
+                      {school_id: '117567', role: 1, first_name: 'John', last_name: 'Doe', email: 'nconra2202@students.pcci.edu', phone: '17-6510-1', box: 9999},
+                      {school_id: '116766', role: 1, first_name: 'John', last_name: 'Doe', email: 'zevans8222@students.pcci.edu', phone: '17-1403-4', box: 9999},
+                      {school_id: '114369', role: 1, first_name: 'John', last_name: 'Doe', email: 'aharpe1129@students.pcci.edu', phone: '17-1169-2', box: 9999},
+                      {school_id: '118679', role: 1, first_name: 'John', last_name: 'Doe', email: 'jmiyas1311@students.pcci.edu', phone: '17-6727-2', box: 9999},
+                      {school_id: '115245', role: 1, first_name: 'John', last_name: 'Doe', email: 'jmulvi1261@students.pcci.edu', phone: '17-6308-1', box: 9999},
+                      {school_id: '117602', role: 1, first_name: 'John', last_name: 'Doe', email: 'dscull4171@students.pcci.edu', phone: '17-1315-1', box: 9999},
+                      {school_id: '116730', role: 1, first_name: 'John', last_name: 'Doe', email: 'sweave3686@students.pcci.edu', phone: '17-6622-2', box: 9999},
+                      {school_id: '115749', role: 1, first_name: 'John', last_name: 'Doe', email: 'kwodom1512@students.pcci.edu', phone: '17-2111-1', box: 9999},
+                      {school_id: '116156', role: 1, first_name: 'John', last_name: 'Doe', email: 'ryoder0017@students.pcci.edu', phone: '17-6324-1', box: 9999}])
 
 priority_id = (Priority.find_by name: 'low').id
 
