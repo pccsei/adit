@@ -1,4 +1,4 @@
-<% provide(:title, "Create Section") %>
+<% provide(:title, 'Create Section') %>
 
 <%= form_tag(users_assign_teacher_to_section_path) do %>
 
@@ -8,13 +8,13 @@
 	<% select.push(selection) %>
 <% end %>
 
-<%=label_tag "Please select the section number:" %>
+<%=label_tag 'Please select the section number:' %>
 <%=select_tag :section, options_for_select(select), :class => 'btn btn-large btn-dropdown btn-sm' %>
 
-<%=label_tag "Please select the teacher:" %>
+<%=label_tag 'Please select the teacher:' %>
 <%= collection_select  :school_id, :id, User.all_teachers, :id, :school_id, :class => 'btn btn-large btn-dropdown btn-sm'   %>
 
-<%= submit_tag "Create this section", :class => 'btn btn-large btn-primary btn-sm' %>
+<%= submit_tag 'Create this section', :class => 'btn btn-large btn-primary btn-sm' %>
 <br /><br />
 <%= link_to 'Back to Manage Section', users_path, :class => 'btn btn-large btn-primary btn-sm' %>
 
