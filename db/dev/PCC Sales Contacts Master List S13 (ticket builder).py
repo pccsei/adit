@@ -24,9 +24,10 @@ def main():
     with open(OUT_PATH, 'wb') as out_file:
         out_file.write(b"priority_id = (Priority.find_by name: 'low').id\r\n")
         out_file.write(b'tickets = Ticket.create([')
-        with security.open(IN_PATH, newline='') as file:
+        with security.open(IN_PATH, newline='') as in_file:
+            in_file.readline(); in_file.readline()
             first_line = True
-            for row in csv.DictReader(file):
+            for row in csv.DictReader(in_file):
                 strip_all(row)
                 for column in PROJECT_TYPES:
                     for year in create_years(row[column]):

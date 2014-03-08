@@ -80,28 +80,7 @@
         <div class="actions">
           <%= f.submit :'Update Project', :class => 'btn btn-small btn-primary' %>
         </div>
-
-        <script>
-            $('#project_tickets_open_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT", minDate: new Date });
-            $('#project_tickets_close_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
-        </script>
 <% end %>
 </div>
 </div>
-<!-- This adds client-side validation -->
-<script>
-    $(document).ready(function () {
 
-        $("#new_project").validate({
-            rules: {
-                "project[tickets_open_time]": {required: true, date: true},
-                "project[tickets_close_time]": {required: true, date: true}
-
-            },
-            messages: {
-                "project[tickets_open_time]": "Please select an open time.",
-                "project[tickets_close_time]": "Please select a close time."
-            }
-        });
-    });
-</script>

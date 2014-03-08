@@ -10,6 +10,15 @@
       <th>Points</th>
     </tr>
   </thead>
+  <tfoot>
+  <td align ="center">Totals</td>
+  <td align ="center"></td>
+  <td align ="center"><%= @team_totals.total_open%></td>
+  <td align ="center"><%= @team_totals.total_sold %></td>
+  <td align ="center"><%= @team_totals.total_released %></td>
+  <td align ="center"><%= @team_totals.total_sales %></td>
+  <td align ="center"><%= @team_totals.total_points %></td>
+  </tfoot>
   <tbody>
     <% @team_data.each do |team_data| %>
       <tr>
@@ -23,13 +32,4 @@
       </tr>
     <% end %>
   </tbody>
-  <tfoot>
-    <td align ="center">Totals</td>
-    <td align ="center"></td>
-    <td align ="center"><%= @team_totals.total_open%></td>
-    <td align ="center"><%= @team_totals.total_sold %></td>
-    <td align ="center"><%= @team_totals.total_released %></td>
-    <td align ="center"><%= @team_totals.total_sales %></td>
-    <td align ="center"><%= @team_totals.total_points %></td>
-  </tfoot>
 </table>
