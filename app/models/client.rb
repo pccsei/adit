@@ -33,7 +33,7 @@ class Client < ActiveRecord::Base
    
 # Validates the telephone
   validates :telephone, allow_blank: true, format: {
-    with: /\A(17\s*-\s*\d{4}\s*-\s*[1-4]|((\d{3}\s*-\s*){1,2}\d{4})?(\s*[Ee][Xx][Tt]\.?\s*\d{1,7})?)\Z/,
+    with: /\A(17\s*-\s*\d{4}\s*-\s*[1-4]|(\d{3}\s*-\s*){1,2}\d{4}(\s*[Ee][Xx][Tt]\.?\s*\d{1,7})?)\Z/,
     message: 'must be a valid telephone number.'
   }
 
