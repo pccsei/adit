@@ -9,7 +9,7 @@ class Action < ActiveRecord::Base
        receipt.made_contact = true
     elsif action_name == 'Presentation'
       receipt.made_presentation = true
-    elsif action_name == ('New Sale' || 'Old Sale')
+    elsif (action_name == 'New Sale' || action_name == 'Old Sale')
       receipt.made_sale    = true
       receipt.sale_value   = price
       receipt.page_size    = page
@@ -54,7 +54,7 @@ class Action < ActiveRecord::Base
     elsif action.action_type.name == 'First Contact'
       action.receipt.made_contact = false
       receipt.made_contact = false
-    elsif action.action_type.name == ('New Sale' || 'Old Sale')
+    elsif (action.action_type.name == 'New Sale' || action.action_type.name == 'Old Sale')
       action.receipt.made_sale = false
       action.receipt.sale_value = 0
       action.receipt.page_size = 0

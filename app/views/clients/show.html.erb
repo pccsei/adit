@@ -45,7 +45,7 @@
   <%= @client.submitter %>
 </p>
 
-<% if current_user.role == 3%>
+<% if (current_user.role == 3 || current_user.school_id == @client.submitter) %>
 <%= link_to 'Edit', edit_client_path(@client) %>
 <% end %>
 <%= link_to 'Back', clients_path %>

@@ -77,6 +77,10 @@ class Receipt < ActiveRecord::Base
 
     Receipt.where(user_id: student_id, ticket_id: Ticket.where(project_id: project)) - Receipt.where(user_id: student_id, ticket_id: Ticket.where(project_id: project), ticket_id: Ticket.where(user_id: student_id)) 
   end
+  
+  def self.is_released(receipt)
+    (receipt.made_sale != true && receipt.user_id != receipt.ticket.user_id)
+  end
 
   def self.sales_total(student_id, project)
     sales = self.sold_clients(student_id, project)

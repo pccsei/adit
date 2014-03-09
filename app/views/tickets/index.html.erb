@@ -4,6 +4,18 @@
 <script>
 var last_update = "<%= Time.now.utc.strftime('%Y-%m-%d %H:%M:%S') %>";
 	
+//getSysTime = 
+
+var getSysTime;
+$.get( "/tickets/get_sys_time",
+  function( sys_time ) {
+    getSysTime = sys_time;
+  });	
+	
+console.log(getSysTime);
+	
+	
+	
 $(function() {
 	    
   $(".addTicket").click(function(caller) {
@@ -39,29 +51,32 @@ $(function() {
     setTimeout(updateClients, 2000);
 	}
 	
-	$(".autoHide").hide();	
-	$(".defaultTooltip").tooltip();
 	//setTimeout(updateClients, 1000);
 });
+
 </script>
 
-<div class="scroller_anchor"></div>  
 
-<div class="scroller alert alert-info" id = "alerts">
-<% if @clientsLeft && @clientsLeft > 0 %>
-  <p>You can get <%= @clientsLeft %> more clients</p>
+<div class="scroller_anchor"></div>    
+<div class="scroller" id ="alerts">
+<% if @clientsLeft %>
+	<% if @clientsLeft > 0 %>
+  		<p>You can get <%= @clientsLeft %> more clients</p>
+	<% else %>
+		<p>You cannot get anymore clients</p>
+	<% end %>
 <% else %>
-	<p id="highPriority">You can get <span id='highPriorityCount'><%= @highPriority < 0 ? 0 : @highPriority%></span> more high priority clients</p>
-	<p id="mediumPriority">You can get <span id='mediumPriorityCount'><%= @midPriority < 0 ? 0 : @midPriority%></span> more medium priority clients</p>
-	<p id="lowPriority">You can get <span id='lowPriorityCount'><%= @lowPriority < 0 ? 0 : @lowPriority%></span> more clients low priority clients</p>
+	<p id="highPriority"> High priority: <span id='highPriorityCount' class="badge"><%= @highPriority < 0 ? 0 : @highPriority%></span></p>
+	<p id="midPriority">  Medium priority: <span id='mediumPriorityCount' class="badge"><%= @midPriority < 0 ? 0 : @midPriority%></span></p>
+	<p id="lowPriority"> Low priority:  <span id='lowPriorityCount' class="badge"><%= @lowPriority < 0 ? 0 : @lowPriority%></span></p>
 <% end %>
-  <p id="userMessage">
+  
   <% if open = (@currentProject.tickets_close_time > Time.now) %>
-    You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.
+    <p id="ticket_info">You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.</p>
   <% else %>
     You are no longer able to select clients.
   <% end %>
-  </p>
+  <p id="userMessage"></p>
 </div>
 
 
@@ -85,13 +100,12 @@ $(function() {
     </tr>
   </thead>
   <tbody>
-
     <% @tickets.each do |ticket| %>
       <tr>
       	<% client = Client.find(ticket.client_id); ticketClass = "addTicket "; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : "autoHide "); %>
       	<% if open %>	
-        <% priorityColor =  Priority.find(ticket.priority_id).name %>
- 	  	  <td><%= button_tag 'add', type: 'button', :id => ticket.id, :class => '' << ticketClass << priorityColor, :disabled => (no_more_tickets ? true : false) %>
+        <% priorityColor = Priority.find(ticket.priority_id).name %>
+ 	  	  <td><%= button_tag 'add', type: 'button', :id => ticket.id, :class => '' << ticketClass << priorityColor %>
        	  </td>
   
       	<% end %>
