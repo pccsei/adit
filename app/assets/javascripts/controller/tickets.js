@@ -44,12 +44,14 @@ onLoad(function() {
       for (i = 0; i < len; i++) { 
       console.log(json[i]);
         if (json[i].user_id == 0 || json[i].user_id == null) {
-          $('#' + json[i].client_id).show();
-          $('#' + json[i].client_id).removeClass("autoHide");
+          $('#' + json[i].id).show();
+          $('#' + json[i].id).removeClass("autoHide");
+          console.log('#' + json[i].client_id);
         }
         else {
-          $('#' + json[i].client_id).hide();
-          $('#' + json[i].client_id).addClass("autoHide");
+          $('#' + json[i].id).hide();
+          $('#' + json[i].id).addClass("autoHide");
+          console.log('#' + json[i].id);
         }
       }
       window.sysTime = json[i];
