@@ -3,7 +3,6 @@ class Project < ActiveRecord::Base
   has_many   :tickets
   has_many   :bonuses
   has_many   :members
-  has_many   :semesters
 
 # Validates the year field
   validates :year, presence: true, uniqueness: { scope: :semester, message: "can only be one active project per semester of each year."}
@@ -45,18 +44,17 @@ class Project < ActiveRecord::Base
 # Custom method to make sure the open date is before the close date  
   def start_before_end
     if(tickets_open_time && tickets_close_time)
-      errors.add(:tickets_open_time, "must be before project end.") unless
+      errors.add(:tickets_open_time, 'must be before project end.') unless
         self.tickets_open_time < self.tickets_close_time
     end
   end
   
 # Custom method to make sure the selected year is within the ticket open time year
   def current_selected_year
-    time = Time.new
     if(tickets_open_time)
-      errors.add(:tickets_open_time, "must be in the year you selected above.") unless
+      errors.add(:tickets_open_time, 'must be in the year you selected above.') unless
         self.tickets_open_time.year == self.year
-      errors.add(:tickets_close_time, "must be in the year you selected above.") unless
+      errors.add(:tickets_close_time, 'must be in the year you selected above.') unless
         self.tickets_close_time.year == self.year
     end
   end
@@ -65,29 +63,29 @@ class Project < ActiveRecord::Base
   def current_semester
     if(tickets_open_time && tickets_close_time)
       if(semester == 'Fall')
-        errors.add(:tickets_open_time, "must be in the Fall semester.") unless
+        errors.add(:tickets_open_time, 'must be in the Fall semester.') unless
           self.tickets_open_time.month.between?(9,12)
-        errors.add(:tickets_close_time, "must be in the Fall semester.") unless
+        errors.add(:tickets_close_time, 'must be in the Fall semester.') unless
           self.tickets_close_time.month.between?(9,12)
       else
-        errors.add(:tickets_open_time, "must be in the Spring semester.") unless
+        errors.add(:tickets_open_time, 'must be in the Spring semester.') unless
           self.tickets_open_time.month.between?(1,5)
-        errors.add(:tickets_close_time, "must be in the Spring semester.") unless
+        errors.add(:tickets_close_time, 'must be in the Spring semester.') unless
           self.tickets_close_time.month.between?(1,5)
       end
     end
   end
 
   def self.non_archived
-    where("year > ?", 2013)
+    where('year > ?', 2013)
   end
   
   def self.current
-    where("is_active = ?", true)
+    where('is_active = ?', true)
   end 
     
   def self.archived
-    where("year < ? and is_active = ?", 2014, false)
+    where('year < ? and is_active = ?', 2014, false)
   end
     
 end

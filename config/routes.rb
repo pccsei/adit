@@ -33,12 +33,13 @@ WhiteCollar::Application.routes.draw do
   post   '/users/new'
   get    '/users/in_section'
   get    '/tickets/release'
+  get    '/reports/end_of_semester_data'
   get    '/tickets/get_sys_time'
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets
   resources :clients
-  resources :projects, except: :show
+  resources :projects
   resources :users
   resources :receipts do
     resources :actions 
@@ -48,10 +49,8 @@ WhiteCollar::Application.routes.draw do
   
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
+  match '/no_project', to: 'sessions#no_project', via: 'get'
   match '/receipts/index/user', to: 'receipts#index', via: 'get'
-
-  # Safety net if the projects update somehow gets stopped
-  match'/projects/:id', to: 'projects#index', via: 'get'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

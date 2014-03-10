@@ -3,9 +3,10 @@
 
 <% if @user.role != 3 %>
 	<%= render 'form' %>
+	<%= link_to 'Back to Manage Section', users_path, :class => 'btn btn-large btn-primary btn-sm' %>
 <% else %>
 	<%= render 'teacher_form' %>
+	<%= link_to "Back to Teacher's Page", users_teachers_path, :class => 'btn btn-large btn-primary btn-sm' %> |
 <% end %>
 
-<%= link_to 'Show', @user, :class => 'btn btn-large btn-primary btn-sm' %> |
-<%= link_to 'Back to Manage Section', users_path, :class => 'btn btn-large btn-primary btn-sm' %>
+	<%= link_to 'Show', @user, :class => 'btn btn-large btn-primary btn-sm' %>

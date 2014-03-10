@@ -23,6 +23,9 @@ module SessionsHelper
   def sign_out
     self.current_user = nil
     cookies.delete(:remember_token)
+    session[:return_to] = nil
+    session[:selected_section_id] = nil
+    session[:selected_project_id] = nil
   end
   
     def redirect_back_or(default)

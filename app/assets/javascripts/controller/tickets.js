@@ -1,7 +1,3 @@
-
-
-
-
 $(window).scroll(function(e) {
   var scroller_anchor;
   scroller_anchor = $(".scroller_anchor").offset().top;

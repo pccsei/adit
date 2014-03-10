@@ -1,12 +1,22 @@
 <% provide(:title, 'Approve Clients') %>
+<p>or <%= link_to 'Submit Your Own', new_client_path %></p>
 
 <h3>Pending Clients</h3>
 <% if @pending_clients.present? %>
       <%= form_tag(clients_approve_client_path) do %>
          <%= render :partial => 'pending', :locals => { :pending_clients => @pending_clients} %>
          <br/>
-         <%= submit_tag 'Approve' %>
-         <%= submit_tag 'Disapprove'%>
+         <% if get_selected_project.is_active %>
+            <%= submit_tag 'Approve' %>
+            <%= submit_tag 'Approve All' %>
+            <%= submit_tag 'Disapprove'%>
+         <% else %>
+            <%= submit_tag 'Approve' ,  disabled: true%>
+            <%= submit_tag 'Approve All', disabled: true%>
+            <%= submit_tag 'Disapprove', disabled: true%>
+            <p>Please switch to the <%= link_to 'current project', projects_path %>
+               to approve/disapprove clients.</p>
+         <% end %>
       <% end %>
 <% else %>
   <p>There are currently no pending clients.</p>
@@ -17,9 +27,17 @@
 <% if @edited_pending_clients.present? %> 
       <%= form_tag(clients_approve_client_edit_path) do %>
          <%= render :partial => 'edited_pending', :locals => { :pending_clients => @edited_pending_clients} %>
-         <%= submit_tag 'Approve' %>
-         <%= submit_tag 'Approve All' %>
-         <%= submit_tag 'Disapprove'%>
+         <% if get_selected_project.is_active %>
+            <%= submit_tag 'Approve' %>
+            <%= submit_tag 'Approve All' %>
+            <%= submit_tag 'Disapprove'%>
+         <% else %>
+            <%= submit_tag 'Approve' , disabled: true %>
+            <%= submit_tag 'Approve All', disabled: true  %>
+            <%= submit_tag 'Disapprove', disabled: true %>
+            <p>Please switch to the <%= link_to 'current project', projects_path %>
+              to approve/disapprove clients.</p>
+         <% end %>
       <% end %>
 <% else %>
   <p>There are currently no edited clients.</p>
