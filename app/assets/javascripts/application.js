@@ -31,5 +31,5 @@ window.onLoad = function(callback) {
     // binds ready event and turbolink page:load event
     $(document).ready(callback);
     $(document).on('page:load',   callback);
-    $(document).on('page:change', callback);
+    //$(document).on('page:change', callback);
 };
