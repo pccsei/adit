@@ -31,7 +31,7 @@ onLoad(function() {
       $(".scroller_anchor").css("height", "50px");
     } else if ($(this).scrollTop() < scroller_anchor && $(".scroller").css("position") !== "relative") {
       $(".scroller_anchor").css("height", "0px");
-      $(".scroller").css({
+      $(".scroller").css({  
         position: "relative"
       });
     }
@@ -42,7 +42,8 @@ onLoad(function() {
       //TODO: Change URL above ^^^ to use Rails helper
       var i, len = json.length - 1; // compensating for system time appended to the end of JSON object
       for (i = 0; i < len; i++) { 
-      console.log(json[i]);
+      //console.log(json[i]);
+      //console.log($('#' + json[i]));
         if (json[i].user_id == 0 || json[i].user_id == null) {
           $('#' + json[i].id).show();
           $('#' + json[i].id).removeClass("autoHide");

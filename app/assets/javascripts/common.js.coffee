@@ -4,7 +4,7 @@
 onLoad ->
   
     $('.display').dataTable
-      "sPaginationType" : "full_numbers"
+      "bPaginate" : false
       "sScrollX" : "100%"
       "bScrollCollapse" : true
       "iDisplayLength": 50
