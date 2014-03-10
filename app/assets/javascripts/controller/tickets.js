@@ -1,5 +1,4 @@
-onLoad(function() {
-  
+onLoad(function() {  
   // Grabs the server time to use as a timestamp
   $.getJSON("/tickets/get_sys_time", function(json) {
     window.sysTime = json.time;
@@ -44,12 +43,17 @@ onLoad(function() {
       var i, len = json.length - 1; // compensating for system time appended to the end of JSON object
       for (i = 0; i < len; i++) { 
       console.log(json[i]);
-        if (json[i].user_id == 0)
-          $('#' + json[i].client_id).removeClass("autoHide").show();
-        else
-          $('#' + json[i].client_id).addClass("autoHide").hide();
+        if (json[i].user_id == 0 || json[i].user_id == null) {
+          $('#' + json[i].client_id).show();
+          $('#' + json[i].client_id).removeClass("autoHide");
+        }
+        else {
+          $('#' + json[i].client_id).hide();
+          $('#' + json[i].client_id).addClass("autoHide");
+        }
       }
       window.sysTime = json[i];
+      console.log("Updated at " + window.sysTime);
       setTimeout(updateClients, 2000);
     });
   }
