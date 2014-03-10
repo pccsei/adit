@@ -13,21 +13,6 @@
 
 <% if Project.non_archived %>
 
-    <script>
-
-    onLoad ( function() {
-
-      $(".release_button").click(function() {
-        console.log("release button clicked");
-
-        if (confirm("Are you sure you want to release this client?")) {
-          $.get("<%= url_for '/tickets/release.js?id='%>" + this.id);
-          location.reload();
-        }
-      });
-    });
-    </script>
-
       <h2>Active Clients</h2>
       <div id="active_clients" class="myclients">
         <!-- Loop -->
