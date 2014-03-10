@@ -12,7 +12,7 @@ class Ticket < ActiveRecord::Base
   
   def self.updates(stamp)
     # Grab all updates and append system time to push to the fron end
-    select('client_id, user_id').where('updated_at >= ?', stamp).all << Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')
+    select('id, client_id, user_id').where('updated_at >= ?', stamp).all << Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')
   end
   
   def self.createTickets(project)
