@@ -20,7 +20,8 @@ class ApplicationController < ActionController::Base
   
 
   def get_current_student_project
-    get_current_project && current_user.member.where(project_id: get_current_project.id)
+    get_current_project &&
+        Member.where(user_id: current_user.id, project_id: get_current_project.id).present?
   end
 
   # This method will most likely be deleted soon, use selected methods below instead                          
