@@ -1,5 +1,4 @@
 class ReportsController < ApplicationController
-  before_action :must_have_project
   before_action :only_teachers, except: [:unauthorized]
 
   def sales

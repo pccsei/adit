@@ -48,6 +48,7 @@ WhiteCollar::Application.routes.draw do
   
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
+  match '/no_project', to: 'sessions#no_project', via: 'get'
   match '/receipts/index/user', to: 'receipts#index', via: 'get'
 
   # The priority is based upon order of creation: first created -> highest priority.

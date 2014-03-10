@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :signed_in_user, only: [:new, :create]
+  skip_before_filter :signed_in_user, :must_have_project
 
   def new
 
@@ -12,10 +12,11 @@ class SessionsController < ApplicationController
       user = User.find_by school_id: params[:school_id]
       if user && (!Rails.env.production? || 
         (Rails.env.production? && User.authenticate(params[:school_id], params[:password])))
-       sign_in(user)
        if user.role == 3
+          sign_in(user)
           redirect_back_or projects_path
        else
+          sign_in(user)
           redirect_back_or tickets_path
        end
      else

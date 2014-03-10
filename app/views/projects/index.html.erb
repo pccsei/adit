@@ -7,7 +7,7 @@
         <%= link_to 'View Current Project', {controller: 'projects', action: 'select_project', input: @project.id},
                                              method: :post, :class => 'btn btn-primary btn-sm'%>
     <% else %>
-        <p>Currently, no active project exists. Please create a new project or view archived projects.</p>
+        <p class = "alert alert-info">Currently, no active project exists. Please create a new project or view archived projects.</p>
         <%= link_to 'Create New Project', new_project_path %>
     <% end %>
 
@@ -46,11 +46,10 @@
         <% end %>
     <% else %>
 
-        <p> There are currently no archived projects to view. In the future, they will appear here.</p>
+        <p class = "alert alert-info"> There are currently no archived projects to view. In the future, they will appear here.</p>
 
     <% end %>
 <% else %>
-    <p> There are currently no projects to display. Would you like to create a new project? </p>
-    <p> You will need to create a new project before you can access any other page. </p>
+    <p class = "alert alert-info"> There are currently no projects to display. Would you like to create a new project? </p>
     <%= link_to 'Create a New Project', new_project_path %>
 <% end %>
