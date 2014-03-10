@@ -1,6 +1,7 @@
 WhiteCollar::Application.routes.draw do
   root :to => 'tickets#index'
 
+  get '/users/download_help'
   post   '/clients/approve_client_edit'
   post   'clients/actually_assign'
   get    '/clients/assign'

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :only_teachers, :must_have_project, except: [:unauthorized, :need_help]
+  before_action :only_teachers, :must_have_project, except: [:unauthorized, :need_help, :download_help]
 
   # GET /users
   # GET /users.json
@@ -30,6 +30,14 @@ class UsersController < ApplicationController
   end
 
   def unauthorized    
+  end
+  
+  def download_help
+    if current_user.role == 3
+      send_file("#{Rails.root}/public/Teacher_Help.docx", :filename => "Teacher_Help.docx", :type => "application/docx")
+    else
+      send_file("#{Rails.root}/public/Student_Help.docx", :filename => "Student_Help.docx", :type => "application/docx")
+    end
   end
 
   # Add a new teacher to the section
