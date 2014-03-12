@@ -162,20 +162,21 @@ class UsersController < ApplicationController
 
     @user.help = true
 
-    if User.pluck(:school_id).include?(@user.school_id)
-      @user_same = User.find_by! school_id: @user.school_id
-      @user_same.school_id = @user.school_id
-      @user_same.first_name = @user.first_name
-      @user_same.last_name = @user.last_name
-      @user_same.classification = @user.classification
-      @user_same.box = @user.box
-      @user_same.phone = @user.phone
-      @user_same.email = @user.email
-      @user_same.major = @user.major
-      @user_same.minor = @user.minor   
-      @user_same.save
-      redirect_to @user_same
-    else
+    # Why do we need this????????????????????????????????????????????????????????
+    # if User.pluck(:school_id).include?(@user.school_id)
+      # @user_same = User.find_by! school_id: @user.school_id
+      # @user_same.school_id = @user.school_id
+      # @user_same.first_name = @user.first_name
+      # @user_same.last_name = @user.last_name
+      # @user_same.classification = @user.classification
+      # @user_same.box = @user.box
+      # @user_same.phone = @user.phone
+      # @user_same.email = @user.email
+      # @user_same.major = @user.major
+      # @user_same.minor = @user.minor   
+      # @user_same.save
+      # redirect_to @user_same
+    # else
       respond_to do |format|
         if @user.save
           if @user.role != 3
@@ -192,7 +193,7 @@ class UsersController < ApplicationController
           format.html { render action: 'new' }
           format.json { render json: @user.errors, status: :unprocessable_entity }
         end
-      end
+      # end
     end
   end
 

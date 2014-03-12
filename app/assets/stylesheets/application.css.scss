@@ -433,3 +433,8 @@ table.dataTable tr.even td.sorting_3 {
 table.display thead th div.DataTables_sort_wrapper span {
   top: 10%;
 }
+
+label.required:after {
+  content: " *";
+  color: red;
+}
