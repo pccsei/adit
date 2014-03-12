@@ -91,7 +91,7 @@ class Client < ActiveRecord::Base
       client_ticket[i].contact_title = t.client.contact_title
       client_ticket[i].city          = t.client.city
       client_ticket[i].comment       = t.client.comment
-      client_ticket[i].client_id     = t.id
+      client_ticket[i].client_id     = t.client_id
       
       if t.user_id == nil || t.user_id == 0 # If the ticket does not have a holder
         client_ticket[i].student_fname = nil
