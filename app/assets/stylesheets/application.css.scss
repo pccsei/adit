@@ -430,6 +430,10 @@ table.dataTable tr.even td.sorting_3 {
   //width: auto !important;
 }
 
+th.empty div {
+  display: none;
+}
+
 table.display thead th div.DataTables_sort_wrapper span {
   top: 10%;
 }
