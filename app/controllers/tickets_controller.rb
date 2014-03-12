@@ -167,7 +167,7 @@ class TicketsController < ApplicationController
   #####################################################################################
   
   def get_sys_time
-    render :text => Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')
+    render json: {"time" => Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')}
   end
   
   #####################################################################################
