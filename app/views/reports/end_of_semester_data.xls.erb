@@ -1,0 +1,74 @@
+<% if defined? @end_data %>
+
+<xml version="1.0">
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Date</Data></Cell>
+        <Cell><Data ss:Type="String">Company</Data></Cell>
+        <Cell><Data ss:Type="String">Address</Data></Cell>
+        <Cell><Data ss:Type="String">City</Data></Cell>
+        <Cell><Data ss:Type="String">State</Data></Cell>
+        <Cell><Data ss:Type="String">Zip</Data></Cell>
+        <Cell><Data ss:Type="String">Contact</Data></Cell>
+        <Cell><Data ss:Type="String">Telephone</Data></Cell>
+        <Cell><Data ss:Type="String">Sold Arrow Years</Data></Cell>
+        <Cell><Data ss:Type="String">Sold Calendar Years</Data></Cell>
+        <Cell><Data ss:Type="String">Page Size</Data></Cell>
+        <Cell><Data ss:Type="String">Sales</Data></Cell>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Team Leader</Data></Cell>
+        <Cell><Data ss:Type="String">Payment</Data></Cell>
+        <Cell><Data ss:Type="String">Ad/Status</Data></Cell>
+      </Row>
+    <% @end_data.each do |d| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= d.date.to_formatted_s(:long_ordinal)%> %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= d.company %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= d.address %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= d.city %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= d.state %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= d.zip %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= d.contact %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= d.telephone %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= d.arrow %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= d.calendar %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= d.page_size %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= d.sales %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= d.first_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= d.last_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= d.team %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= d.payment %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= d.ad_status %></Data></Cell>
+      </Row>
+    <% end %>
+      <Row>
+          <Cell><Data ss:Type="String">Totals</Data></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell><Data ss:Type="Number"><%= @end_sale_total %></Data></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+</Workbook>
+
+<% end %>
