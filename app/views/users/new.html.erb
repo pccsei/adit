@@ -1,10 +1,10 @@
-
-<% provide(:title, 'New user') %>
 <% if @user.role != 3 %>
+    <% provide(:title, 'New Student') %>
 	<%= params[:per_page] %>
 	<%= render 'form' %>
 	<%= link_to 'Back to Manage Section', users_path, :class => 'btn btn-large btn-primary btn-sm' %>
 <% else %>
+    <% provide(:title, 'New Teacher') %>
 	<%= render 'teacher_form' %>
 	<%= link_to "Back to Teacher's Page", users_teachers_path, :class => 'btn btn-large btn-primary btn-sm' %>
 <% end %>
