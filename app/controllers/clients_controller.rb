@@ -173,11 +173,11 @@ class ClientsController < ApplicationController
       edited_client.assign_attributes(client_params)
       # render text: client_params
       Client.make_pending_edited_client(edited_client, @client, client_params) 
-      redirect_to my_receipts_path(id: current_user.id), notice: 'Your change has been submitted.'     
+      redirect_to :back, notice: 'Your change has been submitted.'     
     else
       respond_to do |format|
         if @client.update(client_params)
-          format.html { redirect_to @client, notice: 'Client was successfully updated.' }
+          format.html { redirect_to :back, notice: 'Client was successfully updated.' }
           format.json { head :no_content }
         else
           format.html { render action: 'edit' }
