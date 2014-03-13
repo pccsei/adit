@@ -4,7 +4,7 @@
 
 <% receipt = Receipt.find_by(ticket_id: Ticket.find_by(client_id: @client)) %>
 <% if params[:where] == 'not_from_student' %>
-	<%= link_to 'Back to Client', :back, :class => 'btn btn-large btn-primary btn-sm' %>
+	<%= link_to 'Back to Client', client_path(@client), :class => 'btn btn-large btn-primary btn-sm' %>
 <% else %>
 	<%= link_to 'Back to Client', receipt_path(params[:student]), :class => 'btn btn-large btn-primary btn-sm' %>
 <% end %>
