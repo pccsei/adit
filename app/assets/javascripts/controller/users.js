@@ -98,7 +98,7 @@ onLoad(function() {
             "user[school_id]": {required: true, id_valid: true},
             "user[email]": {required: true, email: true, email_valid: true},
             "user[phone]": {valid_telephone: true},
-            "user[box]": {digits: true, rangelength: [3,4], min_digit: 1}
+            "user[box]": {required: false, digits: true, rangelength: [3,4], min_digit: 1}
         },
         messages: {
             "user[first_name]": "Please enter the user's first name.",
