@@ -32,10 +32,12 @@
         <td><%= client.telephone %></td>
         <td><%= client.comment %></td>
         <td><%= client.submitter %></td>
-        <% if (current_user.role == 3 || (current_user.first_name + ' ' + current_user.last_name) == client.submitter) %>
-        	<td><%= link_to 'Edit', edit_client_path(client) %></td>
-        <% end %>
         <td><%= link_to 'Details', client %></td>
+        <% if (current_user.role == 3) || (current_user.id == client.submitter) %>
+        	<td><%= link_to 'Edit', edit_client_path(client) %></td>
+        <% else %>
+            <td></td>
+        <% end %>
       </tr>
   <% end %>
   </tbody>
