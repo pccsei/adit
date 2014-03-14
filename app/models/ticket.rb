@@ -22,6 +22,39 @@ class Ticket < ActiveRecord::Base
     end
   end
 
+  # Boolean method that returns whether or not a student may receive more clients
+  # The three parameters are student - who is getting the ticket, project - for which project, and
+  #   access_role - the role of who is trying to add the student
+  def self.more_clients_allowed(student, project, access_role, ticket_priority)
+    # The total tickets that the student already holds
+    current_tickets = student.tickets.where('project_id = ? AND id IN (?)',
+                                             project.id, Receipt.where('user_id = ? AND made_sale = ?',
+                                                                   student.id, false).pluck(:ticket_id))
+    result = true
+
+    # Neither student nor teacher can break the max clients setting
+    if current_tickets.size >= project.max_clients
+      result = false
+
+    # If a teacher is trying to add this client, priorities do not matter
+    elsif access_role > 2
+      result = true
+
+    # If a student is trying to add this client, priorities do matter
+    elsif ticket_priority == 'high'
+       result = (project.max_high_priority_clients == -1) ||
+         (project.max_high_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'high')).size)
+    elsif ticket_priority == 'medium'
+       result = (project.max_medium_priority_clients == -1) ||
+         (project.max_medium_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'medium')).size)
+    else
+      result = (project.max_low_priority_clients == -1) ||
+         (project.max_low_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'low')).size)
+    end
+
+    return result
+  end
+=begin
   # Returns true or false depending on whether a student is able to add another client
   def self.more_clients_allowed(user, project)
     current_tickets = user.tickets.where('project_id = ? AND id IN (?)',
@@ -37,6 +70,7 @@ class Ticket < ActiveRecord::Base
     end
     return result
   end
+=end
   
   def self.get_current_tickets(uid, pid)
     where('project_id = ? AND id IN (?) AND user_id = ?', pid, Receipt.where('user_id = ? AND made_sale = ?', uid, false).pluck(:ticket_id), uid)

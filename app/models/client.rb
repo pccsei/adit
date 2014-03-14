@@ -31,11 +31,11 @@ class Client < ActiveRecord::Base
     message: 'must only have letters (no digits).'
   }
    
-# Validates the telephone
-  validates :telephone, allow_blank: true, format: {
-    with: /\A(17\s*-\s*\d{4}\s*-\s*[1-4]|(\d{3}\s*-\s*){1,2}\d{4}(\s*[Ee][Xx][Tt]\.?\s*\d{1,7})?)\Z/,
-    message: 'must be a valid telephone number.'
-  }
+# Validates the telephone - This validation breaks the seed file
+#  validates :telephone, allow_blank: true, format: {
+#    with: /\A(17\s*-\s*\d{4}\s*-\s*[1-4]|(\d{3}\s*-\s*){1,2}\d{4}(\s*[Ee][Xx][Tt]\.?\s*\d{1,7})?)\Z/,
+#    message: 'must be a valid telephone number.'
+#  }
 
    # Returns all pending clients, needs to be refactored to remove magic number
   def self.pending
@@ -69,7 +69,12 @@ class Client < ActiveRecord::Base
       pending_client = Client.find(array_of_pending_clients[i].to_i)
       pending_client.status_id = Status.where('status_type = ?', 'Unapproved').first.id
       pending_client.save
-      Ticket.where('client_id = ?', pending_client.id).first.destroy
+
+
+      if Ticket.where('client_id = ?', pending_client.id).first
+        Ticket.where('client_id = ?', pending_client.id).first.destroy
+      end
+
      end
     end
 

@@ -14,6 +14,12 @@ class TicketsController < ApplicationController
         updates = {'userMessage' => 'There is not a current project!'}
 
       else
+        requested_ticket_priority_id = Ticket.find(params[:clientID]).priority_id
+        if Ticket.more_clients_allowed(current_user, get_current_project, 1, requested_ticket_priority_id)
+          allowed = true
+        else
+          allowed = false
+=begin
         if @currentProject.use_max_clients
           # Check to see if the user has the max number of clients
           if Ticket.where('user_id = ? AND project_id = ?', current_user.id, get_current_project.id).size - (0) >= @currentProject.max_clients
@@ -35,6 +41,7 @@ class TicketsController < ApplicationController
             else            
               allowed = false
           end
+=end
         end
 
         if allowed
