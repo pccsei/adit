@@ -1,11 +1,4 @@
 <% provide(:title, 'Assign Clients') %>
-
-<% if current_user.help == true %>
-	<h2>First Time User?</h2>
-
-	<%= button_to 'Yes', :controller => :users, action: 'need_help'%>
-
-<% end %>
 <% if false %>
 <table id="ajaxTable" class="display" data-source="<%= clients_url(format: 'json')%>">
   <thead>

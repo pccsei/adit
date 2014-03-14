@@ -79,12 +79,6 @@ $(function() {
   <p id="userMessage"></p>
 </div>
 
-
-<% if current_user.help == true %>
-<h2>First Time User?</h2>
-<%= button_to 'Yes', :controller => :users, action: 'need_help'%>
-<% end %>
-
 <table class="display">
   <thead>
     <tr> 
