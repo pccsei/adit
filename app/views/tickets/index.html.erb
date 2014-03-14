@@ -103,7 +103,7 @@ $(function() {
        	  </td>
   
       	<% end %>
-      	<td><%= Priority.find(ticket.priority_id).name.capitalize %></td>
+      	<td><%= ticket.priority.name.capitalize %></td>
       	<td><%= link_to client.business_name, ticket, :class => 'btn btn-link btn-sm' %></td>
       	<td><%= client.address %></td>
       	<td><%= client.contact_title + ' ' + client.contact_fname + ' ' +  client.contact_lname%></td>
