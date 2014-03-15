@@ -1,5 +1,4 @@
 class ReportsController < ApplicationController
-  before_action :must_have_project
   before_action :only_teachers, except: [:unauthorized]
 
   def sales
@@ -31,9 +30,9 @@ class ReportsController < ApplicationController
           @sale_total               += r.sale_value
           @sales[index].team_leader  = User.get_manager_name((r.user_id), get_selected_project)
           @sales[index].payment_type = r.payment_type
-          @sales[index].section      = User.get_section_number(r.user_id, get_selected_project)
+          @sales[index].section      = Member.get_section_number(r.user_id, get_selected_project)
           if (Action.find_by(receipt_id: r.id).action_type_id)
-            @sales[index].ad_status = ActionType.find(Action.find_by(receipt_id: r.id).action_type_id).name
+            @sales[index].ad_status = ActionType.find(Action.find_by(receipt_id: r.id, action_type_id: [3,4]).action_type_id).name
           end
           index = index + 1
        end
@@ -69,7 +68,7 @@ class ReportsController < ApplicationController
           @student_array[index].first_name = s.first_name
           @student_array[index].last_name = s.last_name
           @student_array[index].student_manager = User.get_manager_name(s.id, get_selected_project)
-          @student_array[index].section = User.get_section_number(s.id, get_selected_project)
+          @student_array[index].section = Member.get_section_number(s.id, get_selected_project)
           @student_array[index].open = (Receipt.open_clients(s.id, get_selected_project)).size
           @student_totals.total_open += @student_array[index].open
           @student_array[index].sold = (Receipt.sold_clients(s.id, get_selected_project)).size
@@ -84,6 +83,14 @@ class ReportsController < ApplicationController
 
           index = index + 1
        end
+
+    CSV.generate({col_sep: "\t"}) do |csv|
+      csv << Struct::Student.members
+      @student_array.each do |product|            
+        csv << [@student_array[index]]        
+        index = index + 1
+      end
+    end 
   end
 
   # GET reports/team_summary
@@ -109,36 +116,42 @@ class ReportsController < ApplicationController
        @students = User.current_student_users(get_selected_project, get_selected_section)
        array_of_manager_ids = User.get_array_of_manager_ids_from_project_and_section(get_selected_project, get_selected_section)
        array_of_team_ids = []
-       # render text: Member.find_by(user_id: 59).project_id
-       # for i in array_of_team_ids
-       #   array_of_team_ids[i]
-       # end
-       if array_of_manager_ids.present?
-       for i in array_of_manager_ids
-          @team_data[index] = Struct::Team.new
-          @team_data[index].student_manager = User.get_manager_name(i, get_selected_project)
-          @team_data[index].section = User.get_section_number(i, get_selected_project)
-          @team_data[index].open = 0
-          @team_data[index].sold = 0
-          @team_data[index].released = 0
-          @team_data[index].sales = 0
-          @team_data[index].points = 0
-          Member.find_all_by_parent_id(i).each do |s|
-            @team_data[index].open += (Receipt.open_clients(s.user_id, get_selected_project)).size 
-            @team_data[index].sold += (Receipt.sold_clients(s.user_id, get_selected_project)).size
-            @team_data[index].released += (Receipt.released_clients(s.user_id, get_selected_project)).size
-            @team_data[index].sales += Receipt.sales_total(s.user_id, get_selected_project)
-            @team_data[index].points += Receipt.points_total(s.user_id, get_selected_project)
-          end
-            @team_totals.total_open +=     @team_data[index].open
-            @team_totals.total_sold +=     @team_data[index].sold
-            @team_totals.total_released += @team_data[index].released
-            @team_totals.total_sales +=    @team_data[index].sales
-            @team_totals.total_points +=   @team_data[index].points
 
+       if array_of_manager_ids.present?
+         for i in array_of_manager_ids
+            @team_data[index] = Struct::Team.new
+            @team_data[index].student_manager = User.get_manager_name(i, get_selected_project)
+            @team_data[index].section = Member.get_section_number(i, get_selected_project)
+            @team_data[index].open = 0
+            @team_data[index].sold = 0
+            @team_data[index].released = 0
+            @team_data[index].sales = 0
+            @team_data[index].points = 0
+            Member.find_all_by_parent_id(i).each do |s|
+              @team_data[index].open += (Receipt.open_clients(s.user_id, get_selected_project)).size 
+              @team_data[index].sold += (Receipt.sold_clients(s.user_id, get_selected_project)).size
+              @team_data[index].released += (Receipt.released_clients(s.user_id, get_selected_project)).size
+              @team_data[index].sales += Receipt.sales_total(s.user_id, get_selected_project)
+              @team_data[index].points += Receipt.points_total(s.user_id, get_selected_project)
+            end
+              @team_totals.total_open +=     @team_data[index].open
+              @team_totals.total_sold +=     @team_data[index].sold
+              @team_totals.total_released += @team_data[index].released
+              @team_totals.total_sales +=    @team_data[index].sales
+              @team_totals.total_points +=   @team_data[index].points
+
+            index = index + 1
+         end
+          index = 0
+
+      CSV.generate({col_sep: "\t"}) do |csv|
+        csv << Struct::Team.members
+        @team_data.each do |product|            
+          csv << [@team_data[index]]        
           index = index + 1
-       end
-       end
+        end
+      end 
+    end
   end
 
   def activities
@@ -166,7 +179,7 @@ class ReportsController < ApplicationController
       @activities[index].time_of_activity = a.user_action_time
       @activities[index].first_name = User.find(Receipt.find(a.receipt_id).user_id).first_name
       @activities[index].last_name = User.find(Receipt.find(a.receipt_id).user_id).last_name
-      @activities[index].section = User.get_section_number(Receipt.find(a.receipt_id).user_id, get_selected_project)
+      @activities[index].section = Member.get_section_number(Receipt.find(a.receipt_id).user_id, get_selected_project)
       @activities[index].team_leader = User.get_manager_name((Receipt.find(a.receipt_id).user_id), get_selected_project)
       @activities[index].company = Client.find(Ticket.find(Receipt.find(a.receipt_id).ticket_id).client_id).business_name
       @activities[index].activity = ActionType.find(a.action_type_id).name
@@ -181,6 +194,61 @@ class ReportsController < ApplicationController
       @activities[index].comments = a.comment
       index = index + 1
     end
+
+    index = 0
+
+    CSV.generate({col_sep: "\t"}) do |csv|
+      csv << Struct::Activity_Totals.members
+      @activities.each do |product|            
+        csv << [@activities[index]]        
+        index = index + 1
+      end
+    end 
+  end
+
+  def end_of_semester_data
+    @current = self.current_user
+
+    Struct.new("EndData", :date, :company, :address, :city, :state, :zip, :contact, :telephone, :arrow,
+                          :calendar, :page_size, :sales, :first_name, :last_name, :team, :payment, :ad_status, :comments)
+
+    @end_sale_total = 0 
+    @end_data = []                     
+    index = 0
+    sold_receipts = Receipt.all_sold_clients_in_section(get_selected_project)
+
+    sold_receipts.each do |a|
+      @end_data[index]             = Struct::EndData.new
+      @end_data[index].date        = Action.find_by(action_type_id: [3, 4], receipt_id: a.id).user_action_time
+      @end_data[index].company     = Client.find(Ticket.find(a.ticket_id).client_id).business_name
+      @end_data[index].address     = Client.find(Ticket.find(a.ticket_id).client_id).address
+      @end_data[index].city        = Client.find(Ticket.find(a.ticket_id).client_id).city
+      @end_data[index].state       = Client.find(Ticket.find(a.ticket_id).client_id).state
+      @end_data[index].zip         = Client.find(Ticket.find(a.ticket_id).client_id).zipcode
+      @end_data[index].contact     = Client.find(Ticket.find(a.ticket_id).client_id).full_name
+      @end_data[index].telephone   = Client.find(Ticket.find(a.ticket_id).client_id).telephone
+      @end_data[index].arrow       = Receipt.years_client_has_bought_class(Client.find(Ticket.find(a.ticket_id).client_id), get_selected_project)[0].to_s[1..-2]
+      @end_data[index].calendar    = Receipt.years_client_has_bought_class(Client.find(Ticket.find(a.ticket_id).client_id), get_selected_project)[1].to_s[1..-2]   
+      @end_data[index].page_size   = a.page_size
+      @end_data[index].sales       = a.sale_value
+      @end_data[index].first_name  = User.find(a.user_id).first_name
+      @end_data[index].last_name   = User.find(a.user_id).last_name
+      @end_data[index].team        = User.get_manager_name(a.user_id, get_selected_project)
+      @end_data[index].payment     = a.payment_type
+      @end_data[index].ad_status   = ActionType.find(Action.find_by(receipt_id: a.id, action_type_id: [3,4]).action_type_id).name 
+      @end_sale_total += a.sale_value
+      index = index + 1
+    end
+
+    index = 0
+
+    CSV.generate({col_sep: "\t"}) do |csv|
+      csv << Struct::EndData.members
+      @end_data.each do |product|            
+        csv << [@end_data[index]]        
+        index = index + 1
+      end
+    end 
   end
   
 private

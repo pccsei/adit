@@ -23,13 +23,13 @@ class User < ActiveRecord::Base
   }, unless: Proc.new { |user| user.role == -1 }
 
 # Validates the phone number
-  validates :phone, format: {
+  validates :phone, allow_blank: true, format: {
       with: /\A(([tT][oO][wW][nN])|(((17)\s*[-]\s*)?(\d{4})\s*[-]*\s*([1-4]{1}))*|((((\d{3})?\s*[-]*\s*)*(\d{3})\s*[-]\s*(\d{4}))*\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
       message: 'must be a valid PCC phone number or valid telephone number.'
   }, unless: Proc.new { |user| user.role == -1 }
 
 # Validates the box number
-  validates :box, length: {
+  validates :box, allow_blank: true, length: {
       minimum: 3, maximum: 4,
       message: 'is the wrong length.  Needs to be either three or four digits long.'
   }, numericality: { greater_than: 0 }, unless: Proc.new { |user| user.role == -1 }
@@ -103,52 +103,53 @@ class User < ActiveRecord::Base
     for i in 0..all_student_info.count-1
       single_student_info = all_student_info[i].split("\t")
       if !all_student_ids.include?(single_student_info[1])
-        @user = User.new
-        @user.school_id = single_student_info[1]
-        @user.first_name = single_student_info[2].split(', ')[1]
-        @user.last_name = single_student_info[2].split(', ')[0]
-        @user.classification = single_student_info[3]
-        @user.box = single_student_info[5]
-        @user.phone = single_student_info[6]
-        @user.email = single_student_info[7]
-        @user.major = single_student_info[8]
-        @user.minor = single_student_info[9]
-        @user.role = 1
-        @user.help = true
-        @user.save
-        if(@user.save)
-          @member = Member.new
-          @member.user_id = @user.id
-          @member.project_id = project_id
-          @member.section_number = section_number
-          @member.is_enabled = true
-          @member.save
+        user = User.new
+        user.school_id = single_student_info[1]
+        user.first_name = single_student_info[2].split(', ')[1]
+        user.last_name = single_student_info[2].split(', ')[0]
+        user.classification = single_student_info[3]
+        user.box = single_student_info[5]
+        user.phone = single_student_info[6]
+        user.email = single_student_info[7]
+        user.major = single_student_info[8]
+        user.minor = single_student_info[9]
+        user.role = 1
+        user.help = true
+        user.save
+        if(user.save)
+          member = Member.new
+          member.user_id = user.id
+          member.project_id = project_id
+          member.section_number = section_number
+          member.is_enabled = true
+          member.save
         else
-          @user.role = -1
-          @user.save
+          user.role = -1
+          user.save
         end
       else
-        @user = User.find_by! school_id: single_student_info[1]
-        @user.school_id = single_student_info[1]
-        @user.first_name = single_student_info[2].split(', ')[1]
-        @user.last_name = single_student_info[2].split(', ')[0]
-        @user.classification = single_student_info[3]
-        @user.box = single_student_info[5]
-        @user.phone = single_student_info[6]
-        @user.email = single_student_info[7]
-        @user.major = single_student_info[8]
-        @user.minor = single_student_info[9]
-        @user.role = 1
-        @user.help = true
-        @user.save
-        if (@member = Member.find_by(user_id: (User.find_by school_id: single_student_info[1]).id))
-          @member.user_id = @user.id
-          @member.project_id = project_id
-          @member.section_number = section_number
-          @member.is_enabled = true
+        user = User.find_by! school_id: single_student_info[1]
+        user.school_id = single_student_info[1]
+        user.first_name = single_student_info[2].split(', ')[1]
+        user.last_name = single_student_info[2].split(', ')[0]
+        user.classification = single_student_info[3]
+        user.box = single_student_info[5]
+        user.phone = single_student_info[6]
+        user.email = single_student_info[7]
+        user.major = single_student_info[8]
+        user.minor = single_student_info[9]
+        user.role = 1
+        user.help = true
+        user.save
+        if (member = Member.find_by(user_id: (User.find_by school_id: single_student_info[1]).id))
+          member.user_id = user.id
+          member.project_id = project_id
+          member.section_number = section_number
+          member.is_enabled = true
+          member.save
         else
           member = Member.new
-          member.user_id = @user.id
+          member.user_id = user.id
           member.project_id = project_id
           member.section_number = section_number
           member.is_enabled = true
@@ -337,11 +338,6 @@ class User < ActiveRecord::Base
     else
       nil
     end
-  end
-
-# Returns the section number for a given user and project
-  def self.get_section_number(student_id, project)
-    find(student_id).members.find_by(project_id: project.id).section_number
   end
 
   def self.all_students

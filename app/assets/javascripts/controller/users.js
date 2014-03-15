@@ -88,7 +88,7 @@ onLoad(function() {
 
     // Custom method to make sure the telephone is valid
     jQuery.validator.addMethod("valid_telephone", function(value, element) {
-        return this.optional(element) || /^(([tT][oO][wW][nN])|((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|((([1-9][0-9][0-9])?\s*[-]\s*)*([1-9][0-9][0-9])\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))$/.test(value);
+        return this.optional(element) || /^(([tT][oO][wW][nN])|(((17)\s*[-]\s*)?(\d{4})\s*[-]\s*([1-4]{1}))*|((([1-9][0-9][0-9])?\s*[-]\s*)*([1-9][0-9][0-9])\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))$/.test(value);
     });
 
     $("#new_user").validate({
@@ -98,7 +98,7 @@ onLoad(function() {
             "user[school_id]": {required: true, id_valid: true},
             "user[email]": {required: true, email: true, email_valid: true},
             "user[phone]": {valid_telephone: true},
-            "user[box]": {digits: true, rangelength: [3,4], min_digit: 1}
+            "user[box]": {required: false, digits: true, rangelength: [3,4], min_digit: 1}
         },
         messages: {
             "user[first_name]": "Please enter the user's first name.",

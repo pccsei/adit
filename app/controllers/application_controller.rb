@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   before_filter :signed_in_user
   protect_from_forgery with: :exception
+  before_filter :must_have_project
 
   # Adding these helper methods enables them to be used in views also
   include SessionsHelper
@@ -12,12 +13,18 @@ class ApplicationController < ActionController::Base
   helper_method :get_selected_project
   helper_method :get_selected_section
   helper_method :set_selected_section
+  helper_method :get_current_student_project
   
   # CONSTANTS
   TEACHER = 3
   STUDENT_REP = 1                     
   
-  
+
+  def get_current_student_project
+    get_current_project &&
+        Member.where(user_id: current_user.id, project_id: get_current_project.id).present?
+  end
+
   # This method will most likely be deleted soon, use selected methods below instead                          
   def get_current_project
     project = Project.find_by is_active: true
@@ -100,7 +107,10 @@ class ApplicationController < ActionController::Base
        if get_selected_project == nil
          redirect_to projects_url
        end
+     elsif !get_current_student_project
+       redirect_to no_project_path
      end
+
    end
    
 end

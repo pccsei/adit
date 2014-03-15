@@ -1,9 +1,8 @@
-<% provide(:title, "Teacher's Page") %>
+<% provide(:title, ("Manage Teachers").html_safe) %>
 
 <%= form_tag(new_user_path) do %>
 <%= submit_tag 'Add New Teacher' %>
 <% end %>
-
 
 <br><br><br>
 
@@ -11,8 +10,8 @@
 	<%= form_tag(users_change_teacher_path) do%>
 		<p>Change <span id='oldTeacher'></span> to <p>
 		<input id="memberId" type="hidden" name="member_id" />
-		<%= select_tag "teacher_to_change_to", options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name)%> 
-		<%= submit_tag "Change the Teacher" %>
+		<%= select_tag 'teacher_to_change_to', options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name)%>
+		<%= submit_tag 'Change the Teacher' %>
 	<% end %>
 </div>
 
@@ -20,8 +19,8 @@
 	<%= form_tag(users_another_teacher_to_section_path) do%>
 		<p>Add another teacher for section <span id='sectionNumber'></span><p>
   		<input id="section" type="hidden" name="section" />
-		<%= select_tag "new_teacher_to_add", options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name)%> 
-		<%= submit_tag "Add New Teacher" %>
+		<%= select_tag 'new_teacher_to_add', options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name)%>
+		<%= submit_tag 'Add New Teacher' %>
 	<% end %>
 </div>
 
@@ -37,7 +36,6 @@
 			<th>ID number</th>
 			<th>Email</th>
 			<th>Phone</th>
-			<th></th>
 			<th></th>  
 			<th></th> 
 			<th></th>                                      
@@ -53,11 +51,10 @@
 				<td><%= t.school_id%></td>
 				<td><%= t.email%></td>
 				<td><%= t.phone %></td>
-				<td><%= link_to 'Edit', edit_user_path(t.id) %></td>
 				<td><span id="newtrid<%= trid %>" name="<%= t.section_number  %>" class="fake-link btn btn-large btn-link btn-sm New_Teacher_Link">Add Another Teacher</span></td>
 				<td><span id="changetrid<%= trid; trid = trid + 1%>" name="<%= t.full_name %>" value="<%= t.m_id%>" class="fake-link btn btn-large btn-link btn-sm Change_Teacher_Link">Change Teacher</span></td>
 				<% if @number_of_teachers_per_section[t.section_number] > 1 %>
-					<td><%= link_to 'Delete', User.find(t.id), confirm: 'Are you sure?', method: :delete %></td>
+					<td><%= link_to 'Remove', User.find(t.id), confirm: 'Are you sure?', method: :delete %></td>
 				<% else %>
 						<th></th> 
 				<% end %>
@@ -66,46 +63,6 @@
 	</tbody>
 </table>
 
-<script>
-	$(function() {
-
-		$("#Change_Teacher").hide();
-		$("#New_Teacher").hide();
-
-		$(".Change_Teacher_Link").click(
-			function(caller) {
-
-			if ($("#Change_Teacher").is(":hidden") ){
-				$("#New_Teacher").hide();
-				$("#Change_Teacher").show();
-			}
-
-			console.log(
-					$("#" + caller.target.id).attr("name")
-				);
-
-			$("#oldTeacher").html( $("#" + caller.target.id).attr("name") );
-			$("#memberId").val( $("#" + caller.target.id).attr("value") )
-			});
-
-
-		$(".New_Teacher_Link").click(
-			function(caller) {
-
-			if ($("#New_Teacher").is(":hidden") ){
-				$("#Change_Teacher").hide();
-				$("#New_Teacher").show();
-			}
-
-			console.log(
-					$("#" + caller.target.id).attr("name")
-				);
-
-			$("#sectionNumber").html( $("#" + caller.target.id).attr("name") );
-			$("#section").val( $("#" + caller.target.id).attr("name") )
-			});
-	});
-</script>
 <br><br>
 <h2>Teacher Roster</h2>
 <table class ="table dataTable">

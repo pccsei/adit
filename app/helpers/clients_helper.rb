@@ -15,6 +15,10 @@ module ClientsHelper
   end
 
   def more_tickets_allowed
-    Ticket.more_clients_allowed(current_user, get_current_project)
+    Ticket.more_clients_allowed(current_user, get_current_project, current_user.role, 'low')
+  end
+
+  def get_submitter_info(submitter_id)
+    User.find(submitter_id).school_id
   end
 end

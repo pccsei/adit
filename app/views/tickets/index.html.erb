@@ -1,127 +1,58 @@
 <% provide(:title, 'Choose Clients') %>
 
 <% if @tickets %>
-<script>
-var last_update = "<%= Time.now.utc.strftime('%Y-%m-%d %H:%M:%S') %>";
-	
-//getSysTime = 
-
-var getSysTime;
-$.get( "/tickets/get_sys_time",
-  function( sys_time ) {
-    getSysTime = sys_time;
-  });	
-	
-console.log(getSysTime);
-	
-	
-	
-$(function() {
-	    
-  $(".addTicket").click(function(caller) {
-  //console.log(caller.target.id);
-    $.getJSON("/tickets.json?ajax=getClient&clientID=" + caller.target.id, function(json) {
-      // TODO: Change URL above ^^^ to use Rails helper
-      if (json.Success != null) {
-        $('#' + caller.target.id).hide();
-        console.log("You got the client!");
-        selector =  $('#' + json.ticketPriority + "PriorityCount");
-        selector.html(selector.html() - 1);
-        $("#userMessage").hide().html(json.Success).fadeIn(1000);
-      }
-      else
-        $("#userMessage").hide().html(json.userMessage).fadeIn(1000);
-    });
-  });
-
-	function updateClients() {
-    $.getJSON("/tickets.json?ajax=update&timestamp=" + last_update, function(json) {
-      // TODO: Change URL above ^^^ to use Rails helper
-  	  var i, len = json.length - 1; // compensating for system time appended to the end of JSON object
-		  for (i = 0; i < len; i++) { 
-			//console.log(json[i]);
-        if (json[i].user_id == 0)
-			    $('#' + json[i].client_id).show();
-			  else
-			    $('#' + json[i].client_id).hide();
-  		}
-		  last_update = json[i];
-    });
-    //console.log("Last updated at: " + last_update);
-    setTimeout(updateClients, 2000);
-	}
-	
-	//setTimeout(updateClients, 1000);
-});
-
-</script>
 
 
-<div class="scroller_anchor"></div>    
-<div class="scroller" id ="alerts">
-<% if @clientsLeft %>
-	<% if @clientsLeft > 0 %>
-  		<p id="max_clients">Clients left: <span class="badge"> <%= @clientsLeft %></span></p>
-	<% else %>
-		<p id="no_clients" class="text-danger">You cannot get anymore clients</p>
-	<% end %>
-<% else %>
-	<p id="highPriority"> High priority: <span id='highPriorityCount' class="badge"><%= @highPriority < 0 ? 0 : @highPriority%></span></p>
-	<p id="midPriority">  Medium priority: <span id='mediumPriorityCount' class="badge"><%= @midPriority < 0 ? 0 : @midPriority%></span></p>
-	<p id="lowPriority"> Low priority:  <span id='lowPriorityCount' class="badge"><%= @lowPriority < 0 ? 0 : @lowPriority%></span></p>
-<% end %>
-  
-  <% if open = (@currentProject.tickets_close_time > Time.now) %>
-    <p id="ticket_info">You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.</p>
-  <% else %>
-    You are no longer able to select clients.
-  <% end %>
-  <p id="userMessage" class="text-danger"></p>
-</div>
+    <div class="scroller_anchor"></div>
+    <div class="scroller" id ="alerts">
+      <p id="clientsRemaining"> Picks Left: <span id='clientsRemaining' class="badge"><%= @clientsLeft %></span></p>
+      <p id="highPriority">     High priority: <span id='highPriorityCount' class="badge"><%= @highPriority < 0 ? 0 : @highPriority%></span></p>
+      <p id="midPriority">      Medium priority: <span id='mediumPriorityCount' class="badge"><%= @midPriority < 0 ? 0 : @midPriority%></span></p>
+      <p id="lowPriority">      Low priority:  <span id='lowPriorityCount' class="badge"><%= @lowPriority < 0 ? 0 : @lowPriority%></span></p>
 
 
-<% if current_user.help == true %>
-<h2>First Time User?</h2>
-<%= button_to 'Yes', :controller => :users, action: 'need_help'%>
-<% end %>
-
-<table class="display">
-  <thead>
-    <tr> 
-      <% if open %>
-      <th></th>
+      <% if open = (@currentProject.tickets_close_time > Time.now) %>
+          <p id="ticket_info">You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.</p>
+      <% else %>
+          <p id="ticket_info">You are no longer able to select clients.</p>
       <% end %>
-      <th>Priority</th>
-      <th>Business Name</th>
-      <th>Address</th>
-      <th>Person to Contact</th>
-      <th>Telephone</th>
-      <th>Comment</th> 
-    </tr>
-  </thead>
-  <tbody>
-    <% @tickets.each do |ticket| %>
+      <p id="userMessage"></p>
+    </div>
+
+    <table class="display">
+      <thead>
       <tr>
-      	<% client = Client.find(ticket.client_id); ticketClass = "addTicket "; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : "autoHide "); %>
-      	<% if open %>	
-        <% priorityColor = Priority.find(ticket.priority_id).name %>
- 	  	  <td><%= button_tag 'add', type: 'button', :id => ticket.id, :class => '' << ticketClass << priorityColor %>
-       	  </td>
-  
-      	<% end %>
-      	<td><%= Priority.find(ticket.priority_id).name.capitalize %></td>
-      	<td><%= link_to client.business_name, ticket, :class => 'btn btn-link btn-sm' %></td>
-      	<td><%= client.address %></td>
-      	<td><%= client.contact_title + ' ' + client.contact_fname + ' ' +  client.contact_lname%></td>
-      	<td align="right"><%= client.telephone %></td>
-      	<td ><%= tooltipify(client.comment).html_safe%></td>      	
-       <!-- <td><%#= link_to 'Details', ticket , :class => "btn btn-info btn-sm" %></td> -->
+        <% if open %>
+            <th></th>
+        <% end %>
+        <th>Priority</th>
+        <th>Business Name</th>
+        <th>Address</th>
+        <th>Person to Contact</th>
+        <th>Telephone</th>
+        <th>Comment</th>
       </tr>
-    <% end %>
+      </thead>
+      <tbody>
+      <% @tickets.each do |ticket| %>
+          <tr>
+            <% client = Client.find(ticket.client_id); ticketClass = "addTicket "; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : "autoHide "); %>
+            <% if open %>
+                <% priorityColor = Priority.find(ticket.priority_id).name %>
+                <td><%= button_tag 'add', type: 'button', :id => ticket.id, :class => '' << ticketClass << priorityColor %>
+                </td>
 
-  </tbody>
-</table>
+            <% end %>
+            <td><%= ticket.priority.name.capitalize %></td>
+            <td><%= link_to client.business_name, ticket, :class => 'btn btn-link btn-sm' %></td>
+            <td><%= client.address %></td>
+            <td><%= client.contact_title + ' ' + client.contact_fname + ' ' +  client.contact_lname%></td>
+            <td align="right"><%= client.telephone %></td>
+            <td ><%= tooltipify(client.comment).html_safe%></td>
+            <!-- <td><%#= link_to 'Details', ticket , :class => "btn btn-info btn-sm" %></td> -->
+          </tr>
+      <% end %>
 
-<% else %>
-	<p class="message">You are currently not part of any projects.<br />If you are not here by accident, ask your instructor to add you to the project</p>
+      </tbody>
+    </table>
 <% end%>

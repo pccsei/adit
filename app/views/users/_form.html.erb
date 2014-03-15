@@ -16,15 +16,15 @@
     </div>
     <div class = "panel-body">
   <div id="full_name">
-    <%= f.label :first_name, 'First Name' %>
+    <%= f.label :first_name, 'First Name', class: 'required' %>
     <%= f.text_field :first_name %>
-    <%= f.label :last_name, 'Last Name' %>
+    <%= f.label :last_name, 'Last Name', class: 'required' %>
     <%= f.text_field :last_name %>
   </div>
   <div id="school_info">
-    <%= f.label :school_id, 'School ID' %>
+    <%= f.label :school_id, 'School ID', class: 'required' %>
     <%= f.text_field :school_id %>
-    <%= f.label :email, 'E-mail Address' %>
+    <%= f.label :email, 'E-mail Address', class: 'required' %>
     <%= f.text_field :email %>
   </div>
   <div id="phone_box_num">

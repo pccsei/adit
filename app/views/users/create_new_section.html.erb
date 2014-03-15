@@ -11,7 +11,7 @@
 <div id="select_section">
 <%=label_tag 'Please select the section number:' %>
 <%=select_tag :section, options_for_select(select), :class => 'btn btn-large btn-dropdown btn-sm' %>
-<div>
+</div>
 
 <div id="select_teacher">
 <%=label_tag 'Please select the teacher:' %>
@@ -21,6 +21,5 @@
 <%= submit_tag 'Create this section', :class => 'btn btn-large btn-primary btn-sm' %>
 
 <%= link_to 'Back to Manage Section', users_path, :class => 'btn btn-large btn-primary btn-sm' %>
-
 
 <% end %>

@@ -27,9 +27,44 @@
 //= require_self
 //= require_directory .
 
+
+// Touch this code and die
 window.onLoad = function(callback) {
     // binds ready event and turbolink page:load event
     $(document).ready(callback);
     $(document).on('page:load',   callback);
-    $(document).on('page:change', callback);
+    //$(document).on('page:change', callback);
 };
+
+onLoad(function() {
+    var table =  $('.display').dataTable({
+        "bPaginate" : false,
+        "iCookieDuration": 60,
+        "bStateSave": false,
+        "bAutoWidth": false,
+        //true
+        "bScrollAutoCss": true,
+        "bProcessing": true,
+        "bRetrieve": true,
+        "bJQueryUI": true,
+        //"sDom": 't',
+        "sDom": '<"H"CTrf>t<"F"lip>',
+        //"sScrollY": "100%",
+        //"sScrollX": "100%",
+        "sScrollXInner": "110%",
+        "fnInitComplete": function() {
+            this.css("visibility", "visible");
+        },
+        "fnPreDrawCallback": $(".autoHide").hide()
+    }, $(".defaultTooltip").tooltip({
+        'selector': '',
+        'placement': 'left',
+        'container': 'body'
+    }));
+
+    $('table.display').each(function(i,table) {
+        $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
+    });
+
+    return table;
+});

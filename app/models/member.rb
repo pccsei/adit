@@ -13,6 +13,11 @@ class Member < ActiveRecord::Base
      end
    end
 
+  # Returns the section number for a given user and project
+    def self.get_section_number(student_id, project)
+      find_by(project_id: project.id, user_id: student_id).section_number
+    end
+
     # Returns all the student member objects of a given project
     def self.student_members(project, section = "all", choice = 1)
       teachers = User.all_teacher_ids

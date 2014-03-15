@@ -1,6 +1,5 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
-  before_action :must_have_project
   before_action :only_teachers, only: [:index, :approve, :assign, :approve_client, :approve_client_edit, :destroy]
 
 
@@ -50,10 +49,10 @@ class ClientsController < ApplicationController
     t.save    
                 
     # Create a ticket for the student if he does not already have one.
-    receipt = Receipt.where("ticket_id = ? AND user_id = ?", t.id, params[:studentID]).first
+    receipt = Receipt.where('ticket_id = ? AND user_id = ?', t.id, params[:studentID]).first
 
     Receipt.find_or_create_by(ticket_id: t.id, user_id: User.where(school_id: params[:studentID]).first.id)
-    @message = User.where(school_id: params[:studentID]).first.to_s + "is now assigned to " + t.client.business_name.to_s    
+    @message = User.where(school_id: params[:studentID]).first.to_s + 'is now assigned to ' + t.client.business_name.to_s
     
     redirect_to clients_url, :notice => User.find_by_school_id(params[:studentID]).first_name.to_s + ' is now assigned to ' + t.client.business_name    
   end
@@ -62,7 +61,12 @@ class ClientsController < ApplicationController
 
   def approve_client
     status = params['commit']
-    array_of_pending_clients = params['clients']
+
+    if status == 'Approve All'
+       array_of_pending_clients = Client.pending.ids
+    else
+       array_of_pending_clients = params['clients']
+    end
 
     if array_of_pending_clients.present?
       if status == 'Approve'
@@ -79,24 +83,10 @@ class ClientsController < ApplicationController
 
   # checks to see if the student is allowed to have more clients
   def more_allowed
-    
-    uid = User.find_by_school_id(params[:school_id])
-    r = false
-    
-    if get_current_project.use_max_clients
-      r = Ticket.more_allowed(uid, get_current_project)
-      
-    else #check relevant color
-      case (params[:priority])
-      when "high"
-        r = Ticket.more_high_allowed(uid, get_current_project)
-      when "medium"
-        r = Ticket.more_medium_allowed(uid, get_current_project)
-      when "low"
-        r = Ticket.more_low_allowed(uid, get_current_project)
-      end      
-    end
-    render :text => r
+    teacher_role = 3
+    student = User.find_by_school_id(params[:school_id])
+
+    render :text => Ticket.more_clients_allowed(student, get_selected_project, teacher_role, params[:priority])
   end
   
 #######################
@@ -110,7 +100,7 @@ class ClientsController < ApplicationController
     if status != 3
       array_of_edited_pending_clients = params['clients']
     else
-      array_of_edited_pending_clients = Client.where(status_id: 5).ids
+      array_of_edited_pending_clients = Client.edited_pending.ids
     end
     if !array_of_edited_pending_clients.nil?
       Client.approve_edited_clients(status, array_of_edited_pending_clients)   
@@ -136,7 +126,7 @@ class ClientsController < ApplicationController
     
     @client = Client.new(client_params)
     @client.status_id = (Status.find_by(status_type: 'Pending')).id
-    @client.submitter = current_user.first_name + ' ' + current_user.last_name
+    @client.submitter = current_user.id
     
     # This line should eventually place the clients on the pending clients list instead of straight into the db
     # @client.status_id = Status.where("status_type = ?", "Pending").pluck(:id) 
@@ -169,11 +159,11 @@ class ClientsController < ApplicationController
       edited_client.assign_attributes(client_params)
       # render text: client_params
       Client.make_pending_edited_client(edited_client, @client, client_params) 
-      redirect_to my_receipts_path(id: current_user.id), notice: 'Your change has been submitted.'     
+      redirect_to :back, notice: 'Your change has been submitted.'     
     else
       respond_to do |format|
         if @client.update(client_params)
-          format.html { redirect_to @client, notice: 'Client was successfully updated.' }
+          format.html { redirect_to :back, notice: 'Client was successfully updated.' }
           format.json { head :no_content }
         else
           format.html { render action: 'edit' }
@@ -203,8 +193,8 @@ class ClientsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client
-      #@client = Client.find(params[:id])
-      @client = Ticket.find(params[:tid]).client
+      @client = Client.find(params[:id])
+      #@client = Ticket.find(params[:tid]).client
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
