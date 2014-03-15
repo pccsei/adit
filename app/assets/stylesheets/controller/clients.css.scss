@@ -8,7 +8,7 @@
 
 
 .clients .panel-primary{
-	margin-top: 3em;
+	margin-top: 5em !important;
 	border-color: black;
 }
 .clients .panel-primary > .panel-heading {
@@ -18,8 +18,29 @@
 	height: 3em;
 }
 
+.clients .list-group{
+	width: 35em;
+}
 .clients .panel-heading h3{
 	margin-bottom: 2em;
+}
+
+.clients #choose_section{
+	margin-left: 45em;
+	margin-top: -22em !important;
+}
+.clients #assign{
+	width: 35em;
+	margin-bottom: 2em !important;
+}
+
+.clients #assignClient{
+	margin-top: 1.5em;
+}
+.clients .studentList{
+	width: 45em;
+	margin-top: 2em;
+	margin-left: 1em;
 }
 .clients .alert{
 	width: 45em;

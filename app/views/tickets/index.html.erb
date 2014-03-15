@@ -5,7 +5,7 @@
 
     <div class="scroller_anchor"></div>
     <div class="scroller" id ="alerts">
-      <p id="clientsRemaining"> Picks Left: <span id='clientsRemaining' class="badge"><%= @clientsLeft %></span></p>
+      <p id="clientsRemaining"> Picks Left: <span id='clientsRemainingCount' class="badge"><%= @clientsLeft %></span></p>
       <p id="highPriority">     High priority: <span id='highPriorityCount' class="badge"><%= @highPriority < 0 ? 0 : @highPriority%></span></p>
       <p id="midPriority">      Medium priority: <span id='mediumPriorityCount' class="badge"><%= @midPriority < 0 ? 0 : @midPriority%></span></p>
       <p id="lowPriority">      Low priority:  <span id='lowPriorityCount' class="badge"><%= @lowPriority < 0 ? 0 : @lowPriority%></span></p>

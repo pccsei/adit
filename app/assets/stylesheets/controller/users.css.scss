@@ -23,6 +23,7 @@
   padding: 5px;
   font-family: Tahoma, sans-serif;
   margin-left: -1em;
+  margin-bottom: 2em!important;
 }
 
 
@@ -32,7 +33,7 @@
 }
 
 .users #select_teacher{
-	margin-bottom: 1em !important;
+	margin-bottom: 3em !important;
 	margin-top: 1em !important;
 }
 
@@ -47,7 +48,7 @@
 }
 
 .users #full_name #user_last_name{
-	margin-left: 1.3em;
+	margin-left: 3em;
 	margin-right: 2em;
 }
 
@@ -57,10 +58,11 @@
 
 .users #school_info input{
 	margin-left: 1.7em;
+	margin-right: 2em;
 }
 
 .users #school_info #user_email{
-	margin-left: .95em;
+	margin-left: .7em;
 }
 
 .users #school_info{
@@ -73,11 +75,12 @@
 }
 
 .users #phone_box_num input{
-	margin-left: 1em;
+	margin-left: 2em;
+	margin-right: 2em;
 }
 
 .users #phone_box_num #user_box{
-	margin-left: 0em;
+	margin-left: .8em;
 }
 
 .users #major_minor{
@@ -85,11 +88,12 @@
 }
 
 .users #major_minor input{
-	margin-left:3.8em;
+	margin-left:4.9em;
+	margin-right:2em;
 }
 
 .users #major_minor #user_minor{
-	margin-left:6.4em;
+	margin-left: 7.1em;
 }
 
 .users #class{
@@ -102,7 +106,8 @@
 }
 
 .users .btn.btn-large.btn-primary.btn-sm{
-	margin-top:2em !important;
+	margin-top:-2em !important;
+	margin-bottom: 2em !important;
 }
 
 .users #paste{
