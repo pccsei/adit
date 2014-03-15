@@ -29,7 +29,7 @@
       </Row>
     <% @end_data.each do |d| %>
       <Row>
-        <Cell><Data ss:Type="String"><%= d.date.to_formatted_s(:long_ordinal)%> %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= d.date.to_formatted_s(:long_ordinal)%></Data></Cell>
         <Cell><Data ss:Type="String"><%= d.company %></Data></Cell>
         <Cell><Data ss:Type="String"><%= d.address %></Data></Cell>
         <Cell><Data ss:Type="String"><%= d.city %></Data></Cell>
