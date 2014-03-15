@@ -32,12 +32,10 @@ class Ticket < ActiveRecord::Base
                                                           student.id, false).pluck(:ticket_id),
                                             Ticket.where('client_id IN (?)', Client.pending.ids),
                                             project.id)
-    result = true
 
     # Neither student nor teacher can break the max clients setting
-    if current_tickets.size >= project.max_clients
+    if (current_tickets.size >= project.max_clients) && (project.max_clients != -1)
       result = false
-
       # If a teacher is trying to add this client, priorities do not matter
     elsif access_role > 2
       result = true

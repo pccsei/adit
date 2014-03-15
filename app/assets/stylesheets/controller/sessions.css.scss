@@ -1,7 +1,9 @@
-// Place all the styles related to the Sessions controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.sessions .alert-error {
 
+    text-align: center;
+    margin-left: 29em;
+    width: 24em;
+}
 .sessions .form-group input {
   padding: .4em .6em;
   margin: .5em 0;
