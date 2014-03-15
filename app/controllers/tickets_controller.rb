@@ -3,7 +3,7 @@ class TicketsController < ApplicationController
 
   def index
 
-    @currentProject = Project.select('id, max_clients, use_max_clients, max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients, tickets_close_time').where(is_active: true, id: Member.select('project_id').where(user_id: current_user.id)).first
+    @currentProject = Project.select('id, max_clients,  max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients, tickets_close_time').where(is_active: true, id: Member.select('project_id').where(user_id: current_user.id)).first
 
     if params[:ajax] == 'update'
       updates = Ticket.updates(params[:timestamp])
