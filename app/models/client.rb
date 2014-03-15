@@ -113,7 +113,7 @@ class Client < ActiveRecord::Base
     client_ticket
   end 
     
-  def Client.make_pending_edited_client(edited_client, client, client_params)
+  def Client.make_pending_edited_client(edited_client, client, client_params, user_id)
     if edited_client.attributes != Client.find(client).attributes
       pending_edited_client = Client.new
       # pending_edited_client.save 
@@ -124,6 +124,7 @@ class Client < ActiveRecord::Base
       pending_edited_client.parent_id = Client.find(client).id
       pending_edited_client.business_name        
       pending_edited_client.telephone
+      pending_edited_client.submitter = user_id
       pending_edited_client.save(:validate => false)  
     end
   end

@@ -158,7 +158,7 @@ class ClientsController < ApplicationController
       edited_client = Client.find(@client).clone
       edited_client.assign_attributes(client_params)
       # render text: client_params
-      Client.make_pending_edited_client(edited_client, @client, client_params) 
+      Client.make_pending_edited_client(edited_client, @client, client_params, current_user.id)
       redirect_to :back, notice: 'Your change has been submitted.'     
     else
       respond_to do |format|
