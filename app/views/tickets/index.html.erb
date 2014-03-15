@@ -48,7 +48,7 @@
             <td><%= client.address %></td>
             <td><%= client.contact_title + ' ' + client.contact_fname + ' ' +  client.contact_lname%></td>
             <td align="right"><%= client.telephone %></td>
-            <td ><%= tooltipify(client.comment).html_safe%></td>
+            <td ><%= tooltipify(client.comment)%></td>
             <!-- <td><%#= link_to 'Details', ticket , :class => "btn btn-info btn-sm" %></td> -->
           </tr>
       <% end %>

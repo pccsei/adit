@@ -35,7 +35,7 @@
         <td><%= a.action_type.name %></td>
         <td><%= a.user_action_time.to_formatted_s(:long_ordinal) %></td>
         <td><%= a.action_type.point_value %></td>
-        <td><%= tooltipify(a.comment).html_safe %></td>
+        <td><%= tooltipify(a.comment)%></td>
         <% if a.action_type.name == 'First Contact' && (ordered_delete[1] == "yes" || ordered_delete[2] == "yes") %>
         	<td></td>
         <% elsif a.action_type.name == 'Presentation' && ordered_delete[2] == "yes" %>
