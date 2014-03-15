@@ -32,10 +32,10 @@ class Client < ActiveRecord::Base
   }
    
 # Validates the telephone - This validation breaks the seed file
-#  validates :telephone, allow_blank: true, format: {
-#    with: /\A(17\s*-\s*\d{4}\s*-\s*[1-4]|(\d{3}\s*-\s*){1,2}\d{4}(\s*[Ee][Xx][Tt]\.?\s*\d{1,7})?)\Z/,
-#    message: 'must be a valid telephone number.'
-#  }
+  validates :telephone, allow_blank: true, format: {
+    with: /\A(((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|((((\d{3})?\s*[-]*\s*)*(\d{3})\s*[-]*\s*(\d{4}))*\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
+    message: 'must be a valid telephone number.'
+  }
 
    # Returns all pending clients, needs to be refactored to remove magic number
   def self.pending
