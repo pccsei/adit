@@ -83,14 +83,6 @@ class ReportsController < ApplicationController
 
           index = index + 1
        end
-
-    CSV.generate({col_sep: "\t"}) do |csv|
-      csv << Struct::Student.members
-      @student_array.each do |product|            
-        csv << [@student_array[index]]        
-        index = index + 1
-      end
-    end 
   end
 
   # GET reports/team_summary
@@ -134,23 +126,13 @@ class ReportsController < ApplicationController
               @team_data[index].sales += Receipt.sales_total(s.user_id, get_selected_project)
               @team_data[index].points += Receipt.points_total(s.user_id, get_selected_project)
             end
-              @team_totals.total_open +=     @team_data[index].open
-              @team_totals.total_sold +=     @team_data[index].sold
-              @team_totals.total_released += @team_data[index].released
-              @team_totals.total_sales +=    @team_data[index].sales
-              @team_totals.total_points +=   @team_data[index].points
-
+            @team_totals.total_open +=     @team_data[index].open
+            @team_totals.total_sold +=     @team_data[index].sold
+            @team_totals.total_released += @team_data[index].released
+            @team_totals.total_sales +=    @team_data[index].sales
+            @team_totals.total_points +=   @team_data[index].points
             index = index + 1
          end
-          index = 0
-
-      CSV.generate({col_sep: "\t"}) do |csv|
-        csv << Struct::Team.members
-        @team_data.each do |product|            
-          csv << [@team_data[index]]        
-          index = index + 1
-        end
-      end 
     end
   end
 
@@ -194,16 +176,6 @@ class ReportsController < ApplicationController
       @activities[index].comments = a.comment
       index = index + 1
     end
-
-    index = 0
-
-    CSV.generate({col_sep: "\t"}) do |csv|
-      csv << Struct::Activity_Totals.members
-      @activities.each do |product|            
-        csv << [@activities[index]]        
-        index = index + 1
-      end
-    end 
   end
 
   def end_of_semester_data
@@ -239,16 +211,6 @@ class ReportsController < ApplicationController
       @end_sale_total += a.sale_value
       index = index + 1
     end
-
-    index = 0
-
-    CSV.generate({col_sep: "\t"}) do |csv|
-      csv << Struct::EndData.members
-      @end_data.each do |product|            
-        csv << [@end_data[index]]        
-        index = index + 1
-      end
-    end 
   end
   
 private
