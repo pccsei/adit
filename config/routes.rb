@@ -32,7 +32,7 @@ WhiteCollar::Application.routes.draw do
   delete '/users/delete_incorrect'
   post   '/users/new'
   get    '/users/in_section'
-  get    '/tickets/release'
+  post   '/tickets/release'
   get    '/reports/end_of_semester_data'
   get    '/tickets/get_sys_time'
 
