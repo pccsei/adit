@@ -35,34 +35,53 @@
           <h3>&nbsp;How many clients can the students choose?</h3><br>
         </div>
         <div class = "panel-body">
+			
           <%= radio_button(:project, :use_max_clients, :false) %>
-          <%= label_tag(:max_color_clients, 'Total Clients in different Priorities:') %><br>
-          <div id = "priority_dropdown">
+          <%= label_tag(:max_color_clients, 'Total Clients in different Priorities:') %>
+          <div id = "high_priority">
+			  <div id="TEST">
             <%= f.label :high_priority%>
             <%= f.select(:max_high_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle'})%>
-            &nbsp; &nbsp;
+		</div>
+		 <div id = "medium_priority">
             <%= f.label :medium_priority %>
             <%= f.select :max_medium_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle'}%>
-            &nbsp; &nbsp;
+			</div>
+             <div id = "low_priority">
             <%= f.label :low_priority %>
             <%= f.select :max_low_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle'}%>
-
+			</div>
+ <div id = "max_clients_message">
             <%= radio_button(:project, :use_max_clients, :true) %>
-            <%= label_tag(:max_color_clients, 'Total Clients in total form') %><br>
+            <%= label_tag(:max_color_clients, 'Total Clients allowed:') %>
+		</div>	
+			 <div id = "max_clients">
             <%= f.label :max_clients %>
             <%= f.select :max_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle '}%>
-            <br /><br />
+         </div>
+	 </div>
           </div>
         </div>
-        <div id = "project_options">
-          <h3 class = "col-md-12 alert alert-info">&nbsp;When can the students add clients?</h3><br>
+		
+	    <div id = "project_options">
+	      <div class = "panel panel-primary">
+	        <div class = "panel-heading">
+	          <h3>&nbsp;When can the students add clients?</h3><br>
+	        </div>
+        <div id = "start_time">
           <%= f.label :tickets_open_time, 'Start Time' %>
           <%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :disabled => (get_current_project && !@project.is_active ? true : false) %>
-
+	  </div>
+	  <div id="end_time">
           <%= f.label :tickets_close_time, 'End Time' %>
           <%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :disabled => (get_current_project && !@project.is_active ? true : false) %>
         </div>
-		
+	</div
+</div>
+</div>
+	
+
+		<div id = "archived_project">
         <% if get_selected_project && (params[:id] || get_selected_project.is_active) %>
             <div class="field">
 
@@ -77,7 +96,7 @@
               <% end %>
             </div>
         <% end %>
-
+	</div>
         <div class="actions">
         	<% if get_current_project == nil %>
   				<%= f.submit :'Create Project', :class => 'btn btn-small btn-primary' %>
@@ -86,6 +105,5 @@
           	<% end %>
         </div>
 <% end %>
-</div>
 </div>
 

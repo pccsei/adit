@@ -1,99 +1,119 @@
-// Place all the styles related to the Users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.users #info_message{
+	width: 40em;
+	margin-top: 6em;
+}
 
 
-#select_section{
+.users .panel-primary{
+	margin-top: 7em;
+	border-color: black;
+}
+
+.users .panel-primary > .panel-heading {
+    color: #FFF;
+    background-color: black;
+    border-color: black;
+	height: 3em;
+}
+
+.users textarea {
+  width: 600px;
+  height: 120px;
+  border: 3px solid #cccccc;
+  padding: 5px;
+  font-family: Tahoma, sans-serif;
+  margin-left: -1em;
+}
+
+
+.users #select_section{
 	margin-bottom: 1em !important;
 	margin-top: 6em !important;
 }
 
-#select_teacher{
+.users #select_teacher{
 	margin-bottom: 1em !important;
 	margin-top: 1em !important;
 }
 
 
-#full_name{
+.users #full_name{
 	margin-top: 2em;
 }
 
-#full_name input{
+.users #full_name input{
 	margin-left: 1em;
 	margin-right: 2em;
 }
 
-#full_name #user_last_name{
+.users #full_name #user_last_name{
 	margin-left: 1.3em;
 	margin-right: 2em;
 }
 
-#school_info{
+.users #school_info{
 	margin-top: 2em;
 }
 
-#school_info input{
+.users #school_info input{
 	margin-left: 1.7em;
 }
 
-#school_info #user_email{
+.users #school_info #user_email{
 	margin-left: .95em;
 }
 
-#school_info{
+.users #school_info{
 	margin-right:2em;
 }
 
 
-#phone_box_num{
+.users #phone_box_num{
 	margin-top: 2em;
 }
 
-#phone_box_num input{
+.users #phone_box_num input{
 	margin-left: 1em;
 }
 
-#phone_box_num #user_box{
+.users #phone_box_num #user_box{
 	margin-left: 0em;
 }
 
-#major_minor{
+.users #major_minor{
 	margin-top: 2em;
 }
-#major_minor input{
+
+.users #major_minor input{
 	margin-left:3.8em;
 }
 
-#major_minor #user_minor{
+.users #major_minor #user_minor{
 	margin-left:6.4em;
 }
 
-#class{
+.users #class{
 	margin-top: 2em;
 }
 
-.actions{
+.users .actions{
 	margin-top: 2em;
 	margin-left: -1em;
 }
 
-
-.btn.btn-large.btn-primary.btn-sm{
+.users .btn.btn-large.btn-primary.btn-sm{
 	margin-top:2em !important;
 }
 
-
-
-
-#paste{
+.users #paste{
 	font-size: 15px;
 	margin-left: -20.7em;
 	margin-top: 5em;
 	float: left;
+	color: black;
 }
 
-
-#parse_box{
+.users #parse_box{
 	padding-bottom:20px;
 }
 
@@ -102,48 +122,35 @@
 	margin-top: 10px;
 }
 
-#section_type{
+.users #section_type{
 	float: right;
 	margin-top: -40px;
 }
 
-
-h1{
-  padding-top: 0px;
-}
-
-
-#manage_dropdown{
+.users #manage_dropdown{
 	margin-top: 2em;
 }
-#new_section{
+
+.users #new_section{
 	margin-top: 2em;
 	float: right;
 	margin-right: -19.4em;
 }
 
-#new_section h5 .btn-link{
-font-size: 15px;
-margin-right: 2em;
-color: black;
+.users #new_section h5 .btn-link{
+	font-size: 15px;
+	margin-right: 2em;
+	color: black;
 }
 
-
-textarea #input{
-	background-color: blue;
-}
-
-	
-
-#add_student{
+.users #add_student{
 	font-size: 15px;
 	margin-top: 5em;
+	color: black;
 }
 
-
-
-#action_submit{
+.users #action_submit{
 	margin-left: 1em;
-margin-bottom: 2em !important;
-margin-top: -.1em !important;
+	margin-bottom: 2em !important;
+	margin-top: -.1em !important;
 }

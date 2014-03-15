@@ -1,8 +1,46 @@
-// Place all the styles related to the Projects controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.actions{
+	margin-top: 2em;
+}
+#archived_project{
+	margin-top: 2em;
+}
+#start_time{
+	margin-left: 1em;
+	margin-top: 1em;
+}
+#end_time{
+	margin-left: 22em;
+	margin-top: -1.9em;
+	margin-bottom: 1em !important;
+}
+.panel-primary{
+	border-color: black;
+}
+.panel-heading{
+	color: 	white !important;
+	background-color: 	rgb(116, 116, 116) !important;
+	border-color: 	black !important;
+	height: 3em !important;
+}
 
+#high_priority{
+	margin-top: 1em;
+}
 
+#medium_priority{
+	margin-left: 13em;
+	margin-top: -1.5em;
+}
+#low_priority{
+	margin-left: 28em;
+	margin-top: -1.5em;
+}
+#max_clients_message{
+	margin-top: 2em;
+}
+#max_clients{
+	margin-top: 1em;
+}
 #project_options{
 	margin-top: 2em;
 }
