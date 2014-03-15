@@ -1,4 +1,10 @@
 <% provide(:title, 'Assign Clients') %>
+
+<p>
+  Download:
+  <%= link_to "Excel", clients_path(format: "xls") %>
+</p>
+
 <% if false %>
     <table id="ajaxTable" class="display" data-source="<%= clients_url(format: 'json')%>">
       <thead>
