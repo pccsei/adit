@@ -39,6 +39,11 @@
     <p id = "info_message" class = "alert alert-info">Please select a section to create a team or add students.</p>
 <% end %>
 
+<p>
+  Download:
+  <%= link_to "Excel", users_path(format: "xls"), :locals => { :current_students => @select_students } %>
+</p>
+
 
 <!-- Displays the incorrect students if any -->
 <% if @incorrect_students.present? %>

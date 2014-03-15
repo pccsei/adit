@@ -26,7 +26,8 @@ class UsersController < ApplicationController
     #end
     respond_to do |format|
         format.html 
-        format.js 
+        format.js
+        format.xls
     end
   end
 

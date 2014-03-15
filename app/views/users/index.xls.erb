@@ -1,0 +1,41 @@
+<xml version="1.0">
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">ID number</Data></Cell>
+        <Cell><Data ss:Type="String">Email</Data></Cell>
+        <Cell><Data ss:Type="String">Phone</Data></Cell>
+        <Cell><Data ss:Type="String">Student Manager</Data></Cell>
+        <Cell><Data ss:Type="String">Section</Data></Cell>
+        <Cell><Data ss:Type="String">Major</Data></Cell>
+        <Cell><Data ss:Type="String">Minor</Data></Cell>
+        <Cell><Data ss:Type="String">Box</Data></Cell>
+        <Cell><Data ss:Type="String">Class</Data></Cell>
+      </Row>
+      <% if defined? @select_students %>
+        <% @select_students.each do |student| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= student.first_name%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= student.last_name%></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.school_id %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= student.email %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= student.phone %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= student.student_manager_name %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.section_number %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= student.major %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= student.minor %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.box %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= student.class %></Data></Cell>
+          </Row>
+        <% end %>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
