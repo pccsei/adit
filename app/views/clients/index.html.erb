@@ -1,54 +1,54 @@
 <% provide(:title, 'Assign Clients') %>
 <% if false %>
-<table id="ajaxTable" class="display" data-source="<%= clients_url(format: 'json')%>">
-  <thead>
-    <tr>
-      <th>Business name</th>
-      <th>Address</th>
-      <th>Contact title</th>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Telephone</th>
-      <th>Comment</th>
-      <% if (project = get_selected_project).is_active == true %>
-        <th></th>
-    <% end %>
-    <th>details</th>
-  </tr>
-  </thead>
+    <table id="ajaxTable" class="display" data-source="<%= clients_url(format: 'json')%>">
+      <thead>
+      <tr>
+        <th>Business name</th>
+        <th>Address</th>
+        <th>Contact title</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Telephone</th>
+        <th>Comment</th>
+        <% if (project = get_selected_project).is_active == true %>
+            <th></th>
+        <% end %>
+        <th>details</th>
+      </tr>
+      </thead>
 
-  <tbody>
-    
-    
-  </tbody>
+      <tbody>
 
-</table>
-#################################################################################
 
-    <% end %>
+      </tbody>
+
+    </table>
+    #################################################################################
+
+<% end %>
 <table class="display" id="client_list">
   <thead>
-    <tr>
-      <% if (project = get_selected_project).is_active == true %>
-          <th>Owner</th>
-      <% end %>
-      <th>Business name</th>
-      <th>Address</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Zip</th>
-      <th>Telephone</th>
-      <th>Contact title</th>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>E-mail</th>
-      <th>Comment</th>
+  <tr>
+    <% if (project = get_selected_project).is_active == true %>
+        <th>Owner</th>
+    <% end %>
+    <th>Business name</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip</th>
+    <th>Telephone</th>
+    <th>Contact title</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>E-mail</th>
+    <th>Comment</th>
   </tr>
   </thead>
 
   <tbody>
-	<% @tickets.each do |ticket| %>
-	  <tr>
+  <% @tickets.each do |ticket| %>
+      <tr>
         <% if project.is_active == true %>
             <td>
               <% if ticket.id %>
@@ -62,7 +62,7 @@
               <% end %>
             </td>
         <% end %>
-      	<td><%= link_to ticket.business_name, client_path(ticket.client_id) %></td>
+        <td><%= link_to ticket.business_name, client_path(ticket.client_id) %></td>
         <td><%= ticket.address %></td>
         <td><%= ticket.city %></td>
         <td><%= ticket.state %></td>
