@@ -94,6 +94,7 @@ class Client < ActiveRecord::Base
       client_ticket[i].state         = t.client.state
       client_ticket[i].contact_lname = t.client.contact_lname
       client_ticket[i].contact_title = t.client.contact_title
+      client_ticket[i].address       = t.client.address
       client_ticket[i].city          = t.client.city
       client_ticket[i].comment       = t.client.comment
       client_ticket[i].client_id     = t.client_id
