@@ -1,0 +1,42 @@
+<xml version="1.0">
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Business name</Data></Cell>
+        <Cell><Data ss:Type="String">Address</Data></Cell>
+        <Cell><Data ss:Type="String">City</Data></Cell>
+        <Cell><Data ss:Type="String">State</Data></Cell>
+        <Cell><Data ss:Type="String">Zip</Data></Cell>
+        <Cell><Data ss:Type="String">Telephone</Data></Cell>
+        <Cell><Data ss:Type="String">Contact title</Data></Cell>
+        <Cell><Data ss:Type="String">First name</Data></Cell>
+        <Cell><Data ss:Type="String">Last name</Data></Cell>
+        <Cell><Data ss:Type="String">E-mail</Data></Cell>
+        <Cell><Data ss:Type="String">Comment</Data></Cell>
+      </Row>
+      <% if defined? @tickets %>
+        <% @tickets.each do |ticket| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= ticket.business_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= ticket.address %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= ticket.city %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= ticket.state %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= ticket.zipcode %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= ticket.telephone %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= ticket.contact_title %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= ticket.contact_fname %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= ticket.contact_lname %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= ticket.email %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= ticket.comment%></Data></Cell>
+          </Row>
+        <% end %>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
+
