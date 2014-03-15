@@ -340,11 +340,6 @@ class User < ActiveRecord::Base
     end
   end
 
-# Returns the section number for a given user and project
-  def self.get_section_number(student_id, project)
-    find(student_id).members.find_by(project_id: project.id).section_number
-  end
-
   def self.all_students
     where('role = ?', 1)
   end
