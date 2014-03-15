@@ -79,14 +79,12 @@ class TicketsController < ApplicationController
     ## cleaned up the program  
     elsif @currentProject              
       @tickets = Ticket.current_project(@currentProject.id)
-      
-      if @currentProject.use_max_clients
-        @clientsLeft = @currentProject.max_clients - Receipt.where('user_id = ? AND made_sale = ?', current_user.id, false).size
-      else                
-        @highPriority = Ticket.high_allowed_left(current_user.id, @currentProject) 
-        @midPriority  = Ticket.medium_allowed_left(current_user.id, @currentProject)
-        @lowPriority  = Ticket.low_allowed_left(current_user.id, @currentProject)
-      end
+
+      @clientsLeft  = Ticket.total_allowed_left(current_user.id, @currentProject)
+      @highPriority = Ticket.high_allowed_left(current_user.id, @currentProject)
+      @midPriority  = Ticket.medium_allowed_left(current_user.id, @currentProject)
+      @lowPriority  = Ticket.low_allowed_left(current_user.id, @currentProject)
+
                   
     end
     

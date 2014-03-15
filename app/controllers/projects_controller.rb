@@ -26,13 +26,6 @@ class ProjectsController < ApplicationController
   # POST /projects
   def create
     @project = Project.new(project_params)
-    if @project.use_max_clients == true
-      @project.max_high_priority_clients = 0
-      @project.max_medium_priority_clients = 0
-      @project.max_low_priority_clients = 0
-    else 
-      @project.max_clients = 0
-    end
 
       if @project.save
          set_selected_project(@project)

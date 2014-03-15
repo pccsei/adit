@@ -76,16 +76,32 @@ class Ticket < ActiveRecord::Base
     where('project_id = ? AND id IN (?) AND user_id = ?', pid, Receipt.where('user_id = ? AND made_sale = ?', uid, false).pluck(:ticket_id), uid)
   end
   
-  def self.total_allowed_left(uid, pid)
-    project.max_clients - get_current_tickets(uid, pid)
+  def self.total_allowed_left(uid, project)
+    project.max_clients - get_current_tickets(uid, project.id).size
   end
     
   def self.high_allowed_left(uid, project)
-    project.max_high_priority_clients - get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'high')).size
+    if project.max_high_priority_clients == -1
+      total_allowed_left(uid, project)
+    else
+      project.max_high_priority_clients - get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'high')).size
+    end
   end
   
   def self.medium_allowed_left(uid, project)
-    project.max_medium_priority_clients - get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'medium')).size
+    if project.max_medium_priority_clients == -1
+      total_allowed_left(uid, project)
+    else
+      project.max_medium_priority_clients - get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'medium')).size
+    end
+  end
+
+  def self.low_allowed_left(uid, project)
+    if project.max_low_priority_clients == -1
+      total_allowed_left(uid, project)
+    else
+      project.max_low_priority_clients - get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'low')).size
+    end
   end
 
   def self.cannot_select_clients(user, project)
@@ -101,10 +117,6 @@ class Ticket < ActiveRecord::Base
                         project.max_high_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'high')).size)
     end
     return result
-  end
-
-  def self.low_allowed_left(uid, project)
-    project.max_low_priority_clients - get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'low')).size
   end
   
   def self.more_allowed(uid, project)
