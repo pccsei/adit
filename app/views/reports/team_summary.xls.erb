@@ -1,0 +1,44 @@
+<% if defined? @team_totals %>
+
+<xml version="1.0">
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Team Name</Data></Cell>
+        <Cell><Data ss:Type="String">Section</Data></Cell>
+        <Cell><Data ss:Type="String">Open Clients</Data></Cell>
+        <Cell><Data ss:Type="String">Sold Clients</Data></Cell>
+        <Cell><Data ss:Type="String">Released Clients</Data></Cell>
+        <Cell><Data ss:Type="String">Sales Total</Data></Cell>
+        <Cell><Data ss:Type="String">Points</Data></Cell>
+      </Row>
+    <% @team_data.each do |team_data| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= team_data.student_manager %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= team_data.section %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= team_data.open %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= team_data.sold %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= team_data.released %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= team_data.sales %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= team_data.points %></Data></Cell>
+      </Row>
+    <% end %>
+      <Row>
+          <Cell><Data ss:Type="String">Totals</Data></Cell>
+          <Cell></Cell>
+          <Cell><Data ss:Type="Number"><%= @team_totals.total_open%></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @team_totals.total_sold %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @team_totals.total_released %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @team_totals.total_sales %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @team_totals.total_points %></Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+</Workbook>
+
+<%end%>

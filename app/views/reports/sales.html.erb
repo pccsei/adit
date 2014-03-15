@@ -1,5 +1,10 @@
 <% provide(:title, 'Sales') %>
 
+<p>
+  Download:
+  <%= link_to "Excel", reports_sales_path(format: "xls") %>
+</p>
+
 <div id = "select-section">
 <div class="btn-group">
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
