@@ -31,7 +31,7 @@
         <td><%= client.contact_lname %></td>
         <td><%= client.telephone %></td>
         <td><%= client.comment %></td>
-        <td><%= client.submitter %></td>
+        <td><%= get_submitter_info(client.submitter) %></td>
         <td><%= link_to 'Details', client %></td>
         <% if (current_user.role == 3) || (current_user.id == client.submitter) %>
         	<td><%= link_to 'Edit', edit_client_path(client) %></td>
