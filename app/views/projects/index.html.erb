@@ -33,7 +33,7 @@
                     <td><%= project.year%></td>
                     <td><%= project.semester%></td>
                     <td><%= project.project_type.name%></td>
-                    <td><%= project.comment%></td>
+                    <td><%= tooltipify(project.comment).html_safe%></td>
 					<% if get_current_project %>
 			        	<td><%= link_to 'Show', project_path(project), :class => 'btn btn-primary btn-sm' %></td>
 			        <% end %>
