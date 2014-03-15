@@ -1,4 +1,19 @@
-
+<!--div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"-->
+<div class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+		<%= form_tag(tickets_release_path) do %>
+			If you would like to leave a comment for others about this client, feel free to do below. <br />
+			<%= hidden_field_tag(:release_ticket_id) %>
+			<%= text_area_tag "release_comment", nil, :size => 20, :placeholder => "Your comment goes here" %>
+			<%= link_to "Cancel", "#", title: "cancel", :class => "btn btn-large btn-primary btn-sm closeModal" %>
+			<%= submit_tag("Release", :class =>	"btn btn-large btn-primary btn-sm")  %>			
+		<% end %>
+		    content goes here
+	</div>
+  </div>
+</div>	
+	
 <% if current_user.role == 3 %>
 <% provide(:title, (@student_user.first_name.capitalize + '\'s Clients').html_safe)%>
 <br />
@@ -23,7 +38,7 @@
           <p>Made Contact? <%= receipt.made_contact ? 'Yes!' : 'Not yet' %></p>
           <p>Made Presentation? <%= receipt.made_presentation ? 'Yes!' : 'Not yet' %></p>
           <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
-          <%= link_to image_tag('closebutton.svg', class: 'release_button', id: receipt.ticket.id), '#', title: 'Release client' %>
+          <%= link_to image_tag('closebutton.svg', class: 'release_button', id: receipt.ticket.id, data: {toggle: "modal", target: ".bs-example-modal-lg"}), '#', title: 'Release client'%>
         </div>
         <% end %>
       </div>
