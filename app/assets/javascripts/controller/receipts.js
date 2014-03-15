@@ -1,5 +1,5 @@
 onLoad(function() {  
-  $('.modal').modal({keyboard: true, show: true});
+  $('.modal').modal({keyboard: true, show: false});
   $(".release_button").click(function(){
     $("#release_ticket_id").val(this.id);
   	$('.modal').modal('show');  	
