@@ -117,21 +117,6 @@ class Ticket < ActiveRecord::Base
     end
   end
 
-  def self.cannot_select_clients(user, project)
-    current_tickets  = user.tickets.where('project_id = ? AND id IN (?)',
-                                          project.id, Receipt.where('user_id = ? AND made_sale = ?',
-                                                                    user.id, false).pluck(:ticket_id))
-    result = false
-    if project.use_max_clients
-      result = true if project.max_clients > current_tickets.size
-    else
-      result = true if (project.max_low_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'low')).size &&
-          project.max_medium_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'medium')).size &&
-          project.max_high_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'high')).size)
-    end
-    return result
-  end
-
   def self.more_allowed(uid, project)
     total_allowed_left(uid, project) > 0
   end

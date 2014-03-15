@@ -3,7 +3,7 @@ class TicketsController < ApplicationController
 
   def index
 
-    @currentProject = Project.select('id, max_clients, use_max_clients, max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients, tickets_close_time').where(is_active: true, id: Member.select('project_id').where(user_id: current_user.id)).first
+    @currentProject = Project.select('id, max_clients,  max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients, tickets_close_time').where(is_active: true, id: Member.select('project_id').where(user_id: current_user.id)).first
 
     if params[:ajax] == 'update'
       updates = Ticket.updates(params[:timestamp])
@@ -146,20 +146,22 @@ class TicketsController < ApplicationController
   end
 
   def release
-    t = Ticket.find(params[:id])  
+    t = Ticket.find(params[:release_ticket_id])
+      
     # if the person accessing the page is a teacher or the ticket holder
-    if params[:id] && (current_user.role == 3 || t.user_id = current_user.id)    
-      t = Ticket.find(params[:id])
+    if params[:release_ticket_id] && (current_user.role == 3 || t.user_id = current_user.id)    
+      #t = Ticket.find(params[:id])
+      redirectUser = t.user_id
       t.user_id = 0
       t.save
-      
-      response = {"status" => "true"}  
     else 
-      response = {"status" => "false"}
-    end    
-    respond_to do |format|
-      format.js {render json: response}
+      redirectUser = current_user.id
     end
+    
+    @d = params[:release_ticket_id]
+    
+    redirect_to my_receipts_path(redirectUser)
+    
   end
 
   def destroy
