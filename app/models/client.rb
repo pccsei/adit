@@ -82,7 +82,7 @@ class Client < ActiveRecord::Base
     ticket_info = Ticket.where(project_id: pid)
         
     Struct.new('Client_ticket', :business_name, :contact_fname, :telephone, :student_lname, :zipcode, :city, :id,
-                                :state, :contact_lname, :contact_title, :client_id, :address, :student_fname, :student_id, :comment)
+                                :state, :contact_lname, :contact_title, :client_id, :address, :email, :student_fname, :student_id, :comment)
     client_ticket = []  
     ticket_info.each_with_index do |t, i|
       client_ticket[i]               = Struct::Client_ticket.new
@@ -96,6 +96,7 @@ class Client < ActiveRecord::Base
       client_ticket[i].contact_title = t.client.contact_title
       client_ticket[i].address       = t.client.address
       client_ticket[i].city          = t.client.city
+      client_ticket[i].email         = t.client.email
       client_ticket[i].comment       = t.client.comment
       client_ticket[i].client_id     = t.client_id
       

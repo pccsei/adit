@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140301043747) do
+ActiveRecord::Schema.define(version: 20140315130200) do
 
   create_table "action_types", force: true do |t|
     t.string   "name",        null: false
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20140301043747) do
     t.integer  "status_id"
     t.string   "submitter"
     t.integer  "parent_id"
+    t.string   "email"
   end
 
   add_index "clients", ["status_id"], name: "index_clients_on_status_id", using: :btree
