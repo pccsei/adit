@@ -35,22 +35,22 @@
           <h3>&nbsp;How many clients can the students choose?</h3><br>
         </div>
         <div class = "panel-body">
-          <%= radio_button(:project, :use_max_clients, :false) %>
-          <%= label_tag(:max_color_clients, 'Total Clients in different Priorities:') %><br>
+          <%#= radio_button(:project, :use_max_clients, :false) %>
+          <%#= label_tag(:max_color_clients, 'Total Clients in different Priorities:') %><br>
           <div id = "priority_dropdown">
             <%= f.label :high_priority%>
-            <%= f.select(:max_high_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle'})%>
+            <%= f.select(:max_high_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle'})%>
             &nbsp; &nbsp;
             <%= f.label :medium_priority %>
-            <%= f.select :max_medium_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle'}%>
+            <%= f.select :max_medium_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle'}%>
             &nbsp; &nbsp;
             <%= f.label :low_priority %>
-            <%= f.select :max_low_priority_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle'}%>
+            <%= f.select :max_low_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle'}%>
 
-            <%= radio_button(:project, :use_max_clients, :true) %>
-            <%= label_tag(:max_color_clients, 'Total Clients in total form') %><br>
+            <%#= radio_button(:project, :use_max_clients, :true) %>
+            <%#= label_tag(:max_color_clients, 'Total Clients in total form') %><br>
             <%= f.label :max_clients %>
-            <%= f.select :max_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle '}%>
+            <%= f.select :max_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle '}%>
             <br /><br />
           </div>
         </div>
@@ -62,7 +62,12 @@
           <%= f.label :tickets_close_time, 'End Time', class: 'required' %>
           <%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :disabled => (get_current_project && !@project.is_active ? true : false) %>
         </div>
-		
+	</div
+</div>
+</div>
+	
+
+		<div id = "archived_project">
         <% if get_selected_project && (params[:id] || get_selected_project.is_active) %>
             <div class="field">
 
@@ -77,17 +82,14 @@
               <% end %>
             </div>
         <% end %>
-
+	</div>
         <div class="actions">
         	<% if get_current_project == nil %>
   				<%= f.submit :'Create Project', :class => 'btn btn-small btn-primary' %>
-                <%= link_to 'Back to the Projects Listing', projects_path,
-                            :class => 'btn btn-large btn-primary btn-sm' %>
-  			<% else %>
+            <% else %>
           		<%= f.submit :'Update Project', :class => 'btn btn-small btn-primary' %>
           	<% end %>
         </div>
 <% end %>
-</div>
 </div>
 

@@ -5,16 +5,18 @@
     <% if current_user.role == 3%>
         <th class="empty"></th>
     <% end %>
+    <th>Owner</th>
     <th>Business name</th>
     <th>Address</th>
-    <th>Title</th>
-    <th>First Name</th>
-    <th>Last Name</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip</th>
     <th>Telephone</th>
+    <th>Contact title</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>E-mail</th>
     <th>Comment</th>
-    <th>Owner</th>
-    <th class="empty"></th>
- 	<th class="empty"></th>
   </tr>
   </thead>
 
@@ -24,18 +26,18 @@
         <% if current_user.role == 3 %>
             <td><%= check_box_tag 'clients[]', client.id %></td>
         <% end %>
-        <td><%= client.business_name %></td>
+        <td><%= get_submitter_info(client.submitter) %></td>
+        <td><%= link_to client.business_name, client_path(client.id) %></td>
         <td><%= client.address %></td>
+        <td><%= client.city %></td>
+        <td><%= client.state %></td>
+        <td><%= client.zipcode %></td>
+        <td><%= client.telephone %></td>
         <td><%= client.contact_title %></td>
         <td><%= client.contact_fname %></td>
         <td><%= client.contact_lname %></td>
-        <td><%= client.telephone %></td>
-        <td><%= client.comment %></td>
-        <td><%= client.submitter %></td>
-        <% if (current_user.role == 3 || (current_user.first_name + ' ' + current_user.last_name) == client.submitter) %>
-        	<td><%= link_to 'Edit', edit_client_path(client) %></td>
-        <% end %>
-        <td><%= link_to 'Details', client %></td>
+        <td><%= client.email %></td>
+        <td><%= client.comment %>></td>
       </tr>
   <% end %>
   </tbody>

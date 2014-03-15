@@ -23,23 +23,23 @@
   <tbody>
     <% @end_data.each do |d| %>
       <tr>
-        <td><%= d.date %></td>
-        <td><%= d.company %></td>
-        <td><%= d.address %></td>
-        <td><%= d.city %></td>
-        <td><%= d.state %></td>
-        <td><%= d.zip %></td>
-        <td><%= d.contact %></td>
-        <td><%= d.telephone %></td>
-        <td><%= d.arrow %></td>
-        <td><%= d.calendar %></td>
-        <td><%= d.page_size %></td>
-        <td><%= d.sales %></td>
-        <td><%= d.first_name %></td>
-        <td><%= d.last_name %></td>
-        <td><%= d.team %></td>
-        <td><%= d.payment %></td>
-        <td><%= d.ad_status %></td>
+        <td><%= d.date.to_formatted_s(:long_ordinal)%>
+        <td><%= d.company %>
+        <td><%= d.address %>
+        <td><%= d.city %>
+        <td><%= d.state %>
+        <td><%= d.zip %>
+        <td><%= d.contact %>
+        <td><%= d.telephone %>
+        <td><%= d.arrow %>
+        <td><%= d.calendar %>
+        <td><%= d.page_size %>
+        <td><%= d.sales %>
+        <td><%= d.first_name %>
+        <td><%= d.last_name %>
+        <td><%= d.team %>
+        <td><%= d.payment %>
+        <td><%= d.ad_status %>
       </tr> 
     <% end %>
   </tbody>

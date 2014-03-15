@@ -30,9 +30,9 @@ class ReportsController < ApplicationController
           @sale_total               += r.sale_value
           @sales[index].team_leader  = User.get_manager_name((r.user_id), get_selected_project)
           @sales[index].payment_type = r.payment_type
-          @sales[index].section      = User.get_section_number(r.user_id, get_selected_project)
+          @sales[index].section      = Member.get_section_number(r.user_id, get_selected_project)
           if (Action.find_by(receipt_id: r.id).action_type_id)
-            @sales[index].ad_status = ActionType.find(Action.find_by(receipt_id: r.id).action_type_id).name
+            @sales[index].ad_status = ActionType.find(Action.find_by(receipt_id: r.id, action_type_id: [3,4]).action_type_id).name
           end
           index = index + 1
        end
@@ -68,7 +68,7 @@ class ReportsController < ApplicationController
           @student_array[index].first_name = s.first_name
           @student_array[index].last_name = s.last_name
           @student_array[index].student_manager = User.get_manager_name(s.id, get_selected_project)
-          @student_array[index].section = User.get_section_number(s.id, get_selected_project)
+          @student_array[index].section = Member.get_section_number(s.id, get_selected_project)
           @student_array[index].open = (Receipt.open_clients(s.id, get_selected_project)).size
           @student_totals.total_open += @student_array[index].open
           @student_array[index].sold = (Receipt.sold_clients(s.id, get_selected_project)).size
@@ -108,36 +108,32 @@ class ReportsController < ApplicationController
        @students = User.current_student_users(get_selected_project, get_selected_section)
        array_of_manager_ids = User.get_array_of_manager_ids_from_project_and_section(get_selected_project, get_selected_section)
        array_of_team_ids = []
-       # render text: Member.find_by(user_id: 59).project_id
-       # for i in array_of_team_ids
-       #   array_of_team_ids[i]
-       # end
+
        if array_of_manager_ids.present?
-       for i in array_of_manager_ids
-          @team_data[index] = Struct::Team.new
-          @team_data[index].student_manager = User.get_manager_name(i, get_selected_project)
-          @team_data[index].section = User.get_section_number(i, get_selected_project)
-          @team_data[index].open = 0
-          @team_data[index].sold = 0
-          @team_data[index].released = 0
-          @team_data[index].sales = 0
-          @team_data[index].points = 0
-          Member.find_all_by_parent_id(i).each do |s|
-            @team_data[index].open += (Receipt.open_clients(s.user_id, get_selected_project)).size 
-            @team_data[index].sold += (Receipt.sold_clients(s.user_id, get_selected_project)).size
-            @team_data[index].released += (Receipt.released_clients(s.user_id, get_selected_project)).size
-            @team_data[index].sales += Receipt.sales_total(s.user_id, get_selected_project)
-            @team_data[index].points += Receipt.points_total(s.user_id, get_selected_project)
-          end
+         for i in array_of_manager_ids
+            @team_data[index] = Struct::Team.new
+            @team_data[index].student_manager = User.get_manager_name(i, get_selected_project)
+            @team_data[index].section = Member.get_section_number(i, get_selected_project)
+            @team_data[index].open = 0
+            @team_data[index].sold = 0
+            @team_data[index].released = 0
+            @team_data[index].sales = 0
+            @team_data[index].points = 0
+            Member.find_all_by_parent_id(i).each do |s|
+              @team_data[index].open += (Receipt.open_clients(s.user_id, get_selected_project)).size 
+              @team_data[index].sold += (Receipt.sold_clients(s.user_id, get_selected_project)).size
+              @team_data[index].released += (Receipt.released_clients(s.user_id, get_selected_project)).size
+              @team_data[index].sales += Receipt.sales_total(s.user_id, get_selected_project)
+              @team_data[index].points += Receipt.points_total(s.user_id, get_selected_project)
+            end
             @team_totals.total_open +=     @team_data[index].open
             @team_totals.total_sold +=     @team_data[index].sold
             @team_totals.total_released += @team_data[index].released
             @team_totals.total_sales +=    @team_data[index].sales
             @team_totals.total_points +=   @team_data[index].points
-
-          index = index + 1
-       end
-       end
+            index = index + 1
+         end
+    end
   end
 
   def activities
@@ -165,7 +161,7 @@ class ReportsController < ApplicationController
       @activities[index].time_of_activity = a.user_action_time
       @activities[index].first_name = User.find(Receipt.find(a.receipt_id).user_id).first_name
       @activities[index].last_name = User.find(Receipt.find(a.receipt_id).user_id).last_name
-      @activities[index].section = User.get_section_number(Receipt.find(a.receipt_id).user_id, get_selected_project)
+      @activities[index].section = Member.get_section_number(Receipt.find(a.receipt_id).user_id, get_selected_project)
       @activities[index].team_leader = User.get_manager_name((Receipt.find(a.receipt_id).user_id), get_selected_project)
       @activities[index].company = Client.find(Ticket.find(Receipt.find(a.receipt_id).ticket_id).client_id).business_name
       @activities[index].activity = ActionType.find(a.action_type_id).name

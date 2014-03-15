@@ -21,35 +21,12 @@ class Receipt < ActiveRecord::Base
     
     return receipts
   end
-  
-  # JMu changed this function
-  def self.open_clients(student_id, project)
-    # receipts = Receipt.where("user_id = ? AND made_sale = ?", student_id, false)
-    # remove_receipts = []    
-    # for index in 0..(receipts.size - 1)
-    #   ticket = receipts[index].ticket
-    #   if ticket.project_id != project.id || ticket.user_id != student_id
-    #     remove_receipts.push(receipts[index])
-    #   end
-    # end
-    # return receipts - remove_receipts
 
+  def self.open_clients(student_id, project)
     Receipt.where(user_id: student_id, made_sale: false, ticket_id: Ticket.where(project_id: project), ticket_id: Ticket.where(user_id: student_id))
   end
   
-  # JMu changed this function
   def self.sold_clients(student_id, project)
-    # receipts = Receipt.where("user_id = ? AND made_sale = ?", student_id, true)
-    # remove_receipts = []
-    
-    # for index in 0..(receipts.size - 1)
-    #   ticket = receipts[index].ticket
-    #   if ticket.project_id != project.id || ticket.user_id != student_id
-    #     remove_receipts.push(receipts[index])
-    #   end
-    # end
-    # return receipts - remove_receipts
-
     Receipt.where(user_id: student_id, made_sale: true, ticket_id: Ticket.where(project_id: project))
   end
 
@@ -62,19 +39,7 @@ class Receipt < ActiveRecord::Base
 
   end
  
-   # JMu changed this function
   def self.released_clients(student_id, project)
-    # receipts = Receipt.where("user_id = ?", student_id)
-    # remove_receipts = []
-    
-    # for index in 0..(receipts.size - 1)
-    #   ticket = receipts[index].ticket
-    #   if ticket.project_id != project.id || ticket.user_id == student_id
-    #     remove_receipts.push(receipts[index])
-    #   end
-    # end
-    # return receipts - remove_receipts
-
     Receipt.where(user_id: student_id, ticket_id: Ticket.where(project_id: project)) - Receipt.where(user_id: student_id, ticket_id: Ticket.where(project_id: project), ticket_id: Ticket.where(user_id: student_id)) 
   end
   
@@ -91,20 +56,10 @@ class Receipt < ActiveRecord::Base
     return money
   end
  
-   # JMu changed this function 
   def self.points_total(student_id, project)
     receipts = Receipt.where(user_id: student_id, ticket_id: Ticket.where(project_id: project))
     points = 0
-    # remove_receipts = []
 
-    
-    # for index in 0..(receipts.size - 1)
-    #   if (receipts[index].ticket).project_id != project.id
-    #     remove_receipts << receipts[index]
-    #   end
-    # end
-    # receipts = receipts - remove_receipts
-    
     for index in 0..(receipts.size - 1)
       receipts[index].actions.each do |a|
         points += a.points_earned        

@@ -1,24 +1,15 @@
 <table class ="display">
   <thead>
     <tr>
-      <th>Team Name</th>
-      <th>Section</th>
-      <th>Open Clients</th>
-      <th>Sold Clients</th>
-      <th>Released Clients</th>
-      <th>Sales Total</th>
-      <th>Points</th>
+      <th>Team Name</td>
+      <th>Section</td>
+      <th>Open Clients</td>
+      <th>Sold Clients</td>
+      <th>Released Clients</td>
+      <th>Sales Total</td>
+      <th>Points</td>
     </tr>
   </thead>
-  <tfoot>
-  <td align ="center">Totals</td>
-  <td align ="center"></td>
-  <td align ="center"><%= @team_totals.total_open%></td>
-  <td align ="center"><%= @team_totals.total_sold %></td>
-  <td align ="center"><%= @team_totals.total_released %></td>
-  <td align ="center"><%= @team_totals.total_sales %></td>
-  <td align ="center"><%= @team_totals.total_points %></td>
-  </tfoot>
   <tbody>
     <% @team_data.each do |team_data| %>
       <tr>
@@ -28,8 +19,19 @@
         <td align ="center"><%= team_data.sold %></td>
         <td align ="center"><%= team_data.released %></td>
         <td align ="center"><%= team_data.sales %></td>
-        <td align ="center"><%= team_data.points %></td>                            
+        <td align ="center"><%= team_data.points %></td>
       </tr>
     <% end %>
   </tbody>
+  <tfoot>
+    <tr>
+      <td align ="center">Totals</td>
+      <td align ="center"></td>
+      <td align ="center"><%= @team_totals.total_open%></td>
+      <td align ="center"><%= @team_totals.total_sold %></td>
+      <td align ="center"><%= @team_totals.total_released %></td>
+      <td align ="center"><%= @team_totals.total_sales %></td>
+      <td align ="center"><%= @team_totals.total_points %></td>
+    </tr>
+  </tfoot>
 </table>
