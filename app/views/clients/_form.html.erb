@@ -61,7 +61,9 @@
       <% elsif more_tickets_allowed %>
           <%= f.submit "Submit for teacher's approval", :class => 'btn btn-small btn-primary'%>
       <% else %>
-          <p>You already have the maximum number of allowable clients.</p>
+
+          <p class="text-info">You already have the maximum allowable clients.</p>
+
           <p>Please go to <%= link_to 'My Clients', my_receipts_path(id: current_user.id) %>
             and release one of your clients before asking for another.</p>
 
