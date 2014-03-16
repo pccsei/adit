@@ -93,7 +93,7 @@ class UsersController < ApplicationController
     redirect_to users_url  
   end
   
-  # Need to get the .help set to 0....it's not right now
+  # Goes to the help page
   def need_help  
   end
 
@@ -127,8 +127,14 @@ class UsersController < ApplicationController
   def input_students_parse
     user_params = params['input']
 
-    User.parse_students(user_params, get_selected_section, session[:selected_project_id])
-
+    if User.incorrect_students.present?
+      incorrect = User.where(["school_id <= ?", -1]).last
+      User.parse_students(user_params, get_selected_section, session[:selected_project_id], incorrect.school_id.to_i)
+    else
+      incorrect = 0
+      User.parse_students(user_params, get_selected_section, session[:selected_project_id], incorrect.to_i)
+    end
+    
     redirect_to users_url
   end
   
@@ -160,23 +166,21 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    @user.help = true
-
-    # Why do we need this????????????????????????????????????????????????????????
-    # if User.pluck(:school_id).include?(@user.school_id)
-      # @user_same = User.find_by! school_id: @user.school_id
-      # @user_same.school_id = @user.school_id
-      # @user_same.first_name = @user.first_name
-      # @user_same.last_name = @user.last_name
-      # @user_same.classification = @user.classification
-      # @user_same.box = @user.box
-      # @user_same.phone = @user.phone
-      # @user_same.email = @user.email
-      # @user_same.major = @user.major
-      # @user_same.minor = @user.minor   
-      # @user_same.save
-      # redirect_to @user_same
-    # else
+     #if User.pluck(:school_id).include?(@user.school_id)
+       #redirect_to edit_user_path(User.find_by! school_id: @user.school_id), notice: 'This user already exists.  Please update or edit the user here if you need to.'
+       # @user_same = User.find_by! school_id: @user.school_id
+       # @user_same.school_id = @user.school_id
+       # @user_same.first_name = @user.first_name
+       # @user_same.last_name = @user.last_name
+       # @user_same.classification = @user.classification
+       # @user_same.box = @user.box
+       # @user_same.phone = @user.phone
+       # @user_same.email = @user.email
+       # @user_same.major = @user.major
+       # @user_same.minor = @user.minor   
+       # @user_same.save
+       #redirect_to @user_same
+     #else
       respond_to do |format|
         if @user.save
           if @user.role != 3
@@ -193,7 +197,7 @@ class UsersController < ApplicationController
           format.html { render action: 'new' }
           format.json { render json: @user.errors, status: :unprocessable_entity }
         end
-      # end
+       #end
     end
   end
 
