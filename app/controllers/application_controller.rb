@@ -27,8 +27,8 @@ class ApplicationController < ActionController::Base
 
   # This method will most likely be deleted soon, use selected methods below instead                          
   def get_current_project
-    project = Project.find_by is_active: true
-    return project
+    get_selected_project
+    # project = Project.find_by is_active: true ### Change this back after the EXPO
   end
 
   # 1 = active students only, 2 = inactive students only, 3 = all students
@@ -49,8 +49,14 @@ class ApplicationController < ActionController::Base
   end
   
   def get_selected_project
+    # EXPO added the member stuff
+    member = Member.where(user_id: current_user.id).first
+    project = member.project
     if session[:selected_project_id]
       Project.find(session[:selected_project_id])
+    elsif member
+      set_selected_project(project)
+      project
     elsif get_current_project
       set_selected_project(get_current_project)
       get_current_project
