@@ -5,7 +5,6 @@
 #
 #  cities = City.create!([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #  Mayor.create!(name: 'Emanuel', city: cities.first)
-
 statuses = Status.create!([{status_type: 'Unapproved'}, {status_type: 'Approved'}, {status_type: 'In House'}, {status_type: 'Pending'}, {status_type: 'Edited'}])
 
 clients = Client.create!([{business_name: '10th Avenue Hair Designs', address: '1000 East Cervantes Street', telephone: '433-5207', comment: '', zipcode: 32501, contact_fname: '', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id},
@@ -1048,13 +1047,13 @@ student_teacher_member = Member.create!({section_number: 1, user_id: student_tea
 student_user = User.create!({school_id: 'nerdnovice', role: 1, first_name: 'Zero', last_name: 'Relative', email: 'zrelative5789@faculty.pcci.edu', phone: '911-119-9119', box: 4242, available: 1})
 student_member = Member.create!({section_number: 1, user_id: student_user.id, project_id: student_project.id })
 
-count = 0
+student_id_count = 0
 student_user_array = []
 student_user_array << student_user
 50.times do
-  count = count + 1
+  student_id_count = student_id_count + 1
   user = student_user.dup
-  user.school_id += count.to_s
+  user.school_id += student_id_count.to_s
   user.save!
   student_user_array << user
 end
@@ -1064,24 +1063,30 @@ student_user_array.each do |s|
 end
 
 student_tickets = Ticket.createTicketsForStudents(student_project, expo_clients)
-=begin
-  # Teacher Data
 
-student_teacher = User.create!({school_id: 'nerdmaster', role: 3, first_name: 'Zero', last_name: 'Relative', email: 'zrelative5789@faculty.pcci.edu', available: 1})
+  # Teacher Data
+student_teacher = User.create!({school_id: 'nerdmaster42', role: 3, first_name: 'Zero', last_name: 'Relative', email: 'zrelative5789@faculty.pcci.edu', available: 1})
 student_teacher_array = []
 student_teacher_array << student_teacher
 count = 0
+
 35.times do
-  count++
+  count += 1
   user = student_teacher.dup
   user.school_id += count.to_s
   user.save!
   student_teacher_array << user
 end
 
-student_teachere_array.each do |t|
-  Member.create!({section_number: 1, user_id: student_teacher.id, project_id: student_project.id })!
+next_year = 2015
+student_id_count = 60
+student_teacher_array.each do |t|
+  new_project = Project.create!({year: next_year, semester: 'Spring', tickets_open_time: Date.new(next_year, 2, 1), tickets_close_time: Date.new(next_year, 5, 1), project_type_id: (ProjectType.find_by name: 'Calendar').id, is_active: true, max_clients: 3, max_high_priority_clients: 1, max_medium_priority_clients: -1, max_low_priority_clients: -1})
+  10.times do
+    student_id_count += 1
+    new_student = User.create!({school_id: 'nerdnovice' + student_id_count.to_s, role: 1, first_name: 'Zero', last_name: 'Relative', email: 'zrelative5789@faculty.pcci.edu', phone: '911-119-9119', box: 4242, available: 2})
+    new_member = Member.create!({section_number: 1, user_id: new_student.id, project_id: new_project.id })
+  end
+  Member.create!({section_number: 1, user_id: t.id, project_id: new_project.id })
+  next_year += 1
 end
-=end
-
-
