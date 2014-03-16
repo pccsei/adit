@@ -179,6 +179,7 @@ class ReportsController < ApplicationController
   end
 
   def end_of_semester_data
+    @sections = get_array_of_all_sections(get_selected_project)
     @current = self.current_user
 
     Struct.new("EndData", :date, :company, :address, :city, :state, :zip, :contact, :telephone, :arrow,

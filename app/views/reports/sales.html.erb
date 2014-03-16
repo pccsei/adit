@@ -1,3 +1,5 @@
+<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
+
 <% provide(:title, 'Sales') %>
 
 <p>
@@ -5,20 +7,6 @@
   <%= link_to "Excel", reports_sales_path(format: "xls") %>
 </p>
 
-<div id = "select-section">
-<div class="btn-group">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    Change Section<span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-  <% @sections.each do |s|%>
-     <li>
-      <%= link_to "#{s}", {:controller => :users, :action => :set_section, :section_option => "#{s}"}, :method => :post %>
-     </li>
-  <% end %>
-</ul>
-</div>
-</div>
 
 <div id = "section_refresh">  
 <%= render :partial => 'sales'%>
