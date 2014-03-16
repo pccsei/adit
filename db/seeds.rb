@@ -5,7 +5,7 @@
 #
 #  cities = City.create!([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #  Mayor.create!(name: 'Emanuel', city: cities.first)
-=begin
+
 statuses = Status.create!([{status_type: 'Unapproved'}, {status_type: 'Approved'}, {status_type: 'In House'}, {status_type: 'Pending'}, {status_type: 'Edited'}])
 
 clients = Client.create!([{business_name: '10th Avenue Hair Designs', address: '1000 East Cervantes Street', telephone: '433-5207', comment: '', zipcode: 32501, contact_fname: '', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id},
@@ -1036,18 +1036,52 @@ action_types = ActionType.create!([{ name: 'First Contact',  role: 1, point_valu
                                   { name: 'Old Sale',       role: 1, point_value: 10},
                                   { name: 'New Sale',       role: 1, point_value: 15},
                                   { name: 'Comment',        role: 1, point_value: 0}])
-=end
+
 # This is where the seed data for the expo begins
   # Student Data
 
-student_teacher = User.create!([{school_id: 'nerdmaster', role: 3, first_name: 'Zero', last_name: 'Relative', email: 'zrelative5789@faculty.pcci.edu'}])
+expo_clients = Client.approved.limit(100)
+student_project = Project.create!({year: 2014, semester: 'Spring', tickets_open_time: Date.new(2014, 2, 1), tickets_close_time: Date.new(2014, 5, 1), project_type_id: (ProjectType.find_by name: 'Calendar').id, is_active: true, max_clients: 3, max_high_priority_clients: 1, max_medium_priority_clients: -1, max_low_priority_clients: -1})
+student_teacher = User.create!({school_id: 'nerdmaster', role: 3, first_name: 'Zero', last_name: 'Relative', email: 'zrelative5789@faculty.pcci.edu', available: 2})
+student_teacher_member = Member.create!({section_number: 1, user_id: student_teacher.id, project_id: student_project.id })
 
+student_user = User.create!({school_id: 'nerdnovice', role: 1, first_name: 'Zero', last_name: 'Relative', email: 'zrelative5789@faculty.pcci.edu', phone: '911-119-9119', box: 4242, available: 1})
+student_member = Member.create!({section_number: 1, user_id: student_user.id, project_id: student_project.id })
 
-projects = Project.create!([{year: 2014, semester: 'Spring', tickets_open_time: Date.new(2014, 9, 1), tickets_close_time: Date.new(2014, 12, 1), project_type_id: (ProjectType.find_by name: 'Calendar').id, is_active: false},
-                            {year: 2014, semester: 'Fall', tickets_open_time: Date.new(2015, 9, 1), tickets_close_time: Date.new(2015, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false},
-                            {year: 2015, semester: 'Spring', tickets_open_time: Date.new(2014, 9, 1), tickets_close_time: Date.new(2014, 12, 1), project_type_id: (ProjectType.find_by name: 'Calendar').id, is_active: false},
-                            {year: 2015, semester: 'Fall', tickets_open_time: Date.new(2015, 9, 1), tickets_close_time: Date.new(2015, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false}])
+count = 0
+student_user_array = []
+student_user_array << student_user
+50.times do
+  count = count + 1
+  user = student_user.dup
+  user.school_id += count.to_s
+  user.save!
+  student_user_array << user
+end
 
+student_user_array.each do |s|
+  Member.create!({section_number: 1, user_id: s.id, project_id: student_project.id })
+end
 
+student_tickets = Ticket.createTicketsForStudents(student_project, expo_clients)
+=begin
+  # Teacher Data
+
+student_teacher = User.create!({school_id: 'nerdmaster', role: 3, first_name: 'Zero', last_name: 'Relative', email: 'zrelative5789@faculty.pcci.edu', available: 1})
+student_teacher_array = []
+student_teacher_array << student_teacher
+count = 0
+35.times do
+  count++
+  user = student_teacher.dup
+  user.school_id += count.to_s
+  user.save!
+  student_teacher_array << user
+end
+
+student_teachere_array.each do |t|
+  Member.create!({section_number: 1, user_id: student_teacher.id, project_id: student_project.id })!
+end
+=end
 
 

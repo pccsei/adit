@@ -22,6 +22,12 @@ class Ticket < ActiveRecord::Base
     end
   end
 
+  def self.createTicketsForStudents(project, clients)
+    clients.each do |c|
+      c.tickets.create(:project_id => project.id, :priority_id => (Priority.retrieve(c,project)))
+    end
+  end
+
   # Boolean method that returns whether or not a student may receive more clients
   # The three parameters are student - who is getting the ticket, project - for which project, and
   #   access_role - the role of who is trying to add the student
