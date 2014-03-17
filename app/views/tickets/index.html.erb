@@ -12,7 +12,6 @@
       <p id="midPriority">  Medium priority allowed: <span id='mediumPriorityCount' class="badge"><%= zeroMin(@midPriority)%></span></p>
       <p id="lowPriority">  Low priority allowed:  <span id='lowPriorityCount' class="badge"><%= zeroMin(@lowPriority)%></span></p>
 
-
       <% if open = (@currentProject.tickets_close_time > Time.now) %>
           <p id="ticket_info">You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.</p>
       <% else %>
