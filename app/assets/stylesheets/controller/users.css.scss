@@ -1,3 +1,11 @@
+.users #select-section{
+	margin-top: 0em;
+}
+
+.users .teacher_info{
+	margin-top: 0em;
+}
+
 .users #info_message{
 	width: 40em;
 	margin-top: 6em;
@@ -137,9 +145,9 @@
 }
 
 .users #new_section{
-	margin-top: 2em;
+	margin-top: 5em;
 	float: right;
-	margin-right: -19.4em;
+	margin-right: -32.4em;
 }
 
 .users #new_section h5 .btn-link{
@@ -162,6 +170,6 @@
 
 .users #add_teacher{
 	float: right;
-	margin-top: 3em !important;
+	margin-top: 6em !important;
 	margin-right: -17.5em;
 }

@@ -7,6 +7,12 @@
 #students li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: auto; }
 
 
+
+.clients #back{
+	float: left;
+	margin-left: 10.5em;
+	margin-top: -1.3em;
+}
 .clients .panel-primary{
 	margin-top: 5em !important;
 	border-color: black;
@@ -59,6 +65,10 @@
 }
 #client_address{
 	width:20em;
+}
+
+#client_telephone{
+	width: 15em;
 }
 
 #client_city{
