@@ -1,8 +1,7 @@
 <%= form_for(@user)  do |f| %>
-	<% if @user.errors.any? %>
-		<div id="error_explanation">
-			<h2><%= pluralize(@user.errors.count, 'error') %> prohibited this user from being saved:</h2>
-
+    <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, 'error') %> prohibited this user from being saved:</h2>
 			<ul>
 			<% @user.errors.full_messages.each do |msg| %>
 				<li><%= msg %></li>
@@ -10,31 +9,31 @@
 			</ul>
 		</div>
 	<% end %>
-	<br><br><br>
-	 <div class="field">
-		<%= f.label :first_name, class: 'required' %><br>
-		<%= f.text_field :first_name %>
-	</div>
-	<div class="field">
-		<%= f.label :last_name, class: 'required' %><br>
-		<%= f.text_field :last_name %>
-	</div>
-	<div class="field">
-		<%= f.label :school_id, class: 'required' %><br>
-		<%= f.text_field :school_id %>
-	</div>
-	<div class="field">
-		<%= f.label :email, class: 'required' %><br>
-		<%= f.text_field :email %>
-	</div>
-	<div class="field">
-		<%= f.label :phone, 'Telephone Number' %><br>
-		<%= f.text_field :phone %>
-	</div>
-		<%= f.hidden_field :role, :value => 3 %>
-	<div class="actions">
-		<%= f.submit %>   
-	</div> 
+    <div class = "panel panel-primary">
+      <div class = "panel-heading">
+        <h3>&nbsp;New Teacher Information</h3>
+      </div>
+      <div class = "panel-body">
+
+        <div id="full_name">
+          <%= f.label :first_name, 'First Name', class: 'required' %>
+          <%= f.text_field :first_name %>
+          <%= f.label :last_name, 'Last Name', class: 'required' %>
+          <%= f.text_field :last_name %>
+        </div>
+        <div id="school_info">
+          <%= f.label :school_id, 'School ID', class: 'required' %>
+          <%= f.text_field :school_id %>
+          <%= f.label :email, 'E-mail Address', class: 'required' %>
+          <%= f.text_field :email %>
+        </div>
+        <%= f.hidden_field :role, :value => 3 %>
+        <br />
+        <div class="actions">
+          <%= f.submit :class => 'btn btn-primary btn-sm' %>
+        </div>
+      </div>
+    </div>
 
 <% end %>
 

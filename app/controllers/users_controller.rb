@@ -101,14 +101,11 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
-    if params['commit'] == "Add New Teacher" || @user.role == 3
-      # TODO: This code ^^^ is not correct. 
-      # Teachers create teachers and students, not just teachers.
-      # Need to find a better distinction method.
-      @user.role = 3
-    else
-      @user.role = 1
-    end
+  end
+
+  # Get /users/new_teacher
+  def new_teacher
+    @user = User.new
   end
 
   def set_section
@@ -167,6 +164,21 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
+    # Why do we need this????????????????????????????????????????????????????????
+    # if User.pluck(:school_id).include?(@user.school_id)
+      # @user_same = User.find_by! school_id: @user.school_id
+      # @user_same.school_id = @user.school_id
+      # @user_same.first_name = @user.first_name
+      # @user_same.last_name = @user.last_name
+      # @user_same.classification = @user.classification
+      # @user_same.box = @user.box
+      # @user_same.phone = @user.phone
+      # @user_same.email = @user.email
+      # @user_same.major = @user.major
+      # @user_same.minor = @user.minor   
+      # @user_same.save
+      # redirect_to @user_same
+    # else
      if User.pluck(:school_id).include?(@user.school_id)
        redirect_to edit_user_path(User.find_by(school_id: @user.school_id)), notice: 'The school ID already exists for this user.  Please update or edit the user here if you need to.'
        @user_same = User.find_by(school_id: @user.school_id)
@@ -181,9 +193,11 @@ class UsersController < ApplicationController
             @member.section_number = get_selected_section
             @member.is_enabled = true
             @member.save
+
+          format.html { redirect_to users_path, notice: @user.first_name + ' was successfully created and added to this section.' }
+          else
+           format.html { redirect_to users_teachers_path, notice: @user.school_id + ' was successfully created and added to the teacher roster.'}
           end
-          format.html { redirect_to @user, notice: 'User was successfully created.' }
-          format.json { render action: 'index', status: :created, location: @user }
         else
           format.html { render action: 'new' }
           format.json { render json: @user.errors, status: :unprocessable_entity }

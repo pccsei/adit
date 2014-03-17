@@ -30,7 +30,7 @@ WhiteCollar::Application.routes.draw do
   post   '/users/show_section'
   post   '/users/set_section'
   delete '/users/delete_incorrect'
-  post   '/users/new'
+  get    '/users/new_teacher'
   get    '/users/in_section'
   post   '/tickets/release'
   get    '/reports/end_of_semester_data'

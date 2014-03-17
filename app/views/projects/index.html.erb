@@ -34,9 +34,7 @@
                     <td><%= project.semester%></td>
                     <td><%= project.project_type.name%></td>
                     <td><%= tooltipify(project.comment)%></td>
-					<% if get_current_project %>
-			        	<td><%= link_to 'Show', project_path(project), :class => 'btn btn-primary btn-sm' %></td>
-			        <% end %>
+                    <td><%= link_to 'Edit', edit_project_path(project), :class => 'btn btn-primary btn-sm' %></td>
                   </tr>
               <% end %>
               </tbody>

@@ -27,7 +27,7 @@ class Ticket < ActiveRecord::Base
   #   access_role - the role of who is trying to add the student
   def self.more_clients_allowed(student, project, access_role, ticket_priority)
     # The total tickets that the student already holds
-    current_tickets = student.tickets.where('id IN (?) OR id IN (?) AND project_id = ?',
+    current_tickets = student.tickets.where('(id IN (?) OR id IN (?)) AND project_id = ?',
                                             Receipt.where('user_id = ? AND made_sale = ?',
                                                           student.id, false).pluck(:ticket_id),
                                             Ticket.where('client_id IN (?)', Client.pending.ids),
@@ -54,23 +54,6 @@ class Ticket < ActiveRecord::Base
 
     return result
   end
-=begin
-  # Returns true or false depending on whether a student is able to add another client
-  def self.more_clients_allowed(user, project)
-    current_tickets = user.tickets.where('project_id = ? AND id IN (?)',
-                                          project.id, Receipt.where('user_id = ? AND made_sale = ?',
-                                                                    user.id, false).pluck(:ticket_id))
-    current_pending = Client.where(status_id: Status.where(status_type: 'Pending'), submitter: (user.first_name + ' ' + user.last_name))
-    current_low_tickets = current_tickets.where('priority_id = ?', Priority.where('name = ?', 'low')).size
-    result = true
-    if project.use_max_clients
-      result = false if (project.max_clients <= (current_pending.size + current_tickets.size))
-    else
-      result = false if (project.max_low_priority_clients <= (current_pending.size + current_low_tickets))
-    end
-    return result
-  end
-=end
 
   def self.get_current_tickets(uid, pid)
     where('project_id = ? AND id IN (?) AND user_id = ?', pid, Receipt.where('user_id = ? AND made_sale = ?', uid, false).pluck(:ticket_id) +
@@ -91,7 +74,6 @@ class Ticket < ActiveRecord::Base
           get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'high')).size
       total_allowed < total_left ? total_allowed : total_left
     end
-
   end
 
   def self.medium_allowed_left(uid, project)

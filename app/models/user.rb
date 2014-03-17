@@ -332,7 +332,7 @@ class User < ActiveRecord::Base
       teachers[index]                = Struct::Teacher.new
       teachers[index].id             = t.id
       teachers[index].m_id           = m.id
-      teachers[index].full_name      = t.first_name + ' ' + t.last_name
+      teachers[index].full_name      = t.first_name + ' ' + t.last_name if t.first_name && t.last_name
       teachers[index].first_name     = t.first_name
       teachers[index].last_name      = t.last_name
       teachers[index].email          = t.email

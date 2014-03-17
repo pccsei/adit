@@ -1,49 +1,29 @@
+<% provide(:title, 'Client Information') %>
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Business name:</strong>
-  <%= @client.business_name %>
-</p>
+  <ul class="list-group">
+    <li class="list-group-item"> <strong>Business name:</strong>
+  <%= @client.business_name %></li>
+    <li class="list-group-item"> <strong>Address:</strong>
+  <%= @client.address %></li>
+    <li class="list-group-item"> <strong>City:</strong>
+  <%= @client.city %></li>
+    <li class="list-group-item"> <strong>State:</strong>
+  <%= @client.state %></li>
+    <li class="list-group-item"> <strong>Zipcode:</strong>
+  <%= @client.zipcode%></li>
+	  <li class="list-group-item"><strong>Contact name:</strong>
+  <%= @client.contact_title + ' ' + @client.contact_fname + ' ' + @client.contact_lname %></li>
+	    <li class="list-group-item"><strong>Telephone:</strong>
+  <%= @client.telephone %></li>
+		  <li class="list-group-item"> <strong>Comment:</strong>
+  <%= @client.comment %></li>
+	  <li class="list-group-item"> <strong>Owner:</strong>
+  <%= @client.submitter %></li>
+  </ul>
 
-<p>
-  <strong>Address:</strong>
-  <%= @client.address %>
-</p>
 
-<p>
-  <strong>City:</strong>
-  <%= @client.city %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @client.state %>
-</p>
-
-<p>
-  <strong>Zipcode:</strong>
-  <%= @client.zipcode%>
-</p>
-
-<p>
-  <strong>Contact name:</strong>
-  <%= @client.contact_title + ' ' + @client.contact_fname + ' ' + @client.contact_lname %>
-</p>
-
-<p>
-  <strong>Telephone:</strong>
-  <%= @client.telephone %>
-</p>
-
-<p>
-  <strong>Comment:</strong>
-  <%= @client.comment %>
-</p>
-
-<p>
-  <strong>Owner:</strong>
-  <%= @client.submitter %>
-</p>
 
 <% if (current_user.role == 3 || current_user.school_id == @client.submitter) %>
 	<%= link_to 'Edit', edit_client_path(@client, where: 'not_from_student'), :class => 'btn btn-large btn-primary btn-sm' %>
