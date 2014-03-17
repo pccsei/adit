@@ -166,21 +166,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-     #if User.pluck(:school_id).include?(@user.school_id)
-       #redirect_to edit_user_path(User.find_by! school_id: @user.school_id), notice: 'This user already exists.  Please update or edit the user here if you need to.'
-       # @user_same = User.find_by! school_id: @user.school_id
-       # @user_same.school_id = @user.school_id
-       # @user_same.first_name = @user.first_name
-       # @user_same.last_name = @user.last_name
-       # @user_same.classification = @user.classification
-       # @user_same.box = @user.box
-       # @user_same.phone = @user.phone
-       # @user_same.email = @user.email
-       # @user_same.major = @user.major
-       # @user_same.minor = @user.minor   
-       # @user_same.save
-       #redirect_to @user_same
-     #else
+     if User.pluck(:school_id).include?(@user.school_id)
+       redirect_to edit_user_path(User.find_by(school_id: @user.school_id)), notice: 'The school ID already exists for this user.  Please update or edit the user here if you need to.'
+       @user_same = User.find_by(school_id: @user.school_id)
+       @user_same.save
+     else
       respond_to do |format|
         if @user.save
           if @user.role != 3
@@ -197,7 +187,7 @@ class UsersController < ApplicationController
           format.html { render action: 'new' }
           format.json { render json: @user.errors, status: :unprocessable_entity }
         end
-       #end
+      end
     end
   end
 

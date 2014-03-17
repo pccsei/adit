@@ -128,13 +128,13 @@ class User < ActiveRecord::Base
           user.save
         else
           incorrect_counter -= 1
-          user.school_id = incorrect_counter.to_s + '(Duplicate ID)'
+          user.school_id = incorrect_counter.to_s + '(Duplicate ID entered)'
           user.save
         end
       else
         incorrect_counter -= 1
         user = User.new
-        user.school_id = incorrect_counter.to_s + '(Duplicate ID)'
+        user.school_id = incorrect_counter.to_s + '(User already exists)'
         user.first_name = single_student_info[2].split(', ')[1]
         user.last_name = single_student_info[2].split(', ')[0]
         user.classification = single_student_info[3]
