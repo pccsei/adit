@@ -1,0 +1,54 @@
+<xml version="1.0">
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Current Teachers">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Teaches section(s)</Data></Cell>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">ID number</Data></Cell>
+        <Cell><Data ss:Type="String">Email</Data></Cell>
+        <Cell><Data ss:Type="String">Phone</Data></Cell>
+      </Row>
+      <% if defined? @current_teachers %>
+        <% @current_teachers.each do |t| %>
+          <Row>
+            <Cell><Data ss:Type="Number"><%= t.section_number %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= t.first_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= t.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= t.school_id%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= t.email%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= t.phone %></Data></Cell>
+          </Row>
+        <% end %>
+      <% end %>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Teacher Roster">
+    <!-- Ideally this would be separated into a different page -->
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">ID number</Data></Cell>
+        <Cell><Data ss:Type="String">Email</Data></Cell>
+        <Cell><Data ss:Type="String">Phone</Data></Cell>
+      </Row>
+      <% if defined? @all_teachers %>
+        <% @all_teachers.each do |t| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= t.first_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= t.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= t.school_id%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= t.email%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= t.phone %></Data></Cell>
+          </Row>
+        <% end %>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

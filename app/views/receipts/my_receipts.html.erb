@@ -20,7 +20,7 @@
             <%= hidden_field_tag(:release_ticket_id) %>
             <%= text_area_tag "release_comment", nil, :size => 20, :placeholder => "Your comment goes here" %>
             <%= link_to "Cancel", "#", title: "cancel", :class => "btn btn-large btn-primary btn-sm closeModal" %>
-            <%= submit_tag("Release", :class => "btn btn-large btn-primary btn-sm")  %>     
+            <%= submit_tag("Release", :class => "btn btn-large btn-primary btn-sm", :id => "switchText")  %>     
           <% end %>
         </div>
         </div>

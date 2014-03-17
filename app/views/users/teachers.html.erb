@@ -24,6 +24,11 @@
 	<% end %>
 </div>
 
+<p>
+  Download:
+  <%= link_to "Excel", users_teachers_path(format: "xls") %><br>
+  This will download an excel document with two worksheets: one for Current Teachers and one for Teacher Roster.
+</p>
 
 <h2>Current Teachers</h2>
 
@@ -36,9 +41,9 @@
 			<th>ID number</th>
 			<th>Email</th>
 			<th>Phone</th>
-			<th></th>  
-			<th></th> 
-			<th></th>                                      
+			<th class="empty"></th>  
+			<th class="empty"></th> 
+			<th class="empty"></th>                                      
 		</tr>
 	</thead>
 	<tbody>
@@ -56,7 +61,7 @@
 				<% if @number_of_teachers_per_section[t.section_number] > 1 %>
 					<td><%= link_to 'Remove', User.find(t.id), confirm: 'Are you sure?', method: :delete %></td>
 				<% else %>
-						<th></th> 
+						<td></td>
 				<% end %>
 			</tr>
 		<% end %>

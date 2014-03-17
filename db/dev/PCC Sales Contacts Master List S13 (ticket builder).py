@@ -23,7 +23,8 @@ PROJECT_TYPES = {'Calendar', 'Arrow'}
 def main():
     with open(OUT_PATH, 'wb') as out_file:
         out_file.write(b"priority_id = (Priority.find_by name: 'low').id\r\n")
-        out_file.write(b'tickets = Ticket.create([')
+        prefix = b'tickets = Ticket.create!(['
+        out_file.write(prefix)
         with security.open(IN_PATH, newline='') as in_file:
             in_file.readline(); in_file.readline()
             first_line = True
@@ -34,13 +35,14 @@ def main():
                         if first_line:
                             first_line = False
                         else:
-                            out_file.write(b' ' * 25)
+                            out_file.write(b' ' * len(prefix))
                         out_file.write(TEMPLATE.format(
                             project_name=column,
                             project_year=year,
                             client_name=client_name(row)).encode())
         out_file.seek(-3, io.SEEK_CUR)
         out_file.write(b'])')
+        out_file.truncate()
 
 def strip_all(row):
     for key, value in row.items():
