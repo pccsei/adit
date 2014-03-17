@@ -12,7 +12,9 @@ onLoad(function() {
         $('#' + caller.target.id).addClass("autoHide").hide();
         console.log("You got the client!");
         selector =  $('#' + json.ticketPriority + "PriorityCount");        
-        selector.html(selector.html() - 1);
+        //selector.html(selector.html() - 1);
+        //$('#clientsRemaining').html($('#clientsRemaining').html() - 1);
+        updateCounters(selector);
         $("#userMessage").hide().html(json.Success).fadeIn(1000);
       }
       else
@@ -57,10 +59,37 @@ onLoad(function() {
       }
       window.sysTime = json[i];
       console.log("Updated at " + window.sysTime);
-      setTimeout(updateClients, 2000);
     });
+    setTimeout(updateClients, 2000);
   }
   setTimeout(updateClients, 1000);
+  
+  
+  
+  function updateCounters(selector) {
+    var totalLeft  = parseInt($('#clientsRemaining').html());
+    highSelector   = $('#highPriorityCount');
+    mediumSelector = $('#mediumPriorityCount');
+    lowSelector    = $('#lowPriorityCount');
+    
+    // Update the total counter 
+    if (totalLeft > 0) 
+      totalLeft = $('#clientsRemaining').html(totalLeft - 1);
+   
+    // Decrease the chosen ticket counter
+    //selector =  $('#' + sPriority + "PriorityCount");
+    if (selector.html() > 0)
+      selector.html(selector.html() - 1);      
+      
+    // Check all the counters to make sure they are not greater than the total  
+    if (highSelector.html() > totalLeft)
+      highSelector.html(totalLeft);
+    if (mediumSelector.html() > totalLeft)
+      mediumSelector.html(totalLefr);
+    if (lowSelector.html() > totalLeft)
+        lowSelector.html(totalLeft);
+  }
+  
 });
 
 
