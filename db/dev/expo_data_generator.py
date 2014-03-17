@@ -70,8 +70,6 @@ for row in table:
     for column, value in row.items():
         pivot[column].append(value)
 
-
-
 ################################################################################
 
 company_name = set()
