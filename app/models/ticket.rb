@@ -32,12 +32,10 @@ class Ticket < ActiveRecord::Base
                                                           student.id, false).pluck(:ticket_id),
                                             Ticket.where('client_id IN (?)', Client.pending.ids),
                                             project.id)
-    result = true
 
     # Neither student nor teacher can break the max clients setting
-    if current_tickets.size >= project.max_clients
+    if (current_tickets.size >= project.max_clients) && (project.max_clients != -1)
       result = false
-
       # If a teacher is trying to add this client, priorities do not matter
     elsif access_role > 2
       result = true
@@ -117,21 +115,6 @@ class Ticket < ActiveRecord::Base
           get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'low')).size
       total_allowed < total_left ? total_allowed : total_left
     end
-  end
-
-  def self.cannot_select_clients(user, project)
-    current_tickets  = user.tickets.where('project_id = ? AND id IN (?)',
-                                          project.id, Receipt.where('user_id = ? AND made_sale = ?',
-                                                                    user.id, false).pluck(:ticket_id))
-    result = false
-    if project.use_max_clients
-      result = true if project.max_clients > current_tickets.size
-    else
-      result = true if (project.max_low_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'low')).size &&
-          project.max_medium_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'medium')).size &&
-          project.max_high_priority_clients > current_tickets.where('priority_id = ?', Priority.where('name = ?', 'high')).size)
-    end
-    return result
   end
 
   def self.more_allowed(uid, project)

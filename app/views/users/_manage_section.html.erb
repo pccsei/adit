@@ -3,7 +3,7 @@
 
   <thead>
 	<tr>
-	  <th></th>
+	  <th class='empty'></th>
 	  <th>First Name</th>
 	  <th>Last Name</th>
 	  <th>ID number</th>
@@ -16,7 +16,7 @@
 	  <th>Box</th>
 	  <th>Class</th>
 	  <th class="empty"></th>
-	  <th></th>     	      	      	      	      
+	  <th>Action</th>     	      	      	      	      
 	</tr>
   </thead>
   <tbody>
@@ -36,7 +36,7 @@
         <td><%= student.class %></td>       
         <td><%= link_to 'Edit', edit_user_path(student.id) %></td>
         <% if student.is_enabled %>
-          <td><%= link_to 'Inactivate', {controller: :users, action: :change_is_enabled, id: student.m_id}, method: :post %></td>
+          <td><%= link_to 'Deactivate', {controller: :users, action: :change_is_enabled, id: student.m_id}, method: :post %></td>
         <% else %>
 		  <td><%= link_to 'Activate', {controller: :users, action: :change_is_enabled, id: student.m_id}, method: :post %></td>
         <% end %>        

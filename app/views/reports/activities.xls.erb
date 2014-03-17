@@ -1,0 +1,51 @@
+<xml version="1.0">
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Student Manager</Data></Cell>
+        <Cell><Data ss:Type="String">Section</Data></Cell>
+        <Cell><Data ss:Type="String">Date/Time activity was reported</Data></Cell>
+        <Cell><Data ss:Type="String">Client</Data></Cell>
+        <Cell><Data ss:Type="String">Activity</Data></Cell>
+        <Cell><Data ss:Type="String">Points Received</Data></Cell>
+        <Cell><Data ss:Type="String">Cumulative Points on Client</Data></Cell>
+        <Cell><Data ss:Type="String">Comments</Data></Cell>
+      </Row>
+      <% if defined? @activities %>
+        <% @activities.each do |activity| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= activity.first_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= activity.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= activity.team_leader %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= activity.section %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= time_ago_in_words(activity.time_of_activity) + ' ago'%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= activity.company%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= activity.activity%></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= activity.points_earned%></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= activity.cumulative_points_earned_on_client%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= activity.comments%></Data></Cell>
+          </Row>
+        <% end %>
+      <%end%>
+      <Row>
+          <Cell><Data ss:Type="String">Totals</Data></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell><Data ss:Type="Number"><%= @activity_totals.points_earned%></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @activity_totals.cumulative_points_earned_on_client %></Data></Cell>
+          <Cell></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+</Workbook>

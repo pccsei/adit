@@ -1,5 +1,12 @@
 <% provide(:title, 'Team Summary') %>
 
+<%if defined? @team_data %>
+  <p>
+    Download:
+    <%= link_to "Excel", reports_team_summary_path(format: "xls") %>
+  </p>
+<% end %>
+
 <div id = "select-section">
 <div class="btn-group">
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">

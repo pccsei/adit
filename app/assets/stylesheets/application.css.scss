@@ -21,83 +21,29 @@
 */
 
 /* universal */
-
-
-.sessions .alert-error {
-
-    text-align: center;
-    margin-left: 29em;
-    width: 24em;
-}
-.clients .panel-primary{
-	margin-top: 3em;
-	border-color: black;
-}
-
-.clients .panel-primary > .panel-heading {
-    color: #FFF;
-    background-color: black;
-    border-color: black;
-	height: 3em;
-}
-
-.clients .panel-heading h3{
-	margin-bottom: 2em;
-}
-
-.users .panel-primary{
-	margin-top: 7em;
-	border-color: black;
-}
-
-.users .panel-primary > .panel-heading {
-    color: #FFF;
-    background-color: black;
-    border-color: black;
-	height: 3em;
-}
-
-.tickets .panel-heading h3{
-	margin-bottom: 2em;
-}
-
-.tickets .panel-primary{
-	border-color: black;
-}
-
-.tickets .panel-primary > .panel-heading {
-    color: #FFF;
-    background-color: black;
-    border-color: black;
-	height: 3em;
-}
-
-.tickets .panel-heading h3{
-	margin-bottom: 2em;
+.error{
+	font-size: 10px;
+	color: #DC0000;
+	margin-left: 1em !important;
 }
 
 .page-header {
     width: 10em;
 }
 
-
 .info_bar{
 	width: 40em;
 	margin-top: 1em;
 }
 
-.users #info_message{
-	width: 40em;
-	margin-top: 6em;
+.teacher_info .panel-body {
+	padding: 5px;
+	font-size: 12px;
 }
 
-.teacher_info .panel-body {
-padding: 5px;
-font-size: 12px;
-}
 .teacher_info .panel-heading {
-padding: .2em;
-text-align: right;
+	padding: .2em;
+	text-align: right;
 }
 
 .users{
@@ -110,20 +56,14 @@ text-align: right;
 	margin: 0 auto;
 	float: right;
 	margin-top: -40px;
-	height: 6em;
+	height: 4em;
 	margin-bottom: 1em !important;
 }
-
-
 
 #select-section{
 	float: right;
 	padding-right: 2em;
 	margin-top: -3em;
-}
-
-.fake-link {
-  cursor: pointer;
 }
 
 body {
@@ -132,25 +72,7 @@ body {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 1.4em;
-  //background: url(subtlenet2.png);
-  
-}
-
-* {
-  margin-bottom: 0 !important;
-}
-
-*:first-child {
-  margin-top: 0 !important;
-}
-
-textarea {
-  width: 600px;
-  height: 120px;
-  border: 3px solid #cccccc;
-  padding: 5px;
-  font-family: Tahoma, sans-serif;
-  margin-left: -1em;
+  //background: url(subtlenet2.png);  
 }
 
 .navbar-nav a.dropdown-toggle {
@@ -164,28 +86,6 @@ textarea {
   }
 }
 
-#section_type{
-  text-align: right;
-  padding-right: 20px;
-}
-
-
-
-@mixin box_sizing {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box
-}
-
-/* Miscellaneous */
-.debug_dump {
-  clear: both;
-  float: left;
-  width: 100%;
-  margin-top: 45px;
-  @include box_sizing;
-}
-
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
@@ -196,23 +96,16 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 2.3em;
-  //letter-spacing: -1px;
-  //margin-bottom: 0px;
-  //text-align: center;
 }
 
 h2 {
   font-size: 2em;
-  //letter-spacing: -1px;
-  //margin-bottom: 30px;
   font-weight: normal;
-  
 }
 
 h3 {
   font-size: 1.5em;
 }
-
 
 p {
   font-size: 1.1em;
@@ -220,9 +113,7 @@ p {
   margin: 1em 0 0 0;
 }
 
-
-/* header */
-
+/*Navigation Bar*/
 #logo {
 	display: block;
 	float: left;
@@ -234,17 +125,9 @@ p {
 	background-repeat: no-repeat;
 	background-position: 28px 14px;
 	margin-left: -8em;
-  text-align: center;
-  padding: .3em 0;
-
+    text-align: center;
+    padding: .3em 0;
 }
-
-#logo:hover {
-  color: #fff;
-  text-decoration: none;
-}
-
-
 
 .navbar-default {
   border-top: .4em solid #DC0000;
@@ -252,16 +135,6 @@ p {
   margin-top: 0px;
   background-color: black;
   color: white;
-  a {
-    color: #1C2C40;
-    &:hover {
-      border-bottom: 0px none;
-	  color:white;
-    }
-  }
-  small {
-    float: left;
-  }
   ul {
     float: right;
     list-style: none;
@@ -289,19 +162,15 @@ p {
 	color: #BEBEBE;
 }
 
-
 .navbar-collapse {
   padding: 0;
 }
 
 .dropdown-menu > li > a {
     background-color: white;
-
 }
 
-
-.container,
-#container {
+.container, #container {
     margin: 0 auto;
     max-width: 90em;
 }
@@ -313,14 +182,8 @@ p {
   border-radius: 4px;
 }
 
-#create_section{
-  text-align: right;
-  padding-right: 20px;
-  margin-top: -20px;
-}
 /* footer */
-
-
+// This is not getting used
 footer {
   margin-top: 45px;
   padding-top: 5px;
@@ -345,29 +208,15 @@ footer {
   }
 }
 
-#error_explanation {
-  color: #f00;
-  ul {
-    list-style: none;
-    margin: 0 0 18px 0;
-  }
-}
-
-.field_with_errors {
-  @extend .control-group;
-  @extend .error;
-}
-
-
+/*DataTables*/
 td.dataTables_empty{
   background-color: #5E0000 !important;
   color: white !important;
 }
 
 tr.odd {
-background-color: #FFCFCF;
+background-color: #FCEDED;
 }
-
 
 table.dataTable tr.odd td.sorting_1 {
   background-color: transparent !important; }
@@ -387,9 +236,6 @@ table.dataTable tr.even td.sorting_2 {
 table.dataTable tr.even td.sorting_3 {
   background-color: transparent !important; }
 
-/*
- * Table wrapper
- */
 
 .dataTables_wrapper {
   position: relative !important;
