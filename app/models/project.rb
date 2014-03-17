@@ -18,21 +18,29 @@ class Project < ActiveRecord::Base
   validates :max_clients, length: {
     minimum: 1,
     message: 'is the wrong length.  Needs to be one digit long.'
-  }, numericality: { greater_than: 0 }
-
+  }
+  validate :greater_than_max  
+  
+# Validates the max high priority clients option
+  validates :max_high_priority_clients, length: {
+    minimum: 1,
+    message: 'is the wrong length.  Needs to be at least one digit long.'
+  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_medium_priority_clients == 0 && project.max_low_priority_clients == 0) },
+                     unless: Proc.new { |project| project.max_high_priority_clients == -1 } }
   
 # Validates the max medium priority clients option
   validates :max_medium_priority_clients, length: {
     minimum: 1,
     message: 'is the wrong length.  Needs to be at least one digit long.'
-  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_low_priority_clients == 0) } }
-
+  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_low_priority_clients == 0) }, 
+                     unless: Proc.new { |project| project.max_medium_priority_clients == -1 } }
 
 # Validates the max low priority clients option
   validates :max_low_priority_clients, length: {
     minimum: 1,
     message: 'is the wrong length.  Needs to be at least one digit long.'
-  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_medium_priority_clients == 0) } }
+  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_medium_priority_clients == 0) },
+                     unless: Proc.new { |project| project.max_low_priority_clients == -1 } }
 
 # Custom method to make sure the open date is before the close date  
   def start_before_end
@@ -66,6 +74,15 @@ class Project < ActiveRecord::Base
         errors.add(:tickets_close_time, 'must be in the Spring semester.') unless
           self.tickets_close_time.month.between?(1,5)
       end
+    end
+  end
+  
+# Custom method to make sure the teacher does not allow restrictions lower than the max clients
+  def greater_than_max
+    if(max_clients >= 1 && max_high_priority_clients >= 0 && max_medium_priority_clients >= 0 && max_low_priority_clients >= 0)
+      total_clients = (max_high_priority_clients + max_medium_priority_clients + max_low_priority_clients)
+      errors.add(:max_clients, 'must have the combined high, medium, and low clients greater or equal to the max clients.') unless
+        max_clients <= total_clients
     end
   end
 
