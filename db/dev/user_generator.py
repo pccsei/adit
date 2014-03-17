@@ -1,5 +1,6 @@
 import io
 
+import security
 from weighted_strings import *
 
 ################################################################################
@@ -16,25 +17,47 @@ first_name: {first_name!r}, \
 last_name: {last_name!r}, \
 email: {email!r}, \
 phone: {phone!r}, \
-box: {box!r}}},\r\n'
+box: {box!r}, \
+major: {major!r}, \
+minor: {minor!r}, \
+classification: {classification!r}}},\r\n'
+
+################################################################################
+
+with security.open('Sales Managers Reps S13.csv', newline='') as file:
+    reader = csv.DictReader(file)
+    pivot = {field: [] for field in reader.fieldnames}
+    for row in reader:
+        for key, value in row.items():
+            pivot[key].append(value)
+
+MAJOR = set(filter(None, pivot['Major']))
+MINOR = set(filter(None, pivot['Minor']))
+CLASS = set(filter(None, pivot['Class']))
+
+def generate_choice(iterable):
+    array = tuple(iterable)
+    while True:
+        yield random.choice(array)
 
 ################################################################################
 
 def main():
-    students = generate_user(1, 'students')
-    teachers = generate_user(2, 'faculty')
+    students = b'student_users = User.create!([', generate_user(1, 'students')
+    teachers = b'teacher_users = User.create!([', generate_user(3, 'faculty')
     with open(OUT_PATH, 'wb') as file:
-        file.write(b'users = User.create!([')
-        first_line = True
-        for generator in students, teachers:
-            for _ in range(3000):
+        for prefix, generator in students, teachers:
+            file.write(prefix)
+            first_line = True
+            for _ in range(500):
                 if first_line:
                     first_line = False
                 else:
-                    file.write(b' ' * 22)
+                    file.write(b' ' * len(prefix))
                 file.write(next(generator).encode())
-        file.seek(-3, io.SEEK_CUR)
-        file.write(b'])')
+            file.seek(-3, io.SEEK_CUR)
+            file.write(b'])\r\n\r\n')
+        file.seek(-4, io.SEEK_CUR)
         file.truncate()
 
 def generate_user(role, email_suffix):
@@ -43,6 +66,9 @@ def generate_user(role, email_suffix):
     last_gen = generate_last_name()
     phone_gen = generate_phone()
     box_gen = generate_box()
+    major_gen = generate_choice(MAJOR)
+    minor_gen = generate_choice(MINOR)
+    class_gen = generate_choice(CLASS)
     while True:
         school_id = next(id_gen)
         first_name = next(first_gen)
@@ -50,6 +76,9 @@ def generate_user(role, email_suffix):
         email = generate_email(first_name, last_name, email_suffix)
         phone = next(phone_gen)
         box = next(box_gen)
+        major = next(major_gen)
+        minor = next(minor_gen)
+        classification = next(class_gen)
         yield TEMPLATE.format(**locals())
 
 def generate_school_id(start=100000, stop=200000):
