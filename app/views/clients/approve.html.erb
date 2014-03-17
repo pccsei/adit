@@ -5,11 +5,10 @@
 <% if @pending_clients.present? %>
       <%= form_tag(clients_approve_client_path) do %>
          <%= render :partial => 'pending', :locals => { :pending_clients => @pending_clients} %>
-         <br/>
          <% if get_selected_project.is_active %>
-            <%= submit_tag 'Approve' %>
-            <%= submit_tag 'Approve All' %>
-            <%= submit_tag 'Disapprove'%>
+            <%= submit_tag 'Approve', :class => 'btn btn-primary btn-sm' %>
+            <%= submit_tag 'Approve All', :class => 'btn btn-primary btn-sm' %>
+            <%= submit_tag 'Disapprove', :class => 'btn btn-primary btn-sm'%>
          <% else %>
             <%= submit_tag 'Approve' ,  disabled: true%>
             <%= submit_tag 'Approve All', disabled: true%>
@@ -21,7 +20,6 @@
 <% else %>
   <p>There are currently no pending clients.</p>
 <% end %>
-<br /><br /><br />
 
 <h3>Edited Clients</h3>
 <% if @edited_pending_clients.present? %> 
@@ -42,9 +40,12 @@
 <% else %>
   <p>There are currently no edited clients.</p>
 <% end %>
-<br /><br /><br />
 
 <h3>Unapproved Clients</h3>
+<p>
+  Download:
+  <%= link_to "Excel", clients_approve_path(format: "xls") %>
+</p>
 <% if @unapproved_clients.present?%>
    <%= render :partial => 'unapprove', :locals => { :unapproved_clients => @unapproved_clients}%>
 <% else %>

@@ -23,13 +23,12 @@
   <strong>Project End Date:</strong>
   <%= @project.tickets_close_time %>
 </p>
-<% if @project.use_max_clients %>
+
 <p>
-  <strong>Max number of any Client:</strong>
+  <strong>Max number of Clients:</strong>
   <%= @project.max_clients %>
 </p>
-<% end %>
-<% if !@project.use_max_clients %>
+
   <p>
     <strong>Max number of High Priority Clients:</strong>
     <%= @project.max_high_priority_clients %>
@@ -42,7 +41,7 @@
    <strong>Max number of Low Priority Clients:</strong>
    <%= @project.max_low_priority_clients %>
   </p>
-<% end %>
+
 <p>
   <strong>Comment:</strong>
   <%= @project.comment %>
@@ -54,9 +53,11 @@
 
     <!-- Add a button here that updates the selected project -->
     <% else %>
+        <%= form_for(@project) do |f|%>
         <%= label_tag(:is_active, 'Would you like to re-activate this project?') %><br>
         yes: <%= f.radio_button :is_active, '1' %>
         no:  <%= f.radio_button :is_active, '0', :checked => true %>
+        <% end %>
     <% end %>
 
 <%= link_to 'Back to the Projects list', projects_path %>
