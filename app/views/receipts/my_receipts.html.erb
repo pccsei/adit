@@ -16,9 +16,9 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content ">
           <%= form_tag(tickets_release_path) do %>
-            If you would like to leave a comment for others about this client, feel free to do below. <br />
-            <%= hidden_field_tag(:release_ticket_id) %>
-            <%= text_area_tag "release_comment", nil, :size => 20, :placeholder => "Your comment goes here" %>
+            Feel free to leave a comment about this client for other representatives. <br />
+            <%= hidden_field_tag(:ticket_id) %>
+            <%= text_area_tag "body", nil, :size => 20, :placeholder => "Your comment goes here" %>
             <%= link_to "Cancel", "#", title: "cancel", :class => "btn btn-large btn-primary btn-sm closeModal" %>
             <%= submit_tag("Release", :class => "btn btn-large btn-primary btn-sm", :id => "switchText")  %>     
           <% end %>

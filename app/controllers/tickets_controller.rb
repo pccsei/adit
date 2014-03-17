@@ -146,14 +146,19 @@ class TicketsController < ApplicationController
   end
 
   def release
-    t = Ticket.find(params[:release_ticket_id])
+    t = Ticket.find(params[:ticket_id])
       
     # if the person accessing the page is a teacher or the ticket holder
-    if params[:release_ticket_id] && (current_user.role == 3 || t.user_id = current_user.id)    
+    if params[:ticket_id] && (current_user.role == 3 || t.user_id = current_user.id)    
       #t = Ticket.find(params[:id])
       redirectUser = t.user_id
       t.user_id = 0
       t.save
+      
+      if params[:body]      
+        Comment.create(body: params[:body], ticket_id: params[:ticket_id], user_id: current_user.id);
+      end 
+      
     else 
       redirectUser = current_user.id
     end
@@ -171,13 +176,10 @@ class TicketsController < ApplicationController
     end
   end
   
-  #####################################################################################
-  
+  # Used to pass the system time to the front end to assist in pinging the server for updates
   def get_sys_time
     render json: {"time" => Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')}
   end
-  
-  #####################################################################################
   
   private
     def set_ticket
