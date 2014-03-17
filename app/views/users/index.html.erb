@@ -1,22 +1,6 @@
+<%= render :partial => 'reports/dropdown' , :locals => {:sections => @sections}%>
+
 <% provide(:title, 'Manage Students') %>
-
-<!--Change Section drop down-->
-<div id = "select-section">
-	<div class="btn-group">
-		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-			Change Section<span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu" role="menu">
-			<% @sections.each do |s|%>
-	   			<li>
-	   				<%= link_to "#{s}", {:controller => :users, :action => :set_section,
-	   					                 :section_option => "#{s}"}, :method => :post %>
-	   			</li>
-			<% end %>
-		</ul>
-	</div>
-</div>
-
 
 <!--Creates a new Section link-->
 <div id="new_section">
