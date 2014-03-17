@@ -33,7 +33,8 @@ PHONE_TRANS = str.maketrans('ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 
 def main():
     with open(OUT_PATH, 'wb') as out_file:
-        out_file.write(b'clients = Client.create([')
+        prefix = b'clients = Client.create!(['
+        out_file.write(prefix)
         with security.open(IN_PATH, newline='') as in_file:
             in_file.readline(); in_file.readline()
             first_line = True
@@ -42,7 +43,7 @@ def main():
                 if first_line:
                     first_line = False
                 else:
-                    out_file.write(b' ' * 25)
+                    out_file.write(b' ' * len(prefix))
                 extract_contact_parts(row)
                 extract_city_state(row)
                 out_file.write(TEMPLATE.format(
@@ -61,6 +62,7 @@ def main():
                     status_type=calculate_status(row)).encode())
         out_file.seek(-3, io.SEEK_CUR)
         out_file.write(b'])')
+        out_file.truncate()
 
 def strip_all(row):
     for key, value in row.items():

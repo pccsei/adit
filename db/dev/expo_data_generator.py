@@ -9,16 +9,15 @@ from security import *
 
 ################################################################################
 
-def strip_columns(row):
-    for key, value in row.items():
-        row[key] = '' if value is None else value.strip()
-    return row
-
-with builtins.open('original_data.csv', newline='') as file:
+with open('PCC Sales Contacts Master List S13.csv', newline='') as file:
     file.readline()
     file.readline()
     reader = csv.DictReader(file)
-    table = list(map(strip_columns, reader))
+    table = tuple(reader)
+
+def strip_columns(row):
+    for key, value in row.items():
+        row[key] = '' if value is None else value.strip()
 
 def extract_contact_parts(row):
     contact = row['Contact']
@@ -62,6 +61,7 @@ def scrub_telephone(row):
     row['Telephone'] = number
 
 for row in table:
+    strip_columns(row)
     extract_contact_parts(row)
     scrub_telephone(row)
 
@@ -69,8 +69,6 @@ pivot = {column: [] for column in table[0]}
 for row in table:
     for column, value in row.items():
         pivot[column].append(value)
-
-
 
 ################################################################################
 

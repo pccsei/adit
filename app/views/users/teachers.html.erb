@@ -1,8 +1,7 @@
-<% provide(:title, ("Manage Teachers").html_safe) %>
+<% provide(:title, ('Manage Teachers').html_safe) %>
 
-<%= form_tag(new_user_path) do %>
-<%= submit_tag 'Add New Teacher' %>
-<% end %>
+<%= link_to 'Add New Teacher', users_new_teacher_path, class:  'btn btn-primary btn-sm' %>
+
 
 <br><br><br>
 
@@ -24,21 +23,26 @@
 	<% end %>
 </div>
 
+<p>
+  Download:
+  <%= link_to 'Excel', users_teachers_path(format: 'xls') %><br>
+  This will download an excel document with two worksheets: one for Current Teachers and one for Teacher Roster.
+</p>
 
 <h2>Current Teachers</h2>
 
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
-			<th>Teaches section(s)</th>
+			<th>Section</th>
 			<th>First Name</th>
 			<th>Last Name</th>
 			<th>ID number</th>
 			<th>Email</th>
 			<th>Phone</th>
-			<th></th>  
-			<th></th> 
-			<th></th>                                      
+			<th class="empty"></th>  
+			<th class="empty"></th> 
+			<th class="empty"></th>                                      
 		</tr>
 	</thead>
 	<tbody>
@@ -56,16 +60,15 @@
 				<% if @number_of_teachers_per_section[t.section_number] > 1 %>
 					<td><%= link_to 'Remove', User.find(t.id), confirm: 'Are you sure?', method: :delete %></td>
 				<% else %>
-						<th></th> 
+						<td></td>
 				<% end %>
 			</tr>
 		<% end %>
 	</tbody>
 </table>
 
-<br><br>
 <h2>Teacher Roster</h2>
-<table class ="table dataTable">
+<table class ="display">
 	<thead>
 		<tr>
 			<th>First Name</th>
@@ -73,7 +76,7 @@
 			<th>ID number</th>
 			<th>Email</th>
 			<th>Phone</th>
-			<th></th>                                     
+			<th class="empty"></th>
 		</tr>
 	</thead>
 	<tbody>

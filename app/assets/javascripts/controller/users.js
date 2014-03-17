@@ -77,11 +77,7 @@ onLoad(function() {
         return this.optional(element) || /^([-a-zA-Z]|[0-9])+$/i.test(value);
     });
 
-    // Custom method to make sure the user does not put in all zeros
-    jQuery.validator.addMethod('min_digit', function (value, el, param) {
-        return value > param;
-    });
-
+	// Custom method to make sure the email is a valid PCC email address
     jQuery.validator.addMethod("email_valid", function(value, element) {
         return this.optional(element) || /^([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)$/i.test(value);
     });
@@ -97,16 +93,14 @@ onLoad(function() {
             "user[last_name]": {required: true, letters_only: true},
             "user[school_id]": {required: true, id_valid: true},
             "user[email]": {required: true, email: true, email_valid: true},
-            "user[phone]": {valid_telephone: true},
-            "user[box]": {required: false, digits: true, rangelength: [3,4], min_digit: 1}
+            "user[phone]": {valid_telephone: true}
         },
         messages: {
             "user[first_name]": "Please enter the user's first name.",
             "user[last_name]": "Please enter the user's last name.",
             "user[school_id]": "Please enter the user's school id.",
             "user[email]": "Please enter the user's PCC email address.",
-            "user[phone]": "Please enter the user's phone number.",
-            "user[box]": "Please enter the user's box number."
+            "user[phone]": "Please enter the user's phone number."
         }
     });
 });
