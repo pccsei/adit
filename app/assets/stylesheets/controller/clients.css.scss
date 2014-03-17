@@ -46,8 +46,8 @@
 	width: 45em;
 }
 
-#business_name{
-	margin-top:2em;
+#business_name input{
+	width: 25em;
 }
 
 #add_city_st{
@@ -57,7 +57,13 @@
 	margin-left: 3.94em;
 	
 }
+#client_address{
+	width:20em;
+}
 
+#client_city{
+	width:8em;
+}
 #add_city_st input {
 	margin-right: 1em;
 }
@@ -69,9 +75,11 @@
 #contact_info{
 	margin-top: 2em;
 }
-
+#client_zipcode{
+	width:4em;
+}
 #contact_info #client_contact_title{
-	margin-left: 1.59em;
+	margin-left: 2.5em;
 }
 
 #contact_info input{
@@ -87,12 +95,9 @@
 }
 
 #comment textarea{
-	margin-left: 3em;
+	margin-left: 4em;
 }
 
-.actions input{
-	margin-left: 1em;
-}
 
 .warning { color: red}
 
