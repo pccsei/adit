@@ -1,20 +1,52 @@
-// Place all the styles related to the tickets controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.tickets .panel-heading h3{
+	margin-bottom: 2em;
+}
 
-#ticket_message{
+.tickets .panel-primary{
+	border-color: black;
+}
+
+.tickets .panel-primary > .panel-heading {
+    color: #FFF;
+    background-color: black;
+    border-color: black;
+	height: 3em;
+}
+
+.tickets .panel-heading h3{
+	margin-bottom: 2em;
+}
+
+.tickets #no_clients{
+	float: left;
+	margin-left: 1em;
+	margin-top: .9em !important;
+	font-size: 16px;	
+}
+
+
+.tickets #max_clients{
+	float: left;
+	margin-left: 1em;
+	margin-top: 1em !important;
+}
+
+
+
+.tickets #ticket_message{
 	margin-left: 12em;
 	font-size: 20px;
 	margin-top: -1em !important;
 }
 
 
-#userMessage{
-	padding-top: 1em;
+.tickets #userMessage{
+	font-size: 18px;
+	text-align: center;
 }
 
 
-#ticket_info{
+.tickets #ticket_info{
 	font-size: 15px;
 	text-align: right;
 	margin-right: 1em;
@@ -22,44 +54,44 @@
 }
 
 
-#client_heading{
+.tickets #client_heading{
 	height: 5em;
 }
 
-#midPriority{
+.tickets #midPriority{
 	float: left;
 	float: left;
 	margin-left: 1em;
 	margin-top: 1em;
 }
-#highPriority{
+.tickets #highPriority{
 	float: left;
 	float: left;
 	margin-left: 1em;
 	margin-top: 1em !important;
 	
 }
-#lowPriority{
+.tickets #lowPriority{
 	float: left;
 	float: left;
 	margin-left: 1em;
 	margin-top: 1em;
 }
 
-.btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
+.tickets .btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
 border-color: transparent;
 color: #000;
 }
 
 
-#alert_info{
+.tickets #alert_info{
 	border: 1px solid #ccc;
 	background-color: #DC0000;
 }
 
 
-.addTicket.high, .addTicket.autoHide.high{
-	background-color: #68ff5d !important;
+.tickets .addTicket.high, .addTicket.autoHide.high{
+	background-color: #BFF5BB !important;
 	color: black;
 	border: 1px solid black !important;
 	border-radius: 3px;
@@ -67,8 +99,8 @@ color: #000;
 	padding-bottom: .2em;
 }
 
-.addTicket.medium, .addTicket.autoHide.medium{
-	background-color: #fffd71 !important;
+.tickets .addTicket.medium, .addTicket.autoHide.medium{
+	background-color: #FAF9B1 !important;
 	color: black;
 	border: 1px solid black !important;
 	border-radius: 3px;
@@ -76,7 +108,7 @@ color: #000;
 	padding-bottom: .2em;
 }
 
-.addTicket.low, .addTicket.autoHide.low{
+.tickets .addTicket.low, .addTicket.autoHide.low{
 	background-color: white !important;
 	color: black;
 	border: 1px solid black !important;
@@ -85,11 +117,7 @@ color: #000;
 	padding-bottom: .2em;
 }
 
-.scroller_anchor{
-
-	}
-
-.scroller{
+.tickets .scroller{
 	z-index:100; 
 	//height: 70px; 
 	font-size:12px;  
@@ -101,7 +129,3 @@ color: #000;
 	background-color: black;
 	color: white;
 	}
-
-#alerts{
- 
-}

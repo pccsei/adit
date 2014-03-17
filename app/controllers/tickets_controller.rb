@@ -3,7 +3,7 @@ class TicketsController < ApplicationController
 
   def index
 
-    @currentProject = Project.select('id, max_clients, use_max_clients, max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients, tickets_close_time').where(is_active: true, id: Member.select('project_id').where(user_id: current_user.id)).first
+    @currentProject = Project.select('id, max_clients,  max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients, tickets_close_time').where(is_active: true, id: Member.select('project_id').where(user_id: current_user.id)).first
 
     if params[:ajax] == 'update'
       updates = Ticket.updates(params[:timestamp])
@@ -14,6 +14,12 @@ class TicketsController < ApplicationController
         updates = {'userMessage' => 'There is not a current project!'}
 
       else
+        requested_ticket_priority_id = Ticket.find(params[:clientID]).priority_id
+        if Ticket.more_clients_allowed(current_user, get_current_project, 1, requested_ticket_priority_id)
+          allowed = true
+        else
+          allowed = false
+=begin
         if @currentProject.use_max_clients
           # Check to see if the user has the max number of clients
           if Ticket.where('user_id = ? AND project_id = ?', current_user.id, get_current_project.id).size - (0) >= @currentProject.max_clients
@@ -35,6 +41,7 @@ class TicketsController < ApplicationController
             else            
               allowed = false
           end
+=end
         end
 
         if allowed
@@ -72,14 +79,12 @@ class TicketsController < ApplicationController
     ## cleaned up the program  
     elsif @currentProject              
       @tickets = Ticket.current_project(@currentProject.id)
-      
-      if @currentProject.use_max_clients
-        @clientsLeft =  Ticket.total_allowed_left(current_user.id, @currentProject.id) # @currentProject.max_clients - Ticket.where('user_id = ? AND project_id = ?', current_user.id, @currentProject.id).size
-      else                
-        @highPriority = Ticket.high_allowed_left(current_user.id, @currentProject) 
-        @midPriority  = Ticket.medium_allowed_left(current_user.id, @currentProject)
-        @lowPriority  = Ticket.low_allowed_left(current_user.id, @currentProject)
-      end
+
+      @clientsLeft  = Ticket.total_allowed_left(current_user.id, @currentProject)
+      @highPriority = Ticket.high_allowed_left(current_user.id, @currentProject)
+      @midPriority  = Ticket.medium_allowed_left(current_user.id, @currentProject)
+      @lowPriority  = Ticket.low_allowed_left(current_user.id, @currentProject)
+
                   
     end
     
@@ -141,20 +146,22 @@ class TicketsController < ApplicationController
   end
 
   def release
-    t = Ticket.find(params[:id])  
+    t = Ticket.find(params[:release_ticket_id])
+      
     # if the person accessing the page is a teacher or the ticket holder
-    if params[:id] && (current_user.role == 3 || t.user_id = current_user.id)    
-      t = Ticket.find(params[:id])
+    if params[:release_ticket_id] && (current_user.role == 3 || t.user_id = current_user.id)    
+      #t = Ticket.find(params[:id])
+      redirectUser = t.user_id
       t.user_id = 0
       t.save
-      
-      response = {"status" => "true"}  
     else 
-      response = {"status" => "false"}
-    end    
-    respond_to do |format|
-      format.js {render json: response}
+      redirectUser = current_user.id
     end
+    
+    @d = params[:release_ticket_id]
+    
+    redirect_to my_receipts_path(redirectUser)
+    
   end
 
   def destroy

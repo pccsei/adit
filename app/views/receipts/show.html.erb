@@ -8,7 +8,7 @@
   <%= render :partial => 'show_client_info', :locals => { :client => @client }%>
 </div>
 <div>
-  <%= link_to 'Edit this client!', edit_client_path(@client.id) unless @receipt.user_id != @receipt.ticket.user_id%>
+  <%= link_to 'Edit this client!', edit_client_path(@client.id, where: 'from_student', student: @receipt) unless @receipt.user_id != @receipt.ticket.user_id%>
 </div>
 
 <% if Receipt.is_released(@receipt) == false %>

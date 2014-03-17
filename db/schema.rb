@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140301043747) do
+ActiveRecord::Schema.define(version: 20140315154212) do
 
   create_table "action_types", force: true do |t|
     t.string   "name",        null: false
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20140301043747) do
     t.integer  "status_id"
     t.string   "submitter"
     t.integer  "parent_id"
+    t.string   "email"
   end
 
   add_index "clients", ["status_id"], name: "index_clients_on_status_id", using: :btree
@@ -108,20 +109,19 @@ ActiveRecord::Schema.define(version: 20140301043747) do
   add_index "project_types", ["name"], name: "index_project_types_on_name", unique: true, using: :btree
 
   create_table "projects", force: true do |t|
-    t.integer  "year",                                        null: false
-    t.string   "semester",                                    null: false
-    t.datetime "tickets_open_time",                           null: false
-    t.datetime "tickets_close_time",                          null: false
+    t.integer  "year",                                       null: false
+    t.string   "semester",                                   null: false
+    t.datetime "tickets_open_time",                          null: false
+    t.datetime "tickets_close_time",                         null: false
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "max_clients",                 default: 5,     null: false
-    t.integer  "max_high_priority_clients",   default: 0,     null: false
-    t.integer  "max_low_priority_clients",    default: 0,     null: false
-    t.integer  "max_medium_priority_clients", default: 0,     null: false
-    t.boolean  "use_max_clients",             default: false, null: false
-    t.integer  "project_type_id",                             null: false
-    t.boolean  "is_active",                   default: true,  null: false
+    t.integer  "max_clients",                 default: 5,    null: false
+    t.integer  "max_high_priority_clients",   default: 0,    null: false
+    t.integer  "max_low_priority_clients",    default: 0,    null: false
+    t.integer  "max_medium_priority_clients", default: 0,    null: false
+    t.integer  "project_type_id",                            null: false
+    t.boolean  "is_active",                   default: true, null: false
   end
 
   add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id", using: :btree

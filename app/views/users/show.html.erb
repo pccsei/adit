@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, 'Your New Student') %>
 
 <%if @user.role != 3 %>
   <p>
@@ -58,7 +58,5 @@
 
 
 
-<%= link_to 'Edit', edit_user_path(@user), :class => 'btn btn-large btn-primary btn-sm' %> |
-<%= link_to 'Back to Manage Section', users_path, :class => 'btn btn-large btn-primary btn-sm' %>
-
-<br /><br /><br /><br /><br /><br /><br /><br /><br />
+<%= link_to 'Edit', edit_user_path(@user), :class => 'btn btn-large btn-primary btn-sm' %>
+<%= link_to 'Back to Manage Students', users_path, :class => 'btn btn-large btn-primary btn-sm' %>

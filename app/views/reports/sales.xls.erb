@@ -1,0 +1,51 @@
+<xml version="1.0">
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Student Manager</Data></Cell>
+        <Cell><Data ss:Type="String">Section</Data></Cell>
+        <Cell><Data ss:Type="String">Date/Time sale was reported</Data></Cell>
+        <Cell><Data ss:Type="String">Company</Data></Cell>
+        <Cell><Data ss:Type="String">Page Size</Data></Cell>
+        <Cell><Data ss:Type="String">Sales</Data></Cell>
+        <Cell><Data ss:Type="String">Payment</Data></Cell>
+        <Cell><Data ss:Type="String">Ad/Status</Data></Cell>
+      </Row>
+      <% if defined? @sales %>
+        <% @sales.each do |sale| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= sale.first_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= sale.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= sale.team_leader %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= sale.section %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= sale.time_of_sale.to_formatted_s(:long_ordinal)%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= sale.company%></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= sale.page_size%></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= sale.sale_amount%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= sale.payment_type%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= sale.ad_status%></Data></Cell>
+          </Row>
+        <% end %>
+      <% end %>
+      <Row>
+          <Cell><Data ss:Type="String">Totals</Data></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell><Data ss:Type="Number"><%= @sale_total %></Data></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+</Workbook>

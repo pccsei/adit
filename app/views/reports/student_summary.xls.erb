@@ -1,0 +1,53 @@
+<xml version="1.0">
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Student Manager</Data></Cell>
+        <Cell><Data ss:Type="String">Section</Data></Cell>
+        <Cell><Data ss:Type="String">Open Clients</Data></Cell>
+        <Cell><Data ss:Type="String">Sold Clients</Data></Cell>
+        <Cell><Data ss:Type="String">Released Clients</Data></Cell>
+        <Cell><Data ss:Type="String">Sales Total</Data></Cell>
+        <Cell><Data ss:Type="String">Points</Data></Cell>
+        <Cell><Data ss:Type="String">Last Student Activity</Data></Cell>
+      </Row>
+      <% if defined? @student_array %>
+        <% @student_array.each do |student| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= student.first_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= student.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= student.student_manager %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.section %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.open%></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.sold %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.released %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.sales %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.points %></Data></Cell>
+            <% if student.last_activity.present? %>
+              <Cell><Data ss:Type="String"><%= time_ago_in_words(student.last_activity) + ' ago' %></Data></Cell>
+            <% end %>
+          </Row>
+        <% end %>
+      <% end %>
+      <Row>
+          <Cell><Data ss:Type="String">Totals</Data></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell><Data ss:Type="Number"><%= @student_totals.total_open%></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @student_totals.total_sold %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @student_totals.total_released %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @student_totals.total_sales %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @student_totals.total_points %></Data></Cell>
+          <Cell></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+</Workbook>

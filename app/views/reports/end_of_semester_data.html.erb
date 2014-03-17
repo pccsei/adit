@@ -1,3 +1,9 @@
-<% provide(:title, 'End of Semester Totals') %>
+<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
+<p>
+  Download:
+  <%= link_to "Excel", reports_end_of_semester_data_path(format: "xls") %>
+</p>
+
+<% provide(:title, 'End of Semester') %>
 
 <%= render :partial => 'end_of_semester_data'%>

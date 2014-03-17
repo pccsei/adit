@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   helper_method :get_selected_project
   helper_method :get_selected_section
   helper_method :set_selected_section
+  helper_method :get_current_student_project
   
   # CONSTANTS
   TEACHER = 3

@@ -1,80 +1,56 @@
 <% provide(:title, 'Assign Clients') %>
-
-<% if current_user.help == true %>
-	<h2>First Time User?</h2>
-
-	<%= button_to 'Yes', :controller => :users, action: 'need_help'%>
-
-<% end %>
-<% if false %>
-<table id="ajaxTable" class="display" data-source="<%= clients_url(format: 'json')%>">
-  <thead>
-    <tr>
-      <th>Business name</th>
-      <th>Address</th>
-      <th>Contact title</th>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Telephone</th>
-      <th>Comment</th>
-      <% if (project = get_selected_project).is_active == true %>
-        <th></th>
-    <% end %>
-    <th>details</th>
-  </tr>
-  </thead>
-
-  <tbody>
-    
-    
-  </tbody>
-
-</table>
-#################################################################################
-
-    <% end %>
+<p>
+  Download:
+  <%= link_to "Excel", clients_path(format: "xls") %>
+</p>
 <table class="display" id="client_list">
   <thead>
-    <tr>
-      <th>Business name</th>
-      <th>Address</th>
-      <th>Contact title</th>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Telephone</th>
-      <th>Comment</th>
-      <% if (project = get_selected_project).is_active == true %>
-        <th></th>
+  <tr>
+    <% if (project = get_selected_project).is_active == true %>
+        <th>Owner</th>
     <% end %>
-    <th>details</th>
+    <th>Business name</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip</th>
+    <th>Telephone</th>
+    <th>Contact title</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>E-mail</th>
+    <th>Comment</th>
   </tr>
   </thead>
 
   <tbody>
-	<% @tickets.each do |ticket| %>
-	  <tr>    
-      	<td><%= ticket.business_name %></td>
+  <% @tickets.each do |ticket| %>
+      <tr>
+        <% if project.is_active == true %>
+            <td>
+              <% if ticket.id %>
+                  <% if ticket.student_fname %>
+                      <%= (ticket.student_fname + ' ' +  ticket.student_lname + '<br />(' + ticket.student_id + ')').html_safe %>
+                  <% else %>
+                      <%= link_to 'assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-primary btn-sm'} %>
+                  <% end %>
+              <% else %>
+                  <%= 'Ticket does not exist for this client' %>
+              <% end %>
+            </td>
+        <% end %>
+        <td><%= link_to ticket.business_name, client_path(ticket.client_id) %></td>
         <td><%= ticket.address %></td>
+        <td><%= ticket.city %></td>
+        <td><%= ticket.state %></td>
+        <td><%= ticket.zipcode %>
+        <td><%= ticket.telephone %></td>
         <td><%= ticket.contact_title %></td>
         <td><%= ticket.contact_fname %></td>
         <td><%= ticket.contact_lname %></td>
-        <td><%= ticket.telephone %></td>
-        <td><%= tooltipify(ticket.comment).html_safe%></td>
-        <% if project.is_active == true %>
-	      <td>
-	        <% if ticket.id %>
-	          <% if ticket.student_fname %>
-	          	<%= (ticket.student_fname + ' ' +  ticket.student_lname + '<br />(' + ticket.student_id + ')').html_safe %>
-	          <% else %>
-	          	<%= link_to 'assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-primary btn-sm'} %>
-	          <% end %>
-	        <% else %> 
-	          <%= 'Ticket does not exist for this client' %>
-	        <% end %>
-          </td>
-        <% end %>
-        <%# TODO: Just make the business name a link to the details and drop this button %>
-        <td><%= link_to 'details', client_path(:id => ticket.id), {:id => ticket.id, :class => 'btn btn-info btn-sm'} %></td>
+        <td><%= ticket.email %></td>
+        <td><%= tooltipify(ticket.comment)%></td>
+
       </tr>
   <% end %>
   </tbody>

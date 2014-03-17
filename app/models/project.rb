@@ -5,41 +5,34 @@ class Project < ActiveRecord::Base
   has_many   :members
 
 # Validates the year field
-  validates :year, presence: true#, uniqueness: { #scope: :semester, message: "can only be one active project per semester of each year."}
+  validates :year, presence: true, uniqueness: { scope: :semester, message: "can only be one active project per semester of each year."}
   
 # Validates the ticket open and close times  
   validates :tickets_open_time, presence: true, uniqueness: true
   validates :tickets_close_time, presence: true
   validate :start_before_end
-  #validate :current_selected_year
- # validate :current_semester
+  validate :current_selected_year
+  validate :current_semester
   
 # Validates the max total clients option  
   validates :max_clients, length: {
     minimum: 1,
     message: 'is the wrong length.  Needs to be one digit long.'
-  }, numericality: { greater_than: 0 }, unless: Proc.new { |project| project.use_max_clients == false }
-  
-# Validates the max high priority clients option
-  validates :max_high_priority_clients, length: {
-    minimum: 1,
-    message: 'is the wrong length.  Needs to be at least one digit long.'
-  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_medium_priority_clients == 0 && project.max_low_priority_clients == 0) } }, 
-      unless: Proc.new { |project| project.use_max_clients == true }
+  }, numericality: { greater_than: 0 }
+
   
 # Validates the max medium priority clients option
   validates :max_medium_priority_clients, length: {
     minimum: 1,
     message: 'is the wrong length.  Needs to be at least one digit long.'
-  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_low_priority_clients == 0) } }, 
-      unless: Proc.new { |project| project.use_max_clients == true }
+  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_low_priority_clients == 0) } }
+
 
 # Validates the max low priority clients option
   validates :max_low_priority_clients, length: {
     minimum: 1,
     message: 'is the wrong length.  Needs to be at least one digit long.'
-  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_medium_priority_clients == 0) } },
-      unless: Proc.new { |project| project.use_max_clients == true }
+  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_medium_priority_clients == 0) } }
 
 # Custom method to make sure the open date is before the close date  
   def start_before_end

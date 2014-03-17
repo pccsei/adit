@@ -5,7 +5,7 @@
 #
 #  cities = City.create!([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #  Mayor.create!(name: 'Emanuel', city: cities.first)
-
+=begin
 statuses = Status.create!([{status_type: 'Unapproved'}, {status_type: 'Approved'}, {status_type: 'In House'}, {status_type: 'Pending'}, {status_type: 'Edited'}])
 
 clients = Client.create!([{business_name: '10th Avenue Hair Designs', address: '1000 East Cervantes Street', telephone: '433-5207', comment: '', zipcode: 32501, contact_fname: '', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id},
@@ -489,16 +489,16 @@ clients = Client.create!([{business_name: '10th Avenue Hair Designs', address: '
 
 project_types = ProjectType.create!([{name: 'Calendar'}, {name: 'Arrow'}])
 
-projects = Project.create!([{year: 2008, semester: 'Fall', tickets_open_time: Date.new(2008, 9, 1), tickets_close_time: Date.new(2008, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false, use_max_clients: true},
-                           {year: 2009, semester: 'Fall', tickets_open_time: Date.new(2009, 9, 1), tickets_close_time: Date.new(2009, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false, use_max_clients: true},
-                           {year: 2010, semester: 'Fall', tickets_open_time: Date.new(2010, 9, 1), tickets_close_time: Date.new(2010, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false, use_max_clients: true},
-                           {year: 2011, semester: 'Fall', tickets_open_time: Date.new(2011, 9, 1), tickets_close_time: Date.new(2011, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false, use_max_clients: true},
-                           {year: 2012, semester: 'Fall', tickets_open_time: Date.new(2012, 9, 1), tickets_close_time: Date.new(2012, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false, use_max_clients: true},
-                           {year: 2013, semester: 'Fall', tickets_open_time: Date.new(2013, 9, 1), tickets_close_time: Date.new(2013, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false, use_max_clients: true},
-                           {year: 2010, semester: 'Spring', tickets_open_time: Date.new(2010, 2, 1), tickets_close_time: Date.new(2010, 5, 1), project_type_id: (ProjectType.find_by name: 'Calendar').id, is_active: false, use_max_clients: true},
-                           {year: 2011, semester: 'Spring', tickets_open_time: Date.new(2011, 2, 1), tickets_close_time: Date.new(2011, 5, 1), project_type_id: (ProjectType.find_by name: 'Calendar').id, is_active: false, use_max_clients: true},
-                           {year: 2012, semester: 'Spring', tickets_open_time: Date.new(2012, 2, 1), tickets_close_time: Date.new(2012, 5, 1), project_type_id: (ProjectType.find_by name: 'Calendar').id, is_active: false, use_max_clients: true},
-                           {year: 2013, semester: 'Spring', tickets_open_time: Date.new(2013, 2, 1), tickets_close_time: Date.new(2013, 5, 1), project_type_id: (ProjectType.find_by name: 'Calendar').id, is_active: false, use_max_clients: true}])
+projects = Project.create!([{year: 2008, semester: 'Fall', tickets_open_time: Date.new(2008, 9, 1), tickets_close_time: Date.new(2008, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false},
+                           {year: 2009, semester: 'Fall', tickets_open_time: Date.new(2009, 9, 1), tickets_close_time: Date.new(2009, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false},
+                           {year: 2010, semester: 'Fall', tickets_open_time: Date.new(2010, 9, 1), tickets_close_time: Date.new(2010, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false},
+                           {year: 2011, semester: 'Fall', tickets_open_time: Date.new(2011, 9, 1), tickets_close_time: Date.new(2011, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false},
+                           {year: 2012, semester: 'Fall', tickets_open_time: Date.new(2012, 9, 1), tickets_close_time: Date.new(2012, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false},
+                           {year: 2013, semester: 'Fall', tickets_open_time: Date.new(2013, 9, 1), tickets_close_time: Date.new(2013, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false},
+                           {year: 2010, semester: 'Spring', tickets_open_time: Date.new(2010, 2, 1), tickets_close_time: Date.new(2010, 5, 1), project_type_id: (ProjectType.find_by name: 'Calendar').id, is_active: false},
+                           {year: 2011, semester: 'Spring', tickets_open_time: Date.new(2011, 2, 1), tickets_close_time: Date.new(2011, 5, 1), project_type_id: (ProjectType.find_by name: 'Calendar').id, is_active: false},
+                           {year: 2012, semester: 'Spring', tickets_open_time: Date.new(2012, 2, 1), tickets_close_time: Date.new(2012, 5, 1), project_type_id: (ProjectType.find_by name: 'Calendar').id, is_active: false},
+                           {year: 2013, semester: 'Spring', tickets_open_time: Date.new(2013, 2, 1), tickets_close_time: Date.new(2013, 5, 1), project_type_id: (ProjectType.find_by name: 'Calendar').id, is_active: false}])
 
 priorities = Priority.create!([{name: 'high'}, {name: 'medium'}, {name: 'low'}])
 
@@ -1036,3 +1036,18 @@ action_types = ActionType.create!([{ name: 'First Contact',  role: 1, point_valu
                                   { name: 'Old Sale',       role: 1, point_value: 10},
                                   { name: 'New Sale',       role: 1, point_value: 15},
                                   { name: 'Comment',        role: 1, point_value: 0}])
+=end
+# This is where the seed data for the expo begins
+  # Student Data
+
+student_teacher = User.create!([{school_id: 'nerdmaster', role: 3, first_name: 'Zero', last_name: 'Relative', email: 'zrelative5789@faculty.pcci.edu'}])
+
+
+projects = Project.create!([{year: 2014, semester: 'Spring', tickets_open_time: Date.new(2014, 9, 1), tickets_close_time: Date.new(2014, 12, 1), project_type_id: (ProjectType.find_by name: 'Calendar').id, is_active: false},
+                            {year: 2014, semester: 'Fall', tickets_open_time: Date.new(2015, 9, 1), tickets_close_time: Date.new(2015, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false},
+                            {year: 2015, semester: 'Spring', tickets_open_time: Date.new(2014, 9, 1), tickets_close_time: Date.new(2014, 12, 1), project_type_id: (ProjectType.find_by name: 'Calendar').id, is_active: false},
+                            {year: 2015, semester: 'Fall', tickets_open_time: Date.new(2015, 9, 1), tickets_close_time: Date.new(2015, 12, 1), project_type_id: (ProjectType.find_by name: 'Arrow').id, is_active: false}])
+
+
+
+

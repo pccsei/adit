@@ -23,13 +23,13 @@ class User < ActiveRecord::Base
   }, unless: Proc.new { |user| user.role == -1 }
 
 # Validates the phone number
-  validates :phone, format: {
-      with: /\A([Tt][Oo][Ww][Nn]|17\s*-\s*\d{4}\s*-\s*[1-4]|(\d{3}\s*-\s*){1,2}\d{4}(\s*[Ee][Xx][Tt]\.?\s*\d{1,7})?)\Z/,
+  validates :phone, allow_blank: true, format: {
+      with: /\A(([tT][oO][wW][nN])|(((17)\s*[-]\s*)?(\d{4})\s*[-]*\s*([1-4]{1}))*|((((\d{3})?\s*[-]*\s*)*(\d{3})\s*[-]\s*(\d{4}))*\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
       message: 'must be a valid PCC phone number or valid telephone number.'
   }, unless: Proc.new { |user| user.role == -1 }
 
 # Validates the box number
-  validates :box, length: {
+  validates :box, allow_blank: true, length: {
       minimum: 3, maximum: 4,
       message: 'is the wrong length.  Needs to be either three or four digits long.'
   }, numericality: { greater_than: 0 }, unless: Proc.new { |user| user.role == -1 }
@@ -316,7 +316,7 @@ class User < ActiveRecord::Base
       teachers[index]                = Struct::Teacher.new
       teachers[index].id             = t.id
       teachers[index].m_id           = m.id
-      teachers[index].full_name      = t.first_name + ' ' + t.last_name
+      teachers[index].full_name      = t.first_name + ' ' + t.last_name if t.first_name && t.last_name
       teachers[index].first_name     = t.first_name
       teachers[index].last_name      = t.last_name
       teachers[index].email          = t.email
@@ -338,11 +338,6 @@ class User < ActiveRecord::Base
     else
       nil
     end
-  end
-
-# Returns the section number for a given user and project
-  def self.get_section_number(student_id, project)
-    find(student_id).members.find_by(project_id: project.id).section_number
   end
 
   def self.all_students

@@ -35,9 +35,9 @@
           <div>
             <p>Way to Ad It!</p>
           </div>
-          <%= label_tag('price', 'Sale Amount $') %>
+          <%= label_tag('price', 'Sale Amount $', class: 'required') %>
           <%= text_field_tag(:price, '', :placeholder => 'Examples: 50 or 75') %>
-          <%= label_tag('page', 'Page Size') %>
+          <%= label_tag('page', 'Page Size', class: 'required') %>
           <%= text_field_tag(:page, '', :placeholder => 'Examples: .25 or 1.5 ')%>
           <%= label_tag('payment_type', 'Payment Type') %>
           <%= select_tag('payment_type', options_for_select(%w(Cash Credit Invoice Check Dept. Trans.)))%>
@@ -57,7 +57,7 @@
     <br />
     <% if @action.action_type.name != 'Comment' %>
     <div>
-      <%= f.label :user_action_time, 'When did you do this?' %>
+      <%= f.label :user_action_time, 'When did you do this?', class: 'required' %>
       <%= f.text_field :user_action_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM' %>
     </div>
     <% else %>

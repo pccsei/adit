@@ -26,13 +26,6 @@ class ProjectsController < ApplicationController
   # POST /projects
   def create
     @project = Project.new(project_params)
-    if @project.use_max_clients == true
-      @project.max_high_priority_clients = 0
-      @project.max_medium_priority_clients = 0
-      @project.max_low_priority_clients = 0
-    else 
-      @project.max_clients = 0
-    end
 
       if @project.save
          set_selected_project(@project)
@@ -85,6 +78,6 @@ class ProjectsController < ApplicationController
       params.require(:project).permit(:id, :year, :semester, :tickets_open_time, :tickets_close_time, 
                                       :comment, :created_at, :updated_at, :max_clients, 
                                       :max_high_priority_clients, :max_low_priority_clients, :max_medium_priority_clients, 
-                                      :use_max_clients, :project_type_id, :is_active)
+                                      :project_type_id, :is_active)
     end
 end

@@ -33,14 +33,15 @@ def main():
             for name, years in years_by_project.items():
                 years.update(create_years(row[name]))
     with open(OUT_PATH, 'wb') as out_file:
-        out_file.write(b'projects = Project.create([')
+        prefix = b'projects = Project.create!(['
+        out_file.write(prefix)
         first_line = True
         for name, years in years_by_project.items():
             for year in years:
                 if first_line:
                     first_line = False
                 else:
-                    out_file.write(b' ' * 27)
+                    out_file.write(b' ' * len(prefix))
                 out_file.write(TEMPLATE.format(
                     year=year,
                     semester=PROJECT_TYPES[name].semester,
@@ -53,6 +54,7 @@ def main():
                     project_type_name=name).encode())
         out_file.seek(-3, io.SEEK_CUR)
         out_file.write(b'])')
+        out_file.truncate()
 
 def strip_all(row):
     for key, value in row.items():

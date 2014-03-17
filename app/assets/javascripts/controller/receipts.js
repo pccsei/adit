@@ -1,11 +1,18 @@
 onLoad(function() {  
-  $(".release_button").click(function() {
-    console.log("release button clicked");
+  $('.modal').modal({keyboard: true, show: false});
+  $(".release_button").click(function(){
+    $("#release_ticket_id").val(this.id);
+  	$('.modal').modal('show');  	
+  });
   
-    if (confirm("Are you sure you want to release this client?")) {
-      $.get('/tickets/release.js?id=' + this.id, function(){ 
-        location.reload(true);
-      });
-    }
+  $('.closeModal').click(function(){
+  	$('.modal').modal('hide');
+  });  
+  
+  $("#release_comment").keyup(function(){
+    if ($('#release_comment').val().length > 0)
+      $('#switchText').attr('value', "Comment and Release");
+    else
+      $('#switchText').attr('value', "Release");
   });
 });

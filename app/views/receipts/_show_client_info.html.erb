@@ -1,4 +1,4 @@
-<% provide(:title, @client.business_name) %>
+<% provide(:title, (@client.business_name).html_safe) %>
 <div>
   <p>
     <strong>Address:</strong>

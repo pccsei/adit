@@ -20,6 +20,7 @@ WhiteCollar::Application.routes.draw do
   post   '/users/another_teacher_to_section'
   post   '/users/change_teacher'
   get    '/users/create_new_section'
+  get    '/users/download_help'
   get    '/users/need_help'
   get    '/users/unauthorized'
   get    '/users/teachers'
@@ -31,7 +32,7 @@ WhiteCollar::Application.routes.draw do
   delete '/users/delete_incorrect'
   post   '/users/new'
   get    '/users/in_section'
-  get    '/tickets/release'
+  post   '/tickets/release'
   get    '/reports/end_of_semester_data'
   get    '/tickets/get_sys_time'
 
