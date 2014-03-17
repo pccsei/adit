@@ -17,6 +17,7 @@ Address: <br />
 <h4>Person to contact: <%=@clientInfo.contact_title %> <%= @clientInfo.contact_fname %> <%= @clientInfo.contact_lname%></h4>
 <br /><br /><br /><br />
 <div>
+	<%= link_to 'Back to Choose Clients', tickets_path, :class => 'btn btn-large btn-primary btn-sm' %>
 	<h3>
 		Here is our past interaction with this client:
 	</h3>
