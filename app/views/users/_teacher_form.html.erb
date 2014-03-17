@@ -9,55 +9,28 @@
 			</ul>
 		</div>
 	<% end %>
-	<br><br><br>
-	 <div class="field">
-		<%= f.label :first_name, class: 'required' %><br>
-		<%= f.text_field :first_name %>
-	</div>
-	<div class="field">
-		<%= f.label :last_name, class: 'required' %><br>
-		<%= f.text_field :last_name %>
-	</div>
-	<div class="field">
-		<%= f.label :school_id, class: 'required' %><br>
-		<%= f.text_field :school_id %>
-	</div>
-	<div class="field">
-		<%= f.label :email, class: 'required' %><br>
-		<%= f.text_field :email %>
-	</div>
-	<div class="field">
-		<%= f.label :phone, 'Telephone Number' %><br>
-		<%= f.text_field :phone %>
-	</div>
-		<%= f.hidden_field :role, :value => 3 %>
-	<div class="actions">
-		<%= f.submit %>   
-	</div> 
->>>>>>> master
-
     <div class = "panel panel-primary">
       <div class = "panel-heading">
-        <h3>&nbsp;New User Information</h3>
+        <h3>&nbsp;New Teacher Information</h3>
       </div>
       <div class = "panel-body">
 
         <div id="full_name">
-          <%= f.label :first_name, 'First Name' %>
+          <%= f.label :first_name, 'First Name', class: 'required' %>
           <%= f.text_field :first_name %>
-          <%= f.label :last_name, 'Last Name' %>
+          <%= f.label :last_name, 'Last Name', class: 'required' %>
           <%= f.text_field :last_name %>
         </div>
         <div id="school_info">
-          <%= f.label :school_id, 'School ID' %>
+          <%= f.label :school_id, 'School ID', class: 'required' %>
           <%= f.text_field :school_id %>
-          <%= f.label :email, 'E-mail Address' %>
+          <%= f.label :email, 'E-mail Address', class: 'required' %>
           <%= f.text_field :email %>
         </div>
         <%= f.hidden_field :role, :value => 3 %>
         <br />
         <div class="actions">
-          <%= f.submit %>
+          <%= f.submit :class => 'btn btn-primary btn-sm' %>
         </div>
       </div>
     </div>
