@@ -21,7 +21,7 @@
     <% if @client.telephone %>      
       <h4><%= "Phone: " + @client.telephone%></h4>
     <% end %>  
-    <h4>
+    </h4>
         
       <% if @client.status_id == Status.where(status_type: "In House") %> 
         <%= "This is an <span id='clientPriority'>in-house</span> client".html_safe %>
