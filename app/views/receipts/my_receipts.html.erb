@@ -16,9 +16,9 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content ">
           <%= form_tag(tickets_release_path) do %>
-            If you would like to leave a comment for others about this client, feel free to do below. <br />
-            <%= hidden_field_tag(:release_ticket_id) %>
-            <%= text_area_tag "release_comment", nil, :size => 20, :placeholder => "Your comment goes here" %>
+            Feel free to leave a comment about this client for other representatives. <br />
+            <%= hidden_field_tag(:ticket_id) %>
+            <%= text_area_tag "body", nil, :size => 20, :placeholder => "Your comment goes here" %>
             <%= link_to "Cancel", "#", title: "cancel", :class => "btn btn-large btn-primary btn-sm closeModal" %>
             <%= submit_tag("Release", :class => "btn btn-large btn-primary btn-sm", :id => "switchText")  %>     
           <% end %>
@@ -31,11 +31,12 @@
         <!-- Loop -->
         <% @active_receipts.each do |receipt| %>
         <div class="active client <%= receipt.ticket.priority.name %>" data-link="#">
-          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
-          <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
-          <p>Made Contact? <%= receipt.made_contact ? 'Yes!' : 'Not yet' %></p>
-          <p>Made Presentation? <%= receipt.made_presentation ? 'Yes!' : 'Not yet' %></p>
-          <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
+          <h3 class="business"><%= link_to receipt.ticket.client.business_name, receipt_path(receipt), title: "View client" %></h3>
+          <section class="info">
+            <p>Made Contact? <%= receipt.made_contact ? 'Yes!' : 'Not yet' %></p>
+            <p>Made Presentation? <%= receipt.made_presentation ? 'Yes!' : 'Not yet' %></p>
+            <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
+          </section>
           <%= link_to image_tag('closebutton.svg', class: 'release_button', id: receipt.ticket.id, data: {toggle: "modal", target: ".bs-example-modal-lg"}), '#', title: 'Release client'%>
         </div>
         <% end %>
@@ -63,10 +64,6 @@
         <% end %>
       </div>
 
-
-
-<!--<span><%#= link_to 'Show', receipt_path(receipt) %></span> 
-><div class="active <%#= Priority.find(ticket.priority_id).name%>"> -->
 <% else %>
 <p> There are currently no projects to view. <p>
 <% end %>

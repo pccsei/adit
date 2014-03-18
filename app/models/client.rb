@@ -53,6 +53,10 @@ class Client < ActiveRecord::Base
   def self.house
     where(status_id: Status.where(status_type: ['In House', 'Approved']))
   end
+
+  def self.approved
+    where(status_id: Status.where(status_type: 'Approved'))
+  end
    
   def self.approve_clients(array_of_pending_clients)
     for i in 0..array_of_pending_clients.count-1

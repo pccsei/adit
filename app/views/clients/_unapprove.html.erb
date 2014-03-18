@@ -1,5 +1,3 @@
-
-<br /><br />
 <table class="display">
   <thead>
   <tr>
@@ -21,7 +19,11 @@
   <tbody>
   <% unapproved_clients.each do |client|%>
       <tr>
-        <td><%= link_to client.business_name, client_path(client.id) %></td>
+      	<% if current_user.role == 3 %>
+        	<td><%= link_to client.business_name, client_path(client.id, from: 'teacher' ) %></td>
+        <% else %>
+        	<td><%= link_to client.business_name, client_path(client.id, from: 'student' ) %></td>
+		<% end %>
         <td><%= client.address %></td>
         <td><%= client.city %></td>
         <td><%= client.state %></td>

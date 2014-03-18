@@ -1,6 +1,7 @@
 <% provide(:title, ('Manage Teachers').html_safe) %>
 
-<%= link_to 'Add New Teacher', users_new_teacher_path, class:  'btn btn-primary btn-sm' %>
+
+<%= link_to 'Add New Teacher', users_new_teacher_path, class: 'btn btn-link btn-sm', id:'add_teacher' %>
 
 
 <br><br><br>
@@ -23,15 +24,16 @@
 	<% end %>
 </div>
 
-<p>
+<!-- EXPO
+<p class="excel">
   Download:
   <%= link_to 'Excel', users_teachers_path(format: 'xls') %><br>
   This will download an excel document with two worksheets: one for Current Teachers and one for Teacher Roster.
-</p>
+</p> -->
 
 <h2>Current Teachers</h2>
 
-<table class="table table-bordered table-striped">
+<table class="table">
 	<thead>
 		<tr>
 			<th>Section</th>
@@ -68,7 +70,7 @@
 </table>
 
 <h2>Teacher Roster</h2>
-<table class ="display">
+<table class ="table">
 	<thead>
 		<tr>
 			<th>First Name</th>

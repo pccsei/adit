@@ -19,14 +19,17 @@
         yes: <%= f.radio_button :is_active, '1' %>
         no:  <%= f.radio_button :is_active, '0', :checked => true %>
     <div class="actions">
-      <%= f.submit %>
+      <%= f.submit class: 'btn btn-primary btn-sm'%>
     </div>
 <% end %>
 
 
      <div id = "project_options">
       <%= f.label :Year %>
-      <%= f.select :year, [current_year, next_year], { :include_blank => false}, { :class => 'btn btn-small dropdown-toggle ', :disabled =>  !@project.is_active }%>
+       <!-- Replace this after the EXPO-->
+      <%#= f.select :year, [current_year, next_year], { :include_blank => false}, { :class => 'btn btn-small dropdown-toggle ', :disabled =>  !@project.is_active }%>
+
+       <%= f.select :year, (2014..2100).to_a, { :include_blank => false}, { :class => 'btn btn-small dropdown-toggle ', :disabled =>  !@project.is_active }%>
       &nbsp; &nbsp;
       <%= f.label :semester %>
       <%= f.select :semester, %w(Spring Fall), { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle ', :disabled =>  !@project.is_active}%>
@@ -63,7 +66,10 @@
           </div>
         </div>
         <div id = "project_options">
-          <h3 class = "col-md-12 alert alert-info">&nbsp;When can the students add clients?</h3><br>
+		      <div class = "panel panel-primary">
+		        <div class = "panel-heading">
+		          <h3>&nbsp;When can the students add clients?</h3><br>
+		        </div>
           <%= f.label :tickets_open_time, 'Start Time', class: 'required' %>
           <%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :disabled => !@project.is_active %>
 
@@ -71,15 +77,13 @@
           <%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :disabled => !@project.is_active %>
         </div>
       </div>
-    </div>
-    </div>
-
+     </div>
     <% if @project.is_active %>
         <%= label_tag(:is_active, 'Would you like to move this project to the archives?') %><br>
         Yes: <%= f.radio_button :is_active, '0' %>
         No:  <%= f.radio_button :is_active, '1', :checked => true %>
         <div class="actions">
-          <%= f.submit %>
+          <%= f.submit class: 'btn btn-primary btn-sm'%>
         </div>
     <% end %>
 </div>

@@ -1,22 +1,27 @@
 <% provide(:title, 'Assign Client') %>  
 
+<div id="assign">
+  <div class = "panel panel-primary">
+    <div class = "panel-heading">
+      <h3>&nbsp;Client Information</h3><br>
+    </div>
+	<div class = "panel-body">
 <div class="clientInfo">
   <div class="basicInfo">
-    <h2><%= @client.business_name%></h2><br>
-    <h3>
+    <h2><%= @client.business_name%></h2>
+    <h4>
       <%= @client.address %>
-      <%= @client.city%>, <%= @client.state%> <%= @client.zipcode%>
-    </h3>
-    <br /><br />
+      <br /><%= @client.city%>, <%= @client.state%> <%= @client.zipcode%>
+    </h4>
   </div>  
   <div class="contactInfo">
-    <h2>
-      <%= @client.contact_title%> <%= @client.contact_fname %> <%= @client.contact_lname%>
-    </h2>
+    <h4>
+      <br /><%= @client.contact_title%> <%= @client.contact_fname %> <%= @client.contact_lname%>
+    </h4>
     <% if @client.telephone %>      
-      <h3><%= "Phone: " + @client.telephone%></h3>
+      <h4><%= "Phone: " + @client.telephone%></h4>
     <% end %>  
-    <h3>
+    </h4>
         
       <% if @client.status_id == Status.where(status_type: "In House") %> 
         <%= "This is an <span id='clientPriority'>in-house</span> client".html_safe %>
@@ -26,83 +31,18 @@
     </h3>
   </div>
 </div>
-
-
-<script>
-
-function dState(){
-  if ($("#assignClient").is(":enabled"))
-    $("#assignClient").prop("disabled", true);  
-}
-
-function eState(enable){  
-  enable = typeof enable !== 'undefined' ? enable : -1;  
-  if ($("#assignClient").is(":disabled") && enable != 0)
-    $("#assignClient").prop("disabled", false);  
-}
-
-$(function() { 
-
-  $('#students').selectable({
-    stop:function(event, ui){
-        $(event.target).children('.ui-selected').not(':first').removeClass('ui-selected'); // thanks to http://stackoverflow.com/questions/861668/how-to-prevent-multiple-selection-in-jquery-ui-selectable-plugin
-    },
-    unselected:function(event, ui){
-      dState()
-    },
-    selected:function(event, ui){
-      $.get( "/clients/more_allowed?school_id=" + ui["selected"].value + "&priority=" + $('#clientPriority').html(),
-        function( data ) {
-          if (data === "true") {
-            $("#studentID").val($('#students .ui-selected').attr('value'));
-            eState(ui["selected"].value);
-            $('#warnTeacher').empty()
-          }
-          else {
-            dState();
-            $('#warnTeacher').html(ui["selected"].innerHTML + " cannot get any more " + $('#clientPriority').html() + " priority clients"); 
-          }
-        });
-    }
-  });
-  
-  
-  $("#sectionNum").change( function() {    
-    dState();    
-    if (this.value != null) {
-      $.getJSON("/users/in_section.json?sn=" + this.value,
-        function(json) {
-          $("#students").empty();          
-          if (json.length > 0) 
-            for (i = 0; i<json.length; i++)
-              $("#students").append("<li class='ui-widget-content clicker' value='" + json[i][0]+"'>"+json[i][2]+", "+json[i][1]+" ("+json[i][0]+")</li>");
-          else
-            $("#students").append("<li id='noAssign' class='ui-widget-content'>"+"There are no students in this section"+"</li>");
-        });
-    }
-  });
-
-  $("#assignClient").click(function() {
-    $("#studentID").val($('#students .ui-selected').attr('value'));
-  });
-
-  
-  $(".ui-widget-content").change(function() {
-    $("#assignClient").prop("disabled", false);
-    
-  });
-});
-</script>
+</div>
+</div>
+</div>
 
 <%= link_to "Back to Assign Clients", clients_path, :class => 'btn btn-large btn-primary btn-sm' %>
 
 <div class="studentInfo">
-			
-	------------------------------------------------------- <br />	
-	
+	<div id ="choose_section">
 	<%= label_tag(:section, "Choose a section:") %>	
   <%= select_tag :section, options_for_select(@sections), :include_blank =>  "Choose a section", :id => "sectionNum" %>
 	<span id='warnTeacher' class="warning"></span>	
+
 	
 	<%= form_tag(controller: "clients", action: "actually_assign") do %>
     <%= hidden_field_tag(:studentID) %>    
@@ -116,4 +56,5 @@ $(function() {
     </ol>  
 	</div>
 
+</div>
 </div>

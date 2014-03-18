@@ -34,7 +34,6 @@
 
 
 .tickets #ticket_message{
-	margin-left: 12em;
 	font-size: 20px;
 	margin-top: -1em !important;
 }
@@ -58,6 +57,12 @@
 	height: 5em;
 }
 
+.tickets #clientsRemaining{
+	float: left;
+	margin-left: 1em;
+	margin-top: 1em !important;
+	font-weight: bold;
+}
 .tickets #midPriority{
 	float: left;
 	float: left;
@@ -119,13 +124,11 @@ color: #000;
 
 .tickets .scroller{
 	z-index:100; 
-	//height: 70px; 
 	font-size:12px;  
-	 
 	margin-top: 5em;
 	border: 1px solid #aaa;
-	width: 88.9em;
+	width: 100%;
 	margin-bottom: -3.2em !important;
-	background-color: black;
+	background-color: #6D6D6D;
 	color: white;
 	}
