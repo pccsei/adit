@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
 
   end
 
-
+=begin
    # This is active directory authentication
    def create
 
@@ -26,16 +26,17 @@ class SessionsController < ApplicationController
   end
 
 # This is the expo create function
-=begin
+=end
+
   def create
 
     if params[:id] == 'teacher'
-      users = User.where(role: 3).ids
+      users = User.where(role: 3, available: 1).ids
       user = User.find(users.sample)
       sign_in(user)
       redirect_back_or projects_path
     elsif params[:id] == 'student'
-      users = User.where(role: 1).ids
+      users = User.where(role: 1, available: 1).ids
       user = User.find(users.sample)
       sign_in(user)
       redirect_back_or tickets_path
@@ -44,7 +45,7 @@ class SessionsController < ApplicationController
       render 'new'
     end
   end
-=end
+
   def destroy
     sign_out
     redirect_to signin_path
