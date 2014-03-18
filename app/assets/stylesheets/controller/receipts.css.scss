@@ -1,21 +1,20 @@
 .receipts #page {
-      width: 80em;
-      margin: 0 auto;
-      position: relative;
-      padding: 2em;
-  
-    }
+  width: 80em;
+  margin: 0 auto;
+  position: relative;
+  padding: 2em;
+}
 
 .receipts h2 {
-      font-size: 2em;
-    }
+  font-size: 2em;
+}
     
 .receipts h3.business {
-      margin-top: 0 !important;
-      clear: none;
-      color: black;
-      font-style: italic;
-    }
+  margin-top: 0 !important;
+  clear: none;
+  color: black;
+  font-style: italic;
+}
 
 .receipts .client {
   box-shadow: .3em .3em .3em #ccc;
@@ -126,5 +125,3 @@ img.release_button:hover {
 .view_button:hover {
   opacity: .5;
 }
-
-
