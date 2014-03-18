@@ -178,6 +178,37 @@ class ReportsController < ApplicationController
     end
   end
 
+  def bonus
+    @sections = get_array_of_all_sections(get_selected_project)
+    @selected_section = get_selected_section
+    @current = self.current_user 
+
+    Struct.new("BonusData", :first_name, :last_name, :student_id, :team_name, :created_date, :points, :comment, :section_number)
+
+    @bonuses = []
+
+    i = 0
+    j = 0
+    @bonus_total_points = Bonus.sum(:points)
+    render text: Bonus.where(project_id: get_selected_project).group(:id)
+    Bonus.where(created_at: Bonus.where(project_id: get_selected_project).uniq.pluck(:created_at)) do |b|
+      @bonuses[i] = Struct::BonusData.new
+      @bonuses[i].created_date = b.created_at
+      @bonuses[i].points = b.points
+      @bonuses[i].comment = b.comment
+      Bonus.where(project_id: get_selected_project, created_at: b.created_at) do |c|
+        j = 0
+        @bonuses[i][j].first_name = User.find(c.user_id).first_name
+        @bonuses[i][j].last_name = User.find(c.user_id).last_name
+        @bonuses[i][j].student_id = User.find(c.user_id).school_id
+        @bonuses[i][j].team_name = Member.get_manager_name(Member.find_by(user_id: c.user_id, project_id: c.project_id))
+        @bonuses[i][j].section_number = Member.find_by(user_id: c.user_id, project_id: c.project_id).section_number
+        j = j + 1
+      end
+      i = i + 1
+    end
+  end
+
   def end_of_semester_data
     @sections = get_array_of_all_sections(get_selected_project)
     @current = self.current_user

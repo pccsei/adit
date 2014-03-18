@@ -56,12 +56,12 @@
       <div id = "option">
         <% if @selected_section != 'all' %>
             <%= select_tag 'selected_option',
-                           options_for_select(['Promote Student', 'Assign Team', 'Demote Student', 'Inactivate Students', 'Activate Students', 'Show Only Inactive Students', 'Show only Active Students', 'Show Both Inactive and Active Students']),
+                           options_for_select(['Promote Student', 'Assign Team', 'Demote Student', 'Inactivate Students', 'Activate Students', 'Show Only Inactive Students', 'Show only Active Students', 'Show Both Inactive and Active Students', 'Assign Bonus Points']),
                            :onchange => 'myFunction()', :prompt => 'Choose Action', :type => 'button',
                            :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
         <% else %>
             <%= select_tag 'selected_option',
-                           options_for_select(['Promote Student', 'Demote Student', 'Inactivate Students', 'Activate Students', 'Show Only Inactive Students', 'Show only Active Students', 'Show Both Inactive and Active Students']),
+                           options_for_select(['Promote Student', 'Demote Student', 'Inactivate Students', 'Activate Students', 'Show Only Inactive Students', 'Show only Active Students', 'Show Both Inactive and Active Students', 'Assign Bonus Points']),
                            :onchange => 'myFunction()', :prompt => 'Choose Action', :type => 'button',
                            :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
         <% end %>
@@ -71,6 +71,12 @@
         <%= select_tag 'student_manager', options_from_collection_for_select(@student_managers, 'id', :full_name),
                        :class => 'btn btn-default dropdown-toggle col-md-2'%>
       </div>
+      <div id ="assign_bonus_points">
+        <p>Number of bonus points:
+        <%= text_field_tag 'bonus_points' %></p>
+        <p>Please enter the reason for the bonus points:
+        <%= text_field_tag 'bonus_text' %></p>
+      </div> 
       <%= submit_tag :submit, :class => 'btn btn-large btn-primary btn-sm col-md-1', :id => 'action_submit'%>
     </div>
 

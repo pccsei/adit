@@ -149,7 +149,7 @@ class UsersController < ApplicationController
     elsif choice == "Show Both Inactive and Active Students"
       set_students_to_show(3)
     else
-      User.do_selected_option(students, choice, student_manager_id, get_selected_project)
+      User.do_selected_option(students, choice, student_manager_id, get_selected_project, params[:bonus_points], params[:bonus_comment])
     end
 
     redirect_to users_url

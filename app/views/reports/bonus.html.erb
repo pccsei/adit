@@ -1,0 +1,9 @@
+<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
+<p>
+  Download:
+  <%= link_to "Excel", reports_bonus_path(format: "xls") %>
+</p>
+
+<% provide(:title, 'Bonuses') %>
+
+<%= render :partial => 'bonus'%>

@@ -175,7 +175,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def User.do_selected_option(students, choice, student_manager_id, selected_project)
+  def User.do_selected_option(students, choice, student_manager_id, selected_project, bonus_points, bonus_comment)
     if student_manager_id
       student_manager = User.find(student_manager_id)
     end
@@ -227,6 +227,17 @@ class User < ActiveRecord::Base
               member.save
             end
           end
+        end
+      end
+
+      if choice == 'Assign Bonus Points'
+        for i in 0..students.count-1
+          bonus = Bonus.new
+          bonus.points = bonus_points
+          bonus.comment =  bonus_comment
+          bonus.user_id = User.find(students[i]).id
+          bonus.project_id = selected_project.id
+          bonus.save
         end
       end
     end

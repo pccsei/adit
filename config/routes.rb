@@ -16,6 +16,7 @@ WhiteCollar::Application.routes.draw do
   get    '/reports/activities'
   get    '/reports/sales'
   get    '/reports/team_summary'
+  get    '/reports/bonus'
   post   '/users/assign_teacher_to_section'
   post   '/users/another_teacher_to_section'
   post   '/users/change_teacher'
