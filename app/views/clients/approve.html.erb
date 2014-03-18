@@ -42,10 +42,11 @@
 <% end %>
 
 <h3>Unapproved Clients</h3>
+<!-- EXPO
 <p>
   Download:
   <%= link_to "Excel", clients_approve_path(format: "xls") %>
-</p>
+</p> -->
 <% if @unapproved_clients.present?%>
    <%= render :partial => 'unapprove', :locals => { :unapproved_clients => @unapproved_clients}%>
 <% else %>

@@ -63,7 +63,10 @@
           </div>
         </div>
         <div id = "project_options">
-          <h3 class = "col-md-12 alert alert-info">&nbsp;When can the students add clients?</h3><br>
+		      <div class = "panel panel-primary">
+		        <div class = "panel-heading">
+		          <h3>&nbsp;When can the students add clients?</h3><br>
+		        </div>
           <%= f.label :tickets_open_time, 'Start Time', class: 'required' %>
           <%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :disabled => !@project.is_active %>
 
@@ -71,6 +74,7 @@
           <%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :disabled => !@project.is_active %>
         </div>
       </div>
+     </div>
     <% if @project.is_active %>
         <%= label_tag(:is_active, 'Would you like to move this project to the archives?') %><br>
         Yes: <%= f.radio_button :is_active, '0' %>

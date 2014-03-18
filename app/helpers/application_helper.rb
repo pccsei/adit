@@ -29,4 +29,8 @@ module ApplicationHelper
     end
   end
   
+  def zeroMin(val)
+    return val < 0 ? 0 : val
+  end
+  
 end
