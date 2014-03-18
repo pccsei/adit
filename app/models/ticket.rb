@@ -23,9 +23,12 @@ class Ticket < ActiveRecord::Base
   end
 
   def self.createTicketsForStudents(project, clients)
+    tickets = []
     clients.each do |c|
-      c.tickets.create(:project_id => project.id, :priority_id => (Priority.retrieve(c,project)))
+      tickets << c.tickets.create(:project_id => project.id, :priority_id => (Priority.retrieve(c,project)))
     end
+
+    return tickets
   end
 
   # Boolean method that returns whether or not a student may receive more clients
