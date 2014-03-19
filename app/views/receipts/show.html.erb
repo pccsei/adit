@@ -7,31 +7,39 @@
 <div id = "client_info">
   <%= render :partial => 'show_client_info', :locals => { :client => @client }%>
 </div>
-<div>
-  <%= link_to 'Edit this client!', edit_client_path(@client.id, where: 'from_student', student: @receipt) unless @receipt.user_id != @receipt.ticket.user_id%>
+<div id="edit_client" class='btn btn-large btn-link btn-sm'>
+  <%= link_to 'Edit this client', edit_client_path(@client.id, where: 'from_student', student: @receipt) unless @receipt.user_id != @receipt.ticket.user_id%>
 </div>
 
-<% if Receipt.is_released(@receipt) == false %>
-<div>
-  <% if @receipt.made_contact %>
-      <strong>Made Contact!</strong>
-  <% else %>
-      <strong>Make Contact.</strong>
-  <% end %>
-  <br>
-  <% if @receipt.made_presentation %>
-      <strong>Made Presentation!</strong>
-  <% else %>
-      <strong>Make Presentation.</strong>
-  <% end %>
-  <br>
-  <% if @receipt.made_sale %>
-      <strong>Made Sale!</strong>
-  <% else %>
-      <strong>Make Sale.</strong>
-  <% end %>
-  <br>
+<div class = "panel panel-primary">
+  <div class = "panel-heading">
+    <h3>&nbsp;1-2-3 Steps to complete your Sale!</h3>
+  </div>
+  <div class = "panel-body">
 
+<% if Receipt.is_released(@receipt) == false %>
+
+  <% if @receipt.made_contact %>
+      <strong class="text-success">Made Contact!</strong>
+  <% else %>
+      <strong>BOX  Make Contact.</strong>
+  <% end %>
+  
+  <% if @receipt.made_presentation %>
+      <strong class="text-success">Made Presentation!</strong>
+  <% else %>
+      <strong>BOX  Make Presentation.</strong>
+  <% end %>
+  
+  <% if @receipt.made_sale %>
+  	   <br /><strong class="text-success">Congratulations!! You have completed a sale!</strong>
+     <!-- <strong class="text-success">Made Sale!</strong> -->
+  <% else %>
+      <strong>BOX  Make Sale.</strong>
+  <% end %>
+</div>
+</div>
+  <div id="client_message">
   <% if @receipt.made_sale == false %>
       <% if @receipt.made_contact == false %>
           <%= link_to 'I made a first contact!', new_receipt_action_path(@receipt, :action_type_name => 'First Contact') %>
@@ -41,8 +49,9 @@
               <%= link_to 'I made a sale!', new_receipt_action_path(@receipt, :action_type_name => 'Sale') %>
       <% end %>
   <% end %>
-  <br /><br />
+ 
 </div>
+
 <% else %>
 <p>You have released this client, so you can not add an action to it anymore.</p>
 <% end %>

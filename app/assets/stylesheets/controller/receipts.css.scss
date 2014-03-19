@@ -1,3 +1,38 @@
+.receipts .panel-primary{
+	width: 40em;
+	float:left;
+	margin-top: 2em;
+}
+.receipts #client_message{
+	border: 2px solid black;
+	padding: 1em;
+	border-radius: 1em;
+	width: 15em;
+	text-align: center;
+	margin-top: 10em !important;
+}
+.receipts #edit_client{
+	float: right;
+	margin-top: 19em !important;
+	margin-right: -16em;
+}
+
+.receipts .page-header {
+	text-align:center;
+	width:35.8em;
+}
+
+.receipts #client_info{
+	text-align: left;
+	font-size: 12px;
+	width: 20em;
+	float: right;
+}
+
+.receipts .list-group-item{
+	padding: .2em .1em;
+}
+
 
 .receipts .client:first-child {
       margin-left: 0 !important;
