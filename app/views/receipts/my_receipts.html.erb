@@ -31,11 +31,12 @@
         <!-- Loop -->
         <% @active_receipts.each do |receipt| %>
         <div class="active client <%= receipt.ticket.priority.name %>" data-link="#">
-          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
-          <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
-          <p>Made Contact? <%= receipt.made_contact ? 'Yes!' : 'Not yet' %></p>
-          <p>Made Presentation? <%= receipt.made_presentation ? 'Yes!' : 'Not yet' %></p>
-          <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
+          <h3 class="business"><%= link_to receipt.ticket.client.business_name, receipt_path(receipt), title: "View client" %></h3>
+          <section class="info">
+            <p>Made Contact? <%= receipt.made_contact ? 'Yes!' : 'Not yet' %></p>
+            <p>Made Presentation? <%= receipt.made_presentation ? 'Yes!' : 'Not yet' %></p>
+            <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
+          </section>
           <%= link_to image_tag('closebutton.svg', class: 'release_button', id: receipt.ticket.id, data: {toggle: "modal", target: ".bs-example-modal-lg"}), '#', title: 'Release client'%>
         </div>
         <% end %>
