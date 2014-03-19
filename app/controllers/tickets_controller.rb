@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   before_action :only_teachers, only: [:new, :create]
-
+  before_action :teacher_to_assign, only: :index
   def index
 
     @currentProject = Project.select('id, max_clients,  max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients, tickets_close_time').where(is_active: true, id: Member.select('project_id').where(user_id: current_user.id)).first
@@ -169,6 +169,12 @@ class TicketsController < ApplicationController
     
   end
 
+  def teacher_to_assign
+    if current_user.role == 3
+       redirect_to clients_path, notice: "You have been redirected to the   
+         teacher's version of this page."
+    end
+  end
   def destroy
     @ticket.destroy
     respond_to do |format|

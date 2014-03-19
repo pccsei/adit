@@ -34,12 +34,12 @@ class SessionsController < ApplicationController
       users = User.where(role: 3, available: 1).ids
       user = User.find(users.sample)
       sign_in(user)
-      redirect_back_or projects_path
+      redirect_to projects_path
     elsif params[:id] == 'student'
       users = User.where(role: 1, available: 1).ids
       user = User.find(users.sample)
       sign_in(user)
-      redirect_back_or tickets_path
+      redirect_to tickets_path
     else
       flash.now[:error] = 'Invalid school id or password'
       render 'new'
