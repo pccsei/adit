@@ -121,6 +121,9 @@ class ClientsController < ApplicationController
   # GET /clients/1/edit
   def edit
     @client = Client.find(params[:id])
+    if params[:page]
+      session[:return_from_edit] = params[:page]
+    end
   end
 
   # POST /clients
