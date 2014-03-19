@@ -43,7 +43,7 @@
 
             <% end %>
             <td><%= ticket.priority.name.capitalize %></td>
-            <td><%= link_to client.business_name, ticket, :class => 'btn btn-link btn-sm' %></td>
+            <td><%= link_to client.business_name, client_path(id: ticket.client.id, page: request.url)%></td>
             <td><%= client.address %></td>
             <td><%= client.contact_title + ' ' + client.contact_fname + ' ' +  client.contact_lname%></td>
             <td align="right"><%= client.telephone %></td>

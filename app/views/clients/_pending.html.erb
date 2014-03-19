@@ -27,7 +27,7 @@
             <td><%= check_box_tag 'clients[]', client.id %></td>
         <% end %>
         <td><%= get_submitter_info(client.submitter) %></td>
-        <td><%= link_to client.business_name, client_path(client.id) %></td>
+        <td><%= link_to client.business_name, client_path(id: client.id, page: request.url)  %></td>
         <td><%= client.address %></td>
         <td><%= client.city %></td>
         <td><%= client.state %></td>

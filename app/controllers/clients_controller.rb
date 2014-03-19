@@ -25,6 +25,9 @@ class ClientsController < ApplicationController
   def show
     #@client = Client.find(params[:id])
     @client = Client.find(params[:id])
+    if params[:page]
+      session[:return_to] = params[:page]
+    end
   end
 
   def assign
@@ -146,7 +149,7 @@ class ClientsController < ApplicationController
           redirect_to clients_submit_path
         end
       else
-        format.html render action: 'new' 
+        render action: 'new' 
       end
   end
 
