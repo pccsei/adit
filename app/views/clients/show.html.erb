@@ -1,7 +1,4 @@
 <% provide(:title, 'Client Information') %>
-
-<p id="notice"><%= notice %></p>
-
   <ul class="list-group">
     <li class="list-group-item"> <strong>Business name:</strong>
   <%= @client.business_name %></li>
@@ -50,6 +47,6 @@
 <% end %>
 
 <%= link_to 'Back', session[:return_to] %>
-<% if (current_user.role == 3 || current_user.school_id == @client.submitter) %>
+<% if (current_user.role == 3 || current_user.id == @client.submitter) %>
 	| <%= link_to 'Edit', edit_client_path(@client, page: request.url) %>
 <% end %>
