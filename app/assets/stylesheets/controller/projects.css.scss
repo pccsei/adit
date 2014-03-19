@@ -36,11 +36,9 @@
 	margin-left: 28em;
 	margin-top: -1.5em;
 }
-#max_clients_message{
-	margin-top: 2em;
-}
+
 #max_clients{
-	margin-top: 1em;
+	margin-top: 2em;
 }
 
 #project_options{
@@ -53,4 +51,12 @@
 
 #active_project{
 	color: black; 
+}
+
+#max_clients select{
+	margin-left: .75em;
+}
+
+#archived{
+	margin-top: 2em;
 }
