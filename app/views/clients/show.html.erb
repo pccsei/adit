@@ -24,11 +24,28 @@
   </ul>
 
 
+
+<% if false %>
 <% if (current_user.role == 3 || current_user.school_id == @client.submitter) %>
 	<%= link_to 'Edit', edit_client_path(@client, where: 'not_from_student'), :class => 'btn btn-large btn-primary btn-sm' %>
 <% end %>
 <% if current_user.role == 3 %>
-	<%= link_to 'Back to Assign Clients', clients_path, :class => 'btn btn-large btn-primary btn-sm' %>
+	<% if params[:from] == 'teacher' %>
+		<%= link_to 'Back to Approve Clients', clients_approve_path, :class => 'btn btn-large btn-primary btn-sm' %>
+	<% else %>
+		<%= link_to 'Back to Assign Clients', clients_path, :class => 'btn btn-large btn-primary btn-sm' %>
+	<% end %>
 <% else %>
-	<%= link_to 'Back to Client', receipt_path(params[:receipt]), :class => 'btn btn-large btn-primary btn-sm' %>
+	<% if params[:from] == 'student' %>
+		<%= link_to 'Back to Submit Client', clients_submit_path, :class => 'btn btn-large btn-primary btn-sm' %>
+	<% else %>
+		<%= link_to 'Back to Client', receipt_path(params[:receipt]), :class => 'btn btn-large btn-primary btn-sm' %>
+	<% end %>
+<% end %>
+
+<% end %>
+
+<%= link_to 'Back', session[:return_to] %>
+<% if (current_user.role == 3 || current_user.school_id == @client.submitter) %>
+	<%= link_to 'Edit', edit_client_path(@client, where: 'not_from_student'), :class => 'btn btn-large btn-primary btn-sm' %>
 <% end %>

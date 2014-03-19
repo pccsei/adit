@@ -1,15 +1,14 @@
 <% provide(:title, 'Choose Clients') %>
 
 <% if @tickets %>
-
-
     <div class="scroller_anchor"></div>
     <div class="scroller" id ="alerts">
-      <p id="clientsRemaining"> Picks Left: <span id='clientsRemainingCount' class="badge"><%= @clientsLeft %></span></p>
-      <p id="highPriority">     High priority: <span id='highPriorityCount' class="badge"><%= @highPriority < 0 ? 0 : @highPriority%></span></p>
-      <p id="midPriority">      Medium priority: <span id='mediumPriorityCount' class="badge"><%= @midPriority < 0 ? 0 : @midPriority%></span></p>
-      <p id="lowPriority">      Low priority:  <span id='lowPriorityCount' class="badge"><%= @lowPriority < 0 ? 0 : @lowPriority%></span></p>
-
+      <% if @clientsLeft %>
+        <%= "<p id='totalMessage'> You can get a total of <span id='clientsRemaining' class='badge'>#{zeroMin(@clientsLeft)}</span> more clients</p>".html_safe %>
+      <% end %>
+      <p id="highPriority"> High priority allowed: <span id='highPriorityCount' class="badge"><%= zeroMin(@highPriority)%></span></p>
+      <p id="midPriority">  Medium priority allowed: <span id='mediumPriorityCount' class="badge"><%= zeroMin(@midPriority)%></span></p>
+      <p id="lowPriority">  Low priority allowed:  <span id='lowPriorityCount' class="badge"><%= zeroMin(@lowPriority)%></span></p>
 
       <% if open = (@currentProject.tickets_close_time > Time.now) %>
           <p id="ticket_info">You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.</p>
@@ -44,7 +43,7 @@
 
             <% end %>
             <td><%= ticket.priority.name.capitalize %></td>
-            <td><%= link_to client.business_name, ticket, :class => 'btn btn-link btn-sm' %></td>
+            <td><%= link_to client.business_name, client_path(id: ticket.client.id, page: request.url)%></td>
             <td><%= client.address %></td>
             <td><%= client.contact_title + ' ' + client.contact_fname + ' ' +  client.contact_lname%></td>
             <td align="right"><%= client.telephone %></td>

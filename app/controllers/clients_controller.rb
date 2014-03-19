@@ -25,6 +25,9 @@ class ClientsController < ApplicationController
   def show
     #@client = Client.find(params[:id])
     @client = Client.find(params[:id])
+    if params[:page]
+      session[:return_to] = params[:page]
+    end
   end
 
   def assign
@@ -131,7 +134,6 @@ class ClientsController < ApplicationController
     # This line should eventually place the clients on the pending clients list instead of straight into the db
     # @client.status_id = Status.where("status_type = ?", "Pending").pluck(:id) 
 
-    respond_to do |format|
       if @client.save
        if current_user.role == 3
           user = nil
@@ -141,13 +143,14 @@ class ClientsController < ApplicationController
         Ticket.create(:user_id => user, :client_id => @client.id, 
                       :project_id => get_current_project.id, :priority_id => Priority.where('name = ?', 'low').first.id)
         flash[:success] = 'Your client has been submitted for approval.'
-        format.html { redirect_to clients_submit_path }
-        format.json { render action: 'show', status: :created, location: @client }
+        if current_user.role == 3
+          redirect_to clients_approve_path
+        else
+          redirect_to clients_submit_path
+        end
       else
-        format.html { render action: 'new' }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
+        render action: 'new' 
       end
-    end
   end
 
   # PATCH/PUT /clients/1

@@ -120,16 +120,10 @@ p {
 #logo {
 	display: block;
 	float: left;
-	background-color: transparent;
 	font-size: 1.1em;
-	height: 4em;
-	width: 11.5em;
+	height: 3.5em;
 	margin-right: 1.5em;
-	background-repeat: no-repeat;
-	background-position: 28px 14px;
-	margin-left: -10em;
-    text-align: center;
-    padding: .3em 0;
+  padding: .3em 0;
 }
 
 .navbar-default {
@@ -178,16 +172,16 @@ p {
 }
 
 .dropdown-menu > li > a {
-    background-color: white;
+  background-color: white;
 }
 
 .container, #container {
-    margin: 0 auto;
-    max-width: 90em;
+  margin: 0 auto;
+  max-width: 90em;
 }
 
 #container {
-  padding: 3em 4em 4em;
+  padding: 3em 0 4em;
   margin-top: 4em;
   margin-bottom: 8em !important;
   border-radius: 4px;

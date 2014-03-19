@@ -1,12 +1,13 @@
 <%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
 <% provide(:title, 'Team Summary') %>
 
+<!-- EXPO
 <%if defined? @team_data %>
   <p>
     Download:
     <%= link_to "Excel", reports_team_summary_path(format: "xls") %>
   </p>
-<% end %>
+<% end %> -->
 
 <div id = "section_refresh">
 <%= render :partial => "team_summary"%>
