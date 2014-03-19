@@ -19,8 +19,10 @@
   <%= @client.telephone %></li>
 		  <li class="list-group-item"> <strong>Comment:</strong>
   <%= @client.comment %></li>
-	  <li class="list-group-item"> <strong>Owner:</strong>
-  <%= @client.submitter %></li>
+  <% if (@client.status.status_type== 'Pending') || (@client.status.status_type == 'Edited')%>
+	  <li class="list-group-item"> <strong>Submitted by:</strong>
+  <%= get_submitter_info(@client.submitter) %></li>
+  <% end %>
   </ul>
 
 
@@ -44,7 +46,7 @@
 
 <% end %>
 
-<%= link_to 'Back', session[:return_to] %>
+<%= link_to 'Back', session[:return_to] %>|
 <% if (current_user.role == 3 || current_user.school_id == @client.submitter) %>
-	<%= link_to 'Edit', edit_client_path(@client, where: 'not_from_student'), :class => 'btn btn-large btn-primary btn-sm' %>
+	<%= link_to 'Edit', edit_client_path(@client, where: 'not_from_student') %>
 <% end %>
