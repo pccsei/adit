@@ -11,7 +11,6 @@
 <% if @selected_section != 'all' %>
     <p id="paste" class="fake-link btn btn-large btn-link btn-sm ">Copy and paste your student roster here or</p> <%= link_to 'Add One Student', new_user_path, :id => 'add_student', class: 'btn btn-large btn-link btn-sm'%>
 
-
     <div class = "col-md-12" id="parse_box">
       <%= form_tag(users_input_students_parse_path) do%>
           <br>
