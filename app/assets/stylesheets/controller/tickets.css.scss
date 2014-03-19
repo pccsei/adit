@@ -25,10 +25,8 @@
 }
 
 
-.tickets #max_clients{
-	float: left;
+.tickets #totalMessage{
 	margin-left: 1em;
-	margin-top: 1em !important;
 }
 
 
@@ -58,8 +56,6 @@
 }
 
 .tickets #clientsRemaining{
-	float: left;
-	margin-left: 1em;
 	margin-top: 1em !important;
 	font-weight: bold;
 }
@@ -127,8 +123,8 @@ color: #000;
 	font-size:12px;  
 	margin-top: 5em;
 	border: 1px solid #aaa;
-	width: 100%;
+	width: 97.5em;
 	margin-bottom: -3.2em !important;
-	background-color: #6D6D6D;
+	background-color: #DC0000;
 	color: white;
 	}

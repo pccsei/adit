@@ -20,22 +20,21 @@
 <% if Receipt.is_released(@receipt) == false %>
 
   <% if @receipt.made_contact %>
-      <strong class="text-success">Made Contact!</strong>
+      <strong> <span class="glyphicon glyphicon-check"></span>Made Contact!&nbsp;&nbsp;</strong>
   <% else %>
-      <strong>BOX  Make Contact.</strong>
+      <strong><span class="glyphicon glyphicon-unchecked"></span>Make Contact.&nbsp;&nbsp;</strong>
   <% end %>
   
   <% if @receipt.made_presentation %>
-      <strong class="text-success">Made Presentation!</strong>
+      <strong> <span class="glyphicon glyphicon-check"></span>Made Presentation!&nbsp;&nbsp;</strong>
   <% else %>
-      <strong>BOX  Make Presentation.</strong>
+      <strong><span class="glyphicon glyphicon-unchecked"></span> Make Presentation.&nbsp;&nbsp;</strong>
   <% end %>
   
   <% if @receipt.made_sale %>
-  	   <br /><strong class="text-success">Congratulations!! You have completed a sale!</strong>
-     <!-- <strong class="text-success">Made Sale!</strong> -->
+     <strong> <span class="glyphicon glyphicon-check"></span> Made Sale!&nbsp;&nbsp;</strong>
   <% else %>
-      <strong>BOX  Make Sale.</strong>
+      <strong><span class="glyphicon glyphicon-unchecked"></span>Make Sale.&nbsp;&nbsp;</strong>
   <% end %>
 </div>
 </div>
