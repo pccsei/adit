@@ -40,7 +40,7 @@
               <% end %>
             </td>
         <% end %>
-        <td><%= link_to ticket.business_name, client_path(ticket.client_id) %></td>
+        <td><%= link_to ticket.business_name, client_path(ticket.client_id, page: request.url) %></td>
         <td><%= ticket.address %></td>
         <td><%= ticket.city %></td>
         <td><%= ticket.state %></td>

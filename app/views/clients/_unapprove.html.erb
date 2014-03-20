@@ -20,9 +20,9 @@
   <% unapproved_clients.each do |client|%>
       <tr>
       	<% if current_user.role == 3 %>
-        	<td><%= link_to client.business_name, client_path(client.id, from: 'teacher' ) %></td>
+        	<td><%= link_to client.business_name, client_path(client.id, page: request.url) %></td>
         <% else %>
-        	<td><%= link_to client.business_name, client_path(client.id, from: 'student' ) %></td>
+        	<td><%= link_to client.business_name, client_path(client.id, page: request.url) %></td>
 		<% end %>
         <td><%= client.address %></td>
         <td><%= client.city %></td>

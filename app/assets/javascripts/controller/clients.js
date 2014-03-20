@@ -52,15 +52,15 @@ onLoad(function() {
                 $(event.target).children('.ui-selected').not(':first').removeClass('ui-selected'); // thanks to http://stackoverflow.com/questions/861668/how-to-prevent-multiple-selection-in-jquery-ui-selectable-plugin
             },
             unselected:function(event, ui){
-                dState()
+                dState();
             },
             selected:function(event, ui){
-                $.get( "/clients/more_allowed?school_id=" + ui["selected"].value + "&priority=" + $('#clientPriority').html(),
+                $.get( "more_allowed?school_id=" + ui["selected"].value + "&priority=" + $('#clientPriority').html(),
                     function( data ) {
                         if (data === "true") {
                             $("#studentID").val($('#students .ui-selected').attr('value'));
                             eState(ui["selected"].value);
-                            $('#warnTeacher').empty()
+                            $('#warnTeacher').empty();
                         }
                         else {
                             dState();
@@ -74,7 +74,7 @@ onLoad(function() {
         $("#sectionNum").change( function() {
             dState();
             if (this.value != null) {
-                $.getJSON("/users/in_section.json?sn=" + this.value,
+                $.getJSON("../users/in_section.json?sn=" + this.value,
                     function(json) {
                         $("#students").empty();
                         if (json.length > 0)

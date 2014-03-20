@@ -57,18 +57,21 @@
       </div>
     </div>
     <div class="actions">
-      <% if current_user.role == 3 %>
-          <%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary'%>
-      <% elsif more_tickets_allowed %>
-          <%= f.submit "Submit for teacher's approval", :class => 'btn btn-small btn-primary'%>
-      <% else %>
-
-          <p class="text-info">You already have the maximum allowable clients.</p>
-
-          <p>Please go to <%= link_to 'My Clients', my_receipts_path(id: current_user.id) %>
-            and release one of your clients before asking for another.</p>
-
-      <% end %>
+    	<% if @client.new_record? %>
+		  <% if current_user.role == 3 %>
+		  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary'%>
+		  <% elsif more_tickets_allowed %>
+		  	<%= f.submit "Submit for teacher's approval", :class => 'btn btn-small btn-primary'%>
+		  <% else %>
+		  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary', disabled: true %>
+		  	<p class="text-info">You already have the maximum allowable clients.
+		  		Please go to <%= link_to 'My Clients', my_receipts_path(id: current_user.id) %>
+		    	and release one of your clients before asking for another.</p>
+		  <% end %>
+	  <% else %>
+	     <%= f.submit 'Update Client', :class => 'btn btn-small btn-primary'%>
+	  <% end   %>
     </div>
+    
 
 <% end %>

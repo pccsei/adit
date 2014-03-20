@@ -25,6 +25,9 @@ class ClientsController < ApplicationController
   def show
     #@client = Client.find(params[:id])
     @client = Client.find(params[:id])
+    if params[:page]
+      session[:return_to] = params[:page]
+    end
   end
 
   def assign
@@ -118,6 +121,9 @@ class ClientsController < ApplicationController
   # GET /clients/1/edit
   def edit
     @client = Client.find(params[:id])
+    if params[:page]
+      session[:return_from_edit] = params[:page]
+    end
   end
 
   # POST /clients
@@ -131,7 +137,6 @@ class ClientsController < ApplicationController
     # This line should eventually place the clients on the pending clients list instead of straight into the db
     # @client.status_id = Status.where("status_type = ?", "Pending").pluck(:id) 
 
-    respond_to do |format|
       if @client.save
        if current_user.role == 3
           user = nil
@@ -141,13 +146,14 @@ class ClientsController < ApplicationController
         Ticket.create(:user_id => user, :client_id => @client.id, 
                       :project_id => get_current_project.id, :priority_id => Priority.where('name = ?', 'low').first.id)
         flash[:success] = 'Your client has been submitted for approval.'
-        format.html { redirect_to clients_submit_path }
-        format.json { render action: 'show', status: :created, location: @client }
+        if current_user.role == 3
+          redirect_to clients_approve_path
+        else
+          redirect_to clients_submit_path
+        end
       else
-        format.html { render action: 'new' }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
+        render action: 'new' 
       end
-    end
   end
 
   # PATCH/PUT /clients/1
@@ -159,17 +165,11 @@ class ClientsController < ApplicationController
       edited_client.assign_attributes(client_params)
       # render text: client_params
       Client.make_pending_edited_client(edited_client, @client, client_params, current_user.id)
-      redirect_to :back, notice: 'Your change has been submitted.'     
+      redirect_to session[:return_from_edit], notice: 'Your change has been submitted to your teacher.'     
+    elsif @client.update(client_params)
+       redirect_to session[:return_from_edit], notice: 'Client was successfully updated.'
     else
-      respond_to do |format|
-        if @client.update(client_params)
-          format.html { redirect_to :back, notice: 'Client was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { render action: 'edit' }
-          format.json { render json: @client.errors, status: :unprocessable_entity }
-        end
-      end
+       render action: 'edit' 
     end
   end
 

@@ -8,30 +8,37 @@
   <%= render :partial => 'show_client_info', :locals => { :client => @client }%>
 </div>
 <div>
-  <%= link_to 'Edit this client!', edit_client_path(@client.id, where: 'from_student', student: @receipt) unless @receipt.user_id != @receipt.ticket.user_id%>
+  <%= link_to 'Edit this client!', edit_client_path(@client.id, page: request.url) unless @receipt.user_id != @receipt.ticket.user_id%>
 </div>
 
-<% if Receipt.is_released(@receipt) == false %>
-<div>
-  <% if @receipt.made_contact %>
-      <strong>Made Contact!</strong>
-  <% else %>
-      <strong>Make Contact.</strong>
-  <% end %>
-  <br>
-  <% if @receipt.made_presentation %>
-      <strong>Made Presentation!</strong>
-  <% else %>
-      <strong>Make Presentation.</strong>
-  <% end %>
-  <br>
-  <% if @receipt.made_sale %>
-      <strong>Made Sale!</strong>
-  <% else %>
-      <strong>Make Sale.</strong>
-  <% end %>
-  <br>
+<div class = "panel panel-primary">
+  <div class = "panel-heading">
+    <h3>&nbsp;1-2-3 Steps to complete your Sale!</h3>
+  </div>
+  <div class = "panel-body">
 
+<% if Receipt.is_released(@receipt) == false %>
+
+  <% if @receipt.made_contact %>
+      <strong> <span class="glyphicon glyphicon-check"></span>Made Contact!&nbsp;&nbsp;</strong>
+  <% else %>
+      <strong><span class="glyphicon glyphicon-unchecked"></span>Make Contact.&nbsp;&nbsp;</strong>
+  <% end %>
+  
+  <% if @receipt.made_presentation %>
+      <strong> <span class="glyphicon glyphicon-check"></span>Made Presentation!&nbsp;&nbsp;</strong>
+  <% else %>
+      <strong><span class="glyphicon glyphicon-unchecked"></span> Make Presentation.&nbsp;&nbsp;</strong>
+  <% end %>
+  
+  <% if @receipt.made_sale %>
+     <strong> <span class="glyphicon glyphicon-check"></span> Made Sale!&nbsp;&nbsp;</strong>
+  <% else %>
+      <strong><span class="glyphicon glyphicon-unchecked"></span>Make Sale.&nbsp;&nbsp;</strong>
+  <% end %>
+</div>
+</div>
+  <div id="client_message">
   <% if @receipt.made_sale == false %>
       <% if @receipt.made_contact == false %>
           <%= link_to 'I made a first contact!', new_receipt_action_path(@receipt, :action_type_name => 'First Contact') %>
@@ -41,8 +48,9 @@
               <%= link_to 'I made a sale!', new_receipt_action_path(@receipt, :action_type_name => 'Sale') %>
       <% end %>
   <% end %>
-  <br /><br />
+ 
 </div>
+
 <% else %>
 <p>You have released this client, so you can not add an action to it anymore.</p>
 <% end %>

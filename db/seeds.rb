@@ -1797,6 +1797,18 @@ receipt.action.create(action_type.id: ActionType.find_by name: 'Presentation', p
 
 end
 =end
+def rand_in_range(from, to)
+  rand * (to - from) + from
+end
+
+def rand_price(from, to)
+  rand_in_range(from, to).round(2)
+end
+
+def rand_time(from, to=Time.now)
+  Time.at(rand_in_range(from.to_f, to.to_f))
+end
+
 next_year = 2015
 student_index = 60
 teachers = teacher_users.take(35)
@@ -1809,10 +1821,36 @@ teachers.each do |t|
   clients = Client.approved.limit(50)
   tickets = Ticket.createTicketsForStudents(new_project, clients)
   ticket_index = 0
-  10.times do
+  5.times do
     tickets[ticket_index].user_id = student_users[student_index].id
     tickets[ticket_index].save
-    Receipt.create!(ticket_id: tickets[ticket_index].id, user_id: student_users[student_index].id)
+    receipt = Receipt.create!(ticket_id: tickets[ticket_index].id, user_id: student_users[student_index].id, made_contact: true)
+    receipt.actions.create(points_earned: 5, user_action_time: rand_time(6.days.ago), action_type_id: (ActionType.find_by name: "First Contact").id)
+    new_member = Member.create!(section_number: 1, user_id: student_users[student_index].id, project_id: new_project.id)
+    student_index += 1
+    ticket_index += 1
+  end
+
+  3.times do
+    tickets[ticket_index].user_id = student_users[student_index].id
+    tickets[ticket_index].save
+    receipt = Receipt.create!(ticket_id: tickets[ticket_index].id, user_id: student_users[student_index].id, made_contact: true,
+                    made_presentation: true)
+    receipt.actions.create(points_earned: 5, user_action_time: rand_time(6.days.ago), action_type_id: (ActionType.find_by name: "First Contact").id)
+    receipt.actions.create(points_earned: 5, user_action_time: rand_time(4.days.ago), action_type_id: (ActionType.find_by name: "Presentation").id)
+    new_member = Member.create!(section_number: 1, user_id: student_users[student_index].id, project_id: new_project.id)
+    student_index += 1
+    ticket_index += 1
+  end
+
+  2.times do
+    tickets[ticket_index].user_id = student_users[student_index].id
+    tickets[ticket_index].save
+    receipt = Receipt.create!(ticket_id: tickets[ticket_index].id, user_id: student_users[student_index].id, made_contact: true,
+                              made_presentation: true, made_sale: true, sale_value: rand_price(0, 100), page_size: 0.5, payment_type: "Credit")
+    receipt.actions.create(points_earned: 5, user_action_time: rand_time(6.days.ago), action_type_id: (ActionType.find_by name: "First Contact").id)
+    receipt.actions.create(points_earned: 5, user_action_time: rand_time(4.days.ago), action_type_id: (ActionType.find_by name: "Presentation").id)
+    receipt.actions.create(points_earned: 10, user_action_time: rand_time(2.days.ago), action_type_id: (ActionType.find_by name: "Old Sale").id)
     new_member = Member.create!(section_number: 1, user_id: student_users[student_index].id, project_id: new_project.id)
     student_index += 1
     ticket_index += 1
