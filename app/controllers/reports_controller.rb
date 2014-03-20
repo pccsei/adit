@@ -183,28 +183,23 @@ class ReportsController < ApplicationController
     @selected_section = get_selected_section
     @current = self.current_user 
 
-    Struct.new("BonusData", :first_name, :last_name, :student_id, :team_name, :created_date, :points, :comment, :section_number)
+    Struct.new("BonusData", :id, :first_name, :last_name, :student_id, :team_name, :created_date, :points, :comment, :section_number)
 
     @bonuses = []
 
     i = 0
-    j = 0
     @bonus_total_points = Bonus.sum(:points)
-    render text: Bonus.where(project_id: get_selected_project).group(:id)
-    Bonus.where(created_at: Bonus.where(project_id: get_selected_project).uniq.pluck(:created_at)) do |b|
+    Bonus.all.each do |b|
       @bonuses[i] = Struct::BonusData.new
+      @bonuses[i].id = b.id
       @bonuses[i].created_date = b.created_at
       @bonuses[i].points = b.points
       @bonuses[i].comment = b.comment
-      Bonus.where(project_id: get_selected_project, created_at: b.created_at) do |c|
-        j = 0
-        @bonuses[i][j].first_name = User.find(c.user_id).first_name
-        @bonuses[i][j].last_name = User.find(c.user_id).last_name
-        @bonuses[i][j].student_id = User.find(c.user_id).school_id
-        @bonuses[i][j].team_name = Member.get_manager_name(Member.find_by(user_id: c.user_id, project_id: c.project_id))
-        @bonuses[i][j].section_number = Member.find_by(user_id: c.user_id, project_id: c.project_id).section_number
-        j = j + 1
-      end
+      @bonuses[i].first_name = User.find(b.user_id).first_name
+      @bonuses[i].last_name = User.find(b.user_id).last_name
+      @bonuses[i].student_id = User.find(b.user_id).school_id
+      @bonuses[i].team_name = Member.get_manager_name(Member.find_by(user_id: b.user_id, project_id: b.project_id))
+      @bonuses[i].section_number = Member.find_by(user_id: b.user_id, project_id: b.project_id).section_number
       i = i + 1
     end
   end
@@ -245,6 +240,18 @@ class ReportsController < ApplicationController
     end
   end
   
+  def delete_bonus
+    Bonus.delete_bonus(Bonus.find(params[:bonus]), params[:all])
+
+    redirect_to :back
+  end
+
+  def edit_bonus
+    Bonus.delete_bonus(Bonus.find(params[:points]), params[:comment])
+
+    redirect_to :back
+  end
+
 private
 
    def get_student_summary

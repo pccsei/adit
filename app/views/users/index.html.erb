@@ -58,9 +58,9 @@
       </div>
       <div id ="assign_bonus_points">
         <p>Number of bonus points:
-        <%= text_field_tag 'bonus_points' %></p>
+        <%= number_field_tag 'bonus_points' %></p>
         <p>Please enter the reason for the bonus points:
-        <%= text_field_tag 'bonus_text' %></p>
+        <%= text_field_tag 'bonus_comment' %></p>
       </div> 
       <%= submit_tag :submit, :class => 'btn btn-large btn-primary btn-sm col-md-1', :id => 'action_submit'%>
     </div>

@@ -1,0 +1,47 @@
+<xml version="1.0">
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Created Date</Data></Cell>
+        <Cell><Data ss:Type="String">Bonus Points</Data></Cell>
+        <Cell><Data ss:Type="String">Bonus Comment</Data></Cell>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Student ID</Data></Cell>
+        <Cell><Data ss:Type="String">Team Name</Data></Cell>
+        <Cell><Data ss:Type="String">Section Number</Data></Cell>
+      </Row>
+      <% if defined? @bonuses %>
+        <% @bonuses.each do |b| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= b.created_date.to_formatted_s(:long_ordinal) %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= b.points %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= b.comment %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= b.first_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= b.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= b.student_id %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= b.team_name %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= b.section_number %></Data></Cell>
+          </Row>
+        <% end %>
+      <Row>
+          <Cell><Data ss:Type="String">Totals</Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @bonus_total_points %></Data></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+</Workbook>
+<%end%>
+</xml>
+

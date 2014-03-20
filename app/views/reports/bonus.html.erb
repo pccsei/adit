@@ -1,3 +1,10 @@
+<div id="b">
+	<p>Number of bonus points:
+	<%= number_field_tag 'bonus_points' %></p>
+	<p>Please enter the reason for the bonus points:
+	<%= text_field_tag 'bonus_comment' %></p>
+</div> 
+
 <%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
 <p>
   Download:

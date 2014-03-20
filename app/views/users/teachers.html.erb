@@ -62,7 +62,7 @@
 				<% if @number_of_teachers_per_section[t.section_number] > 1 %>
 					<td><%= link_to 'Remove', User.find(t.id), confirm: 'Are you sure?', method: :delete %></td>
 				<% else %>
-						<td></td>
+					<td></td>
 				<% end %>
 			</tr>
 		<% end %>

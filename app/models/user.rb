@@ -231,13 +231,15 @@ class User < ActiveRecord::Base
       end
 
       if choice == 'Assign Bonus Points'
-        for i in 0..students.count-1
-          bonus = Bonus.new
-          bonus.points = bonus_points
-          bonus.comment =  bonus_comment
-          bonus.user_id = User.find(students[i]).id
-          bonus.project_id = selected_project.id
-          bonus.save
+        if bonus_points != 0
+          for i in 0..students.count-1
+            bonus = Bonus.new
+            bonus.points = bonus_points
+            bonus.comment = bonus_comment
+            bonus.user_id = User.find(students[i]).id
+            bonus.project_id = selected_project.id
+            bonus.save
+          end
         end
       end
     end

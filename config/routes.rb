@@ -36,6 +36,8 @@ WhiteCollar::Application.routes.draw do
   post   '/tickets/release'
   get    '/reports/end_of_semester_data'
   get    '/tickets/get_sys_time'
+  delete '/reports/delete_bonus'
+  delete '/reports/edit_bonus' 
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets
