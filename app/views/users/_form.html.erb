@@ -42,11 +42,15 @@
         </div>
         <div id="class">
           <%= f.label :classification, 'Classification' %>
-          <%= f.select :classification, [['Freshman', 'Freshman'], ['Sophmore', 'Sophmore'], ['Junior', 'Junior'], ['Senior', 'Senior']] %>
+          <%= f.select :classification, [['Freshman', 'FR'], ['Sophomore', 'SO'], ['Junior', 'JR'], ['Senior', 'SR']] %>
         </div>
         <br />
         <div class="actions">
-          <%= f.submit  :class => 'btn btn-primary btn-sm'%>
+        <% if @user.new_record? %>
+          <%= f.submit  'Create Student', :class => 'btn btn-primary btn-sm' %>
+        <% else %>
+          <%= f.submit 'Update Student', :class => 'btn btn-primary btn-sm' %>
+        <% end %>
         </div>
       </div>
     </div>

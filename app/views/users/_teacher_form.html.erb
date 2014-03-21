@@ -30,7 +30,11 @@
         <%= f.hidden_field :role, :value => 3 %>
         <br />
         <div class="actions">
-          <%= f.submit :class => 'btn btn-primary btn-sm' %>
+          <% if @user.new_record? %>
+            <%= f.submit  'Create Teacher', :class => 'btn btn-primary btn-sm' %>
+          <% else %>
+            <%= f.submit 'Update Teacher', :class => 'btn btn-primary btn-sm' %>
+          <% end %>
         </div>
       </div>
     </div>

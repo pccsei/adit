@@ -1,10 +1,9 @@
-
-<% provide(:title, 'Editing User') %>
-
 <% if @user.role != 3 %>
+    <% provide(:title, 'Editing User') %>
 	<%= render 'form' %>
-	<%= link_to 'Back to Manage Section', users_path, :class => 'btn btn-large btn-primary btn-sm' %>
+	<%= link_to 'Back to Manage Section', users_path %>
 <% else %>
+    <% provide(:title, 'Editing Teacher') %>
 	<%= render 'teacher_form' %>
-	<%= link_to "Back to Teacher's Page", users_teachers_path, :class => 'btn btn-large btn-primary btn-sm' %>
+	<%= link_to "Back to Teacher's Page", users_teachers_path %>
 <% end %>
