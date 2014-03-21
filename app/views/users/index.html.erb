@@ -23,8 +23,9 @@
 <%= form_tag(users_change_student_status_path) do%>
     <div id= "manage_dropdown">
       <div id = "option">
+      	<!-- EXPO 'Assign Bonus Points' to be add to options for select -->
         <%= select_tag 'selected_option',
-                        options_for_select(['Promote Student', 'Assign Team', 'Demote Student', 'Assign Bonus Points']),
+                        options_for_select(['Promote Student', 'Assign Team', 'Demote Student']),
                         :onchange => 'myFunction()', :prompt => 'Choose Action', :type => 'button',
                         :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
       </div>
