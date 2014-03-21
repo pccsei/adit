@@ -76,7 +76,9 @@ class ApplicationController < ActionController::Base
     if session[:selected_section_id]
        session[:selected_section_id]
     else
-      'all'
+      section = current_user.members.where(project_id: get_selected_project).first.section_number || 'all'
+      set_selected_section(section)
+      section      
     end
   end
 
