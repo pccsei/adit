@@ -1,5 +1,3 @@
 onLoad(function() {
-
-    $( "#assign_bonus_points" ).hide();
-
+    $("#bonus_edit").hide();
 });
