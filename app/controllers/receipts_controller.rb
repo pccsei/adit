@@ -8,19 +8,22 @@ class ReceiptsController < ApplicationController
   end
   
   def my_receipts
-    if ((User.find(params[:id]).id == current_user.id) || current_user.role == 3)
-      @student_user     =  User.find(params[:id])
+    if User.ids.include?(params[:id].to_i) && (((User.find(params[:id]).id == current_user.id) || current_user.role == 3))
+        @student_user     =  User.find(params[:id])
+        @active_receipts   = Receipt.open_clients(@student_user.id, get_selected_project)
+        @sold_receipts     = Receipt.sold_clients(@student_user.id, get_selected_project)
+        @released_receipts = Receipt.released_clients(@student_user.id, get_selected_project)
     else
-      redirect_to my_receipts_path(id: current_user.id), alert: 'You have been redirected to your own page'
+      if current_user.role != 3
+        redirect_to my_receipts_path(id: current_user.id), alert: 'You have been redirected to your own page'
+      else
+        redirect_to users_path, alert: 'No student with that id.'
+      end
     end
     
     if params[:page]
       session[:return_to] = params[:page]
     end
-    
-    @active_receipts   = Receipt.open_clients(@student_user.id, get_selected_project)
-    @sold_receipts     = Receipt.sold_clients(@student_user.id, get_selected_project)
-    @released_receipts = Receipt.released_clients(@student_user.id, get_selected_project)
     
     # On the boxes themselves, client business name, total points, correct color, checkboxes empty or checked
     
