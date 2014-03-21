@@ -4,12 +4,15 @@
   Download:
   <%= link_to "Excel", clients_path(format: "xls") %>
 </p> -->
+
+<% if get_selected_project.is_active == false %>
+   <p class='info_bar alert-notice'>You must switch to an active project to assign clients.</p>
+<% end%>
+
 <table class="display" id="client_list">
   <thead>
   <tr>
-    <% if (project = get_selected_project).is_active == true %>
-        <th>Owner</th>
-    <% end %>
+    <th>Owner</th>
     <th>Business name</th>
     <th>Address</th>
     <th>City</th>
@@ -27,19 +30,21 @@
   <tbody>
   <% @tickets.each do |ticket| %>
       <tr>
-        <% if project.is_active == true %>
             <td>
               <% if ticket.id %>
-                  <% if ticket.student_fname %>
-                      <%= (ticket.student_fname + ' ' +  ticket.student_lname + '<br />(' + ticket.student_id + ')').html_safe %>
-                  <% else %>
-                      <%= link_to 'assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-primary btn-sm'} %>
-                  <% end %>
+                  <% if get_selected_project.is_active == true %>
+                     <% if ticket.student_fname %>
+                         <%= (ticket.student_fname + ' ' +  ticket.student_lname + '<br />(' + ticket.student_id + ')').html_safe %>
+                      <% else %>
+                         <%= link_to 'assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-primary btn-sm'} %>
+                      <% end %>
+                  <% else%>
+                      <%= link_to 'assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-primary btn-sm', disabled: true }%>
+                   <% end %>
               <% else %>
                   <%= 'Ticket does not exist for this client' %>
               <% end %>
-            </td>
-        <% end %>
+            </td>        
         <td><%= link_to ticket.business_name, client_path(ticket.client_id, page: request.url) %></td>
         <td><%= ticket.address %></td>
         <td><%= ticket.city %></td>
