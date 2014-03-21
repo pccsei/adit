@@ -18,23 +18,8 @@
           <br><%= submit_tag 'Add Students to Section', class: 'btn btn-large btn-primary btn-sm'%>
       <% end %>
     </div>
-<% else %>
-    <p id = "info_message" class = "alert alert-info">Please select a section to create a team or add students.</p>
-<% end %>
-
-<!-- EXPO
-<p>
-  Download:
-  <%= link_to "Excel", users_path(format: "xls") %>
-</p> -->
-
-
-<!-- Displays the incorrect students if any -->
-<% if @incorrect_students.present? %>
-	<%= render :partial => 'incorrect_students' %>
-<% end %>
-
-<!--Actions for the teacher to do with the students and sections-->
+    
+    <!--Actions for the teacher to do with the students and sections-->
 <%= form_tag(users_change_student_status_path) do%>
     <div id= "manage_dropdown">
       <div id = "option">
@@ -63,10 +48,25 @@
       </div> 
       <%= submit_tag :submit, :class => 'btn btn-large btn-primary btn-sm col-md-1', :id => 'action_submit'%>
     </div>
+    <%end%>
+<% else %>
+    <p id = "info_message" class = "alert alert-notice">You are currently viewing all students. Please select a section or create a section for additional options.</p>
+<% end %>
+
+<!-- EXPO
+<p>
+  Download:
+  <%= link_to "Excel", users_path(format: "xls") %>
+</p> -->
+
+
+<!-- Displays the incorrect students if any -->
+<% if @incorrect_students.present? %>
+	<%= render :partial => 'incorrect_students' %>
+<% end %>
 
     <!--Refreshes page using ajax, actually just normally right now-->
     <div id = "section_refresh">
       <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
     </div>
 
-<%end%>
