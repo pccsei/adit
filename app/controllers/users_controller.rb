@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update ]
   before_action :only_teachers, except: [:unauthorized, :need_help, :download_help]
   skip_before_action :must_have_project, only: :unauthorized
 
@@ -253,13 +253,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def remove_member
+     member = Member.find(params[:id])
+     member.delete
+     redirect_to users_teachers_path, notice: "This teacher was successfully removed from the section."
+  end
+  # FIX - needs to find the project and section that teacher is being removed from before the delete
   def destroy
     member = Member.find_by(user_id: @user)
 
-    member.destroy
-    respond_to do |format|
-      format.html { redirect_to :back }
-    end
+    member.delete
+    redirect_to users_teachers_path
   end
 ###################################################################################################################
   def in_section

@@ -60,7 +60,8 @@
 				<td><span id="newtrid<%= trid %>" name="<%= t.section_number  %>" class="fake-link btn btn-large btn-link btn-sm New_Teacher_Link">Add Another Teacher</span></td>
 				<td><span id="changetrid<%= trid; trid = trid + 1%>" name="<%= t.full_name %>" value="<%= t.m_id%>" class="fake-link btn btn-large btn-link btn-sm Change_Teacher_Link">Change Teacher</span></td>
 				<% if @number_of_teachers_per_section[t.section_number] > 1 %>
-					<td><%= link_to 'Remove', User.find(t.id), confirm: 'Are you sure?', method: :delete %></td>
+					<td><%= link_to 'Remove', users_remove_member_path(id: Member.where(user_id: t.id, project_id: get_selected_project, section_number: t.section_number).first), 
+					           method: :post,  confirm: 'Are you sure you wish to remove this teacher from this section?'%></td>
 				<% else %>
 					<td></td>
 				<% end %>
