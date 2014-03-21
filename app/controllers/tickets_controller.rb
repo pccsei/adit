@@ -14,8 +14,8 @@ class TicketsController < ApplicationController
         updates = {'userMessage' => 'There is not a current project!'}
 
       else
-        requested_ticket_priority_id = Ticket.find(params[:clientID]).priority_id
-        if Ticket.more_clients_allowed(current_user, get_current_project, 1, requested_ticket_priority_id)
+        requested_ticket_priority_name = Ticket.find(params[:clientID]).priority.name
+        if Ticket.more_clients_allowed(current_user, get_current_project, 1, requested_ticket_priority_name)
           allowed = true
         else
           allowed = false
@@ -71,7 +71,7 @@ class TicketsController < ApplicationController
             Receipt.find_or_create_by(ticket_id: ticket.id, user_id: current_user.id)
           end
         else
-          updates = {'userMessage' => '<p class="text-danger" id="ticket_message">You already have the max number of ' + Priority.find(requested_ticket_priority_id).name.to_s + ' priority clients.</p>'}
+          updates = {'userMessage' => '<p class="text-danger" id="ticket_message">You already have the max number of ' + requested_ticket_priority_name + ' priority clients.</p>'}
         end
       end 
      
