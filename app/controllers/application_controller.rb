@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
   end
 
   # 1 = active students only, 2 = inactive students only, 3 = all students
+=begin
   def set_students_to_show(choice)
     session[:students_to_show] = choice
   end
@@ -43,7 +44,7 @@ class ApplicationController < ActionController::Base
       1
     end
   end
-
+=end
   def set_selected_project(project)
     session[:selected_project_id] = project.id
   end

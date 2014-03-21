@@ -23,17 +23,10 @@
 <%= form_tag(users_change_student_status_path) do%>
     <div id= "manage_dropdown">
       <div id = "option">
-        <% if @selected_section != 'all' %>
-            <%= select_tag 'selected_option',
-                           options_for_select(['Promote Student', 'Assign Team', 'Demote Student', 'Inactivate Students', 'Activate Students', 'Show Only Inactive Students', 'Show only Active Students', 'Show Both Inactive and Active Students', 'Assign Bonus Points']),
-                           :onchange => 'myFunction()', :prompt => 'Choose Action', :type => 'button',
-                           :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
-        <% else %>
-            <%= select_tag 'selected_option',
-                           options_for_select(['Promote Student', 'Demote Student', 'Inactivate Students', 'Activate Students', 'Show Only Inactive Students', 'Show only Active Students', 'Show Both Inactive and Active Students', 'Assign Bonus Points']),
-                           :onchange => 'myFunction()', :prompt => 'Choose Action', :type => 'button',
-                           :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
-        <% end %>
+        <%= select_tag 'selected_option',
+                        options_for_select(['Promote Student', 'Assign Team', 'Demote Student', 'Assign Bonus Points']),
+                        :onchange => 'myFunction()', :prompt => 'Choose Action', :type => 'button',
+                        :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
       </div>
       <!-- This only appears if the teacher wants to assign a team to a student manager -->
       <div id ="show_managers">
@@ -46,7 +39,7 @@
         <p>Please enter the reason for the bonus points:
         <%= text_field_tag 'bonus_comment' %></p>
       </div> 
-      <%= submit_tag :submit, :class => 'btn btn-large btn-primary btn-sm col-md-1', :id => 'action_submit'%>
+      <%= submit_tag :submit, :class => 'btn btn-primary btn-sm col-md-1', :id => 'action_submit'%>
     </div>
     <%end%>
 <% else %>
