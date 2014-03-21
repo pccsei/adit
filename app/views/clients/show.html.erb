@@ -21,9 +21,7 @@
   <%= get_submitter_info(@client.submitter) %></li>
   <% end %>
   </ul>
-
-
-
+  
 <% if false %>
 <% if (current_user.role == 3 || current_user.school_id == @client.submitter) %>
 	<%= link_to 'Edit', edit_client_path(@client, where: 'not_from_student'), :class => 'btn btn-large btn-primary btn-sm' %>
@@ -51,3 +49,10 @@
 <% if (current_user.role == 3 || current_user.id == @client.submitter) %>
 	| <%= link_to 'Edit', edit_client_path(@client, page: request.url) %>
 <% end %>
+
+<div>
+  <p>Additional Years This Customer bought from the Arrow: <%= @sales_years[0].to_s[1..-2]%></p>
+  <p>Additional Years This Customer bought from the Calendar: <%= @sales_years[1].to_s[1..-2]%></p>
+<div>
+	
+	<%= render :partial => 'sales_info', :locals => {:sales_info => @sales_info} %>
