@@ -1,0 +1,29 @@
+<div id="bonus_edit">
+	<p>Number of bonus points:
+	<input id="bonus_points" name="bonus_points" type="number" value="" /></p>
+	<p>Please enter the reason for the bonus points:
+	<input id="bonus_comment" name="bonus_comment" type="text" value=""  /></input></p>
+</div> 
+
+
+<script>
+    $("#bonus_edit").hide();
+
+   	// This does not work properly, please help!
+    function edit_bonus(caller)
+    {
+    	$("#bonus_edit").show();
+    	$("#bonus_points").val( $("#" + caller.target.id).attr("name") );
+    	$("#bonus_comment").val( $("#" + caller.target.id).attr("value") );
+	}
+</script>
+
+<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
+<p>
+  Download:
+  <%= link_to "Excel", reports_bonus_path(format: "xls") %>
+</p>
+
+<% provide(:title, 'Bonuses') %>
+
+<%= render :partial => 'bonus'%>

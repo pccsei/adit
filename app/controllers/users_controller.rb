@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update ]
   before_action :only_teachers, except: [:unauthorized, :need_help, :download_help]
   skip_before_action :must_have_project, only: :unauthorized
 
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @users = User.all
     
     @selected_section = get_selected_section
-    @select_students = User.get_student_info(get_selected_project, get_selected_section, get_students_to_show)
+    @select_students = User.get_student_info(get_selected_project, get_selected_section, 3)
     
     # Get array of all the incorrectly entered students
     @incorrect_students = User.incorrect_students
@@ -135,7 +135,7 @@ class UsersController < ApplicationController
     
     redirect_to users_url
   end
-  
+=begin
   def change_student_status
     students           = params[:students]
     choice             = params['selected_option']
@@ -149,11 +149,12 @@ class UsersController < ApplicationController
     elsif choice == "Show Both Inactive and Active Students"
       set_students_to_show(3)
     else
-      User.do_selected_option(students, choice, student_manager_id, get_selected_project)
+      User.do_selected_option(students, choice, student_manager_id, get_selected_project, params[:bonus_points], params[:bonus_comment])
     end
 
     redirect_to users_url
   end
+=end
 
   def delete_member
     member =  Member.find
@@ -252,13 +253,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def remove_member
+     member = Member.find(params[:id])
+     member.delete
+     redirect_to users_teachers_path, notice: "This teacher was successfully removed from the section."
+  end
+  # FIX - needs to find the project and section that teacher is being removed from before the delete
   def destroy
     member = Member.find_by(user_id: @user)
 
-    member.destroy
-    respond_to do |format|
-      format.html { redirect_to :back }
-    end
+    member.delete
+    redirect_to users_teachers_path
   end
 ###################################################################################################################
   def in_section

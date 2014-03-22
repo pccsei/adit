@@ -2,10 +2,15 @@
 
 <%= render 'form' %>
 
+<%= link_to 'Back', session[:return_from_edit] %>
+
+<% if false%>
 <% receipt = Receipt.find_by(ticket_id: Ticket.find_by(client_id: @client)) %>
 <% if params[:where] == 'not_from_student' %>
-	<%= link_to 'Back to Client', client_path(@client), :class => 'btn btn-large btn-primary btn-sm' %>
+	<%= link_to 'Back to Client', session[:return_from_edit] %>
 <% else %>
 	<%= link_to 'Back to Client', receipt_path(params[:student]), :class => 'btn btn-large btn-primary btn-sm' %>
+<% end %>
+
 <% end %>
 

@@ -18,8 +18,33 @@
           <br><%= submit_tag 'Add Students to Section', class: 'btn btn-large btn-primary btn-sm'%>
       <% end %>
     </div>
+    
+    <!--Actions for the teacher to do with the students and sections-->
+<%= form_tag(users_change_student_status_path) do%>
+    <div id= "manage_dropdown">
+      <div id = "option">
+      	<!-- EXPO 'Assign Bonus Points' to be add to options for select -->
+        <%= select_tag 'selected_option',
+                        options_for_select(['Promote Student', 'Assign Team', 'Demote Student']),
+                        :onchange => 'myFunction()', :prompt => 'Choose Action', :type => 'button',
+                        :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
+      </div>
+      <!-- This only appears if the teacher wants to assign a team to a student manager -->
+      <div id ="show_managers">
+        <%= select_tag 'student_manager', options_from_collection_for_select(@student_managers, 'id', :full_name),
+                       :class => 'btn btn-default dropdown-toggle col-md-2'%>
+      </div>
+      <div id ="assign_bonus_points">
+        <p>Number of bonus points:
+        <%= number_field_tag 'bonus_points' %></p>
+        <p>Please enter the reason for the bonus points:
+        <%= text_field_tag 'bonus_comment' %></p>
+      </div> 
+      <%= submit_tag :submit, :class => 'btn btn-primary btn-sm col-md-1', :id => 'action_submit'%>
+    </div>
+    <%end%>
 <% else %>
-    <p id = "info_message" class = "alert alert-info">Please select a section to create a team or add students.</p>
+    <p id = "info_message" class = "alert alert-notice">You are currently viewing all students. Please select a section or create a section for additional options.</p>
 <% end %>
 
 <!-- EXPO
@@ -34,33 +59,8 @@
 	<%= render :partial => 'incorrect_students' %>
 <% end %>
 
-<!--Actions for the teacher to do with the students and sections-->
-<%= form_tag(users_change_student_status_path) do%>
-    <div id= "manage_dropdown">
-      <div id = "option">
-        <% if @selected_section != 'all' %>
-            <%= select_tag 'selected_option',
-                           options_for_select(['Promote Student', 'Assign Team', 'Demote Student', 'Inactivate Students', 'Activate Students', 'Show Only Inactive Students', 'Show only Active Students', 'Show Both Inactive and Active Students']),
-                           :onchange => 'myFunction()', :prompt => 'Choose Action', :type => 'button',
-                           :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
-        <% else %>
-            <%= select_tag 'selected_option',
-                           options_for_select(['Promote Student', 'Demote Student', 'Inactivate Students', 'Activate Students', 'Show Only Inactive Students', 'Show only Active Students', 'Show Both Inactive and Active Students']),
-                           :onchange => 'myFunction()', :prompt => 'Choose Action', :type => 'button',
-                           :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
-        <% end %>
-      </div>
-      <!-- This only appears if the teacher wants to assign a team to a student manager -->
-      <div id ="show_managers">
-        <%= select_tag 'student_manager', options_from_collection_for_select(@student_managers, 'id', :full_name),
-                       :class => 'btn btn-default dropdown-toggle col-md-2'%>
-      </div>
-      <%= submit_tag :submit, :class => 'btn btn-large btn-primary btn-sm col-md-1', :id => 'action_submit'%>
-    </div>
-
     <!--Refreshes page using ajax, actually just normally right now-->
     <div id = "section_refresh">
       <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
     </div>
 
-<%end%>

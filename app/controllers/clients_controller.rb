@@ -28,6 +28,10 @@ class ClientsController < ApplicationController
     if params[:page]
       session[:return_to] = params[:page]
     end
+    
+    # 2013 is sent to this function because that is the last year where we had no true sale information
+    @sales_years = Receipt.early_sale_years(@client)
+    @sales_info  = Receipt.get_sold_receipts_for_client_up_to_project(@client, get_selected_project)
   end
 
   def assign
@@ -121,6 +125,9 @@ class ClientsController < ApplicationController
   # GET /clients/1/edit
   def edit
     @client = Client.find(params[:id])
+    if params[:page]
+      session[:return_from_edit] = params[:page]
+    end
   end
 
   # POST /clients
@@ -162,17 +169,11 @@ class ClientsController < ApplicationController
       edited_client.assign_attributes(client_params)
       # render text: client_params
       Client.make_pending_edited_client(edited_client, @client, client_params, current_user.id)
-      redirect_to :back, notice: 'Your change has been submitted.'     
+      redirect_to session[:return_from_edit], notice: 'Your change has been submitted to your teacher.'     
+    elsif @client.update(client_params)
+       redirect_to session[:return_from_edit], notice: 'Client was successfully updated.'
     else
-      respond_to do |format|
-        if @client.update(client_params)
-          format.html { redirect_to :back, notice: 'Client was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { render action: 'edit' }
-          format.json { render json: @client.errors, status: :unprocessable_entity }
-        end
-      end
+       render action: 'edit' 
     end
   end
 

@@ -16,6 +16,7 @@ WhiteCollar::Application.routes.draw do
   get    '/reports/activities'
   get    '/reports/sales'
   get    '/reports/team_summary'
+  get    '/reports/bonus'
   post   '/users/assign_teacher_to_section'
   post   '/users/another_teacher_to_section'
   post   '/users/change_teacher'
@@ -32,9 +33,12 @@ WhiteCollar::Application.routes.draw do
   delete '/users/delete_incorrect'
   get    '/users/new_teacher'
   get    '/users/in_section'
+  post   '/users/remove_member'
   post   '/tickets/release'
   get    '/reports/end_of_semester_data'
   get    '/tickets/get_sys_time'
+  delete '/reports/delete_bonus'
+  delete '/reports/edit_bonus' 
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets

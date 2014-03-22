@@ -1,7 +1,8 @@
 <a id="top" name="top"></a>
-<br /><br /><br />
 
-<h1>Need help for </h1>
+<% provide(:title, 'Help') %>
+<% if false %>
+
 <%= link_to "Download the entire Help Page", users_download_help_path, :class => 'btn btn-large btn-primary btn-sm' %>
 
 <ul class="nav">
@@ -48,4 +49,6 @@
 	<h1>My Clients</h1>
 	
 	<h1>Submit Client</h1>
+<% end %>
+
 <% end %>

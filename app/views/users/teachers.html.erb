@@ -11,7 +11,7 @@
 		<p>Change <span id='oldTeacher'></span> to <p>
 		<input id="memberId" type="hidden" name="member_id" />
 		<%= select_tag 'teacher_to_change_to', options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name)%>
-		<%= submit_tag 'Change the Teacher' %>
+		<%= submit_tag 'Change the Teacher' , class: 'btn btn-primary btn-sm'%>
 	<% end %>
 </div>
 
@@ -20,7 +20,7 @@
 		<p>Add another teacher for section <span id='sectionNumber'></span><p>
   		<input id="section" type="hidden" name="section" />
 		<%= select_tag 'new_teacher_to_add', options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name)%>
-		<%= submit_tag 'Add New Teacher' %>
+		<%= submit_tag 'Add New Teacher', class: 'btn btn-primary btn-sm' %>
 	<% end %>
 </div>
 
@@ -60,9 +60,10 @@
 				<td><span id="newtrid<%= trid %>" name="<%= t.section_number  %>" class="fake-link btn btn-large btn-link btn-sm New_Teacher_Link">Add Another Teacher</span></td>
 				<td><span id="changetrid<%= trid; trid = trid + 1%>" name="<%= t.full_name %>" value="<%= t.m_id%>" class="fake-link btn btn-large btn-link btn-sm Change_Teacher_Link">Change Teacher</span></td>
 				<% if @number_of_teachers_per_section[t.section_number] > 1 %>
-					<td><%= link_to 'Remove', User.find(t.id), confirm: 'Are you sure?', method: :delete %></td>
+					<td><%= link_to 'Remove', users_remove_member_path(id: Member.where(user_id: t.id, project_id: get_selected_project, section_number: t.section_number).first), 
+					           method: :post,  confirm: 'Are you sure you wish to remove this teacher from this section?'%></td>
 				<% else %>
-						<td></td>
+					<td></td>
 				<% end %>
 			</tr>
 		<% end %>

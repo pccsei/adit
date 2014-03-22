@@ -1,0 +1,60 @@
+<table class ="display">
+  <thead>
+    <tr>
+      <th>Created Date</th>
+      <th>Bonus Points</th>
+      <th>Bonus Comment</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Student ID</th>
+      <th>Team Name</th>
+      <th>Section Number</th>
+    </tr>
+  </thead>
+  <% bonus_time = 0 %>
+  <% i = 0 %>
+  <tbody>
+    <% @bonuses.each do |b| %>
+      <% if bonus_time != b.created_date %>
+
+        <% bonus_time = b.created_date %>
+        <tr>
+          <td align ="center"><%= b.created_date %></td>
+          <td align ="center" id="points" value="<%= b.points %>" ><%= b.points %></td>
+          <td align ="center" id="comment"value="<%= b.comment %>" ><%= b.comment %></td>
+          <td></td><td></td><td></td><td></td><td></td><td></td>
+          <!-- This link is under contrustion, please help if possible. -->
+          <!-- <td><button id="id<%=i%>"name="<%= b.points %>"value="<%= b.comment %>"onclick="edit_bonus()">Edit</button></td> -->
+          <% i = i + 1%>
+          <td><%= link_to "Delete", reports_delete_bonus_path(bonus: b.id, all: 1), :confirm => 'Are you sure you want to delete this entire bonus?', :method => :delete %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td align ="center"><%= b.created_date %></td>
+        <td align ="center"><%= b.points %></td>
+        <td align ="center"><%= b.comment %></td>
+        <td align ="center"><%= b.first_name %></td>
+        <td align ="center"><%= b.last_name %></td>
+        <td align ="center"><%= b.student_id %></td>
+        <td align ="center"><%= b.team_name %></td>
+        <td align ="center"><%= b.section_number %></td>
+        <td></td>
+        <td><%= link_to "Delete", reports_delete_bonus_path(bonus: b.id, all: 0), :confirm => 'Are you sure you want to delete this bonus?', :method => :delete %></td>
+      </tr>        
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td align ="center">Total</td>
+      <td align ="center"><%= @bonus_total_points %></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+      <td align ="center"></td>
+    </tr> 
+  </tfoot>
+</table>

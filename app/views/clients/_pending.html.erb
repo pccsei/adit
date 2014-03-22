@@ -32,7 +32,12 @@
         <td><%= client.city %></td>
         <td><%= client.state %></td>
         <td><%= client.zipcode %></td>
-        <td><%= client.telephone %></td>
+        <% if client.telephone.include? "Ext."%>
+        <% ext = client.telephone.partition("Ext.")%>
+        <td><%= number_to_phone(ext[0], extension: ext[2]) %></td>
+        <% else %>
+        <td><%= number_to_phone(client.telephone) %></td>
+        <% end %>
         <td><%= client.contact_title %></td>
         <td><%= client.contact_fname %></td>
         <td><%= client.contact_lname %></td>

@@ -7,8 +7,8 @@
 <div id = "client_info">
   <%= render :partial => 'show_client_info', :locals => { :client => @client }%>
 </div>
-<div id="edit_client" class='btn btn-large btn-link btn-sm'>
-  <%= link_to 'Edit this client', edit_client_path(@client.id, where: 'from_student', student: @receipt) unless @receipt.user_id != @receipt.ticket.user_id%>
+<div>
+  <%= link_to 'Edit this client!', edit_client_path(@client.id, page: request.url) unless @receipt.user_id != @receipt.ticket.user_id%>
 </div>
 
 <div class = "panel panel-primary">

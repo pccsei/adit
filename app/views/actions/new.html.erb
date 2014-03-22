@@ -1,5 +1,5 @@
-<% provide(:title, 'New action') %>
+<% provide(:title, @action.action_type.name) %>
 
 <%= render 'form' %>
 
-<%= link_to 'Back to Client', receipt_path(@receipt), :class => 'btn btn-large btn-primary btn-sm' %>
+<%= link_to 'Back to Client', receipt_path(@receipt)%>

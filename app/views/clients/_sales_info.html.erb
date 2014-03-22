@@ -1,0 +1,22 @@
+<table class="display">
+  <thead>
+  <tr>
+    <th>Year</th>
+    <th>Type</th>
+    <th>Sale Value</th>
+    <th>Page Size</th>
+    <th>Payment Type</th>
+  </tr>
+  </thead>
+    <tbody>
+    	  <% sales_info.each do |s| %>
+      <tr>
+        <td><%= s.ticket.project.year %></td>
+        <td><%= s.ticket.project.project_type.name  %></td>
+        <td><%= s.sale_value %></td>
+        <td><%= s.page_size %></td>
+        <td><%= s.payment_type %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -22,7 +22,7 @@ onLoad(function() {
             "client[zipcode]": {required: true, rangelength: [4,5], digits: true, min_digit: 1},
             "client[contact_fname]": {required: true, letters_only: true},
             "client[contact_lname]": {required: true, letters_only: true},
-            "client[telephone]": {required: true, valid_telephone: true}
+            "client[telephone]": {required: true}
         },
         messages: {
             "client[business_name]": "Please enter the business name.",

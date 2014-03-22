@@ -4,6 +4,7 @@ onLoad(function() {
     // Users index page
     $( "#show_managers" ).hide();
     $("#parse_box").hide();
+    $( "#assign_bonus_points" ).hide();
     $( "#option" ).click(
         function( event) {
             event.preventDefault();
@@ -12,10 +13,17 @@ onLoad(function() {
             if(strUser=="Assign Team")
             {
                 $( "#show_managers" ).show();
+                $( "#assign_bonus_points" ).hide();
+            }
+            else if (strUser=="Assign Bonus Points")
+            {
+                $( "#show_managers" ).hide();
+                $( "#assign_bonus_points" ).show();
             }
             else
             {
                 $( "#show_managers" ).hide();
+                $( "#assign_bonus_points" ).hide();
             }
         }
     );
