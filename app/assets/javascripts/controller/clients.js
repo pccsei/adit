@@ -1,7 +1,7 @@
 onLoad(function() {
     // Custom method to make sure only letters are entered
     jQuery.validator.addMethod("letters_only", function(value, element) {
-        return this.optional(element) || /^[-a-zA-Z\s ?()'\/&-\.]+$/i.test(value);
+        return this.optional(element) || /^[-a-zA-Z\s ?()'\/\\&-\.]+$/i.test(value);
     });
 
     // Custom method to make sure the zipcode is not all zeros
@@ -11,7 +11,12 @@ onLoad(function() {
 
     // Custom method to make sure the telephone is valid
     jQuery.validator.addMethod("valid_telephone", function(value, element) {
-        return this.optional(element) || /^(((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|((([1-9][0-9][0-9])?\s*[-]\s*)*([1-9][0-9][0-9])\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))$/.test(value);
+        return this.optional(element) || /^((((([(])?[1-9][0-9][0-9]([)])?)?\s*([-])?\s*)*([1-9][0-9][0-9])\s*([-])?\s*(\d{4})\s*)?(([eE][xX][tT])\.?\s*(\d{1,6}))?)$/.test(value);
+    });
+    
+    // Custom method to make sure the email is valid
+    jQuery.validator.addMethod("valid_email", function(value, element) {
+        return this.optional(element) || /^([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$/.test(value);
     });
 
     $("#new_client").validate({
@@ -20,18 +25,23 @@ onLoad(function() {
             "client[address]": {required: true},
             "client[city]": {required: true, letters_only: true},
             "client[zipcode]": {required: true, rangelength: [4,5], digits: true, min_digit: 1},
-            "client[contact_fname]": {required: true, letters_only: true},
-            "client[contact_lname]": {required: true, letters_only: true},
-            "client[telephone]": {required: true}
+            "client[contact_fname]": {letters_only: true},
+            "client[contact_lname]": {letters_only: true},
+            "client[telephone]": {required: true, valid_telephone: true},
+            "client[email]": {valid_email: true}
         },
         messages: {
             "client[business_name]": "Please enter the business name.",
             "client[address]": "Please enter the address.",
-            "client[city]": "Please enter a valid city.",
-            "client[zipcode]": "Please enter a valid zipcode.",
-            "client[contact_fname]": "Please enter a first name.",
-            "client[contact_lname]": "Please enter a last name.",
-            "client[telephone]": "Please enter a telephone number."
+            "client[city]": "You entered an invalid character.",
+            "client[zipcode]": "Please enter a valid zipcode (range of 4-5 digits).",
+            "client[contact_fname]": "You entered an invalid character.",
+            "client[contact_lname]": "You entered an invalid character.",
+            "client[telephone]": {
+            	required: "Please enter a telephone number.",
+            	valid_telephone: "Must be 7 or 10 (if using area code) digits and \"ext.\" followed with range of 1-6 digits (if using extension)."
+            },
+            "client[email]": "Must be in a standard email format."
         }
     });
     function dState(){
