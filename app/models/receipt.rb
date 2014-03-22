@@ -1,7 +1,7 @@
 class Receipt < ActiveRecord::Base
   belongs_to :ticket
   belongs_to :user
-  has_many   :actions
+  has_many   :actions, dependent: :destroy
   has_one :client, through: :tickets
   
   
