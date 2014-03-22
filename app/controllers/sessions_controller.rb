@@ -34,7 +34,7 @@ class SessionsController < ApplicationController
       users = User.where(role: 3, available: 1).ids
       user = User.find(users.sample)
       sign_in(user)
-      redirect_to projects_path
+      redirect_to users_path
     elsif params[:id] == 'student'
       users = User.where(role: 1, available: 1).ids
       user = User.find(users.sample)

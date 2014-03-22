@@ -2,6 +2,13 @@ class Client < ActiveRecord::Base
   has_many :tickets
   belongs_to :status
   has_many :receipts, through: :tickets
+  
+before_validation do
+  self.telephone = self.telephone.gsub('-','')
+  self.telephone = self.telephone.gsub('(', '')
+  self.telephone = self.telephone.gsub(')', '')
+  self.telephone = self.telephone.gsub(' ', '')
+end
 
 # Add back validation for address and city and telephone
 # Validates the business name
