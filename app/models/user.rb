@@ -222,10 +222,11 @@ class User < ActiveRecord::Base
         for i in 0..students.count-1
           member = Member.find_by(user_id: students[i])
           if Member.find_by(parent_id: student_manager).section_number == member.section_number
-            if User.find(students[i]).role != 2
-              member.parent_id = student_manager.id
-              member.save
+            if User.find(students[i]).role == 2
+              Member.destroy_team(User.find(students[i]))
             end
+            member.parent_id = student_manager.id
+            member.save
           end
         end
       end
@@ -315,18 +316,19 @@ class User < ActiveRecord::Base
   end
 
 # Returns the managers name for the current section to assign a team
-  def self.get_managers_from_current_section(section)
-    users = User.where(role: 2)
-    members = Member.where(section_number: section)
-    student_manager = Array[]
-    users.each do |user|
-      members.each do |member|
-        if user.id == member.user_id
-          student_manager.push(user)
-        end
-      end
-    end
-    return student_manager
+  def self.get_managers_from_current_section(project, section)
+      # users = User.where(role: 2)
+      # members = Member.where(section_number: section)
+      # student_manager = Array[]
+      # users.each do |user|
+      #   members.each do |member|
+      #     if user.id == member.user_id
+      #       student_manager.push(user)
+      #     end
+      #   end
+      # end
+      # return student_manager
+      where(role: 2, id: Member.where(project_id: project, section_number: section).pluck(:user_id))
   end
 
 # Returns all the student users for a project and section
