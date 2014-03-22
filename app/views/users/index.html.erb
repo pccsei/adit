@@ -9,15 +9,8 @@
 
 <!-- Adds students to a section and is only allowed for a teacher-->
 <% if @selected_section != 'all' %>
-    <p id="paste" class="fake-link btn btn-large btn-link btn-sm ">Copy and paste your student roster here or</p> <%= link_to 'Add One Student', new_user_path, :id => 'add_student', class: 'btn btn-large btn-link btn-sm'%>
+   <%= link_to 'Add Students to this Section', new_user_path, :id => 'add_student', class: 'btn btn-link btn-sm'%>
 
-    <div class = "col-md-12" id="parse_box">
-      <%= form_tag(users_input_students_parse_path) do%>
-          <br>
-          <%= text_area_tag 'input' %>
-          <br><%= submit_tag 'Add Students to Section', class: 'btn btn-large btn-primary btn-sm'%>
-      <% end %>
-    </div>
     
     <!--Actions for the teacher to do with the students and sections-->
 <%= form_tag(users_change_student_status_path) do%>
