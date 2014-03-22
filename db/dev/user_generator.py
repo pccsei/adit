@@ -81,7 +81,7 @@ def generate_user(role, email_suffix):
         classification = next(class_gen)
         yield TEMPLATE.format(**locals())
 
-def generate_school_id(start=110000, stop=130000):
+def generate_school_id(start=100000, stop=140000):
     while True:
         number = random.randrange(start, stop)
         if number not in generate_school_id._used:
@@ -92,8 +92,9 @@ generate_school_id._used = set()
 generate_school_id.reset = generate_school_id._used.clear
 
 def generate_first_name():
+    forename_generators = MALE, FEMALE
     while True:
-        yield next(random.choice((MALE, FEMALE)))
+        yield next(random.choice(forename_generators))
 
 def generate_last_name():
     return SURNAME
