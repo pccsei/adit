@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     @sections = get_array_of_all_sections(get_selected_project)
 
     # find student managers
-    @student_managers = User.get_managers_from_current_section(get_selected_section)
+    @student_managers = User.get_managers_from_current_section(get_selected_project, get_selected_section)
     
     #if params[:section_option]
     #  set_selected_section(params[:section_option])
@@ -135,26 +135,26 @@ class UsersController < ApplicationController
     
     redirect_to users_url
   end
-=begin
+
   def change_student_status
     students           = params[:students]
     choice             = params['selected_option']
     student_manager_id = params['student_manager']
 
     # I temporarily have these choices in the controller because it calls an application controller function
-    if choice == "Show Only Inactive Students"
-      set_students_to_show(2)
-    elsif choice == "Show only Active Students"
-      set_students_to_show(1)
-    elsif choice == "Show Both Inactive and Active Students"
-      set_students_to_show(3)
-    else
-      User.do_selected_option(students, choice, student_manager_id, get_selected_project, params[:bonus_points], params[:bonus_comment])
-    end
+    # if choice == "Show Only Inactive Students"
+    #   set_students_to_show(2)
+    # elsif choice == "Show only Active Students"
+    #   set_students_to_show(1)
+    # elsif choice == "Show Both Inactive and Active Students"
+    #   set_students_to_show(3)
+    # else
+    User.do_selected_option(students, choice, student_manager_id, get_selected_project, params[:bonus_points], params[:bonus_comment])
+    # end
 
     redirect_to users_url
   end
-=end
+
 
   def delete_member
     member =  Member.find
