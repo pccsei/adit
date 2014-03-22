@@ -277,6 +277,10 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def full_name_only
+    "#{first_name} #{last_name}"
+  end
+
 # Creates a new Teacher member with the section number. This is all that is done to create a new section 
   def User.create_new_section(teacher_id, section_number, project_id)
     # Current teacher id will get the current teacher user id in the test loop below.
@@ -387,6 +391,10 @@ class User < ActiveRecord::Base
 
   def self.incorrect_students
     where('school_id <= ?', -1)
+  end
+
+  def self.team_members(project, team_leader_id)
+    where(id: Member.where(parent_id: team_leader_id, project_id: project).pluck(:user_id))
   end
 
   def self.authenticate(login, pass)
