@@ -31,7 +31,9 @@
   padding: 5px;
   font-family: Tahoma, sans-serif;
   margin-left: -1em;
-  margin-bottom: 2em!important;
+  margin-bottom: 2em !important;
+  margin-top: 5em;
+  margin-left: .1em;
 }
 
 
@@ -45,36 +47,45 @@
 	margin-top: 1em !important;
 }
 
-
+#last_name{
+	margin-left: 4em;
+}
+#email{
+	margin-left: 1.4em !important;
+}
+#minor{
+	margin-left: 7.3em;
+}
+#box_num{
+    margin-left: 1.5em;
+}
 .users #full_name{
 	margin-top: 2em;
 }
 
 .users #full_name input{
-	margin-left: 1em;
-	margin-right: 2em;
+	margin-left: 0em;
 }
 
 .users #full_name #user_last_name{
-	margin-left: 3em;
-	margin-right: 2em;
+	margin-left: 0em;
+
 }
 
 .users #school_info{
 	margin-top: 2em;
 }
 
-.users #school_info input{
-	margin-left: 1.7em;
-	margin-right: 2em;
-}
-
-.users #school_info #user_email{
+.users #school_info label{
 	margin-left: .7em;
 }
 
+.users #school_info #user_email{
+	
+}
+
 .users #school_info{
-	margin-right:2em;
+
 }
 
 
@@ -83,25 +94,24 @@
 }
 
 .users #phone_box_num input{
-	margin-left: 2em;
-	margin-right: 2em;
+
 }
 
 .users #phone_box_num #user_box{
-	margin-left: .8em;
+	
 }
 
 .users #major_minor{
 	margin-top: 2em;
+	margin-left: 3.5em;
 }
 
 .users #major_minor input{
-	margin-left:4.9em;
-	margin-right:2em;
+	margin-left:.5em;
 }
 
 .users #major_minor #user_minor{
-	margin-left: 7.1em;
+
 }
 
 .users #class{
@@ -115,19 +125,17 @@
 
 .users .btn.btn-large.btn-primary.btn-sm{
 	margin-top:-2em !important;
-	margin-bottom: 2em !important;
 }
 
 .users #paste{
 	font-size: 15px;
-	margin-left: -20.7em;
 	margin-top: 5em;
-	float: left;
-	color: black;
+	margin-left: -21em;
+	margin-bottom: -5em !important;
 }
 
 .users #parse_box{
-	padding-bottom:20px;
+//	padding-bottom:20px;
 }
 
 .users #heading{
@@ -153,13 +161,12 @@
 .users #new_section h5 .btn-link{
 	font-size: 15px;
 	margin-right: 2em;
-	color: black;
 }
 
 .users #add_student{
 	font-size: 15px;
 	margin-top: 5em;
-	color: black;
+	margin-left: -20.5em;
 }
 
 .users #action_submit{

@@ -2,14 +2,17 @@
 
 
 <% if true %>
-
+<h1>Welcome to the Software Expo</h1>
+<h3>Please Select a User</h3>
     <!-- I used link_to's that looked like buttons because button_to was not sending commit parameter correctly -->
-<%= link_to 'I want to be a teacher.', {controller: :sessions, action: :create, id: :teacher},
-            method: :post, class: 'btn btn-lg btn-primary btn-block' %>
 
-    <%= link_to 'I want to be a student.', {controller: :sessions, action: :create, id: :student},
-                method: :post, class: 'btn btn-lg btn-primary btn-block' %>
+<%= link_to 'Teacher', {controller: :sessions, action: :create, id: :teacher},
+            method: :post, class: 'btn btn-lg btn-primary btn-small' %>
+	
 
+    <%= link_to 'Student', {controller: :sessions, action: :create, id: :student},
+                method: :post, class: 'btn btn-lg btn-primary btn-small' %>
+			
 
 
 
