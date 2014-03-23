@@ -28,12 +28,12 @@
         <td><%= client.city %></td>
         <td><%= client.state %></td>
         <td><%= client.zipcode %></td>
-        <td><%= client.telephone %></td>
+        <td><%= render_phone(client.telephone) %>
         <td><%= client.contact_title %></td>
         <td><%= client.contact_fname %></td>
         <td><%= client.contact_lname %></td>
         <td><%= client.email %></td>
-        <td ><%= tooltipify(client.comment)%></td>
+        <td><%= tooltipify(client.comment)%></td>
       </tr>
   <% end %>
   </tbody>
