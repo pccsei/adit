@@ -78,14 +78,14 @@ class Receipt < ActiveRecord::Base
   end
 
   def self.years_client_has_bought_class(client, project)
-      arrow =    Project.where(id: Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? AND project_type_id = ? OR semester = ? AND year < ? AND project_type_id = ? ", "Spring", (project.year), ProjectType.find_by(name: "Arrow"),    "Fall", (project.year - 1), ProjectType.find_by(name: "Arrow"   )).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year)
-      calendar = Project.where(id: Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? AND project_type_id = ? OR semester = ? AND year < ? AND project_type_id = ? ", "Spring", (project.year), ProjectType.find_by(name: "Calendar"), "Fall", (project.year - 1), ProjectType.find_by(name: "Calendar")).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year)
+      arrow =    Project.where(id: Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? AND project_type_id = ? OR semester = ? AND year < ? AND project_type_id = ? ", "Spring", (project.year), ProjectType.find_by(name: "Arrow"),    "Fall", (project.year - 1), ProjectType.find_by(name: "Arrow"   )).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year).sort
+      calendar = Project.where(id: Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? AND project_type_id = ? OR semester = ? AND year < ? AND project_type_id = ? ", "Spring", (project.year), ProjectType.find_by(name: "Calendar"), "Fall", (project.year - 1), ProjectType.find_by(name: "Calendar")).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year).sort
       return arrow, calendar
   end
   
   def self.early_sale_years(client)
-      arrow =    Project.where(id: Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? AND project_type_id = ? OR semester = ? AND year < ? AND project_type_id = ? ", "Spring", 2014, ProjectType.find_by(name: "Arrow"),    "Fall", (2014 - 1), ProjectType.find_by(name: "Arrow"   )).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year)
-      calendar = Project.where(id: Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? AND project_type_id = ? OR semester = ? AND year < ? AND project_type_id = ? ", "Spring", 2014, ProjectType.find_by(name: "Calendar"), "Fall", (2014 - 1), ProjectType.find_by(name: "Calendar")).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year)
+      arrow =    Project.where(id: Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? AND project_type_id = ? OR semester = ? AND year < ? AND project_type_id = ? ", "Spring", 2014, ProjectType.find_by(name: "Arrow"),    "Fall", (2014 - 1), ProjectType.find_by(name: "Arrow"   )).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year).sort
+      calendar = Project.where(id: Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? AND project_type_id = ? OR semester = ? AND year < ? AND project_type_id = ? ", "Spring", 2014, ProjectType.find_by(name: "Calendar"), "Fall", (2014 - 1), ProjectType.find_by(name: "Calendar")).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year).sort
       return arrow, calendar
   end
   

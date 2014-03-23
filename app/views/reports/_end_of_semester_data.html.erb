@@ -33,8 +33,8 @@
         <td><%= render_phone(d.telephone) %>
         <td><%= d.arrow %>
         <td><%= d.calendar %>
-        <td><%= d.page_size %>
-        <td><%= d.sales %>
+        <td align="right"><%= number_with_precision(d.page_size, precision: 2) %>
+        <td align="right"><%= number_with_precision(d.sales, precision: 2) %>
         <td><%= d.first_name %>
         <td><%= d.last_name %>
         <td><%= d.team %>
@@ -56,7 +56,7 @@
       <td align ="center"></td>
       <td align ="center"></td>
       <td align ="center"></td>
-      <td align ="center"><%= @end_sale_total %></td>
+      <td align ="right"><%= number_with_precision(@end_sale_total, precision: 2) %></td>
       <td align ="center"></td>
       <td align ="center"></td>
       <td align ="center"></td>

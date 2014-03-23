@@ -22,8 +22,8 @@
         <td align ="center"><%= sale.section %></td>
         <td align ="center"><%= sale.time_of_sale.to_formatted_s(:long_ordinal)%></td>
         <td align ="center"><%= sale.company%></td>
-        <td align ="center"><%= sale.page_size%></td>
-        <td align ="center"><%= sale.sale_amount%></td>
+        <td align ="right"><%= number_with_precision(sale.page_size, precision: 2) %></td>
+        <td align ="right"><%= number_with_precision(sale.sale_amount, precision: 2) %></td>
         <td align ="center"><%= sale.payment_type%></td>
         <td align ="center"><%= sale.ad_status%></td>
       </tr> 
@@ -38,7 +38,7 @@
       <td align ="center"></td>
       <td align ="center"></td>
       <td align ="center"></td>
-      <td align ="center"><%= @sale_total %></td>
+      <td align ="right"><%= number_with_precision(@sale_total, precision: 2) %></td>
       <td align ="center"></td>
       <td align ="center"></td>
     </tr> 
