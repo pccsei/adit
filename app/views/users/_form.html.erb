@@ -25,11 +25,11 @@
           <%= f.label :school_id, 'School ID', class: 'required' %>
           <%= f.text_field :school_id %>
           <%= f.label :email, 'E-mail Address', class: 'required', id:'email' %>
-          <%= f.text_field :email %>
+          <%= f.text_field :email, value: @user.email || "@students.pcci.edu" %>
         </div>
         <div id="phone_box_num">
           <%= f.label :phone, 'PCC Phone', class: 'required' %>
-          <%= f.text_field :phone %>
+          <%= f.text_field :phone, value: @user.phone || '17-'%>
           <%= f.label :box, 'PCC Box Number', id:'box_num' %>
           <%= f.text_field :box %>
         </div>
