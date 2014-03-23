@@ -187,9 +187,11 @@ class ReportsController < ApplicationController
 
     @bonuses = []
 
+    all_bonuses = Bonus.where(project_id: get_selected_project, user_id: Member.where(section_number: get_selected_section).pluck(:user_id))
+
     i = 0
-    @bonus_total_points = Bonus.sum(:points)
-    Bonus.all.each do |b|
+    @bonus_total_points = all_bonuses.sum(:points)
+    all_bonuses.each do |b|
       @bonuses[i] = Struct::BonusData.new
       @bonuses[i].id = b.id
       @bonuses[i].created_date = b.created_at
@@ -247,7 +249,8 @@ class ReportsController < ApplicationController
   end
 
   def edit_bonus
-    Bonus.delete_bonus(Bonus.find(params[:points]), params[:comment])
+    # render text: params[:bonus_id]
+    Bonus.edit_bonus(Bonus.find(params[:bonus_id]), params[:bonus_points], params[:bonus_comment])
 
     redirect_to :back
   end
