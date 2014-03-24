@@ -21,11 +21,11 @@
           <%= f.text_field :business_name %>
         </div>
 		
-        <div id="add_city_st">
+        <div id="address">
           <%= f.label :address, class: 'required' %>
           <%= f.text_field :address %>
-
-
+	  </div>
+	  <div id="city_st_zip">
           <%= f.label :city, class: 'required' %>
           <%= f.text_field :city %>
 
@@ -45,15 +45,15 @@
           <%= f.text_field :contact_fname %>
           <%= f.label 'Last name' %>
           <%= f.text_field :contact_lname %>
-        </div>
-        <div id="contact_info">
-          <%= f.label 'Email' %>
+     	</div>
+	    <div id="phone_email">
+	   	  <%= f.label 'Email' %>
           <%= f.text_field :email %>
-
           <%= f.label :telephone, 'Phone:', class: 'required' %>
-          <%= f.text_field :telephone, :placeholder => '850-123-4567 ext.####' %>
-        </div>
-        <div id="comment" class="field">
+          <%= f.text_field :telephone, value: render_phone(@client.telephone), :placeholder => '850-123-4567 Ext.####' %>
+
+         </div>
+         <div id="comment" class="field">
           <%= f.label :comment %>
           <%= f.text_area :comment %>
         </div>

@@ -13,7 +13,7 @@
 	  <li class="list-group-item"><strong>Contact name:</strong>
   <%= @client.contact_title + ' ' + @client.contact_fname + ' ' + @client.contact_lname %></li>
 	    <li class="list-group-item"><strong>Telephone:</strong>
-  <%= @client.telephone %></li>
+  <%= render_phone(@client.telephone) %></li>
 		  <li class="list-group-item"> <strong>Comment:</strong>
   <%= @client.comment %></li>
   <% if (@client.status.status_type== 'Pending') || (@client.status.status_type == 'Edited')%>

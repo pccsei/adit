@@ -20,24 +20,25 @@
 <% if Receipt.is_released(@receipt) == false %>
 
   <% if @receipt.made_contact %>
-      <strong> <span class="glyphicon glyphicon-check"></span>Made Contact!&nbsp;&nbsp;</strong>
+      <strong> <span class="glyphicon glyphicon-check"></span>&nbsp;Made Contact!&nbsp;&nbsp;</strong>
   <% else %>
-      <strong><span class="glyphicon glyphicon-unchecked"></span>Make Contact.&nbsp;&nbsp;</strong>
+      <strong><span class="glyphicon glyphicon-unchecked"></span>&nbsp;Make Contact.&nbsp;&nbsp;</strong>
   <% end %>
   
   <% if @receipt.made_presentation %>
-      <strong> <span class="glyphicon glyphicon-check"></span>Made Presentation!&nbsp;&nbsp;</strong>
+      <strong> <span class="glyphicon glyphicon-check"></span>&nbsp;Made Presentation!&nbsp;&nbsp;</strong>
   <% else %>
-      <strong><span class="glyphicon glyphicon-unchecked"></span> Make Presentation.&nbsp;&nbsp;</strong>
+      <strong><span class="glyphicon glyphicon-unchecked"></span>&nbsp;Make Presentation.&nbsp;&nbsp;</strong>
   <% end %>
   
   <% if @receipt.made_sale %>
-     <strong> <span class="glyphicon glyphicon-check"></span> Made Sale!&nbsp;&nbsp;</strong>
+     <strong> <span class="glyphicon glyphicon-check"></span>&nbsp;Made Sale!&nbsp;&nbsp;</strong>
   <% else %>
-      <strong><span class="glyphicon glyphicon-unchecked"></span>Make Sale.&nbsp;&nbsp;</strong>
+      <strong><span class="glyphicon glyphicon-unchecked"></span>&nbsp;Make Sale.&nbsp;&nbsp;</strong>
   <% end %>
 </div>
 </div>
+
   <div id="client_message">
   <% if @receipt.made_sale == false %>
       <% if @receipt.made_contact == false %>

@@ -27,7 +27,7 @@
             <Cell><Data ss:Type="String"><%= client.city %></Data></Cell>
             <Cell><Data ss:Type="String"><%= client.state %></Data></Cell>
             <Cell><Data ss:Type="Number"><%= client.zipcode %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= client.telephone %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= render_phone(client.telephone) %></Data></Cell>
             <Cell><Data ss:Type="String"><%= client.contact_title %></Data></Cell>
             <Cell><Data ss:Type="String"><%= client.contact_fname %></Data></Cell>
             <Cell><Data ss:Type="String"><%= client.contact_lname %></Data></Cell>

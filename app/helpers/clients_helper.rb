@@ -21,4 +21,21 @@ module ClientsHelper
   def get_submitter_info(submitter_id)
     User.find(submitter_id).school_id
   end
+  
+  
+  def render_phone(phone_number)
+    if !phone_number.blank?  
+     if (phone_number.include? "Ext.") 
+        ext = phone_number.partition("Ext.")
+        number_to_phone(ext[0], extension: ext[2])
+     elsif phone_number.include? "ext."
+       ext = phone_number.partition("ext.")
+       number_to_phone(ext[0], extension: ext[2])
+     else
+       number_to_phone(phone_number)
+     end
+   else
+     nil
+  end
+ end
 end
