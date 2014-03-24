@@ -21,14 +21,35 @@
 */
 
 /* universal */
+.navbar-default .navbar-nav > li > a:active{
+	color: black;
+	background-color: lightgray;
+}
+
+.panel-primary > .panel-heading {
+    color: #FFF;
+    background-color: #000;
+    border-color: #000;
+    height: 3em;
+}
+
 
 #select_section{
   margin-bottom: 1em !important;
   margin-top: 6em !important;
 }
 
+#select-section .btn-default{
+	background-color: #DC0000 !important;
+	color: #FFF !important;
+}
+
+#select-section{
+	color: #FFF;
+}
+
 .error{
-	font-size: 10px;
+	font-size: 12px;
 	color: #DC0000;
 	margin-left: 1em !important;
 }

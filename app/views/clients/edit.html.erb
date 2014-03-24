@@ -9,7 +9,7 @@
 <% if params[:where] == 'not_from_student' %>
 	<%= link_to 'Back to Client', session[:return_from_edit] %>
 <% else %>
-	<%= link_to 'Back to Client', receipt_path(params[:student]), :class => 'btn btn-large btn-primary btn-sm' %>
+	<%= link_to 'Back to Client', receipt_path(params[:student]) %>
 <% end %>
 
 <% end %>

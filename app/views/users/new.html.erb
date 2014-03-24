@@ -1,4 +1,19 @@
-    <% provide(:title, 'New Student') %>
+    <% provide(:title, 'Add Students') %>
 	<%= params[:per_page] %>
+	
+	<% if false %>
+	EXPO
+	<p id="paste" class="fake-link btn btn-large btn-link btn-sm ">Copy and Paste your Excel spreedsheet of students here:</p>
+    <div id="parse_box">
+      <%= form_tag(users_input_students_parse_path) do%>
+          <br>
+          <%= text_area_tag 'input' %>
+          <br><%= submit_tag 'Add Students to Section', class: 'btn btn-large btn-primary btn-sm'%>
+      <% end %>
+    </div>
+	<% end %>
 	<%= render 'form' %>
 	<%= link_to 'Back to Manage Section', users_path %>
+	
+	
+	

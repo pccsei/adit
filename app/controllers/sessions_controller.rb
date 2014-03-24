@@ -32,16 +32,26 @@ class SessionsController < ApplicationController
 
     if params[:id] == 'teacher'
       users = User.where(role: 3, available: 1).ids
-      user = User.find(users.sample)
-      sign_in(user)
-      redirect_to projects_path
+      if users.present?
+         user = User.find(users.sample)
+         sign_in(user)
+         redirect_to users_path
+      else
+         flash.now[:error] = 'Currently, there are no teachers available, please try again later.'
+         render 'new'
+      end
     elsif params[:id] == 'student'
       users = User.where(role: 1, available: 1).ids
-      user = User.find(users.sample)
-      sign_in(user)
-      redirect_to tickets_path
+      if users.present?
+         user = User.find(users.sample)
+         sign_in(user)
+         redirect_to tickets_path
+      else
+         flash.now[:error] = 'Currently, there are no students available, please try again later.'
+         render 'new'
+      end
     else
-      flash.now[:error] = 'Invalid school id or password'
+      flash.now[:error] = 'Congratulations! You found a really bad error. Find a programmer ASAP.'
       render 'new'
     end
   end

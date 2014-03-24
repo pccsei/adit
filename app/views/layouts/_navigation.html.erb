@@ -1,12 +1,16 @@
 <ul class="nav navbar-nav">	 
 <% if current_user.role == 3 %>
+  <li><%= link_to 'Manage Students', users_path %></li>
+  <% if false %>
+  EXPO
   <li class="dropdown">
     <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Manage Users<b class="caret"></b></a>
     <ul class="dropdown-menu">              
-      <li><%= link_to 'Students', users_path%></li>
-      <li><%= link_to 'Teachers',    users_teachers_path %></li>
+      <li><#%= link_to 'Students', users_path%></li>
+      <li><#%= link_to 'Teachers',    users_teachers_path %></li>
     </ul>
-  </li>
+  </li> 
+  <% end %>
   <li><%= link_to 'Assign Clients',      clients_path %></li>
   <li><%= link_to 'Approve Clients',     clients_approve_path %></li>
   <li class="dropdown">
@@ -20,7 +24,7 @@
       <li><%= link_to 'End of Semester',    reports_end_of_semester_data_path %></li>
     </ul>
   </li>
-  <li><%= link_to 'Projects',            projects_path %></li>
+  <!--<li><%= link_to 'Projects',            projects_path %></li>EXPO-->
 <% else %>
   <li><%= link_to 'Choose Clients',      tickets_path %></li>
   <li><%= link_to 'My Clients',          my_receipts_path(id: current_user.id) %></li>

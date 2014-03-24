@@ -31,7 +31,7 @@
   margin-bottom: 20px !important;
   width: 60em;
 }
-
+.addMargin {  margin-top: 5px;  margin-bottom: 5px;}
 .alert-success {
   background-color: #dff0d8;
   border-color: #d6e9c6;
@@ -54,11 +54,11 @@
 }
 
 /*boostrap alerts*/
-.alert-info {
-background-color: #C9C9C9;
-border-color: #B4B4B4;
-color: #0F0F0F;
-}
+//.alert-info {
+//background-color: #C9C9C9;
+//border-color: #B4B4B4;
+//color: #0F0F0F;
+//}
 
 .fake-link {
   cursor: pointer;

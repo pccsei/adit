@@ -1,6 +1,6 @@
 <% if current_user.role == 3 %>
 	<% student_name = User.find_by(id: Receipt.find_by(id: @receipt.user_id)) %>
-  	<%= link_to 'Back to ' + student_name.first_name + '\'s Clients', my_receipts_path(@receipt.user_id), :class => 'btn btn-large btn-primary btn-sm' %>
+  	<%= link_to 'Back to ' + student_name.first_name + '\'s Clients', my_receipts_path(@receipt.user_id)  %>
 <br /><br />
 <% end %>
 
@@ -20,46 +20,45 @@
 <% if Receipt.is_released(@receipt) == false %>
 
   <% if @receipt.made_contact %>
-      <strong> <span class="glyphicon glyphicon-check"></span>Made Contact!&nbsp;&nbsp;</strong>
+      <strong> <span class="glyphicon glyphicon-check"></span>&nbsp;Made Contact!&nbsp;&nbsp;</strong>
   <% else %>
-      <strong><span class="glyphicon glyphicon-unchecked"></span>Make Contact.&nbsp;&nbsp;</strong>
+      <strong><%= link_to check_box_tag(:contact) + " I made a first contact!", new_receipt_action_path(@receipt, :action_type_name => 'First Contact') %>&nbsp;&nbsp;</strong>
   <% end %>
   
   <% if @receipt.made_presentation %>
-      <strong> <span class="glyphicon glyphicon-check"></span>Made Presentation!&nbsp;&nbsp;</strong>
+      <strong> <span class="glyphicon glyphicon-check"></span>&nbsp;Made Presentation!&nbsp;&nbsp;</strong>
+  <% elsif @receipt.made_contact %>
+      <strong> <span class="glyphicon glyphicon-unchecked"></span>&nbsp;<%= link_to 'I made a presentation!', new_receipt_action_path(@receipt, :action_type_name => 'Presentation') %>&nbsp;&nbsp;</strong>
   <% else %>
-      <strong><span class="glyphicon glyphicon-unchecked"></span> Make Presentation.&nbsp;&nbsp;</strong>
+      <strong><span class="glyphicon glyphicon-unchecked"></span>&nbsp;Make Presentation.&nbsp;&nbsp;</strong>
   <% end %>
   
   <% if @receipt.made_sale %>
-     <strong> <span class="glyphicon glyphicon-check"></span> Made Sale!&nbsp;&nbsp;</strong>
+     <strong> <span class="glyphicon glyphicon-check"></span>&nbsp;Made Sale!&nbsp;&nbsp;</strong>
+     <div class="sale_information">
+        <strong>Sale Amount:&nbsp;$ <%=@receipt.sale_value %></strong>
+        <strong>Page Size:&nbsp; <%=@receipt.page_size %></strong>
+        <strong>Payment Type:&nbsp; <%=@receipt.payment_type %></strong>
+     </div>
+  <% elsif @receipt.made_presentation %>
+     <strong><span class="glyphicon glyphicon-unchecked"></span><%= link_to 'I made a sale!', new_receipt_action_path(@receipt, :action_type_name => 'Sale') %></strong>
   <% else %>
-      <strong><span class="glyphicon glyphicon-unchecked"></span>Make Sale.&nbsp;&nbsp;</strong>
+      <strong><span class="glyphicon glyphicon-unchecked"></span>&nbsp;Make Sale.&nbsp;&nbsp;</strong>
   <% end %>
-</div>
-</div>
-  <div id="client_message">
-  <% if @receipt.made_sale == false %>
-      <% if @receipt.made_contact == false %>
-          <%= link_to 'I made a first contact!', new_receipt_action_path(@receipt, :action_type_name => 'First Contact') %>
-      <% elsif @receipt.made_presentation == false %>
-              <%= link_to 'I made a presentation!', new_receipt_action_path(@receipt, :action_type_name => 'Presentation') %>
-          <% else %>
-              <%= link_to 'I made a sale!', new_receipt_action_path(@receipt, :action_type_name => 'Sale') %>
-      <% end %>
-  <% end %>
- 
-</div>
 
 <% else %>
-<p>You have released this client, so you can not add an action to it anymore.</p>
+<p>Since you released this client, you no longer can update it.</p>
 <% end %>
-  <%= link_to 'I just have a comment', new_receipt_action_path(@receipt, :action_type_name => 'Comment') %>
+
+</div>
+</div>
+
+<%= link_to 'I just have a comment', new_receipt_action_path(@receipt, :action_type_name => 'Comment') %>
 <div id = "show_action_table">
   <%= render :partial => 'action_table', :locals => { :receipt => @receipt }%>
 </div>
   <br><br/>
 <% if current_user.role != 3 %>
-  <%= link_to 'Back to My Clients', my_receipts_path(@receipt.user_id), :class => 'btn btn-large btn-primary btn-sm' %>
+  <%= link_to 'Back to My Clients', my_receipts_path(@receipt.user_id) %>
 <% end %>
 

@@ -11,11 +11,11 @@
     <tbody>
     	  <% sales_info.each do |s| %>
       <tr>
-        <td><%= s.ticket.project.year %></td>
-        <td><%= s.ticket.project.project_type.name  %></td>
-        <td><%= s.sale_value %></td>
-        <td><%= s.page_size %></td>
-        <td><%= s.payment_type %></td>
+        <td align="right"><%= s.ticket.project.year %></td>
+        <td align="right"><%= s.ticket.project.project_type.name  %></td>
+        <td align="right"><%= s.sale_value %></td>
+        <td align="right"><%= s.page_size %></td>
+        <td align="right"><%= s.payment_type %></td>
       </tr>
   <% end %>
   </tbody>

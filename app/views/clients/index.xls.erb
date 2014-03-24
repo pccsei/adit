@@ -27,7 +27,7 @@
             <Cell><Data ss:Type="String"><%= ticket.city %></Data></Cell>
             <Cell><Data ss:Type="String"><%= ticket.state %></Data></Cell>
             <Cell><Data ss:Type="Number"><%= ticket.zipcode %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= ticket.telephone %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= render_phone(ticket.telephone) %></Data></Cell>
             <Cell><Data ss:Type="String"><%= ticket.contact_title %></Data></Cell>
             <Cell><Data ss:Type="String"><%= ticket.contact_fname %></Data></Cell>
             <Cell><Data ss:Type="String"><%= ticket.contact_lname %></Data></Cell>

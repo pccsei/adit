@@ -31,7 +31,7 @@ class ClientsController < ApplicationController
     
     # 2013 is sent to this function because that is the last year where we had no true sale information
     @sales_years = Receipt.early_sale_years(@client)
-    @sales_info  = Receipt.get_sold_receipts_for_client_up_to_project(@client, get_selected_project)
+    @sales_info  = Receipt.sales_for_client_up_to_project(@client, get_selected_project)
   end
 
   def assign
