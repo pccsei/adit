@@ -33,9 +33,22 @@
         <div class="active client <%= receipt.ticket.priority.name %>" data-link="#">
           <h3 class="business"><%= link_to receipt.ticket.client.business_name, receipt_path(receipt), title: "View client" %></h3>
           <section class="info">
-            <p>Made Contact? <%= receipt.made_contact ? 'Yes!' : 'Not yet' %></p>
-            <p>Made Presentation? <%= receipt.made_presentation ? 'Yes!' : 'Not yet' %></p>
-            <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
+          	<% if receipt.made_contact %>
+               <p><strong> <span class="glyphicon glyphicon-check"></span>&nbsp;Contact&nbsp;&nbsp;</strong></p>
+            <% else %>
+               <p><strong> <span class="glyphicon glyphicon-unchecked"></span>&nbsp;Contact&nbsp;&nbsp;</strong></p>
+            <% end %>
+            <% if receipt.made_presentation %>
+               <p><strong> <span class="glyphicon glyphicon-check"></span>&nbsp;Presentation&nbsp;&nbsp;</strong></p>
+            <% else %>
+               <p><strong> <span class="glyphicon glyphicon-unchecked"></span>&nbsp;Presentation&nbsp;&nbsp;</strong></p>
+            <% end %>
+            <% if receipt.made_sale%>
+               <p><strong> <span class="glyphicon glyphicon-check"></span>&nbsp;Sale&nbsp;&nbsp;</strong></p>
+            <% else %>
+               <p><strong> <span class="glyphicon glyphicon-unchecked"></span>&nbsp;Sale&nbsp;&nbsp;</strong></p>
+            <% end %>
+            <p><strong>Points: <%= receipt.actions.sum(:points_earned) %></p></strong>
           </section>
           <%= link_to image_tag('closebutton.svg', class: 'release_button', id: receipt.ticket.id, data: {toggle: "modal", target: ".bs-example-modal-lg"}), '#', title: 'Release client'%>
         </div>
@@ -48,7 +61,7 @@
         <div class="completed client <%= receipt.ticket.priority.name %>">
           <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
           <h3 class="business"><%= link_to receipt.ticket.client.business_name, receipt_path(receipt) %></h3>
-          <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
+          <p><strong>Points: <%= receipt.actions.sum(:points_earned) %></p></strong>
         </div>
         <% end %>
       </div>
@@ -59,7 +72,7 @@
         <div class="released client <%= receipt.ticket.priority.name %>">
           <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
           <h3 class="business"><%= link_to receipt.ticket.client.business_name, receipt_path(receipt) %></h3>
-          <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
+          <p><strong>Points: <%= receipt.actions.sum(:points_earned) %></p></strong>
         </div>
         <% end %>
       </div>
