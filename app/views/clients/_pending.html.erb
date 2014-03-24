@@ -1,5 +1,5 @@
 
-<table class="display">
+<table class="display default_table">
   <thead>
   <tr>
     <% if current_user.role == 3%>
@@ -32,12 +32,7 @@
         <td><%= client.city %></td>
         <td><%= client.state %></td>
         <td><%= client.zipcode %></td>
-        <% if client.telephone.include? "Ext."%>
-        <% ext = client.telephone.partition("Ext.")%>
-        <td><%= number_to_phone(ext[0], extension: ext[2]) %></td>
-        <% else %>
-        <td><%= number_to_phone(client.telephone) %></td>
-        <% end %>
+        <td><%= render_phone(client.telephone)%></td>
         <td><%= client.contact_title %></td>
         <td><%= client.contact_fname %></td>
         <td><%= client.contact_lname %></td>

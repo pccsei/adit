@@ -1,11 +1,11 @@
-<table class ="display">
+<table class ="display default_table">
   <thead>
     <tr>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Student Manager</th>
       <th>Section</th>
-      <th>Date/Time activity was reported</th>
+      <th>Last Activity</th>
       <th>Client</th>
       <th>Activity</th>
       <th>Points Received</th>
@@ -21,11 +21,11 @@
         <td><%= activity.team_leader%></td>
         <td align ="center"><%= activity.section%></td>
         <!-- Change this to javascript function-->
-        <td><%= time_ago_in_words(activity.time_of_activity) + ' ago'%> </td>
+        <td><%= time_ago_in_words(activity.time_of_activity) %> </td>
         <td><%= activity.company%></td>
         <td><%= activity.activity%></td>
-        <td align ="center"><%= activity.points_earned%></td>
-        <td align ="center"><%= activity.cumulative_points_earned_on_client%></td>
+        <td align ="right"><%= activity.points_earned%></td>
+        <td align ="right"><%= activity.cumulative_points_earned_on_client%></td>
         <td><%= activity.comments%></td>        
       </tr>
     <% end %>
@@ -38,8 +38,8 @@
     <td></td>
     <td></td>
     <td></td>
-    <td align ="center"><%= @activity_totals.points_earned%></td>
-    <td align ="center"><%= @activity_totals.cumulative_points_earned_on_client %></td>
+    <td align ="right"><%= @activity_totals.points_earned%></td>
+    <td align ="right"><%= @activity_totals.cumulative_points_earned_on_client %></td>
     <td align ="center"></td>
   </tfoot>
 </table>

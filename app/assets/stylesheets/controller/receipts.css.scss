@@ -3,6 +3,23 @@
 	float:left;
 	margin-top: 2em;
 }
+
+.receipts #releaseComment{
+  margin-left: 1em;
+}
+
+.receipts #body {
+  margin: 1em;
+  width: 550px;
+}
+
+.receipts #cancel {
+  margin: 1em 0em 1em 1em !important;
+} 
+
+.receipts #switchText{
+  margin: 1em 0em 1em 1em !important;
+}
 .receipts #client_message{
 	border: 2px solid black;
 	padding: 1em;

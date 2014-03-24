@@ -41,7 +41,6 @@
 			<th>Last Name</th>
 			<th>ID number</th>
 			<th>Email</th>
-			<th>Phone</th>
 			<th class="empty"></th>  
 			<th class="empty"></th> 
 			<th class="empty"></th>                                      
@@ -56,7 +55,6 @@
 				<td><%= t.last_name %></td>
 				<td><%= t.school_id%></td>
 				<td><%= t.email%></td>
-				<td><%= t.phone %></td>
 				<td><span id="newtrid<%= trid %>" name="<%= t.section_number  %>" class="fake-link btn btn-large btn-link btn-sm New_Teacher_Link">Add Another Teacher</span></td>
 				<td><span id="changetrid<%= trid; trid = trid + 1%>" name="<%= t.full_name %>" value="<%= t.m_id%>" class="fake-link btn btn-large btn-link btn-sm Change_Teacher_Link">Change Teacher</span></td>
 				<% if @number_of_teachers_per_section[t.section_number] > 1 %>
@@ -78,7 +76,6 @@
 			<th>Last Name</th>
 			<th>ID number</th>
 			<th>Email</th>
-			<th>Phone</th>
 			<th class="empty"></th>
 		</tr>
 	</thead>
@@ -88,8 +85,7 @@
 				<td><%= t.first_name %></td>
 				<td><%= t.last_name %></td>
 				<td><%= t.school_id%></td>
-				<td><%= t.email%></td>
-				<td><%= t.phone %></td>                      
+				<td><%= t.email%></td>                     
 				<td><%= link_to 'Edit', edit_user_path(t) %></td>
 			</tr>
 		<% end %>

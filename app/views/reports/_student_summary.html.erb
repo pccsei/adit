@@ -1,4 +1,4 @@
-<table class ="display">
+<table class ="display default_table">
   <thead>
     <tr>
       <th>First Name</th>
@@ -24,8 +24,8 @@
         <td align ="center"><%= student.open%></td>
         <td align ="center"><%= student.sold %></td>
         <td align ="center"><%= student.released %></td>
-        <td align ="center"><%= student.sales %></td>
-        <td align ="center"><%= student.points %></td>
+        <td align ="right"><%= number_with_precision(student.sales, precision: 2) %></td>
+        <td align ="right"><%= student.points %></td>
         <% if student.last_activity.present? %>
         	<td align ="center"><%= time_ago_in_words(student.last_activity) + ' ago' %></td>
         <% else %>
@@ -44,8 +44,8 @@
     <td align ="center"><%= @student_totals.total_open%></td>
     <td align ="center"><%= @student_totals.total_sold %></td>
     <td align ="center"><%= @student_totals.total_released %></td>
-    <td align ="center"><%= @student_totals.total_sales %></td>
-    <td align ="center"><%= @student_totals.total_points %></td>
+    <td align ="right"><%= number_with_precision(@student_totals.total_sales, precision: 2) %></td>
+    <td align ="right"><%= @student_totals.total_points %></td>
     <td align ="center"></td>
   </tr>
   </tfoot>

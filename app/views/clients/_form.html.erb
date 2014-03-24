@@ -48,7 +48,8 @@
 	  </div>
 	   <div id="phone_email">
           <%= f.label :telephone, 'Phone:', class: 'required' %>
-          <%= f.text_field :telephone, :placeholder => '850-123-4567 Ext.####', class: 'form-control',  rows:3 %>
+
+          <%= f.text_field :telephone, value: render_phone(@client.telephone), :placeholder => '850-123-4567 Ext.####' %>
 
         </div>
         <div id="comment" class="field">

@@ -11,13 +11,13 @@ Address: <br />
 
 <br /><br />
 <% if @clientInfo.telephone %>
-<h4>Phone: <%= @clientInfo.telephone%></h4>
+<h4>Phone: <%= render_phone(@clientInfo.telephone) %></h4>
 <% end %>
 
 <h4>Person to contact: <%=@clientInfo.contact_title %> <%= @clientInfo.contact_fname %> <%= @clientInfo.contact_lname%></h4>
 <br /><br /><br /><br />
 <div>
-	<%= link_to 'Back to Choose Clients', tickets_path, :class => 'btn btn-large btn-primary btn-sm' %>
+	<%= link_to 'Back to Choose Clients', tickets_path %>
 	<h3>
 		Here is our past interaction with this client:
 	</h3>

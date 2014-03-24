@@ -23,6 +23,10 @@ module SessionsHelper
   def sign_out
     current_user.available = 1
     current_user.save
+    if current_user.role == 1
+      current_user.tickets.update_all user_id: nil
+      current_user.receipts.destroy_all
+    end
     self.current_user = nil
     cookies.delete(:remember_token)
     session[:return_to] = nil

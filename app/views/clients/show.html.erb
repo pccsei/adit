@@ -13,7 +13,7 @@
 	  <li class="list-group-item"><strong>Contact name:</strong>
   <%= @client.contact_title + ' ' + @client.contact_fname + ' ' + @client.contact_lname %></li>
 	    <li class="list-group-item"><strong>Telephone:</strong>
-  <%= @client.telephone %></li>
+  <%= render_phone(@client.telephone) %></li>
 		  <li class="list-group-item"> <strong>Comment:</strong>
   <%= @client.comment %></li>
   <% if (@client.status.status_type== 'Pending') || (@client.status.status_type == 'Edited')%>
@@ -50,9 +50,15 @@
 	| <%= link_to 'Edit', edit_client_path(@client, page: request.url) %>
 <% end %>
 
-<div>
-  <p>Additional Years This Customer bought from the Arrow: <%= @sales_years[0].to_s[1..-2]%></p>
-  <p>Additional Years This Customer bought from the Calendar: <%= @sales_years[1].to_s[1..-2]%></p>
-<div>
-	
+<% if @sales_info.present? %>	
 	<%= render :partial => 'sales_info', :locals => {:sales_info => @sales_info} %>
+<% end %>
+	
+<div>
+  <% if @sales_years[0].present? %>
+     <p class="addMargin">Additional Years This Customer bought from the Arrow: <%= @sales_years[0].to_s[1..-2]%></p>
+  <% end %>
+  <% if @sales_years[1].present? %>
+    <p class="addMargin">Additional Years This Customer bought from the Calendar: <%= @sales_years[1].to_s[1..-2]%></p>
+  <% end %>
+<div>

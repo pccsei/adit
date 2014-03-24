@@ -100,6 +100,145 @@ onLoad(function() {
   function mm(selector) {selector.html(selector.html() - 1);}
 
   setTimeout(updateClients, 1000);
+  
+  
+  
+  
+  //global array
+  var priorities = ['high', 'medium', 'low'];
+  var index      = 0; 
+  var ascFlag    = true;
+  var descFlag   = true;
+  
+  
+  var priorityArray = {};
+  priorityArray['High']   =-1;
+  priorityArray['Medium'] = 0;
+  priorityArray['Low']    = 1;
+  
+  function updatePriorityArray(){
+    priorityArray['High']   = ((priorityArray['High']   + 2) % 3) - 1;
+    priorityArray['Medium'] = ((priorityArray['Medium'] + 2) % 3) - 1;
+    priorityArray['Low']    = ((priorityArray['Low']    + 2) % 3) - 1;
+  }
+  
+  
+/*  
+  jQuery.fn.dataTableExt.oSort['priority-asc'] = function(x,y) {
+    
+    console.log('asc called');
+    
+    if (descFlag){
+      updatePriorityArray();
+      descFlag = false;
+      ascFlag  = true;
+    }
+    return ((priorityArray[x] < priorityArray[y]) ?  -1 : ((priorityArray[x] > priorityArray[y]) ? 1 : 0));
+  };
+  
+  jQuery.fn.dataTableExt.oSort['priority-desc'] = function(x,y) {
+    console.log('desc called');
+    if (ascFlag){
+      updatePriorityArray();
+      descFlag = true;
+      ascFlat  = false;
+    }
+    return ((priorityArray[x] < priorityArray[y]) ?  1 : ((priorityArray[x] > priorityArray[y]) ? -1 : 0));
+  };
+  
+  */
+ 
+  //asc
+  jQuery.fn.dataTableExt.oSort['priority-asc'] = function(x,y) {
+  
+    if (descFlag) {
+      index++;
+      index   %= priorities.length;  // update index  
+      ascFlag  = true;
+      descFlag = false;   
+      updatePriorityArray();
+      console.log("asc called");
+      console.log("pushing " + priorities[index] + " to the top");
+    }
+    var currentPriority = priorities[index];
+
+    if (x == (currentPriority) && y == (currentPriority)) 
+      return 0;
+    else if (x == (currentPriority))
+      return -1;
+    else if (y == (currentPriority)) 
+      return 1;
+    else 
+      return ((priorityArray[x] < priorityArray[y]) ?  1 : ((priorityArray[x] > priorityArray[y]) ? -1: 0 ) );
+      //return ((x < y) ?  1 : ((x > y) ? 1 : 0));
+  };
+  
+  jQuery.fn.dataTableExt.oSort['priority-desc'] = function(x,y) {
+  
+    if (ascFlag) {
+      index++;
+      index   %= priorities.length;  // update index  
+      ascFlag  = false;
+      descFlag = true;   
+      updatePriorityArray(); 
+      console.log("desc called");
+      console.log("pushing " + priorities[index] + " to the top");
+      var nextIndex = index;
+    }   
+    var currentPriority = priorities[index];
+        
+    if (x == (currentPriority) && y == (currentPriority))
+      return 0;
+    else if (x == (currentPriority))// == currentPriority)
+      return -1;
+    else if (y == (currentPriority))// == currentPriority) 
+      return 1;
+    else 
+      //return ((priorityArray[x] < priorityArray[y]) ?  1 : 0);
+      return ((priorityArray[x] < priorityArray[y]) ?  1 : ((priorityArray[x] > priorityArray[y]) ? -1: 0 ) );
+/*    
+    if (x == currentPriority)
+      return -1;  
+    else
+      return ((x < y) ?  1 : ((x > y) ? 1 : 0));
+*/ 
+
+  };
+ 
+ 
+  var table =  $('.ticket_table').dataTable({
+        "aoColumns" : [null, {"sType": "priority" }, null, null, null, null, null], // Added by Miyashita for testing on the tickets page
+        "bPaginate" : false,
+        "iCookieDuration": 60,
+        "bStateSave": false,
+        "bAutoWidth": false,
+        //true
+        "bScrollAutoCss": true,
+        "bProcessing": true,
+        "bRetrieve": true,
+        "bJQueryUI": true,
+        //"sDom": 't',
+        "sDom": '<"H"CTrf>t<"F"lip>',
+        //"sScrollY": "100%",
+        //"sScrollX": "100%",
+        "sScrollXInner": "110%",
+        "fnInitComplete": function() {
+            this.css("visibility", "visible");
+        },
+        "fnPreDrawCallback": $(".autoHide").hide()
+    }, $(".defaultTooltip").tooltip({
+        'selector': '',
+        'placement': 'left',
+        'container': 'body'
+    }));
+
+    $('table.ticket_table').each(function(i,table) {
+        $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
+    });
+
+    return table;
+ 
+ 
 });
 
 
