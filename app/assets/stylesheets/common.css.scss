@@ -11,6 +11,11 @@
   @extend .error;
 }
 
+
+.form-control{
+	display:inline;
+	width: auto;
+}
 /*flash*/
 .alert-error {
   background-color: #f2dede;

@@ -18,16 +18,16 @@
 
         <div id="business_name">
           <%= f.label :business_name, class: 'required' %>
-          <%= f.text_field :business_name %>
+          <%= f.text_field :business_name, class: 'form-control',  rows:3 %>
         </div>
 		
         <div id="address">
           <%= f.label :address, class: 'required' %>
-          <%= f.text_field :address %>
+          <%= f.text_field :address, class: 'form-control',  rows:3 %>
 	  </div>
 <div id="city_st_zip">
           <%= f.label :city, class: 'required' %>
-          <%= f.text_field :city %>
+          <%= f.text_field :city, class: 'form-control',  rows:3 %>
 
 
           <%= f.label :state %>
@@ -36,19 +36,19 @@
                             SC SD TN TX UT VT VA WA WV WI WY), :selected => @client.state || 'FL' %>
                             
           <%= f.label :zipcode, class: 'required' %>
-          <%= f.text_field :zipcode %>
+          <%= f.text_field :zipcode, class: 'form-control',  rows:3 %>
         </div>
         <div id="contact_info">
           <%= f.label 'Contact title' %>
           <%= f.select :contact_title, %w(Mr. Mrs. Ms. Miss Dr.), :include_blank => :true %>
           <%= f.label 'First name', class: 'required' %>
-          <%= f.text_field :contact_fname %>
+          <%= f.text_field :contact_fname, class: 'form-control',  rows:3 %>
           <%= f.label 'Last name', class: 'required' %>
-          <%= f.text_field :contact_lname %>
+          <%= f.text_field :contact_lname, class: 'form-control',  rows:3 %>
 	  </div>
 	   <div id="phone_email">
           <%= f.label :telephone, 'Phone:', class: 'required' %>
-          <%= f.text_field :telephone, :placeholder => '850-123-4567 Ext.####' %>
+          <%= f.text_field :telephone, :placeholder => '850-123-4567 Ext.####', class: 'form-control',  rows:3 %>
 
         </div>
         <div id="comment" class="field">
