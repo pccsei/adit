@@ -17,7 +17,7 @@ end
 # Validates the city, this should allow blanks in the business name
   validates :city, allow_blank: true, format: {
     with: /\A[-a-zA-Z ?()'\/&-\.]+\Z/,
-    message: 'has an invalid character entered.'
+    message: 'has an invalid character(s) entered.'
   }
  
 # Validates the zipcode
@@ -35,7 +35,7 @@ end
 # Validates the contact first and last name
   validates :contact_fname, :contact_lname, allow_blank: true, format: {
     with: /\A[-a-zA-Z ?()'\/\\&-\.]+\Z/,
-    message: 'has an invalid character entered.'
+    message: 'has an invalid character(s) entered.'
   }
    
 # Validates the telephone

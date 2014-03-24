@@ -6,7 +6,7 @@ onLoad(function() {
 
     // Custom method to make sure the zipcode is not all zeros
     jQuery.validator.addMethod('min_digit', function (value, el, param) {
-        return value > param;
+        return value >= param;
     });
 
     // Custom method to make sure the telephone is valid
@@ -33,7 +33,10 @@ onLoad(function() {
         messages: {
             "client[business_name]": "Please enter the business name.",
             "client[address]": "Please enter the address.",
-            "client[city]": "You entered an invalid character.",
+            "client[city]": {
+            	requried: "Please enter a city",
+            	letters_only: "You entered an invalid character."
+            },
             "client[zipcode]": "Please enter a valid zipcode (range of 4-5 digits).",
             "client[contact_fname]": "You entered an invalid character.",
             "client[contact_lname]": "You entered an invalid character.",

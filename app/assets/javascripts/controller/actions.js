@@ -47,14 +47,12 @@ onLoad(function() {
     $("#new_foo").validate({
         rules: {
             "price": {min: 1, required: true, floating_number: true },
-            "page": {min: .01, required: true },
             "foo[comment]": {required: true},
             "foo[user_action_time]": {required: true, date: true }
         },
         messages: {
-            "price": "Please enter a valid price.",
-            "page": "Please enter a valid page size.",
-            "foo[comment]": "If you have a comment, please enter it.",
+            "price": "Please enter a valid price (30 or 30.00).",
+            "foo[comment]": "If you have a comment, then please enter it.",
             "foo[user_action_time]": "Please enter in when you did this."
         }
     });

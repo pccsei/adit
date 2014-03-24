@@ -37,8 +37,9 @@
           </div>
           <%= label_tag('price', 'Sale Amount $', class: 'required') %>
           <%= text_field_tag(:price, '', :placeholder => 'Examples: 50 or 75') %>
-          <%= label_tag('page', 'Page Size', class: 'required') %>
-          <%= text_field_tag(:page, '', :placeholder => 'Examples: .25 or 1.5 ')%>
+          <%= label_tag('page', 'Page Size') %>
+          <!-- <%= text_field_tag(:page, '', :placeholder => 'Examples: .25 or 1.5 ')%> -->          
+          <%= select_tag('page', options_for_select(%w(Eighth Quarter Half Whole)))%>
           <%= label_tag('payment_type', 'Payment Type') %>
           <%= select_tag('payment_type', options_for_select(%w(Cash Credit Invoice Check Dept. Trans.)))%>
         </div>
