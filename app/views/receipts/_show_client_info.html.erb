@@ -13,8 +13,8 @@
     <%= @client.contact_title + ' ' + @client.contact_fname + ' ' + @client.contact_lname %></li>
   	    <li class="list-group-item"><strong>Telephone:</strong>
     <%= render_phone(@client.telephone) %></li>
+        <li class="list-group-item"> <strong>Email:</strong>
+    <%= @client.email %></li>
   		  <li class="list-group-item"> <strong>Comment:</strong>
-    <%= @client.comment %></li>
-  	  <li class="list-group-item"> <strong>Owner:</strong>
-    <%= @client.submitter %></li>
+    <%= @client.comment %></li>  
     </ul>
