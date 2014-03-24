@@ -118,7 +118,7 @@ onLoad(function() {
             "user[school_id]": {
             	required: "Please enter the student's school id.",
             	digits: "Can only be digits (numbers 0-9).",
-            	min_digit: "Cannot be all zeros 000000 (need at least a 1).",
+            	min_digit: "Cannot be all zeros.",
             	rangelength: "Needs to be a length of 6 digits (no more, no less)."
             },
             "user[email]": {

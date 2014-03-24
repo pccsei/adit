@@ -24,7 +24,7 @@ onLoad(function() {
             "client[business_name]": {required: true},
             "client[address]": {required: true},
             "client[city]": {required: true, letters_only: true},
-            "client[zipcode]": {required: true, rangelength: [4,5], digits: true, min_digit: 1},
+            "client[zipcode]": {required: true, digits: true, rangelength: [4,5], min_digit: 1},
             "client[contact_fname]": {letters_only: true},
             "client[contact_lname]": {letters_only: true},
             "client[telephone]": {required: true, valid_telephone: true},
@@ -35,11 +35,16 @@ onLoad(function() {
             "client[address]": "Please enter the address.",
             "client[city]": {
             	requried: "Please enter a city",
-            	letters_only: "You entered an invalid character."
+            	letters_only: "You entered an invalid character(s)."
             },
-            "client[zipcode]": "Please enter a valid zipcode (range of 4-5 digits).",
-            "client[contact_fname]": "You entered an invalid character.",
-            "client[contact_lname]": "You entered an invalid character.",
+            "client[zipcode]": {
+            	required: "Please enter a zipcode.",
+            	digits: "Can only be digits (numbers 0-9).",
+            	rangelength: "Needs to be a range of 4-5 digits long.",
+            	min_digit: "Cannot be all zeros."
+            },
+            "client[contact_fname]": "You entered an invalid character(s).",
+            "client[contact_lname]": "You entered an invalid character(s).",
             "client[telephone]": {
             	required: "Please enter a telephone number.",
             	valid_telephone: "Must be 7 or 10 (if using area code) digits and \"ext.\" followed with range of 1-6 digits (if using extension)."

@@ -41,19 +41,33 @@ onLoad(function() {
     $('#foo_user_action_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT", maxDate: new Date });
 
     jQuery.validator.addMethod("floating_number", function(value, element) {
-        return this.optional(element) || /^(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/i.test(value);
+        return this.optional(element) || /^(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d{1,2})?$/i.test(value);
+    });
+    
+    jQuery.validator.addMethod('min_digit', function (value, el, param) {
+        return value >= param;
     });
 
     $("#new_foo").validate({
         rules: {
-            "price": {min: 1, required: true, floating_number: true },
+            "price": {required: true, floating_number: true, min_digit: .01},
+            "page": {required: true, floating_number: true, min_digit: .01},
             "foo[comment]": {required: true},
             "foo[user_action_time]": {required: true, date: true }
         },
         messages: {
-            "price": "Please enter a valid price (30 or 30.00).",
+            "price": {
+            	required: "Please enter a valid price (30 or 30.00).",
+            	floating_number: "Can only be a number with 0-2 decimal digits (30 or 30.00).",
+            	min_digit: "The value cannot be all zeros."
+            },
+            "page": {
+            	required: "Please enter a page size (.25 or 1.5).", 
+            	floating_number: "Can only be a number with 0-2 decimal digits (.5 or .50).",
+            	min_digit: "The value cannot be all zeros."
+            },
             "foo[comment]": "If you have a comment, then please enter it.",
-            "foo[user_action_time]": "Please enter in when you did this."
+            "foo[user_action_time]": "Please enter in the date and time when you did this."
         }
     });
     
