@@ -35,11 +35,9 @@
       <tbody>
       <% @tickets.each do |ticket| %>
           <tr>
-            <% client = Client.find(ticket.client_id); ticketClass = "addTicket "; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : "autoHide "); %>
-            <% if open %>
-                
-                <td><%= button_tag 'add', type: 'button', :id => ticket.id, :class => 'btn btn-primary btn-sm' << ticketClass %>
-                </td>
+            <% client = Client.find(ticket.client_id); ticketClass = " addTicket "; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : "autoHide "); %>
+            <% if open %>                
+                <td><%= button_tag 'Add', type: 'button', :id => ticket.id, :class => 'btn btn-primary btn-sm' << ticketClass %></td>
 
             <% end %>
             <td><%= ticket.priority.name.capitalize %></td>

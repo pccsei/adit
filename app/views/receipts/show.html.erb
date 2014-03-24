@@ -1,6 +1,6 @@
 <% if current_user.role == 3 %>
 	<% student_name = User.find_by(id: Receipt.find_by(id: @receipt.user_id)) %>
-  	<%= link_to 'Back to ' + student_name.first_name + '\'s Clients', my_receipts_path(@receipt.user_id), :class => 'btn btn-large btn-primary btn-sm' %>
+  	<%= link_to 'Back to ' + student_name.first_name + '\'s Clients', my_receipts_path(@receipt.user_id)  %>
 <br /><br />
 <% end %>
 
@@ -61,6 +61,6 @@
 </div>
   <br><br/>
 <% if current_user.role != 3 %>
-  <%= link_to 'Back to My Clients', my_receipts_path(@receipt.user_id), :class => 'btn btn-large btn-primary btn-sm' %>
+  <%= link_to 'Back to My Clients', my_receipts_path(@receipt.user_id) %>
 <% end %>
 
