@@ -40,10 +40,12 @@ onLoad(function() {
 
     $('#foo_user_action_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT", maxDate: new Date });
 
+	// Custom validation to make sure the number entered is a float with two decimals only
     jQuery.validator.addMethod("floating_number", function(value, element) {
         return this.optional(element) || /^(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d{1,2})?$/i.test(value);
     });
     
+    // Custom validation to make sure the price and page are not all zeros
     jQuery.validator.addMethod('min_digit', function (value, el, param) {
         return value >= param;
     });

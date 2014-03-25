@@ -82,10 +82,10 @@ onLoad(function() {
 
 	// Custom method to make sure the email is a valid PCC email address
     jQuery.validator.addMethod("email_valid", function(value, element) {
-        return this.optional(element) || /^([^@\s]+)@(students.pcci.edu)$/i.test(value);
+        return this.optional(element) || /^(([0-9a-zA-Z]+)@(students.pcci.edu))$/i.test(value);
     });
     
-    // Custom method to make sure the id is at least 6 digits long
+    // Custom method to make sure the school ID is not all zeros
     jQuery.validator.addMethod('min_digit', function (value, el, param) {
         return value >= param;
     });
@@ -100,9 +100,9 @@ onLoad(function() {
             "user[first_name]": {required: true, letters_only: true},
             "user[last_name]": {required: true, letters_only: true},
             "user[school_id]": {required: true, digits: true, min_digit: 1, rangelength: [6,6]},
-            "user[email]": {required: true, email: true, email_valid: true},
+            "user[email]": {required: true, email_valid: true, email: true},
             "user[phone]": {required: true, valid_telephone: true},
-            "user[box]": {digits: true, rangelength: [3,4]},
+            "user[box]": {digits: true, rangelength: [3,4], min: 1},
             "user[major]": {letters_only: true},
             "user[minor]": {letters_only: true}
         },
@@ -131,6 +131,7 @@ onLoad(function() {
             },
             "user[box]": {
             	digits: "Can only be digits (numbers 0-9).",
+            	min: "Cannot be all zeros.",
             	rangelength: "Can only be a range of 3-4 digits long."
             },
             "user[major]": "You entered an invalid character(s).",

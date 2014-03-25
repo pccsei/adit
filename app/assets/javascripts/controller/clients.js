@@ -24,7 +24,7 @@ onLoad(function() {
             "client[business_name]": {required: true},
             "client[address]": {required: true},
             "client[city]": {required: true, letters_only: true},
-            "client[zipcode]": {required: true, digits: true, rangelength: [4,5], min_digit: 1},
+            "client[zipcode]": {required: true, digits: true, rangelength: [4,5], min: 1},
             "client[contact_fname]": {letters_only: true},
             "client[contact_lname]": {letters_only: true},
             "client[telephone]": {required: true, valid_telephone: true},
@@ -34,14 +34,14 @@ onLoad(function() {
             "client[business_name]": "Please enter the business name.",
             "client[address]": "Please enter the address.",
             "client[city]": {
-            	requried: "Please enter a city",
+            	required: "Please enter a city",
             	letters_only: "You entered an invalid character(s)."
             },
             "client[zipcode]": {
             	required: "Please enter a zipcode.",
             	digits: "Can only be digits (numbers 0-9).",
             	rangelength: "Needs to be a range of 4-5 digits long.",
-            	min_digit: "Cannot be all zeros."
+            	min: "Cannot be all zeros."
             },
             "client[contact_fname]": "You entered an invalid character(s).",
             "client[contact_lname]": "You entered an invalid character(s).",

@@ -18,13 +18,13 @@ class User < ActiveRecord::Base
 
 # Validates the email - uniqueness removed for the EXPO
   validates :email, format: {
-      with: /\A([^@\s]+)@(students.pcci.edu)\Z/,
+      with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\Z/,
       message: 'must be a valid PCC email address (jsmith1234@students.pcci.edu).'
   }, unless: Proc.new { |user| user.school_id.to_i <= -1 }
 
 # Validates the phone number
   validates :phone, allow_blank: true, format: {
-      with: /\A(([tT][oO][wW][nN])|(((17)\s*[-]\s*)?(\d{4})\s*[-]*\s*([1-4]{1}))*)\z/,
+      with: /\A(([tT][oO][wW][nN])|(((17)\s*[-]\s*)?(\d{4})\s*[-]*\s*([1-4]{1}))*|(((((([(])?\s*\d{3}\s*([)])?)?\s*[-]*\s*)*(\d{3})\s*[-]\s*(\d{4}))*\s*)?(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
       message: 'can either be 17-####-# (with last # of numbers 1-4) or Town.'
   }, unless: Proc.new { |user| user.school_id.to_i <= -1 }
 
