@@ -48,7 +48,7 @@ class TicketsController < ApplicationController
           grabbedTicket = false
           ticket        = nil          
           Ticket.transaction do
-            ticket = Ticket.where('id = ? ',params[:clientID]).lock(true).first
+            ticket = Ticket.where('id = ?',params[:clientID]).lock(true).first
 
             if ticket.nil?
               updates = {'userMessage' => '<span id="ticket_message">Ticket does not exist for the current project</span'}
