@@ -51,7 +51,7 @@ class TicketsController < ApplicationController
             ticket = Ticket.where('id = ? ',params[:clientID]).lock(true).first
 
             if ticket.nil?
-              updates = {'userMessage' => '<span class="text-danger" id="ticket_message">Ticket does not exist for the current project</span'}
+              updates = {'userMessage' => '<span id="ticket_message">Ticket does not exist for the current project</span'}
             else 
                # User is allowed to get a new client: Try to grab the client ticket               
                if no_holder(ticket.user_id)
@@ -59,19 +59,19 @@ class TicketsController < ApplicationController
                  ticket.save!
                  grabbedTicket = true
                else
-                 updates = {'userMessage' => '<span class="text-danger" id="ticket_message">Someone already grabbed that client!!</span>'}
+                 updates = {'userMessage' => '<span  id="ticket_message">Someone already grabbed that client!!</span>'}
                end
             end
           end
 
           # This is done down here to allow the transaction above to finish as quickly as possible thus allowing the user to better grab the ticket
           if grabbedTicket
-            updates = { 'Success' => 'You are now assigned to ' + Client.find(ticket.client_id).business_name.to_s,
+            updates = { 'Success' => 'You are now assigned to ' + Client.find(ticket.client_id).business_name.to_s + '!',
                         'ticketPriority' => Priority.find(ticket.priority_id).name.to_s}
             Receipt.find_or_create_by(ticket_id: ticket.id, user_id: current_user.id)
           end
         else
-          updates = {'userMessage' => '<p class="text-danger" id="ticket_message">You already have the max number of ' + requested_ticket_priority_name + ' priority clients.</p>'}
+          updates = {'userMessage' => '<p  id="ticket_message">You already have the max number of ' + requested_ticket_priority_name + ' priority clients.</p>'}
         end
       end 
      

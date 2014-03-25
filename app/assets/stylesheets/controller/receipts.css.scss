@@ -1,3 +1,12 @@
+.receipts.show .panel-primary {
+	width: 100%;
+	float: left;
+	text-align: center;
+	margin-top: 2em;
+	color: 
+	#DC0000;
+}
+
 .show #heading{
 	padding-top: .3em;
 }
@@ -55,7 +64,7 @@
 }
 #email{
 	text-align: center;
-	margin-top: -1em;
+	margin-top: -.5em;
 }
 #email_comment{
 	float: right;
@@ -67,7 +76,7 @@
 	width: 100%;
 }
 #address_name{
-	margin-top: -5em !important;
+	margin-top: -4.3em !important;
 }
 .receipts #client_info{
 	//text-align: left;

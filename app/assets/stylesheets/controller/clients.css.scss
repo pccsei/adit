@@ -27,6 +27,7 @@
   width: inherit;
   margin-bottom: 1em !important;
   padding: 1em !important;
+  font-size: 1.3em;
 }
 
 .clients .list-group{
@@ -149,11 +150,18 @@
 	margin-left: 1em;
 }
 
-#phone_email{
+#email{
 	margin-top: 1em;
 }
 
-#phone_email label {
+#email label {
+	margin-left:6em;
+}
+#phone{
+	margin-top: 1em;
+}
+
+#phone label {
 	margin-left:4em;
 }
 #business_name label{
