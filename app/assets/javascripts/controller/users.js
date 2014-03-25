@@ -80,35 +80,62 @@ onLoad(function() {
         return this.optional(element) || /^[-a-zA-Z\s ?()'\/&-\.]+$/i.test(value);
     });
 
-    // Custom method to make sure only letters and numbers are entered (no symbols or punctuation)
-    jQuery.validator.addMethod("id_valid", function(value, element) {
-        return this.optional(element) || /^([-a-zA-Z]|[0-9])+$/i.test(value);
-    });
-
 	// Custom method to make sure the email is a valid PCC email address
     jQuery.validator.addMethod("email_valid", function(value, element) {
-        return this.optional(element) || /^([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)$/i.test(value);
+        return this.optional(element) || /^(([0-9a-zA-Z]+)@(students.pcci.edu))$/i.test(value);
+    });
+    
+    // Custom method to make sure the school ID is not all zeros
+    jQuery.validator.addMethod('min_digit', function (value, el, param) {
+        return value >= param;
     });
 
     // Custom method to make sure the telephone is valid
     jQuery.validator.addMethod("valid_telephone", function(value, element) {
-        return this.optional(element) || /^(([tT][oO][wW][nN])|(((17)\s*[-]\s*)?(\d{4})\s*[-]\s*([1-4]{1}))*|((([1-9][0-9][0-9])?\s*[-]\s*)*([1-9][0-9][0-9])\s*[-]\s*(\d{4})\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))$/.test(value);
+        return this.optional(element) || /^(([tT][oO][wW][nN])|(((17)\s*[-]\s*)?(\d{4})\s*[-]\s*([1-4]{1}))*)$/.test(value);
     });
 
     $("#new_user").validate({
         rules: {
             "user[first_name]": {required: true, letters_only: true},
             "user[last_name]": {required: true, letters_only: true},
-            "user[school_id]": {required: true, id_valid: true},
-            "user[email]": {required: true, email: true, email_valid: true},
-            "user[phone]": {valid_telephone: true}
+            "user[school_id]": {required: true, digits: true, min_digit: 1, rangelength: [6,6]},
+            "user[email]": {required: true, email_valid: true, email: true},
+            "user[phone]": {required: true, valid_telephone: true},
+            "user[box]": {digits: true, rangelength: [3,4], min: 1},
+            "user[major]": {letters_only: true},
+            "user[minor]": {letters_only: true}
         },
         messages: {
-            "user[first_name]": "Please enter the user's first name.",
-            "user[last_name]": "Please enter the user's last name.",
-            "user[school_id]": "Please enter the user's school id.",
-            "user[email]": "Please enter the user's PCC email address.",
-            "user[phone]": "Please enter the user's phone number."
+            "user[first_name]": {
+            	required: "Please enter the student's first name.",
+            	letters_only: "You entered an invalid character(s)."
+            },
+            "user[last_name]": {
+            	required: "Please enter the student's last name.",
+            	letters_only: "You entered an invalid character(s)."
+            },
+            "user[school_id]": {
+            	required: "Please enter the student's school id.",
+            	digits: "Can only be digits (numbers 0-9).",
+            	min_digit: "Cannot be all zeros.",
+            	rangelength: "Needs to be a length of 6 digits (no more, no less)."
+            },
+            "user[email]": {
+            	required: "Please enter the student's PCC email address.",
+            	email_valid: "Email must be a valid PCC email address (jsmith1234@students.pcci.edu)"
+            },
+            "user[phone]": {
+            	required: "Please enter the student's PCC phone.",
+            	valid_telephone: "Can either be 17-####-# (with last # of numbers 1-4) or Town."
+            },
+            "user[box]": {
+            	digits: "Can only be digits (numbers 0-9).",
+            	min: "Cannot be all zeros.",
+            	rangelength: "Can only be a range of 3-4 digits long."
+            },
+            "user[major]": "You entered an invalid character(s).",
+            "user[minor]": "You entered an invalid character(s)."
         }
     });
 });

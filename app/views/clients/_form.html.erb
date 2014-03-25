@@ -15,6 +15,12 @@
         <h3>&nbsp;Business Information</h3>
       </div>
       <div class = "panel-body">
+      	
+      	<% if @client.new_record? %>
+      	<div class="alert alert-info" id="checkClients">
+	        <p>Check the tables below to see if your client is already pending or unapproved.</p>
+        </div>
+        <% end %>
 
         <div id="business_name">
           <%= f.label :business_name, class: 'required' %>
@@ -51,13 +57,22 @@
           <%= f.label 'Last name', class: 'required' %>
           <%= f.text_field :contact_lname, class: 'form-control',  rows:3 %>
 	  </div>
-	   <div id="phone_email">
+        <div id="contact_name">
+          <%= f.label 'Contact title' %>
+          <%= f.select :contact_title, %w(Mr. Mrs. Ms. Miss Dr.), :include_blank => :true %>
+          <%= f.label 'First name' %>
+          <%= f.text_field :contact_fname %>
+          <%= f.label 'Last name' %>
+          <%= f.text_field :contact_lname %>
+     	</div>
+	    <div id="phone_email">
+	   	  <%= f.label 'Email' %>
+          <%= f.text_field :email %>
           <%= f.label :telephone, 'Phone:', class: 'required' %>
-
           <%= f.text_field :telephone, value: render_phone(@client.telephone), :placeholder => '850-123-4567 Ext.####', class: 'form-control',  rows:3  %>
 
-        </div>
-        <div id="comment" class="field">
+         </div>
+         <div id="comment" class="field">
           <%= f.label :comment %>
           <%= f.text_area :comment, class: 'form-control',  rows:3  %>
         </div>
@@ -77,7 +92,7 @@
 		  <% end %>
 	  <% else %>
 	     <%= f.submit 'Update Client', :class => 'btn btn-small btn-primary'%>
-	  <% end   %>
+	  <% end %>
     </div>
     
 

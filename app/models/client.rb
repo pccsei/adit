@@ -17,31 +17,31 @@ end
 # Validates the city, this should allow blanks in the business name
   validates :city, allow_blank: true, format: {
     with: /\A[-a-zA-Z ?()'\/&-\.]+\Z/,
-    message: 'must only have letters (no digits).'
+    message: 'has an invalid character(s) entered.'
   }
  
 # Validates the zipcode
   validates :zipcode, allow_blank: true, length:{
     minimum: 4, maximum: 5,
-    message: 'is the wrong length.  Needs to be between four to five digits long.'
+    message: 'needs to be in a range of 4-5 digits.'
   }, numericality: { greater_than: 0 }
    
 # Validates the email
-#  validates :email, allow_blank: true, uniqueness: true, format: {
-#    with: /\A([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}\Z/,
-#    message: 'must be a valid email address.'
-#  }
+  validates :email, allow_blank: true, uniqueness: true, format: {
+    with: /\A([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}\Z/,
+    message: 'must be in a standard email format.'
+  }
    
 # Validates the contact first and last name
   validates :contact_fname, :contact_lname, allow_blank: true, format: {
-    with: /\A[-a-zA-Z ?()'\/&-\.]+\Z/,
-    message: 'must only have letters (no digits).'
+    with: /\A[-a-zA-Z ?()'\/\\&-\.]+\Z/,
+    message: 'has an invalid character(s) entered.'
   }
    
-# Validates the telephone - This validation breaks the seed file
+# Validates the telephone
   validates :telephone, allow_blank: true, format: {
-    with: /\A(((17)\s*[-]\s*(\d{4})\s*[-]\s*([1-4]{1}))*|((((\d{3})?\s*[-]*\s*)*(\d{3})\s*[-]*\s*(\d{4}))*\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
-    message: 'must be a valid telephone number.'
+    with: /\A(((([1-9][0-9][0-9])?\s*([-])?\s*)*([1-9][0-9][0-9])\s*([-])?\s*(\d{4})\s*)?(([eE][xX][tT])\.?\s*(\d{1,6}))?)\z/,
+    message: 'must be 7 or 10 (if using area code) digits and \"ext.\" followed with range of 1-6 digits (if using extension).'
   }
 
    # Returns all pending clients, needs to be refactored to remove magic number

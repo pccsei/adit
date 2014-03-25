@@ -5,7 +5,7 @@ class Project < ActiveRecord::Base
   has_many   :members
 
 # Validates the year field
-  validates :year, presence: true, uniqueness: { scope: :semester, message: "can only be one active project per semester of each year."}
+  validates :year, presence: true, uniqueness: { scope: :semester, message: "can only have one active project per semester of each year."}
   
 # Validates the ticket open and close times  
   validates :tickets_open_time, presence: true, uniqueness: true
@@ -17,35 +17,35 @@ class Project < ActiveRecord::Base
 # Validates the max total clients option  
   validates :max_clients, length: {
     minimum: 1,
-    message: 'is the wrong length.  Needs to be one digit long.'
+    message: 'needs to be at least 1 digit long.'
   }
   validate :greater_than_max  
   
 # Validates the max high priority clients option
   validates :max_high_priority_clients, length: {
     minimum: 1,
-    message: 'is the wrong length.  Needs to be at least one digit long.'
+    message: 'needs to be at least 1 digit long.'
   }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_medium_priority_clients == 0 && project.max_low_priority_clients == 0) },
                      unless: Proc.new { |project| project.max_high_priority_clients == -1 } }
   
 # Validates the max medium priority clients option
   validates :max_medium_priority_clients, length: {
     minimum: 1,
-    message: 'is the wrong length.  Needs to be at least one digit long.'
+    message: 'needs to be at least 1 digit long.'
   }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_low_priority_clients == 0) }, 
                      unless: Proc.new { |project| project.max_medium_priority_clients == -1 } }
 
 # Validates the max low priority clients option
   validates :max_low_priority_clients, length: {
     minimum: 1,
-    message: 'is the wrong length.  Needs to be at least one digit long.'
+    message: 'needs to be at least 1 digit long.'
   }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_medium_priority_clients == 0) },
                      unless: Proc.new { |project| project.max_low_priority_clients == -1 } }
 
 # Custom method to make sure the open date is before the close date  
   def start_before_end
     if(tickets_open_time && tickets_close_time)
-      errors.add(:tickets_open_time, 'must be before project end.') unless
+      errors.add(:tickets_open_time, 'needs to start before the project end time.') unless
         self.tickets_open_time < self.tickets_close_time
     end
   end
@@ -53,9 +53,9 @@ class Project < ActiveRecord::Base
 # Custom method to make sure the selected year is within the ticket open time year
   def current_selected_year
     if(tickets_open_time)
-      errors.add(:tickets_open_time, 'must be in the year you selected above.') unless
+      errors.add(:tickets_open_time, 'needs to be in the year you selected above.') unless
         self.tickets_open_time.year == self.year
-      errors.add(:tickets_close_time, 'must be in the year you selected above.') unless
+      errors.add(:tickets_close_time, 'needs to be in the year you selected above.') unless
         self.tickets_close_time.year == self.year
     end
   end
@@ -64,14 +64,14 @@ class Project < ActiveRecord::Base
   def current_semester
     if(tickets_open_time && tickets_close_time)
       if(semester == 'Fall')
-        errors.add(:tickets_open_time, 'must be in the Fall semester.') unless
+        errors.add(:tickets_open_time, 'needs to match the semester above (Fall).') unless
           self.tickets_open_time.month.between?(9,12)
-        errors.add(:tickets_close_time, 'must be in the Fall semester.') unless
+        errors.add(:tickets_close_time, 'needs to match the semester above (Fall).') unless
           self.tickets_close_time.month.between?(9,12)
       else
-        errors.add(:tickets_open_time, 'must be in the Spring semester.') unless
+        errors.add(:tickets_open_time, 'needs to match the semester above (Spring).') unless
           self.tickets_open_time.month.between?(1,5)
-        errors.add(:tickets_close_time, 'must be in the Spring semester.') unless
+        errors.add(:tickets_close_time, 'needs to match the semester above (Spring).') unless
           self.tickets_close_time.month.between?(1,5)
       end
     end
@@ -81,7 +81,7 @@ class Project < ActiveRecord::Base
   def greater_than_max
     if(max_clients >= 1 && max_high_priority_clients >= 0 && max_medium_priority_clients >= 0 && max_low_priority_clients >= 0)
       total_clients = (max_high_priority_clients + max_medium_priority_clients + max_low_priority_clients)
-      errors.add(:max_clients, 'must have the combined high, medium, and low clients greater or equal to the max clients.') unless
+      errors.add(:max_clients, 'needs to be less than or equal to the combined total of high, medium, and low priority clients.') unless
         max_clients <= total_clients
     end
   end

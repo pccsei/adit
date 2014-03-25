@@ -151,9 +151,12 @@ h1, h2, h3, h4, h5, h6 {
 
 
 p {
+  margin: 1em 0 0 0;
+}
+
+p, li {
   font-size: 1.1em;
   line-height: 1.7em;
-  margin: 1em 0 0 0;
 }
 
 /*Navigation Bar*/
@@ -168,7 +171,7 @@ p {
 
 .navbar-default {
   border-top: .4em solid #DC0000;
-  border-bottom: none;
+  border-bottom: .1em solid #ccc;
   margin-top: 0px;
   //background-color: #DBDBDB;
   /* Background */

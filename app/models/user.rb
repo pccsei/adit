@@ -8,9 +8,9 @@ class User < ActiveRecord::Base
   before_create :create_remember_token
 
 # Validates the user's name
-  validates :first_name, :last_name, format: {
+  validates :first_name, :last_name, presence: true, format: {
       with: /\A[-a-zA-Z ?()'\/&-\.]+\Z/,
-      message: 'must only have letters (no digits).'
+      message: 'has an invalid character(s) entered.'
   }, unless: Proc.new { |user| user.school_id.to_i <= -1 }
 
 # Validates the user's school id
@@ -19,19 +19,19 @@ class User < ActiveRecord::Base
 # Validates the email - uniqueness removed for the EXPO
   validates :email, format: {
       with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\Z/,
-      message: 'must be a valid PCC email address.'
+      message: 'must be a valid PCC email address (jsmith1234@students.pcci.edu).'
   }, unless: Proc.new { |user| user.school_id.to_i <= -1 }
 
 # Validates the phone number
   validates :phone, allow_blank: true, format: {
-      with: /\A(([tT][oO][wW][nN])|(((17)\s*[-]\s*)?(\d{4})\s*[-]*\s*([1-4]{1}))*|((((\d{3})?\s*[-]*\s*)*(\d{3})\s*[-]\s*(\d{4}))*\s*(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
-      message: 'must be a valid PCC phone number or valid telephone number.'
+      with: /\A(([tT][oO][wW][nN])|(((17)\s*[-]\s*)?(\d{4})\s*[-]*\s*([1-4]{1}))*|(((((([(])?\s*\d{3}\s*([)])?)?\s*[-]*\s*)*(\d{3})\s*[-]\s*(\d{4}))*\s*)?(([eE][xX][tT])\.?\s*(\d{1,4}))*))\z/,
+      message: 'can either be 17-####-# (with last # of numbers 1-4) or Town.'
   }, unless: Proc.new { |user| user.school_id.to_i <= -1 }
 
 # Validates the box number
   validates :box, allow_blank: true, length: {
       minimum: 3, maximum: 4,
-      message: 'is the wrong length.  Needs to be either three or four digits long.'
+      message: 'needs to be a range of 3-4 digits long.'
   }, numericality: { greater_than: 0 }, unless: Proc.new { |user| user.school_id.to_i <= -1 }
 
   ### BEGIN CONFIGURATION ###

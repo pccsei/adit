@@ -14,13 +14,19 @@
 	margin-top: -1.3em;
 }
 .clients .panel-primary{
-	margin-top: 5em !important;
+	margin-top: 2em !important;
 	border-color: black;
 }
 .show .panel-primary{
 	margin-top: 5em !important;
 	border-color: black;
 	width: 25em !important;
+}
+
+.clients #checkClients {
+  width: inherit;
+  margin-bottom: 1em !important;
+  padding: 1em !important;
 }
 
 .clients .list-group{
