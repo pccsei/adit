@@ -22,13 +22,13 @@
   <% if @receipt.made_contact %>
       <strong> <span class="glyphicon glyphicon-check"></span>&nbsp;Made Contact!&nbsp;&nbsp;</strong>
   <% else %>
-      <strong><%= link_to check_box_tag(:contact) + " I made a first contact!", new_receipt_action_path(@receipt, :action_type_name => 'First Contact') %>&nbsp;&nbsp;</strong>
+      <strong><%= link_to '<i class="glyphicon glyphicon-unchecked"></i>  I made first contact!'.html_safe, new_receipt_action_path(@receipt, :action_type_name => 'First Contact')  %></strong>
   <% end %>
   
   <% if @receipt.made_presentation %>
       <strong> <span class="glyphicon glyphicon-check"></span>&nbsp;Made Presentation!&nbsp;&nbsp;</strong>
   <% elsif @receipt.made_contact %>
-      <strong> <span class="glyphicon glyphicon-unchecked"></span>&nbsp;<%= link_to 'I made a presentation!', new_receipt_action_path(@receipt, :action_type_name => 'Presentation') %>&nbsp;&nbsp;</strong>
+      <strong><%= link_to '<i class="glyphicon glyphicon-unchecked"></i>  I made a presentation!'.html_safe, new_receipt_action_path(@receipt, :action_type_name => 'Presentation')  %></strong>
   <% else %>
       <strong><span class="glyphicon glyphicon-unchecked"></span>&nbsp;Make Presentation.&nbsp;&nbsp;</strong>
   <% end %>
@@ -41,7 +41,7 @@
         <strong>Payment Type:&nbsp; <%=@receipt.payment_type %></strong>
      </div>
   <% elsif @receipt.made_presentation %>
-     <strong><span class="glyphicon glyphicon-unchecked"></span><%= link_to 'I made a sale!', new_receipt_action_path(@receipt, :action_type_name => 'Sale') %></strong>
+      <strong><%= link_to '<i class="glyphicon glyphicon-unchecked"></i>  I made a sale!'.html_safe, new_receipt_action_path(@receipt, :action_type_name => 'Sale')  %></strong>
   <% else %>
       <strong><span class="glyphicon glyphicon-unchecked"></span>&nbsp;Make Sale.&nbsp;&nbsp;</strong>
   <% end %>
