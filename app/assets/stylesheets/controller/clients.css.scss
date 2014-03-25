@@ -17,7 +17,11 @@
 	margin-top: 5em !important;
 	border-color: black;
 }
-
+.show .panel-primary{
+	margin-top: 5em !important;
+	border-color: black;
+	width: 25em !important;
+}
 
 .clients .list-group{
 	width: 35em;
@@ -70,15 +74,50 @@
 	width:8em;
 }
 
-#city_st_zip{
+#city{
 	margin-top:1em;
 }
-#city_st_zip input {
 
+#city label {
+	margin-left: 6.1em;
+}
+#state{
+	margin-top:1em;
 }
 
-#city_st_zip label {
-	margin-left: 6.1em;
+#state label {
+	margin-left: 6.4em;
+}
+#state select{
+	
+}
+#zip{
+	margin-top:1em;
+}
+#contact_title{
+	margin-top:1em;
+}
+
+#contact_title label {
+	margin-left: 2.4em;
+}
+#contact_fname{
+	margin-top:1em;
+}
+
+#contact_fname label {
+	margin-left: 2em;
+}
+#contact_lname{
+	margin-top:1em;
+}
+
+#contact_lname label {
+	margin-left: 2.2em;
+}
+
+#zip label {
+	margin-left: 3.8em;
 }
 #address{
 	margin-top: 1em;
@@ -109,17 +148,23 @@
 }
 
 #phone_email label {
-	margin-left:4.3em;
+	margin-left:4em;
 }
-
+#business_name label{
+	margin-left:-.5em;
+}
 #comment{
-	margin-top: 2em;
+	margin-top: 1em;
 }
 
 #comment textarea{
-	margin-left: 4em;
+	margin-left: .3em;
+	width: 45em;
+	height: 3em;
 }
-
+#comment label{
+	margin-left: 3.2em;
+}
 
 .warning { color: red}
 

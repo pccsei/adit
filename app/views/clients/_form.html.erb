@@ -25,36 +25,41 @@
           <%= f.label :address, class: 'required' %>
           <%= f.text_field :address, class: 'form-control',  rows:3 %>
 	  </div>
-<div id="city_st_zip">
+   <div id="city">
           <%= f.label :city, class: 'required' %>
           <%= f.text_field :city, class: 'form-control',  rows:3 %>
-
-
+	  </div>
+ <div id="state">
           <%= f.label :state %>
           <%= f.select :state, %w(AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME
                             MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI
-                            SC SD TN TX UT VT VA WA WV WI WY), :selected => @client.state || 'FL' %>
-                            
+                            SC SD TN TX UT VT VA WA WV WI WY), :selected => @client.state || 'FL', :class => 'btn btn-default dropdown-toggle col-md-2' %>
+							</div>
+    <div id="zip">                         
           <%= f.label :zipcode, class: 'required' %>
           <%= f.text_field :zipcode, class: 'form-control',  rows:3 %>
         </div>
-        <div id="contact_info">
+        <div id="contact_title">
           <%= f.label 'Contact title' %>
-          <%= f.select :contact_title, %w(Mr. Mrs. Ms. Miss Dr.), :include_blank => :true %>
+          <%= f.select :contact_title, %w(Mr. Mrs. Ms. Miss Dr.), :include_blank => :true, class: 'btn btn-small btn-dropdown'%>
+		  </div>
+		   <div id="contact_fname">
           <%= f.label 'First name', class: 'required' %>
           <%= f.text_field :contact_fname, class: 'form-control',  rows:3 %>
+		  </div>
+		   <div id="contact_lname">
           <%= f.label 'Last name', class: 'required' %>
           <%= f.text_field :contact_lname, class: 'form-control',  rows:3 %>
 	  </div>
 	   <div id="phone_email">
           <%= f.label :telephone, 'Phone:', class: 'required' %>
 
-          <%= f.text_field :telephone, value: render_phone(@client.telephone), :placeholder => '850-123-4567 Ext.####' %>
+          <%= f.text_field :telephone, value: render_phone(@client.telephone), :placeholder => '850-123-4567 Ext.####', class: 'form-control',  rows:3  %>
 
         </div>
         <div id="comment" class="field">
           <%= f.label :comment %>
-          <%= f.text_area :comment %>
+          <%= f.text_area :comment, class: 'form-control',  rows:3  %>
         </div>
       </div>
     </div>

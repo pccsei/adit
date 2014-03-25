@@ -1,20 +1,13 @@
 <% provide(:title, (@client.business_name).html_safe) %>
 
-    <ul class="list-group">
-      <li class="list-group-item"> <strong>Address:</strong>
-    <%= @client.address %></li>
-      <li class="list-group-item"> <strong>City:</strong>
-    <%= @client.city %></li>
-      <li class="list-group-item"> <strong>State:</strong>
-    <%= @client.state %></li>
-      <li class="list-group-item"> <strong>Zipcode:</strong>
-    <%= @client.zipcode%></li>
-  	  <li class="list-group-item"><strong>Contact name:</strong>
-    <%= @client.contact_title + ' ' + @client.contact_fname + ' ' + @client.contact_lname %></li>
-  	    <li class="list-group-item"><strong>Telephone:</strong>
-    <%= render_phone(@client.telephone) %></li>
-        <li class="list-group-item"> <strong>Email:</strong>
-    <%= @client.email %></li>
-  		  <li class="list-group-item"> <strong>Comment:</strong>
-    <%= @client.comment %></li>  
-    </ul>
+	
+	  <p id="address_name"><%= @client.address %><br />
+	  <%= @client.city %>
+	  <%= @client.state %>
+	  <%= @client.zipcode%></p><br />
+	  <p id="email_comment"><%= @client.contact_title + ' ' + @client.contact_fname + ' ' + @client.contact_lname %>
+	  <br /><%= render_phone(@client.telephone) %></p>
+	  <%= @client.comment %></p>
+	  <p id="email"> EMAIL <%= @client.email %></p>
+	</p>
+	

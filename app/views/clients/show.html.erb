@@ -1,27 +1,24 @@
 <% provide(:title, 'Client Information') %>
-  <ul class="list-group">
-    <li class="list-group-item"> <strong>Business name:</strong>
-  <%= @client.business_name %></li>
-    <li class="list-group-item"> <strong>Address:</strong>
-  <%= @client.address %></li>
-    <li class="list-group-item"> <strong>City:</strong>
-  <%= @client.city %></li>
-    <li class="list-group-item"> <strong>State:</strong>
-  <%= @client.state %></li>
-    <li class="list-group-item"> <strong>Zipcode:</strong>
-  <%= @client.zipcode%></li>
-	  <li class="list-group-item"><strong>Contact name:</strong>
-  <%= @client.contact_title + ' ' + @client.contact_fname + ' ' + @client.contact_lname %></li>
-	    <li class="list-group-item"><strong>Telephone:</strong>
-  <%= render_phone(@client.telephone) %></li>
-		  <li class="list-group-item"> <strong>Comment:</strong>
-  <%= @client.comment %></li>
-  <% if (@client.status.status_type== 'Pending') || (@client.status.status_type == 'Edited')%>
-	  <li class="list-group-item"> <strong>Submitted by:</strong>
-  <%= get_submitter_info(@client.submitter) %></li>
-  <% end %>
-  </ul>
+<div class = "panel panel-primary">
+  <div class = "panel-heading">
+    <h3>&nbsp;<%= @client.business_name %></li></h3><br>
+  </div>
+<div class = "panel-body">
+ 
   
+  <p><%= @client.address %><br />
+  <%= @client.city %>
+  <%= @client.state %>
+  <%= @client.zipcode%></p>
+  <p><%= @client.contact_title + ' ' + @client.contact_fname + ' ' + @client.contact_lname %><p> 
+  <p><%= render_phone(@client.telephone) %></p>
+  <p><%= @client.comment %></p>
+  <% if (@client.status.status_type== 'Pending') || (@client.status.status_type == 'Edited')%>
+  <%= get_submitter_info(@client.submitter) %>
+  <% end %>
+</p>
+</div>  
+</div>
 <% if false %>
 <% if (current_user.role == 3 || current_user.school_id == @client.submitter) %>
 	<%= link_to 'Edit', edit_client_path(@client, where: 'not_from_student'), :class => 'btn btn-large btn-primary btn-sm' %>

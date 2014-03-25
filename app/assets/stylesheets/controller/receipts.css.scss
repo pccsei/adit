@@ -1,3 +1,24 @@
+.show #heading{
+	padding-top: .3em;
+}
+
+#info_center{
+	text-align: center;
+	font-size: 2.2em;
+	margin-top: 2em;
+	font-variant: none;
+	text-decoration: none;
+	color: 
+	#DC0000;
+	background-color: 
+	#EBEBEB;
+	border-color: 
+	#EBEBEB;
+	border-radius: 5px;
+	height: 2em;
+	padding-top: .4em;
+}
+
 .receipts .panel-primary{
 	width: 40em;
 	float:left;
@@ -30,20 +51,29 @@
 }
 .receipts #edit_client{
 	float: right;
-	margin-top: 17em !important;
-	margin-right: -21em;
+	margin-top: -2em;
 }
-
+#email{
+	text-align: center;
+	margin-top: -1em;
+}
+#email_comment{
+	float: right;
+	margin-top: -5em;
+	text-align: right;
+}
 .receipts .page-header {
 	text-align:center;
-	width:35.8em;
+	width: 100%;
 }
-
+#address_name{
+	margin-top: -5em !important;
+}
 .receipts #client_info{
-	text-align: left;
+	//text-align: left;
 	font-size: 12px;
-	width: 20em;
-	float: right;
+	//width: 20em;
+	//float: right;
 }
 
 .receipts .list-group-item{

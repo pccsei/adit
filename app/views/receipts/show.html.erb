@@ -7,16 +7,11 @@
 <div id = "client_info">
   <%= render :partial => 'show_client_info', :locals => { :client => @client }%>
 </div>
-<div>
+<div id="edit_client">
   <%= link_to 'Edit this client!', edit_client_path(@client.id, page: request.url) unless @receipt.user_id != @receipt.ticket.user_id%>
 </div>
 
-<div class = "panel panel-primary">
-  <div class = "panel-heading">
-    <h3>&nbsp;1-2-3 Steps to complete your Sale!</h3>
-  </div>
-  <div class = "panel-body">
-
+<div id="info_center">
 <% if Receipt.is_released(@receipt) == false %>
 
   <% if @receipt.made_contact %>
@@ -45,13 +40,12 @@
   <% else %>
       <strong><span class="glyphicon glyphicon-unchecked"></span>&nbsp;Make Sale.&nbsp;&nbsp;</strong>
   <% end %>
-
+</div>
 <% else %>
 <p>Since you released this client, you no longer can update it.</p>
 <% end %>
 
-</div>
-</div>
+
 
 <%= link_to 'I just have a comment', new_receipt_action_path(@receipt, :action_type_name => 'Comment') %>
 <div id = "show_action_table">
