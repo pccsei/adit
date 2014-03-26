@@ -29,14 +29,15 @@
       </div>
     </nav>
   <% end %>  
+  
     <div id="container">
+	    <% flash.each do |key, value| %>
+	        <div class="info_bar alert alert-<%= key %>"><%= value %></div>
+	    <% end %>
       <h1 id="heading" class="page-header"><%= yield(:title)%></h1>
     <% if @current_user && @current_user.role == 3 && get_selected_project %>
       <%= render 'layouts/teacher_info' %>
     <% end %>
-      <% flash.each do |key, value| %>
-          <div class="info_bar alert alert-<%= key %>"><%= value %></div>
-      <% end %>
       <%= yield %>
     </div>
   </body>

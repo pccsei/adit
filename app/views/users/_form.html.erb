@@ -17,28 +17,28 @@
       <div class = "panel-body">
         <div id="full_name">
           <%= f.label :first_name, 'First Name', class: 'required' %>
-          <%= f.text_field :first_name %>
+          <%= f.text_field :first_name, class: 'form-control',  rows:3 %>
           <%= f.label :last_name, 'Last Name', class: 'required', id:'last_name' %>
-          <%= f.text_field :last_name %>
+          <%= f.text_field :last_name, class: 'form-control',  rows:3 %>
         </div>
         <div id="school_info">
           <%= f.label :school_id, 'School ID', class: 'required' %>
-          <%= f.text_field :school_id %>
+          <%= f.text_field :school_id, class: 'form-control',  rows:3 %>
           <%= f.label :email, 'E-mail Address', class: 'required', id:'email' %>
-          <%= f.text_field :email, value: @user.email || "@students.pcci.edu" %>
+          <%= f.text_field :email, class: 'form-control',  rows:3 %>
         </div>
         <div id="phone_box_num">
           <%= f.label :phone, 'PCC Phone', class: 'required' %>
-          <%= f.text_field :phone, value: @user.phone || '17-'%>
+          <%= f.text_field :phone, class: 'form-control',  rows:3 %>
           <%= f.label :box, 'PCC Box Number', id:'box_num' %>
-          <%= f.text_field :box %>
+          <%= f.text_field :box, class: 'form-control',  rows:3 %>
         </div>
         <%= f.hidden_field :role, :value => 1 %>
         <div id="major_minor">
           <%= f.label :major, 'Major' %>
-          <%= f.text_field :major %>
+          <%= f.text_field :major, class: 'form-control',  rows:3 %>
           <%= f.label :minor, 'Minor', id:'minor' %>
-          <%= f.text_field :minor %>
+          <%= f.text_field :minor, class: 'form-control',  rows:3 %>
         </div>
         <div id="class">
           <%= f.label :classification, 'Classification' %>

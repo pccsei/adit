@@ -7,7 +7,7 @@
 		<%= link_to "Back to Reports", session[:return_to] %>
 	<% end %>
 <% else %>
-	<% provide(:title, 'My Clients')%>
+	<% provide(:title, (@student_user.first_name.capitalize + '\'s Clients').html_safe)%>
 <% end %>
 
 <% if Project.non_archived %>
