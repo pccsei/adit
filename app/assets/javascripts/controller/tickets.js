@@ -217,10 +217,7 @@ onLoad(function() {
         "bProcessing": true,
         "bRetrieve": true,
         "bJQueryUI": true,
-        //"sDom": 't',
         "sDom": '<"H"CTrf>t<"F"lip>',
-        //"sScrollY": "100%",
-        //"sScrollX": "100%",
         "sScrollXInner": "110%",
         "fnInitComplete": function() {
             this.css("visibility", "visible");
