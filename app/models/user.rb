@@ -222,7 +222,7 @@ class User < ActiveRecord::Base
         for i in 0..students.count-1
           member = Member.find_by(user_id: students[i])
           if Member.find_by(parent_id: student_manager).section_number == member.section_number
-            if User.find(students[i]).role == 2
+            if User.find(students[i]).role == 2 && member.parent_id != student_manager.id
               Member.destroy_team(User.find(students[i]))
             end
             member.parent_id = student_manager.id

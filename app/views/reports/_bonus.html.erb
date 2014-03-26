@@ -30,12 +30,6 @@
           <td><p id="paste<%=i%>" class="fake-link btn btn-large btn-link btn-sm edit_link", name="<%=b.points%>" value="<%= b.comment %>" title="<%= b.id %>">Edit</p></td>
           <% i = i + 1%>
           <td><%= link_to "Delete", reports_delete_bonus_path(bonus: b.id, all: 1), :confirm => 'Are you sure you want to delete this entire bonus?', :method => :delete %></td>
-        <div id="bonus_edit<%= b.created_date %>">
-          <p>Number of bonus points:
-          <input id="bonus_points" name="bonus_points" type="number" value="" /></p>
-          <p>Please enter the reason for the bonus points:
-          <input id="bonus_comment" name="bonus_comment" type="text" value=""  /></input></p>
-        </div> 
         </tr>
       <% end %>
       <tr>
