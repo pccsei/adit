@@ -60,7 +60,7 @@ onLoad(function() {
       window.sysTime = json[i];
       console.log("Updated at " + window.sysTime);
     });
-    //setTimeout(updateClients, 2000);
+    setTimeout(updateClients, 2000);
   }
   
   function updateCounters(selector) {    
