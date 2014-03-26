@@ -47,7 +47,7 @@
 	<%= form_tag(controller: "clients", action: "actually_assign") do %>
     <%= hidden_field_tag(:studentID) %>    
     <%= hidden_field_tag(:tid, @ticket.id) %>
-    <%= submit_tag("Actually assign the client", :id => "assignClient", :disabled => true) %>
+    <%= submit_tag("Assign", :id => "assignClient", :disabled => true) %>
   <% end %>
 	
 	<div class="studentList">
