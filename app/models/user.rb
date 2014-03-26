@@ -232,7 +232,7 @@ class User < ActiveRecord::Base
       end
 
       if choice == 'Assign Bonus Points'
-        if bonus_points != 0
+        if bonus_points != 0 && bonus_points != nil
           for i in 0..students.count-1
             bonus = Bonus.new
             bonus.points = bonus_points
