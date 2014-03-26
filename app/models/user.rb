@@ -219,6 +219,7 @@ class User < ActiveRecord::Base
       end
 
       if choice == 'Assign Team'
+       if student_manager
         for i in 0..students.count-1
           member = Member.find_by(user_id: students[i])
           if Member.find_by(parent_id: student_manager).section_number == member.section_number
@@ -228,6 +229,7 @@ class User < ActiveRecord::Base
             member.parent_id = student_manager.id
             member.save
           end
+        end
         end
       end
 
