@@ -1,4 +1,6 @@
 <ul class="nav navbar-nav">	 
+
+<!-- Teacher Links -->
 <% if current_user.role == 3 %>
   <li><%= link_to 'Manage Students', users_path, id:'manage_students' %></li>
   <% if false %>
@@ -25,15 +27,35 @@
     </ul>
   </li>
   <!--<li><%= link_to 'Projects',            projects_path %></li>EXPO-->
-<% else %>
+
+<!-- Student Manager Links -->
+<% elsif current_user.role == 2 %>
   <li><%= link_to 'Choose Clients',      tickets_path, id:'choose_clients' %></li>
   <li><%= link_to 'My Clients',          my_receipts_path(id: current_user.id), id:'receipts' %></li>
   <li><%= link_to 'Submit Client',       clients_submit_path, id:"submit_client" %>
+  <li class="dropdown">
+    <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Team Data <b class="caret"></b></a>
+    <ul class="dropdown-menu">              
+      <li><%= link_to 'Teammates\' Data', reports_team_data_path%></li>
+      <li><%= link_to 'Teammates\' Summary', reports_student_summary_path    %></li>
+      <li><%= link_to 'All Teams',      reports_team_summary_path%></li>
+    </ul>
+  </li>
+
+<!-- Student  Links -->
+<% else %>
+    <li><%= link_to 'Choose Clients',      tickets_path %></li>
+    <li><%= link_to 'My Clients',          my_receipts_path(id: current_user.id) %></li>
+    <li><%= link_to 'Submit Client',       clients_submit_path %></li>
 <% end %>
+
+<!-- Everyone's Links -->
   <li><%= link_to "Help", users_need_help_path, id:'help' %></li>
+
 <% if signed_in? %>
   <li><%= link_to 'Sign Out', signout_path, method: 'delete' %></li>
 <% else %>
   <li><%= link_to 'Sign In',  signin_path %></li>
-<% end %>   
+<% end %>
+
 </ul>   

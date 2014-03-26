@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
-  before_action :only_teachers, except: [:unauthorized]
+  before_action :only_teachers, only: [:sales, :activities, :end_of_semester_data]
+  before_action :only_leadership
 
   def sales
    @sections = get_array_of_all_sections(get_selected_project)
@@ -60,8 +61,12 @@ class ReportsController < ApplicationController
        @student_array = []                     
        index = 0
        @receipts = Receipt.selected_project_receipts(get_selected_project)
-       @students = User.current_student_users(get_selected_project, get_selected_section)
-       
+       if current_user.role == 3
+        @students = User.current_student_users(get_selected_project, get_selected_section)
+       else current_user.role == 2
+        @students = User.team_members(get_selected_project, current_user.id)
+       end
+
        @students.each do |s|
           @student_array[index] = Struct::Student.new
           @student_array[index].id = s.id
@@ -240,6 +245,14 @@ class ReportsController < ApplicationController
       @end_sale_total += a.sale_value
       index = index + 1
     end
+  end
+
+  # This method is just designed as a sort of read only manage section page for Student Manager's
+  def team_data
+    if current_user.role == 3
+      redirect_to reports_team_summary_path
+    end
+    @students = User.team_members(get_selected_project, current_user.id)
   end
   
   def delete_bonus

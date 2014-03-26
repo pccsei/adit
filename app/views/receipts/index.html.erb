@@ -1,0 +1,77 @@
+<% if current_user.role == 3 %>
+<% provide(:title, (@student_user.first_name.capitalize + '\'s Clients').html_safe)%>
+<br />
+	<% if session[:return_to] == users_url %>
+		<%= link_to "Back to Manage Students", session[:return_to], :class => 'btn btn-primary btn-sm' %>
+	<% else %>
+		<%= link_to "Back to Reports", session[:return_to], :class => 'btn btn-primary btn-sm' %>
+	<% end %>
+<% else %>
+	<% provide(:title, 'My Clients')%>
+<% end %>
+
+<% if Project.non_archived %>
+
+      <div class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content ">
+          <%= form_tag(tickets_release_path) do %>
+            Feel free to leave a comment about this client for other representatives. <br />
+            <%= hidden_field_tag(:ticket_id) %>
+            <%= text_area_tag "body", nil, :size => 20, :placeholder => "Your comment goes here" %>
+            <%= link_to "Cancel", "#", title: "cancel", :class => "btn btn-large btn-primary btn-sm closeModal" %>
+            <%= submit_tag("Release", :class => "btn btn-large btn-primary btn-sm", :id => "switchText")  %>     
+          <% end %>
+        </div>
+        </div>
+      </div>  
+      
+      <h2>Active Clients</h2>
+      <div id="active_clients" class="myclients">
+        <!-- Loop -->
+        <% @active_receipts.each do |receipt| %>
+        <div class="active client <%= receipt.ticket.priority.name %>" data-link="#">
+          <h3 class="business"><%= link_to receipt.ticket.client.business_name, receipt_path(receipt), title: "View client" %></h3>
+          <section class="info">
+            <p>Made Contact? <%= receipt.made_contact ? 'Yes!' : 'Not yet' %></p>
+            <p>Made Presentation? <%= receipt.made_presentation ? 'Yes!' : 'Not yet' %></p>
+            <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
+          </section>
+          <%= link_to image_tag('closebutton.svg', class: 'release_button', id: receipt.ticket.id, data: {toggle: "modal", target: ".bs-example-modal-lg"}), '#', title: 'Release client'%>
+        </div>
+        <% end %>
+      </div>
+
+      <h2>Completed Clients</h2>
+      <div id="completed_clients" class="myclients">
+        <% @sold_receipts.each do |receipt| %>
+        <div class="completed client <%= receipt.ticket.priority.name %>">
+          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
+          <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
+          <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
+        </div>
+        <% end %>
+      </div>
+
+      <h2>Released Clients</h2>
+      <div id="released_clients" class="myclients">
+        <% @released_receipts.each do |receipt| %>
+        <div class="released client <%= receipt.ticket.priority.name %>">
+          <%= link_to image_tag("rightarrow.svg", class: "view_button"), receipt_path(receipt), title: "View client" %>
+          <h3 class="business"><%= receipt.ticket.client.business_name %></h3>
+          <p>Points earned: <%= receipt.actions.sum(:points_earned) %></p>
+        </div>
+        <% end %>
+      </div>
+
+      <h2>Bonus Points</h2>
+        <% if @bonuses_received %>
+        <% @bonuses_received.each do |b| %>
+          <%= b %>
+        <% end %>
+      <% end %>
+
+
+<% else %>
+<p> There are currently no projects to view. <p>
+<% end %>
