@@ -1,3 +1,33 @@
+.receipts.show .panel-primary {
+	width: 100%;
+	float: left;
+	text-align: center;
+	margin-top: 2em;
+	color: 
+	#DC0000;
+}
+
+.show #heading{
+	padding-top: .3em;
+}
+
+#info_center{
+	text-align: center;
+	font-size: 2.2em;
+	margin-top: 2em;
+	font-variant: none;
+	text-decoration: none;
+	color: 
+	#DC0000;
+	background-color: 
+	#EBEBEB;
+	border-color: 
+	#EBEBEB;
+	border-radius: 5px;
+	height: 2em;
+	padding-top: .4em;
+}
+
 .receipts .panel-primary{
 	width: 40em;
 	float:left;
@@ -30,20 +60,29 @@
 }
 .receipts #edit_client{
 	float: right;
-	margin-top: 17em !important;
-	margin-right: -21em;
+	margin-top: -2em;
 }
-
+#email{
+	text-align: center;
+	margin-top: -.5em;
+}
+#email_comment{
+	float: right;
+	margin-top: -5em;
+	text-align: right;
+}
 .receipts .page-header {
 	text-align:center;
-	width:35.8em;
+	width: 100%;
 }
-
+#address_name{
+	margin-top: -4.3em !important;
+}
 .receipts #client_info{
-	text-align: left;
+	//text-align: left;
 	font-size: 12px;
-	width: 20em;
-	float: right;
+	//width: 20em;
+	//float: right;
 }
 
 .receipts .list-group-item{
@@ -70,7 +109,6 @@
   margin-top: 0 !important;
   clear: none;
   color: black;
-  font-style: italic;
 }
 
 .receipts .client {
@@ -78,29 +116,62 @@
   position: relative;
   //border: solid .4em rgba(0, 0, 0, 0.1);
   //border: solid .1em #ccc;
-  background: #f6f6f6;
-  border-left: solid .7em #ccc;
   box-sizing: border-box;
   display: inline-table;
   margin: 1.5em 1.5em 0 0 !important;
   &.active {
     width: 15em;
     height: 20em;
+    .client-container {
+      width: 15em;
+      height: 20em;
+    }
+  }
+  .client-container {
+    background: #f6f6f6;
+    border-left: solid .7em #ccc;
+    height: 100%;
+    width: 100%;
+    display: block;
     section.info {
       padding: 1.2em;
+      font-style: italic;
+      font-weight: bold;
+      ul.client_status {
+        margin: 0;
+        padding: 0;
+      }
     }
   }
 }
 
-.receipts .client.completed,
-.client.released {
-  width: 15em;
-  height: 12em;
-  padding: .9em;
-  margin: .5em;
+li.todo {
+  padding-left: 1.3em;
+  list-style-type: none;
+  margin: 0;
 }
 
-.client.released {
+li.todo.todo-checked {
+  background: left center no-repeat image-url('check.svg');
+}
+
+.client .client-container {
+  cursor: pointer;
+}
+
+.receipts .client.completed,
+.receipts .client.released {
+  width: 15em;
+  height: 12em;
+  margin: .5em;
+  .client-container {
+    padding: .9em;
+    width: 15em;
+    height: 12em;
+  }
+}
+
+.client.released .client-container {
   color: #666;
   background: #e9e9e9 !important;
   border-color: #ccc !important;
@@ -118,17 +189,17 @@ $bright-green: #43d852;
   box-sizing: border-box;
 }
 
-.client.high {
+.client.high .client-container {
   background: #e8ffe3;
   border-left-color: $bright-green;
 }
 
-.client.medium {
+.client.medium .client-container {
   background: #fefdca; /* Old browsers */
   border-color: #f3e32f;
 }
 
-.client.low {
+.client.low .client-container {
   background: #fff;
   border-color: #ddd;
 }
@@ -159,8 +230,8 @@ img.release_button {
   opacity: 0;
   transition: opacity .25s;
   position: absolute;
-  top: -1em;
-  left: -1.5em;
+  top: -.9em;
+  left: -.7em;
 }
 
 .client:hover img.release_button {
@@ -182,3 +253,4 @@ img.release_button:hover {
 .view_button:hover {
   opacity: .5;
 }
+

@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="<%= url_for "/favicon.ico" %>">
     <title><%= full_title(yield(:title))%></title>
     <%= stylesheet_link_tag :application, media: 'all', 'data-turbolinks-track' => true %>
     <%= stylesheet_link_tag 'controller/' + params[:controller], media: 'all', 'data-turbolinks-track' => true %>
@@ -23,19 +24,20 @@
         </button>
       </div>
       <div class="collapse navbar-collapse container" id="bs-example-navbar-collapse-1">
-        <div id="logo"><%= image_tag 'adit_logo2.svg' %></div>
+        <div id="logo"><%= link_to (image_tag 'adit_logo4.svg'), (current_user.role == 3 ? users_path : tickets_path) %></div>
 	      <%= render 'layouts/navigation' %>
       </div>
     </nav>
   <% end %>  
+  
     <div id="container">
+	    <% flash.each do |key, value| %>
+	        <div class="info_bar alert alert-<%= key %>"><%= value %></div>
+	    <% end %>
       <h1 id="heading" class="page-header"><%= yield(:title)%></h1>
     <% if @current_user && @current_user.role == 3 && get_selected_project %>
       <%= render 'layouts/teacher_info' %>
     <% end %>
-      <% flash.each do |key, value| %>
-          <div class="info_bar alert alert-<%= key %>"><%= value %></div>
-      <% end %>
       <%= yield %>
     </div>
   </body>

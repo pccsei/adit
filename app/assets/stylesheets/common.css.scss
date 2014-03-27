@@ -11,6 +11,11 @@
   @extend .error;
 }
 
+
+.form-control{
+	display:inline;
+	width: auto;
+}
 /*flash*/
 .alert-error {
   background-color: #f2dede;
@@ -107,4 +112,4 @@ fieldset[disabled] .btn-primary.active {
 .btn-primary .badge {
   color: #428bca;
   background-color: #fff;
-}
+}// Datepicker.ui-datepicker {  z-index: 3000 !important;}

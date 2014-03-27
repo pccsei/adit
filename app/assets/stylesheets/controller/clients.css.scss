@@ -7,6 +7,15 @@
 #students li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: auto; }
 
 
+.clients #client_list tr {
+  height: 3.7em;
+}
+
+.clients .assign {
+  padding: .7em !important;
+  margin: .4em !important;
+}
+
 
 .clients #back{
 	float: left;
@@ -14,10 +23,21 @@
 	margin-top: -1.3em;
 }
 .clients .panel-primary{
-	margin-top: 5em !important;
+	margin-top: 2em !important;
 	border-color: black;
 }
+.show .panel-primary{
+	margin-top: 5em !important;
+	border-color: black;
+	width: 25em !important;
+}
 
+.clients #checkClients {
+  width: inherit;
+  margin-bottom: 1em !important;
+  padding: 1em !important;
+  font-size: 1.3em;
+}
 
 .clients .list-group{
 	width: 35em;
@@ -70,15 +90,50 @@
 	width:8em;
 }
 
-#city_st_zip{
+#city{
 	margin-top:1em;
 }
-#city_st_zip input {
 
+#city label {
+	margin-left: 6.1em;
+}
+#state{
+	margin-top:1em;
 }
 
-#city_st_zip label {
-	margin-left: 6.1em;
+#state label {
+	margin-left: 6.4em;
+}
+#state select{
+	
+}
+#zip{
+	margin-top:1em;
+}
+#contact_title{
+	margin-top:1em;
+}
+
+#contact_title label {
+	margin-left: 2.4em;
+}
+#contact_fname{
+	margin-top:1em;
+}
+
+#contact_fname label {
+	margin-left: 2em;
+}
+#contact_lname{
+	margin-top:1em;
+}
+
+#contact_lname label {
+	margin-left: 2.2em;
+}
+
+#zip label {
+	margin-left: 3.8em;
 }
 #address{
 	margin-top: 1em;
@@ -98,28 +153,41 @@
 	margin-left: 1.5em;
 }
 #client_zipcode{
-	width:4em;
+	width:5.5em;
 }
 #contact_info #client_contact_title{
 	margin-left: 1em;
 }
 
-#phone_email{
+#email{
 	margin-top: 1em;
 }
 
-#phone_email label {
-	margin-left:4.3em;
+#email label {
+	margin-left:6em;
+}
+#phone{
+	margin-top: 1em;
 }
 
+#phone label {
+	margin-left:4em;
+}
+#business_name label{
+	margin-left:-.5em;
+}
 #comment{
-	margin-top: 2em;
+	margin-top: 1em;
 }
 
 #comment textarea{
-	margin-left: 4em;
+	margin-left: .3em;
+	width: 45em;
+	height: 3em;
 }
-
+#comment label{
+	margin-left: 3.2em;
+}
 
 .warning { color: red}
 

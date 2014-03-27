@@ -60,7 +60,7 @@ onLoad(function() {
       window.sysTime = json[i];
       console.log("Updated at " + window.sysTime);
     });
-    //setTimeout(updateClients, 2000);
+    setTimeout(updateClients, 2000);
   }
   
   function updateCounters(selector) {    
@@ -217,10 +217,7 @@ onLoad(function() {
         "bProcessing": true,
         "bRetrieve": true,
         "bJQueryUI": true,
-        //"sDom": 't',
         "sDom": '<"H"CTrf>t<"F"lip>',
-        //"sScrollY": "100%",
-        //"sScrollX": "100%",
         "sScrollXInner": "110%",
         "fnInitComplete": function() {
             this.css("visibility", "visible");

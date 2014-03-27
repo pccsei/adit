@@ -4,7 +4,7 @@
     <div class="scroller_anchor"></div>
     <div class="scroller" id ="alerts">
       <% if @clientsLeft %>
-        <%= "<p id='totalMessage'> Total client(s) avaliable: <span id='clientsRemaining' class='badge'>#{zeroMin(@clientsLeft)}</span></p>".html_safe %>
+        <p id='totalMessage'> Total clients available: <span id='clientsRemaining' class='badge'><%= zeroMin(@clientsLeft) %></span></p>
       <% end %>
       <p id="highPriority"> High priority allowed: <span id='highPriorityCount' class="badge"><%= zeroMin(@highPriority)%></span></p>
       <p id="midPriority">  Medium priority allowed: <span id='mediumPriorityCount' class="badge"><%= zeroMin(@midPriority)%></span></p>
