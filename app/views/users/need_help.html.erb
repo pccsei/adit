@@ -1,6 +1,48 @@
 <a id="top" name="top"></a>
 
 <% provide(:title, 'Help') %>
+
+<% if current_user.role == 3 %>
+<div id="accordion">
+	<h3>Test1</h3>
+	<div>
+		<p>Hello There!</p>
+	</div>
+	
+	<h3>Test2</h3>
+	<div>
+		<p>Howdy!</p>
+	</div>
+	
+	<h3>Test3</h3>
+	<div>
+		<p>Sup Bro!</p>
+	</div>
+</div>
+<% else %>
+
+<div id="accordion">
+	<h3>Choose Clients</h3>
+		<div id="subaccordion1">
+			<h3>How can I choose a Client?</h3>
+			<div>
+				<p>Hello There!</p>
+			</div>
+		</div>
+	<h3>My Clients</h3>
+	<div>
+		<p><%= link_to 'Try it Out!', my_receipts_path(current_user) %></p>
+	</div>
+	
+	<h3>Submit Client</h3>
+	<div>
+		<p>Sup Bro!</p>
+	</div>
+</div>
+
+<% end %>
+
+
 <% if false %>
 
 <%= link_to "Download the entire Help Page", users_download_help_path, :class => 'btn btn-large btn-primary btn-sm' %>

@@ -73,6 +73,12 @@ onLoad(function() {
             $("#sectionNumber").html( $("#" + caller.target.id).attr("name") );
             $("#section").val( $("#" + caller.target.id).attr("name") );
         });
+    
+  	$( "#accordion,#subaccordion1" ).accordion({
+   			collapsible: true,
+			heightStyle: "content",
+			active: false
+   	});
 
 
     // Custom method to make sure only letters are entered

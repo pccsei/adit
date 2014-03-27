@@ -11,7 +11,12 @@ onLoad(function() {
 
     // Custom method to make sure the telephone is valid
     jQuery.validator.addMethod("valid_telephone", function(value, element) {
-        return this.optional(element) || /^((((([(])?[1-9][0-9][0-9]([)])?)?\s*([-])?\s*)*([1-9][0-9][0-9])\s*([-])?\s*(\d{4})\s*)?(([eE][xX][tT])\.?\s*(\d{1,6}))?)$/.test(value);
+        return this.optional(element) || /^((((([(])?[1-9][0-9][0-9]([)])?)?\s*([-])?\s*)*([1-9][0-9][0-9])\s*([-])?\s*(\d{4})\s*)?(([eE][xX][tT])\.?\s*(\d{1,7}))?)$/.test(value);
+    });
+    
+    // Custom method to make sure the zipcode is valid
+    jQuery.validator.addMethod("valid_zipcode", function(value, element) {
+        return this.optional(element) || /^(\d{4,5}([-]\d{4})?)$/.test(value);
     });
     
     // Custom method to make sure the email is valid
@@ -24,7 +29,7 @@ onLoad(function() {
             "client[business_name]": {required: true},
             "client[address]": {required: true},
             "client[city]": {required: true, letters_only: true},
-            "client[zipcode]": {required: true, digits: true, rangelength: [4,5], min: 1},
+            "client[zipcode]": {required: true, valid_zipcode: true, rangelength: [4,11], min_digit: (0001)},
             "client[contact_fname]": {letters_only: true},
             "client[contact_lname]": {letters_only: true},
             "client[telephone]": {required: true, valid_telephone: true},
@@ -34,20 +39,20 @@ onLoad(function() {
             "client[business_name]": "Please enter the business name.",
             "client[address]": "Please enter the address.",
             "client[city]": {
-            	required: "Please enter a city",
-            	letters_only: "You entered an invalid character(s)."
+            	required: "Please enter a city.",
+            	letters_only: "Only letters and punctuation allowed."
             },
             "client[zipcode]": {
             	required: "Please enter a zipcode.",
-            	digits: "Can only be digits (numbers 0-9).",
-            	rangelength: "Needs to be a range of 4-5 digits long.",
-            	min: "Cannot be all zeros."
+            	valid_zipcode: "Can only be digits (numbers 0-9).",
+            	rangelength: "Needs to be a range of 4-5 digits long (and -#### if using the 4 digit zip code extension).",
+            	min_digit: "Cannot be all zeros."
             },
-            "client[contact_fname]": "You entered an invalid character(s).",
-            "client[contact_lname]": "You entered an invalid character(s).",
+            "client[contact_fname]": "Only letters and punctuation allowed.",
+            "client[contact_lname]": "Only letters and punctuation allowed.",
             "client[telephone]": {
             	required: "Please enter a telephone number.",
-            	valid_telephone: "Must be 7 or 10 (if using area code) digits and \"ext.\" followed with range of 1-6 digits (if using extension)."
+            	valid_telephone: "Must be 7 or 10 (if using area code) digits and \"ext.\" followed with range of 1-7 digits (if using extension)."
             },
             "client[email]": "Must be in a standard email format."
         }

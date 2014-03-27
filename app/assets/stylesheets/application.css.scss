@@ -314,3 +314,16 @@ label.required:after {
   content: " *";
   color: red;
 }
+
+.ui-accordion {
+  margin: 0 auto;
+  border: 2px solid #fff;
+}
+
+.ui-accordion-header {
+  font-size: 160%;
+}
+
+.ui-accordion-header:hover {
+  text-decoration: underline;
+}
