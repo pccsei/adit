@@ -337,3 +337,21 @@ label.required:after {
   content: " *";
   color: red;
 }
+
+// Datepicker
+.ui-datepicker {
+  z-index: 3000 !important;
+}
+
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
+margin-top: -8px !important;
+}
+
+.ui-timepicker-div dl dd {
+margin-bottom: 10px !important;
+}
+
+.ui-datepicker .ui-datepicker-buttonpane button {
+margin-top: 0.5em !important;
+margin-bottom: 0.4em !important;
+}
