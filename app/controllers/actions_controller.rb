@@ -30,26 +30,30 @@ class ActionsController < ApplicationController
   # POST /actions
   # POST /actions.json
   def create
-    @action = Action.new(action_params)
-    receipt = Receipt.find(@action.receipt_id)
+    receipt = Receipt.find(params[:receipt_id])
 
-    @action, receipt, next_action, new_action = Action.create_action(params[:price], params[:page], params[:payment_type], params[:presentation], params[:sale], @action, receipt)
+    contact_action, presentation_action, sale_action, comment_action = Action.create_action(params[:price],   params[:page],   params[:payment_type],
+                                                                        params[:comment], params[:contact],params[:presentation], 
+                                                                        params[:sale],    params[:user_action_time], receipt)
 
-    respond_to do |format|
-      if @action.save && receipt.save
-         if new_action
-           new_action.save
+    
+         if contact_action
+           contact_action.save
          end
-         if next_action
-           next_action.save
+         if presentation_action
+           presentation_action.save
          end
-        format.html { redirect_to receipt_path(id: @action.receipt.id), notice: 'You successfully updated your client' }
-        format.json { render action: 'show', status: :created, location: @action }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @action.errors, status: :unprocessable_entity }
-      end
-    end
+         if sale_action
+           sale_action.save
+         end  
+         if comment_action
+           comment_action.save
+         end
+        
+        receipt.save 
+        redirect_to receipt_path(id: receipt.id), notice: 'You successfully updated your client'
+        #format.html { render action: 'new' }
+
   end
 
   # PATCH/PUT /actions/1

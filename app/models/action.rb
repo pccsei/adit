@@ -2,49 +2,55 @@ class Action < ActiveRecord::Base
   belongs_to :action_type
   belongs_to :receipt
   
-  def self.create_action (price, page, payment_type, presentation, sale, action, receipt)
-    action_name = action.action_type.name
+  def self.create_action (price, page, payment_type, comment, contact, presentation, sale, user_action_time, receipt)
 
-    if action_name == 'First Contact'
-       receipt.made_contact = true
-    elsif action_name == 'Presentation'
-      receipt.made_presentation = true
-    elsif (action_name == 'New Sale' || action_name == 'Old Sale')
-      receipt.made_sale    = true
-      receipt.sale_value   = price
-      receipt.page_size    = page
-      receipt.payment_type = payment_type
+    if contact
+      contact_action                  = Action.new
+      contact_action.user_action_time = user_action_time
+      contact_action.comment          = comment
+      contact_action.action_type_id   = (ActionType.find_by(name: 'First Contact')).id
+      contact_action.receipt_id       = receipt.id
+      contact_action.points_earned    = (ActionType.find_by(name: 'First Contact')).point_value
+      receipt.made_contact            = true
     end
-
+    
     if presentation
-      new_action                  = Action.new
-      new_action.user_action_time = action.user_action_time
-      new_action.comment          = action.comment
-      new_action.action_type_id   = (ActionType.find_by(name: 'Presentation')).id
-      new_action.receipt_id       = action.receipt_id
-      new_action.points_earned    = (ActionType.find_by(name: 'Presentation')).point_value
-      receipt.made_presentation   = true
+      presentation_action                  = Action.new
+      presentation_action.user_action_time = user_action_time
+      presentation_action.comment          = comment
+      presentation_action.action_type_id   = (ActionType.find_by(name: 'Presentation')).id
+      presentation_action.receipt_id       = receipt.id
+      presentation_action.points_earned    = (ActionType.find_by(name: 'Presentation')).point_value
+      receipt.made_presentation            = true
     end
 
     if sale
       priority = receipt.ticket.priority.name
-      next_action = Action.new
+      sale_action = Action.new
       if priority == 'high'
-        next_action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
-        next_action.points_earned  = (ActionType.find_by(name: 'Old Sale')).point_value
+        sale_action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
+        sale_action.points_earned  = (ActionType.find_by(name: 'Old Sale')).point_value
       else
-        next_action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
-        next_action.points_earned  = (ActionType.find_by(name: 'New Sale')).point_value
+        sale_action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
+        sale_action.points_earned  = (ActionType.find_by(name: 'New Sale')).point_value
       end
-      next_action.user_action_time = action.user_action_time
-      next_action.comment          = action.comment
-      next_action.receipt_id       = action.receipt_id
+      sale_action.user_action_time = user_action_time
+      sale_action.comment          = comment
+      sale_action.receipt_id       = receipt.id
       receipt.made_sale            = true
       receipt.sale_value           = price
       receipt.page_size            = page
       receipt.payment_type         = payment_type
     end
-    return action, receipt, next_action, new_action
+  if !contact && !presentation && !sale && comment
+    comment_action                  = Action.new
+    comment_action.user_action_time = Time.now
+    comment_action.points_earned    = (ActionType.find_by(name: 'Comment')).point_value
+    comment_action.comment          = comment
+    comment_action.action_type_id      = (ActionType.find_by(name: 'Comment')).id
+    comment_action.receipt_id       = receipt.id
+  end
+    return contact_action, presentation_action, sale_action, comment_action
   end
 
   def self.delete_activity(action, receipt)

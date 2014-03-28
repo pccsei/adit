@@ -27,17 +27,6 @@ onLoad(function() {
         }
     });
 
-    $("#comments").click(function () {
-        if ($("#comments").is(':checked'))
-        {
-            $("#justComment").removeClass("hidden").show();
-        }
-        else
-        {
-            $("#justComment").addClass("hidden").hide();
-        }
-    });
-
     $('#foo_user_action_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT", maxDate: new Date });
 
 	// Custom validation to make sure the number entered is a float with two decimals only
