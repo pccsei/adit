@@ -2,6 +2,11 @@ class Action < ActiveRecord::Base
   belongs_to :action_type
   belongs_to :receipt
   
+  validates :user_action_time, presence: true
+  validates :points_earned, presence: true
+  validates :receipt_id, presence: true
+  validates :action_type_id, presence: true
+  
   def self.create_action (price, page, payment_type, comment, contact, presentation, sale, user_action_time, receipt)
 
     if contact
@@ -11,6 +16,7 @@ class Action < ActiveRecord::Base
       contact_action.action_type_id   = (ActionType.find_by(name: 'First Contact')).id
       contact_action.receipt_id       = receipt.id
       contact_action.points_earned    = (ActionType.find_by(name: 'First Contact')).point_value
+      contact_action.save
       receipt.made_contact            = true
     end
     
@@ -21,6 +27,7 @@ class Action < ActiveRecord::Base
       presentation_action.action_type_id   = (ActionType.find_by(name: 'Presentation')).id
       presentation_action.receipt_id       = receipt.id
       presentation_action.points_earned    = (ActionType.find_by(name: 'Presentation')).point_value
+      presentation_action.save
       receipt.made_presentation            = true
     end
 
@@ -37,6 +44,7 @@ class Action < ActiveRecord::Base
       sale_action.user_action_time = user_action_time
       sale_action.comment          = comment
       sale_action.receipt_id       = receipt.id
+      sale_action.save
       receipt.made_sale            = true
       receipt.sale_value           = price
       receipt.page_size            = page
@@ -49,8 +57,10 @@ class Action < ActiveRecord::Base
     comment_action.comment          = comment
     comment_action.action_type_id      = (ActionType.find_by(name: 'Comment')).id
     comment_action.receipt_id       = receipt.id
+    comment_action.save
   end
-    return contact_action, presentation_action, sale_action, comment_action
+    receipt.save
+    return
   end
 
   def self.delete_activity(action, receipt)

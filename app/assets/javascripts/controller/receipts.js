@@ -31,7 +31,7 @@ onLoad(function() {
     	    $("#checkers2").hide();
     	    $("#saleMade").hide();
             $("#sale").attr('checked', false);
-            $("#timepicker").removeClass("hidden").hide();
+            $("#timepicker").addClass("hidden").hide();
         }
         
     });
@@ -40,14 +40,14 @@ onLoad(function() {
         if ($("#presentation").is(':checked'))
         {
             $("#checkers2").removeClass("hidden").show();
-            $$("#timepicker").removeClass("hidden").show();
+            $("#timepicker").removeClass("hidden").show();
         }
         else
         {
             $("#checkers2").addClass("hidden").hide();
             $("#saleMade").hide();
             $("#sale").attr('checked', false);
-           $("#timepicker").removeClass("hidden").hide();
+            $("#timepicker").addClass("hidden").hide();
         }
     });
 
