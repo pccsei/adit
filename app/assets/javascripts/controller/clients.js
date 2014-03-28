@@ -52,7 +52,6 @@ onLoad(function() {
             "client[email]": "Must be in a standard email format."
         }
     });
-    
     function dState(){
         if ($("#assignClient").is(":enabled"))
             $("#assignClient").prop("disabled", true);
@@ -63,7 +62,7 @@ onLoad(function() {
         if ($("#assignClient").is(":disabled") && enable != 0)
             $("#assignClient").prop("disabled", false);
     }
-
+    
     function populate(section){
     	if (section != null) {
             $.getJSON("../users/in_section.json?sn=" + section,
@@ -77,7 +76,7 @@ onLoad(function() {
                 });
         }    	
     }
-        
+
     $('#students').selectable({
         stop:function(event, ui){
             $(event.target).children('.ui-selected').not(':first').removeClass('ui-selected'); // thanks to http://stackoverflow.com/questions/861668/how-to-prevent-multiple-selection-in-jquery-ui-selectable-plugin
@@ -100,12 +99,13 @@ onLoad(function() {
                 });
         }
     });
-    
+
     $(".sectionNum").click( function() {    	
         dState();
         populate($(this).text());
     });
-    
+
+
     $("#assignClient").click(function() {
         $("#studentID").val($('#students .ui-selected').attr('value'));
     });
@@ -115,7 +115,37 @@ onLoad(function() {
         $("#assignClient").prop("disabled", false);
 
     });
-
+    
+    
 	populate($('#currentSection').html());
+    
+    var table =  $('.assign_table').dataTable({
+        "bPaginate" : false,
+        "iCookieDuration": 60,
+        "bStateSave": false,
+        "bAutoWidth": false,
+        "bScrollAutoCss": true,
+        "bProcessing": true,
+        "bRetrieve": true,
+        "bJQueryUI": true,
+        "sDom": '<"H"CTrf>t<"F"lip>',
+        "sScrollXInner": "110%",
+        "fnInitComplete": function() {
+            this.css("visibility", "visible");
+        },
+        "fnPreDrawCallback": $(".autoHide").hide()
+    }, $(".defaultTooltip").tooltip({
+        'selector': '',
+        'placement': 'left',
+        'container': 'body'
+    }));
 
+    $('table.assign_table').each(function(i,table) {
+        $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
+    });
+
+    table.fnSort( [ [1,'asc'] ] );
+
+    return table;
+    
 });

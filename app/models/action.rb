@@ -1,6 +1,7 @@
 class Action < ActiveRecord::Base
   belongs_to :action_type
   belongs_to :receipt
+  has_paper_trail
   
   validates :user_action_time, presence: true
   validates :points_earned, presence: true
