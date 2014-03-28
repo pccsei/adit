@@ -21,40 +21,22 @@
 */
 
 /* universal */
-.users.index .navbar-default .navbar-nav > li > a#manage_students{
-	color: black;
-	background-color: lightgray;
-}
 
-.clients.index .navbar-default .navbar-nav > li > a#assign_clients{
-	color: black;
-	background-color: lightgray;
-}
-.approve .navbar-default .navbar-nav > li > a#approve_clients{
-	color: black;
-	background-color: lightgray;
-}
 
-.receipts .navbar-default .navbar-nav > li > a#receipts{
-	color: black;
-	background-color: lightgray;
+// Yes, SASS is awesome :) - Rob
+.navbar-default .navbar-nav > li > a {
+  .users.index &#manage_students,
+  .clients.index &#assign_clients,
+  .approve &#approve_clients,
+  .receipts &#receipts,
+  .tickets &#choose_clients,
+  .clients &#submit_client,
+  .users.need_help &#help,
+  {
+  	color: black;
+  	background-color: lightgray;
+  }
 }
-
-.tickets .navbar-default .navbar-nav > li > a#choose_clients{
-	color: black;
-	background-color: lightgray;
-}
-
-.clients .navbar-default .navbar-nav > li > a#submit_client{
-	color: black;
-	background-color: lightgray;
-}
-
-.users.need_help .navbar-default .navbar-nav > li > a#help{
-	color: black;
-	background-color: lightgray;
-}
-
 
 .panel-primary > .panel-heading {
     color: #FFF;
