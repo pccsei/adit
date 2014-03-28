@@ -58,8 +58,10 @@
 </div>
 <%end%>
 
-
+<div id = "comment">
 <%= link_to 'I just have a comment', new_receipt_action_path(@receipt, :action_type_name => 'Comment') %>
+</div>
+
 <div id = "show_action_table">
   <%= render :partial => 'action_table', :locals => { :receipt => @receipt }%>
 </div>

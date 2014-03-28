@@ -6,7 +6,10 @@
 #students { list-style-type: none; margin: 0; padding: 0; width: 60%; }
 #students li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: auto; }
 
-
+#client_priority{
+	margin-top: 2em;
+	font-size: 1.2em;
+}
 
 .clients #back{
 	float: left;
@@ -20,7 +23,7 @@
 .show .panel-primary{
 	margin-top: 5em !important;
 	border-color: black;
-	width: 25em !important;
+	width: 50em !important;
 }
 
 .clients #checkClients {

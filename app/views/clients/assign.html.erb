@@ -3,12 +3,11 @@
 <div id="assign">
   <div class = "panel panel-primary">
     <div class = "panel-heading">
-      <h3>&nbsp;Client Information</h3><br>
+      <h3>&nbsp;<%= @client.business_name%></h3><br>
     </div>
 	<div class = "panel-body">
 <div class="clientInfo">
   <div class="basicInfo">
-    <h2><%= @client.business_name%></h2>
     <h4>
       <%= @client.address %>
       <br /><%= @client.city%>, <%= @client.state%> <%= @client.zipcode%>
@@ -22,14 +21,16 @@
       <h4><%= "Phone: " + render_phone(@client.telephone) %></h4>
     <% end %>  
     </h4>
-        
-      <% if @client.status_id == Status.where(status_type: "In House") %> 
+       </div>  
+	   <div id="client_priority"> 
+      <h4><% if @client.status_id == Status.where(status_type: "In House") %> 
         <%= "This is an <span id='clientPriority'>in-house</span> client".html_safe %>
       <% else %>
         <%= ("This is a <span id='clientPriority'>" + @ticket.priority.name + "</span> priority client").html_safe %>
       <% end %>        
-    </h3>
-  </div>
+  </h4>
+</div>
+
 </div>
 </div>
 </div>

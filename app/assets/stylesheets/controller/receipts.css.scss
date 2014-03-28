@@ -1,3 +1,7 @@
+#comment{
+	float: left;
+	margin-top: -14em;
+}
 .receipts.show .panel-primary {
 	width: 100%;
 	float: left;
@@ -14,7 +18,7 @@
 #info_center{
 	text-align: center;
 	font-size: 2.2em;
-	margin-top: 2em;
+	margin-top: 4em;
 	font-variant: none;
 	text-decoration: none;
 	color: 
@@ -72,15 +76,15 @@
 	text-align: right;
 }
 .receipts .page-header {
-	text-align:center;
+	
 	width: 100%;
 }
 #address_name{
-	margin-top: -4.3em !important;
+	//margin-top: -4.3em !important;
 }
 .receipts #client_info{
 	//text-align: left;
-	font-size: 12px;
+	font-size: 16px;
 	//width: 20em;
 	//float: right;
 }
