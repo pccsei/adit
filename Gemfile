@@ -32,6 +32,7 @@ gem 'thin',                    '~> 1.6.2'   # Rails server
 gem 'turbolinks',              '~> 2.2.1'   # Makes following links faster
 gem 'uglifier',                '>= 1.3.0'   # Compressor for JavaScript assets
 gem 'will_paginate',           '~> 3.0.5'
+gem 'paper_trail'
 
 group :development do
   gem 'better_errors',         '~> 1.1.0'

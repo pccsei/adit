@@ -74,7 +74,8 @@ class ReceiptsController < ApplicationController
   def update
     respond_to do |format|
       if @receipt.update(receipt_params)
-        format.html { redirect_to @receipt, notice: 'Receipt was successfully updated.' }
+        undo_link = view_context.link_to("undo", revert_version_path(@receipt.versions.sscoped.last), :method => :post)
+        format.html { redirect_to @receipt, notice: "Receipt was successfully updated. #{undo_link}" }
       else
         format.html { render action: 'edit' }
       end
@@ -86,7 +87,7 @@ class ReceiptsController < ApplicationController
   def destroy
     @receipt.destroy
     respond_to do |format|
-      format.html { redirect_to receipts_url }
+      format.html { redirect_to receipts_url, :notice => "successfully destroyed " }
     end
   end
 

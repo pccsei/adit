@@ -1,6 +1,7 @@
 class Action < ActiveRecord::Base
   belongs_to :action_type
   belongs_to :receipt
+  has_paper_trail
   
   def self.create_action (price, page, payment_type, presentation, sale, action, receipt)
     action_name = action.action_type.name

@@ -99,17 +99,15 @@ onLoad(function() {
     
   function mm(selector) {selector.html(selector.html() - 1);}
 
+  // Recursive function that pings the server to check for updates
   setTimeout(updateClients, 1000);
   
   
-  
-  
-  //global array
+  // Begin the 
   var priorities = ['high', 'medium', 'low'];
   var index      = 0; 
   var ascFlag    = true;
-  var descFlag   = true;
-  
+  var descFlag   = true;  
   
   var priorityArray = {};
   priorityArray['High']   =-1;
@@ -122,38 +120,12 @@ onLoad(function() {
     priorityArray['Low']    = ((priorityArray['Low']    + 2) % 3) - 1;
   }
   
-  
-/*  
-  jQuery.fn.dataTableExt.oSort['priority-asc'] = function(x,y) {
-    
-    console.log('asc called');
-    
-    if (descFlag){
-      updatePriorityArray();
-      descFlag = false;
-      ascFlag  = true;
-    }
-    return ((priorityArray[x] < priorityArray[y]) ?  -1 : ((priorityArray[x] > priorityArray[y]) ? 1 : 0));
-  };
-  
-  jQuery.fn.dataTableExt.oSort['priority-desc'] = function(x,y) {
-    console.log('desc called');
-    if (ascFlag){
-      updatePriorityArray();
-      descFlag = true;
-      ascFlat  = false;
-    }
-    return ((priorityArray[x] < priorityArray[y]) ?  1 : ((priorityArray[x] > priorityArray[y]) ? -1 : 0));
-  };
-  
-  */
- 
-  //asc
+  // This function enable the datatable on the tickets page to cycle through priorities.
   jQuery.fn.dataTableExt.oSort['priority-asc'] = function(x,y) {
   
     if (descFlag) {
       index++;
-      index   %= priorities.length;  // update index  
+      index   %= priorities.length;
       ascFlag  = true;
       descFlag = false;   
       updatePriorityArray();
@@ -170,14 +142,14 @@ onLoad(function() {
       return 1;
     else 
       return ((priorityArray[x] < priorityArray[y]) ?  1 : ((priorityArray[x] > priorityArray[y]) ? -1: 0 ) );
-      //return ((x < y) ?  1 : ((x > y) ? 1 : 0));
   };
   
+  // This one too
   jQuery.fn.dataTableExt.oSort['priority-desc'] = function(x,y) {
   
     if (ascFlag) {
       index++;
-      index   %= priorities.length;  // update index  
+      index   %= priorities.length;
       ascFlag  = false;
       descFlag = true;   
       updatePriorityArray(); 
@@ -189,30 +161,21 @@ onLoad(function() {
         
     if (x == (currentPriority) && y == (currentPriority))
       return 0;
-    else if (x == (currentPriority))// == currentPriority)
+    else if (x == (currentPriority))
       return -1;
-    else if (y == (currentPriority))// == currentPriority) 
+    else if (y == (currentPriority)) 
       return 1;
-    else 
-      //return ((priorityArray[x] < priorityArray[y]) ?  1 : 0);
-      return ((priorityArray[x] < priorityArray[y]) ?  1 : ((priorityArray[x] > priorityArray[y]) ? -1: 0 ) );
-/*    
-    if (x == currentPriority)
-      return -1;  
     else
-      return ((x < y) ?  1 : ((x > y) ? 1 : 0));
-*/ 
-
+      return ((priorityArray[x] < priorityArray[y]) ?  1 : ((priorityArray[x] > priorityArray[y]) ? -1: 0 ) );
   };
- 
- 
+  
+  // Initialized the datatable
   var table =  $('.ticket_table').dataTable({
-        "aoColumns" : [null, {"sType": "priority" }, null, null, null, null, null], // Added by Miyashita for testing on the tickets page
+        "aoColumns" : [{ "bSortable": true }, {"sType": "priority" }, null, null, null, null, null],
         "bPaginate" : false,
         "iCookieDuration": 60,
         "bStateSave": false,
         "bAutoWidth": false,
-        //true
         "bScrollAutoCss": true,
         "bProcessing": true,
         "bRetrieve": true,
@@ -233,9 +196,7 @@ onLoad(function() {
         $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
     });
 
-    return table;
- 
- 
+  return table;
 });
 
 
