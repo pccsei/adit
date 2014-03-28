@@ -218,18 +218,28 @@ class User < ActiveRecord::Base
         end
       end
 
-      if choice == 'Assign Team'
-       if student_manager
-        for i in 0..students.count-1
-          member = Member.find_by(user_id: students[i])
-          if Member.find_by(parent_id: student_manager).section_number == member.section_number
-            if User.find(students[i]).role == 2 && member.parent_id != student_manager.id
-              Member.destroy_team(User.find(students[i]))
+      if choice == 'Add to Team'
+        if student_manager
+          for i in 0..students.count-1
+            member = Member.find_by(user_id: students[i])
+            if Member.find_by(parent_id: student_manager).section_number == member.section_number
+              if User.find(students[i]).role == 2 && member.parent_id != student_manager.id
+                Member.destroy_team(User.find(students[i]))
+              end
+              member.parent_id = student_manager.id
+              member.save
             end
-            member.parent_id = student_manager.id
-            member.save
           end
         end
+      end
+
+      if choice == 'Remove from Team'
+        for i in 0..students.count-1
+          member = Member.find_by(user_id: students[i])
+          if User.find(students[i]).role == 1
+            member.parent_id = nil
+            member.save
+          end
         end
       end
 
