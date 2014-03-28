@@ -1,22 +1,31 @@
-<div id="bonus_edit">
-	<p>Number of bonus points:
-	<input id="bonus_points" name="bonus_points" type="number" value="" /></p>
-	<p>Please enter the reason for the bonus points:
-	<input id="bonus_comment" name="bonus_comment" type="text" value=""  /></input></p>
-</div> 
+<%= javascript_tag do %>
+  $("#bonus_edit").hide();
 
+    $(function() {
+      $(".edit_link").click(
+        function(caller) {
+          $("#bonus_edit").show();
 
-<script>
-    $("#bonus_edit").hide();
+          $("#bonus_edit").show();
+          $("#bonus_points").val( $("#" + caller.target.id).attr("name") );
+          $("#bonus_comment").val( $("#" + caller.target.id).attr("value") );
+          $("#bonus_id").val( $("#" + caller.target.id).attr("title") );
+        }
+      );
+    });
 
-   	// This does not work properly, please help!
-    function edit_bonus(caller)
-    {
-    	$("#bonus_edit").show();
-    	$("#bonus_points").val( $("#" + caller.target.id).attr("name") );
-    	$("#bonus_comment").val( $("#" + caller.target.id).attr("value") );
-	}
-</script>
+<% end %>
+ 
+<%= form_tag(reports_edit_bonus_path) do%>
+  <div id="bonus_edit">
+    <p>Number of bonus points:
+    <input id="bonus_points" name="bonus_points" type="number" value="" /></p>
+    <p>Please enter the reason for the bonus points:
+    <input id="bonus_comment" name="bonus_comment" type="text" value=""  /></input></p>
+    <input id="bonus_id" name="bonus_id" value="" type="hidden"></input>
+    <%= button_tag :sumbit %>
+  </div> 
+<% end %>
 
 <%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
 <p>

@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
   TEACHER = 3
   STUDENT_REP = 1                     
   
+  # Add where_is_enabled to know which members are currently enabled.
 
   def get_current_student_project
     get_current_project &&

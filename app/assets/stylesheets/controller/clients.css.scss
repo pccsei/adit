@@ -7,6 +7,15 @@
 #students li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: auto; }
 
 
+.clients #client_list tr {
+  height: 3.7em;
+}
+
+.clients .assign {
+  padding: .7em !important;
+  margin: .4em !important;
+}
+
 
 .clients #back{
 	float: left;
@@ -182,3 +191,4 @@
 
 .warning { color: red}
 
+.clickable {cursor: pointer}

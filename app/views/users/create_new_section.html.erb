@@ -1,13 +1,13 @@
 <% provide(:title, 'Create Section') %>
 
-<%= form_tag(users_assign_teacher_to_section_path) do %>
-
 <!-- Gets rid of the section number if it has already been taken -->
 <% select = Array[]%>
 <% @good_selection.each do |selection| %>
 	<% select.push(selection) %>
 <% end %>
 
+<% if @good_selection.present? %>
+<%= form_tag(users_assign_teacher_to_section_path) do %>
 <div id="select_section">
 <%=label_tag 'Please select the section number:' %>
 <%=select_tag :section, options_for_select(select), :class => 'btn btn-large btn-dropdown btn-sm' %>
@@ -19,7 +19,8 @@
 </div>
 
 <%= submit_tag 'Create this section', :class => 'btn btn-large btn-primary btn-sm' %>
-
-<%= link_to 'Back to Manage Section', users_path %>
-
 <% end %>
+<% else %>
+<p class="alert alert-info">You already have the maximum number of sections for this project.</p>
+<% end %>
+<%= link_to 'Back to Manage Section', users_path %>

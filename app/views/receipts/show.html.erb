@@ -10,39 +10,66 @@
   <%= link_to 'Edit this client!', edit_client_path(@client.id, page: request.url) unless @receipt.user_id != @receipt.ticket.user_id%>
 </div>
 
-<div id="info_center">
+<div>
 <% if Receipt.is_released(@receipt) == false %>
+<%= form_tag(actions_path, id: "new_action") do %>
 
-  <% if @receipt.made_contact %>
-      <strong> <span class="glyphicon glyphicon-check"></span>&nbsp;Made Contact!&nbsp;&nbsp;</strong>
-  <% else %>
-      <strong><%= link_to '<i class="glyphicon glyphicon-unchecked"></i>  I made first contact!'.html_safe, new_receipt_action_path(@receipt, :action_type_name => 'First Contact')  %></strong>&nbsp;&nbsp;&nbsp;&nbsp;
-  <% end %>
+
+  <div id="FirstContact" <%= 'class = hidden' unless (@receipt.made_contact == false)%>>
+  	<p>Were you able to contact your client?</p>
+  	 <%= check_box_tag(:contact) %>
+  	 <%= label_tag(:contact, 'Yes, I contacted my client!')%>
+  </div>
   
-  <% if @receipt.made_presentation %>
-      <strong> <span class="glyphicon glyphicon-check"></span>&nbsp;Made Presentation!&nbsp;&nbsp;</strong>
-  <% elsif @receipt.made_contact %>
-      <strong><%= link_to '<i class="glyphicon glyphicon-unchecked"></i>  I made a presentation!'.html_safe, new_receipt_action_path(@receipt, :action_type_name => 'Presentation')  %></strong>&nbsp;&nbsp;&nbsp;&nbsp;
-  <% else %>
-      <strong><span class="glyphicon glyphicon-unchecked"></span>&nbsp;Make Presentation.&nbsp;&nbsp;&nbsp;&nbsp;</strong>
-  <% end %>
- 
-  <% if @receipt.made_sale %>
-     <strong> <span class="glyphicon glyphicon-check"></span>&nbsp;Made Sale!&nbsp;&nbsp;</strong>
-	 
+        <div id = "firstCheck" <%= 'class = hidden' unless (@receipt.made_contact == true) && @receipt.made_presentation == (false) %>>
+          <div>
+            <p>Congratulations on making contact with your client!</p>
+            <p>Were you able to make a presentation?</p>
+          </div>
+          <%= label_tag('presentation', 'I made a presentation!') %>
+          <%= check_box_tag(:presentation) %>
+        </div>
 
-  <% elsif @receipt.made_presentation %>
-      <strong><%= link_to '<i class="glyphicon glyphicon-unchecked"></i>  I made a sale!'.html_safe, new_receipt_action_path(@receipt, :action_type_name => 'Sale')  %></strong>
-  <% else %>
-      <strong><span class="glyphicon glyphicon-unchecked"></span>&nbsp;Make Sale.&nbsp;&nbsp;</strong>
-  <% end %>
+        <div id = "checkers2" <%= 'class = hidden' unless (@receipt.made_presentation == true) && (@receipt.made_sale == false) %>>
+          <div>
+            <p>Awesome, you made a presentation!</p>
+            <p>Were you able to make a sale?</p>
+          
+        </div>
+        <div>
+          <%= label_tag('sale', 'I made a sale!') %>
+          <%= check_box_tag(:sale) %>
+        </div>
+        </div>
 
-<% else %>
-<p>Since you released this client, you no longer can update it.</p>
-<% end %>
-</div>
+        <div id = "saleMade" class="hidden">
+            <p>Way to Ad It!</p>
+          
+          <%= label_tag('price', 'Sale Amount $', class: 'required') %>
+          <%= text_field_tag(:price, '', :placeholder => 'Examples: 50 or 75') %>
+          <%= label_tag('page', 'Page Size', class: 'required') %>
+          <%= text_field_tag(:page, '', :placeholder => 'Examples: .25 or 1.5 ')%>
+          <%= label_tag('payment_type', 'Payment Type') %>
+          <%= select_tag('payment_type', options_for_select(%w(Cash Credit Invoice Check Dept. Trans.)))%>
+        </div>
+    <br />
+    
+    <div id="timepicker" class="hidden">
+      <%= label_tag(:user_action_time, 'When did you do this?', class: 'required') %>
+      <%= text_field_tag(:user_action_time, '', :placeholder => 'YYYY/MM/DD 00:00 AM/PM') %>
+    </div>
+    
+    <div>
+      <%= label_tag('comments', 'Any Comments') %>
+      <%= text_area_tag(:comment) %>
+    </div>
 
-<% if @receipt.made_sale %>
+    <%= hidden_field_tag 'receipt_id', @receipt.id %>
+    <div>
+      <%= submit_tag('Submit', class: 'btn btn-primary btn-sm')%>
+    </div>
+    <% end %>
+    <% if @receipt.made_sale %>
 	 <div class = "panel panel-primary">
 	   <div class = "panel-heading">
 	     <h3>&nbsp;Completed Sale Details</h3><br>
@@ -55,10 +82,13 @@
     </p>
 </div>
 </div>
-<%end%>
+<% end %>
+<% else %>
+<p>Since you released this client, you no longer can update it.</p>
+<% end %>
+</div>
 
 
-<%= link_to 'I just have a comment', new_receipt_action_path(@receipt, :action_type_name => 'Comment') %>
 <div id = "show_action_table">
   <%= render :partial => 'action_table', :locals => { :receipt => @receipt }%>
 </div>

@@ -1,19 +1,19 @@
-<% provide(:title, 'Choose Clients') %>
+<% provide(:title, 'Choose New Clients') %>
 
 <% if @tickets %>
     <div class="scroller_anchor"></div>
     <div class="scroller" id ="alerts">
       <% if @clientsLeft %>
-        <%= "<p id='totalMessage'> Total client(s) avaliable: <span id='clientsRemaining' class='badge'>#{zeroMin(@clientsLeft)}</span></p>".html_safe %>
+        <p id='totalMessage'> Total clients available: <span id='clientsRemaining' class='badge'><%= zeroMin(@clientsLeft) %></span></p>
       <% end %>
       <p id="highPriority"> High priority allowed: <span id='highPriorityCount' class="badge"><%= zeroMin(@highPriority)%></span></p>
       <p id="midPriority">  Medium priority allowed: <span id='mediumPriorityCount' class="badge"><%= zeroMin(@midPriority)%></span></p>
       <p id="lowPriority">  Low priority allowed:  <span id='lowPriorityCount' class="badge"><%= zeroMin(@lowPriority)%></span></p>
 
       <% if open = (@currentProject.tickets_close_time > Time.now) %>
-          <p id="ticket_info">You will be able to select clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.</p>
+          <p id="ticket_info">You will be able to get new clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.</p>
       <% else %>
-          <p id="ticket_info">You are no longer able to select clients.</p>
+          <p id="ticket_info">You are no longer able to get new clients.</p>
       <% end %>
       <p id="userMessage"></p>
     </div>
@@ -34,17 +34,17 @@
       </thead>
       <tbody>
       <% @tickets.each do |ticket| %>
-          <tr>
+          <tr class="<%= ticket.priority.name %>">
             <% client = Client.find(ticket.client_id); ticketClass = " addTicket "; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : "autoHide "); %>
             <% if open %>                
-                <td><%= button_tag 'Add', type: 'button', :id => ticket.id, :class => 'btn btn-primary btn-sm' << ticketClass %></td>
+                <td><%= button_tag 'Choose', type: 'button', :id => ticket.id, :class => 'btn btn-primary btn-sm' << ticketClass %></td>
 
             <% end %>
-            <td><%= ticket.priority.name.capitalize %></td>
+            <td class="priority"><span><%= ticket.priority.name.capitalize %></span></td>
             <td><%= link_to client.business_name, client_path(id: ticket.client.id, page: request.url)%></td>
             <td><%= client.address %></td>
             <td><%= client.contact_title + ' ' + client.contact_fname + ' ' +  client.contact_lname%></td>
-            <td align="right"><%= render_phone(client.telephone) %></td>
+            <td style="text-align: right"><%= render_phone(client.telephone) %></td>
             <td ><%= tooltipify(client.comment)%></td>
             <!-- <td><%#= link_to 'Details', ticket , :class => "btn btn-info btn-sm" %></td> -->
           </tr>
