@@ -25,16 +25,21 @@ onLoad(function() {
   $(window).scroll(function(e) {
     var scroller_anchor;
     scroller_anchor = $(".scroller_anchor").offset().top;
-    if ($(this).scrollTop() >= scroller_anchor && $(".scroller").css("position") !== "fixed") {
+    if ($(this).scrollTop() >= scroller_anchor - 50 && $(".scroller").css("position") !== "fixed") {
       $(".scroller").css({
         position: "fixed",
-        top: "0px"
+        top: "50px"
       });
-      $(".scroller_anchor").css("height", "50px");
-    } else if ($(this).scrollTop() < scroller_anchor && $(".scroller").css("position") !== "relative") {
-      $(".scroller_anchor").css("height", "0px");
+      $(".scroller_anchor").css({
+        height: $(".scroller").css("height")
+      });
+    } else if ($(this).scrollTop() < scroller_anchor - 50 && $(".scroller").css("position") !== "relative") {
+      $(".scroller_anchor").css({
+        height: 0
+      });
       $(".scroller").css({  
-        position: "relative"
+        position: "relative",
+        top: 0
       });
     }
   });
@@ -60,7 +65,7 @@ onLoad(function() {
       window.sysTime = json[i];
       console.log("Updated at " + window.sysTime);
     });
-    //setTimeout(updateClients, 2000);
+    setTimeout(updateClients, 2000);
   }
   
   function updateCounters(selector) {    
@@ -161,6 +166,10 @@ onLoad(function() {
       console.log("pushing " + priorities[index] + " to the top");
     }
     var currentPriority = priorities[index];
+    
+    // This strips out the span tags I added to the td. - Rob
+    x = $(x).text();
+    y = $(y).text();
 
     if (x == (currentPriority) && y == (currentPriority)) 
       return 0;
@@ -187,6 +196,10 @@ onLoad(function() {
     }   
     var currentPriority = priorities[index];
         
+    // This strips out the span tags I added to the td. - Rob
+    x = $(x).text();
+    y = $(y).text();
+
     if (x == (currentPriority) && y == (currentPriority))
       return 0;
     else if (x == (currentPriority))// == currentPriority)
@@ -217,10 +230,7 @@ onLoad(function() {
         "bProcessing": true,
         "bRetrieve": true,
         "bJQueryUI": true,
-        //"sDom": 't',
         "sDom": '<"H"CTrf>t<"F"lip>',
-        //"sScrollY": "100%",
-        //"sScrollX": "100%",
         "sScrollXInner": "110%",
         "fnInitComplete": function() {
             this.css("visibility", "visible");

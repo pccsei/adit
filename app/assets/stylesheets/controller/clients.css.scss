@@ -6,9 +6,20 @@
 #students { list-style-type: none; margin: 0; padding: 0; width: 60%; }
 #students li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: auto; }
 
+
 #client_priority{
 	margin-top: 2em;
 	font-size: 1.2em;
+}
+
+
+.clients #client_list tr {
+  height: 3.7em;
+}
+
+.clients .assign {
+  padding: .7em !important;
+  margin: .4em !important;
 }
 
 .clients #back{
@@ -185,3 +196,4 @@
 
 .warning { color: red}
 
+.clickable {cursor: pointer}

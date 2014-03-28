@@ -185,8 +185,6 @@ li.todo.todo-checked {
   display: none;
 }
 
-$bright-green: #43d852;
-
 .client h3 {
   width: 100%;
   padding: .5em;
@@ -195,7 +193,7 @@ $bright-green: #43d852;
 
 .client.high .client-container {
   background: #e8ffe3;
-  border-left-color: $bright-green;
+  border-left-color: #43d852;
 }
 
 .client.medium .client-container {

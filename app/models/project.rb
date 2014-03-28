@@ -86,6 +86,11 @@ class Project < ActiveRecord::Base
     end
   end
 
+  # Convert everything for the specified project into excel
+  def self.all_to_excel project
+    # return @sales, @sale_total, @student, @student_totals, User.all_teachers, User.current_teachers(project), User.get_student_info(get_selected_project, "all", 3)
+  end
+
   def self.non_archived
     where('year > ?', 2013)
   end

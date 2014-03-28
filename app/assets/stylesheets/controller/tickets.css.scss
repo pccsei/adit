@@ -37,10 +37,6 @@
 	height: 3em;
 }
 
-.tickets tr {
-  height: 3.7em;
-} 
-
 .tickets .addTicket {
   padding: .7em !important;
 }
@@ -87,6 +83,19 @@
 	margin-bottom: -1em !important;
 }
 
+button.btn.btn-primary.btn-sm {
+  //background: #eee; 
+  //color: #666; 
+  font-size: 1em; 
+  padding: .2em .6em !important;
+  border: none;
+}
+
+button.btn.btn-primary.btn-sm:hover {
+  background: rgb(220, 0, 0);
+  color: white;
+}
+
 
 .tickets #client_heading{
 	height: 5em;
@@ -96,14 +105,18 @@
 	margin-top: 1em !important;
 	font-weight: bold;
 }
+
+.badge {
+  background: #dc0000;
+  color: #eee;
+}
+
 .tickets #midPriority{
-	float: left;
 	float: left;
 	margin-left: 1em;
 	margin-top: 1em;
 }
 .tickets #highPriority{
-	float: left;
 	float: left;
 	margin-left: 1em;
 	margin-top: 1em !important;
@@ -111,14 +124,35 @@
 }
 .tickets #lowPriority{
 	float: left;
-	float: left;
 	margin-left: 1em;
 	margin-top: 1em;
 }
 
+.ticket_table tbody {
+  tr {
+    height: 3em;
+  }
+  tr .priority span {
+    padding: .2em .5em;
+    border-left: .4em solid;
+  }
+  tr.high .priority span {
+    //background: #e8ffe3;
+    border-left-color: #43d852;
+  }
+  tr.medium .priority span {
+    //background: #fefdca;
+    border-left-color: #f3e32f;
+  }
+  tr.low .priority span {
+    //background: #fff;
+    border-left-color: #ddd;
+  }
+}
+
 .tickets .btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
-border-color: transparent;
-color: #000;
+  border-color: transparent;
+  color: #000;
 }
 
 .tickets .btn-primary{
@@ -127,7 +161,6 @@ color: #000;
 }
 
 .tickets #alert_info{
-	
 	border: 1px solid #ccc;
 	background-color: #DC0000;
 }
@@ -163,10 +196,11 @@ color: #000;
 .tickets .scroller{
 	z-index:100; 
 	font-size:12px;  
-	margin-top: 5em;
-	border: 1px solid #aaa;
-	width: 97.5em;
-	margin-bottom: -3.2em !important;
-	background-color: #DC0000;
-	color: white;
-	}
+	margin: 1em 0 0;
+	width: 93.2em;
+	//margin-bottom: -3.2em !important;
+	background-color: white; //#DC0000;
+	color: #555; //white;
+  border: solid #dc0000;
+  border-width: 5px 0;
+}

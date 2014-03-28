@@ -1,4 +1,7 @@
-<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
+<% if current_user.role == 3 %>
+	<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>	
+<% end %>
+
 <% provide(:title, 'Team Summary') %>
 
 <!-- EXPO

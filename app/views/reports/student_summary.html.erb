@@ -1,5 +1,9 @@
-<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
-<% provide(:title, 'Student Summary') %>
+<% if current_user.role == 3 %>
+	<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
+	<% provide(:title, 'Student Summary') %>
+<% else %>
+	<% provide(:title, "Summary of #{current_user.full_name_only}'s Team ") %>
+<% end %>
 
 <!-- EXPO
 <p>
@@ -8,5 +12,5 @@
 </p> -->
 
 <div id = "section_refresh">  
-<%= render :partial => "student_summary"%>
+	<%= render :partial => "student_summary"%>
 </div>

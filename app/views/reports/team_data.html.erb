@@ -1,0 +1,13 @@
+<% provide(:title, "Data of #{current_user.full_name_only}'s Team ") %>
+
+<!-- Should a student manager be able to convert to excel? -->
+<%if defined? @students %>
+  <p>
+    Download:
+    <%= link_to "Excel", reports_team_data_path(format: "xls") %>
+  </p>
+<% end %>
+
+<div id = "section_refresh">
+<%= render :partial => "team_data", :locals => { :current_students => @students }%>
+</div>

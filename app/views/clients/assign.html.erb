@@ -41,19 +41,18 @@
 <div class="studentInfo">
 	<div id ="choose_section">
 	<%= label_tag(:section, "Choose a section:") %>	
-  <%= select_tag :section, options_for_select(@sections), :include_blank =>  "Choose a section", :id => "sectionNum" %>
-	<span id='warnTeacher' class="warning"></span>	
-
+    <%= select_tag :section, options_for_select(@sections), :include_blank =>  "Choose a section", :id => "sectionNum" %>
+	<span id='warnTeacher' class="warning"></span>
 	
 	<%= form_tag(controller: "clients", action: "actually_assign") do %>
     <%= hidden_field_tag(:studentID) %>    
     <%= hidden_field_tag(:tid, @ticket.id) %>
-    <%= submit_tag("Actually assign the client", :id => "assignClient", :disabled => true) %>
+    <%= submit_tag("Assign the client", :id => "assignClient", :disabled => true) %>
   <% end %>
 	
 	<div class="studentList">
     <ol id="students">
-      <li id="noAssign" class='ui-widget-content'>Please choose a section number</li>
+      <li id="noAssign" class='clickable ui-widget-content'>Please choose a section number</li>
     </ol>  
 	</div>
 
