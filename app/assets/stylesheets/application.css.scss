@@ -343,11 +343,25 @@ label.required:after {
   border: 2px solid #fff;
 }
 
-.ui-accordion-header {
-  font-size: 160%;
+.ui-accordion-content {
+  padding-left: 40px;
+  padding-bottom: 15px;
+  color: #777;
+  font-size: 110%;
+  position: relative;
 }
 
-.ui-accordion-header:hover {
+.ui-accordion-header {
+  font-size: 160%;
+  padding: 25px;
+}
+
+.ui-icon {
+  display: block;
+  float: left;
+}
+
+.ui-accordion-header-active {
   text-decoration: underline;
 }
 

@@ -74,10 +74,12 @@ onLoad(function() {
             $("#section").val( $("#" + caller.target.id).attr("name") );
         });
     
-  	$( "#accordion,#subaccordion1" ).accordion({
-   			collapsible: true,
-			heightStyle: "content",
-			active: false
+  	$( "div.help_accordion" ).accordion({
+  		header: "> h3:not(.item)",
+   		collapsible: true,
+   		autoHeight: false,
+		heightStyle: "content",
+		active: false
    	});
 
 

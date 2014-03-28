@@ -3,41 +3,233 @@
 <% provide(:title, 'Help') %>
 
 <% if current_user.role == 3 %>
-<div id="accordion">
-	<h3>Test1</h3>
+<div class="help_accordion">
+	<h3>Manage Students</h3>
+		<div class="help_accordion">
+			<h3>What do you do here?</h3>
+				<div>
+					<p>This is where you will add or edit any student.  You will also be able to create a new
+						section of students.</p>
+				</div>
+			<h3>How do you add a student?</h3>
+				<div>
+					<p>Click on the link that says "Add Students," and you will directed to a page where you can
+						enter a students information to be added to your section.</p>
+				</div>
+			<h3>What is the "Choose action" dropdown menu?</h3>
+				<div>
+					<p>Here you will be able to perform actions on students.</p>
+					<p>These actions are:<br />
+						1) Promote Student - Make that student a student manager.<br />
+						2) Demote Student - Make that student manager a regular student again.<br />
+						3) Add Team - Create a team of students to be under a student manager.</p>
+					<p>To perform an action:<br />
+						1) Select the student(s) by checking the checkbox next to their name.<br />
+						2) Choose the action from the dropdown menu.<br />
+						3) Click submit next to the dropdown and that's it
+					</p>
+				</div>
+			<h3>What are the checkboxes used for?</h3>
+				<div>
+					<p>The checkboxes will be used in conjunction with the "Choose action" dropdown menu.  You 
+						can choose the action from the dropdown menu and then use the checkboxes to select the 
+						student(s) you want to perform the action on.  Once you have checked the student(s), 
+						click the submit button next to the "Choose action" dropdwon menu.</p>
+					<p>See What is the "Choose action" dropdown menu? to find out more about the available
+						actions.</p>
+				</div>
+		</div>
+	
+	<h3>Assign Clients</h3>
 	<div>
-		<p>Hello There!</p>
+		<p></p>
 	</div>
 	
-	<h3>Test2</h3>
+	<h3>Approve Clients</h3>
 	<div>
-		<p>Howdy!</p>
+		<p></p>
 	</div>
-	
-	<h3>Test3</h3>
+	<h3>Reports</h3>
 	<div>
-		<p>Sup Bro!</p>
+		<p></p>
 	</div>
+	<h3>Navigation</h3>
+		<div>
+			<p>Here is our recommendation for navigating through Ad It:</p>
+			<p>1) First and foremost, we do not recommend using the Back and Forward buttons on the web browser.<br />
+				2) The navigation bar (Manage Students, Assign Clients, Approve Clients, Reports, and Help) is 
+				your oprtions for the main pages in Ad It.<br />
+				3) Now of course, there are other pages within each of the main pages that you will view or go
+				to, and for those we recommend using the links that start with "Back" to go to the previous page.</p>
+		</div>
 </div>
 <% else %>
 
-<div id="accordion">
+<div class="help_accordion">
 	<h3>Choose Clients</h3>
-		<div id="subaccordion1">
-			<h3>How can I choose a Client?</h3>
-			<div>
-				<p>Hello There!</p>
-			</div>
+		<div class="help_accordion">
+			<h3>What do you do here?</h3>
+				<div>
+					<p>This is where you will choose the clients you want to work with and try and make a sale
+						with.</p>
+				</div>
+			<h3>What is the total clients available number?</h3>
+				<div>
+					<p>This is the total number of clients you are able to have at any given time.</p>
+					<p>Once you reach zero, you will not be able to select anymore clients until you
+						either make a sell or release a client.</p>
+					<p>To release a client, go to the My Clients Help menu option.</p>
+				</div>
+			<h3>What is the high, medium, and low priorities allowed number?</h3>
+				<div>
+					<p>This number represents the restriction you have for each type of client, and 
+						each client is considered a type of priority (high, medium, and low).  The
+						number will go down when:</p>
+					<p>1) You choose a client that has the same priority associated with that allowed number.<br />
+					   2) The total clients available number is less than the allowed number.</p>
+					<p>When you reach zero, you will not be able to select a client with that priority until
+						you either make a sell or release a client with that same priority.</p>
+					<p>To release a client, go to the My Clients Help menu option.</p>
+				</div>
+			<h3>What does high, medium, and low priority clients actually mean?</h3>
+				<div>
+					<p><h4>High Priority</h4>- The client was sold an ad last year (easier to sell again 
+						this year).</p>
+					<p><h4>Medium Priority</h4>- The client was sold an ad two or three years ago (maybe 
+						or maybe not sell this year).</p>
+					<p><h4>Low Priority</h4>- The client was either never sold an ad before or was sold
+						an add more than three years ago (ideally the hardest to sell to).</p>
+				</div>
+			<h3>What happens when you click the Add button?</h3>
+				<div>
+					<p>This will make this client a part of you My Clients, so you can record actions and of course
+						sell an ad to them! :)</p>
+					<p>When you click on the Add button, the button will go away and a message will tell you that you
+						were given the client.  If you reach the maximum number of total clients available, then you
+						will not be able to select any more clients until you either make a sell or release a client.</p>
+					<p>Also, once you have a client, no one else will be able to grab it.  The only way 
+						another student might is if you released the client.</p>
+					<p>To release a client, go to the My Clients Help menu option.</p>
+				</div>
 		</div>
 	<h3>My Clients</h3>
-	<div>
-		<p><%= link_to 'Try it Out!', my_receipts_path(current_user) %></p>
-	</div>
+		<div class="help_accordion">
+			<h3>What do you do here?</h3>
+				<div>
+					<p>This is where you will see your active, completed (sold), and released clients.</p>
+				</div>
+			<h3>What can you do with active clients?</h3>
+				<div>
+					<p>You will be able to record actions (first contact, presentation, and sale) to a client.
+						To do this, simply click anywhere within the sticky note and it will take you to the 
+						Client's Activity Page.</p>
+				</div>
+			<h3>What can you do with completed clients?</h3>
+				<div>
+					<p>This will take you to the Client's Activity Page where you will be able to delete an activity 
+						or comment associated with this client.</p>
+					<p>Keep in mind:<br />
+						1) You can only delete an activity in reverse order by deleting the sale first, then presentation,
+						and then first contact (you may delete a comment at any time).<br />
+						2) Once you delete the sale, the client will now be considered an active client again.<br />
+						3) Deleting an activity that has points associated with it will also delete from your total
+						points.
+					</p>
+				</div>
+			<h3>What can you do with released clients?</h3>
+				<div>
+					<p>This is more of a reference of what activity you did with the client, and you will not be
+						able to delete or create activities with it (except for a comment).</p>
+				</div>
+			<h3>How do you release a client?</h3>
+				<div>
+					<p>If you do not want the client anymore, and you want to choose another one, you can use
+						this option of releasing a client.</p>
+					<p>To do this: <br /> 
+						1) Hover the mouse over the sticky note of the client you want to release (you will only
+						be able to delete an active client, not a completed client).<br />
+						2) Click on the small x that appears in the top left corner.<br />
+						3) A pop up box will appear making sure if you want to release it, along with a comment
+						box if you want to leave a comment (optional).<br />
+						4) Click release and that's it!</p>
+				</div>
+			<h3>What happens when you release a client?</h3>
+				<div>
+					<p>The client will go to your released client section, and you will now be able to select 
+						another client from the Choose Clients tab.</p>
+					<p>Also, if you had any points associated with this client, you will still keep them. :)</p>
+				</div>
+			<h3>Why are the sticky notes green, yellow, white, or gray?</h3>
+				<div>
+					<p>The colors are associated to each type of priority (execept gray):<br />
+						<h4>Green</h4>- The client is a high priority client.<br />
+						<h4>Yellow</h4>- The client is a medium priority client.<br />
+						<h4>White</h4>- The client is a low priority client.<br />
+						<h4>Gray</h4>- The client is a released client.
+					</p>
+				</div>
+		</div>
+	
+	<h3>Client Activity Page</h3>
+		<div class="help_accordion">
+			<h3>What do you do here?</h3>
+				<div>
+					<p>This is where you will record activities with a client (record a first contact, presentation,
+						or sale).</p>
+				</div>
+			<h3>How do you get here?</h3>
+				<div>
+					<p>Go to your My Clients and click on the client's sticky note that you want.</p>
+				</div>
+			<h3>How do you edit the client's information?</h3>
+				<div>
+					<p>Click on the Edit this client link to take you to a form.  Here you will be able to update
+						or edit the client's information (subject to teacher's approval of course).</p>
+				</div>
+			<h3>How do you record an activity?</h3>
+				<div>
+					<p>You will need to go in natural order of progression (first contact, then presentation, and
+						finally a sale).</p>
+					<p>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>
+				</div>
+		</div>
 	
 	<h3>Submit Client</h3>
-	<div>
-		<p>Sup Bro!</p>
-	</div>
+		<div class="help_accordion">
+			<h3>What do you do here?</h3>
+				<div>
+					<p>You will be able to view unapproved and pending clients, as well as submit a new client to
+						be used in the project.</p>
+				</div>
+			<h3>How does submitting a new client work?</h3>
+				<div>
+					<p>First and foremost, check the pending and unapproved client lists below to make sure that
+						the client you want to submit has not already been submitted before.</p>
+					<p>Then simply fill out the form of a business you would like to try and sell an ad to.</p>
+					<p>The client will then be put in the pending clients list where a teacher will either approve
+						or unapprove your submission (Student Life will actually make the approval process, it's 
+						just that the teacher will approve it in Ad It).</p>
+					<p>If the client is approved, the client will be added your active clients and you will be 
+						able to work with that client.  If unapproved, then you will not be able to work with 
+						that client.</p>
+				</div>
+			<h3>Why can I not submit a new client?</h3>
+				<div>
+					<p>If you already have the maximum number of total clients available, then you will not be 
+						able to submit a new client.</p>
+					<p>The reason being that if your submitted client was approved, it will be assigned to you,
+						and you will then have one more clients than you are supposed to have.</p>
+				</div>
+		</div>
+	<h3>Navigation</h3>
+		<div>
+			<p>Here is our recommendation for navigating through Ad It:</p>
+			<p>1) First and foremost, we do not recommend using the Back and Forward buttons on the web browser.<br />
+				2) The navigation bar (Choose Clients, My Clients, Submit Client, and Help) is your oprtions for 
+				the main pages in Ad It.<br />
+				3) Now of course, there are other pages within each of the main pages that you will view or go
+				to, and for those we recommend using the links that start with "Back" to go to the previous page.</p>
+		</div>
 </div>
 
 <% end %>
