@@ -11,6 +11,10 @@
 
 <% if @selected_section == 'all' %>
   <p id = "info_message" class = "alert alert-notice">You are currently viewing all students. Please select a section or create a section for additional options.</p>
+        <!--Refreshes page using ajax, actually just normally right now-->
+      <div id = "section_refresh">
+        <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
+      </div>
 <% else %>  
    <p id='add_student'> <%= link_to 'Add Students', new_user_path, :id => 'add_student', class: 'btn btn-large btn-link btn-sm'%>
 
@@ -39,6 +43,7 @@
       <%= submit_tag :submit, :class => 'btn btn-primary btn-sm col-md-1', :id => 'action_submit'%>
     </div>
 
+
   <!-- EXPO
   <p>
     Download:
@@ -50,11 +55,10 @@
   <% if @incorrect_students.present? %>
   	<%= render :partial => 'incorrect_students' %>
   <% end %>
-
-      <!--Refreshes page using ajax, actually just normally right now-->
+  
+  <!--Refreshes page using ajax, actually just normally right now-->
       <div id = "section_refresh">
         <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
       </div>
-  <%end%>
+    <%end%>
 <%end%>
-

@@ -8,6 +8,9 @@ class ProjectsController < ApplicationController
 
     @project  = get_current_project
     @archived_projects = Project.non_archived.where('is_active = ?', false)
+
+    # All these instance variables are for the use of converting to excel
+    # @sales, @sale_total, @student, @student_totals = Project.all_to_excel(get_selected_project)
   end
 
   # GET /projects/1

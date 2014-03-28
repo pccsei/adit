@@ -221,10 +221,11 @@ p, li {
 .container, #container {
   margin: 0 auto;
   max-width: 90em;
+  padding: 0 2em;
 }
 
 #container {
-  padding: 3em 0 4em;
+  padding: 3em 2em 4em;
   margin-top: 4em;
   margin-bottom: 8em !important;
   border-radius: 4px;
@@ -335,4 +336,22 @@ table.display thead th div.DataTables_sort_wrapper span {
 label.required:after {
   content: " *";
   color: red;
+}
+
+// Datepicker
+.ui-datepicker {
+  z-index: 3000 !important;
+}
+
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
+margin-top: -8px !important;
+}
+
+.ui-timepicker-div dl dd {
+margin-bottom: 10px !important;
+}
+
+.ui-datepicker .ui-datepicker-buttonpane button {
+margin-top: 0.5em !important;
+margin-bottom: 0.4em !important;
 }
