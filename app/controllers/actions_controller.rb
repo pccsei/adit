@@ -63,7 +63,7 @@ class ActionsController < ApplicationController
     receipt = Receipt.find(@action.receipt_id)
       
     Action.delete_activity(@action, receipt)
-    undo_link = view_context.link_to("Undo", revert_version_path(@action.versions.where(whodunnit: receipt.user_id).last), :method => :post)
+    undo_link = view_context.link_to("Undo", revert_action_version_path(@action.versions.where(whodunnit: receipt.user_id).last), :method => :post)
 
     respond_to do |format|
       format.html { redirect_to :back, notice: "You have successfully deleted that entry. " + undo_link }
