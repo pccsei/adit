@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
-  before_action :only_teachers, except: [:unauthorized]
+  before_action :only_teachers, only: [:sales, :activities, :end_of_semester_data]
+  before_action :only_leadership
 
   def sales
    @sections = get_array_of_all_sections(get_selected_project)
@@ -60,8 +61,12 @@ class ReportsController < ApplicationController
        @student_array = []                     
        index = 0
        @receipts = Receipt.selected_project_receipts(get_selected_project)
-       @students = User.current_student_users(get_selected_project, get_selected_section)
-       
+       if current_user.role == 3
+        @students = User.current_student_users(get_selected_project, get_selected_section)
+       else current_user.role == 2
+        @students = User.team_members(get_selected_project, current_user.id)
+       end
+
        @students.each do |s|
           @student_array[index] = Struct::Student.new
           @student_array[index].id = s.id
@@ -187,9 +192,11 @@ class ReportsController < ApplicationController
 
     @bonuses = []
 
+    all_bonuses = Bonus.where(project_id: get_selected_project, user_id: Member.where(section_number: get_selected_section).pluck(:user_id))
+
     i = 0
-    @bonus_total_points = Bonus.sum(:points)
-    Bonus.all.each do |b|
+    @bonus_total_points = all_bonuses.sum(:points)
+    all_bonuses.each do |b|
       @bonuses[i] = Struct::BonusData.new
       @bonuses[i].id = b.id
       @bonuses[i].created_date = b.created_at
@@ -239,6 +246,14 @@ class ReportsController < ApplicationController
       index = index + 1
     end
   end
+
+  # This method is just designed as a sort of read only manage section page for Student Manager's
+  def team_data
+    if current_user.role == 3
+      redirect_to reports_team_summary_path
+    end
+    @students = User.team_members(get_selected_project, current_user.id)
+  end
   
   def delete_bonus
     Bonus.delete_bonus(Bonus.find(params[:bonus]), params[:all])
@@ -247,7 +262,8 @@ class ReportsController < ApplicationController
   end
 
   def edit_bonus
-    Bonus.delete_bonus(Bonus.find(params[:points]), params[:comment])
+    # render text: params[:bonus_id]
+    Bonus.edit_bonus(Bonus.find(params[:bonus_id]), params[:bonus_points], params[:bonus_comment])
 
     redirect_to :back
   end

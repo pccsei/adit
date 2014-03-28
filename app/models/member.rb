@@ -23,7 +23,7 @@ class Member < ActiveRecord::Base
       teachers = User.all_teacher_ids
       if choice == 1
         if section == "all"
-          self.where("project_id = ? AND user_id NOT IN (?) AND is_enabled = ?", project.id, teachers, true)
+          self.where("project_id = ? AND user_id NOT IN (?) AND is_enabled = ?", project.id, teachers, 1)
         else
           self.where("project_id = ? AND section_number = ? AND user_id NOT IN (?) AND is_enabled = ?", 
           project.id, section, teachers, 1)
