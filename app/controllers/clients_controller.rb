@@ -23,8 +23,8 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
-    #@client = Client.find(params[:id])
-    @client = Client.find(params[:id])
+    @sections = get_array_of_all_sections(get_selected_project)
+    @client   = Client.find(params[:id])
     if params[:page]
       session[:return_to] = params[:page]
     end

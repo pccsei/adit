@@ -64,6 +64,20 @@ onLoad(function() {
             $("#assignClient").prop("disabled", false);
     }
 
+    function populate(section){
+    	if (section != null) {
+            $.getJSON("../users/in_section.json?sn=" + section,
+                function(json) {
+                    $("#students").empty();
+                    if (json.length > 0)
+                        for (i = 0; i<json.length; i++)
+                            $("#students").append("<li class='clickable ui-widget-content clicker' value='" + json[i][0]+"'>"+json[i][2]+", "+json[i][1]+" ("+json[i][0]+")</li>");
+                    else
+                        $("#students").append("<li id='noAssign' class='clickable ui-widget-content'>"+"There are no students in this section"+"</li>");
+                });
+        }    	
+    }
+        
     $('#students').selectable({
         stop:function(event, ui){
             $(event.target).children('.ui-selected').not(':first').removeClass('ui-selected'); // thanks to http://stackoverflow.com/questions/861668/how-to-prevent-multiple-selection-in-jquery-ui-selectable-plugin
@@ -86,22 +100,12 @@ onLoad(function() {
                 });
         }
     });
-
-    $("#sectionNum").change( function() {
+    
+    $(".sectionNum").click( function() {    	
         dState();
-        if (this.value != null) {
-            $.getJSON("../users/in_section.json?sn=" + this.value,
-                function(json) {
-                    $("#students").empty();
-                    if (json.length > 0)
-                        for (i = 0; i<json.length; i++)
-                            $("#students").append("<li class='clickable ui-widget-content clicker' value='" + json[i][0]+"'>"+json[i][2]+", "+json[i][1]+" ("+json[i][0]+")</li>");
-                    else
-                        $("#students").append("<li id='noAssign' class='clickable ui-widget-content'>"+"There are no students in this section"+"</li>");
-                });
-        }
+        populate($(this).text());
     });
-
+    
     $("#assignClient").click(function() {
         $("#studentID").val($('#students .ui-selected').attr('value'));
     });
@@ -111,5 +115,7 @@ onLoad(function() {
         $("#assignClient").prop("disabled", false);
 
     });
+
+	populate($('#currentSection').html());
 
 });
