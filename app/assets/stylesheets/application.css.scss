@@ -271,8 +271,12 @@ tr:first-child {
   border-top: none;
 }
 
-a, a:link, a:active {
-  color: rgb(220, 0, 0);
+a, a:link, a:visited {
+  color: #DC0000;
+  text-decoration: underline;
+}
+a:hover, a:active {
+  color: #990000;
 }
 
 table.dataTable tr.odd td.sorting_1 {
