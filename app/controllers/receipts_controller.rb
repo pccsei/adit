@@ -37,6 +37,7 @@ class ReceiptsController < ApplicationController
   # We can use this function to list the updates on a receipt
   def show
     @receipt = Receipt.find(params[:id])
+    @action = Action.new(receipt_id: @receipt.id)
     @client = @receipt.ticket.client            
       #@highestUserAction = Action.where("receipt_id = ?", params[:id]).maximum("action_type_id")    
       #@sale = Action.where("receipt_id = ? AND action_type_id = ?", params[:id], 3) #may need to be fixed if the DB column is changed
@@ -74,7 +75,8 @@ class ReceiptsController < ApplicationController
   def update
     respond_to do |format|
       if @receipt.update(receipt_params)
-        format.html { redirect_to @receipt, notice: 'Receipt was successfully updated.' }
+        undo_link = view_context.link_to("undo", revert_version_path(@receipt.versions.sscoped.last), :method => :post)
+        format.html { redirect_to @receipt, notice: "Receipt was successfully updated. #{undo_link}" }
       else
         format.html { render action: 'edit' }
       end
@@ -86,7 +88,7 @@ class ReceiptsController < ApplicationController
   def destroy
     @receipt.destroy
     respond_to do |format|
-      format.html { redirect_to receipts_url }
+      format.html { redirect_to receipts_url, :notice => "successfully destroyed " }
     end
   end
 

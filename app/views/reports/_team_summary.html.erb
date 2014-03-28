@@ -2,7 +2,9 @@
   <thead>
     <tr>
       <th>Team Name</td>
-      <th>Section</td>
+      <% if current_user.role == 3 %>
+        <th>Section</td>
+      <% end %>
       <th>Open Clients</td>
       <th>Sold Clients</td>
       <th>Released Clients</td>
@@ -14,7 +16,9 @@
     <% @team_data.each do |team_data| %>
       <tr>
         <td align ="center"><%= team_data.student_manager %></td>
-        <td align ="center"><%= team_data.section %></td>
+        <% if current_user.role == 3 %>
+          <td align ="center"><%= team_data.section %></td>
+        <% end %>
         <td align ="center"><%= team_data.open %></td>
         <td align ="center"><%= team_data.sold %></td>
         <td align ="center"><%= team_data.released %></td>
@@ -26,7 +30,9 @@
   <tfoot>
     <tr>
       <td align ="center">Totals</td>
-      <td align ="center"></td>
+      <% if current_user.role == 3 %>
+        <td align ="center"></td>
+      <% end %>
       <td align ="center"><%= @team_totals.total_open%></td>
       <td align ="center"><%= @team_totals.total_sold %></td>
       <td align ="center"><%= @team_totals.total_released %></td>

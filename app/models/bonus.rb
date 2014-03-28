@@ -10,4 +10,16 @@ class Bonus < ActiveRecord::Base
   	end
   end
 
+  def self.edit_bonus bonus, new_points, new_comment
+  	bonuses = Bonus.where(created_at: bonus.created_at)
+  	if new_points == ""
+  		new_points = 0
+  	end
+
+  	bonuses.each do |b|
+	  b.points = new_points;
+	  b.comment = new_comment;
+	  b.save
+	end
+  end
 end

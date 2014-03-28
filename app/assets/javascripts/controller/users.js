@@ -10,7 +10,7 @@ onLoad(function() {
             event.preventDefault();
             var e = document.getElementById("selected_option");
             var strUser = e.options[e.selectedIndex].text;
-            if(strUser=="Assign Team")
+            if(strUser=="Add to Team")
             {
                 $( "#show_managers" ).show();
                 $( "#assign_bonus_points" ).hide();

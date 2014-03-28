@@ -30,28 +30,19 @@ class ActionsController < ApplicationController
   # POST /actions
   # POST /actions.json
   def create
-    @action = Action.new(action_params)
-    receipt = Receipt.find(@action.receipt_id)
+    receipt = Receipt.find(params[:receipt_id])
 
-    @action, receipt, next_action, new_action = Action.create_action(params[:price], params[:page], params[:payment_type], params[:presentation], params[:sale], @action, receipt)
-
-    respond_to do |format|
-      if @action.save && receipt.save
-         if new_action
-           new_action.save
-         end
-         if next_action
-           next_action.save
-         end
-        format.html { redirect_to receipt_path(id: @action.receipt.id), notice: 'You successfully updated your client' }
-        format.json { render action: 'show', status: :created, location: @action }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @action.errors, status: :unprocessable_entity }
-      end
+    if params[:user_action_time].present? && receipt
+       Action.create_action(params[:price],   params[:page],             params[:payment_type],
+                            params[:comment], params[:contact],          params[:presentation], 
+                            params[:sale],    params[:user_action_time], receipt)
+    
+       redirect_to receipt_path(id: receipt.id), notice: 'You successfully updated your client'
+    else
+       redirect_to receipt_path(id: receipt.id), notice: 'There were errors saving your form. PLease enable javascript.'
     end
   end
-
+  
   # PATCH/PUT /actions/1
   # PATCH/PUT /actions/1.json
   def update
@@ -72,10 +63,10 @@ class ActionsController < ApplicationController
     receipt = Receipt.find(@action.receipt_id)
       
     Action.delete_activity(@action, receipt)
+    undo_link = view_context.link_to("Undo", revert_version_path(@action.versions.where(whodunnit: receipt.user_id).last), :method => :post)
 
     respond_to do |format|
-      format.html { redirect_to :back, 
-                      notice: "You have successfully deleted that entry." }
+      format.html { redirect_to :back, notice: "You have successfully deleted that entry. " + undo_link }
       # format.html { redirect_to receipt_path(@action.receipt),
                       # notice: "You have successfully deleted that entry." }
       format.json { head :no_content }
@@ -83,6 +74,11 @@ class ActionsController < ApplicationController
   end
 
   private
+=begin  
+    def undo_link
+      view_context.link_to("undo", revert_version_path(@receipt.versions.where(whodunnit: receipt.user_id).last), :method => :post)
+    end
+=end  
     # Use callbacks to share common setup or constraints between actions.
     def set_action
       @action = Action.find(params[:id])
