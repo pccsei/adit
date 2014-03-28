@@ -52,6 +52,7 @@ onLoad(function() {
             "client[email]": "Must be in a standard email format."
         }
     });
+    
     function dState(){
         if ($("#assignClient").is(":enabled"))
             $("#assignClient").prop("disabled", true);
@@ -63,55 +64,52 @@ onLoad(function() {
             $("#assignClient").prop("disabled", false);
     }
 
-    $(function() {
-
-        $('#students').selectable({
-            stop:function(event, ui){
-                $(event.target).children('.ui-selected').not(':first').removeClass('ui-selected'); // thanks to http://stackoverflow.com/questions/861668/how-to-prevent-multiple-selection-in-jquery-ui-selectable-plugin
-            },
-            unselected:function(event, ui){
-                dState();
-            },
-            selected:function(event, ui){
-                $.get( "more_allowed?school_id=" + ui["selected"].value + "&priority=" + $('#clientPriority').html(),
-                    function( data ) {
-                        if (data === "true") {
-                            $("#studentID").val($('#students .ui-selected').attr('value'));
-                            eState(ui["selected"].value);
-                            $('#warnTeacher').empty();
-                        }
-                        else {
-                            dState();
-                            $('#warnTeacher').html(ui["selected"].innerHTML + " cannot get any more " + $('#clientPriority').html() + " priority clients");
-                        }
-                    });
-            }
-        });
-
-
-        $("#sectionNum").change( function() {
+    $('#students').selectable({
+        stop:function(event, ui){
+            $(event.target).children('.ui-selected').not(':first').removeClass('ui-selected'); // thanks to http://stackoverflow.com/questions/861668/how-to-prevent-multiple-selection-in-jquery-ui-selectable-plugin
+        },
+        unselected:function(event, ui){
             dState();
-            if (this.value != null) {
-                $.getJSON("../users/in_section.json?sn=" + this.value,
-                    function(json) {
-                        $("#students").empty();
-                        if (json.length > 0)
-                            for (i = 0; i<json.length; i++)
-                                $("#students").append("<li class='ui-widget-content clicker' value='" + json[i][0]+"'>"+json[i][2]+", "+json[i][1]+" ("+json[i][0]+")</li>");
-                        else
-                            $("#students").append("<li id='noAssign' class='ui-widget-content'>"+"There are no students in this section"+"</li>");
-                    });
-            }
-        });
-
-        $("#assignClient").click(function() {
-            $("#studentID").val($('#students .ui-selected').attr('value'));
-        });
-
-
-        $(".ui-widget-content").change(function() {
-            $("#assignClient").prop("disabled", false);
-
-        });
+        },
+        selected:function(event, ui){
+            $.get( "more_allowed?school_id=" + ui["selected"].value + "&priority=" + $('#clientPriority').html(),
+                function( data ) {
+                    if (data === "true") {
+                        $("#studentID").val($('#students .ui-selected').attr('value'));
+                        eState(ui["selected"].value);
+                        $('#warnTeacher').empty();
+                    }
+                    else {
+                        dState();
+                        $('#warnTeacher').html(ui["selected"].innerHTML + " cannot get any more " + $('#clientPriority').html() + " priority clients");
+                    }
+                });
+        }
     });
+
+    $("#sectionNum").change( function() {
+        dState();
+        if (this.value != null) {
+            $.getJSON("../users/in_section.json?sn=" + this.value,
+                function(json) {
+                    $("#students").empty();
+                    if (json.length > 0)
+                        for (i = 0; i<json.length; i++)
+                            $("#students").append("<li class='clickable ui-widget-content clicker' value='" + json[i][0]+"'>"+json[i][2]+", "+json[i][1]+" ("+json[i][0]+")</li>");
+                    else
+                        $("#students").append("<li id='noAssign' class='clickable ui-widget-content'>"+"There are no students in this section"+"</li>");
+                });
+        }
+    });
+
+    $("#assignClient").click(function() {
+        $("#studentID").val($('#students .ui-selected').attr('value'));
+    });
+
+
+    $(".ui-widget-content").change(function() {
+        $("#assignClient").prop("disabled", false);
+
+    });
+
 });
