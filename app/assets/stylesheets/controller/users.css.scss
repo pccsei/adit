@@ -28,77 +28,6 @@
 	margin-top: 1em !important;
 }
 
-#last_name{
-	margin-left: 4em;
-}
-#email{
-	margin-left: 1.4em !important;
-}
-#minor{
-	margin-left: 7.3em;
-}
-#box_num{
-    margin-left: 1.5em;
-}
-.users #full_name{
-	margin-top: 2em;
-}
-
-.users #full_name input{
-	margin-left: 0em;
-}
-
-.users #full_name #user_last_name{
-	margin-left: 0em;
-
-}
-
-.users #school_info{
-	margin-top: 2em;
-}
-
-.users #school_info label{
-	margin-left: .7em;
-}
-
-.users #school_info #user_email{
-	
-}
-
-.users #school_info{
-
-}
-
-
-.users #phone_box_num{
-	margin-top: 2em;
-}
-
-.users #phone_box_num input{
-
-}
-
-.users #phone_box_num #user_box{
-	
-}
-
-.users #major_minor{
-	margin-top: 2em;
-	margin-left: 3.5em;
-}
-
-.users #major_minor input{
-	margin-left:.5em;
-}
-
-.users #major_minor #user_minor{
-
-}
-
-.users #class{
-	margin-top: 2em;
-}
-
 .users .actions{
 	margin-top: 2em;
 	margin-left: -1em;
@@ -114,9 +43,6 @@
 	margin-left: -21em;
 	margin-bottom: -5em !important;
 }
-
-
-
 
 .users #section_type{
 	float: right;
@@ -151,4 +77,14 @@ padding: .4em;
 	float: right;
 	margin-top: 6em !important;
 	margin-right: -17.5em;
+}
+
+.label-field {
+	text-align: right;
+	padding: 3px;
+}
+
+.text-field {
+	text-align: left;
+	padding: 3px;
 }
