@@ -118,7 +118,10 @@ class ApplicationController < ActionController::Base
      elsif !get_current_student_project
        redirect_to no_project_path
      end
-
-   end
+   end   
    
+  def version_cleanup(uid, item_type)
+    last_version_id = PaperTrail::Version.where(whodunnit: uid, item_type: item_type).last.id        
+    PaperTrail::Version.where("whodunnit = ? AND item_type = ? AND id != ?", uid, item_type, last_version_id).destroy_all
+  end
 end
