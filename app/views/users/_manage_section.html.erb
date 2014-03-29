@@ -3,7 +3,9 @@
 
   <thead>
 	<tr>
-	  <th class='empty'></th>
+    <% if @selected_section != "all"%>
+	    <th class='empty'></th>
+    <% end %>
 	  <th>First Name</th>
 	  <th>Last Name</th>
 	  <th>ID number</th>
@@ -22,7 +24,17 @@
   <tbody>
     <% current_students.each do |student| %>
       <tr>
-        <td><%= check_box_tag 'students[]', student.id%></td>
+        <% if @selected_section != "all"%>
+          <% if student.role == 1 %>
+            <% if student.student_manager_name %>
+              <td><input class="students_with_manager" name="students[]" type="checkbox" value="<%=student.id%>" /></td>
+            <% else  %>
+              <td><input class="students_without_manager" name="students[]" type="checkbox" value="<%=student.id%>"/></td>
+            <% end %>
+          <% else %>
+            <td><input id="students_managers" class="student_managers" name="students[]" type="checkbox" value="<%=student.id%>"/></td>
+          <% end %>
+        <% end %> 
         <td><%= link_to student.first_name, my_receipts_path(id: student.id, page: request.url) %></td>
         <td><%= link_to student.last_name, my_receipts_path(id: student.id, page: request.url) %></td>
         <td><%= student.school_id %></td>
