@@ -10,6 +10,12 @@
 font-size: 1.2em;
 }
 
+#client_priority{
+	margin-top: 2em;
+	font-size: 1.2em;
+}
+
+
 .clients #client_list tr {
   height: 3.7em;
 }
@@ -32,7 +38,7 @@ font-size: 1.2em;
 	margin-top: 5em !important;
 	margin-bottom: 1em !important;
 	border-color: black;
-	width: 25em !important;
+	width: 50em !important;
 }
 
 .clients #checkClients {

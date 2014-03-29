@@ -1,15 +1,18 @@
-<% provide(:title, (@client.business_name).html_safe) %>
+<% provide(:title, (@client.business_name).html_safe) %>
 
-	
-	  <p id="address_name">
-		 <%= @client.address %><br />
-	  	 <%= @client.city %>
-	 	 <%= @client.state %>
-	 	 <%= @client.zipcode%></p>
-		 <br />
-	  <p id="email_comment"><%= @client.contact_title + ' ' + @client.contact_fname + ' ' + @client.contact_lname %>
-	  <br /><%= render_phone(@client.telephone) %><br />
-	  <%= @client.comment %></p>
-	  <p id="email"><%= @client.email %></p>
-	</p>
+	<h4 id="client_info"><%= @client.address%>&nbsp;&nbsp;&#149;
+	&nbsp;&nbsp;<%= @client.city %>
+	<%= @client.state %>,
+	<%= @client.zipcode%>&nbsp;&nbsp;&#149;
+	<%if @client.contact_title || @client.contact_fname || @client.contact_lname%>
+	&nbsp;&nbsp;<%= @client.contact_title + '' + @client.contact_fname + ' ' + @client.contact_lname %>
+	&nbsp;&nbsp;
+	<%end%>
+	<%if @client.telephone %>
+	&#149;&nbsp;&nbsp;<%= render_phone(@client.telephone) %>&nbsp;&nbsp;
+	<%end%></h4>
+
+
+
+
 	
