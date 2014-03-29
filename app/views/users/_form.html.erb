@@ -15,6 +15,7 @@
         <h3>&nbsp;New Student Information</h3>
       </div>
       <div class = "panel-body">
+<<<<<<< HEAD
         <div id="first_name">
           <%= f.label :first_name, 'First Name', class: 'required' %>
           <%= f.text_field :first_name, class: 'form-control',  rows:3 %>
@@ -53,9 +54,79 @@
           <%= f.select :classification, [['Freshman', 'FR'], ['Sophomore', 'SO'], ['Junior', 'JR'], ['Senior', 'SR']] %>
         </div>
         <br />
+=======
+
+        <table>
+          <tr>
+            <td class="label-field">
+              <%= f.label :first_name, 'First Name', class: 'required' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :first_name, class: 'form-control',  rows:3 %>
+            </td>
+            <td class="label-field">
+              <%= f.label :last_name, 'Last Name', class: 'required', id:'last_name' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :last_name, class: 'form-control',  rows:3 %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label :school_id, 'School ID', class: 'required' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :school_id, class: 'form-control',  rows:3 %>
+            </td>
+            <td class="label-field">
+              <%= f.label :email, 'E-mail Address', class: 'required', id:'email' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :email, class: 'form-control',  rows:3 %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label :phone, 'PCC Phone', class: 'required' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :phone, class: 'form-control',  rows:3 %>
+            </td>
+            <td class="label-field">
+              <%= f.label :box, 'PCC Box Number', id:'box_num' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :box, class: 'form-control',  rows:3 %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label :major, 'Major' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :major, class: 'form-control',  rows:3 %>
+            </td>
+            <td class="label-field">
+              <%= f.label :minor, 'Minor', id:'minor' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :minor, class: 'form-control',  rows:3 %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label :classification, 'Classification' %>
+            </td>
+            <td class="text-field" colspan="3">
+              <%= f.select :classification, [['Freshman', 'FR'], ['Sophomore', 'SO'], ['Junior', 'JR'], ['Senior', 'SR']], {}, { class: 'btn btn-default dropdown-toggle' } %>
+            </td>
+          </tr>
+        </table>
+        <%= f.hidden_field :role, :value => 1 %>
+>>>>>>> bf41db0f3ed2ee011709d9068d01aa6f0528fe65
         <div class="actions">
         <% if @user.new_record? %>
-          <%= f.submit  'Create Student', :class => 'btn btn-primary btn-sm' %>
+          <%= f.submit 'Create Student', :class => 'btn btn-primary btn-sm' %>
         <% else %>
           <%= f.submit 'Update Student', :class => 'btn btn-primary btn-sm' %>
         <% end %>
