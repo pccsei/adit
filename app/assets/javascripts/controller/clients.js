@@ -24,7 +24,7 @@ onLoad(function() {
         return this.optional(element) || /^([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$/.test(value);
     });
 
-    $("#new_client").validate({
+    $("#clients").validate({
         rules: {
             "client[business_name]": {required: true},
             "client[address]": {required: true},
