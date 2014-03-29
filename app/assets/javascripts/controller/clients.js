@@ -116,6 +116,9 @@ onLoad(function() {
 
     });
     
+    $("#client_business_name").bind( "keydown", function( event ) {
+        $( "#client_business_name" ).attr('value', "test") 
+    });
     
 	populate($('#currentSection').html());
     

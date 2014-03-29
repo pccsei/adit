@@ -22,11 +22,52 @@
         </div>
         <% end %>
 
-        <div id="business_name">
+        <div id="business_name" class="ui-widget">
           <%= f.label :business_name, class: 'required' %>
           <%= f.text_field :business_name, class: 'form-control',  rows:3 %>
         </div>
-		
+
+        <table id="manageSection" class="display default_table" width="425px">
+          <tr>
+            <td>
+              <table cellspacing="0" cellpadding="1" border="1" width="400px" >
+                <tr>
+                  <th>Businesses Already in the Database</th>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div style="width:425px; height:200px; overflow:auto;">
+                <table id="businessNames" cellspacing="0" cellpadding="1" border="1" width="400px" >
+                  <% if @all_clients %>
+                    <% @all_clients.each do |c| %>
+                      <tr>
+                        <td class="c.business_name"> <%= c.business_name %></td>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                </table>  
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <script type="text/javascript">
+        var $rows = $('#businessNames tr');
+        $('#client_business_name').keyup(function() {
+          var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+              reg = RegExp(val, 'i'),
+              text;
+
+          $rows.show().filter(function() {
+              text = $(this).text().replace(/\s+/g, ' ');
+              return !reg.test(text);
+          }).hide();
+        });
+        </script>
+
         <div id="address">
           <%= f.label :address, class: 'required' %>
           <%= f.text_field :address, class: 'form-control',  rows:3 %>

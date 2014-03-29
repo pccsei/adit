@@ -119,6 +119,7 @@ class ClientsController < ApplicationController
 
   # GET /clients/new
   def new
+    @all_clients = Client.all
     @client = Client.new
   end
 
