@@ -19,80 +19,83 @@
 #timepicker{
 	margin-left: 2em;
 	margin-top: 1em;
+
 }
 #comment{
-	margin-left: 2em;
+  margin-left: 2em;
 }
 #success{
-	color: #DC0000;
-	font-size: 18px;
-	margin-top: .5em !important;
-	margin-left: 1.3em;
+  color: #DC0000;
+  font-size: 18px;
+  margin-top: .5em !important;
+  margin-left: 1.3em;
 }
 
 .receipts .alert{
-	font-size: 1.5em;
-	background-color: inherit;
-	border-left: none;
-	border-right: none;
-	border-color: #DC0000;
-	border-radius: 0px;
-	border-width: .2em;
-	color: #000;
-	padding: .5em;
+  font-size: 1.5em;
+  background-color: inherit;
+  border-left: none;
+  border-right: none;
+  border-color: #DC0000;
+  border-radius: 0px;
+  border-width: .2em;
+  color: #000;
+  padding: .5em;
 }
 #comment_box{
-	width: 35em;
+  width: 35em;
 
 }
 #FirstContact p{
+
 	margin-top: 1em !important;
+
 }
 .action label{
-	font-size: 15px;
-	margin-top: 1em;
+  font-size: 15px;
+  margin-top: 1em;
 }
 .action input{
-	margin-left: 2em;
+  margin-left: 2em;
 }
 #comment{
-	//float: left;
-	//margin-top: -14em;
+  //float: left;
+  //margin-top: -14em;
 }
 .receipts.show .panel-primary {
-	width: 100%;
-	float: left;
-	text-align: center;
-	margin-top: 2em;
-	color: 
-	#DC0000;
+  width: 100%;
+  float: left;
+  text-align: center;
+  margin-top: 2em;
+  color:
+  #DC0000;
 }
 
 .show #heading{
-	//padding-top: .3em;
+  //padding-top: .3em;
 }
 
 #info_center{
-	text-align: center;
-	font-size: 2.2em;
-	margin-top: 4em;
-	font-variant: none;
-	text-decoration: none;
-	color: 
-	#DC0000;
-	background-color: 
-	#EBEBEB;
-	border-color: 
-	#EBEBEB;
-	border-radius: 5px;
-	height: 2em;
-	padding-top: .4em;
+  text-align: center;
+  font-size: 2.2em;
+  margin-top: 4em;
+  font-variant: none;
+  text-decoration: none;
+  color:
+  #DC0000;
+  background-color:
+  #EBEBEB;
+  border-color:
+  #EBEBEB;
+  border-radius: 5px;
+  height: 2em;
+  padding-top: .4em;
 }
 
 .receipts .panel-primary{
-	width: 40em;
-	float:left;
-	margin-top: 2em;
+  width: 40em;
+  float:left;
+  margin-top: 2em;
 }
 
 .receipts #releaseComment{
@@ -106,46 +109,46 @@
 
 .receipts #cancel {
   margin: 1em 0em 1em 1em !important;
-} 
+}
 
 .receipts #switchText{
   margin: 1em 0em 1em 1em !important;
 }
 .receipts #client_message{
-	border: 2px solid black;
-	padding: 1em;
-	border-radius: 1em;
-	width: 15em;
-	text-align: center;
-	margin-top: 10em !important;
+  border: 2px solid black;
+  padding: 1em;
+  border-radius: 1em;
+  width: 15em;
+  text-align: center;
+  margin-top: 10em !important;
 }
 .receipts #edit_client{
-	float: right;
-	margin-top: -1em;
+  float: right;
+  margin-top: -1em;
 }
 #email{
-	text-align: center;
-	margin-top: -.5em;
+  text-align: center;
+  margin-top: -.5em;
 }
 #email_comment{
-	float: right;
-	margin-top: -5em;
-	text-align: right;
+  float: right;
+  margin-top: -5em;
+  text-align: right;
 }
 
 #address_name{
-	//margin-top: -4.3em !important;
+  //margin-top: -4.3em !important;
 }
 .receipts #client_info{
-	//text-align: left;
-	font-size: 16px;
-	margin-top: 0em;
-	//width: 20em;
-	//float: right;
+  //text-align: left;
+  font-size: 16px;
+  margin-top: 0em;
+  //width: 20em;
+  //float: right;
 }
 
 .receipts .list-group-item{
-	padding: .2em .1em;
+  padding: .2em .1em;
 }
 
 
@@ -163,7 +166,7 @@
 .receipts h2 {
   font-size: 2em;
 }
-    
+
 .receipts h3.business {
   margin-top: 0 !important;
   clear: none;
