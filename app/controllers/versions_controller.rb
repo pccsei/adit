@@ -15,6 +15,8 @@ class VersionsController < ApplicationController
     end    
       r.save!
     
+    version_cleanup(r.user_id, "Action")
+    
     # Find action by id and retrieve action_type.name
     # Find Receipt id from action.receipt id and set contact, presentation, or sale based on action_type.name
     redirect_to :back, :notice => "Undo Successful"
