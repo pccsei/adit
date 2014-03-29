@@ -15,7 +15,7 @@
  *= require jquery.ui.datepicker
  *= require jquery.ui.slider
  *= require jquery-ui-timepicker-addon
- *= require jquery.ui.selectable  
+ *= require jquery.ui.selectable
  *= require_self
  *= require_directory .
 */
@@ -158,7 +158,7 @@ p, li {
 
 
 .error{
-  color: #DC0000;  
+  color: #DC0000;
 }
 
 .page-header {
@@ -329,7 +329,7 @@ tr.odd {
   white-space: nowrap;
   tr > td {
     background-color: transparent !important;
-  } 
+  }
 }
 
 .ui-widget-header {
@@ -371,7 +371,7 @@ table.display thead th div.DataTables_sort_wrapper span {
       box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
       transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
   }
-  
+
 td.dataTables_empty{
   background-color: #5E0000 !important;
   color: white !important;
@@ -413,7 +413,7 @@ label.required:after {
 // Datepicker
 .ui-datepicker {
   z-index: 3000 !important;
-  .ui-datepicker-prev span, 
+  .ui-datepicker-prev span,
   .ui-datepicker-next span {
     margin-top: -8px !important;
   }
