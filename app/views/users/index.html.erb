@@ -4,7 +4,7 @@
 
 <!--Creates a new Section link-->
 <div id="new_section">
-	<h5><%=link_to 'Create a New Section', users_create_new_section_path, :class => 'btn btn-link btn-sm'%></h5>
+	<%=link_to 'Create a New Section', users_create_new_section_path, :class => 'btn btn-link btn-sm'%>
 </div>
 
 <!-- Adds students to a section and is only allowed for a teacher-->
@@ -44,7 +44,7 @@
         <p>Please enter the reason for the bonus points:
         <%= text_field_tag 'bonus_comment' %></p>
       </div> 
-      <%= submit_tag :submit, :class => 'btn btn-primary btn-sm col-md-1', :id => 'action_submit'%>
+      <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm col-md-1', :id => 'action_submit'%>
     </div>
 
 
