@@ -41,8 +41,7 @@
         <% elsif a.action_type.name == 'Presentation' && ordered_delete[2] == "yes" %>
         	<td></td>
         <% else %>
-        	<td><%= link_to 'Delete', a, method: :delete,
-                        data: { confirm: 'Are you sure?' } unless Receipt.is_released(receipt) %></td>
+        	<td><%= link_to 'Delete', a, method: :delete %></td>
         <% end %>
       </tr>
   <% end %>

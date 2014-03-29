@@ -5,56 +5,61 @@
     <div class = "panel-heading">
       <h3>&nbsp;Client Information</h3><br>
     </div>
-	<div class = "panel-body">
-<div class="clientInfo">
-  <div class="basicInfo">
-    <h2><%= @client.business_name%></h2>
-    <h4>
-      <%= @client.address %>
-      <br /><%= @client.city%>, <%= @client.state%> <%= @client.zipcode%>
-    </h4>
-  </div>  
-  <div class="contactInfo">
-    <h4>
-      <br /><%= @client.contact_title%> <%= @client.contact_fname %> <%= @client.contact_lname%>
-    </h4>
-    <% if @client.telephone %>      
-      <h4><%= "Phone: " + render_phone(@client.telephone) %></h4>
-    <% end %>  
-    </h4>
-        
-      <% if @client.status_id == Status.where(status_type: "In House") %> 
-        <%= "This is an <span id='clientPriority'>in-house</span> client".html_safe %>
-      <% else %>
-        <%= ("This is a <span id='clientPriority'>" + @ticket.priority.name + "</span> priority client").html_safe %>
-      <% end %>        
-    </h3>
+	  <div class = "panel-body">
+      <div class="clientInfo">
+        <div class="basicInfo">
+          <h2><%= @client.business_name%></h2>
+          <h4>
+            <%= @client.address %>
+            <br /><%= @client.city%>, <%= @client.state%> <%= @client.zipcode%>
+          </h4>
+        </div>
+          
+        <div class="contactInfo">
+          <h4>
+            <br /><%= @client.contact_title%> <%= @client.contact_fname %> <%= @client.contact_lname%>
+          </h4>
+          <% if @client.telephone %>      
+            <h4><%= "Phone: " + render_phone(@client.telephone) %></h4>
+          <% end %>
+              
+          <% if @client.status_id == Status.where(status_type: "In House") %> 
+            <%= "This is an <span id='clientPriority'>in-house</span> client".html_safe %>
+          <% else %>
+            <%= ("This is a <span id='clientPriority'>" + @ticket.priority.name + "</span> priority client").html_safe %>
+          <% end %>     
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-</div>
-</div>
 </div>
 
 <%= link_to "Back to Assign Clients", clients_path %>
 
 <div class="studentInfo">
-	<div id ="choose_section">
-	<%= label_tag(:section, "Choose a section:") %>	
-  <%= select_tag :section, options_for_select(@sections), :include_blank =>  "Choose a section", :id => "sectionNum" %>
-	<span id='warnTeacher' class="warning"></span>	
-
-	
-	<%= form_tag(controller: "clients", action: "actually_assign") do %>
-    <%= hidden_field_tag(:studentID) %>    
-    <%= hidden_field_tag(:tid, @ticket.id) %>
-    <%= submit_tag("Actually assign the client", :id => "assignClient", :disabled => true) %>
-  <% end %>
-	
+  <div id ="choose_section">
+    <div id="sselect-section"> <!-- NOTE for ZACH: I need a new class that only has the red background> -->
+	  <div class="btn-group">
+	    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          Choose a section<span class="caret"></span>
+        </button>
+	    <ul class="dropdown-menu" role="menu">
+	      <% @sections.each do |s|%>
+            <li>
+	          <%= content_tag("a",s, class: "sectionNum") %>
+	        </li>
+          <% end %>
+	    </ul>
+	  </div>
+    </div>	
+    <span id='warnTeacher' class="warning"></span>	
+    <%= form_tag(controller: "clients", action: "actually_assign") do %>
+      <%= hidden_field_tag(:studentID) %>    
+      <%= hidden_field_tag(:tid, @ticket.id) %>
+      <%= submit_tag("Assign the client", :id => "assignClient", :disabled => true) %>
+    <% end %>	
 	<div class="studentList">
-    <ol id="students">
-      <li id="noAssign" class='ui-widget-content'>Please choose a section number</li>
-    </ol>  
+      <ol id="students"></ol>  
 	</div>
-
-</div>
+  </div>
 </div>

@@ -62,56 +62,90 @@ onLoad(function() {
         if ($("#assignClient").is(":disabled") && enable != 0)
             $("#assignClient").prop("disabled", false);
     }
+    
+    function populate(section){
+    	if (section != null) {
+            $.getJSON("../users/in_section.json?sn=" + section,
+                function(json) {
+                    $("#students").empty();
+                    if (json.length > 0)
+                        for (i = 0; i<json.length; i++)
+                            $("#students").append("<li class='clickable ui-widget-content clicker' value='" + json[i][0]+"'>"+json[i][2]+", "+json[i][1]+" ("+json[i][0]+")</li>");
+                    else
+                        $("#students").append("<li id='noAssign' class='clickable ui-widget-content'>"+"There are no students in this section"+"</li>");
+                });
+        }    	
+    }
 
-    $(function() {
-
-        $('#students').selectable({
-            stop:function(event, ui){
-                $(event.target).children('.ui-selected').not(':first').removeClass('ui-selected'); // thanks to http://stackoverflow.com/questions/861668/how-to-prevent-multiple-selection-in-jquery-ui-selectable-plugin
-            },
-            unselected:function(event, ui){
-                dState();
-            },
-            selected:function(event, ui){
-                $.get( "more_allowed?school_id=" + ui["selected"].value + "&priority=" + $('#clientPriority').html(),
-                    function( data ) {
-                        if (data === "true") {
-                            $("#studentID").val($('#students .ui-selected').attr('value'));
-                            eState(ui["selected"].value);
-                            $('#warnTeacher').empty();
-                        }
-                        else {
-                            dState();
-                            $('#warnTeacher').html(ui["selected"].innerHTML + " cannot get any more " + $('#clientPriority').html() + " priority clients");
-                        }
-                    });
-            }
-        });
-
-
-        $("#sectionNum").change( function() {
+    $('#students').selectable({
+        stop:function(event, ui){
+            $(event.target).children('.ui-selected').not(':first').removeClass('ui-selected'); // thanks to http://stackoverflow.com/questions/861668/how-to-prevent-multiple-selection-in-jquery-ui-selectable-plugin
+        },
+        unselected:function(event, ui){
             dState();
-            if (this.value != null) {
-                $.getJSON("../users/in_section.json?sn=" + this.value,
-                    function(json) {
-                        $("#students").empty();
-                        if (json.length > 0)
-                            for (i = 0; i<json.length; i++)
-                                $("#students").append("<li class='ui-widget-content clicker' value='" + json[i][0]+"'>"+json[i][2]+", "+json[i][1]+" ("+json[i][0]+")</li>");
-                        else
-                            $("#students").append("<li id='noAssign' class='ui-widget-content'>"+"There are no students in this section"+"</li>");
-                    });
-            }
-        });
-
-        $("#assignClient").click(function() {
-            $("#studentID").val($('#students .ui-selected').attr('value'));
-        });
-
-
-        $(".ui-widget-content").change(function() {
-            $("#assignClient").prop("disabled", false);
-
-        });
+        },
+        selected:function(event, ui){
+            $.get( "more_allowed?school_id=" + ui["selected"].value + "&priority=" + $('#clientPriority').html(),
+                function( data ) {
+                    if (data === "true") {
+                        $("#studentID").val($('#students .ui-selected').attr('value'));
+                        eState(ui["selected"].value);
+                        $('#warnTeacher').empty();
+                    }
+                    else {
+                        dState();
+                        $('#warnTeacher').html(ui["selected"].innerHTML + " cannot get any more " + $('#clientPriority').html() + " priority clients");
+                    }
+                });
+        }
     });
+
+    $(".sectionNum").click( function() {    	
+        dState();
+        populate($(this).text());
+    });
+
+
+    $("#assignClient").click(function() {
+        $("#studentID").val($('#students .ui-selected').attr('value'));
+    });
+
+
+    $(".ui-widget-content").change(function() {
+        $("#assignClient").prop("disabled", false);
+
+    });
+    
+    
+	populate($('#currentSection').html());
+    
+    var table =  $('.assign_table').dataTable({
+        "bPaginate" : false,
+        "iCookieDuration": 60,
+        "bStateSave": false,
+        "bAutoWidth": false,
+        "bScrollAutoCss": true,
+        "bProcessing": true,
+        "bRetrieve": true,
+        "bJQueryUI": true,
+        "sDom": '<"H"CTrf>t<"F"lip>',
+        "sScrollXInner": "110%",
+        "fnInitComplete": function() {
+            this.css("visibility", "visible");
+        },
+        "fnPreDrawCallback": $(".autoHide").hide()
+    }, $(".defaultTooltip").tooltip({
+        'selector': '',
+        'placement': 'left',
+        'container': 'body'
+    }));
+
+    $('table.assign_table').each(function(i,table) {
+        $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
+    });
+
+    table.fnSort( [ [1,'asc'] ] );
+
+    return table;
+    
 });
