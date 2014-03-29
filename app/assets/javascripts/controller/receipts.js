@@ -98,4 +98,26 @@ onLoad(function() {
     });
     
     $('#user_action_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT", minDate: new Date });
+    
+    onLoad(function() {
+    var table =  $('.action_table').dataTable({
+        "bPaginate" : false,
+        "bFilter" : false,
+        "iCookieDuration": 60,
+        "bStateSave": false,
+        "bAutoWidth": false,
+        "bInfo" : false,
+        "bProcessing": true,
+        "bRetrieve": true,
+        "bJQueryUI": true,
+        "fnInitComplete": function() {
+            this.css("visibility", "visible");
+        },
+        "fnPreDrawCallback": $(".autoHide").hide()
+    }, $(".defaultTooltip").tooltip({
+        'selector': '',
+        'placement': 'left',
+        'container': 'body'
+    }));
+  });
 });
