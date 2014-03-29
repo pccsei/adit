@@ -113,16 +113,24 @@ onLoad(function() {
             $("#sectionNumber").html( $("#" + caller.target.id).attr("name") );
             $("#section").val( $("#" + caller.target.id).attr("name") );
         });
+    
+  	$( "div.help_accordion" ).accordion({
+  		header: "> h3:not(.item)",
+   		collapsible: true,
+   		autoHeight: false,
+		heightStyle: "content",
+		active: false
+   	});
 
 
     // Custom method to make sure only letters are entered
     jQuery.validator.addMethod("letters_only", function(value, element) {
-        return this.optional(element) || /^[-a-zA-Z\s ?()'\/&-\.]+$/i.test(value);
+        return this.optional(element) || /^[-a-zA-Z\s ?()'\/&-\.;:]+$/i.test(value);
     });
 
 	// Custom method to make sure the email is a valid PCC email address
     jQuery.validator.addMethod("email_valid", function(value, element) {
-        return this.optional(element) || /^(([0-9a-zA-Z]+)@(students.pcci.edu))$/i.test(value);
+        return this.optional(element) || /^(([a-zA-Z]+([0-9]{4}))@(students.pcci.edu))$/i.test(value);
     });
     
     // Custom method to make sure the school ID is not all zeros
@@ -134,8 +142,8 @@ onLoad(function() {
     jQuery.validator.addMethod("valid_telephone", function(value, element) {
         return this.optional(element) || /^(([tT][oO][wW][nN])|(((17)\s*[-]\s*)?(\d{4})\s*[-]\s*([1-4]{1}))*)$/.test(value);
     });
-
-    $("#new_user").validate({
+    
+    $("#users").validate({
         rules: {
             "user[first_name]": {required: true, letters_only: true},
             "user[last_name]": {required: true, letters_only: true},
@@ -149,11 +157,11 @@ onLoad(function() {
         messages: {
             "user[first_name]": {
             	required: "Please enter the student's first name.",
-            	letters_only: "You entered an invalid character(s)."
+            	letters_only: "Will only accept letters and punctuation."
             },
             "user[last_name]": {
             	required: "Please enter the student's last name.",
-            	letters_only: "You entered an invalid character(s)."
+            	letters_only: "Will only accept letters and punctuation."
             },
             "user[school_id]": {
             	required: "Please enter the student's school id.",
@@ -174,8 +182,9 @@ onLoad(function() {
             	min: "Cannot be all zeros.",
             	rangelength: "Can only be a range of 3-4 digits long."
             },
-            "user[major]": "You entered an invalid character(s).",
-            "user[minor]": "You entered an invalid character(s)."
+            "user[major]": "Will only accept letters and punctuation.",
+            "user[minor]": "Will only accept letters and punctuation."
         }
+        $('.formError').delay(3000);
     });
 });

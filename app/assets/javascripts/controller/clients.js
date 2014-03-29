@@ -1,7 +1,7 @@
 onLoad(function() {
     // Custom method to make sure only letters are entered
     jQuery.validator.addMethod("letters_only", function(value, element) {
-        return this.optional(element) || /^[-a-zA-Z\s ?()'\/\\&-\.]+$/i.test(value);
+        return this.optional(element) || /^[-a-zA-Z\s ?()'\/\\&-\.;:]+$/i.test(value);
     });
 
     // Custom method to make sure the zipcode is not all zeros
@@ -11,7 +11,12 @@ onLoad(function() {
 
     // Custom method to make sure the telephone is valid
     jQuery.validator.addMethod("valid_telephone", function(value, element) {
-        return this.optional(element) || /^((((([(])?[1-9][0-9][0-9]([)])?)?\s*([-])?\s*)*([1-9][0-9][0-9])\s*([-])?\s*(\d{4})\s*)?(([eE][xX][tT])\.?\s*(\d{1,6}))?)$/.test(value);
+        return this.optional(element) || /^((((([(])?[1-9][0-9][0-9]([)])?)?\s*([-])?\s*)*([1-9][0-9][0-9])\s*([-])?\s*(\d{4})\s*)?(([eE][xX][tT])\.\s*(\d{1,7}))?)$/.test(value);
+    });
+    
+    // Custom method to make sure the zipcode is valid
+    jQuery.validator.addMethod("valid_zipcode", function(value, element) {
+        return this.optional(element) || /^(\d{4,5}([-]\d{4})?)$/.test(value);
     });
     
     // Custom method to make sure the email is valid
@@ -19,12 +24,12 @@ onLoad(function() {
         return this.optional(element) || /^([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$/.test(value);
     });
 
-    $("#new_client").validate({
+    $("#clients").validate({
         rules: {
             "client[business_name]": {required: true},
             "client[address]": {required: true},
             "client[city]": {required: true, letters_only: true},
-            "client[zipcode]": {required: true, digits: true, rangelength: [4,5], min: 1},
+            "client[zipcode]": {required: true, valid_zipcode: true},
             "client[contact_fname]": {letters_only: true},
             "client[contact_lname]": {letters_only: true},
             "client[telephone]": {required: true, valid_telephone: true},
@@ -35,16 +40,14 @@ onLoad(function() {
             "client[address]": "Please enter the address.",
             "client[city]": {
             	required: "Please enter a city",
-            	letters_only: "You entered an invalid character(s)."
+            	letters_only: "Will only accept letters and punctuation."
             },
             "client[zipcode]": {
             	required: "Please enter a zipcode.",
-            	digits: "Can only be digits (numbers 0-9).",
-            	rangelength: "Needs to be a range of 4-5 digits long.",
-            	min: "Cannot be all zeros."
+            	valid_zipcode: "Can either be 4 or 5 digits long, and may have \"-####\" for a zip code extension."
             },
-            "client[contact_fname]": "You entered an invalid character(s).",
-            "client[contact_lname]": "You entered an invalid character(s).",
+            "client[contact_fname]": "Will only accept letters and punctuation.",
+            "client[contact_lname]": "Will only accept letters and punctuation.",
             "client[telephone]": {
             	required: "Please enter a telephone number.",
             	valid_telephone: "Must be 7 or 10 (if using area code) digits and \"ext.\" followed with range of 1-6 digits (if using extension)."

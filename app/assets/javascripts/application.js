@@ -23,6 +23,7 @@
 //= require jquery.validate.additional-methods
 //= require jquery.ui.effect
 //= require jquery.ui.selectable
+//= require jquery.ui.all
 //= require turbolinks
 //= require_self
 //= require_directory .
