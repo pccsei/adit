@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def index
     @current = self.current_user
     @users = User.all
-    
+      
     @selected_section = get_selected_section
     @select_students = User.get_student_info(get_selected_project, get_selected_section, 3)
     
@@ -149,10 +149,26 @@ class UsersController < ApplicationController
     # elsif choice == "Show Both Inactive and Active Students"
     #   set_students_to_show(3)
     # else
-    User.do_selected_option(students, choice, student_manager_id, get_selected_project, params[:bonus_points], params[:bonus_comment])
+    
     # end
 
-    redirect_to users_url
+    # '' represents if the choice is just left as the default
+    if choice != ''
+      if students
+        success_state, message = User.do_selected_option(students, choice, student_manager_id, get_selected_project, params[:bonus_points], params[:bonus_comment])
+        if success_state == 'success'
+          redirect_to users_url, :flash => { :success => message }
+        elsif success_state == 'error'
+          redirect_to users_url, :flash => { :error => message }
+        else
+          redirect_to users_url, :flash => { :notice => message }
+        end
+      else 
+        redirect_to users_url, :flash => { :error => "No Students Selected." }      
+      end
+    else
+      redirect_to users_url, :flash => { :error => "No Option Selected." }
+    end
   end
 
 
@@ -240,8 +256,13 @@ class UsersController < ApplicationController
   # Change the students status
   def change_is_enabled
     member = Member.find params[:id]
+    user = User.find(member.user_id)
     Member.change_student_status(member)
-    redirect_to :back
+    if member.is_enabled == true
+      redirect_to users_url, :flash => { :success => "#{user.first_name} #{user.last_name} has been enabled." }
+    else
+      redirect_to users_url, :flash => { :success => "#{user.first_name} #{user.last_name} has been disabled." }
+    end
   end
   
   def delete_incorrect

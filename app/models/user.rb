@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
 
   def self.get_student_info(project, section, choice = 1)
     members = Member.student_members(project, section, choice)
-    Struct.new('Person', :id, :first_name, :last_name, :school_id, :email, :phone,
+    Struct.new('Person', :id, :first_name, :last_name, :school_id, :email, :phone, :role,
                :student_manager_name, :section_number, :major, :minor, :box, :class, :is_enabled, :m_id)
 
     students = []
@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
       students[i]                      = Struct::Person.new
       students[i].id                   = member.user_id
       students[i].m_id                 = member.id
+      students[i].role                 = member.user.role
       students[i].first_name           = member.user.first_name
       students[i].last_name            = member.user.last_name
       students[i].school_id            = member.user.school_id
@@ -175,10 +176,26 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Good luck...
   def User.do_selected_option(students, choice, student_manager_id, selected_project, bonus_points, bonus_comment)
     if student_manager_id
       student_manager = User.find(student_manager_id)
     end
+
+    flash_positive_names=[]
+    flash_team_leaders_names=[]
+    flash_other_team_leaders_names=[]
+    flash_already_teammate_names=[]
+    flash_other_team_names=[]
+    flash_already_team_leaders=[]
+    flash_already_not_team_leaders=[]
+    flash_not_on_a_team=[]
+    flash_message = ""
+
+    # 1 will represent success, 2 failure, 3 mixed
+    reponse_int = 0
+    is_added_positive = false
+    is_added_negative = false
 
     # do selected option, as long as some students are selected
     if students != nil
@@ -186,20 +203,131 @@ class User < ActiveRecord::Base
         for i in 0..students.count-1
           user = User.find(students[i])
           member = Member.find_by(user_id: students[i])
-          user.role = 2
-          member.parent_id = user.id
-          member.save
-          user.save
+          if user.role != 2
+            user.role = 2
+            member.parent_id = user.id
+            if member.save && user.save
+              if !is_added_positive
+                reponse_int += 1
+                is_added_positive = true
+              end
+              flash_positive_names[i] = "#{user.first_name} #{user.last_name}"
+            end
+          else
+            if !is_added_negative
+              reponse_int += 2
+              is_added_negative = true
+            end
+            flash_already_team_leaders[i] = "#{user.first_name} #{user.last_name}"
+          end
         end
+
+        if reponse_int == 1
+        reponse = 'success'
+        elsif reponse_int == 2
+          reponse = 'error'
+        else
+          response = 'neutral'
+        end
+
+        # Most of the following code is for verb tense
+        flash_positive_names.compact!
+        if flash_positive_names.count > 0
+          if flash_positive_names.count == 1
+            flash_message += flash_positive_names[0] + " is now a team leader. "
+          else
+            if flash_positive_names.count == 2
+              flash_message += flash_positive_names.join(' and ')
+            else
+              flash_message += flash_positive_names[0..-2].join(', ') + ", and " + flash_positive_names[-1].to_s
+            end
+            flash_message += " are now team leaders. "
+          end
+        end
+
+        if flash_positive_names.count > 0 && flash_already_team_leaders.count > 0
+          flash_message += "However, "
+        end
+
+        flash_already_team_leaders.compact!
+        if flash_already_team_leaders.count > 0
+          if flash_already_team_leaders.count == 1
+            flash_message += flash_already_team_leaders[0] + " is already a team leader."
+          else
+            if flash_already_team_leaders.count == 2
+              flash_message += flash_already_team_leaders.join(' and ')
+            else
+              flash_message += flash_already_team_leaders[0..-2].join(', ') + ", and " + flash_already_team_leaders[-1].to_s
+            end
+            flash_message += " are already team leaders."
+          end
+        end
+
+        return reponse, flash_message
       end
 
       if choice == 'Demote Student'
         for i in 0..students.count-1
-          team_leader = User.find(students[i])
-          Member.destroy_team(team_leader)
+          user = User.find(students[i])
+          if user.role == 2
+            Member.destroy_team(user)
+            if !is_added_positive
+              reponse_int += 1
+              is_added_positive = true
+            end
+            flash_positive_names[i] = "#{user.first_name} #{user.last_name}"
+          else
+            if !is_added_negative
+              reponse_int += 2
+              is_added_negative = true
+            end
+            flash_already_not_team_leaders[i] = "#{user.first_name} #{user.last_name}"
+          end
         end
-      end
 
+        if reponse_int == 1
+        reponse = 'success'
+        elsif reponse_int == 2
+          reponse = 'error'
+        else
+          response = 'neutral'
+        end
+
+        # Most of the following code is for verb tense
+        flash_positive_names.compact!
+        if flash_positive_names.count > 0
+          if flash_positive_names.count == 1
+            flash_message += flash_positive_names[0] + " is now just a student. The team has been removed. "
+          else
+            if flash_positive_names.count == 2
+              flash_message += flash_positive_names.join(' and ')
+            else
+              flash_message += flash_positive_names[0..-2].join(', ') + ", and " + flash_positive_names[-1].to_s
+            end
+            flash_message += " are now just students. Their teams have been removed. "
+          end
+        end
+
+        if flash_positive_names.count > 0 && flash_already_not_team_leaders.count > 0
+          flash_message += "However, "
+        end
+
+        flash_already_not_team_leaders.compact!
+        if flash_already_not_team_leaders.count > 0
+          if flash_already_not_team_leaders.count == 1
+            flash_message += flash_already_not_team_leaders[0] + " was not a student manager to begin with."
+          else
+            if flash_already_not_team_leaders.count == 2
+              flash_message += flash_already_not_team_leaders.join(' and ')
+            else
+              flash_message += flash_already_not_team_leaders[0..-2].join(', ') + ", and " + flash_already_not_team_leaders[-1].to_s
+            end
+            flash_message += " were not student managers to begin with."
+          end
+        end
+
+        return reponse, flash_message
+      end
 
       if choice == 'Inactivate Students'
         for i in 0..students.count-1
@@ -222,27 +350,219 @@ class User < ActiveRecord::Base
         if student_manager
           for i in 0..students.count-1
             member = Member.find_by(user_id: students[i])
-            if Member.find_by(parent_id: student_manager).section_number == member.section_number
-              if User.find(students[i]).role == 2 && member.parent_id != student_manager.id
-                Member.destroy_team(User.find(students[i]))
+            user = User.find(students[i])
+            if user.role == 1
+              if !member.parent_id
+                  member.parent_id = student_manager.id
+                  if !is_added_positive
+                    reponse_int += 1
+                    is_added_positive = true
+                  end
+                  if member.save
+                    flash_positive_names[i] = "#{user.first_name} #{user.last_name}"
+                  end
+              else
+                if member.parent_id != student_manager.id
+                  flash_other_team_names[i] = "#{user.first_name} #{user.last_name}"
+                  if !is_added_negative
+                    reponse_int += 2
+                    is_added_negative = true
+                  end
+                else
+                  flash_already_teammate_names[i] = "#{user.first_name} #{user.last_name}"
+                  if !is_added_negative
+                    reponse_int += 2
+                    is_added_negative = true
+                  end
+                end
               end
-              member.parent_id = student_manager.id
-              member.save
+            else
+              if member.parent_id == student_manager.id
+                flash_team_leader_name = "#{user.first_name} #{user.last_name}"
+                if !is_added_negative
+                  reponse_int += 2
+                  is_added_negative = true
+                end               
+              else
+                flash_other_team_leaders_names[i] = "#{user.first_name} #{user.last_name}"
+                if !is_added_negative
+                  reponse_int += 2
+                  is_added_negative = true
+                end
+              end
             end
           end
         end
+
+        if reponse_int == 1
+          reponse = 'success'
+        elsif reponse_int == 2
+          reponse = 'error'
+        else
+          response = 'neutral'
+        end
+
+        # Most of the following code is for verb tense
+        flash_positive_names.compact!
+        if flash_positive_names.count > 0
+          if flash_positive_names.count == 1
+            flash_message += flash_positive_names[0] + " was "
+          else
+            if flash_positive_names.count == 2
+              flash_message += flash_positive_names.join(' and ')
+            else
+              flash_message += flash_positive_names[0..-2].join(', ') + ", and " + flash_positive_names[-1].to_s
+            end
+            flash_message += " were "
+          end
+          flash_message += "added to #{student_manager.first_name} #{student_manager.last_name}'s team. "
+        end
+
+        if flash_positive_names.count > 0 && (flash_other_team_leaders_names.count > 0  || flash_already_teammate_names.count > 0 || flash_other_team_names.count > 0 || flash_team_leader_name )
+          flash_message += "However, "
+        end
+
+        if flash_team_leader_name
+          flash_message += "#{student_manager.first_name} #{student_manager.last_name}'s is already the team leader of this team. "
+        end
+
+        flash_other_team_leaders_names.compact!
+        if flash_other_team_leaders_names.count > 0
+          if flash_other_team_leaders_names.count == 1
+            flash_message += flash_other_team_leaders_names[0] + " is a team leader, and so was"
+          else
+            if flash_other_team_leaders_names.count == 2
+              flash_message += flash_other_team_leaders_names.join(' and ')
+            else
+              flash_message += flash_other_team_leaders_names[0..-2].join(', ') + ", and " + flash_other_team_leaders_names[-1].to_s
+            end
+            flash_message += " are team leaders, and so were"
+          end
+          flash_message += " not assigned to #{student_manager.first_name} #{student_manager.last_name}'s team. "
+        end
+
+        flash_already_teammate_names.compact!
+        if flash_already_teammate_names.count > 0
+          if flash_already_teammate_names.count == 1
+            flash_message += flash_already_teammate_names[0] + " is already a teammate"
+          else
+            if flash_already_teammate_names.count == 2
+              flash_message += flash_already_teammate_names.join(' and ')
+            else
+              flash_message += flash_already_teammate_names[0..-2].join(', ') + ", and " + flash_already_teammate_names[-1].to_s
+            end
+            flash_message += " are already teammates of"
+          end
+          flash_message += " of #{student_manager.first_name} #{student_manager.last_name}'s team. "
+        end
+
+        flash_other_team_names.compact!
+        if flash_other_team_names.count > 0
+          if flash_other_team_names.count == 1
+            flash_message += flash_other_team_names[0] + " is already a teammate"
+          else
+            if flash_other_team_names.count == 2
+              flash_message += flash_other_team_names.join(' and ')
+            else
+              flash_message += flash_other_team_names[0..-2].join(', ') + ", and " + flash_other_team_names[-1].to_s
+            end
+            flash_message += " are already teammates"
+          end
+          flash_message += " of a different team. "
+        end
+
+        return reponse, flash_message
       end
 
       if choice == 'Remove from Team'
         for i in 0..students.count-1
+          user = User.find(students[i])
           member = Member.find_by(user_id: students[i])
-          if User.find(students[i]).role == 1
-            member.parent_id = nil
-            member.save
+          if user.role == 1
+            if member.parent_id
+              member.parent_id = nil
+              if member.save
+                if !is_added_positive
+                  reponse_int += 1
+                  is_added_positive = true
+                end
+                flash_positive_names[i] = "#{user.first_name} #{user.last_name}"
+              end
+            else
+              if !is_added_negative
+                reponse_int += 2
+                is_added_negative = true
+              end
+              flash_not_on_a_team[i] = "#{user.first_name} #{user.last_name}"
+            end
+          else
+            if !is_added_negative
+              reponse_int += 2
+              is_added_negative = true
+            end
+            flash_team_leaders_names[i] = "#{user.first_name} #{user.last_name}"
           end
         end
+
+        if reponse_int == 1
+          reponse = 'success'
+        elsif reponse_int == 2
+          reponse = 'error'
+        else
+          response = 'neutral'
+        end
+
+        # Most of the following code is for verb tense
+        flash_positive_names.compact!
+        if flash_positive_names.count > 0
+          if flash_positive_names.count == 1
+            flash_message += flash_positive_names[0] + " is now not part of a team. "
+          else
+            if flash_positive_names.count == 2
+              flash_message += flash_positive_names.join(' and ')
+            else
+              flash_message += flash_positive_names[0..-2].join(', ') + ", and " + flash_positive_names[-1].to_s
+            end
+            flash_message += " are now not part of a team. "
+          end
+        end
+
+        if flash_positive_names.count > 0 && (flash_not_on_a_team.count > 0 || flash_team_leaders_names.count > 0)
+          flash_message += "However, "
+        end
+
+        flash_not_on_a_team.compact!
+        if flash_not_on_a_team.count > 0
+          if flash_not_on_a_team.count == 1
+            flash_message += flash_not_on_a_team[0] + " is already not a part of any team. "
+          else
+            if flash_not_on_a_team.count == 2
+              flash_message += flash_not_on_a_team.join(' and ')
+            else
+              flash_message += flash_not_on_a_team[0..-2].join(', ') + ", and " + flash_not_on_a_team[-1].to_s
+            end
+            flash_message += " are already not a part of any team. "
+          end
+        end
+
+        flash_team_leaders_names.compact!
+        if flash_team_leaders_names.count > 0
+          if flash_team_leaders_names.count == 1
+            flash_message += flash_team_leaders_names[0] + " is a team leader of another team. Demote this student to remove the team. "
+          else
+            if flash_team_leaders_names.count == 2
+              flash_message += flash_team_leaders_names.join(' and ')
+            else
+              flash_message += flash_team_leaders_names[0..-2].join(', ') + ", and " + flash_team_leaders_names[-1].to_s
+            end
+            flash_message += " are team leaders. Demote them to remove their teams. "
+          end
+        end
+
+        return reponse, flash_message
       end
 
+      # Change this function after the EXPO, so that it validates user input as well.
       if choice == 'Assign Bonus Points'
         if bonus_points != 0 && bonus_points != nil
           for i in 0..students.count-1
@@ -251,7 +571,16 @@ class User < ActiveRecord::Base
             bonus.comment = bonus_comment
             bonus.user_id = User.find(students[i]).id
             bonus.project_id = selected_project.id
-            bonus.save
+            if bonus.save
+              if students.count == 1
+                return flash_positive_message += "#{user.first_name} #{user.last_name} was given #{bonus_points} bonus points."
+              elsif i < students.count-1
+                # If only two names do not add a comma
+                flash_positive_message += ("#{user.first_name} #{user.last_name}" + (students.count == 2 ? ' ' : ', '))
+              else
+                return flash_positive_message += "and #{user.first_name} #{user.last_name} were given #{bonus_points} bonus points."
+              end
+            end
           end
         end
       end

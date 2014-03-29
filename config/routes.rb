@@ -57,7 +57,7 @@ WhiteCollar::Application.routes.draw do
   match '/no_project', to: 'sessions#no_project', via: 'get'
   match '/receipts/index/user', to: 'receipts#index', via: 'get'
   
-  post "versions/:id/revert" => "versions#revert", :as => "revert_version" #added by Miyashita for testing versioning undo
+  post "versions/:id/revert_action" => "versions#revert_action", :as => "revert_action_version" #added by Miyashita for testing versioning undo
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -63,4 +63,5 @@ onLoad(function() {
     });
     
     $('#foo_user_action_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT", minDate: new Date });
+    
 });
