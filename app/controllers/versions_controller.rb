@@ -21,4 +21,15 @@ class VersionsController < ApplicationController
     # Find Receipt id from action.receipt id and set contact, presentation, or sale based on action_type.name
     redirect_to :back, :notice => "Undo Successful"
   end
+  
+  
+  
+  def revert_assign
+    @version = PaperTrail::Version.find(params[:id])
+    @version.reify.save!
+    redirect_to :back, :notice => "Undo Successful"
+  end
+  
+  
+  
 end

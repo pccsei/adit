@@ -3,6 +3,7 @@ class Receipt < ActiveRecord::Base
   belongs_to :user
   has_many   :actions, dependent: :destroy
   has_one :client, through: :tickets
+  has_paper_trail
   
   # def self.released_receipts
     # all :conditions => {['']}
