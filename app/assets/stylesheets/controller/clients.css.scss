@@ -16,7 +16,6 @@
   margin: .4em !important;
 }
 
-
 .clients #back{
 	float: left;
 	margin-left: 10.5em;
@@ -192,3 +191,8 @@
 .warning { color: red}
 
 .clickable {cursor: pointer}
+
+p.addMargin {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
