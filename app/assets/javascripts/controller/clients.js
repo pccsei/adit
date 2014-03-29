@@ -11,7 +11,12 @@ onLoad(function() {
 
     // Custom method to make sure the telephone is valid
     jQuery.validator.addMethod("valid_telephone", function(value, element) {
-        return this.optional(element) || /^((((([(])?[1-9][0-9][0-9]([)])?)?\s*([-])?\s*)*([1-9][0-9][0-9])\s*([-])?\s*(\d{4})\s*)?(([eE][xX][tT])\.?\s*(\d{1,6}))?)$/.test(value);
+        return this.optional(element) || /^((((([(])?[1-9][0-9][0-9]([)])?)?\s*([-])?\s*)*([1-9][0-9][0-9])\s*([-])?\s*(\d{4})\s*)?(([eE][xX][tT])\.?\s*(\d{1,7}))?)$/.test(value);
+    });
+    
+    // Custom method to make sure the zipcode is valid
+    jQuery.validator.addMethod("valid_zipcode", function(value, element) {
+        return this.optional(element) || /^(\d{4,5}([-]\d{4})?)$/.test(value);
     });
     
     // Custom method to make sure the email is valid
@@ -24,7 +29,7 @@ onLoad(function() {
             "client[business_name]": {required: true},
             "client[address]": {required: true},
             "client[city]": {required: true, letters_only: true},
-            "client[zipcode]": {required: true, digits: true, rangelength: [4,5], min: 1},
+            "client[zipcode]": {required: true, valid_zipcode: true, rangelength: [4,11], min_digit: (0001)},
             "client[contact_fname]": {letters_only: true},
             "client[contact_lname]": {letters_only: true},
             "client[telephone]": {required: true, valid_telephone: true},
@@ -52,7 +57,6 @@ onLoad(function() {
             "client[email]": "Must be in a standard email format."
         }
     });
-    
     function dState(){
         if ($("#assignClient").is(":enabled"))
             $("#assignClient").prop("disabled", true);
@@ -62,6 +66,20 @@ onLoad(function() {
         enable = typeof enable !== 'undefined' ? enable : -1;
         if ($("#assignClient").is(":disabled") && enable != 0)
             $("#assignClient").prop("disabled", false);
+    }
+    
+    function populate(section){
+    	if (section != null) {
+            $.getJSON("../users/in_section.json?sn=" + section,
+                function(json) {
+                    $("#students").empty();
+                    if (json.length > 0)
+                        for (i = 0; i<json.length; i++)
+                            $("#students").append("<li class='clickable ui-widget-content clicker' value='" + json[i][0]+"'>"+json[i][2]+", "+json[i][1]+" ("+json[i][0]+")</li>");
+                    else
+                        $("#students").append("<li id='noAssign' class='clickable ui-widget-content'>"+"There are no students in this section"+"</li>");
+                });
+        }    	
     }
 
     $('#students').selectable({
@@ -87,20 +105,11 @@ onLoad(function() {
         }
     });
 
-    $("#sectionNum").change( function() {
+    $(".sectionNum").click( function() {    	
         dState();
-        if (this.value != null) {
-            $.getJSON("../users/in_section.json?sn=" + this.value,
-                function(json) {
-                    $("#students").empty();
-                    if (json.length > 0)
-                        for (i = 0; i<json.length; i++)
-                            $("#students").append("<li class='clickable ui-widget-content clicker' value='" + json[i][0]+"'>"+json[i][2]+", "+json[i][1]+" ("+json[i][0]+")</li>");
-                    else
-                        $("#students").append("<li id='noAssign' class='clickable ui-widget-content'>"+"There are no students in this section"+"</li>");
-                });
-        }
+        populate($(this).text());
     });
+
 
     $("#assignClient").click(function() {
         $("#studentID").val($('#students .ui-selected').attr('value'));
@@ -111,5 +120,37 @@ onLoad(function() {
         $("#assignClient").prop("disabled", false);
 
     });
+    
+    
+	populate($('#currentSection').html());
+    
+    var table =  $('.assign_table').dataTable({
+        "bPaginate" : false,
+        "iCookieDuration": 60,
+        "bStateSave": false,
+        "bAutoWidth": false,
+        "bScrollAutoCss": true,
+        "bProcessing": true,
+        "bRetrieve": true,
+        "bJQueryUI": true,
+        "sDom": '<"H"CTrf>t<"F"lip>',
+        "sScrollXInner": "110%",
+        "fnInitComplete": function() {
+            this.css("visibility", "visible");
+        },
+        "fnPreDrawCallback": $(".autoHide").hide()
+    }, $(".defaultTooltip").tooltip({
+        'selector': '',
+        'placement': 'left',
+        'container': 'body'
+    }));
 
+    $('table.assign_table').each(function(i,table) {
+        $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
+    });
+
+    table.fnSort( [ [1,'asc'] ] );
+
+    return table;
+    
 });

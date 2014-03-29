@@ -20,8 +20,8 @@
     <% @student_array.each do |student| %>
       <tr>
         <% if current_user.role == 3 %>
-          <td align ="center"><%= link_to student.first_name, my_receipts_path(id: student.id, page: request.url) %></td>
-          <td align ="center"><%= link_to student.last_name, my_receipts_path(id: student.id, page: request.url) %></td>
+          <td align ="left"><%= link_to student.first_name, my_receipts_path(id: student.id, page: request.url) %></td>
+          <td align ="left"><%= link_to student.last_name, my_receipts_path(id: student.id, page: request.url) %></td>
           <td align ="center"><%= student.student_manager %></td>
           <td align ="center"><%= student.section %></td>
         <% else %>
@@ -34,7 +34,7 @@
         <td align ="right"><%= number_with_precision(student.sales, precision: 2) %></td>
         <td align ="right"><%= student.points %></td>
         <% if student.last_activity.present? %>
-        	<td align ="center"><%= time_ago_in_words(student.last_activity) + ' ago' %></td>
+        	<td align ="center"><%= student.last_activity.to_formatted_s(:long_ordinal) %></td>
         <% else %>
         	<td></td>
         <% end %>

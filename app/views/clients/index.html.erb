@@ -6,10 +6,10 @@
 </p> -->
 
 <% if get_selected_project.is_active == false %>
-   <p class='info_bar alert-notice'>You must switch to an active project to assign clients.</p>
+   <p class='alert-notice'>You must switch to an active project to assign clients.</p>
 <% end%>
 
-<table class="display default_table" id="client_list">
+<table class="display assign_table" id="client_list">
   <thead>
   <tr>
     <th>Owner</th>
@@ -36,10 +36,10 @@
                      <% if ticket.student_fname %>
                          <%= (ticket.student_fname + ' ' +  ticket.student_lname + '<br />(' + ticket.student_id + ')').html_safe %>
                       <% else %>
-                         <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-primary btn-sm assign'} %>
+                         <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-link btn-sm assign'} %>
                       <% end %>
                   <% else%>
-                      <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-primary btn-sm assign', disabled: true }%>
+                      <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-link btn-sm assign', disabled: true }%>
                    <% end %>
               <% else %>
                   <%= 'Ticket does not exist for this client' %>
@@ -49,7 +49,7 @@
         <td><%= ticket.address %></td>
         <td><%= ticket.city %></td>
         <td><%= ticket.state %></td>
-        <td><%= ticket.zipcode %>
+        <td><%= ticket.zipcode %></td>
         <td><%= render_phone(ticket.telephone) %></td>
         <td><%= ticket.contact_title %></td>
         <td><%= ticket.contact_fname %></td>

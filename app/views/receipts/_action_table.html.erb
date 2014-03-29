@@ -1,51 +1,50 @@
+<h3 id="table_title">What I have accomplished working with this client</h3>
 
-<h3 id="table_title">What I have accomplished working with this client</h3>
+<table class="display action_table">
 
-<table class="display default_table">
-  <thead>
-  <tr>
-    <th>Action</th>
-    <th>Time</th>
-    <th>Points</th>
-    <th>Comment</th>
-    <th class="empty"></th>
-  </tr>
-  </thead>
-
-  <tbody>
-<!-- Determines if the action is there so the student can only delete in order -->
-  <% ordered_delete = Array["no", "no", "no", "no"] %>
-  <% receipt.actions.each do |a| %>
-  	<% if a.action_type.name == "First Contact" %>
-    	<% ordered_delete[0] = "yes" %>
-    <% elsif a.action_type.name == 'Presentation' %>
-        <% ordered_delete[1] = "yes" %>
-    <% elsif (a.action_type.name == 'New Sale' || a.action_type.name == 'Old Sale') %>
-        <% ordered_delete[2] = "yes" %>
-    <% elsif a.action_type.name == 'Comment' %>
-    	<% ordered_delete[3] = "yes" %>
-    <% else %>
-    	<% ordered_delete[0] = "no" %>
-    	<% ordered_delete[1] = "no" %>
-    	<% ordered_delete[2] = "no" %>
-    <% end %>
-  <% end %>
-  
-  <% receipt.actions.each do |a| %>
-      <tr>
-        <td><%= a.action_type.name %></td>
-        <td><%= a.user_action_time.to_formatted_s(:long_ordinal) %></td>
-        <td><%= a.action_type.point_value %></td>
-        <td><%= tooltipify(a.comment)%></td>
-        <% if a.action_type.name == 'First Contact' && (ordered_delete[1] == "yes" || ordered_delete[2] == "yes") %>
-        	<td></td>
-        <% elsif a.action_type.name == 'Presentation' && ordered_delete[2] == "yes" %>
-        	<td></td>
-        <% else %>
-        	<td><%= link_to 'Delete', a, method: :delete,
-                        data: { confirm: 'Are you sure?' } unless Receipt.is_released(receipt) %></td>
-        <% end %>
-      </tr>
-  <% end %>
-  </tbody>
+  <thead>
+  <tr>
+    <th>Action</th>
+    <th>Time</th>
+    <th>Points</th>
+    <th>Comment</th>
+    <th class="empty"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+<!-- Determines if the action is there so the student can only delete in order -->
+  <% ordered_delete = Array["no", "no", "no", "no"] %>
+  <% receipt.actions.each do |a| %>
+  	<% if a.action_type.name == "First Contact" %>
+    	<% ordered_delete[0] = "yes" %>
+    <% elsif a.action_type.name == 'Presentation' %>
+        <% ordered_delete[1] = "yes" %>
+    <% elsif (a.action_type.name == 'New Sale' || a.action_type.name == 'Old Sale') %>
+        <% ordered_delete[2] = "yes" %>
+    <% elsif a.action_type.name == 'Comment' %>
+    	<% ordered_delete[3] = "yes" %>
+    <% else %>
+    	<% ordered_delete[0] = "no" %>
+    	<% ordered_delete[1] = "no" %>
+    	<% ordered_delete[2] = "no" %>
+    <% end %>
+  <% end %>
+  
+  <% receipt.actions.each do |a| %>
+      <tr>
+        <td><%= a.action_type.name %></td>
+        <td><%= a.user_action_time.to_formatted_s(:long_ordinal) %></td>
+        <td><%= a.action_type.point_value %></td>
+        <td><%= tooltipify(a.comment, 60)%></td>
+        <% if a.action_type.name == 'First Contact' && (ordered_delete[1] == "yes" || ordered_delete[2] == "yes") %>
+        	<td></td>
+        <% elsif a.action_type.name == 'Presentation' && ordered_delete[2] == "yes" %>
+        	<td></td>
+        <% else %>
+        	<td><%= link_to 'Delete', a, method: :delete %></td>
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
 </table>

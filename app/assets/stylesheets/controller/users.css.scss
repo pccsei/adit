@@ -1,27 +1,11 @@
-.users #select-section{
-	margin-top: 0em;
-}
-
-.users .teacher_info{
-	margin-top: 0em;
-}
-
 .users #info_message{
 	width: 40em;
 	margin-top: 6em;
 }
 
-
 .users .panel-primary{
 	margin-top: 7em;
 	border-color: black;
-}
-
-.users .panel-primary > .panel-heading {
-    color: #FFF;
-    background-color: black;
-    border-color: black;
-	height: 3em;
 }
 
 .users textarea {
@@ -36,12 +20,9 @@
   margin-left: .1em;
 }
 
-
-.users #select_section{
-	margin-bottom: 1em !important;
-	margin-top: 6em !important;
+.users #create_section {
+  margin-top: 1em !important;
 }
-
 .users #select_teacher{
 	margin-bottom: 3em !important;
 	margin-top: 1em !important;
@@ -194,27 +175,24 @@
 	margin-top: 2em;
 }
 
-.users #new_section{
-	margin-top: 5em;
-	float: right;
-	margin-right: -32.4em;
+
+.users #new_section {
+margin-top: -2em;
+float: right;
+margin-right: 1.3em;
+font-size: 1.2em;
 }
 
-.users #new_section h5 .btn-link{
-	font-size: 15px;
-	margin-right: 2em;
+.users #add_student {
+font-size: 1.2em;
+margin-left: -.4em;
+margin-bottom: 2em !important;
 }
 
-.users #add_student{
-	font-size: 1.2em;
-	margin-top: 5em;
-	margin-left: -.4em;
-}
-
-.users #action_submit{
-	margin-left: 1em;
-	margin-bottom: 2em !important;
-	margin-top: -.1em !important;
+.users #action_submit {
+margin-left: 1em;
+margin-top: .1em !important;
+padding: .4em;
 }
 
 .users #add_teacher{

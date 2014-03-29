@@ -1,6 +1,7 @@
 class Action < ActiveRecord::Base
   belongs_to :action_type
   belongs_to :receipt
+  has_paper_trail
   
   validates :user_action_time, presence: true
   validates :points_earned, presence: true
@@ -52,7 +53,7 @@ class Action < ActiveRecord::Base
     end
   if !contact && !presentation && !sale && comment
     comment_action                  = Action.new
-    comment_action.user_action_time = Time.now
+    comment_action.user_action_time = user_action_time
     comment_action.points_earned    = (ActionType.find_by(name: 'Comment')).point_value
     comment_action.comment          = comment
     comment_action.action_type_id      = (ActionType.find_by(name: 'Comment')).id

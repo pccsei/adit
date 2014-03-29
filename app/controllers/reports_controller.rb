@@ -63,7 +63,7 @@ class ReportsController < ApplicationController
        @receipts = Receipt.selected_project_receipts(get_selected_project)
        if current_user.role == 3
         @students = User.current_student_users(get_selected_project, get_selected_section)
-       else current_user.role == 2
+       elsif current_user.role == 2
         @students = User.team_members(get_selected_project, current_user.id)
        end
 

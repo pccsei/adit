@@ -16,6 +16,7 @@ ruby '1.9.3'
 gem 'rails',                   '4.0.0'
 
 gem 'bootstrap-sass',          '~> 3.0.2.0' # Styling presets
+gem 'bourbon',                 '~> 3.1.8'   # Lightweight library of SASS mixins
 gem 'coffee-rails',            '~> 4.0.0'   # CoffeeScript for .js.coffee assets and views
 gem 'ffi',                     '~> 1.9.3'
 gem 'figaro',                  '~> 0.7.0'
@@ -32,6 +33,7 @@ gem 'thin',                    '~> 1.6.2'   # Rails server
 gem 'turbolinks',              '~> 2.2.1'   # Makes following links faster
 gem 'uglifier',                '>= 1.3.0'   # Compressor for JavaScript assets
 gem 'will_paginate',           '~> 3.0.5'
+gem 'paper_trail'
 
 group :development do
   gem 'better_errors',         '~> 1.1.0'

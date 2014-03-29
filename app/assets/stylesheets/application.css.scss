@@ -20,58 +20,156 @@
  *= require_directory .
 */
 
+@import "bourbon"; // This is for SASS mixins like gradients
+
 /* universal */
 
+body {
+  padding: 0;
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 1.4em;
+}
 
-// Yes, SASS is awesome :) - Rob
-.navbar-default .navbar-nav > li > a {
-  .users.index &#manage_students,
-  .clients.index &#assign_clients,
-  .approve &#approve_clients,
-  .receipts &#receipts,
-  .tickets &#choose_clients,
-  .clients &#submit_client,
-  .users.need_help &#help,
-  {
-  	color: black;
-  	background-color: lightgray;
+.container, #container {
+  margin: 0 auto;
+  max-width: 90em;
+  padding: 0 2em;
+}
+
+#container {
+  padding: 4em 2em;
+  margin-top: 5em;
+  margin-bottom: 8em !important;
+  border-radius: 4px;
+}
+
+a, a:link, a:visited {
+  color: #DC0000;
+  text-decoration: underline;
+}
+
+a:hover, a:active {
+  color: #990000;
+}
+
+/*buttons*/
+a.btn-primary {
+  &, &:link, &:visited {
+    color: #fff;
+    text-decoration: none;
   }
 }
 
-.panel-primary > .panel-heading {
-    color: #FFF;
-    background-color: #000;
-    border-color: #000;
-    height: 3em;
+.btn-primary {
+  background-color: #DC0000;
+  border-color: #AAA;
+  margin-top: 1em !important;
+  &:hover, &:focus, &:active, &.active {
+    background-color: #A30D0D;
+  }
+  &:active, &.active {
+    background-image: none;
+  }
+  &.disabled, &[disabled], fieldset[disabled] & {
+    &, &:hover, &:focus, &:active, &.active {
+      background-color: #428bca;
+      border-color: #357ebd;
+    }
+  }
+  .badge {
+    color: #428bca;
+    background-color: #fff;
+  }
 }
 
-#select_section{
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #A30D0D;
+  background-image: none;
+  border-color: #AAA;
+}
+
+.fake-link {
+  cursor: pointer;
+}
+
+/* typography */
+* {
+  margin-bottom: 0 !important;
+}
+
+*:first-child {
+  margin-top: 0 !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+  clear: both;
+  margin-top: 1.5em;
+}
+
+p {
+  margin: 1em 0 0 0;
+}
+
+p, li {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+/*flash*/
+.alert-error, .alert-alert, .alert-success, .alert-notice {
+  margin-bottom: 20px !important;
+  text-align: left;
+  margin-top: 20px;
+  width: 60em;
+}
+
+.alert-error, .alert-alert {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+}
+
+.alert-success, .alert-notice {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+}
+
+.panel-primary > .panel-heading {
+  color: white;
+  background-color: black;
+  border-color: black;
+  height: 3em;
+}
+
+#select_section {
   margin-bottom: 1em !important;
   margin-top: 6em !important;
-}
-
-#select-section .btn-default{
-	background-color: #DC0000 !important;
-	color: #FFF !important;
-}
-
-#select-section{
 	color: #FFF;
+  .btn-default {
+  	background-color: #DC0000 !important;
+  	color: #FFF !important;
+  }
 }
+
 
 .error{
 	color: #DC0000;	
 }
 
 .page-header {
-    width: 10em;
+  width: 10em;
 }
 
-.info_bar{
-	margin-top: 5.2em !important;
+.info_bar {
 	font-size: 1.4em;
 }
 
+/* Teacher Info Box */
 .teacher_info .panel-body {
 	padding: 5px;
 	font-size: 12px;
@@ -82,34 +180,20 @@
 	text-align: right;
 }
 
-
 .teacher_info{
 	font-size: 1.2em;
 	width: 13.5em;
 	margin: 0 auto;
 	float: right;
-	margin-top: -40px;
+	margin-top: -70px;
 	height: 4em;
-	margin-bottom: 1em !important;
+	margin-bottom: 3em !important;
 }
 
 #select-section{
 	float: right;
 	padding-right: 2em;
-	margin-top: -3em;
-}
-
-body {
-  padding: 0;
-  color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 1.4em;
-  //background: url(subtlenet2.png);  
-}
-
-.navbar-nav a.dropdown-toggle {
-  cursor: pointer;
+	margin-top: -5.2em;
 }
 
 .center {
@@ -117,25 +201,6 @@ body {
   h1 {
     margin-bottom: 10px;
   }
-}
-
-/* typography */
-
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1;
-  clear: both;
-  margin-top: 1.5em;
-}
-
-
-
-p {
-  margin: 1em 0 0 0;
-}
-
-p, li {
-  font-size: 1.1em;
-  line-height: 1.7em;
 }
 
 /*Navigation Bar*/
@@ -152,17 +217,15 @@ p, li {
   border-top: .4em solid #DC0000;
   border-bottom: .1em solid #ccc;
   margin-top: 0px;
-  //background-color: #DBDBDB;
-  /* Background */
-  /* Background */
-    background: gray; /* Old browsers */
-    background: -moz-linear-gradient(top, #D9D9D9 0%, #F9F9F9 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#F9F9F9)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #D9D9D9 0%, #F9F9F9 100%);
-    background: -o-linear-gradient(top, #D9D9D9 0%, #F9F9F9 100%); /* Opera11.10+ */
-    background: -ms-linear-gradient(top, #D9D9D9 0%, #F9F9F9 100%); /* IE10+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#F9F9F9',GradientType=0 ); /* IE6-9 */
-    background: linear-gradient(top, #D9D9D9 0%,#F9F9F9 100%); /* W3C; A catch-all for everything else */
+  background: #eee; /* Old browsers */
+  @include background-image(linear-gradient(to bottom, #D9D9D9, #F9F9F9));
+//  background: -moz-linear-gradient(top, #D9D9D9 0%, #F9F9F9 100%); /* FF3.6+ */
+//  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#F9F9F9)); /* Chrome,Safari4+ */
+//  background: -webkit-linear-gradient(top, #D9D9D9 0%, #F9F9F9 100%);
+//  background: -o-linear-gradient(top, #D9D9D9 0%, #F9F9F9 100%); /* Opera11.10+ */
+//  background: -ms-linear-gradient(top, #D9D9D9 0%, #F9F9F9 100%); /* IE10+ */
+//  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#F9F9F9',GradientType=0 ); /* IE6-9 */
+//  background: linear-gradient(top, #D9D9D9 0%,#F9F9F9 100%); /* W3C; A catch-all for everything else */
   ul {
     float: right;
     list-style: none;
@@ -184,10 +247,25 @@ p, li {
   height: 4em;
   margin: 0;
   text-decoration: none;
+  &:hover, &:focus {
+  	color: #BEBEBE;
+  }
+  // Yes, SASS is awesome :) - Rob
+  .users.index &#manage_students,
+  .clients.index &#assign_clients,
+  .approve &#approve_clients,
+  .receipts &#receipts,
+  .tickets &#choose_clients,
+  .clients &#submit_client,
+  .users.need_help &#help,
+  {
+  	color: black;
+  	background-color: lightgray;
+  }
 }
 
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-	color: #BEBEBE;
+.navbar-nav a.dropdown-toggle {
+  cursor: pointer;
 }
 
 .navbar-collapse {
@@ -196,19 +274,6 @@ p, li {
 
 .dropdown-menu > li > a {
   background-color: white;
-}
-
-.container, #container {
-  margin: 0 auto;
-  max-width: 90em;
-  padding: 0 2em;
-}
-
-#container {
-  padding: 4em 2em;
-  margin-top: 5em;
-  margin-bottom: 8em !important;
-  border-radius: 4px;
 }
 
 /* footer */
@@ -238,69 +303,19 @@ footer {
 }
 
 /*DataTables*/
-td.dataTables_empty{
-  background-color: #5E0000 !important;
-  color: white !important;
-}
 
 tr.odd {
-background-color: #f3f3f3;
+  background-color: #f3f3f3;
 }
-
-tr:first-child {
-  border-top: none;
-}
-
-a, a:link, a:visited {
-  color: #DC0000;
-  text-decoration: underline;
-}
-a:hover, a:active {
-  color: #990000;
-}
-
-table.dataTable tr.odd td.sorting_1 {
-  background-color: transparent !important; }
-
-table.dataTable tr.odd td.sorting_2 {
-  background-color: transparent !important; }
-
-table.dataTable tr.odd td.sorting_3 {
-  background-color: transparent !important;}
-
-table.dataTable tr.even td.sorting_1 {
-  background-color: transparent !important; }
-
-table.dataTable tr.even td.sorting_2 {
-  background-color: transparent !important; }
-
-table.dataTable tr.even td.sorting_3 {
-  background-color: transparent !important; }
-
 
 .dataTables_wrapper {
   position: relative !important;
   clear: both;
   *zoom: 1;
-  margin-top: 3em !important;
-  //border: 1px solid #aaaaaa;
-  //border-radius: 4px;
   border: none;
-}
-
-.dataTables_wrapper > * {
-  border: none;
-}
-
-.ui-widget-header {
-  background-image: none;
-  //background: #ccc;
-  background: transparent;
-}
-
-.ui-state-default {
-  background-image: none;
-  background: #eee;
+  & > * {
+    border: none;
+  }
 }
 
 .dataTables_scroll {
@@ -312,11 +327,19 @@ table.dataTable tr.even td.sorting_3 {
   border: none;
   margin: 0;
   white-space: nowrap;
+  tr > td {
+    background-color: transparent !important;
+  } 
 }
 
-.dataTable td,
-.dataTable th {
-  //width: auto !important;
+.ui-widget-header {
+  background-image: none;
+  background: transparent;
+}
+
+.ui-state-default {
+  background-image: none;
+  background: #eee;
 }
 
 th.empty div {
@@ -327,25 +350,90 @@ table.display thead th div.DataTables_sort_wrapper span {
   top: 10%;
 }
 
+.dataTables_filter input:focus {
+      border-color: #66AFE9;
+      outline: 0px none;
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+  }
+.dataTables_filter input{
+      display: inline;
+      width: auto;
+      height: 34px;
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 1.42857;
+      color: #555;
+      vertical-align: middle;
+      background-color: #FFF;
+      background-image: none;
+      border: 1px solid #CCC;
+      border-radius: 4px;
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+      transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+  }
+  
+td.dataTables_empty{
+  background-color: #5E0000 !important;
+  color: white !important;
+}
+
+// Required asterisk
 label.required:after {
   content: " *";
   color: red;
 }
 
+// Accordion
+.ui-accordion {
+  margin: 0 auto;
+  border: 2px solid #fff;
+}
+
+.ui-accordion-content {
+  padding-left: 40px;
+  color: #777;
+  font-size: 110%;
+  position: relative;
+}
+
+.ui-accordion-header {
+  font-size: 160%;
+  padding: 25px;
+}
+
+.ui-icon {
+  display: block;
+  float: left;
+}
+
+.ui-accordion-header-active {
+  text-decoration: underline;
+}
+
 // Datepicker
 .ui-datepicker {
   z-index: 3000 !important;
-}
-
-.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
-margin-top: -8px !important;
+  .ui-datepicker-prev span, 
+  .ui-datepicker-next span {
+    margin-top: -8px !important;
+  }
+  .ui-datepicker-buttonpane button {
+    margin-top: 0.5em !important;
+    margin-bottom: 0.4em !important;
+  }
 }
 
 .ui-timepicker-div dl dd {
-margin-bottom: 10px !important;
+  margin-bottom: 10px !important;
 }
 
-.ui-datepicker .ui-datepicker-buttonpane button {
-margin-top: 0.5em !important;
-margin-bottom: 0.4em !important;
+// Forms
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
+}
+
+.form-control {
+	display:inline;
+	width: auto;
 }
