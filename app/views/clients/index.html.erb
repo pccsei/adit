@@ -9,7 +9,7 @@
    <p class='info_bar alert-notice'>You must switch to an active project to assign clients.</p>
 <% end%>
 
-<table class="display default_table" id="client_list">
+<table class="display assign_table" id="client_list">
   <thead>
   <tr>
     <th>Owner</th>
@@ -30,26 +30,26 @@
   <tbody>
   <% @tickets.each do |ticket| %>
       <tr>
-            <td>
-              <% if ticket.id %>
-                  <% if get_selected_project.is_active == true %>
-                     <% if ticket.student_fname %>
-                         <%= (ticket.student_fname + ' ' +  ticket.student_lname + '<br />(' + ticket.student_id + ')').html_safe %>
-                      <% else %>
-                         <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-primary btn-sm assign'} %>
-                      <% end %>
-                  <% else%>
-                      <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-primary btn-sm assign', disabled: true }%>
-                   <% end %>
-              <% else %>
-                  <%= 'Ticket does not exist for this client' %>
-              <% end %>
-            </td>        
+        <td>
+          <% if ticket.id %>
+              <% if get_selected_project.is_active == true %>
+                 <% if ticket.student_fname %>
+                     <%= (ticket.student_fname + ' ' +  ticket.student_lname + '<br />(' + ticket.student_id + ')').html_safe %>
+                  <% else %>
+                     <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-primary btn-sm assign'} %>
+                  <% end %>
+              <% else%>
+                  <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-primary btn-sm assign', disabled: true }%>
+               <% end %>
+          <% else %>
+              <%= 'Ticket does not exist for this client' %>
+          <% end %>
+        </td>        
         <td><%= link_to ticket.business_name, client_path(ticket.client_id, page: request.url) %></td>
         <td><%= ticket.address %></td>
         <td><%= ticket.city %></td>
         <td><%= ticket.state %></td>
-        <td><%= ticket.zipcode %>
+        <td><%= ticket.zipcode %></td>
         <td><%= render_phone(ticket.telephone) %></td>
         <td><%= ticket.contact_title %></td>
         <td><%= ticket.contact_fname %></td>
