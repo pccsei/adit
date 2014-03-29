@@ -15,7 +15,7 @@
   <tbody>
     <% @team_data.each do |team_data| %>
       <tr>
-        <td align ="center"><%= team_data.student_manager %></td>
+        <td align ="left"><%= team_data.student_manager %></td>
         <% if current_user.role == 3 %>
           <td align ="center"><%= team_data.section %></td>
         <% end %>

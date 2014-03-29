@@ -103,6 +103,7 @@ onLoad(function() {
     var table =  $('.action_table').dataTable({
         "bPaginate" : false,
         "bFilter" : false,
+        "bSort" : false,
         "iCookieDuration": 60,
         "bStateSave": false,
         "bAutoWidth": false,

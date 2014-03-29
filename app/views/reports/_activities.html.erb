@@ -5,7 +5,7 @@
       <th>Last Name</th>
       <th>Student Manager</th>
       <th>Section</th>
-      <th>Last Activity</th>
+      <th>Time Performed</th>
       <th>Client</th>
       <th>Activity</th>
       <th>Points Received</th>
@@ -18,15 +18,15 @@
       <tr>
         <td><%= link_to activity.first_name, my_receipts_path(id: activity.student_id, page: request.url) %></td>
         <td><%= link_to activity.last_name, my_receipts_path(id: activity.student_id, page: request.url) %></td>
-        <td><%= activity.team_leader%></td>
-        <td align ="center"><%= activity.section%></td>
+        <td><%= activity.team_leader %></td>
+        <td align ="center"><%= activity.section %></td>
         <!-- Change this to javascript function-->
-        <td><%= time_ago_in_words(activity.time_of_activity) %> </td>
-        <td><%= activity.company%></td>
-        <td><%= activity.activity%></td>
-        <td align ="right"><%= activity.points_earned%></td>
-        <td align ="right"><%= activity.cumulative_points_earned_on_client%></td>
-        <td><%= activity.comments%></td>        
+        <td><%= activity.time_of_activity.to_formatted_s(:long_ordinal) %> </td>
+        <td><%= activity.company %></td>
+        <td><%= activity.activity %></td>
+        <td align ="right"><%= activity.points_earned %></td>
+        <td align ="right"><%= activity.cumulative_points_earned_on_client %></td>
+        <td><%= tooltipify(activity.comments) %></td>        
       </tr>
     <% end %>
   </tbody>
