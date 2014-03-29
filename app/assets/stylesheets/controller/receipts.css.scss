@@ -1,3 +1,12 @@
+.form_background{
+	background-color: 
+	#E6E6E6;
+	padding-left: 2em;
+	padding-right: 2em;
+	padding-bottom: 2.5em;
+	padding-top: .1em;
+	margin-top: 5em !important;
+}
 #timepicker{
 	margin-left: 2em;
 }
@@ -13,12 +22,10 @@
 
 .receipts .alert{
 	font-size: 1.5em;
-	background-color: 
-	white;
+	background-color: inherit;
 	border-left: none;
 	border-right: none;
-	border-color: 
-	#DC0000;
+	border-color: #DC0000;
 	border-radius: 0px;
 	border-width: .2em;
 	color: #000;

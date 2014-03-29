@@ -12,6 +12,7 @@
 
 <div>
 <% if Receipt.is_released(@receipt) == false %>
+<div class="form_background">
 <%= form_tag(actions_path, id: "new_action") do %>
 
 
@@ -72,6 +73,7 @@
     <div>
       <%= submit_tag('Submit', class: 'btn btn-primary btn-sm')%>
     </div>
+</div>
     <% end %>
     <% if @receipt.made_sale %>
 	 <div class = "panel panel-primary">
