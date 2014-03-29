@@ -97,7 +97,7 @@ onLoad(function() {
                     }
                     else {
                         dState();
-                        $('#warnTeacher').html(ui["selected"].innerHTML + " cannot get any more " + $('#clientPriority').html() + " priority clients");
+                        $('#warnTeacher').html(ui["selected"].innerHTML + " has the maximum number of clients.");//" cannot get any more " + $('#clientPriority').html() + " priority clients");
                     }
                 });
         }
