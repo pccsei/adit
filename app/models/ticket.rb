@@ -5,6 +5,7 @@ class Ticket < ActiveRecord::Base
   belongs_to :user
   has_many   :comments
   has_many   :receipts
+  has_paper_trail
 
   def self.current_project(project_id)
     where('project_id = ?', project_id)
