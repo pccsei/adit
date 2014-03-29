@@ -12,7 +12,11 @@
     <% end %>
     <div class = "panel panel-primary">
       <div class = "panel-heading">
-        <h3>&nbsp;New Student Information</h3>
+      <% if @user.new_record? %>
+        <h3>New Student Information</h3>
+      <% else %>
+        <h3>Edit Student Information</h3>
+      <% end %>
       </div>
       <div class = "panel-body">
         <table>
@@ -23,9 +27,8 @@
             <td class="text-field">
               <%= f.text_field :first_name, class: 'form-control',  rows:3 %>
             </td>
-            <td>
-              &nbsp;&nbsp;
-            </td>
+          </tr>
+          <tr>
             <td class="label-field">
               <%= f.label :last_name, 'Last Name', class: 'required', id:'last_name' %>
             </td>
@@ -40,9 +43,8 @@
             <td class="text-field">
               <%= f.text_field :school_id, class: 'form-control',  rows:3 %>
             </td>
-            <td>
-              &nbsp;&nbsp;
-            </td>
+          </tr>
+          <tr>
             <td class="label-field">
               <%= f.label :email, 'E-mail Address', class: 'required', id:'email' %>
             </td>
@@ -57,9 +59,8 @@
             <td class="text-field">
               <%= f.text_field :phone, class: 'form-control',  rows:3 %>
             </td>
-            <td>
-              &nbsp;&nbsp;
-            </td>
+          </tr>
+          <tr>
             <td class="label-field">
               <%= f.label :box, 'PCC Box Number', id:'box_num' %>
             </td>
@@ -74,9 +75,8 @@
             <td class="text-field">
               <%= f.text_field :major, class: 'form-control',  rows:3 %>
             </td>
-            <td>
-              &nbsp;&nbsp;
-            </td>
+          </tr>
+          <tr>
             <td class="label-field">
               <%= f.label :minor, 'Minor', id:'minor' %>
             </td>
@@ -88,7 +88,7 @@
             <td class="label-field">
               <%= f.label :classification, 'Classification' %>
             </td>
-            <td class="text-field" colspan="4">
+            <td class="text-field">
               <%= f.select :classification, [['Freshman', 'FR'], ['Sophomore', 'SO'], ['Junior', 'JR'], ['Senior', 'SR']], {}, { class: 'btn btn-default dropdown-toggle' } %>
             </td>
           </tr>
