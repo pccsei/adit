@@ -125,7 +125,7 @@ onLoad(function() {
 
     // Custom method to make sure only letters are entered
     jQuery.validator.addMethod("letters_only", function(value, element) {
-        return this.optional(element) || /^[-a-zA-Z\s ?()'\/&-\.]+$/i.test(value);
+        return this.optional(element) || /^[-a-zA-Z\s ?()'\/&-\.;:]+$/i.test(value);
     });
 
 	// Custom method to make sure the email is a valid PCC email address
@@ -157,11 +157,11 @@ onLoad(function() {
         messages: {
             "user[first_name]": {
             	required: "Please enter the student's first name.",
-            	letters_only: "You entered an invalid character(s)."
+            	letters_only: "Will only accept letters and punctuation."
             },
             "user[last_name]": {
             	required: "Please enter the student's last name.",
-            	letters_only: "You entered an invalid character(s)."
+            	letters_only: "Will only accept letters and punctuation."
             },
             "user[school_id]": {
             	required: "Please enter the student's school id.",
@@ -182,8 +182,8 @@ onLoad(function() {
             	min: "Cannot be all zeros.",
             	rangelength: "Can only be a range of 3-4 digits long."
             },
-            "user[major]": "You entered an invalid character(s).",
-            "user[minor]": "You entered an invalid character(s)."
+            "user[major]": "Will only accept letters and punctuation.",
+            "user[minor]": "Will only accept letters and punctuation."
         }
     });
 });
