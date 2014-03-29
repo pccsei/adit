@@ -378,13 +378,38 @@ td.dataTables_empty{
   color: white !important;
 }
 
+// Required asterisk
 label.required:after {
   content: " *";
   color: red;
 }
 
+// Accordion
+.ui-accordion {
+  margin: 0 auto;
+  border: 2px solid #fff;
+}
 
+.ui-accordion-content {
+  padding-left: 40px;
+  color: #777;
+  font-size: 110%;
+  position: relative;
+}
 
+.ui-accordion-header {
+  font-size: 160%;
+  padding: 25px;
+}
+
+.ui-icon {
+  display: block;
+  float: left;
+}
+
+.ui-accordion-header-active {
+  text-decoration: underline;
+}
 
 // Datepicker
 .ui-datepicker {
