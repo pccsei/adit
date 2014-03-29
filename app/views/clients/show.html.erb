@@ -1,22 +1,57 @@
 <% provide(:title, 'Client Information') %>
 <div class = "panel panel-primary">
   <div class = "panel-heading">
-    <h3>&nbsp;<%= @client.business_name %></li></h3><br>
+    <h3>&nbsp;<%= @client.business_name %></li></h3><br />
   </div>
 <div class = "panel-body">
- 
-  
-  <p><%= @client.address %><br />
-  <%= @client.city %>
-  <%= @client.state %>
-  <%= @client.zipcode%></p>
-  <p><%= @client.contact_title + ' ' + @client.contact_fname + ' ' + @client.contact_lname %><p> 
-  <p><%= render_phone(@client.telephone) %></p>
-  <p><%= @client.comment %></p>
-  <% if (@client.status.status_type== 'Pending') || (@client.status.status_type == 'Edited')%>
-  <%= get_submitter_info(@client.submitter) %>
-  <% end %>
+
+<p>
+  <strong>Address:</strong>
+  <%= @client.address %>
 </p>
+<p>
+  <strong>City:</strong>
+  <%= @client.city %>
+</p> 
+<p>
+  <strong>State:</strong>
+  <%= @client.state %>
+</p> 
+<p>
+  <strong>Zipcode:</strong>
+  <%= @client.zipcode %>
+</p> 
+<p>
+  <strong>Contact Title:</strong>
+  <%= @client.contact_title %>
+</p>
+<p>
+  <strong>First Name:</strong>
+  <%= @client.contact_fname %>
+</p>
+<p>
+  <strong>Last name:</strong>
+  <%= @client.contact_lname %>
+</p>      
+<p>
+  <strong>E-mail:</strong>
+  <%= @client.email%>
+</p>
+<p>
+  <strong>Telephone:</strong>
+  <%= render_phone(@client.telephone) %>
+</p>
+<p>
+  <strong>Comment:</strong>
+  <%= @client.comment%>
+</p>
+<% if (@client.status.status_type== 'Pending') || (@client.status.status_type == 'Edited')%>
+  <p>
+  <strong>Submitter:</strong>
+  <%= get_submitter_info(@client.submitter) %>
+  </p>
+<% end %>
+    
 </div>  
 </div>
 <% if false %>
