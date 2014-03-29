@@ -1,14 +1,25 @@
+#price_label{
+	margin-left: 2em;
+	margin-top: 1em !important;
+}
+#page_size{
+	margin-top: 1em;
+	margin-left: 4.9em;
+}
 .form_background{
-  background-color:
-  #E6E6E6;
-  padding-left: 2em;
-  padding-right: 2em;
-  padding-bottom: 2.5em;
-  padding-top: .1em;
-  margin-top: 5em !important;
+
+	padding-left: 2em;
+	padding-right: 2em;
+	padding-bottom: 2.5em;
+	margin-top: 5em !important;
+	border: 
+	#EEE solid 1em;
+	border-radius: 1em;
 }
 #timepicker{
-  margin-left: 2em;
+	margin-left: 2em;
+	margin-top: 1em;
+
 }
 #comment{
   margin-left: 2em;
@@ -36,7 +47,9 @@
 
 }
 #FirstContact p{
-  margin-top: 2em !important;
+
+	margin-top: 1em !important;
+
 }
 .action label{
   font-size: 15px;
