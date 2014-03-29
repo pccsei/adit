@@ -1,6 +1,46 @@
+#timepicker{
+	margin-left: 2em;
+}
 #comment{
-	float: left;
-	margin-top: -14em;
+	margin-left: 2em;
+}
+#success{
+	color: #DC0000;
+	font-size: 18px;
+	margin-top: .5em !important;
+	margin-left: 1.3em;
+}
+
+.receipts .alert{
+	font-size: 1.5em;
+	background-color: 
+	white;
+	border-left: none;
+	border-right: none;
+	border-color: 
+	#DC0000;
+	border-radius: 0px;
+	border-width: .2em;
+	color: #000;
+	padding: .5em;
+}
+#comment_box{
+	width: 35em;
+
+}
+#FirstContact p{
+	margin-top: 2em !important;
+}
+.action label{
+	font-size: 15px;
+	margin-top: 1em;
+}
+.action input{
+	margin-left: 2em;
+}
+#comment{
+	//float: left;
+	//margin-top: -14em;
 }
 .receipts.show .panel-primary {
 	width: 100%;
@@ -12,7 +52,7 @@
 }
 
 .show #heading{
-	padding-top: .3em;
+	//padding-top: .3em;
 }
 
 #info_center{
@@ -64,7 +104,7 @@
 }
 .receipts #edit_client{
 	float: right;
-	margin-top: -2em;
+	margin-top: -1em;
 }
 #email{
 	text-align: center;
@@ -85,6 +125,7 @@
 .receipts #client_info{
 	//text-align: left;
 	font-size: 16px;
+	margin-top: 0em;
 	//width: 20em;
 	//float: right;
 }
