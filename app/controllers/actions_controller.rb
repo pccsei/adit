@@ -32,14 +32,20 @@ class ActionsController < ApplicationController
   def create
     receipt = Receipt.find(params[:receipt_id])
 
-    if params[:user_action_time].present? && receipt
+    if params[:user_action_time].present?
+       user_action_time = params[:user_action_time]
+    else
+      user_action_time = Time.now
+    end       
+     
+    if receipt
        Action.create_action(params[:price],   params[:page],             params[:payment_type],
                             params[:comment], params[:contact],          params[:presentation], 
-                            params[:sale],    params[:user_action_time], receipt)
+                            params[:sale],    user_action_time, receipt)
     
        redirect_to receipt_path(id: receipt.id), notice: 'You successfully updated your client'
     else
-       redirect_to receipt_path(id: receipt.id), notice: 'There were errors saving your form. PLease enable javascript.'
+       redirect_to receipt_path(id: receipt.id), notice: 'There were errors saving your form. Please enable javascript.'
     end
   end
   
