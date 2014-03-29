@@ -51,16 +51,34 @@ font-size: 1.2em;
 
 .clients #choose_section{
 	margin-left: 45em;
-	margin-top: -22em !important;
+	margin-top: -24em !important;
 }
 .clients #assign{
 	width: 35em;
 	margin-bottom: 2em !important;
+	margin-top: 4em !important;
+}
+
+.clients #students .ui-selected {
+background: #DC0000;
+color: white;
 }
 
 .clients #assignClient{
 	margin-top: 1.5em;
+	margin-left: 4.5em;
 }
+
+.clients #sselect-section{
+  float: right;
+  padding-right: 2em;
+  margin-top: -3em;
+}
+
+.clinets .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+cursor: pointer;
+}
+
 .clients .studentList{
 	width: 45em;
 	margin-top: 2em;

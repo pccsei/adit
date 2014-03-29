@@ -1,5 +1,18 @@
 <% provide(:title, 'Assign Client') %>  
-
+<div id="sselect-section"> <!-- NOTE for ZACH: I need a new class that only has the red background> -->
+	  <div class="btn-group">
+	    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          Change Section<span class="caret"></span>
+        </button>
+	    <ul class="dropdown-menu" role="menu">
+	      <% @sections.each do |s|%>
+            <li>
+	          <%= content_tag("a",s, class: "sectionNum") %>
+	        </li>
+          <% end %>
+	    </ul>
+	  </div>
+    </div>	
 <div id="assign">
   <div class = "panel panel-primary">
     <div class = "panel-heading">
@@ -38,25 +51,11 @@
 
 <div class="studentInfo">
   <div id ="choose_section">
-    <div id="sselect-section"> <!-- NOTE for ZACH: I need a new class that only has the red background> -->
-	  <div class="btn-group">
-	    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-          Choose a section<span class="caret"></span>
-        </button>
-	    <ul class="dropdown-menu" role="menu">
-	      <% @sections.each do |s|%>
-            <li>
-	          <%= content_tag("a",s, class: "sectionNum") %>
-	        </li>
-          <% end %>
-	    </ul>
-	  </div>
-    </div>	
     <span id='warnTeacher' class="warning"></span>	
     <%= form_tag(controller: "clients", action: "actually_assign") do %>
       <%= hidden_field_tag(:studentID) %>    
       <%= hidden_field_tag(:tid, @ticket.id) %>
-      <%= submit_tag("Assign the client", :id => "assignClient", :disabled => true) %>
+      <%= submit_tag("Assign to Student", :id => "assignClient", :class => 'btn btn-primary btn-lg', :disabled => true) %>
     <% end %>	
 	<div class="studentList">
       <ol id="students"></ol>  
