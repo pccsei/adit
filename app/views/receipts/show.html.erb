@@ -12,43 +12,51 @@
 
 <div>
 <% if Receipt.is_released(@receipt) == false %>
+<div class="form_background">
 <%= form_tag(actions_path, id: "new_action") do %>
 
 
-  <div id="FirstContact" <%= 'class = hidden' unless (@receipt.made_contact == false)%>>
-  	<p>Were you able to contact your client?</p>
+  <div id="FirstContact" class = "action" <%= 'class = hidden' unless (@receipt.made_contact == false)%>>
+	 
+	<p class="alert alert-info">Were you able to contact your client?</p>
+
   	 <%= check_box_tag(:contact) %>
   	 <%= label_tag(:contact, 'Yes, I contacted my client!')%>
   </div>
   
         <div id = "firstCheck" <%= 'class = hidden' unless (@receipt.made_contact == true) && @receipt.made_presentation == (false) %>>
           <div>
-            <p>Congratulations on making contact with your client!</p>
-            <p>Were you able to make a presentation?</p>
+            <p id= "success">Congratulations on making contact with your client!</p>
+            <p class="alert alert-info">Were you able to make a presentation?</p>
           </div>
-          <%= label_tag('presentation', 'I made a presentation!') %>
-          <%= check_box_tag(:presentation) %>
+		  <div  class = "action">
+		   <%= check_box_tag(:presentation) %>
+          <%= label_tag(:presentation, 'Yes, I made a presentation!') %>  
+	  </div> 
         </div>
 
         <div id = "checkers2" <%= 'class = hidden' unless (@receipt.made_presentation == true) && (@receipt.made_sale == false) %>>
           <div>
-            <p>Awesome, you made a presentation!</p>
-            <p>Were you able to make a sale?</p>
+            <p id= "success">Awesome, you made a presentation!</p>
+            <p class="alert alert-info">Were you able to make a sale?</p>
           
         </div>
-        <div>
-          <%= label_tag('sale', 'I made a sale!') %>
-          <%= check_box_tag(:sale) %>
+        <div class = "action">
+			 <%= check_box_tag(:sale) %>
+          <%= label_tag('sale', 'Yes, I made a sale!') %>
         </div>
         </div>
 
         <div id = "saleMade" class="hidden">
-            <p>Way to Ad It!</p>
-          
-          <%= label_tag('price', 'Sale Amount $', class: 'required') %>
-          <%= text_field_tag(:price, '', :placeholder => 'Examples: 50 or 75') %>
+          <p id= "success">Way to Ad It!</p>
+          <%= label_tag('price', 'Sale Amount $', class: 'required') %>          
+          <div class="input-group">
+           <span class="input-group-addon">$</span>
+           <%= text_field_tag(:price, '', :placeholder => 'Examples: 50 or 75', :class=>'form-control') %>                 
+          </div>
           <%= label_tag('page', 'Page Size', class: 'required') %>
-          <%= text_field_tag(:page, '', :placeholder => 'Examples: .25 or 1.5 ')%>
+          <%= select_tag(:page, options_for_select([["Whole page", 1], ["1/2 page", 0.5], ["1/4 page", 0.25], ["1/8 page", 0.125], ["Other", :id=> 'o']]))%>
+          <%= text_field_tag(:otherSize, '', :placeholder => '(1/5, 1/3, etc.) ', :class => "hidden")%>
           <%= label_tag('payment_type', 'Payment Type') %>
           <%= select_tag('payment_type', options_for_select(%w(Cash Credit Invoice Check Dept. Trans.)))%>
         </div>
@@ -59,15 +67,16 @@
       <%= text_field_tag(:user_action_time, '', :placeholder => 'YYYY/MM/DD 00:00 AM/PM') %>
     </div>
     
-    <div>
+    <div id="comment">
       <%= label_tag('comments', 'Any Comments') %>
-      <%= text_area_tag(:comment) %>
+      <%= text_area_tag :comment, @comment, :class => 'form-control', :id => 'comment_box'%>
     </div>
 
     <%= hidden_field_tag 'receipt_id', @receipt.id %>
     <div>
       <%= submit_tag('Submit', class: 'btn btn-primary btn-sm')%>
     </div>
+</div>
     <% end %>
     <% if @receipt.made_sale %>
 	 <div class = "panel panel-primary">
@@ -87,7 +96,6 @@
 <p>Since you released this client, you no longer can update it.</p>
 <% end %>
 </div>
-
 
 <div id = "show_action_table">
   <%= render :partial => 'action_table', :locals => { :receipt => @receipt }%>

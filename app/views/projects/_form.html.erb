@@ -50,12 +50,15 @@
           <%#= label_tag(:max_color_clients, 'Total Clients in different Priorities:') %><br>
           <div id = "priority_dropdown">
             <%= f.label :high_priority%>
+            <!-- Do not change the following array without fixing the change event handlers in project.js -->
             <%= f.select(:max_high_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle', :disabled =>  !@project.is_active})%>
             &nbsp; &nbsp;
             <%= f.label :medium_priority %>
+            <!-- Do not change the following array without fixing the change event handlers in project.js -->
             <%= f.select :max_medium_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle', :disabled =>  !@project.is_active}%>
             &nbsp; &nbsp;
             <%= f.label :low_priority %>
+            <!-- Do not change the following array without fixing the change event handlers in project.js -->
             <%= f.select :max_low_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle', :disabled =>  !@project.is_active}%>
 
             <%#= radio_button(:project, :use_max_clients, :true) %>
