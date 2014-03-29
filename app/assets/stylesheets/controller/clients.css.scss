@@ -6,6 +6,9 @@
 #students { list-style-type: none; margin: 0; padding: 0; width: 60%; }
 #students li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: auto; }
 
+.clients a, a:link, a:visited {
+font-size: 1.2em;
+}
 
 .clients #client_list tr {
   height: 3.7em;
