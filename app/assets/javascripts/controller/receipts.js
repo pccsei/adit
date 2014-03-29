@@ -47,7 +47,8 @@ onLoad(function() {
             $("#checkers2").addClass("hidden").hide();
             $("#saleMade").hide();
             $("#sale").attr('checked', false);
-            $("#timepicker").addClass("hidden").hide();
+            if ($("#contact").is(':unchecked'))
+               $("#timepicker").addClass("hidden").hide();
         }
     });
 
@@ -60,7 +61,8 @@ onLoad(function() {
         else
         {
             $("#saleMade").addClass("hidden").hide();
-            $("#timepicker").addClass("hidden").hide();
+            if ($("#contact").is(':unchecked') && $("#presentation").is(':unchecked'))
+               $("#timepicker").addClass("hidden").hide();
         }
     });
 
@@ -97,8 +99,6 @@ onLoad(function() {
             "user_action_time": "Please enter in the date and time when you did this."
         }
     });
-    
-    $('#user_action_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT", minDate: new Date });
     
     $('#page').change(function(){
       if ($("#page option:selected").text() == "Other") $('#otherSize').removeClass("hidden").show();      

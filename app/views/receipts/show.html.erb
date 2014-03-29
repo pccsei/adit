@@ -17,7 +17,7 @@
 	      <div class="form_background">
 		     <%= form_tag(actions_path, id: "new_action") do %>
 		        <p class="alert alert-info">My Sales Progress</p>
-                <div id="FirstContact" class ="action" <%= ' hidden' unless (@receipt.made_contact == false)%>
+                <div id="FirstContact" class ="action" <%= ' hidden' unless (@receipt.made_contact == false)%>>
                    <%= check_box_tag(:contact) %>
 			       <%= label_tag(:contact, 'I contacted my client!')%>
 		        </div>
