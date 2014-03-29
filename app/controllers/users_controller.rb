@@ -256,8 +256,13 @@ class UsersController < ApplicationController
   # Change the students status
   def change_is_enabled
     member = Member.find params[:id]
+    user = User.find(member.user_id)
     Member.change_student_status(member)
-    redirect_to :back
+    if member.is_enabled == true
+      redirect_to users_url, :flash => { :success => "#{user.first_name} #{user.last_name} has been enabled." }
+    else
+      redirect_to users_url, :flash => { :success => "#{user.first_name} #{user.last_name} has been disabled." }
+    end
   end
   
   def delete_incorrect
