@@ -9,7 +9,18 @@
 .clients a, a:link, a:visited {
 font-size: 1.2em;
 }
-
+.clients .alert{
+	font-size: 1.5em;
+	background-color: inherit;
+	border-left: none;
+	border-right: none;
+	border-color: #DC0000;
+	border-radius: 0px;
+	border-width: .2em;
+	color: black;
+	padding: .5em;
+	width: auto;
+}
 #client_priority{
   margin-top: 2em;
   font-size: 1.2em;

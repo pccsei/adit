@@ -3,9 +3,9 @@
 	<h4 id="client_info"><%= @client.address%>&nbsp;&nbsp;&#149;
 	&nbsp;&nbsp;<%= @client.city %>
 	<%= @client.state %>,
-	<%= @client.zipcode%>&nbsp;&nbsp;&#149;
+	<%= @client.zipcode%>&nbsp;&nbsp;
 	<%if @client.contact_title || @client.contact_fname || @client.contact_lname%>
-	&nbsp;&nbsp;<%= @client.contact_title + '' + @client.contact_fname + ' ' + @client.contact_lname %>
+	&#149;&nbsp;&nbsp;<%= @client.contact_title + '' + @client.contact_fname + ' ' + @client.contact_lname %>
 	&nbsp;&nbsp;
 	<%end%>
 	<%if @client.telephone %>
