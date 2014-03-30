@@ -64,7 +64,7 @@ class ClientsController < ApplicationController
     # have the undo use the receipt id
     undo_link = view_context.link_to("Undo", revert_assign_version_path(t.versions.where(whodunnit: current_user.id).last), :method => :post)
     
-    redirect_to clients_url, :notice => User.find_by_school_id(params[:studentID]).first_name.to_s + ' is now assigned to ' + t.client.business_name + " #{undo_link}"  
+    redirect_to clients_url, :notice => User.find_by_school_id(params[:studentID]).first_name.to_s + ' is now assigned to ' + t.client.business_name + ".  #{undo_link}"  
   end
 
 
