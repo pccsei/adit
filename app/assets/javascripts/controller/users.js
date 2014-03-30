@@ -142,8 +142,8 @@ onLoad(function() {
     jQuery.validator.addMethod("valid_telephone", function(value, element) {
         return this.optional(element) || /^(([tT][oO][wW][nN])|(((17)\s*[-]\s*)?(\d{4})\s*[-]\s*([1-4]{1}))*)$/.test(value);
     });
-
-    $("#new_user").validate({
+    
+    $("#users").validate({
         rules: {
             "user[first_name]": {required: true, letters_only: true},
             "user[last_name]": {required: true, letters_only: true},
@@ -185,5 +185,6 @@ onLoad(function() {
             "user[major]": "Will only accept letters and punctuation.",
             "user[minor]": "Will only accept letters and punctuation."
         }
+        $('.formError').delay(3000);
     });
 });

@@ -1,4 +1,4 @@
-<%= form_for(@client) do |f| %>
+<%= form_for(@client, :html => {:id => 'clients'}) do |f| %>
     <% if @client.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@client.errors.count, 'error') %> prohibited this client from being saved:</h2>
@@ -15,61 +15,104 @@
         <h3>&nbsp;Business Information</h3>
       </div>
       <div class = "panel-body">
-      	
-      	<% if @client.new_record? %>
-      	<div class="alert alert-info" id="checkClients">
-	        <p>Check the tables below to see if your client is already pending or unapproved.</p>
+        <% if @client.new_record? %>
+        <div class="alert alert-info" id="checkClients">
+          <p>Check the tables below to see if your client is already pending or unapproved.</p>
         </div>
         <% end %>
 
-        <div id="business_name">
-          <%= f.label :business_name, class: 'required' %>
-          <%= f.text_field :business_name, class: 'form-control',  rows:3 %>
-        </div>
-		
-        <div id="address">
-          <%= f.label :address, class: 'required' %>
-          <%= f.text_field :address, class: 'form-control',  rows:3 %>
-	  </div>
-   <div id="city">
-          <%= f.label :city, class: 'required' %>
-          <%= f.text_field :city, class: 'form-control',  rows:3 %>
-	  </div>
- <div id="state">
-          <%= f.label :state %>
-          <%= f.select :state, %w(AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME
-                            MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI
-                            SC SD TN TX UT VT VA WA WV WI WY), :selected => @client.state || 'FL', :class => 'btn btn-default dropdown-toggle col-md-2' %>
-							</div>
-    <div id="zip">                         
-          <%= f.label :zipcode, class: 'required' %>
-          <%= f.text_field :zipcode, class: 'form-control',  rows:3 %>
-        </div>
-        <div id="contact_title">
-          <%= f.label 'Contact title' %>
-          <%= f.select :contact_title, %w(Mr. Mrs. Ms. Miss Dr.), :include_blank => :true, class: 'btn btn-small btn-dropdown'%>
-		  </div>
-		   <div id="contact_fname">
-          <%= f.label 'First name' %>
-          <%= f.text_field :contact_fname, class: 'form-control' %>
-		  </div>
-		   <div id="contact_lname">
-          <%= f.label 'Last name' %>
-          <%= f.text_field :contact_lname, class: 'form-control' %>
-	  </div>
-	    <div id="email">
-	   	  <%= f.label 'Email' %>
-          <%= f.text_field :email, class: 'form-control' %>
-	  </div>
-		    <div id="phone">
-          <%= f.label :telephone, 'Phone:', class: 'required' %>
-          <%= f.text_field :telephone, value: render_phone(@client.telephone), :placeholder => '850-123-4567 Ext.####', class: 'form-control',  rows:3  %>
-
-         </div>
-         <div id="comment" class="field">
-          <%= f.label :comment %>
-          <%= f.text_area :comment, class: 'form-control',  rows:3  %>
-        </div>
+        <table>
+          <tr>
+            <td class="label-field">
+              <%= f.label :business_name, class: 'required' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :business_name, class: 'form-control',  rows:3 %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label :address, class: 'required' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :address, class: 'form-control',  rows:3 %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label :city, class: 'required' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :city, class: 'form-control',  rows:3 %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label :state %>
+            </td>
+            <td class="text-field">
+              <%= f.select :state, %w(AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME
+                                      MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI
+                                      SC SD TN TX UT VT VA WA WV WI WY), { selected: @client.state || 'FL'}, { class: 'btn btn-default dropdown-toggle' } %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label :zipcode, class: 'required' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :zipcode, class: 'form-control',  rows:3 %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label 'Contact title' %>
+            </td>
+            <td class="text-field">
+              <%= f.select :contact_title, %w(Mr. Mrs. Ms. Miss Dr.), { include_blank: :true}, { class: 'btn btn-default dropdown-toggle' } %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label 'First name' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :contact_fname, class: 'form-control' %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label 'Last name' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :contact_lname, class: 'form-control' %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label 'Email' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :email, class: 'form-control' %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label :telephone, 'Phone:', class: 'required' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :telephone, value: render_phone(@client.telephone), :placeholder => '850-478-8496 Ext.####', class: 'form-control',  rows:3  %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label :comment %>
+            </td>
+            <td class="text-field">
+              <%= f.text_area :comment, class: 'form-control',  rows:3  %>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="actions">

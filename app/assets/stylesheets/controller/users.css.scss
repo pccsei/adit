@@ -29,118 +29,6 @@
   margin-top: 1em !important;
 }
 
-#first_name {
-  margin-top: 1em;
-}
-
-#last_name {
-  margin-top: 1em;
-
-}
-
-#last_name label {
-  margin-right: 2.5em;
-}
-
-#first_name label {
-  margin-right: 2.35em;
-}
-
-#email {
-  margin-top: 1em;
-  margin-left: 0em;
-}
-
-#email label {
-  margin-left: 0em;
-}
-
-#minor {
-  margin-top: 1em;
-  margin-left: 0em;
-}
-
-#minor label {
-  margin-right: 6.45em;
-}
-
-#major {
-  margin-top: 1em;
-  margin-top: 1em;
-}
-
-#major label {
-  margin-right: 6.45em;
-}
-
-#box {
-  margin-top: 1em;
-    margin-left: 0em;
-}
-
-#box label {
-    margin-left: 0em;
-}
-
-#school_id {
-  margin-top: 1em;
-}
-
-#school_id label {
-  margin-right: 2.95em;
-}
-
-#phone {
-  margin-top: 1em;
-}
-
-#phone label {
-  margin-right: 2.3em;
-}
-
-#class label {
-  margin-right: 2em;
-}
-
-.panel-body input {
-  width: 20em;
-  margin-right: 1em;
-}
-
-.users #full_name {
-  margin-top: 1em;
-}
-
-.users #full_name label {
-  margin-right: 2em;
-}
-
-.users #full_name #user_last_name {
-  margin-left: 0em;
-
-}
-
-.users #school_info {
-  margin-top: 1em;
-}
-
-.users #phone_box_num {
-  margin-top: 1em;
-}
-
-.users #major_minor {
-  margin-top: 1em;
-  margin-left: 0em;
-}
-
-.users #major_minor input {
-  margin-left:.5em;
-}
-
-.users #class {
-  margin-top: 1em;
-}
-
 .users .actions {
   margin-top: 2em;
   margin-left: -1em;
@@ -191,12 +79,14 @@ padding: .4em;
   margin-right: -17.5em;
 }
 
+td {
+	padding: 7px;
+}
+
 .label-field {
-  text-align: right;
-  padding: 3px;
+	text-align: right;
 }
 
 .text-field {
-  text-align: left;
-  padding: 3px;
+	text-align: left;
 }
