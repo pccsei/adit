@@ -19,7 +19,8 @@ module ClientsHelper
   end
 
   def get_submitter_info(submitter_id)
-    User.find(submitter_id).school_id
+    u = User.find(submitter_id)
+    "#{u.first_name} #{u.last_name} <br /> (#{u.school_id})".html_safe
   end
   
   
