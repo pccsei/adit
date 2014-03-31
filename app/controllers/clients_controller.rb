@@ -126,6 +126,7 @@ class ClientsController < ApplicationController
 
   # GET /clients/new
   def new
+    @all_clients = Client.pluck(:business_name)
     @client = Client.new
   end
 
