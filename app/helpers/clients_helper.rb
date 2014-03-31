@@ -18,9 +18,15 @@ module ClientsHelper
     Ticket.more_clients_allowed(current_user, get_current_project, current_user.role, 'low')
   end
 
-  def get_submitter_info(submitter_id)
+  def get_submitter_info(submitter_id, br_include = true)
+    if br_include
+      b = "<br />" 
+    else 
+      b = " "
+    end
+    
     u = User.find(submitter_id)
-    "#{u.first_name} #{u.last_name} <br /> (#{u.school_id})".html_safe
+    "#{u.first_name} #{u.last_name}#{b}(#{u.school_id})".html_safe
   end
   
   
