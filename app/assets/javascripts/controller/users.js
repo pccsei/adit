@@ -185,6 +185,6 @@ onLoad(function() {
             "user[major]": "Will only accept letters and punctuation.",
             "user[minor]": "Will only accept letters and punctuation."
         }
-        $('.formError').delay(3000);
+        // $('.formError').delay(3000);
     });
 });

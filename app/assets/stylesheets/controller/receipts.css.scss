@@ -6,7 +6,7 @@
 }
 #payment{
 	margin-top: 1em;
-	margin-left: 2.3em;
+	margin-left: 2.5em;
 }
 .input-group{
 	margin-top: 1em !important;
@@ -18,7 +18,7 @@ input#price.form-control{
 	width: 20em;
 }
 #price_label{
-	margin-left: 2em;
+	margin-left: 3.4em;
 	margin-top: 1em !important;
 }
 #sale_input .input-group-addon input{
@@ -26,8 +26,13 @@ input#price.form-control{
 }
 #page_size{
 	margin-top: 1em;
-	margin-left: 3.8em;
+	margin-left: 5em;
 }
+
+.receipts.show .form-control {
+  display: inline;
+}
+
 .form_background{
 
 	padding-left: 2em;
@@ -94,6 +99,11 @@ input#price.form-control{
   #DC0000;
 }
 
+.receipts .sale_panel {
+padding-bottom: 5em;
+padding-top: 3em;
+}
+
 .show #heading{
   //padding-top: .3em;
 }
@@ -147,7 +157,7 @@ input#price.form-control{
 }
 .receipts #edit_client{
   float: right;
-  margin-top: -1em;
+  margin-top: -1.5em;
 }
 #email{
   text-align: center;
@@ -166,6 +176,7 @@ input#price.form-control{
   //text-align: left;
   font-size: 16px;
   margin-top: 0em;
+  padding-top: .5em
   //width: 20em;
   //float: right;
 }

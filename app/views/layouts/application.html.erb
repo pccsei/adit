@@ -32,7 +32,7 @@
   
     <div id="container">
 	    <% flash.each do |key, value| %>
-	        <div class="info_bar alert alert-<%= key %>"><%= raw(value) %></div>
+	        <div class="alert alert-<%= key %>"><%= raw(value) %></div>
 	    <% end %>
       <h1 id="heading" class="page-header"><%= yield(:title)%></h1>
     <% if @current_user && @current_user.role == 3 && get_selected_project %>

@@ -1,10 +1,11 @@
 #feedback {
   font-size: 1.4em;
 }
-#students .ui-selecting { background: #FECA40; }
-#students .ui-selected { background: #F39814; color: white; }
+#students .ui-selecting { background: #DC0000; color: white; }
+#students .ui-selected { background: #DC0000; color: white; }
 #students { list-style-type: none; margin: 0; padding: 0; width: 60%; }
 #students li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: auto; }
+
 
 .clients a, a:link, a:visited {
 font-size: 1.2em;
@@ -76,10 +77,6 @@ font-size: 1.2em;
   margin-top: 4em !important;
 }
 
-.clients #students .ui-selected {
-background: #DC0000;
-color: white;
-}
 
 .clients #assignClient{
   margin-top: 1.5em;
@@ -89,7 +86,7 @@ color: white;
 .clients #sselect-section{
   float: right;
   padding-right: 2em;
-  margin-top: -3em;
+  margin-top: -5.3em;
 }
 
 .clinets .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
@@ -101,131 +98,131 @@ cursor: pointer;
   margin-top: 2em;
   margin-left: 1em;
 }
-.clients .alert{
-  width: 45em;
-}
 
-#business_name input{
-  width: 25em;
-}
-
-#add_city_st{
-  margin-top:2em;
-}
-#add_city_st #client_address{
-  margin-left: 3.94em;
-
-}
-#client_address{
-  width:20em;
-}
-
-#client_telephone{
-  width: 15em;
-}
-
-#client_city{
-  width:8em;
-}
-
-#city{
-  margin-top:1em;
-}
-
-#city label {
-  margin-left: 6.1em;
-}
-#state{
-  margin-top:1em;
-}
-
-#state label {
-  margin-left: 6.4em;
-}
-#state select{
-
-}
-#zip{
-  margin-top:1em;
-}
-#contact_title{
-  margin-top:1em;
-}
-
-#contact_title label {
-  margin-left: 2.4em;
-}
-#contact_fname{
-  margin-top:1em;
-}
-
-#contact_fname label {
-  margin-left: 3.2em;
-}
-#contact_lname{
-  margin-top:1em;
-}
-
-#contact_lname label {
-  margin-left: 3.3em;
-}
-
-#zip label {
-  margin-left: 3.8em;
-}
-#address{
-  margin-top: 1em;
-}
-#address input {
-
-}
-
-#address label {
-  margin-left: 3.8em;
-}
-
-#contact_info{
-  margin-top: 1em;
-}
-#contact_info label {
-  margin-left: 1.5em;
-}
-#client_zipcode{
-  width:5.5em;
-}
-#contact_info #client_contact_title{
-  margin-left: 1em;
-}
-
-#email{
-  margin-top: 1em;
-}
-
-#email label {
-  margin-left:6em;
-}
-#phone{
-  margin-top: 1em;
-}
-
-#phone label {
-  margin-left:4em;
-}
-#business_name label{
-  margin-left:-.5em;
-}
-#comment{
-  margin-top: 1em;
-}
-
-#comment textarea{
-  margin-left: .3em;
-  width: 45em;
-  height: 3em;
-}
-#comment label{
-  margin-left: 3.2em;
-}
+// #business_name input{
+// 
+// 
+// 
+  // width: 25em;
+// }
+// 
+// #add_city_st{
+  // margin-top:2em;
+// }
+// #add_city_st #client_address{
+  // margin-left: 3.94em;
+// 
+// }
+// #client_address{
+  // width:20em;
+// }
+// 
+// #client_telephone{
+  // width: 15em;
+// }
+// 
+// #client_city{
+  // width:8em;
+// }
+// 
+// #city{
+  // margin-top:1em;
+// }
+// 
+// #city label {
+  // margin-left: 6.1em;
+// }
+// #state{
+  // margin-top:1em;
+// }
+// 
+// #state label {
+  // margin-left: 6.4em;
+// }
+// #state select{
+// 
+// }
+// #zip{
+  // margin-top:1em;
+// }
+// #contact_title{
+  // margin-top:1em;
+// }
+// 
+// #contact_title label {
+  // margin-left: 2.4em;
+// }
+// #contact_fname{
+  // margin-top:1em;
+// }
+// 
+// #contact_fname label {
+  // margin-left: 3.2em;
+// }
+// #contact_lname{
+  // margin-top:1em;
+// }
+// 
+// #contact_lname label {
+  // margin-left: 3.3em;
+// }
+// 
+// #zip label {
+  // margin-left: 3.8em;
+// }
+// #address{
+  // margin-top: 1em;
+// }
+// #address input {
+// 
+// }
+// 
+// #address label {
+  // margin-left: 3.8em;
+// }
+// 
+// #contact_info{
+  // margin-top: 1em;
+// }
+// #contact_info label {
+  // margin-left: 1.5em;
+// }
+// #client_zipcode{
+  // width:5.5em;
+// }
+// #contact_info #client_contact_title{
+  // margin-left: 1em;
+// }
+// 
+// #email{
+  // margin-top: 1em;
+// }
+// 
+// #email label {
+  // margin-left:6em;
+// }
+// #phone{
+  // margin-top: 1em;
+// }
+// 
+// #phone label {
+  // margin-left:4em;
+// }
+// #business_name label{
+  // margin-left:-.5em;
+// }
+// #comment{
+  // margin-top: 1em;
+// }
+// 
+// #comment textarea{
+  // margin-left: .3em;
+  // width: 45em;
+  // height: 3em;
+// }
+// #comment label{
+  // margin-left: 3.2em;
+// }
 
 .warning { color: red}
 
@@ -247,3 +244,8 @@ td {
 .text-field {
   text-align: left;
 }
+
+.clients .form-control {
+  width: 20em;
+}
+
