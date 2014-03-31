@@ -1,3 +1,8 @@
+img{
+	height: 1.1em;
+	
+	vertical-align: -3% !important;
+}
 .sessions .alert-error {
 
     text-align: center;
@@ -33,20 +38,22 @@
 }
 
 .sessions h1{
-  font-size: 80px;
+  font-size: 10em;
   text-align: center;
   margin-top: -.2em;
 }
 
 .sessions h3{
-  font-size: 30px;
-  text-align: center;
+	font-size: 3em;
+	text-align: center;
+	margin-top: 3em;
 }
 
 .sessions .btn-primary{
-  height: 4em;
-  margin-left: 4.4em;
-  margin-top: 2em !important;
-  font-size: 4em;
-  padding-top: 1.25em;
+	height: 2em;
+	margin-left: 2.5em;
+	margin-top: 2em !important;
+	font-size: 4em;
+	padding-top: .3em;
+	width: 7em;
 }

@@ -1,10 +1,27 @@
+#timepicker label.required{
+	display: block;
+}
+#comment label{
+	display: block;
+}
+#saleMade table{
+	margin-left: 2em;
+	margin-top: 1em !important;
+	
+}
+#saleMade table td{
+	padding-top: 1em;
+}
+#saleMade table tr{
+	margin-top: 1em;
+}
 #table_title{
 	margin-top: 2em !important;
 }
 #submit{
 	margin-top:1em;
 }
-#payment{
+/*#payment{
 	margin-top: 1em;
 	margin-left: 2.5em;
 }
@@ -28,7 +45,10 @@ input#price.form-control{
 	margin-top: 1em;
 	margin-left: 5em;
 }
-
+*/
+#price{
+	width: 20em;
+}
 .receipts.show .form-control {
   display: inline;
 }
@@ -50,6 +70,7 @@ input#price.form-control{
 }
 #comment{
   margin-left: 2em;
+  margin-top: 1em;
 }
 #success{
   color: #DC0000;

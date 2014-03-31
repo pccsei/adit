@@ -8,21 +8,43 @@
 
 <% if @good_selection.present? %>
 <%= form_tag(users_assign_teacher_to_section_path) do %>
-<div id="create_section">
-	<%= label_tag 'Please select the section number:' %>
-	<%= select_tag :section, options_for_select(select), { class: 'btn btn-default dropdown-toggle' } %>
-
-	<div id="select_teacher">
-		<%= label_tag 'Please select the teacher:' %>
+<table>
+<tr>
+  <td class="label-field">
+	  <div id="create_section">
+    <%= label_tag 'Please select the section number:' %>
+  </td>
+  <td class="text-field">
+  	<%= select_tag :section, options_for_select(select), { class: 'btn btn-default dropdown-toggle' } %>
+</div>
+  </td>
+</tr>
+<tr>
+    <td class="label-field">
+		<div id="select_teacher">
+			<%= label_tag 'Please select the teacher:' %>
+    </td>
+    <td class="text-field">
 		<%= collection_select  :school_id, :id, User.all_teachers, :id, :school_id, {}, {include_blank: false, :class => 'btn btn-default dropdown-toggle'} %>
 	</div>
+    </td>
+  </tr>
+  <tr>
+      <td class="label-field">
+  		
+      </td>
+      <td class="text-field">
+  		<%= submit_tag 'Create this section', :class => 'btn btn-large btn-primary btn-sm' %>
+		<% end %>
+		<% else %>
+		<p class="alert alert-info">
+			You already have the maximum number of sections for this project.
+		</p>
+		<% end %>
+		<%= link_to 'Back to Manage Section', users_path %>
+      </td>
+    </tr>
+</table>
+	
 
-	<%= submit_tag 'Create this section', :class => 'btn btn-large btn-primary btn-sm' %>
-</div>
-<% end %>
-<% else %>
-<p class="alert alert-info">
-	You already have the maximum number of sections for this project.
-</p>
-<% end %>
-<%= link_to 'Back to Manage Section', users_path %>
+

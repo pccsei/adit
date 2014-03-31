@@ -112,25 +112,37 @@
               <%= f.text_area :comment, class: 'form-control',  rows:3  %>
             </td>
           </tr>
+          <tr>
+              <td class="label-field">
+                
+              </td>
+            <td class="text-field">
+			    <div class="actions">
+			    	<% if @client.new_record? %>
+					  <% if current_user.role == 3 %>
+					  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary'%>
+					  <% elsif more_tickets_allowed %>
+					  	<%= f.submit "Submit for teacher's approval", :class => 'btn btn-small btn-primary'%>
+					  <% else %>
+					  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary', disabled: true %>
+					  	<p class="text-info">You already have the maximum allowable clients.
+					  		Please go to <%= link_to 'My Clients', my_receipts_path(id: current_user.id) %>
+					    	and release one of your clients before asking for another.</p>
+					  <% end %>
+				  <% else %>
+				     <%= f.submit 'Update Client', :class => 'btn btn-small btn-primary'%>
+				  <% end %>
+				 <%= link_to 'Back', session[:return_from_edit] %>
+            </td>
+          </tr>
         </table>
-      </div>
-    </div>
-    <div class="actions">
-    	<% if @client.new_record? %>
-		  <% if current_user.role == 3 %>
-		  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary'%>
-		  <% elsif more_tickets_allowed %>
-		  	<%= f.submit "Submit for teacher's approval", :class => 'btn btn-small btn-primary'%>
-		  <% else %>
-		  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary', disabled: true %>
-		  	<p class="text-info">You already have the maximum allowable clients.
-		  		Please go to <%= link_to 'My Clients', my_receipts_path(id: current_user.id) %>
-		    	and release one of your clients before asking for another.</p>
-		  <% end %>
-	  <% else %>
-	     <%= f.submit 'Update Client', :class => 'btn btn-small btn-primary'%>
-	  <% end %>
-    </div>
+
+   
+   
+    
+	
+	</div>
+	 </div>
     
 
 <% end %>

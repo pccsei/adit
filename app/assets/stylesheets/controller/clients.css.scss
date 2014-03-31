@@ -27,7 +27,9 @@ font-size: 1.2em;
   font-size: 1.2em;
 }
 
-
+.actions a{
+	vertical-align: -55%;
+}
 .clients #client_list tr {
   height: 3.7em;
 }
@@ -37,11 +39,6 @@ font-size: 1.2em;
   margin: .4em !important;
 }
 
-.clients #back{
-  float: left;
-  margin-left: 10.5em;
-  margin-top: -1.3em;
-}
 .clients .panel-primary{
   margin-top: 2em !important;
   border-color: black;
@@ -229,12 +226,12 @@ cursor: pointer;
 .clickable {cursor: pointer}
 
 p.addMargin {
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 td {
-  padding: 7px;
+  padding: .5em;
 }
 
 .label-field {
