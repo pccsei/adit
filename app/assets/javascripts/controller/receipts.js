@@ -82,7 +82,7 @@ onLoad(function() {
     $("#new_action").validate({
         rules: {
             "price": {required: true, floating_number: true, min_digit: .01 },
-            "otherSize": {required: true, floating_number: true, min_digit: .01},
+            //"otherSize": {required: true, floating_number: true, min_digit: .01},
             "user_action_time": {required: true, date: true }
         },
         messages: {
@@ -91,11 +91,11 @@ onLoad(function() {
             	floating_number: "Can only be a number with 0-2 decimal digits (30 or 30.00).",
             	min_digit: "The value cannot be all zeros."
             },
-            "otherSize": {
-            	required: "Please enter an ad size (.25 or 1.5).", 
-            	floating_number: "Can only be a number with 0-2 decimal digits (.5 or .50).",
-            	min_digit: "The value cannot be all zeros."
-            },
+            //"otherSize": {
+            //	required: "Please enter an ad size (.25 or 1.5).", 
+            //	floating_number: "Can only be a number with 0-2 decimal digits (.5 or .50).",
+            //	min_digit: "The value cannot be all zeros."
+            //},
             "user_action_time": "Please enter in the date and time when you did this."
         }
     });
