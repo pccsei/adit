@@ -2,25 +2,30 @@ class Priority < ActiveRecord::Base
   has_many :tickets
   
   #Will be used once new seed file has been created
-  def self.retrieve(client, project)
-   
+  def self.retrieve(client, project)  
      value = (Priority.find_by name: "low").id
-     if (project.semester == "Spring")      
-        if (client.receipts.where("made_sale = ? AND ticket_id IN (?)", 
-                                            true,    (client.tickets.where("project_id IN (?)", 
-                                                                            Project.where("year = ?", (project.year - 1)).ids)))).present?
-          value = (Priority.find_by name: "high").id    
-        elsif (client.receipts.where("made_sale = ? AND ticket_id NOT IN (?)", 
-                                              true, (client.tickets.where("project_id IN (?)", 
-                                                                           Project.where("year < ?", (project.year - 3)).ids)))).present?
-          value = (Priority.find_by name: "medium").id
-        end
+     
+     # For the student project. REMOVE AFTER EXPO !
+     if project.year == 2104
+     
+       if (project.semester == "Spring")      
+          if (client.receipts.where("made_sale = ? AND ticket_id IN (?)", true,
+             (client.tickets.where("project_id IN (?)", Project.where("year = ?", (project.year - 1)).ids)))).present?
+            value = (Priority.find_by name: "high").id    
+          elsif (client.receipts.where("made_sale = ? AND ticket_id NOT IN (?)", true, (client.tickets.where("project_id IN (?)", Project.where("year < ?", (project.year - 3)).ids)))).present?
+            value = (Priority.find_by name: "medium").id
+          end
+       else
+          if (client.receipts.where("made_sale = ? AND ticket_id IN (?)", true, (client.tickets.where("project_id IN (?)", Project.where("semester = ? AND year = ? OR semester = ? AND year = ?", "Spring", (project.year), "Fall", (project.year - 1)).ids)))).present? 
+            value = (Priority.find_by name: "high").id
+          elsif (client.receipts.where("made_sale = ? AND ticket_id NOT IN (?)", true, (client.tickets.where("project_id IN (?)", Project.where("semester = ? AND year < ? OR semester = ? AND year < ?", "Spring",(project.year - 2), "Fall", (project.year - 3)).ids)))).present?
+            value = (Priority.find_by name: "medium").id
+          end    
+       end
+       
+     #Random priorities for the teacher EXPO
      else
-        if (client.receipts.where("made_sale = ? AND ticket_id IN (?)", true, (client.tickets.where("project_id IN (?)", Project.where("semester = ? AND year = ? OR semester = ? AND year = ?", "Spring", (project.year), "Fall", (project.year - 1)).ids)))).present? 
-          value = (Priority.find_by name: "high").id
-        elsif (client.receipts.where("made_sale = ? AND ticket_id NOT IN (?)", true, (client.tickets.where("project_id IN (?)", Project.where("semester = ? AND year < ? OR semester = ? AND year < ?", "Spring",(project.year - 2), "Fall", (project.year - 3)).ids)))).present?
-          value = (Priority.find_by name: "medium").id
-        end    
+       value = Priority.find(rand(1..3)).id
      end
      value
   end
