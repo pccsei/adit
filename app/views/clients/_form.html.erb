@@ -33,25 +33,28 @@
           </tr>
 
           <tr id="toggleRow">
-          <td></td>
-          <td>
+          
+			  <td></td>
+			  <td>
             
           <div id="businessList"> 
             <% if @all_clients %>
               <table id="manageSection" width="325px">
                 <tr>
                   <td>
-                    <table cellspacing="0" cellpadding="1" border="1" width="400px" >
+                    <table>
                       <tr>
-                        <th>Businesses Already in the Database</th>
+						  
+                        <th class="alert alert-info">Businesses Already in the Database</th>
+					
                       </tr>
                     </table>
                   </td>
                 </tr>
                 <tr>
-                  <td>
-                    <div style="width:325px; height:201px; overflow:auto;">
-                      <table id="businessNames" cellspacing="0" cellpadding="1" border="1" width="400px" >
+                  <td class="text-field">
+                    <div id="business_list">
+                      <table id="businessNames">
                         <% @all_clients.each do |c| %>
                           <tr>
                             <td class="c.business_name"> <%= c %></td>
@@ -175,11 +178,6 @@
             </td>
           </tr>
         </table>
-
-   
-   
-    
-	
 	</div>
 	 </div>
 
