@@ -3,25 +3,26 @@
 <!-- Gets rid of the section number if it has already been taken -->
 <% select = Array[]%>
 <% @good_selection.each do |selection| %>
-	<% select.push(selection) %>
+<% select.push(selection) %>
 <% end %>
 
 <% if @good_selection.present? %>
 <%= form_tag(users_assign_teacher_to_section_path) do %>
 <div id="create_section">
-<%=label_tag 'Please select the section number:' %>
-<%=select_tag :section, options_for_select(select), :class => 'btn btn-large btn-dropdown btn-sm' %>
+	<%= label_tag 'Please select the section number:' %>
+	<%= select_tag :section, options_for_select(select), { class: 'btn btn-default dropdown-toggle' } %>
 
+	<div id="select_teacher">
+		<%= label_tag 'Please select the teacher:' %>
+		<%= collection_select  :school_id, :id, User.all_teachers, :id, :school_id, {}, {include_blank: false, :class => 'btn btn-default dropdown-toggle'} %>
+	</div>
 
-<div id="select_teacher">
-<%= label_tag 'Please select the teacher:' %>
-<%= collection_select  :school_id, :id, User.all_teachers, :id, :school_id, :class => 'btn btn-large btn-dropdown btn-sm'   %>
-</div>
-
-<%= submit_tag 'Create this section', :class => 'btn btn-large btn-primary btn-sm' %>
+	<%= submit_tag 'Create this section', :class => 'btn btn-large btn-primary btn-sm' %>
 </div>
 <% end %>
 <% else %>
-<p class="alert alert-info">You already have the maximum number of sections for this project.</p>
+<p class="alert alert-info">
+	You already have the maximum number of sections for this project.
+</p>
 <% end %>
 <%= link_to 'Back to Manage Section', users_path %>
