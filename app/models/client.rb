@@ -68,10 +68,12 @@ end
   def self.approve_clients(array_of_pending_clients)
     for i in 0..array_of_pending_clients.count-1
       pending_client = Client.find(array_of_pending_clients[i].to_i)
-      pending_client.status_id = Status.where('status_type = ?', 'Approved').first.id
+      pending_client.status_id = Status.find_by(status_type: 'Approved').id
       pending_client.save
-      ticket = Ticket.where('client_id = ?', pending_client.id).first
-      Receipt.create(:ticket_id => ticket.id, :user_id => ticket.user_id)
+      ticket = Ticket.find_by(client_id: pending_client.id)
+      if User.find(pending_client.submitter).role < 3 && ticket.user_id
+         Receipt.create(ticket_id: ticket.id, user_id: ticket.user_id)
+      end
     end
   end
   
