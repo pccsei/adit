@@ -82,14 +82,13 @@
 	| <%= link_to 'Edit', edit_client_path(@client, page: request.url) %>
 <% end %>
 
+<% if @sales_info.present? %>
+<h3> Sales History </h3>
+<% end %>
 <% if @sales_info.present? %>	
 	<%= render :partial => 'sales_info', :locals => {:sales_info => @sales_info} %>
 <% end %>
-
-
-<% if @sales_info.present? %>
-<h3> Sales History </h3>
-<% end %>	
+	
 <div>
   <% if @sales_years[0].present? %>
      <p class="addMargin">
