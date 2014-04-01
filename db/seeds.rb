@@ -2187,7 +2187,7 @@ def rand_time(from, to=Time.now)
 end
 
 def rand_page
-  Array [0.25, 0.5, 1].sample
+  Array [0.25, 0.5, 1.0].sample
 end
 
 def rand_payment
