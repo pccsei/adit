@@ -205,6 +205,7 @@ class ClientsController < ApplicationController
     @client = Client.new
     @pending_clients = Client.pending    
     @unapproved_clients = Client.unapproved
+    @all_clients = Client.pluck(:business_name)
   end
 
   private
