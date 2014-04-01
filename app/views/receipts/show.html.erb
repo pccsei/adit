@@ -37,7 +37,7 @@
 		<div id="FirstContact" class ="action" <%= ' hidden' unless (@receipt.made_contact == false)%>>
 
 			<p class="alert alert-info">
-				My Sales Progress
+				My Sale Progress
 			</p>
 
 			<%= check_box_tag(:contact) %>
@@ -60,19 +60,38 @@
 		</div>
 
 		<div id = "saleMade" class="hidden">
-
-			<%= label_tag('price', 'Sale Amount', class: 'required', id: 'price_label') %>
-			<%= text_field_tag(:price, '', :placeholder => 'Examples: 50 or 75', :class=>'form-control') %>
-			<br />
-
-			<%= label_tag('page', 'Page Size', class: 'required', id: 'page_size') %>
-			<%= select_tag(:page, options_for_select([["Whole page", 1], ["1/2 page", 0.5], ["1/4 page", 0.25], ["1/8 page", 0.125], ["Other", :id=> 'o']]), {class: "btn btn-default dropdown-toggle"})%>
-			<%= text_field_tag(:otherSize, '', :placeholder => '(1/5, 1/3, etc.) ', :class => "hidden form-control")%>
-			<br />
-			<%= label_tag('payment_type', 'Payment Type', id:'payment', class: 'required') %>
-			<%= select_tag('payment_type', options_for_select(%w(Cash Credit Invoice Check Dept. Trans.)), {class: "btn btn-default dropdown-toggle"})%>
+	        <table>
+	          <tr>
+	            <td class="label-field">
+	              <%= label_tag('price', 'Sale Amount', class: 'required', id: 'price_label') %>
+	            </td>
+	            <td class="text-field">
+					<div class="input-group">
+	             <span class="input-group-addon">$</span><%= text_field_tag(:price, '', :placeholder => 'Examples: 50.00 or 75', :class=>'form-control') %>
+			 </div>
+	            </td>
+	          </tr>
+	          <tr>
+	            <td class="label-field">
+	              <%= label_tag('page', 'Page Size', class: 'required', id: 'page_size') %>
+	            </td>
+	            <td class="text-field">
+	             	<%= select_tag(:page, options_for_select([["Whole page", 1], ["1/2 page", 0.5], ["1/4 page", 0.25], ["1/8 page", 0.125], ["Other", :id=> 'o']]), {class: "btn btn-default dropdown-toggle"})%>
+					<%= text_field_tag(:otherSize, '', :placeholder => '(1/5, 1/3, etc.) ', :class => "hidden form-control")%>
+	            </td>
+	          </tr>
+	          <tr>
+	            <td class="label-field">
+	          <%= label_tag('payment_type', 'Payment Type', id:'payment', class: 'required') %>
+	            </td>
+	            <td class="text-field">
+	             	<%= select_tag('payment_type', options_for_select(%w(Cash Credit Invoice Check Dept. Trans.)), {class: "btn btn-default dropdown-toggle"})%>
+	          </tr>
+	        </table>	 
+			
+			
+			
 		</div>
-		<br />
 
 		<div id="comment">
 			<%= label_tag('comments', 'Comment') %>

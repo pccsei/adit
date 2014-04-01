@@ -39,7 +39,7 @@ onLoad(function() {
             "client[business_name]": "Please enter the business name.",
             "client[address]": "Please enter the address.",
             "client[city]": {
-            	required: "Please enter a city",
+            	required: "Please enter a city.",
             	letters_only: "Will only accept letters and punctuation."
             },
             "client[zipcode]": {
@@ -103,6 +103,20 @@ onLoad(function() {
         }
     });
 
+      var $rows = $('#businessNames tr');
+      $('#client_business_name').keyup(function() {
+        var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+            reg = RegExp(val, 'i'),
+            text;
+
+        $rows.show().filter(function() {
+            text = $(this).text().replace(/\s+/g, ' ');
+            return !reg.test(text);
+        }).hide();
+      });
+
+    $('#client_business_name').focus(function(){ $('#toggleRow').show(); });
+    $('.hideClients').focus(function(){ $('#toggleRow').hide(); });   
     
     $(".sectionNum").click( function() {    	
         dState();
@@ -120,9 +134,9 @@ onLoad(function() {
 
     });
     
-    $("#client_business_name").bind( "keydown", function( event ) {
-        $( "#client_business_name" ).attr('value', "test") 
-    });
+    // $("#client_business_name").bind( "keydown", function( event ) {
+    //     $( "#client_business_name" ).attr('value', "test") 
+    // });
     
     var priorities = ['high', 'medium', 'low'];
   var index      = 0; 
