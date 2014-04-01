@@ -81,6 +81,7 @@ end
       end
     end
 
+    approved_clients.compact!
     if approved_clients.count > 0
       if approved_clients.count == 1
         flash_message += approved_clients[0] + " has been approved."
@@ -90,25 +91,46 @@ end
         else
           flash_message += approved_clients[0..-2].join(', ') + ", and " + approved_clients[-1].to_s
         end
-        flash_message += " have been approved"
+        flash_message += " have been approved."
       end
     end
 
-    return 
+    return flash_message
   end
   
     def self.unapprove_clients(array_of_pending_clients)
+      flash_message = ""
+      unapproved_clients = []
+
      for i in 0..array_of_pending_clients.count-1
       pending_client = Client.find(array_of_pending_clients[i].to_i)
       pending_client.status_id = Status.where('status_type = ?', 'Unapproved').first.id
-      pending_client.save
-
+      if pending_client.save
+        unapproved_clients[i] = pending_client.business_name
+      end
 
       if Ticket.where('client_id = ?', pending_client.id).first
         Ticket.where('client_id = ?', pending_client.id).first.destroy
       end
 
      end
+
+    unapproved_clients.compact!
+    if unapproved_clients.count > 0
+      if unapproved_clients.count == 1
+        flash_message += unapproved_clients[0] + " has been disapproved."
+      else
+        if unapproved_clients.count == 2
+          flash_message += unapproved_clients.join(' and ')
+        else
+          flash_message += unapproved_clients[0..-2].join(', ') + ", and " + unapproved_clients[-1].to_s
+        end
+        flash_message += " have been disapproved."
+      end
+    end
+
+    return flash_message
+
     end
 
   def self.tickets_for_selected_project(pid)
