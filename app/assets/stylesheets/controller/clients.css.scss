@@ -7,6 +7,27 @@
 #students li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: auto; }
 
 
+th.alert.alert-info{
+	font-size: 1em;
+	background-color: inherit;
+	border-left: none;
+	border-right: none;
+	border-color: #DC0000;
+	border-radius: 0px;
+	border-width: .2em;
+	color: black;
+	padding: .5em;
+	width: auto;
+}
+#business_list{
+	width: 22em;
+	max-height: 10em;
+	overflow: auto;
+	margin-left: -.5em;
+}
+#businessNames{
+	width: 22em;
+}
 .clients a, a:link, a:visited {
 font-size: 1.2em;
 }
@@ -264,11 +285,7 @@ td {
   text-align: left;
 }
 
-.clients #businessList {
-float: right;
-margin-top: -42.5em;
-position: relative;
-}
+
 
 .clients .form-control {
   width: 20em;

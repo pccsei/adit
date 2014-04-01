@@ -81,7 +81,9 @@ end
       end
     end
 
+
     approved_clients.compact!
+
     if approved_clients.count > 0
       if approved_clients.count == 1
         flash_message += approved_clients[0] + " has been approved."
@@ -91,11 +93,13 @@ end
         else
           flash_message += approved_clients[0..-2].join(', ') + ", and " + approved_clients[-1].to_s
         end
+
         flash_message += " have been approved."
       end
     end
 
     return flash_message
+
   end
   
     def self.unapprove_clients(array_of_pending_clients)
