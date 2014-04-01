@@ -1,11 +1,11 @@
 <% provide(:title, (@client.business_name).html_safe) %>
 
-	<h4 id="client_info"><%= @client.address%>&nbsp;&nbsp;&#149;
-	&nbsp;&nbsp;<%= @client.city %>
-	<%= @client.state %>,
-	<%= @client.zipcode%>&nbsp;&nbsp;&#149;
-	<%if @client.contact_title || @client.contact_fname || @client.contact_lname%>
-	&nbsp;&nbsp;<%= @client.contact_title + '' + @client.contact_fname + ' ' + @client.contact_lname %>
+	<h4 id="client_info"><%= @client.address%>&nbsp;&nbsp;    <% if @client.city.present? || @client.zipcode.present? || @client.state.present? %>
+	&#149;&nbsp;&nbsp;<%= @client.city %>,
+	<%= @client.state %>
+	<%= @client.zipcode%>&nbsp;&nbsp;		<% end %>
+	<%if @client.contact_title.present? || @client.contact_fname.present? || @client.contact_lname.present? %>
+	&#149;&nbsp;&nbsp;<%= @client.contact_title + '' + @client.contact_fname + ' ' + @client.contact_lname %>
 	&nbsp;&nbsp;
 	<%end%>
 	<%if @client.telephone %>

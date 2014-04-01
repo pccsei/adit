@@ -64,7 +64,7 @@ class ClientsController < ApplicationController
     # have the undo use the receipt id
     undo_link = view_context.link_to("Undo", revert_assign_version_path(t.versions.where(whodunnit: current_user.id).last), :method => :post)
     
-    redirect_to clients_url, :notice => User.find_by_school_id(params[:studentID]).first_name.to_s + ' is now assigned to ' + t.client.business_name + " #{undo_link}"  
+    redirect_to clients_url, :notice => User.find_by_school_id(params[:studentID]).first_name.to_s + ' is now assigned to ' + t.client.business_name + ".  #{undo_link}"  
   end
 
 
@@ -72,6 +72,8 @@ class ClientsController < ApplicationController
   def approve_client
     status = params['commit']
 
+    # This should probably be refactored to send the client ids from the front
+    #    just in case delays happen and a client gets accidentally approved
     if status == 'Approve All'
        array_of_pending_clients = Client.pending.ids
     else
@@ -79,14 +81,16 @@ class ClientsController < ApplicationController
     end
 
     if array_of_pending_clients.present?
-      if status == 'Approve'
+      if (status == 'Approve') || (status == 'Approve All')
         Client.approve_clients(array_of_pending_clients)
+        message = "Your selected clients were approved."
       else 
         Client.unapprove_clients(array_of_pending_clients)
+        message = "Your selected clients were unapproved."
       end
     end
 
-    redirect_to clients_approve_url
+    redirect_to clients_approve_url, notice: message
   end
 
 #######################
@@ -145,12 +149,13 @@ class ClientsController < ApplicationController
     # This line should eventually place the clients on the pending clients list instead of straight into the db
     # @client.status_id = Status.where("status_type = ?", "Pending").pluck(:id) 
 
-      if @client.save
+      
        if current_user.role == 3
           user = nil
         else
           user = current_user.id
         end
+        if @client.save
         Ticket.create(:user_id => user, :client_id => @client.id, 
                       :project_id => get_current_project.id, :priority_id => Priority.where('name = ?', 'low').first.id)
         flash[:success] = 'Your client has been submitted for approval.'
@@ -160,7 +165,7 @@ class ClientsController < ApplicationController
           redirect_to clients_submit_path
         end
       else
-        render action: 'new' 
+        render action: 'new', notice: "There was an error validating your client. Please enable Javascript or contact your teacher."
       end
   end
 

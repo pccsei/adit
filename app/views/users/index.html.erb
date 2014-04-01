@@ -25,7 +25,7 @@
       	<!-- EXPO 'Assign Bonus Points' to be add to options for select -->
         <%= select_tag 'selected_option',
                         options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team' ]),
-                        :onchange => 'myFunction()', :prompt => 'Choose Action', :type => 'button',
+                        :prompt => 'Choose Action', :type => 'button',
                         :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
       </div>
       <!-- This only appears if the teacher wants to assign a team to a student manager -->
@@ -34,15 +34,19 @@
           <%= select_tag 'student_manager', options_from_collection_for_select(@student_managers, 'id', :full_name),
                        :class => 'btn btn-default dropdown-toggle col-md-2'%>
       <% else %>
-        Please promote students before creating a team
+        <p id="no_managers" class="alert alert-error">Please promote students before creating a team.</p>
       <% end %>
       </div>
+      
+      <% if false %>
+      EXPO
       <div id ="assign_bonus_points">
         <p>Number of bonus points:
         <%= number_field_tag 'bonus_points' %></p>
         <p>Please enter the reason for the bonus points:
         <%= text_field_tag 'bonus_comment' %></p>
-      </div> 
+      </div>
+      <% end %> 
       <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm col-md-1', :id => 'action_submit'%>
     </div>
 

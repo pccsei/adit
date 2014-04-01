@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many   :bonuses
   has_many   :members
   has_many   :comments
+  has_paper_trail
 
   before_create :create_remember_token
 

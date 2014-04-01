@@ -124,9 +124,84 @@ onLoad(function() {
         $( "#client_business_name" ).attr('value', "test") 
     });
     
+    var priorities = ['high', 'medium', 'low'];
+  var index      = 0; 
+  var ascFlag    = true;
+  var descFlag   = true;  
+  
+  var priorityArray = {};
+  priorityArray['High']   =-1;
+  priorityArray['Medium'] = 0;
+  priorityArray['Low']    = 1;
+  
+  function updatePriorityArray(){
+    priorityArray['High']   = ((priorityArray['High']   + 2) % 3) - 1;
+    priorityArray['Medium'] = ((priorityArray['Medium'] + 2) % 3) - 1;
+    priorityArray['Low']    = ((priorityArray['Low']    + 2) % 3) - 1;
+  }
+  
+  // This function enable the datatable on the tickets page to cycle through priorities.
+  jQuery.fn.dataTableExt.oSort['priority-asc'] = function(x,y) {
+  
+    if (descFlag) {
+      index++;
+      index   %= priorities.length;
+      ascFlag  = true;
+      descFlag = false;   
+      updatePriorityArray();
+      console.log("asc called");
+      console.log("pushing " + priorities[index] + " to the top");
+    }
+    var currentPriority = priorities[index];
+    
+    // This strips out the span tags I added to the td. - Rob
+    x = $(x).text();
+    y = $(y).text();
+
+    if (x == (currentPriority) && y == (currentPriority)) 
+      return 0;
+    else if (x == (currentPriority))
+      return -1;
+    else if (y == (currentPriority)) 
+      return 1;
+    else 
+      return ((priorityArray[x] < priorityArray[y]) ?  1 : ((priorityArray[x] > priorityArray[y]) ? -1: 0 ) );
+  };
+  
+  // This one too
+  jQuery.fn.dataTableExt.oSort['priority-desc'] = function(x,y) {
+  
+    if (ascFlag) {
+      index++;
+      index   %= priorities.length;
+      ascFlag  = false;
+      descFlag = true;   
+      updatePriorityArray(); 
+      console.log("desc called");
+      console.log("pushing " + priorities[index] + " to the top");
+      var nextIndex = index;
+    }   
+    var currentPriority = priorities[index];
+        
+    // This strips out the span tags I added to the td. - Rob
+    x = $(x).text();
+    y = $(y).text();
+
+    if (x == (currentPriority) && y == (currentPriority))
+      return 0;
+    else if (x == (currentPriority))
+      return -1;
+    else if (y == (currentPriority)) 
+      return 1;
+    else
+      return ((priorityArray[x] < priorityArray[y]) ?  1 : ((priorityArray[x] > priorityArray[y]) ? -1: 0 ) );
+  };  
+    
+    
 	populate($('#currentSection').html());
     
     var table =  $('.assign_table').dataTable({
+        "aoColumns" : [{ "bSortable": true }, {"sType": "priority" }, null, null, null, null, null, null, null, null, null, null, null],
         "bPaginate" : false,
         "iCookieDuration": 60,
         "bStateSave": false,
