@@ -2186,6 +2186,14 @@ def rand_time(from, to=Time.now)
   Time.at(rand_in_range(from.to_f, to.to_f))
 end
 
+def rand_page
+  Array [0.25, 0.5, 1].sample
+end
+
+def rand_payment
+  Array ["Cash", "Credit", "Check"].sample
+end
+
 next_year = 2015
 teachers = teacher_users.take(50)
 teachers.each do |t|
@@ -2223,7 +2231,7 @@ teachers.each do |t|
     tickets[ticket_index].user_id = student_users[student_index].id
     tickets[ticket_index].save
     receipt = Receipt.create!(ticket_id: tickets[ticket_index].id, user_id: student_users[student_index].id, made_contact: true,
-                              made_presentation: true, made_sale: true, sale_value: rand_price(0, 100), page_size: 0.5, payment_type: "Credit")
+                              made_presentation: true, made_sale: true, sale_value: rand_price(0, 100), page_size: rand_page, payment_type: rand_payment)
     receipt.actions.create(points_earned: 5, user_action_time: rand_time(6.days.ago), action_type_id: (ActionType.find_by name: "First Contact").id)
     receipt.actions.create(points_earned: 5, user_action_time: rand_time(4.days.ago), action_type_id: (ActionType.find_by name: "Presentation").id)
     receipt.actions.create(points_earned: 10, user_action_time: rand_time(2.days.ago), action_type_id: (ActionType.find_by name: "Old Sale").id)
