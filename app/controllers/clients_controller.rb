@@ -83,15 +83,12 @@ class ClientsController < ApplicationController
     # render text: array_of_pending_clients
     if array_of_pending_clients.present?
       if (status == 'Approve') || (status == 'Approve All')
-        if status == 'Approve' && array_of_pending_clients = ""
-          message = Client.approve_clients(array_of_pending_clients)
-        else
-          message = "No clients were selected."
-        end
+        message = Client.approve_clients(array_of_pending_clients)
       else 
-        Client.unapprove_clients(array_of_pending_clients)
-        message = "Your selected clients were unapproved."
+        message = Client.unapprove_clients(array_of_pending_clients)
       end
+    else
+      message = "No clients were selected."
     end
 
     redirect_to clients_approve_url, flash: { notice: message }
@@ -121,10 +118,12 @@ class ClientsController < ApplicationController
       array_of_edited_pending_clients = Client.edited_pending.ids
     end
     if !array_of_edited_pending_clients.nil?
-      Client.approve_edited_clients(status, array_of_edited_pending_clients)   
+      Client.approve_edited_clients(status, array_of_edited_pending_clients)
+    else
+      message = "No clients selected."
     end
     
-    redirect_to clients_approve_url
+    redirect_to clients_approve_url, flash: { notice: message }
   end
 
 

@@ -13,7 +13,30 @@ class Ticket < ActiveRecord::Base
 
   def self.updates(stamp)
     # Grab all updates and append system time to push to the fron end
-    select('id, client_id, user_id').where('updated_at >= ?', stamp).all << Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')
+    tickets = select('id, client_id, user_id').where('updated_at >= ?', stamp).all
+    Struct.new('Update', :id, :client_id, :user_id, :first_name, :last_name, :school_id)
+    
+    updates = []  
+    tickets.each_with_index do |t, i|
+      updates[i]            = Struct::Update.new
+      updates[i].id         = t.id
+      updates[i].client_id  = t.client_id
+      updates[i].user_id    = t.user_id
+      
+      if t.user_id == 0 || t.user_id.nil?
+        updates[i].first_name = ''
+        updates[i].last_name  = ''
+        updates[i].school_id  = ''
+      else
+        user                  = User.find(t.user_id)
+        updates[i].first_name = user.first_name
+        updates[i].last_name  = user.last_name
+        updates[i].school_id  = user.school_id
+      end
+    end   
+    
+    updates << Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')
+    
   end
 
   def self.createTickets(project)
