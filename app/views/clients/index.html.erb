@@ -13,6 +13,7 @@
   <thead>
   <tr>
     <th>Owner</th>
+    <th>Priority</th>
     <th>Business name</th>
     <th>Address</th>
     <th>City</th>
@@ -29,22 +30,23 @@
 
   <tbody>
   <% @tickets.each do |ticket| %>
-      <tr>
-            <td>
-              <% if ticket.id %>
-                  <% if get_selected_project.is_active == true %>
-                     <% if ticket.student_fname %>
-                         <%= (ticket.student_fname + ' ' +  ticket.student_lname + '<br />(' + ticket.student_id + ')').html_safe %>
-                      <% else %>
-                         <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-link btn-sm assign'} %>
-                      <% end %>
-                  <% else%>
-                      <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-link btn-sm assign', disabled: true }%>
-                   <% end %>
-              <% else %>
-                  <%= 'Ticket does not exist for this client' %>
-              <% end %>
-            </td>        
+      <tr class="<%= ticket.priority.name %>">
+        <td>
+          <% if ticket.id %>
+              <% if get_selected_project.is_active == true %>
+                 <% if ticket.student_fname %>
+                     <%= (ticket.student_fname + ' ' +  ticket.student_lname + '<br />(' + ticket.student_id + ')').html_safe %>
+                  <% else %>
+                     <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-link btn-sm assign'} %>
+                  <% end %>
+              <% else%>
+                  <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-link btn-sm assign', disabled: true }%>
+               <% end %>
+          <% else %>
+              <%= 'Ticket does not exist for this client' %>
+          <% end %>
+        </td>   
+        <td class="priority"><span><%= ticket.priority.name.capitalize %></span></td>     
         <td><%= link_to ticket.business_name, client_path(ticket.client_id, page: request.url) %></td>
         <td><%= ticket.address %></td>
         <td><%= ticket.city %></td>

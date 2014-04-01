@@ -68,10 +68,12 @@ end
   def self.approve_clients(array_of_pending_clients)
     for i in 0..array_of_pending_clients.count-1
       pending_client = Client.find(array_of_pending_clients[i].to_i)
-      pending_client.status_id = Status.where('status_type = ?', 'Approved').first.id
+      pending_client.status_id = Status.find_by(status_type: 'Approved').id
       pending_client.save
-      ticket = Ticket.where('client_id = ?', pending_client.id).first
-      Receipt.create(:ticket_id => ticket.id, :user_id => ticket.user_id)
+      ticket = Ticket.find_by(client_id: pending_client.id)
+      if User.find(pending_client.submitter).role < 3 && ticket.user_id
+         Receipt.create(ticket_id: ticket.id, user_id: ticket.user_id)
+      end
     end
   end
   
@@ -92,7 +94,7 @@ end
   def self.tickets_for_selected_project(pid)
     ticket_info = Ticket.where(project_id: pid)
         
-    Struct.new('Client_ticket', :business_name, :contact_fname, :telephone, :student_lname, :zipcode, :city, :id,
+    Struct.new('Client_ticket', :business_name, :contact_fname, :telephone, :student_lname, :zipcode, :city, :id, :priority,
                                 :state, :contact_lname, :contact_title, :client_id, :address, :email, :student_fname, :student_id, :comment)
     client_ticket = []  
     ticket_info.each_with_index do |t, i|
@@ -110,6 +112,7 @@ end
       client_ticket[i].email         = t.client.email
       client_ticket[i].comment       = t.client.comment
       client_ticket[i].client_id     = t.client_id
+      client_ticket[i].priority      = t.priority
       
       if t.user_id == nil || t.user_id == 0 # If the ticket does not have a holder
         client_ticket[i].student_fname = nil

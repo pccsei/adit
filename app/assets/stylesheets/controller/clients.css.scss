@@ -99,6 +99,28 @@ cursor: pointer;
   margin-left: 1em;
 }
 
+.assign_table tbody {
+  tr {
+    height: 3em;
+  }
+  tr .priority span {
+    padding: .2em .5em;
+    border-left: .4em solid;
+  }
+  tr.high .priority span {
+    //background: #e8ffe3;
+    border-left-color: #43d852;
+  }
+  tr.medium .priority span {
+    //background: #fefdca;
+    border-left-color: #f3e32f;
+  }
+  tr.low .priority span {
+    //background: #fff;
+    border-left-color: #ddd;
+  }
+}
+
 // #business_name input{
 // 
 // 
