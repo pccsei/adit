@@ -1,7 +1,10 @@
+.actions a{
+	vertical-align: -45%;
+}
 .users #no_managers {
   float: right !important;
   width: 57em !important;
-  margin-top: -1em !important;
+  margin-top: 1em !important;
 }
 
 .users .panel-primary {
@@ -22,21 +25,17 @@
 }
 
 .users #create_section {
-  margin-top: 1em !important;
+  //margin-top: 1em !important;
 }
 
 .users #select_teacher {
-  margin-bottom: 3em !important;
-  margin-top: 1em !important;
+ // margin-bottom: 3em !important;
+ // margin-top: 1em !important;
 }
 
-.users .actions {
-  margin-top: 2em;
-  margin-left: -1em;
-}
 
-.users .btn.btn-large.btn-primary.btn-sm {
-  margin-top:-2em !important;
+.text-field a{
+	vertical-align: -45%;
 }
 
 .users #paste {
@@ -81,7 +80,7 @@ padding: .4em;
 }
 
 td {
-	padding: 7px;
+	padding: .5em;
 }
 
 .label-field {

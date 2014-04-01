@@ -80,17 +80,21 @@ class ClientsController < ApplicationController
        array_of_pending_clients = params['clients']
     end
 
+    # render text: array_of_pending_clients
     if array_of_pending_clients.present?
       if (status == 'Approve') || (status == 'Approve All')
-        Client.approve_clients(array_of_pending_clients)
-        message = "Your selected clients were approved."
+        if status == 'Approve' && array_of_pending_clients = ""
+          message = Client.approve_clients(array_of_pending_clients)
+        else
+          message = "No clients were selected."
+        end
       else 
         Client.unapprove_clients(array_of_pending_clients)
         message = "Your selected clients were unapproved."
       end
     end
 
-    redirect_to clients_approve_url, notice: message
+    redirect_to clients_approve_url, flash: { notice: message }
   end
 
 #######################
@@ -126,6 +130,7 @@ class ClientsController < ApplicationController
 
   # GET /clients/new
   def new
+    @all_clients = Client.pluck(:business_name)
     @client = Client.new
   end
 
@@ -200,6 +205,7 @@ class ClientsController < ApplicationController
     @client = Client.new
     @pending_clients = Client.pending    
     @unapproved_clients = Client.unapproved
+    @all_clients = Client.pluck(:business_name)
   end
 
   private

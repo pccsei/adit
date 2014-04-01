@@ -155,13 +155,17 @@ class UsersController < ApplicationController
     # '' represents if the choice is just left as the default
     if choice != ''
       if students
-        success_state, message = User.do_selected_option(students, choice, student_manager_id, get_selected_project, params[:bonus_points], params[:bonus_comment])
-        if success_state == 'success'
-          redirect_to users_url, :flash => { :success => message }
-        elsif success_state == 'error'
-          redirect_to users_url, :flash => { :error => message }
+        if choice != 'Add to Team' || student_manager_id
+          success_state, message = User.do_selected_option(students, choice, student_manager_id, get_selected_project, params[:bonus_points], params[:bonus_comment])
+          if success_state == 'success'
+            redirect_to users_url, :flash => { :success => message }
+          elsif success_state == 'error'
+            redirect_to users_url, :flash => { :error => message }
+          else
+            redirect_to users_url, :flash => { :notice => message }
+          end
         else
-          redirect_to users_url, :flash => { :notice => message }
+          redirect_to users_url, :flash => { :error => "No Team Leader Selected." } 
         end
       else 
         redirect_to users_url, :flash => { :error => "No Students Selected." }      
