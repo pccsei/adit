@@ -35,10 +35,25 @@
       <tbody>
       <% @tickets.each do |ticket| %>
           <tr class="<%= ticket.priority.name %>">
-            <% client = Client.find(ticket.client_id); ticketClass = " addTicket "; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : "autoHide "); %>
+            <% #client = Client.find(ticket.client_id); ticketClass = " addTicket "; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : "autoHide "); 
+            %>
+            
+            <% client = Client.find(ticket.client_id); ticketClass = " addTicket " %>            
+            <% ##span and button things
+            	if ticket.user_id == 0 || ticket.user_id.nil?
+            		ticketClass << ""
+    				holder = ""
+    			else
+    				ticketClass << 'autoHide '
+            		holder = "#{ticket.user.first_name} #{ticket.user.last_name}<br />(#{ticket.user.school_id})".html_safe
+    			end
+            %>
             <% if open %>                
-                <td><%= button_tag 'Choose', type: 'button', :id => ticket.id, :class => 'btn btn-primary btn-sm' << ticketClass %></td>
-
+                <td>
+                  <%= button_tag 'Choose', type: 'button', :id => ticket.id, :class => 'btn btn-primary btn-sm' << ticketClass %>
+                  <%= content_tag(:span, holder, :id =>ticket.id.to_s + '_span' ) %>
+                	
+                </td>
             <% end %>
             <td class="priority"><span><%= ticket.priority.name.capitalize %></span></td>
             <td><%= link_to client.business_name, client_path(id: ticket.client.id, page: request.url)%></td>

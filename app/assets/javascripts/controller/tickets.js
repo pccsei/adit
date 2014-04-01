@@ -5,15 +5,12 @@ onLoad(function() {
   });       
         
   $(".addTicket").click(function(caller) {
-  //console.log(caller.target.id);
     $.getJSON("tickets.json?ajax=getClient&clientID=" + caller.target.id, function(json) {
       // TODO: Change URL above ^^^ to use Rails helper
       if (json.Success != null) {
         $('#' + caller.target.id).addClass("autoHide").hide();
         console.log("You got the client!");
         selector =  $('#' + json.ticketPriority + "PriorityCount");        
-        //selector.html(selector.html() - 1);
-        //$('#clientsRemaining').html($('#clientsRemaining').html() - 1);
         updateCounters(selector);
         $("#userMessage").hide().html(json.Success).fadeIn(1000);
       }
@@ -48,17 +45,17 @@ onLoad(function() {
     $.getJSON("tickets.json?ajax=update&timestamp=" + window.sysTime, function(json) {
       //TODO: Change URL above ^^^ to use Rails helper
       var i, len = json.length - 1; // compensating for system time appended to the end of JSON object
-      for (i = 0; i < len; i++) { 
-      //console.log(json[i]);
-      //console.log($('#' + json[i]));
+      for (i = 0; i < len; i++) {      	
         if (json[i].user_id == 0 || json[i].user_id == null) {
           $('#' + json[i].id).show();
           $('#' + json[i].id).removeClass("autoHide");
+          $('#' + json[i].id + '_span').html("");
           console.log('#' + json[i].client_id);
         }
         else {
           $('#' + json[i].id).hide();
           $('#' + json[i].id).addClass("autoHide");
+          $('#' + json[i].id + '_span').html(json[i].first_name + " " + json[i].last_name+ "<br />(" + json[i].school_id + ")");
           console.log('#' + json[i].id);
         }
       }
@@ -68,8 +65,7 @@ onLoad(function() {
     setTimeout(updateClients, 2000);
   }
   
-  function updateCounters(selector) {    
-    console.log("updating counters");
+  function updateCounters(selector) {
     highSelector   = $('#highPriorityCount');
     mediumSelector = $('#mediumPriorityCount');
     lowSelector    = $('#lowPriorityCount');
@@ -78,8 +74,7 @@ onLoad(function() {
       mm(selector);      
       
     // Check for the existence of totalLeft  
-    if (typeof $('#clientsRemaining') !== 'undefined') {  
-      console.log("#clientsRemainins was found. Proceeding to update counters");
+    if (typeof $('#clientsRemaining') !== 'undefined') { 
       var totalLeft  = parseInt($('#clientsRemaining').html());
       
       // Update the total counter 
@@ -88,11 +83,8 @@ onLoad(function() {
         totalLeft--;        
       }
       
-      console.log("highSelector .html() value -----> " + highSelector.html());
-      console.log(totalLeft);
       // Check all the counters to make sure they are not greater than the total
       if (parseInt(highSelector.html()) > totalLeft){
-        console.log("exceeded high count limit. Diminishing highCount");
         highSelector.html(totalLeft);
       }
       if (mediumSelector.html() > totalLeft)
@@ -211,5 +203,3 @@ onLoad(function() {
 
   return table;
 });
-
-

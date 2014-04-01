@@ -66,15 +66,35 @@ end
   end
    
   def self.approve_clients(array_of_pending_clients)
+    flash_message = ""
+    approved_clients = []
+
     for i in 0..array_of_pending_clients.count-1
       pending_client = Client.find(array_of_pending_clients[i].to_i)
       pending_client.status_id = Status.find_by(status_type: 'Approved').id
-      pending_client.save
+      if pending_client.save
+        approved_clients[i] = pending_client.business_name
+      end
       ticket = Ticket.find_by(client_id: pending_client.id)
       if User.find(pending_client.submitter).role < 3 && ticket.user_id
          Receipt.create(ticket_id: ticket.id, user_id: ticket.user_id)
       end
     end
+
+    if approved_clients.count > 0
+      if approved_clients.count == 1
+        flash_message += approved_clients[0] + " has been approved."
+      else
+        if approved_clients.count == 2
+          flash_message += approved_clients.join(' and ')
+        else
+          flash_message += approved_clients[0..-2].join(', ') + ", and " + approved_clients[-1].to_s
+        end
+        flash_message += " have been approved"
+      end
+    end
+
+    return 
   end
   
     def self.unapprove_clients(array_of_pending_clients)

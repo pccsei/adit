@@ -69,8 +69,8 @@ onLoad(function() {
     $('#user_action_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT", maxDate: new Date });
 
 	// Custom validation to make sure the number entered is a float with two decimals only
-    jQuery.validator.addMethod("floating_number", function(value, element) {
-        return this.optional(element) || /^(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d{1,2})?$/i.test(value);
+    jQuery.validator.addMethod('fraction_decimal', function(value, element) {
+        return this.optional(element) || /^(([1-9]+[0-9]*)?|([1-9]+[0-9]*[/][1-9]+[0-9]*)?|([0-9]*(\.[0-9]*[1-9]+|\.[1-9]+[0-9]*)|[1-9]+[0-9]*(\.\d{1,2}))?)$/i.test(value);
     });
     
     // Custom validation to make sure the price and page are not all zeros
@@ -81,21 +81,21 @@ onLoad(function() {
        
     $("#new_action").validate({
         rules: {
-            "price": {required: true, floating_number: true, min_digit: .01 },
-            //"otherSize": {required: true, floating_number: true, min_digit: .01},
+            "price": {required: true, fraction_decimal: true, min_digit: .01, max: 1500 },
+            "otherSize": {required: true, fraction_decimal: true},
             "user_action_time": {required: true, date: true }
         },
         messages: {
             "price": {
             	required: "Please enter a valid price (30 or 30.00).",
-            	floating_number: "Can only be a number with 0-2 decimal digits (30 or 30.00).",
-            	min_digit: "The value cannot be all zeros."
+            	fraction_decimal: "Only a number with 0-2 decimal places (no commas).",
+            	min_digit: "Price cannot be all zero.",
+            	max: "The price should not be higher than 1500 dollars."
             },
-            //"otherSize": {
-            //	required: "Please enter an ad size (.25 or 1.5).", 
-            //	floating_number: "Can only be a number with 0-2 decimal digits (.5 or .50).",
-            //	min_digit: "The value cannot be all zeros."
-            //},
+            "otherSize": {
+            	required: "Please enter an ad size (.25 or 1.5).", 
+            	fraction_decimal: "Can be a fraction or a number with 0-2 decimal places (both non-zero)."
+            },
             "user_action_time": "Please enter in the date and time when you did this."
         }
     });
@@ -109,7 +109,7 @@ onLoad(function() {
       var v = eval(this.value);      
       if (isFloat(v) || isInteger(v)) {
         $('#o').val(v.toFixed(2));      
-        $('#page').val(v); // Moves dropdown to appropriate value if it is already provided
+        //$('#page').val(v); // Moves dropdown to appropriate value if it is already provided
       }
       else $('#0').val(null);
     });
