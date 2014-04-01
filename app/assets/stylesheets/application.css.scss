@@ -120,6 +120,21 @@ p, li {
 }
 
 /*flash*/
+
+.alert{
+	font-size: 1.5em;
+	background-color: inherit;
+	border-left: none;
+	border-right: none;
+	border-color: #DC0000;
+	border-radius: 0px;
+	border-width: .2em;
+	color: black;
+	padding: .5em;
+	width: auto;
+}
+
+
 .alert-error, .alert-alert, .alert-success, .alert-notice {
   margin-bottom: 20px !important;
   text-align: left;
@@ -205,7 +220,7 @@ p, li {
   font-size: 1.1em;
   height: 3.5em;
   margin-right: 1.5em;
-  padding: .3em 0;
+  padding: .4em 0;
 }
 
 .navbar-default {
@@ -388,11 +403,12 @@ label.required:after {
   color: #777;
   font-size: 110%;
   position: relative;
+   padding: 1.5em;
 }
 
 .ui-accordion-header {
-  font-size: 160%;
-  padding: 25px;
+  font-size: 1.3em;
+  padding: .3em;
 }
 
 .ui-icon {
@@ -401,7 +417,7 @@ label.required:after {
 }
 
 .ui-accordion-header-active {
-  text-decoration: underline;
+  //text-decoration: underline;
 }
 
 // Datepicker
