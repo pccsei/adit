@@ -31,47 +31,6 @@
             </td>
           </tr>
 
-          <table id="manageSection" class="display default_table" width="425px">
-            <tr>
-              <td>
-                <table cellspacing="0" cellpadding="1" border="1" width="400px" >
-                  <tr>
-                    <th>Businesses Already in the Database</th>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div style="width:425px; height:200px; overflow:auto;">
-                  <table id="businessNames" cellspacing="0" cellpadding="1" border="1" width="400px" >
-                    <% if @all_clients %>
-                      <% @all_clients.each do |c| %>
-                        <tr>
-                          <td class="c.business_name"> <%= c.business_name %></td>
-                        </tr>
-                      <% end %>
-                    <% end %>
-                  </table>  
-                </div>
-              </td>
-            </tr>
-          </table>
-
-          <script type="text/javascript">
-          var $rows = $('#businessNames tr');
-          $('#client_business_name').keyup(function() {
-            var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
-                reg = RegExp(val, 'i'),
-                text;
-
-            $rows.show().filter(function() {
-                text = $(this).text().replace(/\s+/g, ' ');
-                return !reg.test(text);
-            }).hide();
-          });
-          </script>
-
           <tr>
             <td class="label-field">
               <%= f.label :address, class: 'required' %>
@@ -100,7 +59,7 @@
           </tr>
           <tr>
             <td class="label-field">
-              <%= f.label :zipcode, class: 'required' %>
+              <%= f.label :zipcode, class: 'required'  %>
             </td>
             <td class="text-field">
               <%= f.text_field :zipcode, class: 'form-control',  rows:3 %>
@@ -155,8 +114,61 @@
             </td>
           </tr>
         </table>
+
+        <div id="businessList"> 
+          <% if @all_clients %>
+            <table id="manageSection" class="display default_table" width="425px">
+              <tr>
+                <td>
+                  <table cellspacing="0" cellpadding="1" border="1" width="400px" >
+                    <tr>
+                      <th>Businesses Already in the Database</th>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="width:425px; height:201px; overflow:auto;">
+                    <table id="businessNames" cellspacing="0" cellpadding="1" border="1" width="400px" >
+                      <% @all_clients.each do |c| %>
+                        <tr>
+                          <td class="c.business_name"> <%= c %></td>
+                        </tr>
+                      <% end %>
+                    </table>  
+                  </div>
+                </td>
+              </tr>
+            </table>
+          <% end %>
+        </div>
       </div>
     </div>
+
+    <script type="text/javascript">
+      var $rows = $('#businessNames tr');
+      $('#client_business_name').keyup(function() {
+        var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+            reg = RegExp(val, 'i'),
+            text;
+
+        $rows.show().filter(function() {
+            text = $(this).text().replace(/\s+/g, ' ');
+            return !reg.test(text);
+        }).hide();
+      });
+
+      $("#businessList").hide();
+
+      if ($("...").is(":focus")) {
+
+      }
+      $("#client_business_name").focus( function() {
+          $("#businessList").show();
+      });
+    </script>
+
     <div class="actions">
     	<% if @client.new_record? %>
 		  <% if current_user.role == 3 %>

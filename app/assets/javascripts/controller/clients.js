@@ -103,6 +103,7 @@ onLoad(function() {
         }
     });
 
+    
     $(".sectionNum").click( function() {    	
         dState();
         populate($(this).text());
