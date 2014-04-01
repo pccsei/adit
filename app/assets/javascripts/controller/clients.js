@@ -116,7 +116,7 @@ onLoad(function() {
       });
 
     $('#client_business_name').focus(function(){ $('#toggleRow').show(); });
-    $('.hideClients').focus(function(){ $('#toggleRow').hide(); });   
+    $('.hideClients').focus(function(){ $('#toggleRow').hide( "slide", { direction: "up" }, "slow" ); });   
     
     $(".sectionNum").click( function() {    	
         dState();
