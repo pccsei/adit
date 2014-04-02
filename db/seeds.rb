@@ -2187,11 +2187,13 @@ def rand_time(from, to=Time.now)
 end
 
 def rand_page
-  Array [0.25, 0.5, 1.0].sample
+  array = Array[0.25, 0.5, 1.0]
+  array.sample
 end
 
 def rand_payment
-  Array ["Cash", "Credit", "Check"].sample
+  array = Array["Cash", "Credit", "Check"]
+  array.sample
 end
 
 next_year = 2015

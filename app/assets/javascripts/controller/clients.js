@@ -115,6 +115,7 @@ onLoad(function() {
         }).hide();
       });
 
+    $('#toggleRow').hide();
     $('#client_business_name').focus(function(){ $('#toggleRow').show(); });
     $('.hideClients').focus(function(){ $('#toggleRow').hide(); });   
     

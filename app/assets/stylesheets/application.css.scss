@@ -193,6 +193,7 @@ font-size: 1.5em;
 
 .error{
   color: #DC0000;
+  padding-left: .5em;
 }
 
 .page-header {
@@ -356,6 +357,10 @@ tr.odd {
   width: 100% !important;
   border: none;
   margin: 0;
+  td.dataTables_empty{
+  background-color: #5E0000 !important;
+  color: white !important;
+  }
   white-space: nowrap;
   tr > td {
     background-color: transparent !important;
@@ -401,11 +406,6 @@ table.display thead th div.DataTables_sort_wrapper span {
       box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
       transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
   }
-
-td.dataTables_empty{
-  background-color: #5E0000 !important;
-  color: white !important;
-}
 
 // Required asterisk
 label.required:after {

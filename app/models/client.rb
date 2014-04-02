@@ -190,17 +190,37 @@ end
   end
 
   def Client.approve_edited_clients(status, array_of_edited_pending_clients)
+    flash_message = "The changes for "
+    changed_edited_clients = [] 
+
     for i in 0..array_of_edited_pending_clients.count-1
       pending_edited_client = Client.find(array_of_edited_pending_clients[i].to_i)
       current_client = Client.find(Client.find(array_of_edited_pending_clients[i].to_i).parent_id)
       if status == 2 || status == 3
         # Anything you don't want copied into the orginal list here
         current_client.update(pending_edited_client.attributes.except('id', 'status_id', 'created_at', 'parent_id'))
-        current_client.save(:validate => false)
+        if current_client.save
+          changed_edited_clients[i] = pending_edited_client.business_name
+        end
         pending_edited_client.delete
       else
+        changed_edited_clients[i] = pending_edited_client.business_name
         pending_edited_client.delete
       end
+    end
+
+    changed_edited_clients.compact!
+    if changed_edited_clients.count > 0
+      if changed_edited_clients.count == 1
+        flash_message += changed_edited_clients[0]
+      else
+        if changed_edited_clients.count == 2
+          flash_message += changed_edited_clients.join(' and ')
+        else
+          flash_message += changed_edited_clients[0..-2].join(', ') + ", and " + changed_edited_clients[-1].to_s
+        end
+      end
+      flash_message += " have been " + (status == 1 ? "disapproved." : "approved.")
     end
   end
 

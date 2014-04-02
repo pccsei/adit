@@ -43,12 +43,12 @@
 </p>
 <p>
   <strong>Comment:</strong>
-  <%= @client.comment%>
+  <%= tooltipify(@client.comment, 50)%>
 </p>
 <% if (@client.status.status_type== 'Pending') || (@client.status.status_type == 'Edited')%>
   <p>
   <strong>Submitter:</strong>
-  <%= get_submitter_info(@client.submitter) %>
+  <%= get_submitter_info(@client.submitter, false) %>
   </p>
 <% end %>
     
@@ -82,15 +82,28 @@
 	| <%= link_to 'Edit', edit_client_path(@client, page: request.url) %>
 <% end %>
 
+<% if @sales_info.present? %>
+<h3> Sales History </h3>
+<% end %>
 <% if @sales_info.present? %>	
 	<%= render :partial => 'sales_info', :locals => {:sales_info => @sales_info} %>
 <% end %>
 	
 <div>
   <% if @sales_years[0].present? %>
-     <p class="addMargin">Additional Years This Customer bought from the Arrow: <%= @sales_years[0].to_s[1..-2]%></p>
+     <p class="addMargin">
+        <% if @sales_info.present? %>
+        Additional&nbsp;
+        <% end %>
+        Years This Customer bought from the Arrow: <%= @sales_years[0].to_s[1..-2]%>
+     </p>
   <% end %>
   <% if @sales_years[1].present? %>
-    <p class="addMargin">Additional Years This Customer bought from the Calendar: <%= @sales_years[1].to_s[1..-2]%></p>
+    <p class="addMargin">
+    	<% if @sales_info.present? %>
+    	Additional&nbsp;
+    	<% end %> 
+    	Years This Customer bought from the Calendar: <%= @sales_years[1].to_s[1..-2]%>
+    </p>
   <% end %>
 <div>
