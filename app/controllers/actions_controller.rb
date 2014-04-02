@@ -39,11 +39,11 @@ class ActionsController < ApplicationController
     end       
      
     if receipt
-       Action.create_action(params[:price],   params[:page],             params[:payment_type],
-                            params[:comment], params[:contact],          params[:presentation], 
-                            params[:sale],    user_action_time, receipt)
+       message = Action.create_action(params[:price],   params[:page],             params[:payment_type],
+                                      params[:comment], params[:contact],          params[:presentation], 
+                                      params[:sale],    user_action_time, receipt)
     
-       redirect_to receipt_path(id: receipt.id), notice: 'You successfully updated your client'
+       redirect_to receipt_path(id: receipt.id), notice: message || 'You successfully updated your client.'
     else
        redirect_to receipt_path(id: receipt.id), notice: 'There were errors saving your form. Please enable javascript.'
     end
