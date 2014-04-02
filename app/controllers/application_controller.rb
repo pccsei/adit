@@ -89,6 +89,11 @@ class ApplicationController < ActionController::Base
     sections.unshift('all')
   end
 
+
+   def not_expo
+     redirect_to users_unauthorized_path
+   end
+   
    # Restricts access to only teachers 
    def only_teachers
       if current_user.role != TEACHER
@@ -118,7 +123,8 @@ class ApplicationController < ActionController::Base
      elsif !get_current_student_project
        redirect_to no_project_path
      end
-   end   
+   end
+      
    
   def version_cleanup(uid, item_type)
     last_version_id = PaperTrail::Version.where(whodunnit: uid, item_type: item_type).last.id        

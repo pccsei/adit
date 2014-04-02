@@ -25,14 +25,13 @@
               <%= f.text_field :business_name, class: 'form-control',  rows:3 %>
             </td>
           </tr>
-
+        <% if @all_clients %>
           <tr id="toggleRow">
           
 			  <td></td>
 			  <td>
             
-          <div id="businessList"> 
-            <% if @all_clients %>
+          <div id="businessList">             
               <table id="manageSection" width="325px">
                 <tr>
                   <td>
