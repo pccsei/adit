@@ -1,8 +1,8 @@
-#sale_amount, #page_size{
+#sale_display, #page_display{
 	margin-right: 9em;
 	font-size: 1.4em;
 }
-#payment_type{
+#pay_display{
 	font-size: 1.4em;
 }
 #timepicker label.required{
@@ -63,9 +63,18 @@ input#price.form-control{
 */
 #price{
 	width: 20em;
+	height: inherit;
+}
+
+.input-group-addon:first-child {
+  height: inherit;
 }
 .receipts.show .form-control {
   display: inline;
+}
+
+.input-group {
+  height: 2.5em;
 }
 
 .form_background{
@@ -73,7 +82,7 @@ input#price.form-control{
 	padding-left: 2em;
 	padding-right: 2em;
 	padding-bottom: 2.5em;
-	margin-top: 1em !important;
+	margin-top: 2em !important;
 	border: 
 	#EEE solid 1em;
 	border-radius: 1em;

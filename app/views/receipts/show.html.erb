@@ -12,25 +12,6 @@
 <br />
 <% end %>
 </div>
-
-<% if @receipt.made_sale %>
-   <div class="sale_panel">
-	<div class = "panel panel-primary">
-		<div class = "panel-heading">
-			<h3>&nbsp;Completed Sale Details</h3>
-			<br>
-		</div>
-		<div class = "panel-body">
-			<p class="sale_information">
-				<strong id="sale_amount">Sale Amount:&nbsp;$ <%= number_with_precision(@receipt.sale_value, precision: 2) %></strong>
-				<strong id="page_size">Page Size:&nbsp; <%= number_with_precision(@receipt.page_size, precision: 2) %></strong>
-				<strong id="payment_type">Payment Type:&nbsp; <%= @receipt.payment_type %></strong>
-
-			</p>
-		</div>
-	</div>
-  </div>
-	<% end %>
 <div>	
 	<% if Receipt.is_released(@receipt) == false %>
 	<div class="form_background">
@@ -41,8 +22,14 @@
 				My Sale Progress</p>
 	    <% else %>
 	    <p class="alert alert-info">
-	    	Make a Comment
+	    	My Completed Sale
 	    </p>
+	    <p class="sale_information">
+				<strong id="sale_display">Sale Amount:&nbsp;$ <%= number_with_precision(@receipt.sale_value, precision: 2) %></strong>
+				<strong id="page_display">Page Size:&nbsp; <%= number_with_precision(@receipt.page_size, precision: 2) %></strong>
+				<strong id="pay_display">Payment Type:&nbsp; <%= @receipt.payment_type %></strong>
+
+			</p>
 	    <% end %>
 
 		<div id="FirstContact" class ="action" <%= ' hidden' unless (@receipt.made_contact == false)%>>
