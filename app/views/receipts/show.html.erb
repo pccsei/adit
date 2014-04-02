@@ -1,7 +1,10 @@
 <%= render :partial => 'show_client_info', :locals => { :client => @client } %>
 <div id="edit_client">
-	<%= link_to 'Show client details', client_path(@client.id, page: request.url) %>&nbsp;|
-	<%= link_to 'Edit this client', edit_client_path(@client.id, page: request.url) unless @receipt.user_id != @receipt.ticket.user_id %>
+	<%= link_to 'Show client details', client_path(@client.id, page: request.url) %>
+	
+	<% if (Receipt.is_released(@receipt) == false) || current_user.role == 3 %>
+	   &nbsp;|&nbsp;<%= link_to 'Edit this client', edit_client_path(@client.id, page: request.url) %>
+	<% end %>
 </div>
 
 <div id="teacher_back">
@@ -105,7 +108,7 @@
 	</div>
 	<% end %>
 	<% else %>
-	<p>
+	<p class="alert alert-info">
 		Since you released this client, you no longer can update it.
 	</p>
 	<% end %>

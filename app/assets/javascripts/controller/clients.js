@@ -241,7 +241,7 @@ onLoad(function() {
         $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
     });
 
-    table.fnSort( [ [1,'asc'] ] );
+    //table.fnSort( [ [2,'asc'] ] );
 
     return table;
     
