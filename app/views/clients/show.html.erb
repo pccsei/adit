@@ -43,12 +43,12 @@
 </p>
 <p>
   <strong>Comment:</strong>
-  <%= @client.comment%>
+  <%= tooltipify(@client.comment, 50)%>
 </p>
 <% if (@client.status.status_type== 'Pending') || (@client.status.status_type == 'Edited')%>
   <p>
   <strong>Submitter:</strong>
-  <%= get_submitter_info(@client.submitter) %>
+  <%= get_submitter_info(@client.submitter, false) %>
   </p>
 <% end %>
     
