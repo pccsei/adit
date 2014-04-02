@@ -4,10 +4,6 @@ class ClientsController < ApplicationController
 
   before_action :only_teachers, only: [:index, :approve, :assign, :approve_client, :approve_client_edit, :destroy]
 
-
-
-
-
   # GET /clients
 
   # GET /clients.json

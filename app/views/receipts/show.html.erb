@@ -1,15 +1,16 @@
+<%= render :partial => 'show_client_info', :locals => { :client => @client } %>
+<div id="edit_client">
+	<%= link_to 'Show client details', client_path(@client.id, page: request.url) %>&nbsp;|
+	<%= link_to 'Edit this client', edit_client_path(@client.id, page: request.url) unless @receipt.user_id != @receipt.ticket.user_id %>
+</div>
+
+<div id="teacher_back">
 <% if current_user.role == 3 %>
 <% student_name = User.find_by(id: Receipt.find_by(id: @receipt.user_id)) %>
 <%= link_to 'Back to ' + student_name.first_name + '\'s Clients', my_receipts_path(@receipt.user_id)  %>
 <br />
 <br />
 <% end %>
-
-<%= render :partial => 'show_client_info', :locals => { :client => @client } %>
-
-<div id="edit_client">
-	<%= link_to 'Show client details', client_path(@client.id, page: request.url) %>&nbsp;|
-	<%= link_to 'Edit this client', edit_client_path(@client.id, page: request.url) unless @receipt.user_id != @receipt.ticket.user_id %>
 </div>
 
 <% if @receipt.made_sale %>
@@ -34,12 +35,17 @@
 	<% if Receipt.is_released(@receipt) == false %>
 	<div class="form_background">
 		<%= form_tag(actions_path, id: "new_action") do %>
+		
+		<% if @receipt.made_sale == false%>
+		<p class="alert alert-info">
+				My Sale Progress</p>
+	    <% else %>
+	    <p class="alert alert-info">
+	    	Make a Comment
+	    </p>
+	    <% end %>
 
 		<div id="FirstContact" class ="action" <%= ' hidden' unless (@receipt.made_contact == false)%>>
-
-			<p class="alert alert-info">
-				My Sale Progress
-			</p>
 
 			<%= check_box_tag(:contact) %>
 			<%= label_tag(:contact, 'I contacted my client!')%>
@@ -106,7 +112,7 @@
 			<%= text_field_tag(:user_action_time, '', :placeholder => 'YYYY/MM/DD 00:00 AM/PM',  :class=>'form-control') %>
 		</div>
 		<div id="submit">
-			<%= submit_tag('Save Progress', class: 'btn btn-primary btn-lg')%>
+			<%= submit_tag('Save', class: 'btn btn-primary btn-lg')%>
 		</div>
 
 	</div>

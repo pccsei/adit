@@ -1,6 +1,6 @@
 #sale_amount, #page_size{
-	//margin-right: 9em;
-	//font-size: 1.4em;
+	margin-right: 9em;
+	font-size: 1.4em;
 }
 #payment_type{
 	font-size: 1.4em;
@@ -10,6 +10,14 @@
 }
 #comment label{
 	display: block;
+}
+
+.receipts .teacher_info {
+  margin-bottom: 0em !important;
+}
+
+.receipts #teacher_back {
+  margin-top: 1em !important;  
 }
 #saleMade table{
 	margin-left: 2em;
@@ -65,7 +73,7 @@ input#price.form-control{
 	padding-left: 2em;
 	padding-right: 2em;
 	padding-bottom: 2.5em;
-	margin-top: 5em !important;
+	margin-top: 1em !important;
 	border: 
 	#EEE solid 1em;
 	border-radius: 1em;
@@ -119,6 +127,7 @@ input#price.form-control{
 .receipts .sale_panel {
 padding-bottom: 5em;
 padding-top: 3em;
+margin-bottom: 5em !important;
 }
 
 .show #heading{
