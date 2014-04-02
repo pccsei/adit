@@ -16,12 +16,11 @@
 <div id="assign">
   <div class = "panel panel-primary">
     <div class = "panel-heading">
-      <h3>&nbsp;<%= @client.business_name%></h3><br>
+      <h4>&nbsp;<%= @client.business_name%></h4><br>
     </div>
 	  <div class = "panel-body">
       <div class="clientInfo">
         <div class="basicInfo">
-          <h2><%= @client.business_name%></h2>
           <h4>
             <%= @client.address %>
             <br /><%= @client.city%>, <%= @client.state%> <%= @client.zipcode%>
@@ -32,22 +31,27 @@
           <h4>
             <br /><%= @client.contact_title%> <%= @client.contact_fname %> <%= @client.contact_lname%>
           </h4>
-          <% if @client.telephone %>      
+          <% if @client.telephone.present? %>      
             <h4><%= "Phone: " + render_phone(@client.telephone) %></h4>
           <% end %>
               
+		  <div id="priorty_message">
           <% if @client.status_id == Status.where(status_type: "In House") %> 
             <%= "This is an <span id='clientPriority'>in-house</span> client".html_safe %>
           <% else %>
             <%= ("This is a <span id='clientPriority'>" + @ticket.priority.name + "</span> priority client").html_safe %>
           <% end %>     
+	  </div>
         </div>
       </div>
     </div>
   </div>
+
+  <%= link_to "Back to Assign Clients", clients_path %>
+
+  
 </div>
 
-<%= link_to "Back to Assign Clients", clients_path %>
 
 <div class="studentInfo">
   <div id ="choose_section">
@@ -61,4 +65,4 @@
       <ol id="students"></ol>  
 	</div>
   </div>
-</div>
+</div></div>

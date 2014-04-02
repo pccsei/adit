@@ -5,10 +5,10 @@
 	<%= @client.state %>
 	<%= @client.zipcode%>&nbsp;&nbsp;		<% end %>
 	<%if @client.contact_title.present? || @client.contact_fname.present? || @client.contact_lname.present? %>
-	&#149;&nbsp;&nbsp;<%= @client.contact_title + '' + @client.contact_fname + ' ' + @client.contact_lname %>
+	&#149;&nbsp;&nbsp;<%= @client.contact_title + ' ' + @client.contact_fname + ' ' + @client.contact_lname %>
 	&nbsp;&nbsp;
 	<%end%>
-	<%if @client.telephone %>
+	<%if @client.telephone.present? %>
 	&#149;&nbsp;&nbsp;<%= render_phone(@client.telephone) %>&nbsp;&nbsp;
 	<%end%></h4>
 

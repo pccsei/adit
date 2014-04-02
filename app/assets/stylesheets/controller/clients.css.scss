@@ -1,3 +1,4 @@
+
 #feedback {
   font-size: 1.4em;
 }
@@ -6,12 +7,13 @@
 #students { list-style-type: none; margin: 0; padding: 0; width: 60%; }
 #students li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: auto; }
 
-
-.clients a, a:link, a:visited {
-font-size: 1.2em;
-}
-.clients .alert{
+#priority_message{
+	margin-top: 1em;
+	font-weight: bold;
 	font-size: 1.5em;
+}
+.alert-info{
+	font-size: 1em;
 	background-color: inherit;
 	border-left: none;
 	border-right: none;
@@ -22,6 +24,31 @@ font-size: 1.2em;
 	padding: .5em;
 	width: auto;
 }
+th.alert.alert-info{
+	font-size: 1em;
+	background-color: inherit;
+	border-left: none;
+	border-right: none;
+	border-color: #DC0000;
+	border-radius: 0px;
+	border-width: .2em;
+	color: black;
+	padding: .5em;
+	width: auto;
+}
+#business_list{
+	width: 22em;
+	max-height: 10em;
+	overflow: auto;
+	margin-left: -.5em;
+}
+#businessNames{
+	width: 22em;
+}
+.clients a, a:link, a:visited {
+font-size: 1.2em;
+}
+
 #client_priority{
   margin-top: 2em;
   font-size: 1.2em;
@@ -30,8 +57,11 @@ font-size: 1.2em;
 .actions a{
 	vertical-align: -55%;
 }
-.clients #client_list tr {
-  height: 3.7em;
+//.clients #client_list tr {
+//  height: 3.7em;
+//}
+.medium, .high, .low{
+	height:20px !important;
 }
 
 .clients .assign {
@@ -42,6 +72,7 @@ font-size: 1.2em;
 .clients .panel-primary{
   margin-top: 2em !important;
   border-color: black;
+  margin-bottom: 1em !important;
 }
  .show .panel-primary{
   margin-top: 5em !important;
@@ -65,12 +96,12 @@ font-size: 1.2em;
 }
 
 .clients #choose_section{
-  margin-left: 45em;
-  margin-top: -24em !important;
+	float: right;
+	margin-top: 1.5em !important;
 }
 .clients #assign{
+	float: left;
   width: 35em;
-  margin-bottom: 2em !important;
   margin-top: 4em !important;
 }
 
@@ -264,14 +295,9 @@ td {
   text-align: left;
 }
 
-.clients #businessList {
-float: right;
-margin-top: -42.5em;
-position: relative;
-}
+
 
 .clients .form-control {
   width: 20em;
+  margin-right: .5em;
 }
-
-

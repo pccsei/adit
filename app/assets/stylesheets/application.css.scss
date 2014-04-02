@@ -52,6 +52,7 @@ a, a:link, a:visited {
 
 a:hover, a:active {
   color: #990000;
+  cursor: pointer;
 }
 
 /*buttons*/
@@ -121,7 +122,7 @@ p, li {
 
 /*flash*/
 
-.alert{
+/*.alert{
 	font-size: 1.5em;
 	background-color: inherit;
 	border-left: none;
@@ -132,13 +133,33 @@ p, li {
 	color: black;
 	padding: .5em;
 	width: auto;
-}
+}*/
+
+	.alert-info{
+		font-size: 1.5em;
+		background-color: inherit;
+		border-left: none;
+		border-right: none;
+		border-color: #DC0000;
+		border-radius: 0px;
+		border-width: .2em;
+		color: black;
+		padding: .5em;
+		width: auto;
+	}
 
 
 .alert-error, .alert-alert, .alert-success, .alert-notice {
   margin-bottom: 20px !important;
   text-align: left;
   margin-top: 20px;
+background-color: inherit;
+border-left: none;
+border-right: none;
+border-color: #DC0000;
+border-radius: 0px;
+border-width: .3em;
+font-size: 1.5em;
 }
 
 .alert-error, .alert-alert {
@@ -173,6 +194,7 @@ p, li {
 
 .error{
   color: #DC0000;
+  padding-left: .5em;
 }
 
 .page-header {
@@ -336,6 +358,10 @@ tr.odd {
   width: 100% !important;
   border: none;
   margin: 0;
+  td.dataTables_empty{
+  background-color: #5E0000 !important;
+  color: white !important;
+  }
   white-space: nowrap;
   tr > td {
     background-color: transparent !important;
@@ -382,11 +408,6 @@ table.display thead th div.DataTables_sort_wrapper span {
       transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
   }
 
-td.dataTables_empty{
-  background-color: #5E0000 !important;
-  color: white !important;
-}
-
 // Required asterisk
 label.required:after {
   content: " *";
@@ -410,11 +431,14 @@ label.required:after {
 .ui-accordion-header {
   font-size: 1.3em;
   padding: .3em;
+  cursor: pointer;
 }
 
 .ui-icon {
   display: block;
   float: left;
+  margin-right: .3em;
+  margin-top: .1em !important;
 }
 
 .ui-accordion-header-active {
@@ -446,5 +470,6 @@ label.required:after {
 
 .form-control {
   display:inline;
-  width: auto;
+  width: 20em;
+  margin-right: .5em;
 }

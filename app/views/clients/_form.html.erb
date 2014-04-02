@@ -16,12 +16,6 @@
         <h3>&nbsp;Business Information</h3>
       </div>
       <div class = "panel-body">
-        <% if @client.new_record? %>
-        <div class="alert alert-info" id="checkClients">
-          <p>Check the tables below to see if your client is already pending or unapproved.</p>
-        </div>
-        <% end %>
-
         <table>
           <tr>
             <td class="label-field">
@@ -31,27 +25,29 @@
               <%= f.text_field :business_name, class: 'form-control',  rows:3 %>
             </td>
           </tr>
-
+        <% if @all_clients %>
           <tr id="toggleRow">
-          <td></td>
-          <td>
+          
+			  <td></td>
+			  <td>
             
-          <div id="businessList"> 
-            <% if @all_clients %>
+          <div id="businessList">             
               <table id="manageSection" width="325px">
                 <tr>
                   <td>
-                    <table cellspacing="0" cellpadding="1" border="1" width="400px" >
+                    <table>
                       <tr>
-                        <th>Businesses Already in the Database</th>
+						  
+                        <th class="alert alert-info">Businesses Already in the Database</th>
+					
                       </tr>
                     </table>
                   </td>
                 </tr>
                 <tr>
-                  <td>
-                    <div style="width:325px; height:201px; overflow:auto;">
-                      <table id="businessNames" cellspacing="0" cellpadding="1" border="1" width="400px" >
+                  <td class="text-field">
+                    <div id="business_list">
+                      <table id="businessNames">
                         <% @all_clients.each do |c| %>
                           <tr>
                             <td class="c.business_name"> <%= c %></td>
@@ -160,6 +156,7 @@
 			    	<% if @client.new_record? %>
 					  <% if current_user.role == 3 %>
 					  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary'%>
+					  	<%= link_to 'Back to Approve Clients', clients_approve_path %>
 					  <% elsif more_tickets_allowed %>
 					  	<%= f.submit "Submit for teacher's approval", :class => 'btn btn-small btn-primary'%>
 					  <% else %>
@@ -170,16 +167,12 @@
 					  <% end %>
 				  <% else %>
 				     <%= f.submit 'Update Client', :class => 'btn btn-small btn-primary'%>
+				     <%= link_to 'Back', session[:return_from_edit] %>
 				  <% end %>
-				 <%= link_to 'Back', session[:return_from_edit] %>
+				 
             </td>
           </tr>
         </table>
-
-   
-   
-    
-	
 	</div>
 	 </div>
 
