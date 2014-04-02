@@ -130,7 +130,7 @@ onLoad(function() {
 
 	// Custom method to make sure the email is a valid PCC email address
     jQuery.validator.addMethod("email_valid", function(value, element) {
-        return this.optional(element) || /^(([a-zA-Z]+([0-9]{4}))@(students.pcci.edu))$/i.test(value);
+        return this.optional(element) || /^(([a-zA-Z]+([0-9]{4}))@(students.pcci.edu|STUDENTS.PCCI.EDU))$/i.test(value);
     });
     
     // Custom method to make sure the school ID is not all zeros
@@ -140,7 +140,7 @@ onLoad(function() {
 
     // Custom method to make sure the telephone is valid
     jQuery.validator.addMethod("valid_telephone", function(value, element) {
-        return this.optional(element) || /^(([tT][oO][wW][nN])|(((17)\s*[-]\s*)?(\d{4})\s*[-]\s*([1-4]{1}))*)$/.test(value);
+        return this.optional(element) || /^(([tT][oO][wW][nN])|(((17)\s*[-]\s*)?(\d{4})\s*[-]\s*([1-4]{1}))*|(((([(])?[1-9][0-9][0-9]([)])?)?\s*([-])?\s*)?([1-9][0-9][0-9])\s*([-])?\s*(\d{4})\s*))$/.test(value);
     });
     
     $("#users").validate({
@@ -175,7 +175,7 @@ onLoad(function() {
             },
             "user[phone]": {
             	required: "Please enter the student's PCC phone.",
-            	valid_telephone: "Can either be 17-####-# (with last # of numbers 1-4) or Town."
+            	valid_telephone: "Can either be 17-####-# (with last # of numbers 1-4), Town, or standard phone number."
             },
             "user[box]": {
             	digits: "Can only be digits (numbers 0-9).",
