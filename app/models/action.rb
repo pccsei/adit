@@ -52,16 +52,20 @@ class Action < ActiveRecord::Base
       receipt.payment_type         = payment_type
     end
   if !contact && !presentation && !sale && comment
-    comment_action                  = Action.new
-    comment_action.user_action_time = user_action_time
-    comment_action.points_earned    = (ActionType.find_by(name: 'Comment')).point_value
-    comment_action.comment          = comment
-    comment_action.action_type_id      = (ActionType.find_by(name: 'Comment')).id
-    comment_action.receipt_id       = receipt.id
-    comment_action.save
+    if comment.present?
+      comment_action                  = Action.new
+      comment_action.user_action_time = user_action_time
+      comment_action.points_earned    = (ActionType.find_by(name: 'Comment')).point_value
+      comment_action.comment          = comment
+      comment_action.action_type_id      = (ActionType.find_by(name: 'Comment')).id
+      comment_action.receipt_id       = receipt.id
+      comment_action.save
+    else
+      message                         = 'No information entered.'
+    end
   end
     receipt.save
-    return
+    return message
   end
 
   def self.delete_activity(action, receipt)
