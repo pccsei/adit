@@ -23,7 +23,10 @@
 //= require jquery.validate.additional-methods
 //= require jquery.ui.effect
 //= require jquery.ui.selectable
-//= require jquery.ui.all
+//= require jquery.ui.progressbar
+//= require jquery.ui.sortable
+//= require jquery.ui.spinner
+//= require jquery.ui.tabs
 //= require turbolinks
 //= require_self
 //= require_directory .
