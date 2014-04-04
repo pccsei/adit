@@ -66,11 +66,10 @@ class ActionsController < ApplicationController
   # DELETE /actions/1
   # DELETE /actions/1.json
   def destroy
-    receipt = Receipt.find(@action.receipt_id)
-      
+    receipt = Receipt.find(@action.receipt_id)      
     Action.delete_activity(@action, receipt)
-    undo_link = view_context.link_to("Undo", revert_action_version_path(@action.versions.where(whodunnit: receipt.user_id).last), :method => :post)
-
+    undo_link = view_context.link_to("Undo", revert_action_version_path(@action.versions.where(whodunnit: current_user.id).last), method: 'post')
+    
     respond_to do |format|
       format.html { redirect_to :back, notice: "You have successfully deleted that entry. " + undo_link }
       # format.html { redirect_to receipt_path(@action.receipt),
