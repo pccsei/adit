@@ -1,6 +1,6 @@
 <%= render :partial => 'show_client_info', :locals => { :client => @client } %>
 <div id="edit_client">
-	<%= link_to 'Show client details', client_path(@client.id, page: request.url) %>
+	<%= link_to 'Show client details', client_path(@client.id, receipt_id: @receipt.id) %>
 	
 	<% if (Receipt.is_released(@receipt) == false) || current_user.role == 3 %>
 	   &nbsp;|&nbsp;<%= link_to 'Edit this client', edit_client_path(@client.id, page: request.url) %>

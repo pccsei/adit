@@ -47,8 +47,10 @@ class ClientsController < ApplicationController
     @sections = get_array_of_all_sections(get_selected_project)
 
     @client   = Client.find(params[:id])
-
-    if params[:page]
+    
+    if params[:receipt_id]
+      @receipt_id = params[:receipt_id]                  
+    elsif params[:page]
 
       session[:return_to] = params[:page]
 
