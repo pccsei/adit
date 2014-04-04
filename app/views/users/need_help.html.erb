@@ -39,8 +39,8 @@
 				</div>
 			<h3>What happens when I click on a student's name?</h3>
 				<div>
-					<p>You will be taken to that student's My Clients page.</p>
-					<p>See Student's Client Page for more information.</p>
+					<p>You will be taken to that Student's Clients page.</p>
+					<p>See Student's Client page for more information.</p>
 				</div>
 			<h3>How do I create a new section?</h3>
 				<div>
@@ -52,13 +52,13 @@
 		<div class="help_accordion">
 			<h3>How do I get here?</h3>
 				<div>
-					<p>You can get here by clicking on a student's name in either the Manage Students Page
-						or any of the Reports Pages (except the Team Summary and End of Semester Pages).</p>
+					<p>You can get here by clicking on a student's name in either the Manage Students page
+						or any of the Reports pages (except the Team Summary and End of Semester pages).</p>
 				</div>
 			<h3>What can I do here?</h3>
 				<div>
-					<p>You can view a summary of the student's activities or click on a sticky note to get to the Client's Activity Page for that client.</p>
-					<p>On the Client's Activity Page, you can do anything that a student could do when they log into the system to update their clients.</p>
+					<p>You can view a summary of the student's activities or click on a sticky note to get to the Client Activity page for that client.</p>
+					<p>On the Client Activity page, you can do anything that a student could do when they log into the system to update their clients.</p>
 					<p> In fact, you can do any of the following: <br />
 						1) View and edit any of the student's clients by clicking on the show or edit client links.<br />
 						2) Enter comments or mark contact, presentation, or sale as completed.<br />
@@ -78,7 +78,7 @@
 					<p>To the left of each client will either be a student's name or an Assign button.</p>
 					<p>If the client has already been chosen or assigned to a student, the student's name
 					   and ID will be there.  However, if the client is open for anyone, then the Assign button will be there.</p>
-					<p>Clicking on the Assign button will take you to the Assign Client Page.  On this page, you will
+					<p>Clicking on the Assign button will take you to the Assign Clients page.  On this page, you will
 						see a list of students from the section you are viewing.  If a student has below his or her
 						maximum number of clients, you will be able to select that student and assign the client to that student.</p>
 				</div>
@@ -143,8 +143,8 @@
 						3) Activities<br />
 						4) Sales<br />
 						5) End of Semester</p>
-					<p>You may also go to a student's My Clients page through all these pages except for the 
-						Team Summary and End of Semester Pages (see the Student's Clients Page section for more
+					<p>You may also go to a Student's Clients page through all these pages except for the 
+						Team Summary and End of Semester pages (see the Student's Clients page section for more
 						information).</p>
 				</div>
 			<h3>What is the Student Summary page?</h3>
@@ -263,11 +263,11 @@
 				<div>
 					<p>You will be able to record actions (first contact, presentation, and sale) to a client.
 						To do this, simply click anywhere within the sticky note and it will take you to the 
-						Client's Activity Page.</p>
+						Client Activity page.</p>
 				</div>
 			<h3>What can I do with Completed clients?</h3>
 				<div>
-					<p>This will take you to the Client's Activity Page where you will be able to delete an activity 
+					<p>This will take you to the Client Activity page where you will be able to delete an activity 
 						or comment associated with this client.</p>
 					<p>Keep in mind:<br />
 						1) You can only delete an activity in reverse order by deleting the sale first, then presentation,
@@ -368,58 +368,5 @@
 				</div>
 		</div>
 </div>
-
-<% end %>
-
-
-<% if false %>
-
-<%= link_to "Download the entire Help Page", users_download_help_path, :class => 'btn btn-large btn-primary btn-sm' %>
-
-<ul class="nav">
-	<% if current_user.role == 3 %>
-		<li class="dropdown-menu">
-			<a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Manage Section <b class="caret"></b></a>
-			<ul class="dropdown-menu">
-				<li><%= link_to 'Create and View a Section', :anchor => 'manage_section' %></li>
-				<li><%= link_to 'Add Students to a Section', :anchor => 'manage_section' %></li>
-				<li><%= link_to 'Edit Student Managers and Teams', :anchor => 'manage_section' %></li>
-				<li><%= link_to "View a Student's Report??????", :anchor => 'manage_section' %></li>
-			</ul>
-		</li>
-		<li class="dropdown-menu">
-			<a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Assign Clients <b class="caret"></b></a>
-			<ul class="dropdown-menu">
-				<li><%= link_to 'Finding a Client', :anchor => 'manage_clients' %></li>
-			</ul>
-		</li>
-	<% end %>
-</ul>
-	<% if current_user.role == 3 %>
-
-
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-<a id="manage_section" name="manage_section"></a>
-<br /><br />
-	<h1>Manage Section</h1>
-	
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />	
-
-<%=  link_to 'Back to the Top', :anchor => 'top' %>
-<a id="manage_clients" name="manage_clients"></a>
-<br /><br />
-	<h1>Manage Clients</h1>
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-
-<% else %>
-	<h1>Choose Clients</h1>
-
-	<h1>My Clients</h1>
-	
-	<h1>Submit Client</h1>
-<% end %>
 
 <% end %>
