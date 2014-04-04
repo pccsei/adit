@@ -130,7 +130,7 @@ onLoad(function() {
 
 	// Custom method to make sure the email is a valid PCC email address
     jQuery.validator.addMethod("email_valid", function(value, element) {
-        return this.optional(element) || /^(([a-zA-Z]+([0-9]{4}))@(students.pcci.edu|STUDENTS.PCCI.EDU))$/i.test(value);
+        return this.optional(element) || /^(([0-9a-zA-Z]+)@(students.pcci.edu|STUDENTS.PCCI.EDU))$/i.test(value);
     });
     
     // Custom method to make sure the school ID is not all zeros

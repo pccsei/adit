@@ -30,6 +30,10 @@ class SessionsController < ApplicationController
 
   def create
 
+    if current_user.present?
+      sign_out
+    end
+    
     if params[:id] == 'teacher'
       users = User.where(role: 3, available: 1).ids
       if users.present?

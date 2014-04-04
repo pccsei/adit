@@ -48,18 +48,14 @@ class ClientsController < ApplicationController
 
     @client   = Client.find(params[:id])
 
-    if params[:page]
-
+      @receipt_id = params[:receipt_id]
+                        
+      if params[:page]
       session[:return_to] = params[:page]
-
-    end
-
-    
+      end   
 
     # 2013 is sent to this function because that is the last year where we had no true sale information
-
     @sales_years = Receipt.early_sale_years(@client)
-
     @sales_info  = Receipt.sales_for_client_up_to_project(@client, get_selected_project)
 
   end
@@ -362,7 +358,7 @@ class ClientsController < ApplicationController
 
       Client.make_pending_edited_client(edited_client, @client, client_params, current_user.id)
 
-      redirect_to session[:return_from_edit], notice: 'Your change has been submitted to your teacher.'     
+      redirect_to session[:return_from_edit], notice: 'Your change has been submitted. Your client will be updated once the teacher approves your changes.'     
 
     elsif @client.update(client_params)
 
