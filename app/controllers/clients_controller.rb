@@ -358,7 +358,7 @@ class ClientsController < ApplicationController
 
       Client.make_pending_edited_client(edited_client, @client, client_params, current_user.id)
 
-      redirect_to session[:return_from_edit], notice: 'Your change has been submitted to your teacher.'     
+      redirect_to session[:return_from_edit], notice: 'Your change has been submitted. Your client will be updated once the teacher approves your changes.'     
 
     elsif @client.update(client_params)
 
