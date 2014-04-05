@@ -56,11 +56,7 @@ onLoad(function() {
             "client[contact_lname]": "Will only accept letters and punctuation.",
             "client[telephone]": {
             	required: "Please enter a telephone number.",
-<<<<<<< HEAD
-            	valid_telephone: "Must be 7 or 10 (if using area code) digits and \"ext.\" followed with range of 1-7 digits (if using extension)."
-=======
-            	valid_telephone: "Must be 7 or 10 digits. For extension, use \"ext.\" followed by 1-6 digits."
->>>>>>> 6535393ff1ce347a6887f3da6c5bfb0592dfa8e6
+            	valid_telephone: "Must be 7 or 10 digits. For extension, use \"ext.\" followed by 1-7 digits."
             },
             "client[email]": "Must be in a standard email format."
         }
