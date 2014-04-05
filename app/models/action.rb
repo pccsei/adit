@@ -8,6 +8,11 @@ class Action < ActiveRecord::Base
   validates :receipt_id, presence: true
   validates :action_type_id, presence: true
   
+  validates :comment, allow_nil: true, length: {
+     maximum: 250,
+	 message: 'has a maximum length of 250 characters.'
+  }
+  
   def self.create_action (price, page, payment_type, comment, contact, presentation, sale, user_action_time, receipt)
 
     if contact
