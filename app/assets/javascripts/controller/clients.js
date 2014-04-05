@@ -11,12 +11,17 @@ onLoad(function() {
 
     // Custom method to make sure the telephone is valid
     jQuery.validator.addMethod("valid_telephone", function(value, element) {
-        return this.optional(element) || /^((((([(])?[1-9][0-9][0-9]([)])?)?\s*([-])?\s*)?([1-9][0-9][0-9])\s*([-])?\s*(\d{4})\s*)?(([eE][xX][tT])\.\s*(\d{1,4}))?)$/.test(value);
+        return this.optional(element) || /^((((([(])?[1-9]\d{2}([)])?)?\s*([-])?\s*)?([1-9]\d{2})\s*([-])?\s*(\d{4})\s*)?(([eE][xX][tT])\.\s*([1-9]\d{1,6}))?)$/.test(value);
     });
     
     // Custom method to make sure the zipcode is valid
     jQuery.validator.addMethod("valid_zipcode", function(value, element) {
-        return this.optional(element) || /^(\d{4,5}([-]\d{4})?)$/.test(value);
+        return this.optional(element) || /^(\d{4,5})$/.test(value);
+    });
+    
+    // Custom method to make sure the leading number is not zero
+    jQuery.validator.addMethod("leading_zero", function(value, element) {
+        return this.optional(element) || /^([1-9]+(\d)*)$/.test(value);
     });
     
     // Custom method to make sure the email is valid
@@ -29,7 +34,7 @@ onLoad(function() {
             "client[business_name]": {required: true, maxlength: 65},
             "client[address]": {required: true, maxlength: 80},
             "client[city]": {required: true, letters_only: true, maxlength: 30},
-            "client[zipcode]": {required: true, valid_zipcode: true},
+            "client[zipcode]": {required: true, valid_zipcode: true, leading_zero: true},
             "client[contact_fname]": {letters_only: true, maxlength: 30},
             "client[contact_lname]": {letters_only: true, maxlength: 30},
             "client[telephone]": {required: true, valid_telephone: true},
@@ -52,7 +57,8 @@ onLoad(function() {
             },
             "client[zipcode]": {
             	required:      "Please enter a zipcode.",
-            	valid_zipcode: "Can either be 4 or 5 digits long, and may have \"-####\" for a zip code extension."
+            	valid_zipcode: "Can either be 4 or 5 digits long.",
+            	leading_zero: "First number cannot be zero."
             },
             "client[contact_fname]": {
 				letters_only: "Will only accept letters and punctuation.",
@@ -64,7 +70,7 @@ onLoad(function() {
 			},
             "client[telephone]": {
             	required: "Please enter a telephone number.",
-            	valid_telephone: "Must be 7 or 10 digits. For extension, use \"ext.\" followed by 1-6 digits."
+            	valid_telephone: "Must be 7 or 10 digits. For extension, use \"ext.\" followed by 1-7 digits."
             },
             "client[email]": {
 				valid_email: "Must be in a standard email format.",
