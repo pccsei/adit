@@ -31,34 +31,54 @@ onLoad(function() {
 
     $("#clients").validate({
         rules: {
-            "client[business_name]": {required: true},
-            "client[address]": {required: true},
-            "client[city]": {required: true, letters_only: true},
+            "client[business_name]": {required: true, maxlength: 65},
+            "client[address]": {required: true, maxlength: 80},
+            "client[city]": {required: true, letters_only: true, maxlength: 30},
             "client[zipcode]": {required: true, valid_zipcode: true, leading_zero: true},
-            "client[contact_fname]": {letters_only: true},
-            "client[contact_lname]": {letters_only: true},
+            "client[contact_fname]": {letters_only: true, maxlength: 30},
+            "client[contact_lname]": {letters_only: true, maxlength: 30},
             "client[telephone]": {required: true, valid_telephone: true},
-            "client[email]": {valid_email: true}
+            "client[email]": {valid_email: true, maxlength: 35},
+			"client[comment]": {maxlength: 250}
         },
         messages: {
-            "client[business_name]": "Please enter the business name.",
-            "client[address]": "Please enter the address.",
+            "client[business_name]": {
+				required:  "Please enter the business name.",
+				maxlength: "The maximum length for a business name is 65 characters."
+			},
+            "client[address]": {
+				required:  "Please enter the address.",
+				maxlength: "The maximum length for an address is 80 characters."
+			},
             "client[city]": {
-            	required: "Please enter a city.",
-            	letters_only: "Will only accept letters and punctuation."
+            	required:     "Please enter a city.",
+            	letters_only: "Will only accept letters and punctuation.",
+				maxlength:    "The maximum length for a city is 30 characters."
             },
             "client[zipcode]": {
-            	required: "Please enter a zipcode.",
+            	required:      "Please enter a zipcode.",
             	valid_zipcode: "Can either be 4 or 5 digits long.",
             	leading_zero: "First number cannot be zero."
             },
-            "client[contact_fname]": "Will only accept letters and punctuation.",
-            "client[contact_lname]": "Will only accept letters and punctuation.",
+            "client[contact_fname]": {
+				letters_only: "Will only accept letters and punctuation.",
+				maxlength:    "The maximum length for a first name is 30 characters."
+			},
+            "client[contact_lname]": {
+				letters_only: "Will only accept letters and punctuation.",
+				maxlength:    "The maximum length for a last name is 30 characters."
+			},
             "client[telephone]": {
             	required: "Please enter a telephone number.",
             	valid_telephone: "Must be 7 or 10 digits. For extension, use \"ext.\" followed by 1-7 digits."
             },
-            "client[email]": "Must be in a standard email format."
+            "client[email]": {
+				valid_email: "Must be in a standard email format.",
+				maxlength:   "The maximum length for an email is 35 characters."
+			},
+			"client[comment]": {
+				maxlength:   "The maximum length for a comment is 250 characters."
+			}
         }
     });
     function dState(){

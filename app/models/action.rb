@@ -77,13 +77,7 @@ class Action < ActiveRecord::Base
       receipt.made_contact = false
     elsif (action.action_type.name == 'New Sale' || action.action_type.name == 'Old Sale')
       action.receipt.made_sale = false
-      action.receipt.sale_value = 0
-      action.receipt.page_size = 0
-      action.receipt.payment_type = nil
       receipt.made_sale = false
-      receipt.sale_value   = nil
-      receipt.page_size    = nil
-      receipt.payment_type = nil
     end
     action.receipt.save
     action.destroy
