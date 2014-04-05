@@ -14,13 +14,13 @@
        <div id = "cannot_edit">
          <p>You cannot edit archived projects. This is simply to show you what settings existed during this project.</p>
        </div>
-         <!-- <#% if !get_current_project %> EXPO-->
+          <#% if !get_current_project %> 
             <%= label_tag(:is_active, 'Would you like to reactivate this project?') %><br>
             <%= f.hidden_field :is_active, value: 1 %>
       <div class="actions">
         <%= f.submit 'Reactivate', class: 'btn btn-primary btn-sm'%>
       </div>
-        <!-- <#% end %>EXPO-->
+         <#% end %>
    <% end %>
 
 
