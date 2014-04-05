@@ -39,7 +39,7 @@
       </div>
       
       <% if false %>
-      EXPO
+ 
       <div id ="assign_bonus_points">
         <p>Number of bonus points:
         <%= number_field_tag 'bonus_points' %></p>
@@ -51,12 +51,11 @@
     </div>
 
 
-  <!-- EXPO
-  <p>
+
+  <p class="download_excel">
     Download:
     <%= link_to "Excel", users_path(format: "xls") %>
-  </p> -->
-
+  </p> 
 
   <!-- Displays the incorrect students if any -->
   <% if @incorrect_students.present? %>
