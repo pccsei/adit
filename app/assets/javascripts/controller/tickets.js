@@ -1,15 +1,14 @@
 onLoad(function() {  
-  // Grabs the server time to use as a timestamp
+  // Grabs the server time to use as a timestamp. More comments on server-side.
   $.getJSON("tickets/get_sys_time", function(json) {
-    window.sysTime = json.time;
+    window.sysTime = json.time; // Attach the timestamp to the window object to make it globally accessible
   });       
         
+  // Allows the user to try to get the client.
   $(".addTicket").click(function(caller) {
     $.getJSON("tickets.json?ajax=getClient&clientID=" + caller.target.id, function(json) {
-      // TODO: Change URL above ^^^ to use Rails helper
-      if (json.Success != null) {
+      if (json.Success != null) { // if successful
         $('#' + caller.target.id).addClass("autoHide").hide();
-        console.log("You got the client!");
         selector =  $('#' + json.ticketPriority + "PriorityCount");        
         updateCounters(selector);
         $("#userMessage").hide().html(json.Success).fadeIn(1000);
@@ -46,24 +45,29 @@ onLoad(function() {
       //TODO: Change URL above ^^^ to use Rails helper
       var i, len = json.length - 1; // compensating for system time appended to the end of JSON object
       for (i = 0; i < len; i++) {      	
-        if (json[i].user_id == 0 || json[i].user_id == null) {
-          $('#' + json[i].id).show();
-          $('#' + json[i].id).removeClass("autoHide");
-          $('#' + json[i].id + '_span').html("");
-          console.log('#' + json[i].client_id);
-        }
-        else {
-          $('#' + json[i].id).hide();
-          $('#' + json[i].id).addClass("autoHide");
-          $('#' + json[i].id + '_span').html(json[i].first_name + " " + json[i].last_name+ "<br />(" + json[i].school_id + ")");
-          console.log('#' + json[i].id);
-        }
+        if (json[i].user_id == 0 || json[i].user_id == null)
+             updateClient(json[i], "show");
+        else updateClient(json[i], "hide");
       }
-      window.sysTime = json[i];
+      window.sysTime = json[i]; // Update the timestamp to send to the server
       console.log("Updated at " + window.sysTime);
     });
     setTimeout(updateClients, 2000);
+  }  
+  
+  function updateClient(c, action) {
+  	if (action == 'show') {
+  	  $('#' + c.id).show();
+      $('#' + c.id).removeClass("autoHide");
+      $('#' + c.id + '_span').html("");
+     }
+  	else {
+      $('#' + c.id).hide();
+      $('#' + c.id).addClass("autoHide");
+      $('#' + c.id + '_span').html(c.first_name + " " + c.last_name+ "<br />(" + c.school_id + ")");
+  	}  	
   }
+  
   
   function updateCounters(selector) {
     highSelector   = $('#highPriorityCount');
@@ -94,13 +98,13 @@ onLoad(function() {
     }        
   }
     
+  // This function is similar to a -- on a variable except it accepts the element that has a number in it
   function mm(selector) {selector.html(selector.html() - 1);}
 
   // Recursive function that pings the server to check for updates
-  setTimeout(updateClients, 1000);
+  setTimeout(updateClients, 1000);  
   
-  
-  // Begin the 
+  // The following is a custome override of the column sorting so that the tickets will push high, medium, and low to the top of the column
   var priorities = ['high', 'medium', 'low'];
   var index      = 0; 
   var ascFlag    = true;
@@ -117,17 +121,15 @@ onLoad(function() {
     priorityArray['Low']    = ((priorityArray['Low']    + 2) % 3) - 1;
   }
   
-  // This function enable the datatable on the tickets page to cycle through priorities.
+  // Both the ascending function and descending function have to be overridden since they are called in alternate.
   jQuery.fn.dataTableExt.oSort['priority-asc'] = function(x,y) {
   
-    if (descFlag) {
+    if (descFlag) { // This prevents the the priority array from going moving more than once per cycle since this function gets called multiple times during the sort. 
       index++;
       index   %= priorities.length;
       ascFlag  = true;
       descFlag = false;   
       updatePriorityArray();
-      console.log("asc called");
-      console.log("pushing " + priorities[index] + " to the top");
     }
     var currentPriority = priorities[index];
     
@@ -153,10 +155,7 @@ onLoad(function() {
       index   %= priorities.length;
       ascFlag  = false;
       descFlag = true;   
-      updatePriorityArray(); 
-      console.log("desc called");
-      console.log("pushing " + priorities[index] + " to the top");
-      var nextIndex = index;
+      updatePriorityArray();
     }   
     var currentPriority = priorities[index];
         
@@ -174,7 +173,7 @@ onLoad(function() {
       return ((priorityArray[x] < priorityArray[y]) ?  1 : ((priorityArray[x] > priorityArray[y]) ? -1: 0 ) );
   };
   
-  // Initialized the datatable
+  // Initialized the datatable with the bootstrap tooltip feature added
   var table =  $('.ticket_table').dataTable({
         "aoColumns" : [{ "bSortable": true }, {"sType": "priority" }, null, null, null, null, null],
         "bPaginate" : false,

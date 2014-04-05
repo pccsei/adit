@@ -20,73 +20,47 @@ class TicketsController < ApplicationController
           allowed = true
         else
           allowed = false
-=begin
-        if @currentProject.use_max_clients
-          # Check to see if the user has the max number of clients
-          if Ticket.where('user_id = ? AND project_id = ?', current_user.id, get_current_project.id).size - (0) >= @currentProject.max_clients
-            updates = {'userMessage' => '<span class="text-danger" id="ticket_message">You have reached the maximum number of clients!</span>'}
-            allowed = false
-          else
-            allowed = true
-          end
-        else
-          requested_ticket_priority_id = Ticket.find(params[:clientID]).priority_id
-
-          case (requested_ticket_priority_id)
-            when Priority.where("name = 'high'").first.id
-              allowed = Ticket.more_high_allowed(current_user.id, get_selected_project) 
-            when Priority.where("name = 'medium'").first.id
-              allowed = Ticket.more_medium_allowed(current_user.id, get_selected_project)
-            when Priority.where("name = 'low'").first.id
-              allowed = Ticket.more_low_allowed(current_user.id, get_selected_project)
-            else            
-              allowed = false
-          end
-=end
         end
 
         if allowed
           grabbedTicket = false
           ticket        = nil          
           Ticket.transaction do
-            ticket = Ticket.where('id = ?',params[:clientID]).lock(true).first
+            ticket = Ticket.lock(true).find(params[:clientID])
 
             if ticket.nil?
-              updates = {'userMessage' => '<span id="ticket_message">Ticket does not exist for the current project</span'}
+              updates = {'userMessage' => '<span id="ticket_message">Ticket does not exist for the current project</span>'}
             else 
-               # User is allowed to get a new client: Try to grab the client ticket               
+               # The user is allowed to get a new client: Try to grab the client ticket               
                if no_holder(ticket.user_id)
                  ticket.user_id = current_user.id
                  ticket.save!
                  grabbedTicket = true
                else
-                 updates = {'userMessage' => '<span  id="ticket_message">Someone already grabbed that client!!</span>'}
+                 updates = {'userMessage' => '<span id="ticket_message">Someone already grabbed that client!!</span>'}
                end
             end
           end
 
           # This is done down here to allow the transaction above to finish as quickly as possible thus allowing the user to better grab the ticket
           if grabbedTicket
-            updates = { 'Success' => 'You are now assigned to ' + Client.find(ticket.client_id).business_name.to_s + '!',
+            updates = { 'Success'        => 'You are now assigned to ' + Client.find(ticket.client_id).business_name.to_s + '!',
                         'ticketPriority' => Priority.find(ticket.priority_id).name.to_s}
-            Receipt.find_or_create_by(ticket_id: ticket.id, user_id: current_user.id)
+                        
+            # Create a receipt for the user if he does nor already have one. A user will already have a receipt if he previously had the ticket and released it.
+            Receipt.find_or_create_by(ticket_id: ticket.id, user_id: current_user.id) 
           end
         else
           updates = {'userMessage' => '<p  id="ticket_message">You already have the max number of ' + requested_ticket_priority_name + ' priority clients.</p>'}
         end
       end 
      
-    ## Added by Noah, ugly check for existence of current project, can remove once we've 
-    ## cleaned up the program  
     elsif @currentProject              
-      @tickets = Ticket.current_project(@currentProject.id)
-
-      @clientsLeft  = Ticket.total_allowed_left(current_user.id, @currentProject)
-      @highPriority = Ticket.high_allowed_left(current_user.id, @currentProject)
+      @tickets      = Ticket.current_project(@currentProject.id)
+      @clientsLeft  = Ticket.total_allowed_left(current_user.id,  @currentProject)
+      @highPriority = Ticket.high_allowed_left(current_user.id,   @currentProject)
       @midPriority  = Ticket.medium_allowed_left(current_user.id, @currentProject)
-      @lowPriority  = Ticket.low_allowed_left(current_user.id, @currentProject)
-
-                  
+      @lowPriority  = Ticket.low_allowed_left(current_user.id,    @currentProject)
     end
     
     respond_to do |format|      
@@ -97,13 +71,7 @@ class TicketsController < ApplicationController
   end
 
   def show
-    
-    # all client information that is not nil
-    # comment for sure (explaination of the comment)
-    # sale information
-    
-    @clientInfo = Client.find(Ticket.find(params[:id]).client_id)    
-    
+    @clientInfo = Client.find(Ticket.find(params[:id]).client_id)
   end
 
   def new
@@ -149,25 +117,22 @@ class TicketsController < ApplicationController
   def release
     t = Ticket.find(params[:ticket_id])
       
-    # if the person accessing the page is a teacher or the ticket holder
-    if params[:ticket_id] && (current_user.role == 3 || t.user_id = current_user.id)    
-      #t = Ticket.find(params[:id])
+    # If the user accessing the page is a teacher or the ticket holder, allow the user to release the ticket
+    if params[:ticket_id] && (current_user.role == 3 || t.user_id = current_user.id)
       redirectUser = t.user_id
-      t.user_id = 0
+      t.user_id    = 0
       t.save
       
-      if params[:body]      
+      if params[:body] # Tag the ticket with a comment if a comment was entered      
         Comment.create(body: params[:body], ticket_id: params[:ticket_id], user_id: current_user.id);
-      end 
-      
+      end
     else 
       redirectUser = current_user.id
     end
     
     @d = params[:release_ticket_id]
     
-    redirect_to my_receipts_path(redirectUser)
-    
+    redirect_to my_receipts_path(redirectUser)    
   end
 
   def teacher_to_assign
@@ -183,9 +148,11 @@ class TicketsController < ApplicationController
     end
   end
   
-  # Used to pass the system time to the front end to assist in pinging the server for updates
+  # This function returns the current server time to the front end. It is used by app/assets/javascripts/controller/tickets.js in the updateClients() function.
+  # When the user first visits the tickets page, the page grabs the server time and stores it as a timestamp. Then every x number of seconds, that timestamp is 
+  # sent to the server. The server will respond with any data that has been modified after that time. 
   def get_sys_time
-    render json: {"time" => Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')}
+    render json: {"time" => Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')} # UTC is used to standardize the time across the front and back end.
   end
   
   private

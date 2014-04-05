@@ -5,6 +5,10 @@
   </div>
 <div class = "panel-body">
 
+<script>
+	$('.defaultTooltip').tooltip();
+</script>
+
 <p>
   <strong>Address:</strong>
   <%= @client.address %>
@@ -43,7 +47,7 @@
 </p>
 <p>
   <strong>Comment:</strong>
-  <%= tooltipify(@client.comment, 50)%>
+  <%= tooltipify(@client.comment)%>
 </p>
 <% if (@client.status.status_type== 'Pending') || (@client.status.status_type == 'Edited')%>
   <p>

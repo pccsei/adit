@@ -22,7 +22,7 @@
       <thead>
       <tr>
         <% if open %>
-            <th class=""></th>
+            <th></th>
         <% end %>
         <th>Priority</th>
         <th>Business Name</th>
@@ -35,24 +35,22 @@
       <tbody>
       <% @tickets.each do |ticket| %>
           <tr class="<%= ticket.priority.name %>">
-            <% #client = Client.find(ticket.client_id); ticketClass = " addTicket "; ticketClass << ((ticket.user_id == 0 || ticket.user_id.nil?) ? "" : "autoHide "); 
-            %>
-            
             <% client = Client.find(ticket.client_id); ticketClass = " addTicket " %>            
-            <% ##span and button things
+            <% # This block determines if the ticket already has a holder. Tickets with holders hide the add button (ticket is hidden via jquery) by adding the autoHide class.
+               # When the button is hidden, we need to know who is holding the ticket, so that information is added to the span. This live activation/deactivation is done when
+               # the page requests updates from the server and is performed in app/assets/javascripts/controller/tickets.js under updateClients() function.
             	if ticket.user_id == 0 || ticket.user_id.nil?
             		ticketClass << ""
-    				holder = ""
+    				holder       = ""
     			else
     				ticketClass << 'autoHide '
-            		holder = "#{ticket.user.first_name} #{ticket.user.last_name}<br />(#{ticket.user.school_id})".html_safe
+            		holder      = "#{ticket.user.first_name} #{ticket.user.last_name}<br />(#{ticket.user.school_id})".html_safe
     			end
             %>
             <% if open %>                
                 <td>
                   <%= button_tag 'Choose', type: 'button', :id => ticket.id, :class => 'btn btn-primary btn-sm' << ticketClass %>
-                  <%= content_tag(:span, holder, :id =>ticket.id.to_s + '_span' ) %>
-                	
+                  <%= content_tag(:span, holder, :id =>ticket.id.to_s + '_span' ) %>                	
                 </td>
             <% end %>
             <td class="priority"><span><%= ticket.priority.name.capitalize %></span></td>
@@ -61,7 +59,6 @@
             <td><%= client.contact_title + ' ' + client.contact_fname + ' ' +  client.contact_lname%></td>
             <td style="text-align: right"><%= render_phone(client.telephone) %></td>
             <td ><%= tooltipify(client.comment)%></td>
-            <!-- <td><%#= link_to 'Details', ticket , :class => "btn btn-info btn-sm" %></td> -->
           </tr>
       <% end %>
 
