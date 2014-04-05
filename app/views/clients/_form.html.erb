@@ -156,6 +156,7 @@
 			    	<% if @client.new_record? %>
 					  <% if current_user.role == 3 %>
 					  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary'%>
+					  	<%= link_to 'Back to Approve Clients', clients_approve_path %>
 					  <% elsif more_tickets_allowed %>
 					  	<%= f.submit "Submit for teacher's approval", :class => 'btn btn-small btn-primary'%>
 					  <% else %>
@@ -166,8 +167,9 @@
 					  <% end %>
 				  <% else %>
 				     <%= f.submit 'Update Client', :class => 'btn btn-small btn-primary'%>
+				     <%= link_to 'Back', session[:return_from_edit] %>
 				  <% end %>
-				 <%= link_to 'Back', session[:return_from_edit] %>
+				 
             </td>
           </tr>
         </table>

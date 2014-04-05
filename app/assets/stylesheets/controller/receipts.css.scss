@@ -1,15 +1,27 @@
-#sale_amount, #page_size{
-	//margin-right: 9em;
-	//font-size: 1.4em;
-}
-#payment_type{
+#sale_display, #page_display{
+	margin-right: 6em;
 	font-size: 1.4em;
+}
+#pay_display{
+	font-size: 1.4em;
+}
+
+#otherSize {
+	width: 11.5em !important;
 }
 #timepicker label.required{
 	display: block;
 }
 #comment label{
 	display: block;
+}
+
+.receipts .teacher_info {
+  margin-bottom: 0em !important;
+}
+
+.receipts #teacher_back {
+  margin-top: 1em !important;  
 }
 #saleMade table{
 	margin-left: 2em;
@@ -55,9 +67,18 @@ input#price.form-control{
 */
 #price{
 	width: 20em;
+	height: inherit;
+}
+
+.input-group-addon:first-child {
+  height: inherit;
 }
 .receipts.show .form-control {
   display: inline;
+}
+
+.input-group {
+  height: 2.5em;
 }
 
 .form_background{
@@ -65,7 +86,7 @@ input#price.form-control{
 	padding-left: 2em;
 	padding-right: 2em;
 	padding-bottom: 2.5em;
-	margin-top: 5em !important;
+	margin-top: 2em !important;
 	border: 
 	#EEE solid 1em;
 	border-radius: 1em;
@@ -119,6 +140,7 @@ input#price.form-control{
 .receipts .sale_panel {
 padding-bottom: 5em;
 padding-top: 3em;
+margin-bottom: 5em !important;
 }
 
 .show #heading{

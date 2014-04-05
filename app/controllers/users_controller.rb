@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :only_teachers, except: [:unauthorized, :need_help, :download_help]
   skip_before_action :must_have_project, only: :unauthorized
   # EXPO
-  before_action :not_expo, only: [:another_teacher_to_section, :new_teacher, :change_teacher, :new_teacher]
+  before_action :not_expo, only: [:teachers, :another_teacher_to_section, :new_teacher, :change_teacher, :new_teacher]
 
   # GET /users
   # GET /users.json

@@ -2,8 +2,17 @@ class Receipt < ActiveRecord::Base
   belongs_to :ticket
   belongs_to :user
   has_many   :actions, dependent: :destroy
-  has_one :client, through: :tickets
+  has_one    :client, through: :tickets
   has_paper_trail
+  
+
+  validates :page_size, :sale_value,
+     allow_blank: true,
+	 allow_nil:   true,
+     length: {
+        maximum: 20,
+		message: 'can have a maximum of 6 digits. Please turn Javascript back on.'
+  }
   
   # def self.released_receipts
     # all :conditions => {['']}

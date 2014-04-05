@@ -12,7 +12,11 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, presence: true, format: {
       with: /\A[-a-zA-Z ?()'\/&-\.]+\Z/,
       message: 'has an invalid character(s) entered.'
-  }, unless: Proc.new { |user| user.school_id.to_i <= -1 }
+  }, unless: Proc.new { |user| user.school_id.to_i <= -1 },
+     length: {
+        maximum: 30,
+		message: 'has a maximum length of 30 characters.'
+  }
 
 # Validates the user's school id
   validates :school_id, presence: true, uniqueness: true, unless: Proc.new { |user| user.school_id.to_i <= -1 }
@@ -21,7 +25,12 @@ class User < ActiveRecord::Base
   validates :email, format: {
       with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\Z/,
       message: 'must be a valid PCC email address (jsmith1234@students.pcci.edu).'
-  }, unless: Proc.new { |user| user.school_id.to_i <= -1 }
+  }, unless: Proc.new { |user| user.school_id.to_i <= -1 },
+     length: {
+        maximum: 35,
+		message: 'has a maximum length of 35 characters.'
+  }
+
 
 # Validates the phone number
   validates :phone, allow_blank: true, format: {
@@ -34,6 +43,13 @@ class User < ActiveRecord::Base
       minimum: 3, maximum: 4,
       message: 'needs to be a range of 3-4 digits long.'
   }, numericality: { greater_than: 0 }, unless: Proc.new { |user| user.school_id.to_i <= -1 }
+  
+  validates :major, :minor,
+     length: {
+        maximum: 75,
+		message: 'has a maximum length of 75 characters.'
+  }
+
 
   ### BEGIN CONFIGURATION ###
   SERVER = 'studentnet.int'        # Active Directory server name or IP

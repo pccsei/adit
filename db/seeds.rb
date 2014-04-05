@@ -2243,3 +2243,5 @@ teachers.each do |t|
   end
   next_year += 1
 end
+
+PaperTrail::Version.delete_all

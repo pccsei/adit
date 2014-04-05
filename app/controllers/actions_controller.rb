@@ -39,11 +39,11 @@ class ActionsController < ApplicationController
     end       
      
     if receipt
-       Action.create_action(params[:price],   params[:page],             params[:payment_type],
-                            params[:comment], params[:contact],          params[:presentation], 
-                            params[:sale],    user_action_time, receipt)
+       message = Action.create_action(params[:price],   params[:page],             params[:payment_type],
+                                      params[:comment], params[:contact],          params[:presentation], 
+                                      params[:sale],    user_action_time, receipt)
     
-       redirect_to receipt_path(id: receipt.id), notice: 'You successfully updated your client'
+       redirect_to receipt_path(id: receipt.id), notice: message || 'You successfully updated your client.'
     else
        redirect_to receipt_path(id: receipt.id), notice: 'There were errors saving your form. Please enable javascript.'
     end
@@ -66,11 +66,10 @@ class ActionsController < ApplicationController
   # DELETE /actions/1
   # DELETE /actions/1.json
   def destroy
-    receipt = Receipt.find(@action.receipt_id)
-      
+    receipt = Receipt.find(@action.receipt_id)      
     Action.delete_activity(@action, receipt)
-    undo_link = view_context.link_to("Undo", revert_action_version_path(@action.versions.where(whodunnit: receipt.user_id).last), :method => :post)
-
+    undo_link = view_context.link_to("Undo", revert_action_version_path(@action.versions.where(whodunnit: current_user.id).last), method: 'post')
+    
     respond_to do |format|
       format.html { redirect_to :back, notice: "You have successfully deleted that entry. " + undo_link }
       # format.html { redirect_to receipt_path(@action.receipt),

@@ -1,9 +1,13 @@
 <% provide(:title, 'Client Information') %>
 <div class = "panel panel-primary">
   <div class = "panel-heading">
-    <h3>&nbsp;<%= @client.business_name %></li></h3><br />
+    <h3>&nbsp;<%= tooltipify(@client.business_name, 40) %></li></h3><br />
   </div>
 <div class = "panel-body">
+
+<script>
+	$('.defaultTooltip').tooltip();
+</script>
 
 <p>
   <strong>Address:</strong>
@@ -43,7 +47,7 @@
 </p>
 <p>
   <strong>Comment:</strong>
-  <%= tooltipify(@client.comment, 50)%>
+  <%= tooltipify(@client.comment)%>
 </p>
 <% if (@client.status.status_type== 'Pending') || (@client.status.status_type == 'Edited')%>
   <p>
@@ -54,30 +58,12 @@
     
 </div>  
 </div>
-<% if false %>
-<% if (current_user.role == 3 || current_user.school_id == @client.submitter) %>
-	<%= link_to 'Edit', edit_client_path(@client, where: 'not_from_student'), :class => 'btn btn-large btn-primary btn-sm' %>
-<% end %>
-<% if current_user.role == 3 %>
-	<% if params[:from] == 'teacher' %>
-		<%= link_to 'Back to Approve Clients', clients_approve_path, :class => 'btn btn-large btn-primary btn-sm' %>
-	<% else %>
-		<%= link_to 'Back to Assign Clients', clients_path, :class => 'btn btn-large btn-primary btn-sm' %>
-	<% end %>
+
+<% if @receipt_id.present? %>
+   <%= link_to 'Back', receipt_path(id: @receipt_id) %>
 <% else %>
-	<% if params[:from] == 'student' %>
-		<%= link_to 'Back to Submit Client', clients_submit_path, :class => 'btn btn-large btn-primary btn-sm' %>
-	<% else %>
-		<%= link_to 'Back to Client', receipt_path(params[:receipt]), :class => 'btn btn-large btn-primary btn-sm' %>
-	<% end %>
-	<% if (current_user.role == 3 || current_user.school_id == @client.submitter) %>
-	<%= link_to 'Edit', edit_client_path(@client, where: 'not_from_student') %>
+   <%= link_to 'Back', session[:return_to] %>
 <% end %>
-<% end %>
-
-<% end %>
-
-
 <% if (current_user.role == 3 || current_user.id == @client.submitter) %>
 	| <%= link_to 'Edit', edit_client_path(@client, page: request.url) %>
 <% end %>
