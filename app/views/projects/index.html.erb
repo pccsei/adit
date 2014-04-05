@@ -1,8 +1,7 @@
 <% provide(:title, 'Projects') %>
 
-<!-- EXPO -->
-<!-- Download:
-<%= link_to "Excel", projects_path(format: "xls") %> -->
+ Download:
+<%= link_to "Excel", projects_path(format: "xls") %>
 
 <% if @project || @archived_projects.present? %>
     <% if @project && get_selected_project.id == @project.id %>

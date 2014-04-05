@@ -191,10 +191,14 @@ font-size: 1.5em;
   }
 }
 
-
+.close{
+	text-decoration: none !important;
+	opacity: 0.3;
+}
 .error{
   color: #DC0000;
   padding-left: .5em;
+  vertical-align: middle;
 }
 
 .page-header {

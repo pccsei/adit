@@ -10,7 +10,7 @@
 <!-- Adds students to a section and is only allowed for a teacher-->
 
 <% if @selected_section == 'all' %>
-  <p id = "info_message" class = "alert alert-notice">You are currently viewing all students. Please select a section or create a section for additional options.</p>
+  <p id = "info_message" class = "alert alert-info ">You are currently viewing all students.<br /> Please select a section or create a section for additional options.</p>
         <!--Refreshes page using ajax, actually just normally right now-->
       <div id = "section_refresh">
         <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
