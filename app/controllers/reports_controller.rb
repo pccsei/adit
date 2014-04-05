@@ -70,9 +70,7 @@ class ReportsController < ApplicationController
   end
 
 private
-
    def get_student_summary
      User.current_student_users(get_selected_project, get_selected_section)
    end
-  
 end
