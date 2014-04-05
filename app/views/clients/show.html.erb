@@ -1,7 +1,7 @@
 <% provide(:title, 'Client Information') %>
 <div class = "panel panel-primary">
   <div class = "panel-heading">
-    <h3>&nbsp;<%= @client.business_name %></li></h3><br />
+    <h3>&nbsp;<%= tooltipify(@client.business_name, 40) %></li></h3><br />
   </div>
 <div class = "panel-body">
 

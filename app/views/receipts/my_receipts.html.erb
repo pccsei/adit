@@ -15,7 +15,7 @@
       <div class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="releaseBox">
         <div class="modal-dialog modal-lg">
           <div class="modal-content ">
-          <%= form_tag(tickets_release_path) do %>
+          <%= form_tag(tickets_release_path, id: "release_client") do %>
             <p id="releaseComment">Feel free to leave a comment about this client for other representatives.</p>
             <%= hidden_field_tag(:ticket_id) %>
             <%= text_area_tag "body", nil, :size => 30 %>

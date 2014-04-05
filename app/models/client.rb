@@ -12,12 +12,25 @@ end
 
 # Add back validation for address and city and telephone
 # Validates the business name
-  validates :business_name, presence: true
-   
+  validates :business_name, presence: true,
+     length: {
+        maximum: 65,
+		message: 'has a maximum length of 65 characters.'
+  }
+
+  validates :address,
+     length: {
+        maximum: 80,
+		message: 'has a maximum length of 80 characters.'
+  }  
 # Validates the city, this should allow blanks in the business name
   validates :city, allow_blank: true, format: {
     with: /\A[-a-zA-Z ?()'\/&-\.]+\Z/,
-    message: 'has an invalid character(s) entered.'
+    message: 'will only accept letters and punctuation.'
+  },
+     length: {
+        maximum: 30,
+		message: 'has a maximum length of 30 characters.'
   }
  
 # Validates the zipcode
@@ -30,12 +43,26 @@ end
   validates :email, allow_blank: true, uniqueness: true, format: {
     with: /\A([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}\Z/,
     message: 'must be in a standard email format.'
+  },
+     length: {
+        maximum: 35,
+		message: 'has a maximum length of 35 characters.'
   }
    
 # Validates the contact first and last name
   validates :contact_fname, :contact_lname, allow_blank: true, format: {
     with: /\A[-a-zA-Z ?()'\/\\&-\.]+\Z/,
-    message: 'has an invalid character(s) entered.'
+        message: 'will only accept letters and punctuation.'
+  },
+     length: {
+        maximum: 30,
+		message: 'has a maximum length of 30 characters.'
+  }
+  
+  validates :comment,
+     length: {
+        maximum: 250,
+		message: 'has a maximum length of 250 characters.'
   }
    
 # Validates the telephone

@@ -15,6 +15,15 @@ onLoad(function() {
     else
       $('#switchText').attr('value', "Release");
   });
+  
+  $("#release_client").validate({
+  	rules: {
+  		"body": {maxlength: 250}
+  	},
+  	messages: {
+  		"body": "&nbsp;&nbsp;The maximum length for a comment is 250 characters."
+  	}
+  });
 
     $(".hidden").hide();
 
@@ -70,7 +79,37 @@ onLoad(function() {
 
 	// Custom validation to make sure the number entered is a float with two decimals only
     jQuery.validator.addMethod('fraction_decimal', function(value, element) {
-        return this.optional(element) || /^(([1-9]+[0-9]*)?|([1-9]+[0-9]*[/][1-9]+[0-9]*)?|([0-9]*(\.[0-9]*[1-9]+|\.[1-9]+[0-9]*)|[1-9]+[0-9]*(\.\d{1,2}))?)$/i.test(value);
+        return this.optional(element) || /^([1-3]|([1-9]([0-9])?[/][1-9]([0-9])?)|(([0-2]*\.([0-9][1-9]|[1-9][0-9]))|([1-2](\.\d{1,2}))))$/i.test(value);
+    });
+    
+    // Custom validation to make sure the number entered is a float with two decimals only
+    jQuery.validator.addMethod('decimal', function(value, element) {
+        return this.optional(element) || /^((\d)*|(([0-9]+\.([0-9]*[1-9]+|[1-9]+[0-9]*))|([1-9]+[0-9]*(\.\d{1,2}))))$/i.test(value);
+    });
+    
+    // Custom method to make sure the leading number is not zero
+    jQuery.validator.addMethod("leading_zero", function(value, element) {
+        return this.optional(element) || /^(([1-9]+[0-9]*(\.(\d)*)?)|([0]+\.([0-9]*[1-9]+|[1-9]+[0-9]*)))$/.test(value);
+    });
+    
+    // Custom validation to make sure the datetime matches what we need
+    jQuery.validator.addMethod("valid_format", function(value, element) {
+        return this.optional(element) || /^(\d{4}[/]\d{2}[/]\d{2}\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
+    });
+    
+    // Custom validation to make sure the datetime matches what we need
+    jQuery.validator.addMethod("valid_year", function(value, element) {
+        return this.optional(element) || /^([2-9]\d{3}[/]\d{2}[/]\d{2}\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
+    });
+    
+    // Custom validation to make sure the datetime matches what we need
+    jQuery.validator.addMethod("valid_month", function(value, element) {
+        return this.optional(element) || /^(\d{4}[/](([1][0-2])|([0][1-9]))[/]\d{2}\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
+    });
+    
+    // Custom validation to make sure the datetime matches what we need
+    jQuery.validator.addMethod("valid_day", function(value, element) {
+        return this.optional(element) || /^(\d{4}[/]\d{2}[/](([0][1-9])|([1-2][0-9])|(3[0-1]))\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
     });
     
     // Custom validation to make sure the price and page are not all zeros
@@ -81,22 +120,33 @@ onLoad(function() {
        
     $("#new_action").validate({
         rules: {
-            "price": {required: true, fraction_decimal: true, min_digit: .01, max: 1500 },
+            "price": {required: true, decimal: true, leading_zero: true, min_digit: .01, max: 1500, maxlength: 7},
             "otherSize": {required: true, fraction_decimal: true},
-            "user_action_time": {required: true, date: true }
+            "user_action_time": {required: true, date: true, valid_format: true, valid_year: true, valid_month: true, valid_day: true},
+            "comment": {maxlength: 250}
         },
         messages: {
             "price": {
             	required: "Please enter a valid price (30 or 30.00).",
-            	fraction_decimal: "Only a number with 0-2 decimal places (no commas).",
+            	decimal: "Only a number with 0-2 decimal places (no commas).",
+            	leading_zero: "The first number cannot be zero.",
             	min_digit: "Price cannot be all zero.",
-            	max: "The price should not be higher than 1500 dollars."
+            	max: "The price should not be higher than 1500 dollars.",
+            	maxlength: "Cannot be more than six digits long."
             },
             "otherSize": {
             	required: "Please enter an ad size (.25 or 1.5).", 
             	fraction_decimal: "Can be a fraction or a number with 0-2 decimal places (both non-zero)."
             },
-            "user_action_time": "Please enter in the date and time when you did this."
+            "user_action_time": {
+            	required: "Please enter in the date and time when you did this.",
+            	date: "The date is incorrect",
+            	valid_year: "Please select a year after 2000.",
+            	valid_month: "Please select a valid month.",
+            	valid_day: "Please select a valid day.",
+            	valid_format: "Should match format YYYY/MM/DD HH:MM AM/PM."
+            },
+            "comment": "The maximum length for a comment is 250 characters."
         }
     });
     

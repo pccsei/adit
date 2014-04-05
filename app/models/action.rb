@@ -8,6 +8,11 @@ class Action < ActiveRecord::Base
   validates :receipt_id, presence: true
   validates :action_type_id, presence: true
   
+  validates :comment, allow_nil: true, length: {
+     maximum: 250,
+	 message: 'has a maximum length of 250 characters.'
+  }
+  
   def self.create_action (price, page, payment_type, comment, contact, presentation, sale, user_action_time, receipt)
 
     if contact
@@ -77,13 +82,7 @@ class Action < ActiveRecord::Base
       receipt.made_contact = false
     elsif (action.action_type.name == 'New Sale' || action.action_type.name == 'Old Sale')
       action.receipt.made_sale = false
-      action.receipt.sale_value = 0
-      action.receipt.page_size = 0
-      action.receipt.payment_type = nil
       receipt.made_sale = false
-      receipt.sale_value   = nil
-      receipt.page_size    = nil
-      receipt.payment_type = nil
     end
     action.receipt.save
     action.destroy

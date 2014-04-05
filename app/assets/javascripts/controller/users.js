@@ -145,23 +145,25 @@ onLoad(function() {
     
     $("#users").validate({
         rules: {
-            "user[first_name]": {required: true, letters_only: true},
-            "user[last_name]": {required: true, letters_only: true},
+            "user[first_name]": {required: true, letters_only: true, maxlength: 30},
+            "user[last_name]": {required: true, letters_only: true, maxlength: 30},
             "user[school_id]": {required: true, digits: true, min_digit: 1, rangelength: [6,6]},
-            "user[email]": {required: true, email_valid: true, email: true},
+            "user[email]": {required: true, email_valid: true, email: true, maxlength: 35},
             "user[phone]": {required: true, valid_telephone: true},
             "user[box]": {digits: true, rangelength: [3,4], min: 1},
-            "user[major]": {letters_only: true},
-            "user[minor]": {letters_only: true}
+            "user[major]": {letters_only: true, maxlength: 75},
+            "user[minor]": {letters_only: true, maxlength: 75}
         },
         messages: {
             "user[first_name]": {
             	required: "Please enter the student's first name.",
-            	letters_only: "Will only accept letters and punctuation."
+            	letters_only: "Will only accept letters and punctuation.",
+				maxlength:    "The maximum length for a first name is 30 characters."
             },
             "user[last_name]": {
             	required: "Please enter the student's last name.",
-            	letters_only: "Will only accept letters and punctuation."
+            	letters_only: "Will only accept letters and punctuation.",
+				maxlength:    "The maximum length for a last name is 30 characters."
             },
             "user[school_id]": {
             	required: "Please enter the student's school id.",
@@ -171,7 +173,8 @@ onLoad(function() {
             },
             "user[email]": {
             	required: "Please enter the student's PCC email address.",
-            	email_valid: "Email must be a valid PCC email address (jsmith1234@students.pcci.edu)"
+            	email_valid: "Email must be a valid PCC email address (jsmith1234@students.pcci.edu).",
+				maxlength:   "The maximum length for an email is 35 characters."
             },
             "user[phone]": {
             	required: "Please enter the student's PCC phone.",
@@ -182,9 +185,15 @@ onLoad(function() {
             	min: "Cannot be all zeros.",
             	rangelength: "Can only be a range of 3-4 digits long."
             },
-            "user[major]": "Will only accept letters and punctuation.",
-            "user[minor]": "Will only accept letters and punctuation."
+            "user[major]": {
+				letters_only: "Will only accept letters and punctuation.",
+				maxlength:    "The maximum length for a major is 75 characters."
+			},
+			
+            "user[minor]": {
+				letters_only: "Will only accept letters and punctuation.",
+				maxlength:    "The maximum length for a minor is 75 characters."
+			}
         }
-        // $('.formError').delay(3000);
     });
 });
