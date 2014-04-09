@@ -104,7 +104,7 @@ onLoad(function() {
   // Recursive function that pings the server to check for updates
   setTimeout(updateClients, 1000);  
   
-  // The following is a custome override of the column sorting so that the tickets will push high, medium, and low to the top of the column
+  // The following is a custom override of the column sorting so that the tickets will push high, medium, and low to the top of the column
   var priorities = ['high', 'medium', 'low'];
   var index      = 0; 
   var ascFlag    = true;
