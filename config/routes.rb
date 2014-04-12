@@ -38,6 +38,7 @@ WhiteCollar::Application.routes.draw do
   get    '/reports/end_of_semester_data'
   get    '/tickets/get_sys_time'
   get    '/tickets/updates'
+  get    '/tickets/getClient'
   delete '/reports/delete_bonus'
   post   '/reports/edit_bonus'
   get    '/reports/team_data'

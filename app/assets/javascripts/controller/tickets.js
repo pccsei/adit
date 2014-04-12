@@ -6,7 +6,7 @@ onLoad(function() {
         
   // Allows the user to try to get the client.
   $(".addTicket").click(function(caller) {
-    $.getJSON("tickets.json?ajax=getClient&clientID=" + caller.target.id, function(json) {
+    $.getJSON("tickets/getClient.json?clientID=" + caller.target.id, function(json) {
       if (json.Success != null) { // if successful
         $('#' + caller.target.id).addClass("autoHide").hide();
         selector =  $('#' + json.ticketPriority + "PriorityCount");        
