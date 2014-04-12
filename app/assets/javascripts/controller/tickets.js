@@ -41,7 +41,7 @@ onLoad(function() {
   });
   
   function updateClients() {
-    $.getJSON("tickets/updates.json?ajax=update&timestamp=" + window.sysTime, function(json) {
+    $.getJSON("tickets/updates.json?timestamp=" + window.sysTime, function(json) {
       //TODO: Change URL above ^^^ to use Rails helper
       var i, len = json.length - 1; // compensating for system time appended to the end of JSON object
       for (i = 0; i < len; i++) {      	
