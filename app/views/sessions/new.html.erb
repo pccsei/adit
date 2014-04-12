@@ -35,9 +35,9 @@
 				<%#= label_tag 'School ID' %>
 				<%= text_field_tag 'school_id', '', placeholder: 'School ID' %>
 				<%#= label_tag 'password' %>
-				<%= password_field_tag :password, '', placeholder: 'Password' %>
+				<%= password_field_tag :password, '', :placeholder => 'Password' %>
     	</div>
-  		<%= submit_tag("Sign in", class:"btn btn-lg btn-primary btn-block") %>
+  		<%= submit_tag("Sign in", class: "btn btn-lg btn-primary btn-block") %>
   		<% end %>
   	</fieldset>
   </div>

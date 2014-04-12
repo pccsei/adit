@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
 
   end
 
-=begin
    # This is active directory authentication
    def create
 
@@ -25,9 +24,10 @@ class SessionsController < ApplicationController
      end
   end
 
-# This is the expo create function
-=end
 
+
+# This is the expo create function
+=begin
   def create
 
     if current_user.present?
@@ -59,7 +59,7 @@ class SessionsController < ApplicationController
       render 'new'
     end
   end
-
+=end
   def destroy
     sign_out
     redirect_to signin_path

@@ -6,6 +6,12 @@
 #  cities = City.create!([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #  Mayor.create!(name: 'Emanuel', city: cities.first)
 
+action_types = ActionType.create!([{ name: 'First Contact',  role: 1, point_value: 5 },
+                                   { name: 'Presentation',   role: 1, point_value: 5 },
+                                   { name: 'Old Sale',       role: 1, point_value: 10},
+                                   { name: 'New Sale',       role: 1, point_value: 15},
+                                   { name: 'Comment',        role: 1, point_value: 0}])
+
 statuses = Status.create!([{status_type: 'Unapproved'}, {status_type: 'Approved'}, {status_type: 'In House'}, {status_type: 'Pending'}, {status_type: 'Edited'}])
 
 clients = Client.create!([{business_name: '10th Avenue Hair Designs', address: '1000 East Cervantes Street', telephone: '433-5207', comment: '', zipcode: 32501, contact_fname: '', contact_lname: '', contact_title: '', city: 'Pensacola', state: 'FL', status_id: (Status.find_by status_type: 'Approved').id},
@@ -1028,17 +1034,13 @@ tickets = Ticket.create!([{project_id: (Project.where('project_type_id = ? AND y
 anon = User.first.id
 
 Ticket.all.each do |t|
-  t.receipts.create!(:user_id => anon, :made_contact => true, :made_presentation => true, :made_sale => true)  
+  t.receipts.create!(:user_id => anon, :made_contact => true, :made_presentation => true, :made_sale => true)
 end
 
-action_types = ActionType.create!([{ name: 'First Contact',  role: 1, point_value: 5 },
-                                  { name: 'Presentation',   role: 1, point_value: 5 },
-                                  { name: 'Old Sale',       role: 1, point_value: 10},
-                                  { name: 'New Sale',       role: 1, point_value: 15},
-                                  { name: 'Comment',        role: 1, point_value: 0}])
 
-# This is where the seed data for the expo begins
+# This is where the seed data for the expo begins, Feel free to use any of it to create realistic data for testing
   # Student Data
+=begin
 student_users = User.create!([{school_id: 133818, role: 1, first_name: 'Antoinette', last_name: 'Boothe', email: 'abooth7013@students.pcci.edu', phone: '17-3121-4', box: 2012, major: 'Advertising and Public Relations', minor: 'Advertising, Bible', classification: 'JR'},
                               {school_id: 106054, role: 1, first_name: 'Helen', last_name: 'Perez', email: 'hperez2994@students.pcci.edu', phone: '17-4111-4', box: 1671, major: 'Studio Art', minor: 'Graphic Design, Advertising', classification: 'SO'},
                               {school_id: 119591, role: 1, first_name: 'Christina', last_name: 'Guy', email: 'cguy3027@students.pcci.edu', phone: '17-5609-2', box: 1574, major: 'Studio Art', minor: 'Advertising', classification: 'SR'},
@@ -2243,5 +2245,5 @@ teachers.each do |t|
   end
   next_year += 1
 end
-
+=end
 PaperTrail::Version.delete_all

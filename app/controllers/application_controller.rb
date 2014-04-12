@@ -28,8 +28,7 @@ class ApplicationController < ActionController::Base
 
   # This method will most likely be deleted soon, use selected methods below instead                          
   def get_current_project
-    get_selected_project
-    # project = Project.find_by is_active: true ### Change this back after the EXPO
+     project = Project.find_by is_active: true
   end
 
   # 1 = active students only, 2 = inactive students only, 3 = all students
@@ -88,11 +87,6 @@ class ApplicationController < ActionController::Base
     sections.sort!
     sections.unshift('all')
   end
-
-
-   def not_expo
-     redirect_to users_unauthorized_path
-   end
    
    # Restricts access to only teachers 
    def only_teachers
@@ -124,7 +118,6 @@ class ApplicationController < ActionController::Base
        redirect_to no_project_path
      end
    end
-      
    
   def version_cleanup(uid, item_type)
     last_version_id = PaperTrail::Version.where(whodunnit: uid, item_type: item_type).last.id        
