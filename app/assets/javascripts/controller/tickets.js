@@ -104,74 +104,7 @@ onLoad(function() {
   // Recursive function that pings the server to check for updates
   setTimeout(updateClients, 1000);  
   
-  // The following is a custom override of the column sorting so that the tickets will push high, medium, and low to the top of the column
-  var priorities = ['high', 'medium', 'low'];
-  var index      = 0; 
-  var ascFlag    = true;
-  var descFlag   = true;  
-  
-  var priorityArray = {};
-  priorityArray['High']   =-1;
-  priorityArray['Medium'] = 0;
-  priorityArray['Low']    = 1;
-  
-  function updatePriorityArray(){
-    priorityArray['High']   = ((priorityArray['High']   + 2) % 3) - 1;
-    priorityArray['Medium'] = ((priorityArray['Medium'] + 2) % 3) - 1;
-    priorityArray['Low']    = ((priorityArray['Low']    + 2) % 3) - 1;
-  }
-  
-  // Both the ascending function and descending function have to be overridden since they are called in alternate.
-  jQuery.fn.dataTableExt.oSort['priority-asc'] = function(x,y) {
-  
-    if (descFlag) { // This prevents the the priority array from going moving more than once per cycle since this function gets called multiple times during the sort. 
-      index++;
-      index   %= priorities.length;
-      ascFlag  = true;
-      descFlag = false;   
-      updatePriorityArray();
-    }
-    var currentPriority = priorities[index];
-    
-    // This strips out the span tags I added to the td. - Rob
-    x = $(x).text();
-    y = $(y).text();
-
-    if (x == (currentPriority) && y == (currentPriority)) 
-      return 0;
-    else if (x == (currentPriority))
-      return -1;
-    else if (y == (currentPriority)) 
-      return 1;
-    else 
-      return ((priorityArray[x] < priorityArray[y]) ?  1 : ((priorityArray[x] > priorityArray[y]) ? -1: 0 ) );
-  };
-  
-  // This one too
-  jQuery.fn.dataTableExt.oSort['priority-desc'] = function(x,y) {
-  
-    if (ascFlag) {
-      index++;
-      index   %= priorities.length;
-      ascFlag  = false;
-      descFlag = true;   
-      updatePriorityArray();
-    }   
-    var currentPriority = priorities[index];
-        
-    // This strips out the span tags I added to the td. - Rob
-    x = $(x).text();
-    y = $(y).text();
-
-    if (x == (currentPriority) && y == (currentPriority))
-      return 0;
-    else if (x == (currentPriority))
-      return -1;
-    else if (y == (currentPriority)) 
-      return 1;
-    else
-      return ((priorityArray[x] < priorityArray[y]) ?  1 : ((priorityArray[x] > priorityArray[y]) ? -1: 0 ) );
-  };
+ overridePrioritySort();
   
   // Initialized the datatable with the bootstrap tooltip feature added
   var table =  $('.ticket_table').dataTable({
