@@ -2,8 +2,8 @@ WhiteCollar::Application.routes.draw do
   root :to => 'tickets#index'
 
   post   '/clients/approve_client_edit'
-  post   'clients/actually_assign'
-  get    '/clients/assign'
+  post   'clients/assign'#actually_assign'
+  get    '/clients/show_assign_for'#assign'
   get    '/clients/approve'
   post   '/clients/approve_client'
   post   '/clients/disapprove_client'
