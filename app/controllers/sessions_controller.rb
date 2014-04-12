@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
     end
     
     if params[:id] == 'teacher'
-      users = User.where(role: 3, available: 1).ids
+      users = User.where(role: 3).ids
       if users.present?
          user = User.find(users.sample)
          sign_in(user)
@@ -45,7 +45,7 @@ class SessionsController < ApplicationController
          render 'new'
       end
     elsif params[:id] == 'student'
-      users = User.where(role: 1, available: 1).ids
+      users = User.where(role: 1).ids
       if users.present?
          user = User.find(users.sample)
          sign_in(user)

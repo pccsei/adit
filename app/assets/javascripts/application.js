@@ -28,23 +28,6 @@
 //= require_self
 //= require_directory .
 
-setup_hover = function() {
-	$('.user_image').hover(function(){$(this).toggleClass('user_image_hover');});
-
-	$('.expo_logo_div').hover(
-	function() {
-	    $('.expo_return_text_div').animate({ "width": "186px" }, "slow" );
-	}, function() {
-	    $('.expo_return_text_div').animate({ "width": "0px" }, "slow" );
-	});
-}
-
-$(window).load(function() {
-	setup_hover();
-
-});
-$(document).on('page:load', setup_hover);
-
 // Touch this code and die. This makes all the Javascript work with Turbolinks.
 window.onLoad = function(callback) {
     // binds ready event and turbolink page:load event
