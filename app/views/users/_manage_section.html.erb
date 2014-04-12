@@ -17,7 +17,7 @@
 	  <th>Minor</th>
 	  <th>Box</th>
 	  <th>Class</th>
-	  <th>Active?</th>
+	  <!-- EXPO<th>Active?</th> -->
 	  <th class="empty"></th>     	      	      	      	      
 	</tr>
   </thead>
@@ -46,11 +46,16 @@
         <td><%= student.minor %></td>
         <td><%= student.box %></td>
         <td><%= student.class %></td>
+
+        <% if false %>
+           <!-- EXPO-->
         <% if student.is_enabled %>
           <td><%= link_to 'Deactivate', {controller: :users, action: :change_is_enabled, id: student.m_id}, method: :post %></td>
         <% else %>
 		  <td><%= link_to 'Activate', {controller: :users, action: :change_is_enabled, id: student.m_id}, method: :post %></td>
-        <% end %>        
+        <% end %>
+       <% end %>
+
         <td><%= link_to 'Edit', edit_user_path(student.id) %></td>       
       </tr>
     <% end %>

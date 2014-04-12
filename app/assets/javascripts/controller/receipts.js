@@ -124,7 +124,7 @@ onLoad(function () {
     });
 
 //*********************************************************************************************************************/
-//                                          Receipts Show Page Validation
+// Receipts Show Page Validation
 //*********************************************************************************************************************/
 
     // Custom validation to make sure the number entered is a float with two decimals only

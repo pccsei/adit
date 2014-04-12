@@ -28,14 +28,14 @@
 //= require_self
 //= require_directory .
 
-
-// Touch this code and die
+// Touch this code and die. This makes all the Javascript work with Turbolinks.
 window.onLoad = function(callback) {
     // binds ready event and turbolink page:load event
     $(document).ready(callback);
     $(document).on('page:load',   callback);
 };
 
+// This initializes all the default dataTables in the application
 onLoad(function() {
  
     var table =  $('.default_table').dataTable({
@@ -59,6 +59,7 @@ onLoad(function() {
         'container': 'body'
     }));
 
+    // Enables scrolling - very nice feature. Without it, the columns do not align.
     $('table.default_table').each(function(i,table) {
         $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
     });
