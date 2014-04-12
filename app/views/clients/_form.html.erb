@@ -1,4 +1,3 @@
-
 <%= form_for(@client, :html => {:id => 'clients'}) do |f| %>
     <% if @client.errors.any? %>
         <div id="error_explanation">
@@ -161,9 +160,8 @@
 					  	<%= f.submit "Submit for teacher's approval", :class => 'btn btn-small btn-primary'%>
 					  <% else %>
 					  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary', disabled: true %>
-					  	<p class="text-info">You already have the maximum allowable clients.
-					  		Please go to <%= link_to 'My Clients', my_receipts_path(id: current_user.id) %>
-					    	and release one of your clients before asking for another.</p>
+					  	<p>You have the maximum allowable clients.
+					  		Go to My Clients and release one of your clients before asking for another.</p>
 					  <% end %>
 				  <% else %>
 				     <%= f.submit 'Update Client', :class => 'btn btn-small btn-primary'%>

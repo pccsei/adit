@@ -266,12 +266,15 @@ class ClientsController < ApplicationController
 
   def edit
 
-    @client = Client.find(params[:id])
-
+     @client = Client.find(params[:id])
+    if ((current_user.role < 3) && (current_user.id != @client.submitter) && ((current_user.tickets.find_by client_id: @client.id).present?) == false)
+      redirect_to tickets_path, :notice => "You are not permitted to edit someone else's client. Welcome to your home page!"
+    else
     if params[:page]
 
       session[:return_from_edit] = params[:page]
 
+    end
     end
 
   end
