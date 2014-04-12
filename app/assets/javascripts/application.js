@@ -76,8 +76,8 @@ onLoad(function() {
       var descFlag   = true;  
       
       var priorityArray = {};
-      priorityArray['High']   =-1;
-      priorityArray['Medium'] = 0;
+      priorityArray['High']   = 0;
+      priorityArray['Medium'] =-1;
       priorityArray['Low']    = 1;
       
       function updatePriorityArray(){
