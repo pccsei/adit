@@ -2,12 +2,11 @@
     <% if @client.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@client.errors.count, 'error') %> prohibited this client from being saved:</h2>
-
           <ul>
             <% @client.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
             <% end %>
-          </ul>
+          </ul>          
         </div>
     <% end %>
     <div class = "panel panel-primary">
@@ -17,73 +16,52 @@
       <div class = "panel-body">
         <table>
           <tr>
-            <td class="label-field">
-              <%= f.label :business_name, class: 'required' %>
-            </td>
-            <td class="text-field">
-              <%= f.text_field :business_name, class: 'form-control',  rows:3 %>
-            </td>
+            <td class="label-field"><%= f.label :business_name, class: 'required' %></td>
+            <td class="text-field"><%= f.text_field :business_name, class: 'form-control',  rows:3 %></td>
           </tr>
-        <% if @all_clients %>
-          <tr id="toggleRow">
-          
-			  <td></td>
-			  <td>
-            
-          <div id="businessList">             
-              <table id="manageSection" width="325px">
-                <tr>
-                  <td>
-                    <table>
-                      <tr>
-						  
-                        <th class="alert alert-info">Businesses Already in the Database</th>
-					
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-field">
-                    <div id="business_list">
-                      <table id="businessNames">
-                        <% @all_clients.each do |c| %>
-                          <tr>
-                            <td class="c.business_name"> <%= c %></td>
+          <% if @all_clients %>
+            <tr id="toggleRow">          
+			        <td></td>
+			        <td>            
+                <div id="businessList">             
+                  <table id="manageSection" width="325px">
+                    <tr>
+                      <td>
+                        <table>
+                          <tr>					  
+                            <th class="alert alert-info">Businesses Already in the Database</th>					
                           </tr>
-                        <% end %>
-                      </table>  
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            <% end %>
-          </div>
-
-
-          </td>
-          </tr>
-
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-field">
+                        <div id="business_list">
+                          <table id="businessNames">
+                            <% @all_clients.each do |c| %>
+                              <tr>
+                                <td class="c.business_name"> <%= c %></td>
+                              </tr>
+                            <% end %>
+                          </table>  
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          <% end %>
           <tr>
-            <td class="label-field">
-              <%= f.label :address, class: 'required hideClients'  %>
-            </td>
-            <td class="text-field">
-              <%= f.text_field :address, class: 'form-control hideClients',  rows:3 %>
-            </td>
-          </tr>
-          <tr>
-            <td class="label-field">
-              <%= f.label :city, class: 'required hideClients' %>
-            </td>
-            <td class="text-field">
-              <%= f.text_field :city, class: 'form-control hideClients',  rows:3 %>
-            </td>
+            <td class="label-field"><%= f.label :address, class: 'required hideClients'  %></td>
+            <td class="text-field"><%= f.text_field :address, class: 'form-control hideClients',  rows:3 %></td>
           </tr>
           <tr>
-            <td class="label-field">
-              <%= f.label :state, class: 'hideClients' %>
-            </td>
+            <td class="label-field"><%= f.label :city, class: 'required hideClients' %></td>
+            <td class="text-field"><%= f.text_field :city, class: 'form-control hideClients',  rows:3 %></td>
+          </tr>
+          <tr>
+            <td class="label-field"><%= f.label :state, class: 'hideClients' %></td>
             <td class="text-field">
               <%= f.select :state, %w(AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME
                                       MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI
@@ -91,89 +69,58 @@
             </td>
           </tr>
           <tr>
-            <td class="label-field">
-              <%= f.label :zipcode, class: 'required hideClients'  %>
-            </td>
-            <td class="text-field">
-              <%= f.text_field :zipcode, class: 'form-control hideClients',  rows:3 %>
-            </td>
+            <td class="label-field"><%= f.label :zipcode, class: 'required hideClients' %></td>
+            <td class="text-field"><%= f.text_field :zipcode, class: 'form-control hideClients',  rows:3 %></td>
           </tr>
           <tr>
-            <td class="label-field">
-              <%= f.label 'Contact title', class: 'hideClients' %>
-            </td>
-            <td class="text-field">
-              <%= f.select :contact_title, %w(Mr. Mrs. Ms. Miss Dr.), { include_blank: :true}, { class: 'btn btn-default dropdown-toggle' } %>
-            </td>
+            <td class="label-field"><%= f.label 'Contact title', class: 'hideClients' %></td>
+            <td class="text-field"><%= f.select :contact_title, %w(Mr. Mrs. Ms. Miss Dr.), { include_blank: :true}, { class: 'btn btn-default dropdown-toggle' } %></td>
           </tr>
           <tr>
-            <td class="label-field">
-              <%= f.label 'First name', class: 'hideClients' %>
-            </td>
-            <td class="text-field">
-              <%= f.text_field :contact_fname, class: 'form-control hideClients' %>
-            </td>
+            <td class="label-field"><%= f.label 'First name', class: 'hideClients' %></td>
+            <td class="text-field"><%= f.text_field :contact_fname, class: 'form-control hideClients' %></td>
           </tr>
           <tr>
-            <td class="label-field">
-              <%= f.label 'Last name', class: 'hideClients' %>
-            </td>
-            <td class="text-field">
-              <%= f.text_field :contact_lname, class: 'form-control hideClients' %>
-            </td>
+            <td class="label-field"><%= f.label 'Last name', class: 'hideClients' %></td>
+            <td class="text-field"><%= f.text_field :contact_lname, class: 'form-control hideClients' %></td>
           </tr>
           <tr>
-            <td class="label-field">
-              <%= f.label 'Email', class: 'hideClients' %>
-            </td>
-            <td class="text-field">
-              <%= f.text_field :email, class: 'form-control hideClients' %>
-            </td>
+            <td class="label-field"><%= f.label 'Email', class: 'hideClients' %></td>
+            <td class="text-field"><%= f.text_field :email, class: 'form-control hideClients' %></td>
           </tr>
           <tr>
-            <td class="label-field">
-              <%= f.label :telephone, 'Phone', class: 'required hideClients' %>
-            </td>
+            <td class="label-field"><%= f.label :telephone, 'Phone', class: 'required hideClients' %></td>
             <td class="text-field">
               <%= f.text_field :telephone, value: render_phone(@client.telephone), :placeholder => '850-478-8496 Ext.####', class: 'form-control hideClients',  rows:3  %>
             </td>
           </tr>
           <tr>
-            <td class="label-field">
-              <%= f.label :comment, class: 'hideClients' %>
-            </td>
-            <td class="text-field">
-              <%= f.text_area :comment, class: 'form-control hideClients',  rows:3  %>
-            </td>
+            <td class="label-field"><%= f.label :comment, class: 'hideClients' %></td>
+            <td class="text-field"><%= f.text_area :comment, class: 'form-control hideClients',  rows:3  %></td>
           </tr>
           <tr>
-              <td class="label-field">
-                
-              </td>
+            <td class="label-field"></td>
             <td class="text-field">
-			    <div class="actions">
-			    	<% if @client.new_record? %>
-					  <% if current_user.role == 3 %>
-					  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary'%>
-					  	<%= link_to 'Back to Approve Clients', clients_approve_path %>
-					  <% elsif more_tickets_allowed %>
-					  	<%= f.submit "Submit for teacher's approval", :class => 'btn btn-small btn-primary'%>
-					  <% else %>
-					  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary', disabled: true %>
-					  	<p>You have the maximum allowable clients.
-					  		Go to My Clients and release one of your clients before asking for another.</p>
-					  <% end %>
-				  <% else %>
-				     <%= f.submit 'Update Client', :class => 'btn btn-small btn-primary'%>
-				     <%= link_to 'Back', session[:return_from_edit] %>
-				  <% end %>
-				 
+    			    <div class="actions">
+    			    	<% if @client.new_record? %>
+    					  <% if current_user.role == 3 %>
+    					  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary'%>
+    					  	<%= link_to 'Back to Approve Clients', clients_approve_path %>
+    					  <% elsif more_tickets_allowed %>
+    					  	<%= f.submit "Submit for teacher's approval", :class => 'btn btn-small btn-primary'%>
+    					  <% else %>
+    					  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary', disabled: true %>
+    					  	<p>You have the maximum allowable clients.
+    					  		Go to My Clients and release one of your clients before asking for another.</p>
+    					  <% end %>
+    				  <% else %>
+    				     <%= f.submit 'Update Client', :class => 'btn btn-small btn-primary'%>
+    				     <%= link_to 'Back', session[:return_from_edit] %>
+    				  <% end %>
+    				  </div>
             </td>
           </tr>
         </table>
-	</div>
+	   </div>
 	 </div>
-
-    
-
 <% end %>

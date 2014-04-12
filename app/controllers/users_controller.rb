@@ -290,7 +290,7 @@ class UsersController < ApplicationController
     member.delete
     redirect_to users_teachers_path
   end
-###################################################################################################################
+
   def in_section
     
     if params[:sn]
@@ -306,7 +306,7 @@ class UsersController < ApplicationController
     end
     render json: response
   end
-###################################################################################################################
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
