@@ -74,11 +74,13 @@ class ApplicationController < ActionController::Base
   def get_selected_section
     if session[:selected_section_id]
        session[:selected_section_id]
+    elsif current_user.members.where(project_id: get_selected_project).first.present?
+      section = current_user.members.where(project_id: get_selected_project).first.section_number
     else
-      section = current_user.members.where(project_id: get_selected_project).first.section_number || 'all'
-      set_selected_section(section)
-      section      
+       section = 'all'
     end
+      set_selected_section(section)
+      section
   end
 
   def get_array_of_all_sections(selected_project)

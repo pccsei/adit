@@ -26,10 +26,7 @@
 
      <div id = "project_options">
       <%= f.label :Year %>
-       <!-- Replace this after the EXPO-->
-      <%#= f.select :year, [current_year, next_year], { :include_blank => false}, { :class => 'btn btn-small dropdown-toggle ', :disabled =>  !@project.is_active }%>
-
-       <%= f.select :year, (2014..2100).to_a, { :include_blank => false}, { :class => 'btn btn-small dropdown-toggle ', :disabled =>  !@project.is_active }%>
+      <%= f.select :year, [current_year, next_year], { :include_blank => false}, { :class => 'btn btn-small dropdown-toggle ', :disabled =>  !@project.is_active }%>
       &nbsp; &nbsp;
       <%= f.label :semester %>
       <%= f.select :semester, %w(Spring Fall), { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle ', :disabled =>  !@project.is_active}%>

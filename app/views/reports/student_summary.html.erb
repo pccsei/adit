@@ -5,11 +5,11 @@
 	<% provide(:title, "Summary of #{current_user.full_name_only}'s Team ") %>
 <% end %>
 
-<!-- EXPO
+
 <p>
   Download:
   <%= link_to "Excel", reports_student_summary_path(format: "xls") %>
-</p> -->
+</p>
 
 <div id = "section_refresh">  
 	<%= render :partial => "student_summary"%>

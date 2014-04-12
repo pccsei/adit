@@ -4,10 +4,6 @@ class Priority < ActiveRecord::Base
   #Will be used once new seed file has been created
   def self.retrieve(client, project)  
      value = (Priority.find_by name: "low").id
-     
-     # For the student project. REMOVE AFTER EXPO !
-     if project.year == 2104
-     
        if (project.semester == "Spring")      
           if (client.receipts.where("made_sale = ? AND ticket_id IN (?)", true,
              (client.tickets.where("project_id IN (?)", Project.where("year = ?", (project.year - 1)).ids)))).present?
@@ -22,11 +18,6 @@ class Priority < ActiveRecord::Base
             value = (Priority.find_by name: "medium").id
           end    
        end
-       
-     #Random priorities for the teacher EXPO
-     else
-       value = Priority.find(rand(1..3)).id
-     end
      value
   end
 end
