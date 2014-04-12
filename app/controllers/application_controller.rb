@@ -76,10 +76,11 @@ class ApplicationController < ActionController::Base
        session[:selected_section_id]
     elsif current_user.members.where(project_id: get_selected_project).first.present?
       section = current_user.members.where(project_id: get_selected_project).first.section_number
+      set_selected_section(section)
     else
        section = 'all'
+       set_selected_section(section)
     end
-      set_selected_section(section)
       section
   end
 
