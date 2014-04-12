@@ -6,10 +6,7 @@ class TicketsController < ApplicationController
 
     @currentProject = Project.select('id, max_clients,  max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients, tickets_close_time').where(is_active: true, id: Member.select('project_id').where(user_id: current_user.id)).first
 
-    if params[:ajax] == 'update'
-      updates = Ticket.updates(params[:timestamp])
-
-    elsif params[:ajax] == 'getClient'
+    if params[:ajax] == 'getClient'
 
       if @currentProject.nil? # No current project
         updates = {'userMessage' => 'There is not a current project!'}
@@ -76,6 +73,12 @@ class TicketsController < ApplicationController
 
   def new
     @ticket = Ticket.new
+  end
+
+  def updates
+    if params[:timestamp]
+      render json: updates = Ticket.updates(params[:timestamp])      
+    end
   end
 
   def edit
