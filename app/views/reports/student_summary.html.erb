@@ -2,7 +2,7 @@
 	<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
 	<% provide(:title, 'Student Summary') %>
 <% else %>
-	<% provide(:title, "Summary of #{current_user.full_name_only}'s Team ") %>
+	<% provide(:title, "#{current_user.full_name_only}'s Team Summary") %>
 <% end %>
 
 

@@ -1,8 +1,10 @@
 <% if current_user.role == 3 %>
+	<% provide(:title, 'Team Summary') %>
 	<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>	
+<% else %>
+    <% provide(:title, 'Class Summary') %>	
 <% end %>
 
-<% provide(:title, 'Team Summary') %>
 
 
 <%if defined? @team_data %>
