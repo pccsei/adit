@@ -109,7 +109,6 @@ class UsersController < ApplicationController
   end
 
   def set_section
-    # set paraments for selected section
     set_selected_section(params["section_option"])
     
     respond_to do |format|

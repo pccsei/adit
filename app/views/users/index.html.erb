@@ -2,6 +2,8 @@
 
 <% provide(:title, 'Manage Students') %>
 
+<%= debug get_selected_section %>
+
 <!--Creates a new Section link-->
 <div id="new_section">
 	<%=link_to 'Create a New Section', users_create_new_section_path, :class => 'btn btn-link btn-sm'%>

@@ -7,7 +7,6 @@ class SessionsController < ApplicationController
 
    # This is active directory authentication
    def create
-
       user = User.find_by school_id: params[:school_id]
       if user && (!Rails.env.production? || 
         (Rails.env.production? && User.authenticate(params[:school_id], params[:password])))
@@ -24,8 +23,11 @@ class SessionsController < ApplicationController
      end
   end
 
-
-
+  def destroy
+    sign_out
+    redirect_to signin_path
+  end
+end
 # This is the expo create function
 =begin
   def create
@@ -60,14 +62,3 @@ class SessionsController < ApplicationController
     end
   end
 =end
-  def destroy
-    sign_out
-    redirect_to signin_path
-  end
-
-# This function will work for everything except numbers in the following format: 01.....
-# It's purpose is to determine whether a teacher or a student is logging in.
-  def is_number?(string)
-    (string.to_i.to_s == string)
-  end
-end

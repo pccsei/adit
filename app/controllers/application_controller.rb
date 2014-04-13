@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
 
   def get_selected_section
     if session[:selected_section_id]
-       session[:selected_section_id]
+       section = session[:selected_section_id]
     elsif current_user.members.where(project_id: get_selected_project).first.present?
       section = current_user.members.where(project_id: get_selected_project).first.section_number
       set_selected_section(section)
