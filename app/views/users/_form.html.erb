@@ -2,7 +2,6 @@
     <% if @user.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@user.errors.count, 'error') %> prohibited this user from being saved:</h2>
-
           <ul>
             <% @user.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
@@ -10,6 +9,7 @@
           </ul>
         </div>
     <% end %>
+    
     <div class = "panel panel-primary">
       <div class = "panel-heading">
       <% if @user.new_record? %>
@@ -93,23 +93,20 @@
             </td>
           </tr>
           <tr>
-            <td class="label-field">
-              
-            </td>
+            <td class="label-field"></td>
             <td class="text-field">
 		        <%= f.hidden_field :role, :value => 1 %>
 		        <div class="actions">
-		        <% if @user.new_record? %>
-		          <%= f.submit 'Create Student', :class => 'btn btn-primary btn-sm' %>
-		        <% else %>
-		          <%= f.submit 'Update Student', :class => 'btn btn-primary btn-sm' %>
-		        <% end %>
-				<%= link_to 'Back to Manage Section', users_path %> 
+			        <% if @user.new_record? %>
+			         	<%= f.submit 'Create Student', :class => 'btn btn-primary btn-sm' %>
+			        <% else %>
+			          <%= f.submit 'Update Student', :class => 'btn btn-primary btn-sm' %>
+			        <% end %>
+					<%= link_to 'Back to Students', users_path %> 
 		        </div>
             </td>
           </tr>
-        </table>
-        
+        </table>       
       </div>
     </div>
 <% end %>
