@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
   # This method will most likely be deleted soon, use selected methods below instead                          
   def get_current_project
-     project = Project.find_by is_active: true
+     Project.find_by is_active: true
   end
 
   # 1 = active students only, 2 = inactive students only, 3 = all students

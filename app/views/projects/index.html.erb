@@ -1,23 +1,25 @@
 <% provide(:title, 'Projects') %>
-<p>
- Download:
-<%= link_to "Excel", projects_path(format: "xls") %>
-</p>
 
 <% if @project || @archived_projects.present? %>
     <% if @project && get_selected_project.id == @project.id %>
-        <%= render 'form' %>
+        <%= render 'project_info' %>
+        <p><%=link_to "Edit Project Settings", edit_project_path(@project) %></p>
     <% elsif @project %>
         <%= link_to 'View Current Project', {controller: 'projects', action: 'select_project', input: @project.id},
                                              method: :post, :class => 'btn btn-primary btn-sm'%>
     <% else %>
-        <p class = "alert alert-info">Currently, no active project exists. Please create a new project or view archived projects.</p>
-        <%= link_to 'Create New Project', new_project_path %>
+        <p class = "alert alert-info">
+        	Currently, no active project exists. <%= link_to 'Create New Project?', new_project_path %>
+        </p>
     <% end %>
 
     <% if @archived_projects.present? %>
         <%= form_tag(projects_select_project_path) do%>
             <h3>Archived Projects</h3>
+			<p>
+			 	Download:
+				<%= link_to "Excel", projects_path(format: "xls") %>
+			</p>
             <table class = "table table-condensed">
               <thead>
               <tr>
@@ -34,11 +36,11 @@
               <% @archived_projects.each do |project| %>
                   <tr>
                     <td><%= radio_button_tag 'input', project.id, (true if project.id == get_selected_project.id) %></td>
-                    <td><%= project.year%></td>
-                    <td><%= project.semester%></td>
-                    <td><%= project.project_type.name%></td>
-                    <td><%= tooltipify(project.comment)%></td>
-                    <td><%= link_to 'Edit', edit_project_path(project), :class => 'btn btn-primary btn-sm' %></td>
+                    <td><%= project.year %></td>
+                    <td><%= project.semester %></td>
+                    <td><%= project.project_type.name %></td>
+                    <td><%= tooltipify(project.comment) %></td>
+                    <td><%= link_to 'Details', project_path(project) %></td>
                   </tr>
               <% end %>
               </tbody>

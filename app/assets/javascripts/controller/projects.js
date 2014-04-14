@@ -4,9 +4,30 @@
 onLoad(function () {
 
 //*********************************************************************************************************************/
-// Projects new/edit  - Everything must be wrapped in the onLoad function to handle Turbolinks
+// Projects new/edit
 //*********************************************************************************************************************/
+    // Show/hide the comment area for archiving projects
+    $('.hidden').hide();
+    
+    $('#project_is_active_0').change(
+    
+    function show_comment_div() {
+    	if ($('#project_is_active_0').is(':checked'))
+    	   $('#finalComments').removeClass('hidden').show();
+    	else
+    	   $('#finalComments').addClass('hidden').hide();
+    });
+    
+    $('#project_is_active_1').change(
+    
+    function show_comment_div() {
+    	if ($('#project_is_active_0').is(':checked'))
+    	   $('#finalComments').removeClass('hidden').show();
+    	else
+    	   $('#finalComments').addClass('hidden').hide();
+    });
 
+    // Code for the ticket start and end times datepickers
     $('#project_tickets_open_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT"});
     $('#project_tickets_close_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
 
@@ -35,4 +56,5 @@ onLoad(function () {
 
     $('#project_max_medium_priority_clients').change(update_project_max_clients);
     $('#project_max_low_priority_clients').change(update_project_max_clients);
+    
 });

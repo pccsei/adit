@@ -1,0 +1,43 @@
+<p>
+  <strong>Year:</strong>
+  <%= @project.year %>
+</p>
+<p>
+  <strong>Semester:</strong>
+  <%= @project.semester %>
+</p>
+<p>
+  <strong>Project Type:</strong>
+  <%= @project.project_type.name%>
+</p>
+<p>
+  <strong>Project Start Date:</strong>
+  <%= @project.tickets_open_time.to_formatted_s(:long_ordinal) %>
+</p>
+<p>
+  <strong>Project End Date:</strong>
+  <%= @project.tickets_close_time.to_formatted_s(:long_ordinal) %>
+</p>
+
+<p>
+  <strong>Max number of Clients:</strong>
+  <%= @project.max_clients %>
+</p>
+
+  <p>
+    <strong>Max number of High Priority Clients:</strong>
+    <%= @project.max_high_priority_clients %>
+  </p>
+  <p>
+    <strong>Max number of Yellow Clients:</strong>
+    <%= @project.max_medium_priority_clients %>
+  </p>
+  <p>
+   <strong>Max number of Low Priority Clients:</strong>
+   <%= @project.max_low_priority_clients %>
+  </p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @project.comment %>
+</p>
