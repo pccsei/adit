@@ -1,4 +1,4 @@
-<% provide(:title, ('Manage Teachers').html_safe) %>
+<% provide(:title, 'Teachers') %>
 
 
 <%= link_to 'Add New Teacher', users_new_teacher_path, class: 'btn btn-link btn-sm', id:'add_teacher' %>
@@ -24,12 +24,12 @@
 	<% end %>
 </div>
 
-<!-- EXPO
+
 <p class="excel">
   Download:
   <%= link_to 'Excel', users_teachers_path(format: 'xls') %><br>
   This will download an excel document with two worksheets: one for Current Teachers and one for Teacher Roster.
-</p> -->
+</p>
 
 <h2>Current Teachers</h2>
 

@@ -1,0 +1,53 @@
+
+<div class="form_background">
+
+<p class="alert alert-info">
+  <%= "#{@project.semester} #{@project.year} - #{@project.project_type.name} " %>
+  <% if @project.is_active %>
+  <%= "[Active]" %>
+  <% else %>
+  <%= "[Archived]" %>
+  <% end %>
+</p>
+
+
+<p>
+  <strong>Client List Open:</strong>
+  <%= "#{@project.tickets_open_time.to_formatted_s(:long_ordinal)}
+       - #{@project.tickets_close_time.to_formatted_s(:long_ordinal)}" %>
+</p>
+
+<p>
+  <strong>Total Clients Per Student:</strong>
+  <%= @project.max_clients %>
+</p>
+
+  <p>
+    <strong>High Priority:</strong>
+    <%= @project.max_high_priority_clients %>
+  </p>
+  <p>
+    <strong>Medium Priority:</strong>
+    <%= @project.max_medium_priority_clients %>
+  </p>
+  <p>
+   <strong>Low Priority:</strong>
+   <%= @project.max_low_priority_clients %>
+  </p>
+
+<p>
+  <strong>Project Comments:</strong>
+  <%= @project.comment || "None" %>
+</p>
+<% if @project.is_active == false && get_current_project %>
+<p class="alert alert-info">
+   If you wish to re-activate this project so that you can edit it, <br />
+   &nbsp;&nbsp;you must first archive your current project.	
+</p>
+<% else %>
+   <%= form_for(@project) do |f| %>
+       <%= f.hidden_field :is_active, :value => true %>
+       <%= f.submit 'Reactivate This Project', class: 'btn btn-primary btn-sm' %>
+   <% end %>
+<% end %>
+</div>

@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   validates :school_id, presence: true, uniqueness: true, unless: Proc.new { |user| user.school_id.to_i <= -1 }
 
 # Validates the email - uniqueness removed for the EXPO
-  validates :email, format: {
+  validates :email, uniqueness: true, format: {
       with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\Z/,
       message: 'must be a valid PCC email address (jsmith1234@students.pcci.edu).'
   }, unless: Proc.new { |user| user.school_id.to_i <= -1 },

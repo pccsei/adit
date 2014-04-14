@@ -1,16 +1,18 @@
 <% if current_user.role == 3 %>
+	<% provide(:title, 'Team Summary') %>
 	<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>	
+<% else %>
+    <% provide(:title, 'Class Summary') %>	
 <% end %>
 
-<% provide(:title, 'Team Summary') %>
 
-<!-- EXPO
+
 <%if defined? @team_data %>
   <p>
     Download:
     <%= link_to "Excel", reports_team_summary_path(format: "xls") %>
   </p>
-<% end %> -->
+<% end %>
 
 <% if @team_data.empty? %>
 <p class="info-message alert alert-info"> Assign student managers on the <%=link_to "Manage Students", users_path %> page to see team data!</p>

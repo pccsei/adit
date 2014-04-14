@@ -1,70 +1,9 @@
-<% provide(:title, 'Show Project') %>
+<% provide(:title, "#{@project.semester} #{@project.year} Project Details") %>
 
 <% if(@project) %>
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Year:</strong>
-  <%= @project.year %>
-</p>
-<p>
-  <strong>Semester:</strong>
-  <%= @project.semester %>
-</p>
-<p>
-  <strong>Project Type:</strong>
-  <%= @project.project_type_id%>
-</p>
-<p>
-  <strong>Project Start Date:</strong>
-  <%= @project.tickets_open_time %>
-</p>
-<p>
-  <strong>Project End Date:</strong>
-  <%= @project.tickets_close_time %>
-</p>
-
-<p>
-  <strong>Max number of Clients:</strong>
-  <%= @project.max_clients %>
-</p>
-
-  <p>
-    <strong>Max number of High Priority Clients:</strong>
-    <%= @project.max_high_priority_clients %>
-  </p>
-  <p>
-    <strong>Max number of Yellow Clients:</strong>
-    <%= @project.max_medium_priority_clients %>
-  </p>
-  <p>
-   <strong>Max number of Low Priority Clients:</strong>
-   <%= @project.max_low_priority_clients %>
-  </p>
-
-<p>
-  <strong>Comment:</strong>
-  <%= @project.comment %>
-</p>
-
-
-    <% if get_current_project %>
-       <p>If you would like to reactive this project, you will need to archive your active project first.</p>
-
-    <!-- Add a button here that updates the selected project -->
-    <% else %>
-        <%= form_for(@project) do |f|%>
-        <%= label_tag(:is_active, 'Would you like to re-activate this project?') %><br>
-        yes: <%= f.radio_button :is_active, '1' %>
-        no:  <%= f.radio_button :is_active, '0', :checked => true %>
-        <% end %>
-    <% end %>
-
-<%= link_to 'Back to the Projects list', projects_path %>
-
-<% if @section_numbers %>
-<% @section_numbers.each do |s|%>
-<%= link_to 'Section' + ' ' + s + ' ' , users_path %>
+<% if get_current_project && (get_current_project.id != @project.id) %>
 <% end %>
-<% end %>
+<%= render 'project_info'%>
+
+       <p><%= link_to 'Back to the Projects list', projects_path %></p>
 <% end %>

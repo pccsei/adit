@@ -2,8 +2,6 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update ]
   before_action :only_teachers, except: [:unauthorized, :need_help, :download_help]
   skip_before_action :must_have_project, only: :unauthorized
-  # EXPO
-  before_action :not_expo, only: [:teachers, :another_teacher_to_section, :new_teacher, :change_teacher, :new_teacher]
 
   # GET /users
   # GET /users.json
@@ -111,7 +109,6 @@ class UsersController < ApplicationController
   end
 
   def set_section
-    # set paraments for selected section
     set_selected_section(params["section_option"])
     
     respond_to do |format|
@@ -292,7 +289,7 @@ class UsersController < ApplicationController
     member.delete
     redirect_to users_teachers_path
   end
-###################################################################################################################
+
   def in_section
     
     if params[:sn]
@@ -308,7 +305,7 @@ class UsersController < ApplicationController
     end
     render json: response
   end
-###################################################################################################################
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
