@@ -104,7 +104,6 @@ class Project < ActiveRecord::Base
   end
   
   def self.current
-    #where('is_active = ?', true)
     find_by(is_active: true)
   end 
   
