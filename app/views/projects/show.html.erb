@@ -9,8 +9,10 @@
 <% end %>
 <%= render 'project_info'%>
 <% if get_current_project.blank?%>
-   <%  @project.is_active = true %>
-   <%= link_to 'Reactivate This Project', @project, method: :patch, class: 'btn btn-primary btn-sm'%>
+   <%= form_for(@project) do |f| %>
+       <%= f.hidden_field :is_active, :value => true %>
+       <%= f.submit 'Reactivate This Project', class: 'btn btn-primary btn-sm' %>
+   <% end %>
 <% end %>
 
        <p><%= link_to 'Back to the Projects list', projects_path %></p>
