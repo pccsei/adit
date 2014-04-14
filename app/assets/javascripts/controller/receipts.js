@@ -124,51 +124,58 @@ onLoad(function () {
     });
 
 //*********************************************************************************************************************/
-// Receipts Show Page Validation
+// Receipts Show Page Front-Side Validation
 //*********************************************************************************************************************/
-
-    // Custom validation to make sure the number entered is a float with two decimals only
-    jQuery.validator.addMethod('fraction_decimal', function (value, element) {
-        return this.optional(element) ||
-            /^([1-3]|([1-9]([0-9])?[/][1-9]([0-9])?)|(([0-2]*\.([0-9][1-9]|[1-9][0-9]))|([1-2](\.\d{1,2}))))$/i.test(value);
-    });
-    // Custom validation to make sure the number entered is a float with two decimals only
+    
+    // Custom validation to make sure the price entered has at most two decimals only
     jQuery.validator.addMethod('decimal', function (value, element) {
         return this.optional(element) ||
-            /^((\d)*|(([0-9]+\.([0-9]*[1-9]+|[1-9]+[0-9]*))|([1-9]+[0-9]*(\.\d{1,2}))))$/i.test(value);
+            /^(\d*|(([0-9]+\.([0-9]*[1-9]+|[1-9]+[0-9]*))|([1-9]+[0-9]*(\.\d{1,2}))))$/i.test(value);
+    });
+    
+    // Custom validation to make sure the number entered is an allowed fraction
+    jQuery.validator.addMethod('fraction', function (value, element) {
+        return this.optional(element) ||
+            /^(\d*|(\d*(\.\d*))|([1-9][/][1-9]))$/i.test(value);
+    });
+    
+    // Custom validation to make sure the page size entered has at most two decimals and not greater than 3
+    jQuery.validator.addMethod('decimal_place', function (value, element) {
+        return this.optional(element) ||
+            /^([1-3]|[0-2]*\.\d{1,2}|(\d*[/]\d*))$/i.test(value);
     });
 
     // Custom method to make sure the leading number is not zero
-    jQuery.validator.addMethod("leading_zero", function (value, element) {
+    jQuery.validator.addMethod('leading_zero', function (value, element) {
         return this.optional(element) ||
-            /^(([1-9]+[0-9]*(\.(\d)*)?)|([0]+\.([0-9]*[1-9]+|[1-9]+[0-9]*)))$/.test(value);
+            /^(([1-9]+[0-9]*(\.\d*)?)|([0]+\.([0-9]*[1-9]+|[1-9]+[0-9]*)))$/.test(value);
     });
 
-    // Custom validation to make sure the datetime matches what we need
-    jQuery.validator.addMethod("valid_format", function (value, element) {
+    // Custom validation to make sure the datetime format matches what we need
+    jQuery.validator.addMethod('valid_date_format', function (value, element) {
         return this.optional(element) ||
             /^(\d{4}[/]\d{2}[/]\d{2}\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
     });
 
-    // Custom validation to make sure the datetime matches what we need
-    jQuery.validator.addMethod("valid_year", function (value, element) {
+    // Custom validation to make sure the year format matches what we need
+    jQuery.validator.addMethod('valid_year', function (value, element) {
         return this.optional(element) ||
             /^([2-9]\d{3}[/]\d{2}[/]\d{2}\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
     });
 
-    // Custom validation to make sure the datetime matches what we need
-    jQuery.validator.addMethod("valid_month", function (value, element) {
+    // Custom validation to make sure the month format matches what we need
+    jQuery.validator.addMethod('valid_month', function (value, element) {
         return this.optional(element) ||
             /^(\d{4}[/](([1][0-2])|([0][1-9]))[/]\d{2}\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
     });
 
-    // Custom validation to make sure the datetime matches what we need
-    jQuery.validator.addMethod("valid_day", function (value, element) {
+    // Custom validation to make sure the day format matches what we need
+    jQuery.validator.addMethod('valid_day', function (value, element) {
         return this.optional(element) ||
             /^(\d{4}[/]\d{2}[/](([0][1-9])|([1-2][0-9])|(3[0-1]))\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
     });
 
-    // Custom validation to make sure the price and page are not all zeros
+    // Custom validation to make sure the price has a minimum number
     jQuery.validator.addMethod('min_digit', function (value, el, param) {
         return value >= param;
     });
@@ -176,8 +183,8 @@ onLoad(function () {
     $("#new_action").validate({
         rules: {
             "price": {required: true, decimal: true, leading_zero: true, min_digit: .01, max: 1500, maxlength: 7},
-            "otherSize": {required: true, fraction_decimal: true},
-            "user_action_time": {required: true, date: true, valid_format: true, valid_year: true, valid_month: true, valid_day: true},
+            "otherSize": {required: true, fraction: true, decimal_place: true },
+            "user_action_time": {required: true, date: true, valid_date_format: true, valid_year: true, valid_month: true, valid_day: true},
             "comment": {maxlength: 250}
         },
         messages: {
@@ -190,23 +197,24 @@ onLoad(function () {
                 maxlength: "Cannot be more than six digits long."
             },
             "otherSize": {
-                required: "Please enter an ad size (.25 or 1.5).",
-                fraction_decimal: "Can be a fraction or a number with 0-2 decimal places (both non-zero)."
+                required: "Please enter an ad size (.25 or 1/4).",
+                decimal_place: "Can be between 0.01 and 3, with at most 2 decimal places.",
+                fraction: "Fraction is not allowed (allowed example is 1/4)."
             },
             "user_action_time": {
                 required: "Please enter in the date and time when you did this.",
-                date: "The date is incorrect",
+                date: "The date is incorrect.",
+                valid_date_format: "Should match format YYYY/MM/DD HH:MM AM/PM.",
                 valid_year: "Please select a year after 2000.",
                 valid_month: "Please select a valid month.",
-                valid_day: "Please select a valid day.",
-                valid_format: "Should match format YYYY/MM/DD HH:MM AM/PM."
+                valid_day: "Please select a valid day."
             },
             "comment": "The maximum length for a comment is 250 characters."
         }
     });
 
 //*********************************************************************************************************************/
-//                                   My Receipts - Release Client Validation
+// My Receipts - Release Client Front-Side Validation
 //*********************************************************************************************************************/
     $("#release_client").validate({
         rules: {
