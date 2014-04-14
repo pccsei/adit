@@ -15,7 +15,11 @@ module ClientsHelper
   end
 
   def more_tickets_allowed
-    Ticket.more_clients_allowed(current_user, get_current_project, current_user.role, 'low')
+    if Project.is_specific(get_current_project.id)
+      Ticket.more_clients_allowed(current_user, get_current_project, current_user.role, 'low')
+    else
+      Ticket.total_allowed_left(current_user, get_current_project) > 0
+    end
   end
 
   def get_submitter_info(submitter_id, br_include = true)
