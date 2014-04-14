@@ -89,7 +89,11 @@
               <%= f.label :classification, 'Classification' %>
             </td>
             <td class="text-field">
-              <%= f.select :classification, [['Freshman', 'FR'], ['Sophomore', 'SO'], ['Junior', 'JR'], ['Senior', 'SR']], {}, { class: 'btn btn-default dropdown-toggle' } %>
+              <%= f.select :classification, [['Freshman', 'FR'], 
+                                            ['Sophomore', 'SO'], 
+                                            ['Junior', 'JR'], 
+                                            ['Senior', 'SR']], 
+                                            {}, { class: 'btn btn-default dropdown-toggle' } %>
             </td>
           </tr>
           <tr>

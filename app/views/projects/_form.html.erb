@@ -13,15 +13,15 @@
 <% end %>
 <div id = "project_options">
 	<%= f.label :Year %>
-	<%= f.select :year, [current_year, next_year], { :include_blank => false}, { :class => 'btn btn-small dropdown-toggle ', :disabled =>  !@project.is_active }%>
+	<%= f.select :year, [current_year, next_year], { :include_blank => false}, { :class => 'btn btn-default dropdown-toggle ' }%>
 	&nbsp; &nbsp;
 	<%= f.label :semester %>
-	<%= f.select :semester, %w(Spring Fall), { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle ', :disabled =>  !@project.is_active}%>
+	<%= f.select :semester, %w(Spring Fall), { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle ' }%>
 
 	&nbsp; &nbsp;
 	<%= f.label :project_type_id %>
 	<%= f.collection_select :project_type_id, ProjectType.all, :id, :name,
-    { :include_blank=>false }, { :class => 'btn btn-small', :disabled =>  !@project.is_active}  %>
+    { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' } %>
 </div>
 
 <div id = "project_options">
@@ -37,22 +37,20 @@
 			<div id = "priority_dropdown">
 				<%= f.label :high_priority%>
 				<!-- Do not change the following array without fixing the change event handlers in project.js -->
-				<%= f.select(:max_high_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle', :disabled =>  !@project.is_active})%>
+				<%= f.select(:max_high_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' })%>
 				&nbsp; &nbsp;
 				<%= f.label :medium_priority %>
 				<!-- Do not change the following array without fixing the change event handlers in project.js -->
-				<%= f.select :max_medium_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle', :disabled =>  !@project.is_active}%>
+				<%= f.select :max_medium_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' }%>
 				&nbsp; &nbsp;
 				<%= f.label :low_priority %>
 				<!-- Do not change the following array without fixing the change event handlers in project.js -->
-				<%= f.select :max_low_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle', :disabled =>  !@project.is_active}%>
+				<%= f.select :max_low_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' }%>
 
-				<%#= radio_button(:project, :use_max_clients, :true) %>
-				<%#= label_tag(:max_color_clients, 'Total Clients in total form') %>
-				<br>
+				<br />
 				<div id="max_clients">
 					<%= f.label :max_clients %>
-					<%= f.select :max_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank=>false }, { :class => 'btn btn-small dropdown-toggle ', :disabled =>  !@project.is_active}%>
+					<%= f.select :max_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' }%>
 				</div>
 				<br />
 				<br />
@@ -67,11 +65,11 @@
 			</div>
 			<div id="start_time">
 				<%= f.label :tickets_open_time, 'Start Time', class: 'required' %>
-				<%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :disabled => !@project.is_active %>
+				<%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %>
 			</div>
 			<div id="end_time">
 				<%= f.label :tickets_close_time, 'End Time', class: 'required' %>
-				<%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :disabled => !@project.is_active %>
+				<%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %>
 			</div>
 		</div>
 
@@ -86,7 +84,7 @@
 		   <div id="finalComments" class="hidden">
 		   	 <p>Once you archive the project, you will no longer be able to edit its contents.</p>
 		     <%= f.label       :comment, 'Would you like to save any comments about this project?'%>
-		     <%= text_area_tag :comment, @comment, :class => 'form-control' %>
+		     <%= f.text_area   :comment, :class => 'form-control' %>
 		   </div>
 		<% end %>
 		<div class="actions">

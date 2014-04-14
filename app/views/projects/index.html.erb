@@ -5,7 +5,7 @@
         <%= render 'project_info' %>
         <p><%=link_to "Edit Project Settings", edit_project_path(@project) %></p>
     <% elsif @project %>
-        <%= link_to 'View Current Project', {controller: 'projects', action: 'select_project', input: @project.id},
+        <%= link_to 'View Active Project', {controller: 'projects', action: 'select_project', input: @project.id},
                                              method: :post, :class => 'btn btn-primary btn-sm'%>
     <% else %>
         <p class = "alert alert-info">
@@ -20,7 +20,7 @@
 			 	Download:
 				<%= link_to "Excel", projects_path(format: "xls") %>
 			</p>
-            <table class = "table table-condensed">
+            <table class = "display default_table">
               <thead>
               <tr>
                 <th>Selected</th>
