@@ -1,9 +1,16 @@
 class Client < ActiveRecord::Base
-  has_many :tickets
   belongs_to :status
-  has_many :receipts, through: :tickets
-  
+  has_many   :tickets
+  has_many   :receipts, through: :tickets
+
+# Takes a string of letters and makes it validatable  
 before_validation do
+  self.clean_telephone
+end
+
+# Strips out and cleans up the client phone number for better display on the front-end
+def clean_telephone
+  self.telephone = self.telephone.downcase
   self.telephone = self.telephone.gsub('-','')
   self.telephone = self.telephone.gsub('(', '')
   self.telephone = self.telephone.gsub(')', '')

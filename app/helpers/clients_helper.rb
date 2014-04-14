@@ -22,10 +22,7 @@ module ClientsHelper
   #   number_to_phone rails helper
   def render_phone(phone_number)
      if phone_number.present?  
-        if (phone_number.include? "Ext.") 
-           ext = phone_number.partition("Ext.")
-           number_to_phone(ext[0], extension: ext[2])
-        elsif phone_number.include? "ext."
+        if phone_number.include? "ext."
            ext = phone_number.partition("ext.")
            number_to_phone(ext[0], extension: ext[2])
         else
