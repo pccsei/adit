@@ -1,9 +1,6 @@
 <% provide(:title, "#{@project.semester} #{@project.year} Project Details") %>
 
 <% if(@project) %>
-<% if get_current_project && (get_current_project.id != @project.id) %>
-<% end %>
-<%= render 'project_info'%>
-
-       <p><%= link_to 'Back to the Projects list', projects_path %></p>
+   <%= render 'project_info'%>
+   <p><%= link_to 'Back to the Projects list', projects_path %></p>
 <% end %>

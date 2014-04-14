@@ -3,8 +3,8 @@
 <% if @project || @archived_projects.present? %>
     <% if @project && get_selected_project.id == @project.id %>
         <%= render 'project_info' %>
-        <p><%=link_to "Edit Active Project Settings", edit_project_path(@project) %></p>
     <% elsif @project %>
+        <p class="alert alert-info">You are currently viewing an archived project.</p>
         <%= link_to 'View Active Project', {controller: 'projects', action: 'select_project', input: @project.id},
                                              method: :post, :class => 'btn btn-primary btn-sm'%>
     <% else %>
