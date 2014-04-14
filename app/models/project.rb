@@ -86,6 +86,14 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def self.is_specific(pid)
+    p = Project.find(pid)
+    
+    (p.max_high_priority_clients   != 0 &&
+     p.max_medium_priority_clients != 0 &&
+     p.max_low_priority_clients    != 0)    
+  end
+
   # Convert everything for the specified project into excel
   def self.all_to_excel project
     # return @sales, @sale_total, @student, @student_totals, User.all_teachers, User.current_teachers(project), User.get_student_info(get_selected_project, "all", 3)
@@ -96,8 +104,13 @@ class Project < ActiveRecord::Base
   end
   
   def self.current
-    where('is_active = ?', true)
+    #where('is_active = ?', true)
+    find_by(is_active: true)
   end 
+  
+  def self.current_for_user(uid)
+    
+  end
     
   def self.archived
     where('year < ? and is_active = ?', 2014, false)
