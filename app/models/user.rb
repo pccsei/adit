@@ -220,8 +220,8 @@ class User < ActiveRecord::Base
         for i in 0..students.count-1
           user = User.find(students[i])
           member = Member.find_by(user_id: students[i])
-          if user.role != 2
-            user.role = 2
+          if user.role != STUDENT_MANAGER
+            user.role = STUDENT_MANAGER
             member.parent_id = user.id
             if member.save && user.save
               if !is_added_positive
@@ -286,7 +286,7 @@ class User < ActiveRecord::Base
       if choice == 'Demote Student'
         for i in 0..students.count-1
           user = User.find(students[i])
-          if user.role == 2
+          if user.role == STUDENT_MANAGER
             Member.destroy_team(user)
             if !is_added_positive
               reponse_int += 1
@@ -351,7 +351,7 @@ class User < ActiveRecord::Base
           # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
           member = Member.find_by(user_id: students[i])
           member.parent_id = nil
-          User.find(students[i]).role == 2 ? Member.destroy_team(User.find(students[i]), true) : nil
+          User.find(students[i]).role == STUDENT_MANAGER ? Member.destroy_team(User.find(students[i]), true) : nil
           Member.inactivate_student_status(member)
         end
       end
@@ -679,7 +679,7 @@ class User < ActiveRecord::Base
 
 # Returns the managers name for the current section to assign a team
   def self.get_managers_from_current_section(project, section)
-      # users = User.where(role: 2)
+      # users = User.where(role: STUDENT_MANAGER)
       # members = Member.where(section_number: section)
       # student_manager = Array[]
       # users.each do |user|
@@ -690,7 +690,7 @@ class User < ActiveRecord::Base
       #   end
       # end
       # return student_manager
-      where(role: 2, id: Member.where(project_id: project, section_number: section).pluck(:user_id))
+      where(role: STUDENT_MANAGER, id: Member.where(project_id: project, section_number: section).pluck(:user_id))
   end
 
 # Returns all the student users for a project and section
