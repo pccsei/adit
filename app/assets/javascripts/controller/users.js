@@ -111,6 +111,20 @@ onLoad(function() {
             $("#section").val( $("#" + caller.target.id).attr("name") );
         });
 
+    // Stripped-down version of the datatables for the teacher tables
+	onLoad(function () {
+        var table = $('.teacher_table').dataTable({
+            "bPaginate": false,
+            "bFilter": false,
+            "iCookieDuration": 60,
+            "bStateSave": false,
+            "bAutoWidth": false,
+            "bInfo": false,
+            "bProcessing": true,
+            "bRetrieve": true,
+            "bJQueryUI": true,
+        });
+    });
 //*********************************************************************************************************************/
 // User Help Page - users/need_help
 //*********************************************************************************************************************/
