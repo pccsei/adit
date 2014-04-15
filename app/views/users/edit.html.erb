@@ -1,4 +1,4 @@
-<% if @user.role != 3 %>
+<% if @user.role != TEACHER %>
     <% provide(:title, 'Edit Student') %>
 	<%= render 'form' %>
 <% else %>

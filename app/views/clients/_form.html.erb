@@ -106,7 +106,7 @@
             <td class="text-field">
     			    <div class="actions">
     			    	<% if @client.new_record? %>
-      					  <% if current_user.role == 3 %>
+      					  <% if current_user.role == TEACHER %>
       					  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary'%>
       					  	<%= link_to 'Back to Approve Clients', clients_approve_path %>
       					  <% elsif more_tickets_allowed %>

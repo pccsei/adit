@@ -64,7 +64,7 @@
 <% else %>
    <%= link_to 'Back', session[:return_to] %>
 <% end %>
-<% if (current_user.role == 3 || current_user.id == @client.submitter) %>
+<% if (current_user.role == TEACHER || current_user.id == @client.submitter) %>
 	| <%= link_to 'Edit', edit_client_path(@client, page: request.url) %>
 <% end %>
 

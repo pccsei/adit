@@ -55,7 +55,7 @@
           <tr>
             <td class="label-field"></td>
             <td class="text-field">
-		        <%= f.hidden_field :role, :value => 3 %>
+		        <%= f.hidden_field :role, :value => TEACHER %>
 		        <div class="actions">
 			        <% if @user.new_record? %>
 	            	   <%= f.submit 'Create Teacher', :class => 'btn btn-primary btn-sm' %>

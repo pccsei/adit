@@ -2,13 +2,13 @@
 <div id="edit_client">
 	<%= link_to 'Show client details', client_path(@client.id, receipt_id: @receipt.id) %>
 	
-	<% if (Receipt.is_released(@receipt) == false) || current_user.role == 3 %>
+	<% if (Receipt.is_released(@receipt) == false) || current_user.role == TEACHER %>
 	   &nbsp;|&nbsp;<%= link_to 'Edit this client', edit_client_path(@client.id, page: request.url) %>
 	<% end %>
 </div>
 
 <div id="teacher_back">
-<% if current_user.role == 3 %>
+<% if current_user.role == TEACHER %>
 <% student_name = User.find(@receipt.user_id) %>
 <%= link_to 'Back to ' + student_name.first_name + '\'s Clients', my_receipts_path(@receipt.user_id)  %>
 <br />
@@ -120,6 +120,6 @@
 </div>
 <br>
 <br/>
-<% if current_user.role != 3 %>
+<% if current_user.role != TEACHER %>
 <%= link_to 'Back to My Clients', my_receipts_path(@receipt.user_id) %>
 <% end %>
