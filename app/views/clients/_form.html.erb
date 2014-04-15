@@ -94,6 +94,13 @@
               <%= f.text_field :telephone, value: render_phone(@client.telephone), :placeholder => '850-478-8496 Ext.####', class: 'form-control hideClients',  rows:3  %>
             </td>
           </tr>
+          <% if current_user.role == 3 %>
+            <tr>
+              <td class="label-field"><%= f.label 'Client Status', class: 'hideClients' %></td>
+              <td class="selectionbox-field"><%= f.collection_select :status_id, Status.where.not(status_type: ["edited", "pending"]), :id, :status_type,
+                        { :include_blank=>false }, class: 'form-control hideClients' %></td>
+            </tr>
+          <% end %>
           <tr>
             <td class="label-field"><%= f.label :comment, class: 'hideClients' %></td>
             <td class="text-field"><%= f.text_area :comment, class: 'form-control hideClients',  rows:3  %></td>
