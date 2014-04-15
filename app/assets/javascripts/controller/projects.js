@@ -57,4 +57,11 @@ onLoad(function () {
     $('#project_max_medium_priority_clients').change(update_project_max_clients);
     $('#project_max_low_priority_clients').change(update_project_max_clients);
     
+    
+    $('#loading').hide();
+    
+    $('#submitButton').click(function(){
+      $('#loading').show();
+      $(this).hide();
+    });
 });
