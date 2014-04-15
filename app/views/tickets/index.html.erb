@@ -1,22 +1,34 @@
-<% provide(:title, 'Choose New Clients') %>
+<% studentSelectable = Project.is_specific(@currentProject.id)%>
+
+<% if studentSelectable %>
+  <% provide(:title, 'Choose New Clients') %>
+<% else %>
+  <% provide(:title, 'Client List')%>
+<% end %>
 
 <% if @tickets %>
-    <div class="scroller_anchor"></div>
-    <div class="scroller" id ="alerts">
-      <% if @clientsLeft %>
-        <p id='totalMessage'> Total clients available: <span id='clientsRemaining' class='badge'><%= zeroMin(@clientsLeft) %></span></p>
-      <% end %>
-      <p id="highPriority"> High priority allowed: <span id='highPriorityCount' class="badge"><%= zeroMin(@highPriority)%></span></p>
-      <p id="midPriority">  Medium priority allowed: <span id='mediumPriorityCount' class="badge"><%= zeroMin(@midPriority)%></span></p>
-      <p id="lowPriority">  Low priority allowed:  <span id='lowPriorityCount' class="badge"><%= zeroMin(@lowPriority)%></span></p>
-
-      <% if open = (@currentProject.tickets_close_time > Time.now) %>
-          <p id="ticket_info">You will be able to get new clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.</p>
-      <% else %>
-          <p id="ticket_info">You are no longer able to get new clients.</p>
-      <% end %>
-      <p id="userMessage"></p>
-    </div>
+    <% studentSelectable = Project.is_specific(@currentProject.id)%>
+    <% open = (@currentProject.tickets_close_time > Time.now) %>
+    <% if studentSelectable %>
+      <div class="scroller_anchor"></div>
+      <div class="scroller" id ="alerts">
+        <% if @clientsLeft %>
+          <p id='totalMessage'> Total clients available: <span id='clientsRemaining' class='badge'><%= zeroMin(@clientsLeft) %></span></p>
+        <% end %>
+        <p id="highPriority"> High priority allowed: <span id='highPriorityCount' class="badge"><%= zeroMin(@highPriority)%></span></p>
+        <p id="midPriority">  Medium priority allowed: <span id='mediumPriorityCount' class="badge"><%= zeroMin(@midPriority)%></span></p>
+        <p id="lowPriority">  Low priority allowed:  <span id='lowPriorityCount' class="badge"><%= zeroMin(@lowPriority)%></span></p>
+  
+        <% if open %>
+            <p id="ticket_info">You will be able to get new clients until <%= @currentProject.tickets_close_time.to_formatted_s(:long_ordinal) %>.</p>
+        <% else %>
+            <p id="ticket_info">You are no longer able to get new clients.</p>
+        <% end %>
+        <p id="userMessage"></p>
+      </div>    
+    <% else %>
+      <p class='alert alert-info'>Your teacher will assign your clients to you.</p>
+    <% end %>
 
     <table class="display ticket_table">
       <thead>
@@ -36,22 +48,29 @@
       <% @tickets.each do |ticket| %>
           <tr class="<%= ticket.priority.name %>">
             <% client = Client.find(ticket.client_id); ticketClass = " addTicket " %>            
-            <% # This block determines if the ticket already has a holder. Tickets with holders hide the add button (ticket is hidden via jquery) by adding the autoHide class.
-               # When the button is hidden, we need to know who is holding the ticket, so that information is added to the span. This live activation/deactivation is done when
-               # the page requests updates from the server and is performed in app/assets/javascripts/controller/tickets.js under updateClients() function.
-            	if ticket.user_id == 0 || ticket.user_id.nil?
-            		ticketClass << ""
-    				holder       = ""
-    			else
-    				ticketClass << 'autoHide '
-            		holder      = "#{ticket.user.first_name} #{ticket.user.last_name}<br />(#{ticket.user.school_id})".html_safe
-    			end
-            %>
+
             <% if open %>                
-                <td>
+
+              <td>
+                <% if studentSelectable %>
+                  
+                  <% # This block determines if the ticket already has a holder. Tickets with holders hide the add button (ticket is hidden via jquery) by adding the autoHide class.
+                     # When the button is hidden, we need to know who is holding the ticket, so that information is added to the span. This live activation/deactivation is done when
+                     # the page requests updates from the server and is performed in app/assets/javascripts/controller/tickets.js under the updateClients() function.
+                    if ticket.user_id == 0 || ticket.user_id.nil?
+                      ticketClass << ""
+                      holder       = ""
+                    else
+                      ticketClass << 'autoHide '
+                          holder   = "#{ticket.user.first_name} #{ticket.user.last_name}<br />(#{ticket.user.school_id})".html_safe
+                    end 
+                  %>                
                   <%= button_tag 'Choose', type: 'button', :id => ticket.id, :class => 'btn btn-primary btn-sm' << ticketClass %>
-                  <%= content_tag(:span, holder, :id =>ticket.id.to_s + '_span' ) %>                	
-                </td>
+                <% else %>
+                  <%= button_tag 'Choose', type: 'button', :class => 'btn btn-primary btn-sm', :disabled => true %>
+                <% end %>
+                <%= content_tag(:span, holder, :id =>ticket.id.to_s + '_span' ) %>                	
+              </td>
             <% end %>
             <td class="priority"><span><%= ticket.priority.name.capitalize %></span></td>
             <td><%= link_to client.business_name, client_path(id: ticket.client.id, page: request.url)%></td>
