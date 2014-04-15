@@ -50,7 +50,7 @@ class ReportsController < ApplicationController
 
   # This method is just designed as a sort of read only manage section page for Student Manager's
   def team_data
-    if current_user.role == 3
+    if current_user.role == TEACHER
       redirect_to reports_team_summary_path
     end
     @students = User.team_members(get_selected_project, current_user.id)

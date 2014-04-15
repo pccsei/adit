@@ -1,6 +1,6 @@
 <% provide(:title, 'Your New Student') %>
 
-<%if @user.role != 3 %>
+<%if @user.role != TEACHER %>
   <p>
     <strong>Name:</strong>
     <%= @user.first_name %>

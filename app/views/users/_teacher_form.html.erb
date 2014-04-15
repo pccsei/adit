@@ -9,35 +9,65 @@
 			</ul>
 		</div>
 	<% end %>
+	
     <div class = "panel panel-primary">
       <div class = "panel-heading">
-        <h3>&nbsp;New Teacher Information</h3>
+      <% if @user.new_record? %>
+        <h3>New Teacher Information</h3>
+      <% else %>
+        <h3>Edit Teacher Information</h3>
+      <% end %>
       </div>
-      <div class = "panel-body">
-
-        <div id="full_name">
-          <%= f.label :first_name, 'First Name', class: 'required' %>
-          <%= f.text_field :first_name %>
-          <%= f.label :last_name, 'Last Name', class: 'required' %>
-          <%= f.text_field :last_name %>
-        </div>
-        <div id="school_info">
-          <%= f.label :school_id, 'School ID', class: 'required' %>
-          <%= f.text_field :school_id %>
-          <%= f.label :email, 'E-mail Address', class: 'required' %>
-          <%= f.text_field :email, value: @user.email || '@faculty.pcci.edu'  %>
-        </div>
-        <%= f.hidden_field :role, value: 3 %>
-        <br />
-        <div class="actions">
-          <% if @user.new_record? %>
-            <%= f.submit 'Create Teacher', :class => 'btn btn-primary btn-sm' %>
-          <% else %>
-            <%= f.submit 'Update Teacher', :class => 'btn btn-primary btn-sm' %>
-          <% end %>
-        </div>
+       <div class = "panel-body">
+        <table>
+          <tr>
+            <td class="label-field">
+              <%= f.label :first_name, 'First Name', class: 'required' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :first_name, class: 'form-control',  rows:3 %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label :last_name, 'Last Name', class: 'required', id:'last_name' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :last_name, class: 'form-control',  rows:3 %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label :school_id, 'School ID', class: 'required' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :school_id, class: 'form-control',  rows:3 %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              <%= f.label :email, 'E-mail Address', class: 'required', id:'email' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :email, class: 'form-control',  rows:3 %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field"></td>
+            <td class="text-field">
+		        <%= f.hidden_field :role, :value => TEACHER %>
+		        <div class="actions">
+			        <% if @user.new_record? %>
+	            	   <%= f.submit 'Create Teacher', :class => 'btn btn-primary btn-sm' %>
+	          		<% else %>
+	            	   <%= f.submit 'Update Teacher', :class => 'btn btn-primary btn-sm' %>
+	                <% end %>
+	                <%= link_to 'Back to Teachers', users_teachers_path %>
+                </div>
+             </td>
+          </tr>
+        </table>
       </div>
     </div>
-
 <% end %>
 

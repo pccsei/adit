@@ -57,9 +57,9 @@ class Report
     student_array = []                     
     index = 0
     receipts = Receipt.selected_project_receipts(project)
-    if current_user.role == 3
+    if current_user.role == TEACHER
       students = User.current_student_users(project, section)
-    elsif current_user.role == 2
+    elsif current_user.role == STUDENT_MANAGER
       students = User.team_members(project, current_user.id)
     end
 

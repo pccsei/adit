@@ -19,7 +19,7 @@
   <tbody>
   <% unapproved_clients.each do |client|%>
       <tr>
-      	<% if current_user.role == 3 %>
+      	<% if current_user.role == TEACHER %>
         	<td><%= link_to client.business_name, client_path(client.id, page: request.url) %></td>
         <% else %>
         	<td><%= link_to client.business_name, client_path(client.id, page: request.url) %></td>

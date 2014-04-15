@@ -1,3 +1,4 @@
+# Everything that is written in the Application Helper is available on all the views
 module ApplicationHelper
   
   # Returns the full title on a per-page basis.
@@ -8,13 +9,6 @@ module ApplicationHelper
     else
       "#{base_title} | #{page_title}"
     end
-  end
-  
-  
-  def sortable(column, title = nil)
-    title ||= column.titleize
-    direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
-    link_to title, {:sort => column, :direction => direction}
   end
   
   # Creates a span that can be made into a tooltip if the string passed in is longer than specified. Otherwise, just returns the string.
@@ -29,6 +23,7 @@ module ApplicationHelper
     end
   end
   
+  # Makes sure a value does not go below zero
   def zeroMin(val)
     return val < 0 ? 0 : val
   end

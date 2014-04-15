@@ -3,7 +3,7 @@
     <tr>
       <th>First Name</th>
       <th>Last Name</th>
-      <% if current_user.role == 3 %>
+      <% if current_user.role == TEACHER %>
         <th>Student Manager</th>
         <th>Section</th>
       <% end %>
@@ -19,7 +19,7 @@
     <% if @student_array.present? %>
     <% @student_array.each do |student| %>
       <tr>
-        <% if current_user.role == 3 %>
+        <% if current_user.role == TEACHER %>
           <td align ="left"><%= link_to student.first_name, my_receipts_path(id: student.id, page: request.url) %></td>
           <td align ="left"><%= link_to student.last_name, my_receipts_path(id: student.id, page: request.url) %></td>
           <td align ="center"><%= student.student_manager %></td>
@@ -46,7 +46,7 @@
   <tr>
     <td align ="center">Totals</td>
     <td align ="center"></td>
-    <% if current_user.role == 3 %>
+    <% if current_user.role == TEACHER %>
       <td align ="center"></td>
       <td align ="center"></td>
     <% end %>
