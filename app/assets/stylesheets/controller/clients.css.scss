@@ -1,72 +1,29 @@
-
-#feedback {
-  font-size: 1.4em;
-}
-#students .ui-selecting { background: #DC0000; color: white; }
-#students .ui-selected { background: #DC0000; color: white; }
-#students { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-#students li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: auto; }
-
-#priority_message{
-	margin-top: 1em;
-	font-weight: bold;
-	font-size: 1.5em;
-}
-.alert-info{
-	font-size: 1em;
-	background-color: inherit;
-	border-left: none;
-	border-right: none;
-	border-color: #DC0000;
-	border-radius: 0px;
-	border-width: .2em;
-	color: black;
-	padding: .5em;
-	width: auto;
-}
-th.alert.alert-info{
-	font-size: 1em;
-	background-color: inherit;
-	border-left: none;
-	border-right: none;
-	border-color: #DC0000;
-	border-radius: 0px;
-	border-width: .2em;
-	color: black;
-	padding: .5em;
-	width: auto;
-}
-#business_list{
-	width: 22em;
-	max-height: 10em;
-	overflow: auto;
-	margin-left: -.5em;
-}
-#businessNames{
-	width: 22em;
-}
+/**********************************************
+Universal Styling for Clients
+***********************************************/
 .clients a, a:link, a:visited {
 font-size: 1.2em;
 }
-
-#client_priority{
-  margin-top: 2em;
-  font-size: 1.2em;
+.warning { 
+	color: red
 }
-
-.actions a{
-	vertical-align: -55%;
+.clickable {
+	cursor: pointer
 }
-//.clients #client_list tr {
-//  height: 3.7em;
-//}
-.medium, .high, .low{
-	height:20px !important;
+.clients th.alert.alert-info{
+	font-size: 1em;
+	background-color: inherit;
+	border-left: none;
+	border-right: none;
+	border-color: #DC0000;
+	border-radius: 0px;
+	border-width: .2em;
+	color: black;
+	padding: .5em;
+	width: auto;
 }
-
-.clients .assign {
-  padding: .7em !important;
-  margin: .4em !important;
+.clients .panel-heading h3{
+  margin-bottom: 2em;
 }
 
 .clients .panel-primary{
@@ -80,7 +37,66 @@ font-size: 1.2em;
   border-color: black;
   width: 50em !important;
 }
+.clients .actions a{
+	vertical-align: -55%;
+}
+.clients #sselect-section{
+  float: right;
+  padding-right: 2em;
+  margin-top: -5.3em;
+}
+.clients .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+cursor: pointer;
+}
+.clients #feedback {
+  font-size: 1.4em;
+}
 
+/**********************************************
+Assign Client Page  
+***********************************************/
+.clients #choose_section{
+	float: right;
+	margin-top: 1.5em !important;
+}
+.clients .studentList{
+  width: 45em;
+  margin-top: 2em;
+  margin-left: 1em;
+}
+.clients #students .ui-selecting {
+	 background: #DC0000; 
+	 color: white; 
+ }
+.clients #students .ui-selected { 
+	background: #DC0000; 
+	color: white; 
+}
+.clients #students { 
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0; 
+	width: 60%; 
+}
+.clients #students li { 
+	margin: 3px; 
+	padding: 0.4em; 
+	font-size: 1.4em; 
+	height: auto; 
+}
+.clients #assign{
+	float: left;
+  width: 35em;
+  margin-top: 4em !important;
+}
+.clients .assign {
+  padding: .7em !important;
+  margin: .4em !important;
+}
+.clients #assignClient{
+  margin-top: 1.5em;
+  margin-left: 4.5em;
+}
 .clients #checkClients {
   width: inherit;
   margin-bottom: 1em !important;
@@ -88,46 +104,38 @@ font-size: 1.2em;
   font-size: 1.3em;
 }
 
-.clients .list-group{
-  width: 35em;
+/**********************************************
+Form page           
+***********************************************/
+.clients #business_list{
+	width: 22em;
+	max-height: 10em;
+	overflow: auto;
+	margin-left: -.5em;
 }
-.clients .panel-heading h3{
-  margin-bottom: 2em;
+.clients #businessNames{
+	width: 22em;
 }
-
-.clients #choose_section{
-	float: right;
-	margin-top: 1.5em !important;
-}
-.clients #assign{
-	float: left;
-  width: 35em;
-  margin-top: 4em !important;
-}
-
-
-.clients #assignClient{
-  margin-top: 1.5em;
-  margin-left: 4.5em;
+td {
+  padding: .5em;
 }
 
-.clients #sselect-section{
-  float: right;
-  padding-right: 2em;
-  margin-top: -5.3em;
+.clients .label-field {
+  text-align: right;
 }
 
-.clinets .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-cursor: pointer;
+.clients .text-field {
+  text-align: left;
+}
+.clients .form-control {
+  width: 20em;
+  margin-right: .5em;
 }
 
-.clients .studentList{
-  width: 45em;
-  margin-top: 2em;
-  margin-left: 1em;
-}
-
-.assign_table tbody {
+/**********************************************
+Tables       
+***********************************************/
+.clients .assign_table tbody {
   tr {
     height: 3em;
   }
@@ -148,156 +156,71 @@ cursor: pointer;
     border-left-color: #ddd;
   }
 }
-
-// #business_name input{
-// 
-// 
-// 
-  // width: 25em;
-// }
-// 
-// #add_city_st{
-  // margin-top:2em;
-// }
-// #add_city_st #client_address{
-  // margin-left: 3.94em;
-// 
-// }
-// #client_address{
-  // width:20em;
-// }
-// 
-// #client_telephone{
-  // width: 15em;
-// }
-// 
-// #client_city{
-  // width:8em;
-// }
-// 
-// #city{
-  // margin-top:1em;
-// }
-// 
-// #city label {
-  // margin-left: 6.1em;
-// }
-// #state{
-  // margin-top:1em;
-// }
-// 
-// #state label {
-  // margin-left: 6.4em;
-// }
-// #state select{
-// 
-// }
-// #zip{
-  // margin-top:1em;
-// }
-// #contact_title{
-  // margin-top:1em;
-// }
-// 
-// #contact_title label {
-  // margin-left: 2.4em;
-// }
-// #contact_fname{
-  // margin-top:1em;
-// }
-// 
-// #contact_fname label {
-  // margin-left: 3.2em;
-// }
-// #contact_lname{
-  // margin-top:1em;
-// }
-// 
-// #contact_lname label {
-  // margin-left: 3.3em;
-// }
-// 
-// #zip label {
-  // margin-left: 3.8em;
-// }
-// #address{
-  // margin-top: 1em;
-// }
-// #address input {
-// 
-// }
-// 
-// #address label {
-  // margin-left: 3.8em;
-// }
-// 
-// #contact_info{
-  // margin-top: 1em;
-// }
-// #contact_info label {
-  // margin-left: 1.5em;
-// }
-// #client_zipcode{
-  // width:5.5em;
-// }
-// #contact_info #client_contact_title{
-  // margin-left: 1em;
-// }
-// 
-// #email{
-  // margin-top: 1em;
-// }
-// 
-// #email label {
-  // margin-left:6em;
-// }
-// #phone{
-  // margin-top: 1em;
-// }
-// 
-// #phone label {
-  // margin-left:4em;
-// }
-// #business_name label{
-  // margin-left:-.5em;
-// }
-// #comment{
-  // margin-top: 1em;
-// }
-// 
-// #comment textarea{
-  // margin-left: .3em;
-  // width: 45em;
-  // height: 3em;
-// }
-// #comment label{
-  // margin-left: 3.2em;
-// }
-
-.warning { color: red}
-
-.clickable {cursor: pointer}
-
+.clients .medium, .high, .low{
+	height:20px !important;
+}
 p.addMargin {
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
-td {
-  padding: .5em;
-}
-
-.label-field {
-  text-align: right;
-}
-
-.text-field {
-  text-align: left;
-}
 
 
 
-.clients .form-control {
-  width: 20em;
-  margin-right: .5em;
-}
+
+
+
+
+
+
+// JUNK
+
+
+//#priority_message{
+//	margin-top: 1em;
+//	font-weight: bold;
+//	font-size: 1.5em;
+//}
+
+
+
+
+
+
+//#client_priority{
+//  margin-top: 2em;
+//  font-size: 1.2em;
+//}
+
+
+//.clients #client_list tr {
+//  height: 3.7em;
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
