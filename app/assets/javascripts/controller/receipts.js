@@ -1,6 +1,7 @@
 //*********************************************************************************************************************/
 // Receipts.js - Everything must be wrapped in the onLoad function to handle Turbolinks
 //*********************************************************************************************************************/
+
 onLoad(function () {
 
 //*********************************************************************************************************************/
@@ -180,6 +181,7 @@ onLoad(function () {
         return value >= param;
     });
 
+	// Validation for an action
     $("#new_action").validate({
         rules: {
             "price": {required: true, decimal: true, leading_zero: true, min_digit: .01, max: 1500, maxlength: 7},

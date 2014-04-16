@@ -1,11 +1,13 @@
 //*********************************************************************************************************************/
 // Projects.js - Everything must be wrapped in the onLoad function to handle Turbolinks
 //*********************************************************************************************************************/
+
 onLoad(function () {
 
 //*********************************************************************************************************************/
-// Projects new/edit
+// Projects New/Edit Page
 //*********************************************************************************************************************/
+    
     // Show/hide the comment area for archiving projects
     $('.hidden').hide();
     
@@ -56,5 +58,90 @@ onLoad(function () {
 
     $('#project_max_medium_priority_clients').change(update_project_max_clients);
     $('#project_max_low_priority_clients').change(update_project_max_clients);
+
+//*********************************************************************************************************************/
+// Projects New/Edit Page Front-Side Validation
+//*********************************************************************************************************************/
+
+	// Custom validation to make sure the datetime format matches what we need
+    jQuery.validator.addMethod('valid_date_format', function (value, element) {
+        return this.optional(element) ||
+            /^(\d{4}[/]\d{2}[/]\d{2}\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
+    });
+
+    // Custom validation to make sure the year format matches what we need
+    jQuery.validator.addMethod('valid_year', function (value, element) {
+        return this.optional(element) ||
+            /^([2-9]\d{3}[/]\d{2}[/]\d{2}\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
+    });
+
+    // Custom validation to make sure the month format matches what we need
+    jQuery.validator.addMethod('valid_month', function (value, element) {
+        return this.optional(element) ||
+            /^(\d{4}[/]((1[0-2])|([0][1-9]))[/]\d{2}\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
+    });
+
+    // Custom validation to make sure the day format matches what we need
+    jQuery.validator.addMethod('valid_day', function (value, element) {
+        return this.optional(element) ||
+            /^(\d{4}[/]\d{2}[/](([0][1-9])|([1-2][0-9])|(3[0-1]))\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
+    });
+
+	// Custom validation to make sure the month entered matches the fall semester
+    jQuery.validator.addMethod('fall', function (value, element) {
+        return this.optional(element) ||
+            /^(\d{4}[/](([0][9]|1[0-2]))[/]\d{2}\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
+    });
     
+    // Custom validation to make sure the month entered matches the spring semester
+    jQuery.validator.addMethod('spring', function (value, element) {
+        return this.optional(element) ||
+            /^(\d{4}[/][0][1-5][/]\d{2}\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
+    });
+    
+	// Validation for a project
+	$("#projects").validate({
+		rules:{
+			"project[tickets_open_time]": {required: true, date: true, valid_date_format: true, valid_year: true, valid_month: true, valid_day: true, fall: {
+				depends: function(element) {
+					return $('[name="project[semester]"]').val() == "Fall";
+				}
+			}, spring: {
+				depends: function(element) {
+					return $('[name="project[semester]"]').val() == "Spring";
+				}
+			}},
+			"project[tickets_close_time]": {required: true, date: true, valid_date_format: true, valid_year: true, valid_month: true, valid_day: true, fall: {
+				depends: function(element) {
+					return $('[name="project[semester]"]').val() == "Fall";
+				}
+			}, spring: {
+				depends: function(element) {
+					return $('[name="project[semester]"]').val() == "Spring";
+				}
+			}}
+		},
+		messages:{
+			"project[tickets_open_time]": {
+				required: "Please enter in the date and time when you did this.",
+                date: "The date is incorrect.",
+                valid_date_format: "Should match format YYYY/MM/DD HH:MM AM/PM.",
+                valid_year: "Please select a year after 2000.",
+                valid_month: "Please select a valid month.",
+                valid_day: "Please select a valid day.",
+                fall: "Month needs to be in the Fall (09 - 12).",
+                spring: "Month needs to be in the Spring (01 - 05)."
+			},
+			"project[tickets_close_time]": {
+				required: "Please enter in the date and time when you did this.",
+                date: "The date is incorrect.",
+                valid_date_format: "Should match format YYYY/MM/DD HH:MM AM/PM.",
+                valid_year: "Please select a year after 2000.",
+                valid_month: "Please select a valid month.",
+                valid_day: "Please select a valid day.",
+                fall: "Month needs to be in the Fall (09 - 12).",
+                spring: "Month needs to be in the Spring (01 - 05)."
+			}
+		}
+	});
 });
