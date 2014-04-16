@@ -1,7 +1,7 @@
 
 <div class="form_background">
 
-<p class="alert alert-info">
+<p id="project_title" class="alert alert-info">
   <%= "#{@project.semester} #{@project.year} - #{@project.project_type.name} " %>
   <% if @project.is_active %>
   <%= "[Active]" %>
@@ -23,16 +23,28 @@
 </p>
 
   <p>
-    <strong>High Priority:</strong>
-    <%= @project.max_high_priority_clients %>
+    <strong>Maximum High Priority:</strong>
+    <% if @project.max_high_priority_clients == NA %>
+       N/A
+    <% else %>
+       <%= @project.max_high_priority_clients %>
+    <% end %>    
   </p>
   <p>
-    <strong>Medium Priority:</strong>
-    <%= @project.max_medium_priority_clients %>
+    <strong>Maximum Medium Priority:</strong>
+    <% if @project.max_medium_priority_clients == NA %>
+       N/A
+    <% else %>
+       <%= @project.max_medium_priority_clients %>
+    <% end %>    
   </p>
   <p>
-   <strong>Low Priority:</strong>
-   <%= @project.max_low_priority_clients %>
+    <strong>Maximum Low Priority:</strong>
+    <% if @project.max_low_priority_clients == NA %>
+       N/A
+    <% else %>
+       <%= @project.max_low_priority_clients %>
+    <% end %>    
   </p>
 
 <p>

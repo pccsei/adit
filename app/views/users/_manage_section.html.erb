@@ -25,7 +25,7 @@
     <% current_students.each do |student| %>
       <tr>
         <% if @selected_section != "all"%>
-          <% if student.role == 1 %>
+          <% if student.role == STUDENT %>
             <% if student.student_manager_name %>
               <td><input class="students_with_manager" name="students[]" type="checkbox" value="<%=student.id%>" /></td>
             <% else  %>

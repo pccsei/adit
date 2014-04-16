@@ -1,10 +1,13 @@
 <% provide(:title, 'Teachers') %>
+<p class="excel" title="Export to Excel">
+  <%= link_to (image_tag 'excel.png'), users_teachers_path(format: 'xls') %>
+</p>
 
 
 <%= link_to 'Add New Teacher', users_new_teacher_path, class: 'btn btn-link btn-sm', id:'add_teacher' %>
 
 
-<br><br><br>
+
 
 <div id="Change_Teacher">
 	<%= form_tag(users_change_teacher_path) do%>
@@ -27,11 +30,9 @@
 </div>
 
 
-<p class="excel">
-  <%= link_to (image_tag 'excel.png'), users_teachers_path(format: 'xls') %>
-</p>
 
-<h2>Current Teachers</h2>
+<h2 id="current_teacher">Current Teachers</h2>
+
 
 <table class="display teacher_table">
 	<thead>
@@ -69,6 +70,7 @@
 </table>
 
 <h2>Teacher Roster</h2>
+
 <table class ="display teacher_table">
 	<thead>
 		<tr>
