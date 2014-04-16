@@ -94,6 +94,12 @@ onLoad(function () {
         return this.optional(element) ||
             /^(\d{4}[/]\d{2}[/](([0][1-9])|([1-2][0-9])|(3[0-1]))\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
     });
+    
+	// Custom validation to make sure the close time is after the open time
+    jQuery.validator.addMethod('start_before_end', function (value, element) {
+        return this.optional(element) ||
+            /^(\d{4}[/]\d{3}[/]\d{2}\s\d{2}[:]\d{2}\s(([aA]|[pP])[mM]))$/i.test(value);
+    });
 
 	// Custom validation to make sure the month entered matches the fall semester
     jQuery.validator.addMethod('fall', function (value, element) {
@@ -127,6 +133,10 @@ onLoad(function () {
 				depends: function(element) {
 					return $('[name="project[semester]"]').val() == "Spring";
 				}
+			}, start_before_end: {
+				depends: function(element) {
+					return $('[name="project[tickets_open_time]"]').val() > $('[name="project[tickets_close_time]"]').val();
+				}
 			}}
 		},
 		messages:{
@@ -148,7 +158,8 @@ onLoad(function () {
                 valid_month: "Please select a valid month.",
                 valid_day: "Please select a valid day.",
                 fall: "Month needs to be in the Fall (09 - 12).",
-                spring: "Month needs to be in the Spring (01 - 05)."
+                spring: "Month needs to be in the Spring (01 - 05).",
+                start_before_end: "Must be after Start Time."
 			}
 		}
 	});
