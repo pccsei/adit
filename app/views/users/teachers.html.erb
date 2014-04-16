@@ -1,4 +1,4 @@
-<% provide(:title, ('Manage Teachers').html_safe) %>
+<% provide(:title, 'Teachers') %>
 
 
 <%= link_to 'Add New Teacher', users_new_teacher_path, class: 'btn btn-link btn-sm', id:'add_teacher' %>
@@ -10,7 +10,8 @@
 	<%= form_tag(users_change_teacher_path) do%>
 		<p>Change <span id='oldTeacher'></span> to <p>
 		<input id="memberId" type="hidden" name="member_id" />
-		<%= select_tag 'teacher_to_change_to', options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name)%>
+		<%= select_tag 'teacher_to_change_to', options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name),
+		                                     {:include_blank => false, :class => 'btn btn-default dropdown-toggle'} %>
 		<%= submit_tag 'Change the Teacher' , class: 'btn btn-primary btn-sm'%>
 	<% end %>
 </div>
@@ -19,21 +20,21 @@
 	<%= form_tag(users_another_teacher_to_section_path) do%>
 		<p>Add another teacher for section <span id='sectionNumber'></span><p>
   		<input id="section" type="hidden" name="section" />
-		<%= select_tag 'new_teacher_to_add', options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name)%>
+		<%= select_tag 'new_teacher_to_add', options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name),
+		                                     {:include_blank => false, :class => 'btn btn-default dropdown-toggle'} %>
 		<%= submit_tag 'Add New Teacher', class: 'btn btn-primary btn-sm' %>
 	<% end %>
 </div>
 
-<!-- EXPO
+
 <p class="excel">
-  Download:
-  <%= link_to 'Excel', users_teachers_path(format: 'xls') %><br>
-  This will download an excel document with two worksheets: one for Current Teachers and one for Teacher Roster.
-</p> -->
+  <%= link_to (image_tag 'excel.png'), users_teachers_path(format: 'xls') %>
+</p>
 
 <h2 id="current_teacher">Current Teachers</h2>
 
-<table class="default_table">
+
+<table class="display teacher_table">
 	<thead>
 		<tr>
 			<th>Section</th>
@@ -69,7 +70,8 @@
 </table>
 
 <h2>Teacher Roster</h2>
-<table class ="default_table">
+
+<table class ="display teacher_table">
 	<thead>
 		<tr>
 			<th>First Name</th>

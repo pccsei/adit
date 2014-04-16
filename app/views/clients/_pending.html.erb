@@ -2,7 +2,7 @@
 <table class="display default_table">
   <thead>
   <tr>
-    <% if current_user.role == 3%>
+    <% if current_user.role == TEACHER%>
         <th class="empty"></th>
     <% end %>
     <th>Owner</th>
@@ -23,7 +23,7 @@
   <tbody>
   <% pending_clients.each do |client|%>
       <tr>
-        <% if current_user.role == 3 %>
+        <% if current_user.role == TEACHER %>
             <td><%= check_box_tag 'clients[]', client.id %></td>
         <% end %>
         <td><%= get_submitter_info(client.submitter) %></td>

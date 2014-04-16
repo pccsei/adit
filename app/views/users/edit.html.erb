@@ -1,9 +1,7 @@
-<% if @user.role != 3 %>
-    <% provide(:title, 'Editing Student') %>
+<% if @user.role != TEACHER %>
+    <% provide(:title, 'Edit Student') %>
 	<%= render 'form' %>
 <% else %>
-    # After EXPO, change to using an edit_teacher html.erb
-    <% provide(:title, 'Editing Teacher') %>
+    <% provide(:title, 'Edit Teacher') %>
 	<%= render 'teacher_form' %>
-	<%= link_to "Back to Teacher's Page", users_teachers_path %>
 <% end %>

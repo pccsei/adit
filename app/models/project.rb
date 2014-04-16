@@ -19,28 +19,28 @@ class Project < ActiveRecord::Base
     minimum: 1,
     message: 'needs to be at least 1 digit long.'
   }
-  validate :greater_than_max  
+  #validate :greater_than_max
   
 # Validates the max high priority clients option
   validates :max_high_priority_clients, length: {
     minimum: 1,
     message: 'needs to be at least 1 digit long.'
-  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_medium_priority_clients == 0 && project.max_low_priority_clients == 0) },
-                     unless: Proc.new { |project| project.max_high_priority_clients == -1 } }
+  } #numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_medium_priority_clients == 0 && project.max_low_priority_clients == 0) },
+                 #    unless: Proc.new { |project| project.max_high_priority_clients == -1 } }
   
 # Validates the max medium priority clients option
   validates :max_medium_priority_clients, length: {
     minimum: 1,
     message: 'needs to be at least 1 digit long.'
-  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_low_priority_clients == 0) }, 
-                     unless: Proc.new { |project| project.max_medium_priority_clients == -1 } }
+  } #numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_low_priority_clients == 0) },
+                  #   unless: Proc.new { |project| project.max_medium_priority_clients == -1 } }
 
 # Validates the max low priority clients option
   validates :max_low_priority_clients, length: {
     minimum: 1,
     message: 'needs to be at least 1 digit long.'
-  }, numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_medium_priority_clients == 0) },
-                     unless: Proc.new { |project| project.max_low_priority_clients == -1 } }
+  } #numericality: { greater_than_or_equal_to: 1, :if => lambda { |project| (project.max_high_priority_clients == 0 && project.max_medium_priority_clients == 0) },
+                 #    unless: Proc.new { |project| project.max_low_priority_clients == -1 } }
 
 # Custom method to make sure the open date is before the close date  
   def start_before_end
@@ -86,6 +86,14 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def self.is_specific(pid)
+    p = Project.find(pid)
+    
+    (p.max_high_priority_clients   != 0 &&
+     p.max_medium_priority_clients != 0 &&
+     p.max_low_priority_clients    != 0)    
+  end
+
   # Convert everything for the specified project into excel
   def self.all_to_excel project
     # return @sales, @sale_total, @student, @student_totals, User.all_teachers, User.current_teachers(project), User.get_student_info(get_selected_project, "all", 3)
@@ -96,8 +104,12 @@ class Project < ActiveRecord::Base
   end
   
   def self.current
-    where('is_active = ?', true)
+    find_by(is_active: true)
   end 
+  
+  def self.current_for_user(uid)
+    
+  end
     
   def self.archived
     where('year < ? and is_active = ?', 2014, false)

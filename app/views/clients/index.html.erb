@@ -24,6 +24,7 @@
     <th>First name</th>
     <th>Last name</th>
     <th>E-mail</th>
+    <th>Status</th>
     <th>Comment</th>
   </tr>
   </thead>
@@ -37,10 +38,10 @@
                  <% if ticket.student_fname %>
                      <%= (ticket.student_fname + ' ' +  ticket.student_lname + '<br />(' + ticket.student_id + ')').html_safe %>
                   <% else %>
-                     <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-link btn-sm assign'} %>
+                     <%= link_to 'Assign', clients_show_assign_for_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-link btn-sm assign'} %>
                   <% end %>
               <% else%>
-                  <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-link btn-sm assign', disabled: true }%>
+                  <%= link_to 'Assign', clients_show_assign_for_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-link btn-sm assign', disabled: true }%>
                <% end %>
           <% else %>
               <%= 'Ticket does not exist for this client' %>
@@ -57,6 +58,7 @@
         <td><%= ticket.contact_fname %></td>
         <td><%= ticket.contact_lname %></td>
         <td><%= ticket.email %></td>
+        <td><%= ticket.status_type %></td>
         <td><%= tooltipify(ticket.comment)%></td>
 
       </tr>

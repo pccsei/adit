@@ -1,10 +1,5 @@
 <% provide(:title, "Unauthorized") %>
 
-<!-- EXPO -->
-<% if current_user.role == 3 %>
-   <p class='alert alert-info'>This page has been disabled for the expo.</p><br />
-   <%= link_to 'Go back to Manage Students.', users_path %>
-<% else %>
    <p class='alert alert-info'>Only teachers are permitted to see this page.</p><br />
    <%= link_to 'Go back to My Clients.', {controller: :receipts, action: :my_receipts, id: current_user.id } %>
-<% end %>
+

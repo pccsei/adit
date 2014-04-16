@@ -1,19 +1,38 @@
+//*********************************************************************************************************************/
+// Projects.js - Everything must be wrapped in the onLoad function to handle Turbolinks
+//*********************************************************************************************************************/
 onLoad(function () {
 
+//*********************************************************************************************************************/
+// Projects new/edit
+//*********************************************************************************************************************/
+    // Show/hide the comment area for archiving projects
+    $('.hidden').hide();
+    
+    $('#project_is_active_0').change(
+    
+    function show_comment_div() {
+    	if ($('#project_is_active_0').is(':checked'))
+    	   $('#finalComments').removeClass('hidden').show();
+    	else
+    	   $('#finalComments').addClass('hidden').hide();
+    });
+    
+    $('#project_is_active_1').change(
+    
+    function show_comment_div() {
+    	if ($('#project_is_active_0').is(':checked'))
+    	   $('#finalComments').removeClass('hidden').show();
+    	else
+    	   $('#finalComments').addClass('hidden').hide();
+    });
+
+    // Code for the ticket start and end times datepickers
     $('#project_tickets_open_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT"});
     $('#project_tickets_close_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
 
-    $("#new_project").validate({
-        rules: {
-            "project[tickets_open_time]": {required: true, date: true},
-            "project[tickets_close_time]": {required: true, date: true}
 
-        },
-        messages: {
-            "project[tickets_open_time]": "Please select an open time.",
-            "project[tickets_close_time]": "Please select a close time."
-        }
-    });
+    // These three code blocks make the priorities choices logical
     $('#project_max_clients').change(function (s) {
         var high = $('#project_max_high_priority_clients')[0];
         var medium = $('#project_max_medium_priority_clients')[0];
@@ -25,6 +44,7 @@ onLoad(function () {
             low.selectedIndex = Math.min(low.selectedIndex, selected_index);
         }
     });
+
     function update_project_max_clients(s) {
         var clients = $('#project_max_clients')[0];
         var selected_index = clients.selectedIndex;
@@ -32,8 +52,16 @@ onLoad(function () {
             clients.selectedIndex = Math.max(selected_index, s.target.selectedIndex);
         }
     }
-
     $('#project_max_high_priority_clients').change(update_project_max_clients);
+
     $('#project_max_medium_priority_clients').change(update_project_max_clients);
     $('#project_max_low_priority_clients').change(update_project_max_clients);
+    
+    
+    $('#loading').hide();
+    
+    $('#submitButton').click(function(){
+      $('#loading').show();
+      $(this).hide();
+    });
 });

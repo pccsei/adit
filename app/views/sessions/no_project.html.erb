@@ -1,6 +1,8 @@
-<% if current_user.role == 3 %>
-   <p>There is currently no project in the system.</p>
-   <p><%= link_to 'Create a New Project', projects_path %></p>
+<div>
+	<% if current_user.role == TEACHER %>
+   <p class="alert alert-info">There is currently no project in the system.<br />
+   	&nbsp;&nbsp;<%= link_to 'Create a New Project', projects_path %></p>
 <% else %>
-   <p>You are not a member of the current project. Contact your teacher for more details. </p>
+   <p class="alert alert-info">You are not a member of the current project. Contact your teacher for more details. </p>
 <% end %>
+</div>

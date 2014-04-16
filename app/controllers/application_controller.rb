@@ -13,23 +13,18 @@ class ApplicationController < ActionController::Base
   helper_method :get_selected_project
   helper_method :get_selected_section
   helper_method :set_selected_section
-  helper_method :get_current_student_project
-  
-  # CONSTANTS
-  TEACHER = 3
-  STUDENT_REP = 1                     
+  helper_method :get_current_student_project                    
   
   # Add where_is_enabled to know which members are currently enabled.
 
   def get_current_student_project
     get_current_project &&
-        Member.where(user_id: current_user.id, project_id: get_current_project.id).present?
+        Member.where(user_id: current_user.id, project_id: Project.where(:is_active => true)).present?
   end
 
   # This method will most likely be deleted soon, use selected methods below instead                          
   def get_current_project
-    get_selected_project
-    # project = Project.find_by is_active: true ### Change this back after the EXPO
+     Project.find_by is_active: true
   end
 
   # 1 = active students only, 2 = inactive students only, 3 = all students
@@ -52,7 +47,7 @@ class ApplicationController < ActionController::Base
   
   def get_selected_project
     # EXPO rewrite after the expo, added the member stuff
-    member = Member.where(user_id: current_user.id).first
+    member = Member.where(user_id: current_user.id).last
     if member
        project = member.project
     else
@@ -74,12 +69,15 @@ class ApplicationController < ActionController::Base
 
   def get_selected_section
     if session[:selected_section_id]
-       session[:selected_section_id]
+       section = session[:selected_section_id]
+    elsif current_user.members.where(project_id: get_selected_project).present?
+       section = current_user.members.where(project_id: get_selected_project).first.section_number
+       set_selected_section(section)
     else
-      section = current_user.members.where(project_id: get_selected_project).first.section_number || 'all'
-      set_selected_section(section)
-      section      
+       section = 'all'
+       set_selected_section(section)
     end
+       section
   end
 
   def get_array_of_all_sections(selected_project)
@@ -88,11 +86,6 @@ class ApplicationController < ActionController::Base
     sections.sort!
     sections.unshift('all')
   end
-
-
-   def not_expo
-     redirect_to users_unauthorized_path
-   end
    
    # Restricts access to only teachers 
    def only_teachers
@@ -103,7 +96,7 @@ class ApplicationController < ActionController::Base
    
    # Restricts access to only teachers and student managers
    def only_leadership
-     if current_user.role == STUDENT_REP 
+     if current_user.role == STUDENT 
        redirect_to users_unauthorized_path# What should we redirect to?
      end
    end
@@ -124,7 +117,6 @@ class ApplicationController < ActionController::Base
        redirect_to no_project_path
      end
    end
-      
    
   def version_cleanup(uid, item_type)
     last_version_id = PaperTrail::Version.where(whodunnit: uid, item_type: item_type).last.id        

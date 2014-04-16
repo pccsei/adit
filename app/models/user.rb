@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   validates :school_id, presence: true, uniqueness: true, unless: Proc.new { |user| user.school_id.to_i <= -1 }
 
 # Validates the email - uniqueness removed for the EXPO
-  validates :email, format: {
+  validates :email, uniqueness: true, format: {
       with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\Z/,
       message: 'must be a valid PCC email address (jsmith1234@students.pcci.edu).'
   }, unless: Proc.new { |user| user.school_id.to_i <= -1 },
@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
         user.email = single_student_info[7]
         user.major = single_student_info[8]
         user.minor = single_student_info[9]
-        user.role = 1
+        user.role = STUDENT
         user.save
         if(user.save)
           member = Member.new
@@ -161,7 +161,7 @@ class User < ActiveRecord::Base
         user.email = single_student_info[7]
         user.major = single_student_info[8]
         user.minor = single_student_info[9]
-        user.role = 1
+        user.role = STUDENT
         user.save
         # user = User.find_by! school_id: single_student_info[1]
         # user.school_id = single_student_info[1]
@@ -173,7 +173,7 @@ class User < ActiveRecord::Base
         # user.email = single_student_info[7]
         # user.major = single_student_info[8]
         # user.minor = single_student_info[9]
-        # user.role = 1
+        # user.role = STUDENT
         # user.save
         # if (member = Member.find_by(user_id: (User.find_by school_id: single_student_info[1]).id))
           # member.user_id = user.id
@@ -368,7 +368,7 @@ class User < ActiveRecord::Base
           for i in 0..students.count-1
             member = Member.find_by(user_id: students[i])
             user = User.find(students[i])
-            if user.role == 1
+            if user.role == STUDENT
               if !member.parent_id
                   member.parent_id = student_manager.id
                   if !is_added_positive
@@ -495,7 +495,7 @@ class User < ActiveRecord::Base
         for i in 0..students.count-1
           user = User.find(students[i])
           member = Member.find_by(user_id: students[i])
-          if user.role == 1
+          if user.role == STUDENT
             if member.parent_id
               member.parent_id = nil
               if member.save
@@ -648,7 +648,7 @@ class User < ActiveRecord::Base
 
     # Makeshift test to see if this section is already database. Hopefully this code will be rewritten to be effiecent
     # Member.all.each do |t|
-    #   if User.find(t.user_id).role == 3
+    #   if User.find(t.user_id).role == TEACHER
     #     if t.section_number == section_number.to_i && t.project_id == project_id
     #       current_teacher_id = t.user_id
     #       not_a_section = false
@@ -734,19 +734,19 @@ class User < ActiveRecord::Base
   end
 
   def self.all_students
-    where('role = ?', 1)
+    where('role = ?', STUDENT)
   end
 
   def self.all_student_managers
-    where('role = ?', 1).all + where('role = ?', 2).all
+    where('role = ?', STUDENT).all + where('role = ?', STUDENT_MANAGER).all
   end
 
   def self.all_teachers
-    where('role = ?', 3)
+    where('role = ?', TEACHER)
   end
 
   def self.all_teacher_ids
-    where('role = ?', 3).ids
+    where('role = ?', TEACHER).ids
   end
 
   def self.incorrect_students

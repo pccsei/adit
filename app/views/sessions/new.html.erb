@@ -1,7 +1,7 @@
 <% provide(:title, "Sign in") %>
 
 
-<% if true %>
+<% if false %>
 <h1>Welcome to <%=(image_tag 'adit_logo4.svg')%></h1>
 <h3>Please Select a User to Begin.</h3>
     <!-- I used link_to's that looked like buttons because button_to was not sending commit parameter correctly -->
@@ -13,7 +13,14 @@
     <%= link_to 'Student', {controller: :sessions, action: :create, id: :student},
                 method: :post, class: 'btn btn-lg btn-primary btn-small' %>
 			
-
+    <%= link_to "http://cslinux/expo2014/" do %>
+          <div class="expo_logo_div">
+            <%= image_tag "expo.jpg", class: "expo_logo" %>
+            <div class="expo_return_text_div">
+              <div class="expo_return_text">Return to EXPO<br>home page</div>
+            </div>
+          </div> 
+    <% end %>
 
 
 <% else %>
@@ -28,9 +35,9 @@
 				<%#= label_tag 'School ID' %>
 				<%= text_field_tag 'school_id', '', placeholder: 'School ID' %>
 				<%#= label_tag 'password' %>
-				<%= password_field_tag :password, '', placeholder: 'Password' %>
+				<%= password_field_tag :password, '', :placeholder => 'Password' %>
     	</div>
-  		<%= submit_tag("Sign in", class:"btn btn-lg btn-primary btn-block") %>
+  		<%= submit_tag("Sign in", class: "btn btn-lg btn-primary btn-block") %>
   		<% end %>
   	</fieldset>
   </div>

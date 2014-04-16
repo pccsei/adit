@@ -1,6 +1,6 @@
 <%= render :partial => 'reports/dropdown' , :locals => {:sections => @sections}%>
 
-<% provide(:title, 'Manage Students') %>
+<% provide(:title, 'Students') %>
 
 <!--Creates a new Section link-->
 <div id="new_section">
@@ -22,9 +22,8 @@
   <%= form_tag(users_change_student_status_path) do%>
     <div id= "manage_dropdown">
       <div id = "option">
-      	<!-- EXPO 'Assign Bonus Points' to be add to options for select -->
         <%= select_tag 'selected_option',
-                        options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team' ]),
+                        options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team', "Assign Bonus Points" ]),
                         :prompt => 'Choose Action', :type => 'button',
                         :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
       </div>
@@ -37,8 +36,7 @@
         <p id="no_managers" class="alert alert-error">Please promote students before creating a team.</p>
       <% end %>
       </div>
-      
-      <% if false %>
+
  
       <div id ="assign_bonus_points">
         <p>Number of bonus points:
@@ -46,7 +44,6 @@
         <p>Please enter the reason for the bonus points:
         <%= text_field_tag 'bonus_comment' %></p>
       </div>
-      <% end %> 
       <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm col-md-1', :id => 'action_submit'%>
     </div>
 

@@ -47,6 +47,7 @@
   Download:
   <%= link_to "Excel", clients_approve_path(format: "xls") %>
 </p> 
+
 <% if @unapproved_clients.present?%>
    <%= render :partial => 'unapprove', :locals => { :unapproved_clients => @unapproved_clients}%>
 <% else %>

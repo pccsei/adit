@@ -24,7 +24,7 @@
         </button>
       </div>
       <div class="collapse navbar-collapse container" id="bs-example-navbar-collapse-1">
-        <div id="logo"><%= link_to (image_tag 'adit_logo4.svg'), (current_user.role == 3 ? users_path : tickets_path) %></div>
+        <div id="logo"><%= link_to (image_tag 'adit_logo4.svg'), (current_user.role == TEACHER ? users_path : tickets_path) %></div>
 	      <%= render 'layouts/navigation' %>
       </div>
     </nav>
@@ -38,7 +38,7 @@
 		    </div>
 	    <% end %>
       <h1 id="heading" class="page-header"><%= yield(:title)%></h1>
-    <% if @current_user && @current_user.role == 3 && get_selected_project %>
+    <% if @current_user && @current_user.role == TEACHER && get_selected_project %>
       <%= render 'layouts/teacher_info' %>
     <% end %>
       <%= yield %>

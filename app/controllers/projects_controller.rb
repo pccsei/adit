@@ -43,13 +43,16 @@ class ProjectsController < ApplicationController
 
   # PATCH/PUT /projects/1
   def update
-    respond_to do |format|
-      if @project.update(project_params)
-        format.html { redirect_to projects_path, notice: 'Project was successfully updated.' }
-      else
-        @archived_projects = Project.non_archived.where('is_active = ?', false)
-        format.html { render action: 'index' }
-      end
+    if @project.update(project_params)
+       if @project.is_active
+         set_selected_project(@project)
+         message = "The #{@project.semester} #{@project.year} project was successfully updated."
+       else
+         message = "The #{@project.semester} #{@project.year} project was successfully archived."
+       end
+       redirect_to projects_path, notice: message 
+    else
+       render action: 'edit'
     end
   end
 
