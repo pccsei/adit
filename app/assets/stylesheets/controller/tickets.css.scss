@@ -23,7 +23,7 @@
 
 
 .tickets #totalMessage{
-  margin-left: 1em;
+  margin-left: .9em;
   margin-bottom: -.4em !important;
   margin-top: .3em !important;
   font-size: 16px;
@@ -37,9 +37,9 @@
 
 
 .tickets #userMessage{
-  font-size: 2.5em;
+  font-size: 2.4em;
   text-align: center;
-  background-color: black;
+  background-color: #5C5C5C;
   color: white;
 }
 
@@ -52,8 +52,6 @@
 }
 
 button.btn.btn-primary.btn-sm {
-  //background: #eee;
-  //color: #666;
   font-size: 1em;
   padding: .2em .6em !important;
   border: none;
@@ -105,15 +103,15 @@ button.btn.btn-primary.btn-sm:hover {
     border-left: .4em solid;
   }
   tr.high .priority span {
-    //background: #e8ffe3;
+  
     border-left-color: #43d852;
   }
   tr.medium .priority span {
-    //background: #fefdca;
+   
     border-left-color: #f3e32f;
   }
   tr.low .priority span {
-    //background: #fff;
+
     border-left-color: #ddd;
   }
 }
@@ -164,11 +162,10 @@ button.btn.btn-primary.btn-sm:hover {
 .tickets .scroller{
   z-index:100;
  font-size: .925em;
-  margin: 1em 0 0;
+  margin: 1.2em 0 0;
   width: 93.2em;
-  //margin-bottom: -3.2em !important;
-  background-color: white; //#DC0000;
-  color: #555; //white;
+  background-color: #FFF; 
+  color: #555;
   border: solid #dc0000;
   border-width: 5px 0;
 }
