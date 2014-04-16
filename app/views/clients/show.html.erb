@@ -46,6 +46,10 @@
   <%= render_phone(@client.telephone) %>
 </p>
 <p>
+  <strong>Status:</strong>
+  <%= @client.status.status_type %>
+</p>
+<p>
   <strong>Comment:</strong>
   <%= tooltipify(@client.comment)%>
 </p>

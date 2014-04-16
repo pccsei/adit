@@ -65,6 +65,7 @@ class TicketsController < ApplicationController
           end
         else
           response = {'userMessage' => "You already have the max number of #{requested_ticket_priority_name} priority clients."}
+
         end
       end
     else

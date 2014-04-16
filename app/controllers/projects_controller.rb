@@ -3,6 +3,7 @@ class ProjectsController < ApplicationController
   before_action :only_teachers
   skip_before_action :must_have_project
 
+
   # GET /projects
   def index
 

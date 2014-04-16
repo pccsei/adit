@@ -175,7 +175,7 @@ end
     ticket_info = Ticket.where(project_id: pid)
         
     Struct.new('Client_ticket', :business_name, :contact_fname, :telephone, :student_lname, :zipcode, :city, :id, :priority,
-                                :state, :contact_lname, :contact_title, :client_id, :address, :email, :student_fname, :student_id, :comment)
+                                :state, :contact_lname, :contact_title, :client_id, :address, :email, :student_fname, :student_id, :status_type, :comment)
     client_ticket = []  
     ticket_info.each_with_index do |t, i|
       client_ticket[i]               = Struct::Client_ticket.new
@@ -193,6 +193,7 @@ end
       client_ticket[i].comment       = t.client.comment
       client_ticket[i].client_id     = t.client_id
       client_ticket[i].priority      = t.priority
+      client_ticket[i].status_type   = t.client.status.status_type
       
       if t.user_id == nil || t.user_id == 0 # If the ticket does not have a holder
         client_ticket[i].student_fname = nil
