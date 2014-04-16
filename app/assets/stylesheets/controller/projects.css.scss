@@ -4,61 +4,14 @@
 #archived_project{
   margin-top: 2em;
 }
-// #start_time{
-  // margin-left: 1em;
-  // margin-top: 1em;
-// }
-// #end_time{
-  // margin-left: 22em;
-  // margin-top: -1.9em;
-  // margin-bottom: 1em !important;
-// }
-.panel-primary{
-  border-color: black;
-}
-
-.panel-heading{
-  background-color: #747474 !important;
-}
-
-#high_priority{
-  margin-top: 1em;
-}
-
-#medium_priority{
-  margin-left: 13em;
-  margin-top: -1.5em;
-}
-
-#low_priority{
-  margin-left: 28em;
-  margin-top: -1.5em;
-}
-
-#max_clients{
-  margin-top: 2em;
-}
-
-#project_options{
-  margin-top: 2em;
-}
-
-#priority_dropdown{
-  align: right;
-}
 
 #active_project{
   color: black;
 }
 
-#max_clients select{
-  margin-left: .75em;
-}
-
 #archived{
   margin-top: 2em;
 }
-
 
 .form_background{
   padding-left: 2em;
@@ -66,7 +19,29 @@
   padding-top: 1.5em;
   padding-bottom: 1.5em;
   margin-top: 2em !important;
+  margin-bottom: 1em !important;
   border: 
   #EEE solid 1em;
   border-radius: 1em;
+}
+
+td {
+  padding: .5em;
+}
+
+.label-field {
+  text-align: right;
+}
+
+.text-field {
+  text-align: left;
+}
+
+.header {
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
+}
+
+#topheader {
+  margin-bottom: 1em !important;
 }
