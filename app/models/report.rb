@@ -31,7 +31,7 @@ class Report
       sales[index].payment_type = r.payment_type
       sales[index].section      = Member.get_section_number(r.user_id, project)
       if (Action.find_by(receipt_id: r.id).action_type_id)
-        sales[index].ad_status  = ActionType.find(Action.find_by(receipt_id: r.id, action_type_id: [3,4]).action_type_id).name
+        sales[index].ad_status  = ActionType.find(Action.find_by(receipt_id: r.id, action_type_id: [ActionType.where(name: "Old Sale").id,ActionType.where(name: "New Sale").id]).action_type_id).name
       end
       index = index + 1
     end
