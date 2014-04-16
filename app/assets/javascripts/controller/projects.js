@@ -62,11 +62,8 @@ onLoad(function () {
     // Hide the loading icon at first, but show it when submit is clicked
     $('#loading').hide();
     
-    $('#submitButton').click(function(){
-      $('#loading').show();
-      $(this).hide();
-    });
-
+    var form = $("#projects");
+    
 //*********************************************************************************************************************/
 // Projects New/Edit Page Front-Side Validation
 //*********************************************************************************************************************/
@@ -114,7 +111,7 @@ onLoad(function () {
     });
     
 	// Validation for a project
-	$("#projects").validate({
+	form.validate({
 		rules:{
 			"project[tickets_open_time]": {required: true, date: true, valid_date_format: true, valid_year: true, valid_month: true, valid_day: true, fall: {
 				depends: function(element) {
@@ -163,4 +160,13 @@ onLoad(function () {
 			}
 		}
 	});
+	
+	// Hide the submit button and show the loading bar if the form is valid
+    $('#submitButton').click(function(){
+      if (form.valid()) {
+      	alert("valid!");
+	    $('#loading').show();
+	    $(this).hide();
+      }
+    });
 });
