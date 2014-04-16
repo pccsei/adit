@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th>Team Name</td>
-      <% if current_user.role == 3 %>
+      <% if current_user.role == TEACHER %>
         <th>Section</td>
       <% end %>
       <th>Open Clients</td>
@@ -16,7 +16,7 @@
     <% @team_data.each do |team_data| %>
       <tr>
         <td align ="left"><%= team_data.student_manager %></td>
-        <% if current_user.role == 3 %>
+        <% if current_user.role == TEACHER %>
           <td align ="center"><%= team_data.section %></td>
         <% end %>
         <td align ="center"><%= team_data.open %></td>
@@ -30,7 +30,7 @@
   <tfoot>
     <tr>
       <td align ="center">Totals</td>
-      <% if current_user.role == 3 %>
+      <% if current_user.role == TEACHER %>
         <td align ="center"></td>
       <% end %>
       <td align ="center"><%= @team_totals.total_open%></td>

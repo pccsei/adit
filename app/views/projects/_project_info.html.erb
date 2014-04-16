@@ -44,10 +44,12 @@
    If you wish to re-activate this project so that you can edit it, <br />
    &nbsp;&nbsp;you must first archive your current project.	
 </p>
-<% else %>
+<% elsif @project.is_active == false %>
    <%= form_for(@project) do |f| %>
        <%= f.hidden_field :is_active, :value => true %>
        <%= f.submit 'Reactivate This Project', class: 'btn btn-primary btn-sm' %>
    <% end %>
+<% else %>
+   <p><%=link_to "Edit Active Project Settings", edit_project_path(@project) %></p>
 <% end %>
 </div>

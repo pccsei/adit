@@ -13,11 +13,7 @@ class ApplicationController < ActionController::Base
   helper_method :get_selected_project
   helper_method :get_selected_section
   helper_method :set_selected_section
-  helper_method :get_current_student_project
-  
-  # CONSTANTS
-  TEACHER = 3
-  STUDENT_REP = 1                     
+  helper_method :get_current_student_project                    
   
   # Add where_is_enabled to know which members are currently enabled.
 
@@ -100,7 +96,7 @@ class ApplicationController < ActionController::Base
    
    # Restricts access to only teachers and student managers
    def only_leadership
-     if current_user.role == STUDENT_REP 
+     if current_user.role == STUDENT 
        redirect_to users_unauthorized_path# What should we redirect to?
      end
    end

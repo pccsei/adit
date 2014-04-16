@@ -1,7 +1,7 @@
 <ul class="nav navbar-nav">	 
 
 <!-- Teacher Links -->
-<% if current_user.role == 3 %>
+<% if current_user.role == TEACHER %>
   <li class="dropdown">
     <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Sections<b class="caret"></b></a>
     <ul class="dropdown-menu">              
@@ -34,12 +34,17 @@
 
 <!-- Student and Student Manager  Links -->
 <% else %>
-      <li><%= link_to 'Choose New Clients',  tickets_path,                          id: 'choose_clients' %></li>
+      <li>
+        <% if Project.is_specific(get_current_project.id) %>
+          <%= link_to 'Choose New Clients',  tickets_path,                          id: 'choose_clients' %></li>
+        <% else %>
+          <%= link_to 'Client List',         tickets_path,                          id: 'choose_clients' %></li>
+        <% end %>
   	  <li><%= link_to 'My Clients',          my_receipts_path(id: current_user.id), id: 'receipts' %></li>
   	  <li><%= link_to 'Submit Client',       clients_submit_path,                   id: 'submit_client' %></li>
   	
 <!-- Student Manager Links -->
- <% if current_user.role == 2 %>
+ <% if current_user.role == STUDENT_MANAGER %>
    <li class="dropdown">
      <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">My Team<b class="caret"></b></a>
      <ul class="dropdown-menu">              

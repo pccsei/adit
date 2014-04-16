@@ -73,23 +73,29 @@
 			</div>
 		</div>
 
-        <% if @project.is_active && (@project.new_record? == false)%>
-		   <div id="archived">
-		      <%= label_tag(:is_active, 'Would you like to move this project to the archives?') %>
-			  <br />
+    <% if @project.is_active && (@project.new_record? == false)%>
+      <% message = 'update'%>
+	    <div id="archived">
+		    <%= label_tag(:is_active, 'Would you like to move this project to the archives?') %><br />
 			  Yes: <%= f.radio_button :is_active, '0' %>
 			  No:  <%= f.radio_button :is_active, '1', :checked => true %>
-		   </div>
+		  </div>
 		     
-		   <div id="finalComments" class="hidden">
+		  <div id="finalComments" class="hidden">
 		   	 <p>Once you archive the project, you will no longer be able to edit its contents.</p>
 		     <%= f.label       :comment, 'Would you like to save any comments about this project?'%>
 		     <%= f.text_area   :comment, :class => 'form-control' %>
-		   </div>
+		  </div>
+		<% else %>
+		  <% message = 'create'%>
 		<% end %>
 		<div class="actions">
-			<%= f.submit class: 'btn btn-primary btn-sm'%>
-
+			<%= f.submit class: 'btn btn-primary btn-sm', id: "submitButton"%>
 		</div>
 	</div>
+	
+	<div id="loading">
+	  <%= image_tag 'loading.GIF'%><br />
+	  <p>Please wait while we <%= message %> the project</p>
+  </div>	
 	<% end %>

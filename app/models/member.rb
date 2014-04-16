@@ -84,11 +84,11 @@ class Member < ActiveRecord::Base
   def self.destroy_team(team_leader, inactivate_team_leader = false)
     # Accept either the user team leader or member team leader
     if team_leader.instance_of?(User)
-      team_leader.role = 1
+      team_leader.role = STUDENT
       team_leader.save
       team_leader = Member.find_by(user_id: team_leader)
     else 
-      u_team_leader = User.find(team_leader.user_id).role = 1
+      u_team_leader = User.find(team_leader.user_id).role = 
       u_team_leader.save
     end
 

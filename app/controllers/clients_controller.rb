@@ -79,9 +79,8 @@ class ClientsController < ApplicationController
   
   # checks to see if the student is allowed to have more clients
   def more_allowed
-    teacher_role = 3
     student = User.find_by_school_id(params[:school_id])
-    render :text => Ticket.more_clients_allowed(student, get_selected_project, teacher_role, params[:priority])
+    render :text => Ticket.more_clients_allowed(student, get_selected_project, TEACHER, params[:priority])
   end
   
   def approve_client_edit
@@ -110,7 +109,7 @@ class ClientsController < ApplicationController
   # GET /clients/1/edit
   def edit
     @client = Client.find(params[:id])
-    if ((current_user.role < 3) && (current_user.id != @client.submitter) && ((current_user.tickets.find_by client_id: @client.id).present?) == false)
+    if ((current_user.role < TEACHER) && (current_user.id != @client.submitter) && ((current_user.tickets.find_by client_id: @client.id).present?) == false)
       redirect_to tickets_path, :notice => "You are not permitted to edit someone else's client. Welcome to your home page!"
     elsif params[:page]
         session[:return_from_edit] = params[:page]
@@ -125,7 +124,7 @@ class ClientsController < ApplicationController
     @client.submitter = current_user.id
     # This line should eventually place the clients on the pending clients list instead of straight into the db
     # @client.status_id = Status.where("status_type = ?", "Pending").pluck(:id) 
-       if current_user.role == 3
+       if current_user.role == TEACHER
           user = nil
         else
           user = current_user.id
@@ -134,7 +133,7 @@ class ClientsController < ApplicationController
         Ticket.create(:user_id => user, :client_id => @client.id, 
                       :project_id => get_current_project.id, :priority_id => Priority.where('name = ?', 'low').first.id)
         flash[:success] = 'Your client has been submitted for approval.'
-        if current_user.role == 3
+        if current_user.role == TEACHER
           redirect_to clients_approve_path
         else
           redirect_to clients_submit_path
@@ -147,7 +146,7 @@ class ClientsController < ApplicationController
   # PATCH/PUT /clients/1
   # PATCH/PUT /clients/1.json
   def update
-    if current_user.role != 3
+    if current_user.role != TEACHER
       edited_client = Client.new
       edited_client = Client.find(@client).clone
       edited_client.assign_attributes(client_params)

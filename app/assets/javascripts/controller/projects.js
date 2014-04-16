@@ -58,6 +58,14 @@ onLoad(function () {
 
     $('#project_max_medium_priority_clients').change(update_project_max_clients);
     $('#project_max_low_priority_clients').change(update_project_max_clients);
+    
+    // Hide the loading icon at first, but show it when submit is clicked
+    $('#loading').hide();
+    
+    $('#submitButton').click(function(){
+      $('#loading').show();
+      $(this).hide();
+    });
 
 //*********************************************************************************************************************/
 // Projects New/Edit Page Front-Side Validation
@@ -112,7 +120,7 @@ onLoad(function () {
 				}
 			}},
 			"project[tickets_close_time]": {required: true, date: true, valid_date_format: true, valid_year: true, valid_month: true, valid_day: true, fall: {
-				depends: function(element) {
+		    	depends: function(element) {
 					return $('[name="project[semester]"]').val() == "Fall";
 				}
 			}, spring: {

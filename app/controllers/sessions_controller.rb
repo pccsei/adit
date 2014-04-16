@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       user = User.find_by school_id: params[:school_id]
       if user && (!Rails.env.production? || 
         (Rails.env.production? && User.authenticate(params[:school_id], params[:password])))
-       if user.role == 3
+       if user.role == TEACHER
           sign_in(user)
           redirect_back_or projects_path
        else
@@ -37,7 +37,7 @@ end
     end
     
     if params[:id] == 'teacher'
-      users = User.where(role: 3).ids
+      users = User.where(role: TEACHER).ids
       if users.present?
          user = User.find(users.sample)
          sign_in(user)
@@ -47,7 +47,7 @@ end
          render 'new'
       end
     elsif params[:id] == 'student'
-      users = User.where(role: 1).ids
+      users = User.where(role: STUDENT).ids
       if users.present?
          user = User.find(users.sample)
          sign_in(user)

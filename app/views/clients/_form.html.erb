@@ -1,3 +1,5 @@
+          <%= debug locals[:edited] %>
+
 <%= form_for(@client, :html => {:id => 'clients'}) do |f| %>
     <% if @client.errors.any? %>
         <div id="error_explanation">
@@ -9,6 +11,9 @@
           </ul>          
         </div>
     <% end %>
+    <% if !more_tickets_allowed %>
+      <p><%= 'You have the maximum allowable clients. Go to My Clients and release one of your clients before asking for another.' %></p>
+    <%end%>
     <div class = "panel panel-primary">
       <div class = "panel-heading">
         <h3>&nbsp;Business Information</h3>
@@ -94,6 +99,15 @@
               <%= f.text_field :telephone, value: render_phone(@client.telephone), :placeholder => '850-478-8496 Ext.####', class: 'form-control hideClients',  rows:3  %>
             </td>
           </tr>
+
+          <!-- This allows only teachers to change the client's status if the client is being edited. Notice this will not appear if the client is being created or edited by the student -->
+          <% if current_user.role == 3 && locals[:edited]%>
+            <tr>
+              <td class="label-field"><%= f.label 'Client Status', class: 'hideClients' %></td>
+              <td class="selectionbox-field"><%= f.collection_select :status_id, Status.where.not(status_type: ["edited", "pending"]), :id, :status_type,
+                        { :include_blank=>false }, class: 'form-control hideClients' %></td>
+            </tr>
+          <% end %>
           <tr>
             <td class="label-field"><%= f.label :comment, class: 'hideClients' %></td>
             <td class="text-field"><%= f.text_area :comment, class: 'form-control hideClients',  rows:3  %></td>
@@ -103,20 +117,20 @@
             <td class="text-field">
     			    <div class="actions">
     			    	<% if @client.new_record? %>
-    					  <% if current_user.role == 3 %>
-    					  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary'%>
-    					  	<%= link_to 'Back to Approve Clients', clients_approve_path %>
-    					  <% elsif more_tickets_allowed %>
-    					  	<%= f.submit "Submit for teacher's approval", :class => 'btn btn-small btn-primary'%>
-    					  <% else %>
-    					  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary', disabled: true %>
-    					  	<p>You have the maximum allowable clients.
-    					  		Go to My Clients and release one of your clients before asking for another.</p>
-    					  <% end %>
-    				  <% else %>
-    				     <%= f.submit 'Update Client', :class => 'btn btn-small btn-primary'%>
-    				     <%= link_to 'Back', session[:return_from_edit] %>
-    				  <% end %>
+      					  <% if current_user.role == TEACHER %>
+      					  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary'%>
+      					  	<%= link_to 'Back to Approve Clients', clients_approve_path %>
+      					  <% elsif more_tickets_allowed %>
+      					  	<%= f.submit "Submit for teacher's approval", :class => 'btn btn-small btn-primary'%>
+      					  <% else %>
+      					  	<%= f.submit 'Submit Client', :class => 'btn btn-small btn-primary', disabled: true %>
+      					  	<!--p>You have the maximum allowable clients.
+      					  		Go to My Clients and release one of your clients before asking for another.</p-->
+      					  <% end %>
+      				  <% else %>
+      				     <%= f.submit 'Update Client', :class => 'btn btn-small btn-primary'%>
+      				     <%= link_to 'Back', session[:return_from_edit] %>
+      				  <% end %>
     				  </div>
             </td>
           </tr>
