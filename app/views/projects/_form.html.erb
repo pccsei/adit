@@ -13,7 +13,7 @@
 <% end %>
 <div class="form_background">
 <div id = "project_options">
-<p class="alert alert-info" id="topheader">General Project Information</p>
+<p class="alert alert-info" id="topheader">General Information</p>
 	<%= f.label :Year %>
 	<%= f.select :year, [current_year, next_year], { :include_blank => false}, { :class => 'btn btn-default dropdown-toggle ' }%>
 	&nbsp; &nbsp;
@@ -28,32 +28,32 @@
 
 <div id = "project_options">
 
-			<p class="alert alert-info header">Client Restrictions for this Project</p>
+			<p class="alert alert-info header">Client Restrictions</p>
 			<div id = "priority_dropdown">
 				<table>
 					<body>
 						<tr>
 				<td class="label-field"><%= f.label :max_clients, "Total:" %></td>
 				<td class="text-field"><%= f.select(:max_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
-				                { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' })%></td>
+				                { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle client_priorities' })%></td>
 				</tr>
 				<tr>
 				<td class="label-field"><%= f.label :high_priority, "High:"%></td>
 				<!-- Do not change the following array without fixing the change event handlers in project.js -->
 				<td class="text-field"><%= f.select(:max_high_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
-				                { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' })%></td>
+				                { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle client_priorities' })%></td>
 				</tr>
 				<tr>
 				<td class="label-field"><%= f.label :medium_priority, "Medium:"%></td>
 				<!-- Do not change the following array without fixing the change event handlers in project.js -->
 				<td class="text-field"><%= f.select :max_medium_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
-				                { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' }%></td>
+				                { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle client_priorities' }%></td>
 				</tr>
 				<tr>
 				<td class="label-field"><%= f.label :low_priority, "Low:" %></td>
 				<!-- Do not change the following array without fixing the change event handlers in project.js -->
 				<td class="text-field"><%= f.select :max_low_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
-				                { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' }%></td>
+				                { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle client_priorities' }%></td>
 				                </tr>
 				</body>
 				</table>
