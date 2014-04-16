@@ -467,10 +467,6 @@ label.required:after {
 }
 
 // Forms
-.field_with_errors {
-  @extend .control-group;
-  @extend .error;
-}
 
 .form-control {
   display:inline;

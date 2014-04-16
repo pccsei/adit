@@ -14,16 +14,25 @@
 <div class="form_background">
 <div id = "project_options">
 <p class="alert alert-info" id="topheader">General Information</p>
-	<%= f.label :Year %>
-	<%= f.select :year, [current_year, next_year], { :include_blank => false}, { :class => 'btn btn-default dropdown-toggle ' }%>
-	&nbsp; &nbsp;
-	<%= f.label :semester %>
-	<%= f.select :semester, %w(Spring Fall), { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle ' }%>
-
-	&nbsp; &nbsp;
-	<%= f.label :project_type_id %>
-	<%= f.collection_select :project_type_id, ProjectType.all, :id, :name,
-    { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' } %>
+<table>
+	<body>
+		<tr>
+			<td class="label-field"><%= f.label :Year, "Year:" %></td>
+			<td class="text-field"><%= f.select :year, [current_year, next_year], { :include_blank => false}, 			
+			           { :class => 'btn btn-default dropdown-toggle gen_info' }%></td>
+		</tr>
+		<tr>
+			<td class="label-field"><%= f.label :semester, "Semester:" %></td>
+			<td class="text-field"><%= f.select :semester, %w(Spring Fall), { :include_blank => false },  
+			           { :class => 'btn btn-default dropdown-toggle gen_info' }%></td>
+		</tr>			           
+		<tr>
+			<td class="label-field"><%= f.label :project_type_id, "Project Type:" %></td>
+			<td class="text-field"><%= f.collection_select :project_type_id, ProjectType.all, :id, :name,
+    					{ :include_blank => false }, { :class => 'btn btn-default dropdown-toggle gen_info' } %></td>
+   		</tr>
+   </body>
+</table>
 </div>
 
 <div id = "project_options">
@@ -64,11 +73,11 @@
        <table>
        	<body>
        		<tr>
-				<td class="label-field"><%= f.label :tickets_open_time, 'Start Time', class: 'required' %></td>
+				<td class="label-field"><%= f.label :tickets_open_time, 'Start Time:' %></td>
 				<td class="text-field"><%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %></td>
 			</tr>
 			<tr>	
-				<td class="label-field"><%= f.label :tickets_close_time, 'End Time', class: 'required' %></td>
+				<td class="label-field"><%= f.label :tickets_close_time, 'End Time:' %></td>
 				<td class="text-field"><%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %></td>
             </tr>
 			</body>
