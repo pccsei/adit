@@ -11,70 +11,82 @@
 	</ul>
 </div>
 <% end %>
+<div class="form_background">
 <div id = "project_options">
-	<%= f.label :Year %>
-	<%= f.select :year, [current_year, next_year], { :include_blank => false}, { :class => 'btn btn-default dropdown-toggle ' }%>
-	&nbsp; &nbsp;
-	<%= f.label :semester %>
-	<%= f.select :semester, %w(Spring Fall), { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle ' }%>
-
-	&nbsp; &nbsp;
-	<%= f.label :project_type_id %>
-	<%= f.collection_select :project_type_id, ProjectType.all, :id, :name,
-    { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' } %>
+<p class="alert alert-info" id="topheader">General Information</p>
+<table>
+	<body>
+		<tr>
+			<td class="label-field"><%= f.label :Year, "Year:" %></td>
+			<td class="text-field"><%= f.select :year, [current_year, next_year], { :include_blank => false}, 			
+			           { :class => 'btn btn-default dropdown-toggle gen_info' }%></td>
+		</tr>
+		<tr>
+			<td class="label-field"><%= f.label :semester, "Semester:" %></td>
+			<td class="text-field"><%= f.select :semester, %w(Spring Fall), { :include_blank => false },  
+			           { :class => 'btn btn-default dropdown-toggle gen_info' }%></td>
+		</tr>			           
+		<tr>
+			<td class="label-field"><%= f.label :project_type_id, "Project Type:" %></td>
+			<td class="text-field"><%= f.collection_select :project_type_id, ProjectType.all, :id, :name,
+    					{ :include_blank => false }, { :class => 'btn btn-default dropdown-toggle gen_info' } %></td>
+   		</tr>
+   </body>
+</table>
 </div>
 
 <div id = "project_options">
-	<div class = "panel panel-primary">
-		<div class = "panel-heading">
-			<h3>&nbsp;How many clients can the students choose?</h3>
-			<br>
-		</div>
-		<div class = "panel-body">
-			<%#= radio_button(:project, :use_max_clients, :false) %>
-			<%#= label_tag(:max_color_clients, 'Total Clients in different Priorities:') %>
-			<br>
-			<div id = "priority_dropdown">
-				<%= f.label :high_priority%>
-				<!-- Do not change the following array without fixing the change event handlers in project.js -->
-				<%= f.select(:max_high_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' })%>
-				&nbsp; &nbsp;
-				<%= f.label :medium_priority %>
-				<!-- Do not change the following array without fixing the change event handlers in project.js -->
-				<%= f.select :max_medium_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' }%>
-				&nbsp; &nbsp;
-				<%= f.label :low_priority %>
-				<!-- Do not change the following array without fixing the change event handlers in project.js -->
-				<%= f.select :max_low_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' }%>
 
-				<br />
-				<div id="max_clients">
-					<%= f.label :max_clients %>
-					<%= f.select :max_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle' }%>
-				</div>
-				<br />
-				<br />
-			</div>
-		</div>
+			<p class="alert alert-info header">Client Restrictions</p>
+			<div id = "priority_dropdown">
+				<table>
+					<body>
+						<tr>
+				<td class="label-field"><%= f.label :max_clients, "Total:" %></td>
+				<td class="text-field"><%= f.select(:max_clients, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
+				                { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle client_priorities' })%></td>
+				</tr>
+				<tr>
+				<td class="label-field"><%= f.label :high_priority, "High:"%></td>
+				<!-- Do not change the following array without fixing the change event handlers in project.js -->
+				<td class="text-field"><%= f.select(:max_high_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
+				                { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle client_priorities' })%></td>
+				</tr>
+				<tr>
+				<td class="label-field"><%= f.label :medium_priority, "Medium:"%></td>
+				<!-- Do not change the following array without fixing the change event handlers in project.js -->
+				<td class="text-field"><%= f.select :max_medium_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
+				                { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle client_priorities' }%></td>
+				</tr>
+				<tr>
+				<td class="label-field"><%= f.label :low_priority, "Low:" %></td>
+				<!-- Do not change the following array without fixing the change event handlers in project.js -->
+				<td class="text-field"><%= f.select :max_low_priority_clients, [['N/A', -1], 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
+				                { :include_blank => false }, { :class => 'btn btn-default dropdown-toggle client_priorities' }%></td>
+				                </tr>
+				</body>
+				</table>
 	</div>
+</div>
 	<div id = "project_options">
-		<div class = "panel panel-primary">
-			<div class = "panel-heading">
-				<h3>&nbsp;When can the students add clients?</h3>
-				<br>
-			</div>
-			<div id="start_time">
-				<%= f.label :tickets_open_time, 'Start Time', class: 'required' %>
-				<%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %>
-			</div>
-			<div id="end_time">
-				<%= f.label :tickets_close_time, 'End Time', class: 'required' %>
-				<%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %>
-			</div>
+       <p class="alert alert-info header">Time Period When Students Can Choose Clients</p>
+       <table>
+       	<body>
+       		<tr>
+				<td class="label-field"><%= f.label :tickets_open_time, 'Start Time:' %></td>
+				<td class="text-field"><%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %></td>
+			</tr>
+			<tr>	
+				<td class="label-field"><%= f.label :tickets_close_time, 'End Time:' %></td>
+				<td class="text-field"><%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %></td>
+            </tr>
+			</body>
+			</table>
 		</div>
 
     <% if @project.is_active && (@project.new_record? == false)%>
       <% message = 'update'%>
+		  	<p class='alert alert-info header'>Closing the Project</p>
 	    <div id="archived">
 		    <%= label_tag(:is_active, 'Would you like to move this project to the archives?') %><br />
 			  Yes: <%= f.radio_button :is_active, '0' %>
@@ -92,10 +104,10 @@
 		<div class="actions">
 			<%= f.submit class: 'btn btn-primary btn-sm', id: "submitButton"%>
 		</div>
-	</div>
 	
 	<div id="loading">
 	  <%= image_tag 'loading.GIF'%><br />
 	  <p>Please wait while we <%= message %> the project</p>
+  </div>
   </div>	
 	<% end %>

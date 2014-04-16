@@ -70,7 +70,7 @@ class Ticket < ActiveRecord::Base
     if (current_tickets.size >= project.max_clients) && (project.max_clients != -1)
       result = false
       # If a teacher is trying to add this client, priorities do not matter
-    elsif access_role > 2
+    elsif access_role > STUDENT_MANAGER
       result = true
 
       # If a student is trying to add this client, priorities do matter
