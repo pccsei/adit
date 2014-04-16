@@ -2,8 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :only_teachers
   skip_before_action :must_have_project
-  #EXPO
-  before_action :not_expo
+
 
   # GET /projects
   def index

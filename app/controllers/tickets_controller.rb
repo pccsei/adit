@@ -51,7 +51,7 @@ class TicketsController < ApplicationController
             Receipt.find_or_create_by(ticket_id: ticket.id, user_id: current_user.id) 
           end
         else
-          updates = {'userMessage' => '<p  id="ticket_message">You already have the max number of ' + requested_ticket_priority_name + ' priority clients.</p>'}
+          updates = {'userMessage' => 'You already have the max number of ' + requested_ticket_priority_name + ' priority clients.'}
         end
       end 
      
