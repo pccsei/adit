@@ -156,6 +156,11 @@ onLoad(function() {
   var table =  $('.assign_table').dataTable({
       "aoColumns" : [{ "bSortable": true }, {"sType": "priority" }, null, null, null, null, null, null, null, null, null, null, null],
       "aaSorting" : [[2, 'asc']],
+      
+      "sScrollY": "450px",
+      "bScrollCollapse": true,
+      
+
       "bPaginate" : false,
       "iCookieDuration": 60,
       "bStateSave": false,
@@ -175,7 +180,7 @@ onLoad(function() {
       'placement': 'left',
       'container': 'body'
   }));
-
+/*
   $('table.assign_table').each(function(i,table) {
       $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
   });

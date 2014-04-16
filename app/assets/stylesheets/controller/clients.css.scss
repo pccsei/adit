@@ -164,7 +164,13 @@ p.addMargin {
   margin-bottom: 1em;
 }
 
+.dataTables_scrollBody{
+  direction: rtl;
+}
 
+#client_list {
+  direction: ltr;
+}
 
 
 
