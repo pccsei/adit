@@ -69,43 +69,30 @@
 	</div>
 </div>
 	<div id = "project_options">
-<<<<<<< HEAD
-		<div class = "panel panel-primary">
-			<div class = "panel-heading">
-				<h3>&nbsp;When can the students add clients?</h3>
-				<br>
-			</div>
-			<div id="start_time">
-				<%= f.label :tickets_open_time, 'Start Time', class: 'required' %>
-				<% if get_current_project %>
-					<%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control', :value => @project.tickets_open_time.strftime("%Y/%m/%d %H:%M %p") %>
-				<% else %>
-					<%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %>
-				<% end %>
-			</div>
-			<div id="end_time">
-				<%= f.label :tickets_close_time, 'End Time', class: 'required' %>
-				<% if get_current_project %>
-					<%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control', :value => @project.tickets_close_time.strftime("%Y/%m/%d %H:%M %p") %>
-				<% else %>
-					<%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %>
-				<% end %>
-			</div>
-=======
        <p class="alert alert-info header">Time Period When Students Can Choose Clients</p>
        <table>
        	<body>
        		<tr>
 				<td class="label-field"><%= f.label :tickets_open_time, 'Start Time:' %></td>
-				<td class="text-field"><%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %></td>
+				<td class="text-field">
+					<% if get_current_project %>
+						<%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control', :value => @project.tickets_open_time.strftime("%Y/%m/%d %H:%M %p") %>
+					<% else %>
+						<%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %>
+					<% end %>
+				</td>
 			</tr>
 			<tr>	
 				<td class="label-field"><%= f.label :tickets_close_time, 'End Time:' %></td>
-				<td class="text-field"><%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %></td>
+					<% if get_current_project %>
+						<%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control', :value => @project.tickets_close_time.strftime("%Y/%m/%d %H:%M %p") %>
+					<% else %>
+						<%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %>
+					<% end %>
+				</td>
             </tr>
 			</body>
 			</table>
->>>>>>> 60203bd8b97041fd84392ea029ee7d852b314b80
 		</div>
 
     <% if @project.is_active && (@project.new_record? == false)%>
