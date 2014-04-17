@@ -74,11 +74,22 @@
        	<body>
        		<tr>
 				<td class="label-field"><%= f.label :tickets_open_time, 'Start Time:' %></td>
-				<td class="text-field"><%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %></td>
+				<td class="text-field">
+					<% if get_current_project %>
+						<%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control', :value => @project.tickets_open_time.strftime("%Y/%m/%d %H:%M %p") %>
+					<% else %>
+						<%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %>
+					<% end %>
+				</td>
 			</tr>
 			<tr>	
 				<td class="label-field"><%= f.label :tickets_close_time, 'End Time:' %></td>
-				<td class="text-field"><%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %></td>
+					<% if get_current_project %>
+						<%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control', :value => @project.tickets_close_time.strftime("%Y/%m/%d %H:%M %p") %>
+					<% else %>
+						<%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %>
+					<% end %>
+				</td>
             </tr>
 			</body>
 			</table>
