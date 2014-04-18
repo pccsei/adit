@@ -1,5 +1,4 @@
-<% provide(:title, 'Teachers') %>
-
+<% provide(:title, "Teachers") %>
 
 <%= link_to 'Add New Teacher', users_new_teacher_path, class: 'btn btn-link btn-sm', id:'add_teacher' %>
 
@@ -27,11 +26,11 @@
 </div>
 
 
-<p class="excel">
-  <%= link_to (image_tag 'excel.png'), users_teachers_path(format: 'xls') %>
-</p>
 
-<h2 id="current_teacher">Current Teachers</h2>
+
+<h2 id="current_teacher">Current Teachers<span class="excel">
+  <%= link_to (image_tag 'excel.png'), users_teachers_path(format: 'xls') %>
+</span></h2>
 
 
 <table class="display teacher_table">
@@ -69,7 +68,9 @@
 	</tbody>
 </table>
 
-<h2>Teacher Roster</h2>
+<h2>Teacher Roster<span class="excel">
+  <%= link_to (image_tag 'excel.png'), users_teachers_path(format: 'xls') %>
+</span></h2>
 
 <table class ="display teacher_table">
 	<thead>
