@@ -1,6 +1,12 @@
 # Everything that is written in the Application Helper is available on all the views
 module ApplicationHelper
   
+  
+  # Returns whether the project being viewed is archived
+  def archived?
+    (get_selected_project.is_active == false)
+  end
+  
   # Returns the full title on a per-page basis.
   def full_title(page_title)
     base_title = "Adit"

@@ -17,8 +17,10 @@
 	  <th>Minor</th>
 	  <th>Box</th>
 	  <th>Class</th>
+	  <% unless archived? %>
 	  <th>Active?</th>
-	  <th class="empty"></th>     	      	      	      	      
+	  <% end %>     	      	      	      	      
+	  <th class="empty"></th>
 	</tr>
   </thead>
   <tbody>
@@ -46,10 +48,12 @@
         <td><%= student.minor %></td>
         <td><%= student.box %></td>
         <td><%= student.class %></td>
+        <% unless archived? %>
         <% if student.is_enabled %>
           <td><%= link_to 'Deactivate', {controller: :users, action: :change_is_enabled, id: student.m_id}, method: :post %></td>
         <% else %>
 		  <td><%= link_to 'Activate', {controller: :users, action: :change_is_enabled, id: student.m_id}, method: :post %></td>
+        <% end %>
         <% end %>
         <td><%= link_to 'Edit', edit_user_path(student.id) %></td>       
       </tr>

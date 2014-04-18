@@ -34,7 +34,7 @@
   		
       </td>
       <td class="text-field">
-  		<%= submit_tag 'Create this section', :class => 'btn btn-large btn-primary btn-sm' %>
+  		<%= submit_tag 'Create this section', :class => 'btn btn-large btn-primary btn-sm', :disabled => archived? %>
 		<% end %>
 		<% else %>
 		<p class="alert alert-info">

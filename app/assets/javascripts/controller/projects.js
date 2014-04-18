@@ -164,7 +164,6 @@ onLoad(function () {
 	// Hide the submit button and show the loading bar if the form is valid
     $('#submitButton').click(function(){
       if (form.valid()) {
-      	alert("valid!");
 	    $('#loading').show();
 	    $(this).hide();
       }

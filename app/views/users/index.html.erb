@@ -4,7 +4,7 @@
 
 <!--Creates a new Section link-->
 <div id="new_section">
-	<%=link_to 'Create a New Section', users_create_new_section_path, :class => 'btn btn-link btn-sm'%>
+	<%=link_to 'Create a New Section', users_create_new_section_path, :class => 'btn btn-link btn-sm' %>
 </div>
 
 <!-- Adds students to a section and is only allowed for a teacher-->
@@ -25,13 +25,14 @@
         <%= select_tag 'selected_option',
                         options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team', "Assign Bonus Points" ]),
                         :prompt => 'Choose Action', :type => 'button',
-                        :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown'%>
+                        :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown',
+                        :disabled => archived? %>
       </div>
       <!-- This only appears if the teacher wants to assign a team to a student manager -->
       <div id ="show_managers">
         <% if @student_managers.count > 0 %>
           <%= select_tag 'student_manager', options_from_collection_for_select(@student_managers, 'id', :full_name),
-                       :class => 'btn btn-default dropdown-toggle col-md-2'%>
+                       :class => 'btn btn-default dropdown-toggle col-md-2', :disabled => archived? %>
       <% else %>
         <p id="no_managers" class="alert alert-error">Please promote students before creating a team.</p>
       <% end %>
@@ -44,7 +45,7 @@
         <p>Please enter the reason for the bonus points:
         <%= text_field_tag 'bonus_comment' %></p>
       </div>
-      <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm col-md-1', :id => 'action_submit'%>
+      <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm col-md-1', :id => 'action_submit', :disabled => archived? %>
     </div>
 
 

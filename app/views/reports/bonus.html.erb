@@ -23,7 +23,7 @@
     <p>Please enter the reason for the bonus points:
     <input id="bonus_comment" name="bonus_comment" type="text" value=""  /></input></p>
     <input id="bonus_id" name="bonus_id" value="" type="hidden"></input>
-    <%= button_tag :sumbit %>
+    <%= button_tag :submit, :disabled => archived? %>
   </div> 
 <% end %>
 

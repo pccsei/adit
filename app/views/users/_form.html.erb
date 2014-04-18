@@ -102,9 +102,9 @@
 		        <%= f.hidden_field :role, :value => STUDENT %>
 		        <div class="actions">
 			        <% if @user.new_record? %>
-			         	<%= f.submit 'Create Student', :class => 'btn btn-primary btn-sm' %>
+			         	<%= f.submit 'Create Student', :class => 'btn btn-primary btn-sm', :disabled => archived? %>
 			        <% else %>
-			          <%= f.submit 'Update Student', :class => 'btn btn-primary btn-sm' %>
+			          <%= f.submit 'Update Student', :class => 'btn btn-primary btn-sm', :disabled => archived? %>
 			        <% end %>
 					<%= link_to 'Back to Students', users_path %> 
 		        </div>
