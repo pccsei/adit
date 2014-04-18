@@ -1,3 +1,20 @@
+.fake-link{
+	color: #DC0000;
+}
+.form_background{
+padding-top: 1.5em;
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-bottom: 2.5em;
+  margin-top: 2em !important;
+  border: 
+  #EEE solid 1em;
+  border-radius: 1em;
+}
+#student_manager{
+	width: 17em;
+	margin-left: 1em;
+}
 #current_teacher{
 	margin-top: 3em !important;
 }
@@ -22,26 +39,14 @@
 }
 
 .users textarea {
-  width: 600px;
-  height: 120px;
-  border: 3px solid #cccccc;
-  padding: 5px;
-  font-family: Tahoma, sans-serif;
-  //margin-left: -1em;
-  margin-bottom: 2em !important;
-  margin-top: 5em;
-  margin-left: .1em;
+	width: 86em;
+	height: 10em;
+	border: 3px solid #CCC;
+	padding: 5px;
+	font-family: Tahoma,sans-serif;
+	margin-top: 1em;
+	margin-left: 0.1em;
 }
-
-.users #create_section {
-  //margin-top: 1em !important;
-}
-
-.users #select_teacher {
- // margin-bottom: 3em !important;
- // margin-top: 1em !important;
-}
-
 
 .text-field a{
 	vertical-align: -45%;
@@ -49,9 +54,8 @@
 
 .users #paste {
   font-size: 15px;
-  margin-top: 5em;
-  margin-left: -21em;
-  margin-bottom: -5em !important;
+  margin-left: -.7em;
+  margin-bottom: -3em !important;
 }
 
 .users #section_type {
@@ -64,10 +68,10 @@
 }
 
 .users #new_section {
-margin-top: -2em;
-float: right;
-margin-right: 1.3em;
-font-size: 1.2em;
+	margin-top: -2em;
+	float: right;
+	margin-right: 1.3em;
+	font-size: 1.2em;
 }
 
 .users #add_student {
@@ -76,9 +80,9 @@ font-size: 1.2em;
 }
 
 .users #action_submit {
-margin-left: 1em;
-margin-top: .1em !important;
-padding: .4em;
+	margin-left: 1em;
+	margin-top: .1em !important;
+	padding: .4em;
 }
 
 .users #add_teacher {

@@ -1,10 +1,7 @@
 <% provide(:title, 'Projects') %>
+<% provide(:excel, (link_to (image_tag 'excel.png'), projects_convert_to_excel_path(format: 'xls'), :title => "Export to Excel").html_safe) %>
 
 <% if @project || @archived_projects.present? %>
-    <p>
-      Download:
-      <%= link_to "Excel", projects_convert_to_excel_path(format: "xls") %>
-    </p>
 
     <% if @project && get_selected_project.id == @project.id %>
         <%= render 'project_info' %>

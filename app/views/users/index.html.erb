@@ -16,8 +16,8 @@
         <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
       </div>
 <% else %>  
-   <p id='add_student'> <%= link_to 'Add Students', new_user_path, :id => 'add_student', class: 'btn btn-large btn-link btn-sm'%>
-
+   <div id='add_student'> <%= link_to 'Add Students', new_user_path, :id => 'add_student', class: 'btn btn-large btn-link btn-sm'%>
+   </div>
   <!--Actions for the teacher to do with the students and sections-->
   <%= form_tag users_change_student_status_path, :id => 'student_options' do%>
     <div id= "manage_dropdown">
@@ -39,21 +39,20 @@
       </div>
 
  
+ 
       <div id ="assign_bonus_points">
         <p>Number of bonus points:
         <%= number_field_tag 'bonus_points' %></p>
         <p>Please enter the reason for the bonus points:
         <%= text_area_tag 'bonus_comment' %></p>
       </div>
-      <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm col-md-1', :id => 'action_submit', :disabled => archived? %>
+    <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm col-md-1', :id => 'action_submit', :disabled => archived?  %>
     </div>
 
 
 
-  <p class="download_excel">
-    Download:
-    <%= link_to "Excel", users_path(format: "xls") %>
-  </p> 
+	<% provide(:excel, (link_to (image_tag 'excel.png'), users_path(format: "xls"), :title => "Export to Excel").html_safe) %>
+
 
   <!-- Displays the incorrect students if any -->
   <% if @incorrect_students.present? %>

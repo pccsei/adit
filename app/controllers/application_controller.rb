@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
    
    # Restricts access to only teachers and student managers
    def only_leadership
-     if current_user.role == STUDENT 
+     if current_user.role == STUDENT && !Member.is_team_leader(Member.find_by(project_id: get_selected_project, user_id: current_user.id))
        redirect_to users_unauthorized_path# What should we redirect to?
      end
    end

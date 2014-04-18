@@ -11,6 +11,9 @@ onLoad(function () {
     // Show/hide the comment area for archiving projects
     $('.hidden').hide();
     
+    // Show/hide gif to show waiting while exporting to excel
+    $('#exporting').hide();
+    
     $('#project_is_active_0').change(
     
     function show_comment_div() {
@@ -72,6 +75,12 @@ onLoad(function () {
 	    $(this).hide();
       }
     });
+    
+    // Hide the export to excel icon and show loading bar when export is successful
+      $('#export_project').click(function(){
+	      $('#exporting').show();
+	      $(this).hide();
+      });
     
 //*********************************************************************************************************************/
 // Projects New/Edit Page Front-Side Validation

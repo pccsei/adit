@@ -1,3 +1,4 @@
+
 <% provide(:title, 'Teachers') %>
 <% provide(:excel, (link_to (image_tag 'excel.png'), users_teachers_path(format: 'xls'), :title => "Export to Excel").html_safe) %>
 
@@ -27,6 +28,7 @@
 		<%= submit_tag 'Add New Teacher', class: 'btn btn-primary btn-sm' %>
 	<% end %>
 </div>
+
 
 
 
