@@ -1,3 +1,6 @@
+.fake-link{
+	color: #DC0000;
+}
 .form_background{
 padding-top: 1.5em;
   padding-left: 2em;
@@ -45,16 +48,6 @@ padding-top: 1.5em;
 	margin-left: 0.1em;
 }
 
-.users #create_section {
-  //margin-top: 1em !important;
-}
-
-.users #select_teacher {
- // margin-bottom: 3em !important;
- // margin-top: 1em !important;
-}
-
-
 .text-field a{
 	vertical-align: -45%;
 }
@@ -75,10 +68,10 @@ padding-top: 1.5em;
 }
 
 .users #new_section {
-margin-top: -2em;
-float: right;
-margin-right: 1.3em;
-font-size: 1.2em;
+	margin-top: -2em;
+	float: right;
+	margin-right: 1.3em;
+	font-size: 1.2em;
 }
 
 .users #add_student {
@@ -87,9 +80,9 @@ font-size: 1.2em;
 }
 
 .users #action_submit {
-margin-left: 1em;
-margin-top: .1em !important;
-padding: .4em;
+	margin-left: 1em;
+	margin-top: .1em !important;
+	padding: .4em;
 }
 
 .users #add_teacher {

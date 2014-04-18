@@ -121,20 +121,6 @@ p, li {
 }
 
 /*flash*/
-
-/*.alert{
-	font-size: 1.5em;
-	background-color: inherit;
-	border-left: none;
-	border-right: none;
-	border-color: #DC0000;
-	border-radius: 0px;
-	border-width: .2em;
-	color: black;
-	padding: .5em;
-	width: auto;
-}*/
-
 .alert-info{
 	font-size: 1.5em;
 	background-color: inherit;
@@ -256,19 +242,9 @@ font-size: 1.5em;
   margin-top: 0px;
   background: #eee; /* Old browsers */
   @include background-image(linear-gradient(to bottom, #D9D9D9, #F9F9F9));
-//  background: -moz-linear-gradient(top, #D9D9D9 0%, #F9F9F9 100%); /* FF3.6+ */
-//  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#F9F9F9)); /* Chrome,Safari4+ */
-//  background: -webkit-linear-gradient(top, #D9D9D9 0%, #F9F9F9 100%);
-//  background: -o-linear-gradient(top, #D9D9D9 0%, #F9F9F9 100%); /* Opera11.10+ */
-//  background: -ms-linear-gradient(top, #D9D9D9 0%, #F9F9F9 100%); /* IE10+ */
-//  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#F9F9F9',GradientType=0 ); /* IE6-9 */
-//  background: linear-gradient(top, #D9D9D9 0%,#F9F9F9 100%); /* W3C; A catch-all for everything else */
   ul {
     float: right;
     list-style: none;
-    li {
-     // float: left;
-    }
   }
 }
 
@@ -287,7 +263,7 @@ font-size: 1.5em;
   &:hover, &:focus {
     color: #BEBEBE;
   }
-  // Yes, SASS is awesome :) - Rob
+ 
   .users.index &#manage_students,
   .clients.index &#assign_clients,
   .approve &#approve_clients,
@@ -340,7 +316,6 @@ footer {
 }
 
 /*DataTables*/
-
 tr.odd {
   background-color: #f3f3f3;
 }
@@ -446,10 +421,6 @@ label.required:after {
   margin-top: .1em !important;
 }
 
-.ui-accordion-header-active {
-  //text-decoration: underline;
-}
-
 // Datepicker
 .ui-datepicker {
   z-index: 3000 !important;
@@ -468,14 +439,13 @@ label.required:after {
 }
 
 // Forms
-
 .form-control {
   display:inline;
   width: 20em;
   margin-right: .5em;
 }
 
-// Tooltip!
+// Tooltip
 .tooltip-inner {
     white-space:pre-wrap;
     word-break: break-word;
