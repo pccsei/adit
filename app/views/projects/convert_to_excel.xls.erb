@@ -50,8 +50,8 @@
         <Cell><Data ss:Type="String">Email</Data></Cell>
       </Row>
       <% if defined? @current_teachers %>
-        <% if @select_students != nil %>
-          <% @select_students.each do |t| %>
+        <% if @current_teachers != nil %>
+          <% @current_teachers.each do |t| %>
             <Row>
               <Cell><Data ss:Type="Number"><%= t.section_number %></Data></Cell>
               <Cell><Data ss:Type="String"><%= t.first_name %></Data></Cell>

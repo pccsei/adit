@@ -55,6 +55,14 @@ class ClientsController < ApplicationController
     redirect_to clients_url, :notice => User.find_by_school_id(params[:studentID]).first_name.to_s + ' is now assigned to ' + t.client.business_name + ".  #{undo_link}"  
   end
   
+  def pending_clients_excel
+    @pending_clients = Client.pending
+  end
+
+  def edited_clients_excel
+    @edited_pending_clients = Client.edited_pending
+  end
+
   def approve_client
     status = params['commit']
     # This should probably be refactored to send the client ids from the front
