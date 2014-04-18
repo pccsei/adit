@@ -84,6 +84,7 @@
 			</tr>
 			<tr>	
 				<td class="label-field"><%= f.label :tickets_close_time, 'End Time:' %></td>
+				<td class="text-field">
 					<% if get_current_project %>
 						<%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control', :value => @project.tickets_close_time.strftime("%Y/%m/%d %H:%M %p") %>
 					<% else %>

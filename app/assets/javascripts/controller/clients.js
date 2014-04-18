@@ -1,88 +1,5 @@
 onLoad(function() {
   
-  // Custom method to make sure only letters are entered
-    jQuery.validator.addMethod("letters_only", function(value, element) {
-        return this.optional(element) || /^[-a-zA-Z\s ?()'\/\\&-\.;:]+$/i.test(value);
-    });
-
-    // Custom method to make sure the zipcode is not all zeros
-    jQuery.validator.addMethod('min_digit', function (value, el, param) {
-        return value >= param;
-    });
-
-    // Custom method to make sure the telephone is valid
-    jQuery.validator.addMethod("valid_telephone", function(value, element) {
-        return this.optional(element) || /^((((([(])?[1-9]\d{2}([)])?)?\s*([-])?\s*)?([1-9]\d{2})\s*([-])?\s*(\d{4})\s*)?(([eE][xX][tT])\.\s*([1-9]\d{1,6}))?)$/.test(value);
-    });
-    
-    // Custom method to make sure the zipcode is valid
-    jQuery.validator.addMethod("valid_zipcode", function(value, element) {
-        return this.optional(element) || /^(\d{4,5})$/.test(value);
-    });
-    
-    // Custom method to make sure the leading number is not zero
-    jQuery.validator.addMethod("leading_zero", function(value, element) {
-        return this.optional(element) || /^([1-9]+(\d)*)$/.test(value);
-    });
-    
-    // Custom method to make sure the email is valid
-    jQuery.validator.addMethod("valid_email", function(value, element) {
-        return this.optional(element) || /^([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$/.test(value);
-    });
-
-    $("#clients").validate({
-        rules: {
-            "client[business_name]": {required: true, maxlength: 65},
-            "client[address]": {required: true, maxlength: 80},
-            "client[city]": {required: true, letters_only: true, maxlength: 30},
-            "client[zipcode]": {required: true, valid_zipcode: true, leading_zero: true},
-            "client[contact_fname]": {letters_only: true, maxlength: 30},
-            "client[contact_lname]": {letters_only: true, maxlength: 30},
-            "client[telephone]": {required: true, valid_telephone: true},
-            "client[email]": {valid_email: true, maxlength: 35},
-      		"client[comment]": {maxlength: 250}
-        },
-        messages: {
-            "client[business_name]": {
-        		required:  "Please enter the business name.",
-        		maxlength: "The maximum length for a business name is 65 characters."
-      		},
-            "client[address]": {
-        		required:  "Please enter the address.",
-        		maxlength: "The maximum length for an address is 80 characters."
-      		},
-            "client[city]": {
-              	required:     "Please enter a city.",
-              	letters_only: "Will only accept letters and punctuation.",
-        		maxlength:    "The maximum length for a city is 30 characters."
-            },
-            "client[zipcode]": {
-              	required:      "Please enter a zipcode.",
-              	valid_zipcode: "Can either be 4 or 5 digits long.",
-              	leading_zero: "First number cannot be zero."
-            },
-            "client[contact_fname]": {
-        		letters_only: "Will only accept letters and punctuation.",
-        		maxlength:    "The maximum length for a first name is 30 characters."
-      		},
-            "client[contact_lname]": {
-        		letters_only: "Will only accept letters and punctuation.",
-        		maxlength:    "The maximum length for a last name is 30 characters."
-      		},
-            "client[telephone]": {
-              	required: "Please enter a telephone number.",
-              	valid_telephone: "Must be 7 or 10 digits. For extension, use \"ext.\" followed by 1-7 digits."
-            },
-            "client[email]": {
-        		valid_email: "Must be in a standard email format.",
-        		maxlength:   "The maximum length for an email is 35 characters."
-      		},
-      		"client[comment]": {
-        		maxlength:   "The maximum length for a comment is 250 characters."
-      		}
-        }
-    });
-  
   /* Functions */
   function dState(){ if ($("#assignClient").is(":enabled")) $("#assignClient").prop("disabled", true); }
 
@@ -207,5 +124,87 @@ onLoad(function() {
     }
   });
 
-  return table;  
+//*********************************************************************************************************************/
+// Client New/Edit Page Front-Side Validation
+//*********************************************************************************************************************/
+  
+  	// Custom method to make sure only letters and punctuations are entered
+    jQuery.validator.addMethod("letters_only", function(value, element) {
+        return this.optional(element) || /^[-a-zA-Z\s ?()'\/\\&-\.;:]+$/i.test(value);
+    });
+
+    // Custom method to make sure the telephone is in a valid format
+    jQuery.validator.addMethod("valid_telephone", function(value, element) {
+        return this.optional(element) || /^((((([(])?[1-9]\d{2}([)])?)?\s*([-])?\s*)?([1-9]\d{2})\s*([-])?\s*(\d{4})\s*)?(([eE][xX][tT])\.\s*([1-9]\d{1,6}))?)$/.test(value);
+    });
+    
+    // Custom method to make sure the zipcode is in a valid format
+    jQuery.validator.addMethod("valid_zipcode", function(value, element) {
+        return this.optional(element) || /^(\d{4,5})$/.test(value);
+    });
+    
+    // Custom method to make sure the number does not start with zero
+    jQuery.validator.addMethod("leading_zero", function(value, element) {
+        return this.optional(element) || /^([1-9]+(\d)*)$/.test(value);
+    });
+    
+    // Custom method to make sure the email is in a valid format
+    jQuery.validator.addMethod("valid_email", function(value, element) {
+        return this.optional(element) || /^([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$/.test(value);
+    });
+
+    $("#clients").validate({
+        rules: {
+            "client[business_name]": {required:     true, maxlength:       65},
+            "client[address]": 		 {required:     true, maxlength:       80},
+            "client[city]": 		 {required:     true, letters_only:    true, maxlength:    30},
+            "client[zipcode]": 	 	 {required:     true, valid_zipcode:   true, leading_zero: true},
+            "client[contact_fname]": {letters_only: true, maxlength:       30},
+            "client[contact_lname]": {letters_only: true, maxlength: 	   30},
+            "client[telephone]": 	 {required:     true, valid_telephone: true},
+            "client[email]": 		 {valid_email:  true, maxlength: 	   35},
+      		"client[comment]": 		 {maxlength:    250}
+        },
+        messages: {
+            "client[business_name]": {
+        		required:  		 "Please enter the business name.",
+        		maxlength: 		 "The maximum length for a business name is 65 characters."
+      		},
+            "client[address]": {
+        		required:  	 	 "Please enter the address.",
+        		maxlength: 	 	 "The maximum length for an address is 80 characters."
+      		},
+            "client[city]": {
+              	required:     	 "Please enter a city.",
+              	letters_only: 	 "Will only accept letters and punctuation.",
+        		maxlength:    	 "The maximum length for a city is 30 characters."
+            },
+            "client[zipcode]": {
+              	required:      	 "Please enter a zipcode.",
+              	valid_zipcode: 	 "Can either be 4 or 5 digits long.",
+              	leading_zero: 	 "First number cannot be zero."
+            },
+            "client[contact_fname]": {
+        		letters_only: 	 "Will only accept letters and punctuation.",
+        		maxlength:   	 "The maximum length for a first name is 30 characters."
+      		},
+            "client[contact_lname]": {
+        		letters_only: 	 "Will only accept letters and punctuation.",
+        		maxlength:    	 "The maximum length for a last name is 30 characters."
+      		},
+            "client[telephone]": {
+              	required: 		 "Please enter a telephone number.",
+              	valid_telephone: "Must be 7 or 10 digits. For extension, use \"ext.\" followed by 1-7 digits."
+            },
+            "client[email]": {
+        		valid_email: 	 "Must be in a standard email format.",
+        		maxlength:   	 "The maximum length for an email is 35 characters."
+      		},
+      		"client[comment]":   "The maximum length for a comment is 250 characters."
+        }
+    });
+
+  // Returns the of unapproved clients (Not part of the validation above)
+  return table; 
+
 });
