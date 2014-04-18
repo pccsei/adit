@@ -214,9 +214,9 @@ class UsersController < ApplicationController
             @member.is_enabled = true
             @member.save
 
-          format.html { redirect_to users_path, notice: @user.first_name + ' was successfully created and added to this section.' }
+          format.html { redirect_to users_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to this section.' }
           else
-           format.html { redirect_to users_teachers_path, notice: @user.school_id + ' was successfully created and added to the teacher roster.'}
+           format.html { redirect_to users_teachers_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to the teacher roster.'}
           end
         else
           format.html { render action: 'new' }

@@ -1,4 +1,5 @@
 WhiteCollar::Application.routes.draw do
+  get "static_pages/about_us"
   root :to => 'tickets#index'
 
   post   '/clients/approve_client_edit'
@@ -43,6 +44,7 @@ WhiteCollar::Application.routes.draw do
   post   '/reports/edit_bonus'
   get    '/reports/team_data'
   get    '/reports/clients'
+  get    '/projects/convert_to_excel'
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets

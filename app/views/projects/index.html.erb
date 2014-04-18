@@ -1,6 +1,10 @@
 <% provide(:title, 'Projects') %>
 
 <% if @project || @archived_projects.present? %>
+    <p>
+      <span><%= link_to (image_tag 'excel.png'), projects_convert_to_excel_path(format: 'xls'), :title => "Export Entire Project to Excel" %></span>
+    </p>
+
     <% if @project && get_selected_project.id == @project.id %>
         <%= render 'project_info' %>
     <% elsif @project %>
@@ -16,10 +20,6 @@
     <% if @archived_projects.present? %>
         <%= form_tag(projects_select_project_path) do%>
             <h3>Archived Projects</h3>
-			<p>
-			 	Download:
-				<%= link_to "Excel", projects_path(format: "xls") %>
-			</p>
             <table class = "display default_table">
               <thead>
               <tr>
