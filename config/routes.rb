@@ -43,6 +43,7 @@ WhiteCollar::Application.routes.draw do
   post   '/reports/edit_bonus'
   get    '/reports/team_data'
   get    '/reports/clients'
+  get    '/projects/convert_to_excel'
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets

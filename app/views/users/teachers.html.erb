@@ -1,7 +1,6 @@
 <% provide(:title, 'Teachers') %>
-<p class="excel" title="Export to Excel">
-  <%= link_to (image_tag 'excel.png'), users_teachers_path(format: 'xls') %>
-</p>
+<% provide(:excel, (link_to (image_tag 'excel.png'), users_teachers_path(format: 'xls'), :title => "Export to Excel").html_safe) %>
+
 
 
 <%= link_to 'Add New Teacher', users_new_teacher_path, class: 'btn btn-link btn-sm', id:'add_teacher' %>
@@ -40,7 +39,7 @@
 			<th>Section</th>
 			<th>First Name</th>
 			<th>Last Name</th>
-			<th>ID number</th>
+			<th>School ID</th>
 			<th>Email</th>
 			<th class="empty"></th>  
 			<th class="empty"></th> 
@@ -76,7 +75,7 @@
 		<tr>
 			<th>First Name</th>
 			<th>Last Name</th>
-			<th>ID number</th>
+			<th>School ID</th>
 			<th>Email</th>
 			<th class="empty"></th>
 		</tr>

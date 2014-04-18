@@ -106,9 +106,9 @@
 		  </div>
 		     
 		  <div id="finalComments" class="hidden">
-		   	 <p>Once you archive the project, you will no longer be able to edit its contents.</p>
-		     <%= f.label       :comment, 'Would you like to save any comments about this project?'%>
-		     <%= f.text_area   :comment, :class => 'form-control' %>
+		   	 <br /><p>Once you archive the project, you will no longer be able to edit its contents.</p>
+		     <p><%= f.label       :comment, 'Would you like to save any comments about this project?'%></p>
+		     <span><%= f.text_area   :comment, :class => 'form-control' %></span>
 		  </div>
 		<% else %>
 		  <% message = 'create'%>
@@ -118,8 +118,9 @@
 		</div>
 	
 	<div id="loading">
+	  <br />
+	  <p><strong>Please wait while we <%= message %> the project. This could take a couple minutes.</strong></p>
 	  <%= image_tag 'loading.GIF'%><br />
-	  <p>Please wait while we <%= message %> the project</p>
   </div>
   </div>	
 	<% end %>

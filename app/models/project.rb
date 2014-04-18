@@ -58,8 +58,12 @@ class Project < ActiveRecord::Base
   end
 
   # Convert everything for the specified project into excel
-  def self.all_to_excel project
-    # return @sales, @sale_total, @student, @student_totals, User.all_teachers, User.current_teachers(project), User.get_student_info(get_selected_project, "all", 3)
+  def self.all_to_excel project, current_user
+    return Report.sales(project, "all")[0], Report.sales(project, "all")[1], Report.student_summary(project, "all", current_user)[0], 
+           Report.student_summary(project, "all", current_user)[1], Report.team_summary(project, "all")[0], Report.team_summary(project, "all")[1],
+           Report.clients(project), Report.activities(project, "all")[0], Report.activities(project, "all")[1], Report.bonus(project, "all")[0], 
+           Report.bonus(project, "all")[1], Report.end_of_semester_data(project, "all")[0], Report.end_of_semester_data(project, "all")[1],
+           User.get_student_info(project, "all", 3), User.all_teachers, User.current_teachers(project)
   end
 
   def self.non_archived

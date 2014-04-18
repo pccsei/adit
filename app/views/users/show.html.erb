@@ -1,4 +1,5 @@
-<% provide(:title, 'Your New Student') %>
+
+<% @user.role != TEACHER ? provide(:title, 'Student Data') : provide(:title, 'Teacher Data')%>
 
 <%if @user.role != TEACHER %>
   <p>

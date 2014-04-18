@@ -1,6 +1,11 @@
 <% provide(:title, 'Projects') %>
 
 <% if @project || @archived_projects.present? %>
+    <p>
+      Download:
+      <%= link_to "Excel", projects_convert_to_excel_path(format: "xls") %>
+    </p>
+
     <% if @project && get_selected_project.id == @project.id %>
         <%= render 'project_info' %>
     <% elsif @project %>
@@ -16,10 +21,6 @@
     <% if @archived_projects.present? %>
         <%= form_tag(projects_select_project_path) do%>
             <h3>Archived Projects</h3>
-			<p>
-			 	Download:
-				<%= link_to "Excel", projects_path(format: "xls") %>
-			</p>
             <table class = "display default_table">
               <thead>
               <tr>

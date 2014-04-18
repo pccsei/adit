@@ -31,13 +31,16 @@
   <% end %>  
   
     <div id="container">
+    	<% if signed_in? && get_selected_project.is_active == false && current_user.role == TEACHER %>
+    	   <p class="alert alert-info">You are viewing an archived project. Some features have been disabled.</p>
+    	<% end %>
 	    <% flash.each do |key, value| %>
 		<div class="alert alert-<%= key %>">
 		      <a href="#" data-dismiss="alert" class="close">&#215;</a>
 		      <%= raw(value) %>
 		    </div>
 	    <% end %>
-      <h1 id="heading" class="page-header"><%= yield(:title)%></h1>
+      <h1 id="heading" class="page-header"><%= yield(:title) + ' ' + yield(:excel)%></h1>
     <% if @current_user && @current_user.role == TEACHER && get_selected_project %>
       <%= render 'layouts/teacher_info' %>
     <% end %>

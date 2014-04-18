@@ -6,7 +6,7 @@
     <p>Please enter the reason for the bonus points:
     <%= text_area_tag 'bonus_comment' %></input></p>
     <input id="bonus_id" name="bonus_id" value="" type="hidden"></input>
-    <%= button_tag :sumbit %>
+    <%= button_tag :submit, :disabled => archived? %>
   </div> 
 <% end %>
 
