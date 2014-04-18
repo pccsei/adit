@@ -40,7 +40,7 @@
 		      <%= raw(value) %>
 		    </div>
 	    <% end %>
-      <h1 id="heading" class="page-header"><%= yield(:title)%></h1>
+      <h1 id="heading" class="page-header"><%= yield(:title) + ' ' + yield(:excel)%></h1>
     <% if @current_user && @current_user.role == TEACHER && get_selected_project %>
       <%= render 'layouts/teacher_info' %>
     <% end %>
