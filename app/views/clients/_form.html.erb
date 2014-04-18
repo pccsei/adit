@@ -9,14 +9,14 @@
           </ul>          
         </div>
     <% end %>
-    <% if !more_tickets_allowed %>
-      <p><%= 'You have the maximum allowable clients. Go to My Clients and release one of your clients before asking for another.' %></p>
-    <%end%>
     <div class = "panel panel-primary">
       <div class = "panel-heading">
         <h3>&nbsp;Business Information</h3>
       </div>
       <div class = "panel-body">
+	    <% if !more_tickets_allowed %>
+	      <p class="alert alert-info"><%= 'You have the maximum allowable clients. Go to My Clients and release one of your clients before asking for another.' %></p>
+	    <%end%>
         <table>
           <tr>
             <td class="label-field"><%= f.label :business_name, class: 'required' %></td>
