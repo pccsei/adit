@@ -136,6 +136,37 @@ class Report
     return team_data, team_totals
   end
 
+  # Sends back all the client data.
+  def self.clients project
+    Struct.new("Client", :id, :business_name, :address, :city, :state, :zipcode, :telephone, :contact_title, :contact_fname,
+                         :contact_lname, :email, :status_type, :comment, :arrow, :calendar)
+    clients_array = []
+    index = 0
+
+    clients = Client.where.not(status_id: 5)
+    clients.each do |c|
+      clients_array[index] = Struct::Client.new
+      clients_array[index].id             = c.id
+      clients_array[index].business_name  = c.business_name
+      clients_array[index].address        = c.address
+      clients_array[index].city           = c.city
+      clients_array[index].state          = c.state
+      clients_array[index].zipcode        = c.zipcode
+      clients_array[index].telephone      = c.telephone
+      clients_array[index].contact_title  = c.contact_title
+      clients_array[index].contact_fname  = c.contact_fname
+      clients_array[index].contact_lname  = c.contact_lname
+      clients_array[index].email          = c.email
+      clients_array[index].status_type    = c.status.status_type
+      clients_array[index].comment        = c.comment
+      clients_array[index].arrow          = Receipt.years_client_has_bought_class(c, project)[0].to_s[1..-2]
+      clients_array[index].calendar       = Receipt.years_client_has_bought_class(c, project)[1].to_s[1..-2]  
+      index = index + 1
+    end
+
+    return clients_array
+  end
+
   # Calculates all the activity information and totals.
   def self.activities project, section
     Struct.new("Activity", :student_id, :manager_id, :time_of_activity, :first_name, :last_name, :section, :team_leader,

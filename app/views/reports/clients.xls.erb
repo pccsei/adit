@@ -1,0 +1,47 @@
+<xml version="1.0">
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Clients">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Business Name</Data></Cell>
+        <Cell><Data ss:Type="String">Address</Data></Cell>
+        <Cell><Data ss:Type="String">City</Data></Cell>
+        <Cell><Data ss:Type="String">State</Data></Cell>
+        <Cell><Data ss:Type="String">Zip</Data></Cell>
+        <Cell><Data ss:Type="String">Telephone</Data></Cell>
+        <Cell><Data ss:Type="String">Contact Title</Data></Cell>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Email</Data></Cell>
+        <Cell><Data ss:Type="String">Sold Arrow Years</Data></Cell>
+        <Cell><Data ss:Type="String">Sold Calendar Years</Data></Cell>
+        <Cell><Data ss:Type="String">Status</Data></Cell>
+        <Cell><Data ss:Type="String">Comment</Data></Cell>
+      </Row>
+      <% if defined? @clients %>
+        <% @clients.each do |c| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= c.business_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.address %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.city %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.state %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.zipcode %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= render_phone(c.telephone) %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.contact_title %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.contact_fname %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.contact_lname %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.email %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.arrow %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.calendar %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.status_type %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.comment %></Data></Cell>
+          </Row>
+        <% end %>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

@@ -25,6 +25,11 @@ class ReportsController < ApplicationController
     @team_data, @team_totals = Report.team_summary(get_selected_project, get_selected_section)
   end
 
+  # GET reports/client_summary
+  def clients
+    @clients = Report.clients(get_selected_project)
+  end
+
   # GET reports/activities
   def activities
     @sections = get_array_of_all_sections(get_selected_project)
