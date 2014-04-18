@@ -2,8 +2,7 @@
 
 <% if @project || @archived_projects.present? %>
     <p>
-      Download:
-      <%= link_to "Excel", projects_convert_to_excel_path(format: "xls") %>
+      <span><%= link_to (image_tag 'excel.png'), projects_convert_to_excel_path(format: 'xls'), :title => "Export Entire Project to Excel" %></span>
     </p>
 
     <% if @project && get_selected_project.id == @project.id %>

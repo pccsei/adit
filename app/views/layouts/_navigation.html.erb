@@ -36,7 +36,7 @@
 <!-- Student and Student Manager  Links -->
 <% else %>
       <li>
-        <% if Project.is_specific(get_current_project.id) %>
+        <% if get_current_project && Project.is_specific(get_current_project.id) %>
           <%= link_to 'Choose New Clients',  tickets_path,                          id: 'choose_clients' %></li>
         <% else %>
           <%= link_to 'Client List',         tickets_path,                          id: 'choose_clients' %></li>

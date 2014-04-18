@@ -74,11 +74,23 @@
        	<body>
        		<tr>
 				<td class="label-field"><%= f.label :tickets_open_time, 'Start Time:' %></td>
-				<td class="text-field"><%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %></td>
+				<td class="text-field">
+					<% if get_current_project %>
+						<%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control', :value => @project.tickets_open_time.strftime("%Y/%m/%d %H:%M %p") %>
+					<% else %>
+						<%= f.text_field :tickets_open_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %>
+					<% end %>
+				</td>
 			</tr>
 			<tr>	
 				<td class="label-field"><%= f.label :tickets_close_time, 'End Time:' %></td>
-				<td class="text-field"><%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %></td>
+				<td class="text-field">
+					<% if get_current_project %>
+						<%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control', :value => @project.tickets_close_time.strftime("%Y/%m/%d %H:%M %p") %>
+					<% else %>
+						<%= f.text_field :tickets_close_time, :placeholder => 'YYYY/MM/DD 00:00 AM/PM', :class => 'form-control' %>
+					<% end %>
+				</td>
             </tr>
 			</body>
 			</table>
@@ -94,9 +106,16 @@
 		  </div>
 		     
 		  <div id="finalComments" class="hidden">
-		   	 <p>Once you archive the project, you will no longer be able to edit its contents.</p>
-		     <%= f.label       :comment, 'Would you like to save any comments about this project?'%>
-		     <%= f.text_area   :comment, :class => 'form-control' %>
+		   	 <br /><p>Once you archive the project, you will no longer be able to edit its contents.</p>
+		   	 <p>Would you like to export all the tables from this project to excel?
+		   	 <span id="export_project"><%= link_to (image_tag 'excel.png'), projects_convert_to_excel_path(format: 'xls'), :title => "Export Entire Project to Excel" %></span>
+		   	 </p>
+		   	 <div id="exporting">
+		   	 	<br />
+	  			<p><strong>Please wait while we export your project to excel. This could take a couple minutes.</strong></p>
+  			</div>
+		     <p><%= f.label       :comment, 'Would you like to save any comments about this project?'%></p>
+		     <span><%= f.text_area   :comment, :class => 'form-control' %></span>
 		  </div>
 		<% else %>
 		  <% message = 'create'%>
@@ -106,8 +125,9 @@
 		</div>
 	
 	<div id="loading">
+	  <br />
+	  <p><strong>Please wait while we <%= message %> the project. This could take a couple minutes.</strong></p>
 	  <%= image_tag 'loading.GIF'%><br />
-	  <p>Please wait while we <%= message %> the project</p>
   </div>
   </div>	
 	<% end %>
