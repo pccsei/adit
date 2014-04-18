@@ -1,4 +1,5 @@
 WhiteCollar::Application.routes.draw do
+  get "static_pages/about_us"
   root :to => 'tickets#index'
 
   post   '/clients/approve_client_edit'
