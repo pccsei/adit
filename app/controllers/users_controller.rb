@@ -122,17 +122,17 @@ class UsersController < ApplicationController
   end
 
   def input_students_parse
-    user_params = params['input']
+    user_params = params['input'].strip
 
     if User.incorrect_students.present?
       incorrect = User.where(["school_id <= ?", -1]).last
       User.parse_students(user_params, get_selected_section, session[:selected_project_id], incorrect.school_id.to_i)
     else
       incorrect = 0
-      User.parse_students(user_params, get_selected_section, session[:selected_project_id], incorrect.to_i)
+      message = User.parse_students(user_params, get_selected_section, session[:selected_project_id], incorrect.to_i)
     end
     
-    redirect_to users_url
+    redirect_to users_url, notice: message || "Import from Excel Successful!"
   end
 
   def change_student_status
