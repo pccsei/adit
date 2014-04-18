@@ -1,9 +1,9 @@
 <% provide(:title, 'Assign Clients') %>
-<!-- EXPO
+
 <p>
   Download:
   <%= link_to "Excel", clients_path(format: "xls") %>
-</p> -->
+</p>
 
 <% if get_selected_project.is_active == false %>
    <p class='alert-notice'>You must switch to an active project to assign clients.</p>
@@ -37,10 +37,10 @@
                  <% if ticket.student_fname %>
                      <%= (ticket.student_fname + ' ' +  ticket.student_lname + '<br />(' + ticket.student_id + ')').html_safe %>
                   <% else %>
-                     <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-link btn-sm assign'} %>
+                     <%= link_to 'Assign', clients_show_assign_for_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-link btn-sm assign'} %>
                   <% end %>
               <% else%>
-                  <%= link_to 'Assign', clients_assign_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-link btn-sm assign', disabled: true }%>
+                  <%= link_to 'Assign', clients_show_assign_for_path(:tid => ticket.id), {:id => ticket.id, :class => 'btn btn-link btn-sm assign', disabled: true }%>
                <% end %>
           <% else %>
               <%= 'Ticket does not exist for this client' %>

@@ -17,15 +17,17 @@
 	  <th>Minor</th>
 	  <th>Box</th>
 	  <th>Class</th>
+	  <% unless archived? %>
 	  <th>Active?</th>
-	  <th class="empty"></th>     	      	      	      	      
+	  <% end %>     	      	      	      	      
+	  <th class="empty"></th>
 	</tr>
   </thead>
   <tbody>
     <% current_students.each do |student| %>
       <tr>
         <% if @selected_section != "all"%>
-          <% if student.role == 1 %>
+          <% if !Member.is_team_leader(Member.find_by(project_id: get_selected_project, user_id: student.id)) %>
             <% if student.student_manager_name %>
               <td><input class="students_with_manager" name="students[]" type="checkbox" value="<%=student.id%>" /></td>
             <% else  %>
@@ -46,11 +48,13 @@
         <td><%= student.minor %></td>
         <td><%= student.box %></td>
         <td><%= student.class %></td>
+        <% unless archived? %>
         <% if student.is_enabled %>
           <td><%= link_to 'Deactivate', {controller: :users, action: :change_is_enabled, id: student.m_id}, method: :post %></td>
         <% else %>
 		  <td><%= link_to 'Activate', {controller: :users, action: :change_is_enabled, id: student.m_id}, method: :post %></td>
-        <% end %>        
+        <% end %>
+        <% end %>
         <td><%= link_to 'Edit', edit_user_path(student.id) %></td>       
       </tr>
     <% end %>

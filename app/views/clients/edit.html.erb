@@ -1,6 +1,7 @@
 <% provide(:title, 'Editing client') %>
 
-<%= render 'form' %>
+<!-- This tells the form if it is called from edited or not -->
+<%= render 'form', locals: {edited: true} %>
 
 
 

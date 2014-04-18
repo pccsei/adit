@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140326194519) do
+ActiveRecord::Schema.define(version: 20140412153916) do
 
   create_table "action_types", force: true do |t|
     t.string   "name",        null: false
@@ -167,6 +167,14 @@ ActiveRecord::Schema.define(version: 20140326194519) do
   add_index "tickets", ["project_id"], name: "index_tickets_on_project_id", using: :btree
   add_index "tickets", ["user_id"], name: "index_tickets_on_user_id", using: :btree
 
+  create_table "updates", force: true do |t|
+    t.boolean  "is_public"
+    t.string   "comment_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "receipt_id"
+  end
+
   create_table "users", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -182,7 +190,6 @@ ActiveRecord::Schema.define(version: 20140326194519) do
     t.string   "classification", limit: 10
     t.string   "remember_token"
     t.boolean  "help",                      default: false, null: false
-    t.integer  "available"
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree

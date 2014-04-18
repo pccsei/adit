@@ -1,0 +1,8 @@
+<p>
+  Download:
+  <%= link_to "Excel", reports_clients_path(format: "xls") %>
+</p>
+
+<% provide(:title, 'Clients') %>
+
+<%= render :partial => 'clients'%>

@@ -1,0 +1,400 @@
+<xml version="1.0">
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Students">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">ID number</Data></Cell>
+        <Cell><Data ss:Type="String">Email</Data></Cell>
+        <Cell><Data ss:Type="String">Phone</Data></Cell>
+        <Cell><Data ss:Type="String">Student Manager</Data></Cell>
+        <Cell><Data ss:Type="String">Section</Data></Cell>
+        <Cell><Data ss:Type="String">Major</Data></Cell>
+        <Cell><Data ss:Type="String">Minor</Data></Cell>
+        <Cell><Data ss:Type="String">Box</Data></Cell>
+        <Cell><Data ss:Type="String">Class</Data></Cell>
+      </Row>
+      <% if defined? @select_students %>
+        <% if @select_students != nil %>
+          <% @select_students.each do |student| %>
+            <Row>
+              <Cell><Data ss:Type="String"><%= student.first_name%></Data></Cell>
+              <Cell><Data ss:Type="String"><%= student.last_name%></Data></Cell>
+              <Cell><Data ss:Type="Number"><%= student.school_id %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= student.email %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= student.phone %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= student.student_manager_name %></Data></Cell>
+              <Cell><Data ss:Type="Number"><%= student.section_number %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= student.major %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= student.minor %></Data></Cell>
+              <Cell><Data ss:Type="Number"><%= student.box %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= student.class %></Data></Cell>
+            </Row>
+          <% end %>
+        <% end %>
+      <% end %>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Project Teachers">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Teaches section(s)</Data></Cell>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">ID number</Data></Cell>
+        <Cell><Data ss:Type="String">Email</Data></Cell>
+      </Row>
+      <% if defined? @current_teachers %>
+        <% if @select_students != nil %>
+          <% @select_students.each do |t| %>
+            <Row>
+              <Cell><Data ss:Type="Number"><%= t.section_number %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= t.first_name %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= t.last_name %></Data></Cell>
+              <Cell><Data ss:Type="String"><%= t.school_id%></Data></Cell>
+              <Cell><Data ss:Type="String"><%= t.email%></Data></Cell>
+            </Row>
+          <% end %>
+        <% end %> 
+      <% end %>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Teacher Roster">
+    <!-- Ideally this would be separated into a different page -->
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">ID number</Data></Cell>
+        <Cell><Data ss:Type="String">Email</Data></Cell>
+      </Row>
+      <% if defined? @all_teachers %>
+        <% @all_teachers.each do |t| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= t.first_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= t.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= t.school_id%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= t.email%></Data></Cell>
+          </Row>
+        <% end %>
+      <% end %>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Activities">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Student Manager</Data></Cell>
+        <Cell><Data ss:Type="String">Section</Data></Cell>
+        <Cell><Data ss:Type="String">Date/Time activity was reported</Data></Cell>
+        <Cell><Data ss:Type="String">Client</Data></Cell>
+        <Cell><Data ss:Type="String">Activity</Data></Cell>
+        <Cell><Data ss:Type="String">Points Received</Data></Cell>
+        <Cell><Data ss:Type="String">Cumulative Points on Client</Data></Cell>
+        <Cell><Data ss:Type="String">Comments</Data></Cell>
+      </Row>
+      <% if defined? @activities %>
+        <% @activities.each do |activity| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= activity.first_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= activity.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= activity.team_leader %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= activity.section %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= time_ago_in_words(activity.time_of_activity) + ' ago'%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= activity.company%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= activity.activity%></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= activity.points_earned%></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= activity.cumulative_points_earned_on_client%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= activity.comments%></Data></Cell>
+          </Row>
+        <% end %>
+      <% end %>
+      <Row>
+          <Cell><Data ss:Type="String">Totals</Data></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell><Data ss:Type="Number"><%= @activity_totals.points_earned%></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @activity_totals.cumulative_points_earned_on_client %></Data></Cell>
+          <Cell></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Sales">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Student Manager</Data></Cell>
+        <Cell><Data ss:Type="String">Section</Data></Cell>
+        <Cell><Data ss:Type="String">Date/Time sale was reported</Data></Cell>
+        <Cell><Data ss:Type="String">Company</Data></Cell>
+        <Cell><Data ss:Type="String">Page Size</Data></Cell>
+        <Cell><Data ss:Type="String">Sales</Data></Cell>
+        <Cell><Data ss:Type="String">Payment</Data></Cell>
+        <Cell><Data ss:Type="String">Ad/Status</Data></Cell>
+      </Row>
+      <% if defined? @sales %>
+        <% @sales.each do |sale| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= sale.first_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= sale.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= sale.team_leader %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= sale.section %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= sale.time_of_sale.to_formatted_s(:long_ordinal)%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= sale.company%></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= sale.page_size%></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= sale.sale_amount%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= sale.payment_type%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= sale.ad_status%></Data></Cell>
+          </Row>
+        <% end %>
+      <% end %>
+      <Row>
+          <Cell><Data ss:Type="String">Totals</Data></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell><Data ss:Type="Number"><%= @sale_total %></Data></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Student Summary">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Student Manager</Data></Cell>
+        <Cell><Data ss:Type="String">Section</Data></Cell>
+        <Cell><Data ss:Type="String">Open Clients</Data></Cell>
+        <Cell><Data ss:Type="String">Sold Clients</Data></Cell>
+        <Cell><Data ss:Type="String">Released Clients</Data></Cell>
+        <Cell><Data ss:Type="String">Sales Total</Data></Cell>
+        <Cell><Data ss:Type="String">Points</Data></Cell>
+        <Cell><Data ss:Type="String">Last Student Activity</Data></Cell>
+      </Row>
+      <% if defined? @student_array %>
+        <% @student_array.each do |student| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= student.first_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= student.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= student.student_manager %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.section %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.open%></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.sold %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.released %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.sales %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= student.points %></Data></Cell>
+            <% if student.last_activity.present? %>
+              <Cell><Data ss:Type="String"><%= time_ago_in_words(student.last_activity) + ' ago' %></Data></Cell>
+            <% end %>
+          </Row>
+        <% end %>
+      <% end %>
+      <Row>
+          <Cell><Data ss:Type="String">Totals</Data></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell><Data ss:Type="Number"><%= @student_totals.total_open%></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @student_totals.total_sold %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @student_totals.total_released %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @student_totals.total_sales %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @student_totals.total_points %></Data></Cell>
+          <Cell></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Team Summary">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Team Name</Data></Cell>
+        <Cell><Data ss:Type="String">Section</Data></Cell>
+        <Cell><Data ss:Type="String">Open Clients</Data></Cell>
+        <Cell><Data ss:Type="String">Sold Clients</Data></Cell>
+        <Cell><Data ss:Type="String">Released Clients</Data></Cell>
+        <Cell><Data ss:Type="String">Sales Total</Data></Cell>
+        <Cell><Data ss:Type="String">Points</Data></Cell>
+      </Row>
+      <% if defined? @team_totals %>
+        <% @team_data.each do |team_data| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= team_data.student_manager %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= team_data.section %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= team_data.open %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= team_data.sold %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= team_data.released %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= team_data.sales %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= team_data.points %></Data></Cell>
+          </Row>
+        <% end %>
+      <% end %>
+      <Row>
+          <Cell><Data ss:Type="String">Totals</Data></Cell>
+          <Cell></Cell>
+          <Cell><Data ss:Type="Number"><%= @team_totals.total_open%></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @team_totals.total_sold %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @team_totals.total_released %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @team_totals.total_sales %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @team_totals.total_points %></Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Bonuses">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Created Date</Data></Cell>
+        <Cell><Data ss:Type="String">Bonus Points</Data></Cell>
+        <Cell><Data ss:Type="String">Bonus Comment</Data></Cell>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Student ID</Data></Cell>
+        <Cell><Data ss:Type="String">Team Name</Data></Cell>
+        <Cell><Data ss:Type="String">Section Number</Data></Cell>
+      </Row>
+      <% if defined? @bonuses %>
+        <% @bonuses.each do |b| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= b.created_date.to_formatted_s(:long_ordinal) %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= b.points %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= b.comment %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= b.first_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= b.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= b.student_id %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= b.team_name %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= b.section_number %></Data></Cell>
+          </Row>
+        <% end %>
+      <% end %>
+      <Row>
+          <Cell><Data ss:Type="String">Totals</Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @bonus_total_points %></Data></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Clients">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Business Name</Data></Cell>
+        <Cell><Data ss:Type="String">Address</Data></Cell>
+        <Cell><Data ss:Type="String">City</Data></Cell>
+        <Cell><Data ss:Type="String">State</Data></Cell>
+        <Cell><Data ss:Type="String">Zip</Data></Cell>
+        <Cell><Data ss:Type="String">Telephone</Data></Cell>
+        <Cell><Data ss:Type="String">Contact Title</Data></Cell>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Email</Data></Cell>
+        <Cell><Data ss:Type="String">Sold Arrow Years</Data></Cell>
+        <Cell><Data ss:Type="String">Sold Calendar Years</Data></Cell>
+        <Cell><Data ss:Type="String">Status</Data></Cell>
+        <Cell><Data ss:Type="String">Comment</Data></Cell>
+      </Row>
+      <% if defined? @clients %>
+        <% @clients.each do |c| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= c.business_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.address %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.city %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.state %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.zipcode %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= render_phone(c.telephone) %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.contact_title %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.contact_fname %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.contact_lname %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.email %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.arrow %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.calendar %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.status_type %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= c.comment %></Data></Cell>
+          </Row>
+        <% end %>
+      <% end %>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="End of Semester Data">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Date</Data></Cell>
+        <Cell><Data ss:Type="String">Company</Data></Cell>
+        <Cell><Data ss:Type="String">Address</Data></Cell>
+        <Cell><Data ss:Type="String">City</Data></Cell>
+        <Cell><Data ss:Type="String">State</Data></Cell>
+        <Cell><Data ss:Type="String">Zip</Data></Cell>
+        <Cell><Data ss:Type="String">Contact</Data></Cell>
+        <Cell><Data ss:Type="String">Telephone</Data></Cell>
+        <Cell><Data ss:Type="String">Sold Arrow Years</Data></Cell>
+        <Cell><Data ss:Type="String">Sold Calendar Years</Data></Cell>
+        <Cell><Data ss:Type="String">Page Size</Data></Cell>
+        <Cell><Data ss:Type="String">Sales</Data></Cell>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Team Leader</Data></Cell>
+        <Cell><Data ss:Type="String">Payment</Data></Cell>
+        <Cell><Data ss:Type="String">Ad/Status</Data></Cell>
+      </Row>
+      <% if defined? @end_data %>
+        <% @end_data.each do |d| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= d.date.to_formatted_s(:long_ordinal)%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= d.company %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= d.address %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= d.city %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= d.state %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= d.zip %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= d.contact %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= render_phone(d.telephone) %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= d.arrow %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= d.calendar %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= d.page_size %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= d.sales %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= d.first_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= d.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= d.team %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= d.payment %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= d.ad_status %></Data></Cell>
+          </Row>
+        <% end %>
+      <% end %>
+      <Row>
+          <Cell><Data ss:Type="String">Totals</Data></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell><Data ss:Type="Number"><%= @end_sale_total %></Data></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+          <Cell></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+</Workbook>

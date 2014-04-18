@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   validates :school_id, presence: true, uniqueness: true, unless: Proc.new { |user| user.school_id.to_i <= -1 }
 
 # Validates the email - uniqueness removed for the EXPO
-  validates :email, format: {
+  validates :email, uniqueness: true, format: {
       with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\Z/,
       message: 'must be a valid PCC email address (jsmith1234@students.pcci.edu).'
   }, unless: Proc.new { |user| user.school_id.to_i <= -1 },
@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
         user.email = single_student_info[7]
         user.major = single_student_info[8]
         user.minor = single_student_info[9]
-        user.role = 1
+        user.role = STUDENT
         user.save
         if(user.save)
           member = Member.new
@@ -161,7 +161,7 @@ class User < ActiveRecord::Base
         user.email = single_student_info[7]
         user.major = single_student_info[8]
         user.minor = single_student_info[9]
-        user.role = 1
+        user.role = STUDENT
         user.save
         # user = User.find_by! school_id: single_student_info[1]
         # user.school_id = single_student_info[1]
@@ -173,7 +173,7 @@ class User < ActiveRecord::Base
         # user.email = single_student_info[7]
         # user.major = single_student_info[8]
         # user.minor = single_student_info[9]
-        # user.role = 1
+        # user.role = STUDENT
         # user.save
         # if (member = Member.find_by(user_id: (User.find_by school_id: single_student_info[1]).id))
           # member.user_id = user.id
@@ -220,8 +220,7 @@ class User < ActiveRecord::Base
         for i in 0..students.count-1
           user = User.find(students[i])
           member = Member.find_by(user_id: students[i])
-          if user.role != 2
-            user.role = 2
+          if !Member.is_team_leader(member)
             member.parent_id = user.id
             if member.save && user.save
               if !is_added_positive
@@ -286,7 +285,7 @@ class User < ActiveRecord::Base
       if choice == 'Demote Student'
         for i in 0..students.count-1
           user = User.find(students[i])
-          if user.role == 2
+          if Member.is_team_leader(Member.find_by(user_id: user, project_id: selected_project, parent_id: user.id))
             Member.destroy_team(user)
             if !is_added_positive
               reponse_int += 1
@@ -351,7 +350,7 @@ class User < ActiveRecord::Base
           # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
           member = Member.find_by(user_id: students[i])
           member.parent_id = nil
-          User.find(students[i]).role == 2 ? Member.destroy_team(User.find(students[i]), true) : nil
+          User.find(students[i]).role == is_team_leader(Member.find_by(project_id: selected_project, parent_id: user_id)) ? Member.destroy_team(User.find(students[i]), true) : nil
           Member.inactivate_student_status(member)
         end
       end
@@ -368,7 +367,7 @@ class User < ActiveRecord::Base
           for i in 0..students.count-1
             member = Member.find_by(user_id: students[i])
             user = User.find(students[i])
-            if user.role == 1
+            if user.role == STUDENT
               if !member.parent_id
                   member.parent_id = student_manager.id
                   if !is_added_positive
@@ -495,7 +494,7 @@ class User < ActiveRecord::Base
         for i in 0..students.count-1
           user = User.find(students[i])
           member = Member.find_by(user_id: students[i])
-          if user.role == 1
+          if user.role == STUDENT
             if member.parent_id
               member.parent_id = nil
               if member.save
@@ -648,7 +647,7 @@ class User < ActiveRecord::Base
 
     # Makeshift test to see if this section is already database. Hopefully this code will be rewritten to be effiecent
     # Member.all.each do |t|
-    #   if User.find(t.user_id).role == 3
+    #   if User.find(t.user_id).role == TEACHER
     #     if t.section_number == section_number.to_i && t.project_id == project_id
     #       current_teacher_id = t.user_id
     #       not_a_section = false
@@ -679,18 +678,18 @@ class User < ActiveRecord::Base
 
 # Returns the managers name for the current section to assign a team
   def self.get_managers_from_current_section(project, section)
-      # users = User.where(role: 2)
-      # members = Member.where(section_number: section)
-      # student_manager = Array[]
-      # users.each do |user|
-      #   members.each do |member|
-      #     if user.id == member.user_id
-      #       student_manager.push(user)
-      #     end
-      #   end
-      # end
-      # return student_manager
-      where(role: 2, id: Member.where(project_id: project, section_number: section).pluck(:user_id))
+      users = User.where(role: STUDENT)
+      members = Member.where(section_number: section, project_id: project)
+      student_manager = Array[]
+      users.each do |user|
+        members.each do |member|
+          if user.id == member.user_id && user.id == member.parent_id
+            student_manager.push(user)
+          end
+        end
+      end
+      return student_manager
+      # where(id: Member.where(project_id: project, section_number: section, parent_id: user_id).pluck(:user_id))
   end
 
 # Returns all the student users for a project and section
@@ -704,7 +703,7 @@ class User < ActiveRecord::Base
 
     teachers = []
     index = 0
-    Member.where(project: project, user_id: User.where(role: 3).ids).each do |m|
+    Member.where(project: project, user_id: User.where(role: TEACHER).ids).each do |m|
       t = User.find(m.user_id)
       teachers[index]                = Struct::Teacher.new
       teachers[index].id             = t.id
@@ -734,19 +733,19 @@ class User < ActiveRecord::Base
   end
 
   def self.all_students
-    where('role = ?', 1)
+    where('role = ?', STUDENT)
   end
 
   def self.all_student_managers
-    where('role = ?', 1).all + where('role = ?', 2).all
+    where(parent_id: user_id)
   end
 
   def self.all_teachers
-    where('role = ?', 3)
+    where('role = ?', TEACHER)
   end
 
   def self.all_teacher_ids
-    where('role = ?', 3).ids
+    where('role = ?', TEACHER).ids
   end
 
   def self.incorrect_students

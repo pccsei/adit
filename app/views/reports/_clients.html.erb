@@ -1,0 +1,43 @@
+<table class ="display default_table">
+  <thead>
+    <tr>
+      <th>Business Name</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Telephone</th>
+      <th>Contact Title</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Sold Arrow Years</th>
+      <th>Sold Calendar Years</th>
+      <th>Status</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if @clients %>
+      <% @clients.each do |c| %>
+        <tr>
+          <td><%= link_to c.business_name, client_path(id: c.id, page: request.url) %></td>
+          <td><%= c.address %></td>
+          <td><%= c.city %></td>
+          <td><%= c.state %></td>
+          <td><%= c.zipcode %></td>
+          <td><%= render_phone(c.telephone) %></td>
+          <td><%= c.contact_title %></td>
+          <td><%= c.contact_fname %></td>
+          <td><%= c.contact_lname %></td>
+          <td><%= c.email %></td>
+          <td><%= c.arrow %></td>
+          <td><%= c.calendar %></td>
+          <td><%= c.status_type %></td>
+          <td><%= tooltipify(c.comment) %></td>
+        </tr>
+      <% end %>
+    <% end %> 
+  </tbody>
+</table>

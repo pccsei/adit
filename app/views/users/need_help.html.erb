@@ -2,7 +2,7 @@
 
 <% provide(:title, 'Help') %>
 
-<% if current_user.role == 3 %>
+<% if current_user.role == TEACHER %>
 <div class="help_accordion">
 	<h3>Recommended Navigation</h3>
 		<div>
@@ -112,15 +112,15 @@
 						the form that you find there.  Once completed, your client will be located in 
 						the Pending Clients list until approval.</p>
 				</div>
-			<h3>What happens when I approve/unapprove a new/edited client?</h3>
+			<h3>What happens when I approve/disapprove a new/edited client?</h3>
 				<div>
 					<p>If you approve a new client, it will be assigned to the student who 
 						submitted the client.<br /> 
 						If you approve an edited client, the client's information will be updated across the entire
 						program.</p><br />
-					<p>If you unapprove a new client, it will be placed in the Unapproved Clients list so that 
+					<p>If you disapprove a new client, it will be placed in the Unapproved Clients list so that 
 						no student can be assigned to it.<br />
-						If you unapprove an edited client, the client's information will not change and 
+						If you disapprove an edited client, the client's information will not change and 
 						everything will stay the same.</p>
 				</div>
 			
@@ -129,7 +129,7 @@
 					<p>In short, not really.</p>
 					<p>You will first need to go to Student Life to get actual approval for the client.  If
 						Student Life gives the thumbs up, then you may approve the client.  Else you will
-						have to unapprove the client.</p>
+						have to disapprove the client.</p>
 				</div> -->
 		</div>
 	<h3>Reports</h3>
@@ -329,7 +329,7 @@
 				<div>
 					<p>You will need to go in natural order of progression (first contact, then presentation, and
 						finally a sale).</p>
-					<p>Ad It will automatically let you know what your next activity will be through an area labeled
+					<p>Adit will automatically let you know what your next activity will be through an area labeled
 						"My Sales Progress."  Simply click on the checkbox next to the activity you completed,
 						add a comment if you have one, and then add the time when you did the activity.</p>
 					<p>You may add more than one activity at a time (first contact and presentation at one time).  
@@ -355,9 +355,9 @@
 						the client you want to submit has not already been submitted.</p>
 					<p>Then, fill out the form at the top of the page.</p>
 					<p>Your newly submitted client will be put in the pending clients list until your teacher approves
-						or unapproves your submission.</p>
+						or disapproves your submission.</p>
 					<p>If the client is approved, the client will be added your active clients, and you will be 
-						able to work with that client.  If unapproved, it will be moved from the pending list to
+						able to work with that client.  Otherwise, it will be moved from the pending list to
 						the unapproved list, and you will not be able to try to sell an ad to that business.</p>
 				</div>
 			<h3>Why are there sometimes when I cannot submit a new client?</h3>

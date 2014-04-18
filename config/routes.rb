@@ -1,9 +1,10 @@
 WhiteCollar::Application.routes.draw do
+  get "static_pages/about_us"
   root :to => 'tickets#index'
 
   post   '/clients/approve_client_edit'
-  post   'clients/actually_assign'
-  get    '/clients/assign'
+  post   'clients/assign'#actually_assign'
+  get    '/clients/show_assign_for'#assign'
   get    '/clients/approve'
   post   '/clients/approve_client'
   post   '/clients/disapprove_client'
@@ -38,9 +39,12 @@ WhiteCollar::Application.routes.draw do
   get    '/reports/end_of_semester_data'
   get    '/tickets/get_sys_time'
   get    '/tickets/updates'
+  get    '/tickets/getClient'
   delete '/reports/delete_bonus'
   post   '/reports/edit_bonus'
   get    '/reports/team_data'
+  get    '/reports/clients'
+  get    '/projects/convert_to_excel'
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets

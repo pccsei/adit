@@ -135,18 +135,18 @@ p, li {
 	width: auto;
 }*/
 
-	.alert-info{
-		font-size: 1.5em;
-		background-color: inherit;
-		border-left: none;
-		border-right: none;
-		border-color: #DC0000;
-		border-radius: 0px;
-		border-width: .2em;
-		color: black;
-		padding: .5em;
-		width: auto;
-	}
+.alert-info{
+	font-size: 1.5em;
+	background-color: inherit;
+	border-left: none;
+	border-right: none;
+	border-color: #DC0000;
+	border-radius: 0px;
+	border-width: .2em;
+	color: black;
+	padding: .5em;
+	width: auto;
+}
 
 
 .alert-error, .alert-alert, .alert-success, .alert-notice {
@@ -266,7 +266,7 @@ font-size: 1.5em;
     float: right;
     list-style: none;
     li {
-      float: left;
+     // float: left;
     }
   }
 }
@@ -467,10 +467,6 @@ label.required:after {
 }
 
 // Forms
-.field_with_errors {
-  @extend .control-group;
-  @extend .error;
-}
 
 .form-control {
   display:inline;
@@ -487,3 +483,38 @@ label.required:after {
 .defaultTooltip {
   cursor: pointer;
 }
+
+// This is all the code for a floating div on the expo version
+/*
+.expo_logo {
+  width: 125px;
+  float:left;
+  position:relative;
+  height: 125px;
+}
+
+.expo_logo_div {
+  position:fixed;
+  bottom: 0px;
+  left: 0px;
+  height: 127px;
+}
+
+.expo_return_text_div {
+  overflow:hidden;
+  width: 0px;
+}
+
+.expo_return_text {
+  position:relative;
+  float:left;
+  padding-top:35px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: #333; 
+  height:125px;
+  color:white;
+  font-size: 14pt;
+  text-align:center;
+  width:186px;
+}*/

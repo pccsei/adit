@@ -33,7 +33,7 @@
 
         <div id = "saleMade" <%= 'class = hidden' unless (@action.action_type.name == 'New Sale' || @action.action_type.name == 'Old Sale') %>>
           <div>
-            <p>Way to Ad It!</p>
+            <p>Way to Adit!</p>
           </div>
           <%= label_tag('price', 'Sale Amount $', class: 'required') %>
           <%= text_field_tag(:price, '', :placeholder => 'Examples: 50 or 75') %>
@@ -71,5 +71,3 @@
       <%= f.submit 'Update Client', class: 'btn btn-primary btn-sm'%>
     </div>
 <% end %>
-
-

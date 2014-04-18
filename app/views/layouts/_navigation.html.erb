@@ -1,55 +1,63 @@
 <ul class="nav navbar-nav">	 
 
 <!-- Teacher Links -->
-<% if current_user.role == 3 %>
-  <li><%= link_to 'Manage Students', users_path, id:'manage_students' %></li>
-  <% if false %>
-  EXPO
+<% if current_user.role == TEACHER %>
   <li class="dropdown">
-    <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Manage Users<b class="caret"></b></a>
+    <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Sections<b class="caret"></b></a>
     <ul class="dropdown-menu">              
-      <li><#%= link_to 'Students', users_path%></li>
-      <li><#%= link_to 'Teachers',    users_teachers_path %></li>
+      <li><%= link_to 'Students', users_path%></li>
+      <li><%= link_to 'Teachers', users_teachers_path %></li>
     </ul>
-  </li> 
-  <% end %>
-  <li><%= link_to 'Assign Clients',      clients_path, id:'assign_clients' %></li>
-  <li><%= link_to 'Approve Clients',     clients_approve_path, id:'approve_clients' %></li>
+  </li>
+  
   <li class="dropdown">
-    <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
+    <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Clients<b class="caret"></b></a>
+    <ul class="dropdown-menu">              
+      <li><%= link_to 'Assign',  clients_path,         id:'assign_clients' %></li>
+      <li><%= link_to 'Approve', clients_approve_path, id:'approve_clients' %></li>
+    </ul>
+  </li>
+  
+  <li class="dropdown">
+    <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b></a>
     <ul class="dropdown-menu">              
       <li><%= link_to 'Student Summary', reports_student_summary_path%></li>
       <li><%= link_to 'Team Summary',    reports_team_summary_path %></li>
+      <li><%= link_to 'Clients',         reports_clients_path %></li>
       <li><%= link_to 'Activities',      reports_activities_path%></li>
       <li><%= link_to 'Sales',           reports_sales_path %></li>
-      <!-- EXPO -->
-      <!-- <li><%= link_to 'Bonuses',           reports_bonus_path %></li>     -->
-      <li><%= link_to 'End of Semester',    reports_end_of_semester_data_path %></li>
+      <li><%= link_to 'Bonuses',         reports_bonus_path %></li>    
+      <li><%= link_to 'End of Semester', reports_end_of_semester_data_path %></li>
     </ul>
   </li>
-  <!-- EXPO -->
-  <!--<li><%= link_to 'Projects',            projects_path %></li>EXPO-->
 
-<!-- Student  Links -->
+      <li><%= link_to 'Projects', projects_path %></li>
+
+<!-- Student and Student Manager  Links -->
 <% else %>
-  <li><%= link_to 'Choose New Clients',      tickets_path, id:'choose_clients' %></li>
-  <li><%= link_to 'My Clients',          my_receipts_path(id: current_user.id), id:'receipts' %></li>
-  <li><%= link_to 'Submit Client',       clients_submit_path, id:"submit_client" %>
-  <!-- Student Manager Links -->
-  <!-- EXPO -->
-<!--   <% if current_user.role == 2 %>
-    <li class="dropdown">
-      <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Team Data <b class="caret"></b></a>
-      <ul class="dropdown-menu">              
-        <li><%= link_to 'Teammates\' Data', reports_team_data_path%></li>
-        <li><%= link_to 'Teammates\' Summary', reports_student_summary_path    %></li>
-        <li><%= link_to 'All Teams',      reports_team_summary_path%></li>
-      </ul>
-    </li>
-  <% end %> -->
+      <li>
+        <% if get_current_project && Project.is_specific(get_current_project.id) %>
+          <%= link_to 'Choose New Clients',  tickets_path,                          id: 'choose_clients' %></li>
+        <% else %>
+          <%= link_to 'Client List',         tickets_path,                          id: 'choose_clients' %></li>
+        <% end %>
+  	  <li><%= link_to 'My Clients',          my_receipts_path(id: current_user.id), id: 'receipts' %></li>
+  	  <li><%= link_to 'Submit Client',       clients_submit_path,                   id: 'submit_client' %></li>
+  	
+<!-- Student Manager Links -->
+ <% if Member.is_team_leader(Member.find_by(project_id: get_selected_project, user_id: current_user.id)) %>
+   <li class="dropdown">
+     <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">My Team<b class="caret"></b></a>
+     <ul class="dropdown-menu">              
+       <li><%= link_to 'Contact Information', reports_team_data_path %></li>
+       <li><%= link_to 'My Team Summary',     reports_student_summary_path %></li>
+       <li><%= link_to 'Class Summary',       reports_team_summary_path %></li>
+     </ul>
+   </li>
+ <% end %>
 <% end %>
 
-<!-- Everyone's Links -->
+  <!-- Everyone's Links -->
   <li><%= link_to "Help", users_need_help_path, id:'help' %></li>
 
 <% if signed_in? %>

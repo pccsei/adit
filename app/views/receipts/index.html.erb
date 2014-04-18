@@ -1,4 +1,4 @@
-<% if current_user.role == 3 %>
+<% if current_user.role == TEACHER %>
 <% provide(:title, (@student_user.first_name.capitalize + '\'s Clients').html_safe)%>
 <br />
 	<% if session[:return_to] == users_url %>

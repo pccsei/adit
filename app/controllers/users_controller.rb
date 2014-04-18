@@ -2,8 +2,6 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update ]
   before_action :only_teachers, except: [:unauthorized, :need_help, :download_help]
   skip_before_action :must_have_project, only: :unauthorized
-  # EXPO
-  before_action :not_expo, only: [:teachers, :another_teacher_to_section, :new_teacher, :change_teacher, :new_teacher]
 
   # GET /users
   # GET /users.json
@@ -12,7 +10,7 @@ class UsersController < ApplicationController
     @users = User.all
       
     @selected_section = get_selected_section
-    @select_students = User.get_student_info(get_selected_project, get_selected_section, 3)
+    @select_students = User.get_student_info(get_selected_project, get_selected_section, TEACHER)
     
     # Get array of all the incorrectly entered students
     @incorrect_students = User.incorrect_students
@@ -37,7 +35,7 @@ class UsersController < ApplicationController
   end
   
   def download_help
-    if current_user.role == 3
+    if current_user.role == TEACHER
       send_file("#{Rails.root}/public/Teacher_Help.docx", :filename => "Teacher_Help.docx", :type => "application/docx")
     else
       send_file("#{Rails.root}/public/Student_Help.docx", :filename => "Student_Help.docx", :type => "application/docx")
@@ -61,7 +59,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    #@member_teachers = Member.where("role = 3 AND project_id = ?", @project.id)
+    #@member_teachers = Member.where("role = TEACHER AND project_id = ?", @project.id)
     #@section_numbers = member_teachers.section_number.uniq!
   end
   
@@ -111,7 +109,6 @@ class UsersController < ApplicationController
   end
 
   def set_section
-    # set paraments for selected section
     set_selected_section(params["section_option"])
     
     respond_to do |format|
@@ -209,7 +206,7 @@ class UsersController < ApplicationController
      else
       respond_to do |format|
         if @user.save
-          if @user.role != 3
+          if @user.role != TEACHER
             @member = Member.new
             @member.user_id = @user.id
             @member.project_id = session[:selected_project_id]
@@ -217,9 +214,9 @@ class UsersController < ApplicationController
             @member.is_enabled = true
             @member.save
 
-          format.html { redirect_to users_path, notice: @user.first_name + ' was successfully created and added to this section.' }
+          format.html { redirect_to users_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to this section.' }
           else
-           format.html { redirect_to users_teachers_path, notice: @user.school_id + ' was successfully created and added to the teacher roster.'}
+           format.html { redirect_to users_teachers_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to the teacher roster.'}
           end
         else
           format.html { render action: 'new' }
@@ -292,7 +289,7 @@ class UsersController < ApplicationController
     member.delete
     redirect_to users_teachers_path
   end
-###################################################################################################################
+
   def in_section
     
     if params[:sn]
@@ -308,7 +305,7 @@ class UsersController < ApplicationController
     end
     render json: response
   end
-###################################################################################################################
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
