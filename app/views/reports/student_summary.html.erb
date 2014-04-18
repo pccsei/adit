@@ -1,9 +1,10 @@
 <% if current_user.role == 3 %>
 	<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
-
+	<% provide(:title, "Student Summary") %>
+	<% provide(:excel, (link_to (image_tag 'excel.png'),reports_student_summary_path(format: "xls"), :title => "Export to Excel").html_safe) %>
 <% else %>
 	<% provide(:title, "#{current_user.full_name_only}'s Team Summary") %>
-	<% provide(:excel, (link_to (image_tag 'excel.png'),reports_student_summary_path(format: "xls"), :title => "Export to Excel").html_safe) %>
+	
 <% end %>
 
 

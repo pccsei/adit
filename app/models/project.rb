@@ -86,12 +86,13 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def self.is_specific(pid)
+# Teach assigns clients to the student
+  def self.is_specific(pid) 
     p = Project.find(pid)
     
-    (p.max_high_priority_clients   != 0 &&
-     p.max_medium_priority_clients != 0 &&
-     p.max_low_priority_clients    != 0)    
+    (p.max_high_priority_clients   == 0 &&
+     p.max_medium_priority_clients == 0 &&
+     p.max_low_priority_clients    == 0)    
   end
 
   # Convert everything for the specified project into excel
