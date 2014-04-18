@@ -1,15 +1,12 @@
 <% if current_user.role == 3 %>
 	<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
-	<% provide(:title, 'Student Summary') %>
+	<% provide(:title, "Student Summary") %>
+	<% provide(:excel, (link_to (image_tag 'excel.png'),reports_student_summary_path(format: "xls"), :title => "Export to Excel").html_safe) %>
 <% else %>
 	<% provide(:title, "#{current_user.full_name_only}'s Team Summary") %>
+	
 <% end %>
 
-
-<p>
-  Download:
-  <%= link_to "Excel", reports_student_summary_path(format: "xls") %>
-</p>
 
 <div id = "section_refresh">  
 	<%= render :partial => "student_summary"%>
