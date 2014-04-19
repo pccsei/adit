@@ -214,12 +214,14 @@ class UsersController < ApplicationController
     if params[:student]
       @user = User.find_by school_id: params[:student]
     end
-     
+    
     if @user && @user.members.find_by(project_id: get_selected_project.id)
       @message = "member"
     elsif @user
       @message = "data"
+      @section_number = get_selected_section
     end
+    
     # if user
        # render text: "user.id"
     # else
