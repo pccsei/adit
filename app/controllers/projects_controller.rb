@@ -38,6 +38,7 @@ class ProjectsController < ApplicationController
 
       if @project.save
          set_selected_project(@project)
+         set_selected_section("all")
          Ticket.createTickets(@project)
          redirect_to users_path, notice: 'Project was successfully created.'
       else
@@ -75,6 +76,12 @@ class ProjectsController < ApplicationController
     if project_id.present?
       selected_project = Project.find(project_id)
       set_selected_project(selected_project)
+      if selected_project.is_active
+        set_selected_section(nil)
+        get_selected_section
+      else
+        set_selected_section("all")
+      end
       redirect_to projects_url, notice: 'You are now viewing the ' + selected_project.semester + ' ' +
                                             selected_project.year.to_s + ' project.'
     else

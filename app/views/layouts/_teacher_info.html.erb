@@ -1,14 +1,7 @@
 <div class="panel panel-default teacher_info" >
 	<div class="panel-body">
 
-		<strong>Project:</strong> <%= get_selected_project.semester + ' ' + get_selected_project.year.to_s %>
-		<% if get_selected_project.is_active %>
-		(active)
-
-		<% else %>
-		(archived)
-
-		<% end %>
+		<strong>Project:</strong> <%= get_selected_project.semester + ' ' + get_selected_project.year.to_s %><br />
 		<% if get_selected_section == 'all' %>
 		<strong>Sections:</strong> All
 		<% else %>

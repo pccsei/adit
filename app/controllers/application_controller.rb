@@ -46,20 +46,22 @@ class ApplicationController < ActionController::Base
   end
   
   def get_selected_project
-    # EXPO rewrite after the expo, added the member stuff
-    member = Member.where(user_id: current_user.id).last
-    if member
-       project = member.project
-    else
-       project = Project.non_archived.last
-    end
     if session[:selected_project_id]
       Project.find(session[:selected_project_id])
-    elsif project
-      set_selected_project(project)
-      project
     else
-      nil
+      member = Member.find_by(user_id: current_user.id, project_id: Project.find_by(is_active: true).id) || 
+                  Member.find_by(user_id: current_user.id)
+      if member
+         project = member.project
+      else
+         project = Project.non_archived.last
+      end
+      if project
+         set_selected_project(project)
+         project
+      else
+         nil
+      end
     end
   end
 
