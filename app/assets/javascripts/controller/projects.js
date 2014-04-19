@@ -67,6 +67,15 @@ onLoad(function () {
     
     var form = $("#projects");
     
+    // Hide the submit button and show the loading bar if the form is valid
+    $('#submitButton').click(function(){
+      if (form.valid()) {
+      	alert("valid!");
+	    $('#loading').show();
+	    $(this).hide();
+      }
+    });
+    
 //*********************************************************************************************************************/
 // Projects New/Edit Page Front-Side Validation
 //*********************************************************************************************************************/
@@ -117,53 +126,55 @@ onLoad(function () {
 	form.validate({
 		rules:{
 			"project[tickets_open_time]": {required: true, date: true, valid_date_format: true, valid_year: true, valid_month: true, valid_day: true, fall: {
-				depends: function(element) {
-					return $('[name="project[semester]"]').val() == "Fall";
-				}
-			}, spring: {
-				depends: function(element) {
-					return $('[name="project[semester]"]').val() == "Spring";
-				}
-			}},
+					depends: function(element) {
+						return $('[name="project[semester]"]').val() == "Fall";
+					}
+				}, spring: {
+					depends: function(element) {
+						return $('[name="project[semester]"]').val() == "Spring";
+					}
+				}},
 			"project[tickets_close_time]": {required: true, date: true, valid_date_format: true, valid_year: true, valid_month: true, valid_day: true, fall: {
-		    	depends: function(element) {
-					return $('[name="project[semester]"]').val() == "Fall";
-				}
-			}, spring: {
-				depends: function(element) {
-					return $('[name="project[semester]"]').val() == "Spring";
-				}
-			}, start_before_end: {
-				depends: function(element) {
-					return $('[name="project[tickets_open_time]"]').val() > $('[name="project[tickets_close_time]"]').val();
-				}
-			}}
+			    	depends: function(element) {
+						return $('[name="project[semester]"]').val() == "Fall";
+					}
+				}, spring: {
+					depends: function(element) {
+						return $('[name="project[semester]"]').val() == "Spring";
+					}
+				}, start_before_end: {
+					depends: function(element) {
+						return $('[name="project[tickets_open_time]"]').val() > $('[name="project[tickets_close_time]"]').val();
+					}
+				}},
+			"project[comment]": {maxlength: 250}
 		},
 		messages:{
 			"project[tickets_open_time]": {
-				required: "Please enter in the date and time when you did this.",
-                date: "The date is incorrect.",
+				required: 		   "Please enter in the date and time when you did this.",
+                date: 			   "The date is incorrect.",
                 valid_date_format: "Should match format YYYY/MM/DD HH:MM AM/PM.",
-                valid_year: "Please select a year after 2000.",
-                valid_month: "Please select a valid month.",
-                valid_day: "Please select a valid day.",
-                fall: "Month needs to be in the Fall (09 - 12).",
-                spring: "Month needs to be in the Spring (01 - 05)."
+                valid_year: 	   "Please select a year after 2000.",
+                valid_month: 	   "Please select a valid month.",
+                valid_day: 		   "Please select a valid day.",
+                fall: 			   "Month needs to be in the Fall (09 - 12).",
+                spring: 		   "Month needs to be in the Spring (01 - 05)."
 			},
 			"project[tickets_close_time]": {
-				required: "Please enter in the date and time when you did this.",
-                date: "The date is incorrect.",
+				required: 		   "Please enter in the date and time when you did this.",
+                date: 			   "The date is incorrect.",
                 valid_date_format: "Should match format YYYY/MM/DD HH:MM AM/PM.",
-                valid_year: "Please select a year after 2000.",
-                valid_month: "Please select a valid month.",
-                valid_day: "Please select a valid day.",
-                fall: "Month needs to be in the Fall (09 - 12).",
-                spring: "Month needs to be in the Spring (01 - 05).",
-                start_before_end: "Must be after Start Time."
-			}
+                valid_year: 	   "Please select a year after 2000.",
+                valid_month: 	   "Please select a valid month.",
+                valid_day: 		   "Please select a valid day.",
+                fall: 			   "Month needs to be in the Fall (09 - 12).",
+                spring: 		   "Month needs to be in the Spring (01 - 05).",
+                start_before_end:  "Must be after Start Time."
+			},
+			"project[comment]":    "The maximum length for a comment is 250 characters."
 		}
 	});
-	
+
 	// Hide the submit button and show the loading bar if the form is valid
     $('#submitButton').click(function(){
       if (form.valid()) {
@@ -177,4 +188,5 @@ onLoad(function () {
 	      $('#exporting').show();
 	      $(this).hide();
       });
+
 });

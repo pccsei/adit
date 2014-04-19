@@ -1,27 +1,10 @@
-<%= javascript_tag do %>
-  $("#bonus_edit").hide();
 
-    $(function() {
-      $(".edit_link").click(
-        function(caller) {
-          $("#bonus_edit").show();
-
-          $("#bonus_edit").show();
-          $("#bonus_points").val( $("#" + caller.target.id).attr("name") );
-          $("#bonus_comment").val( $("#" + caller.target.id).attr("value") );
-          $("#bonus_id").val( $("#" + caller.target.id).attr("title") );
-        }
-      );
-    });
-
-<% end %>
- 
-<%= form_tag(reports_edit_bonus_path) do%>
+<%= form_tag reports_edit_bonus_path, :id => 'edit_bonus_points' do%>
   <div id="bonus_edit">
     <p>Number of bonus points:
-    <input id="bonus_points" name="bonus_points" type="number" value="" /></p>
+    <%= number_field_tag 'bonus_points' %></p>
     <p>Please enter the reason for the bonus points:
-    <input id="bonus_comment" name="bonus_comment" type="text" value=""  /></input></p>
+    <%= text_area_tag 'bonus_comment' %></input></p>
     <input id="bonus_id" name="bonus_id" value="" type="hidden"></input>
     <%= button_tag :submit, :disabled => archived? %>
   </div> 
