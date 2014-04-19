@@ -13,7 +13,7 @@
 <% end %>
 
 <% if @team_data.empty? %>
-<p class="info-message alert alert-info"> Assign student managers on the <%=link_to "Manage Students", users_path %> page to see team data!</p>
+<p class="info-message alert alert-info"> Assign student managers on the <%=link_to "Students", users_path %> page to see team data!</p>
 <% end %>
 <div id = "section_refresh">
 <%= render :partial => "team_summary"%>
