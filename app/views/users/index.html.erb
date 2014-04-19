@@ -21,33 +21,49 @@
   <!--Actions for the teacher to do with the students and sections-->
   <%= form_tag(users_change_student_status_path) do%>
     <div id= "manage_dropdown">
-      <div id = "option">
+      <span id = "option">
         <%= select_tag 'selected_option',
                         options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team', "Assign Bonus Points" ]),
                         :prompt => 'Choose Action', :type => 'button',
-                        :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown',
+                        :class => 'btn btn-default dropdown-toggle', :datatoggle => 'dropdown',
                         :disabled => archived? %>
-      </div>
+      </span>
       <!-- This only appears if the teacher wants to assign a team to a student manager -->
-      <div id ="show_managers">
+      <span id ="show_managers">
         <% if @student_managers.count > 0 %>
           <%= select_tag 'student_manager', options_from_collection_for_select(@student_managers, 'id', :full_name),
                        :class => 'btn btn-default dropdown-toggle col-md-2', :disabled => archived? %>
       <% else %>
         <p id="no_managers" class="alert alert-error">Please promote students before creating a team.</p>
       <% end %>
-      </div>
+  </span>
 
+  <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm ', :id => 'action_submit', :disabled => archived?  %>
  
- 
+
       <div id ="assign_bonus_points">
-        <p>Number of bonus points:
-        <%= number_field_tag 'bonus_points' %></p>
-        <p>Please enter the reason for the bonus points:
-        <%= text_field_tag 'bonus_comment' %></p>
+        <table>
+          <tr>
+            <td class="label-field">
+             Number of bonus points:
+            </td>
+            <td class="text-field">
+				 <%= number_field_tag 'bonus_points', nil, :class => 'form-control' %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              Please enter the reason <br />for the bonus points:
+            </td>
+            <td class="text-field">
+             	 <%= text_area_tag 'bonus_comment', nil, :class => 'form-control' %>
+            </td>
+          </tr>
+	  </table>
       </div>
-    <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm col-md-1', :id => 'action_submit', :disabled => archived?  %>
-    </div>
+  </div>
+   
+   
 
 
 

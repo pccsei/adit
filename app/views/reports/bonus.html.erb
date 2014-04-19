@@ -16,21 +16,48 @@
 
 <% end %>
  
-<%= form_tag(reports_edit_bonus_path) do%>
-  <div id="bonus_edit">
-    <p>Number of bonus points:
-    <input id="bonus_points" name="bonus_points" type="number" value="" /></p>
-    <p>Please enter the reason for the bonus points:
-    <input id="bonus_comment" name="bonus_comment" type="text" value=""  /></input></p>
-    <input id="bonus_id" name="bonus_id" value="" type="hidden"></input>
-    <%= button_tag :submit, :disabled => archived? %>
-  </div> 
-<% end %>
-
 <%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
 
 <% provide(:title, 'Bonuses') %>
 <% provide(:excel, (link_to (image_tag 'excel.png'), reports_bonus_path(format: "xls"), :title => "Export to Excel").html_safe) %>
 
 
+
+ 
+<div id ="bonus_edit">
+  <table>
+    <tr>
+      <td class="label-field">
+       Number of bonus points:
+      </td>
+      <td class="text-field">
+		 <input id="bonus_points" name="bonus_points" class="form-control" type="number" value="" />
+      </td>
+    </tr>
+    <tr>
+      <td class="label-field">
+        Please enter the reason for the bonus points:
+      </td>
+      <td class="text-field">
+	      <textarea id="bonus_comment" name="bonus_comment" class="form-control" type="text" value=""  /></textarea>
+	      <input id="bonus_id" name="bonus_id" value="" type="hidden"></input>
+      </td>
+    </tr>
+    <tr>
+      <td class="label-field">
+        
+      </td>
+      <td class="text-field">
+	      <%= button_tag :submit, :class=>'btn btn-primary btn-sm', :disabled => archived? %>
+      </td>
+    </tr>
+</table>
+</div>
+
+<%= form_tag(reports_edit_bonus_path) do%>
+
+<% end %>
+
 <%= render :partial => 'bonus'%>
+  
+
