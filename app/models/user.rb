@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def User.parse_students(user_params, section_number, project_id, incorrect_counter)
+  def User.parse_students(user_params, section_number, project_id)
     message = "" #Message containing names of people already in the project
     invalid_count = 0 #Number of students that already were members of the project
     illegal_count = 0 #Number of illegally entered students
@@ -145,8 +145,6 @@ class User < ActiveRecord::Base
           member.is_enabled = true
           member.save
         else
-          incorrect_counter -= 1
-          user.school_id += incorrect_counter.to_s
           illegal_count += 1
         end
       # The student user already exists in the database
@@ -747,10 +745,6 @@ class User < ActiveRecord::Base
 
   def self.all_teacher_ids
     where('role = ?', TEACHER).ids
-  end
-
-  def self.incorrect_students
-    where('school_id LIKE (?)', "-")
   end
 
   def self.team_members(project, team_leader_id)

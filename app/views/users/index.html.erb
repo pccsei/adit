@@ -13,7 +13,6 @@
 
 <% if @selected_section == 'all' %>
   <p id = "info_message" class = "alert alert-info ">You are currently viewing all students.<br /> Please select a section or create a section for additional options.</p>
-        <!--Refreshes page using ajax, actually just normally right now-->
       <div id = "section_refresh">
         <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
       </div>
@@ -38,9 +37,7 @@
       <% else %>
         <p id="no_managers" class="alert alert-error">Please promote students before creating a team.</p>
       <% end %>
-      </div>
-
- 
+      </div> 
  
       <div id ="assign_bonus_points">
         <p>Number of bonus points:
@@ -51,15 +48,6 @@
     <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm col-md-1', :id => 'action_submit', :disabled => archived?  %>
     </div>
 
-
-
-
-  <!-- Displays the incorrect students if any -->
-  <% if @incorrect_students.present? %>
-  	<%= render :partial => 'incorrect_students' %>
-  <% end %>
-  
-  <!--Refreshes page using ajax, actually just normally right now-->
       <div id = "section_refresh">
         <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
       </div>

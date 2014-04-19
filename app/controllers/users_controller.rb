@@ -12,9 +12,6 @@ class UsersController < ApplicationController
     @selected_section = get_selected_section
     @select_students = User.get_student_info(get_selected_project, get_selected_section, TEACHER)
     
-    # Get array of all the incorrectly entered students
-    @incorrect_students = User.incorrect_students
-    
     # Get array of all sections
     @sections = get_array_of_all_sections(get_selected_project)
 
@@ -137,14 +134,8 @@ class UsersController < ApplicationController
   def input_students_parse
     user_params = params['input'].strip
 
-    if User.incorrect_students.present?
-      incorrect = User.where(["school_id <= ?", -1]).last
-      User.parse_students(user_params, get_selected_section, session[:selected_project_id], incorrect.school_id.to_i)
-    else
-      incorrect = 0
-      message = User.parse_students(user_params, get_selected_section, session[:selected_project_id], incorrect.to_i)
-    end
-    
+    message = User.parse_students(user_params, get_selected_section, session[:selected_project_id]) 
+       
     redirect_to users_url, notice: message || "Import from Excel Successful!"
   end
 
