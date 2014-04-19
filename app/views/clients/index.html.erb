@@ -2,10 +2,6 @@
 <% provide(:excel, (link_to (image_tag 'excel.png'), clients_path(format: "xls"), :title => "Export to Excel").html_safe) %>
 
 
-<% if get_selected_project.is_active == false %>
-   <p class='alert-notice'>You must switch to an active project to assign clients.</p>
-<% end%>
-
 <table class="display assign_table" id="client_list">
   <thead>
   <tr>

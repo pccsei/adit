@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 # Validates the user's school id
   validates :school_id, presence: true, uniqueness: true, unless: Proc.new { |user| user.school_id.to_i <= -1 }
 
-# Validates the email - uniqueness removed for the EXPO
+# Validates the email
   validates :email, uniqueness: true, format: {
       with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\Z/,
       message: 'must be a valid PCC email address (jsmith1234@students.pcci.edu).'
@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
       message: 'needs to be a range of 3-4 digits long.'
   }, numericality: { greater_than: 0 }, unless: Proc.new { |user| user.school_id.to_i <= -1 }
   
+# Validates the major and minor
   validates :major, :minor,
      length: {
         maximum: 75,
@@ -103,7 +104,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def User.parse_students(user_params, section_number, project_id, incorrect_counter)
+  def User.parse_students(user_params, section_number, project_id)
+    message = "" #Message containing names of people already in the project
+    invalid_count = 0 #Number of students that already were members of the project
+    illegal_count = 0 #Number of illegally entered students
     # Delete the header line if present
     if user_params.include? 'Course'
       no_description_bar = user_params.split("\n")[1..-1]
@@ -120,6 +124,7 @@ class User < ActiveRecord::Base
     # Parse the input
     for i in 0..all_student_info.count-1
       single_student_info = all_student_info[i].split("\t")
+      # Check to see if the current student being processed already exists as a user
       if !all_student_ids.include?(single_student_info[1])
         user = User.new
         user.school_id = single_student_info[1]
@@ -140,19 +145,13 @@ class User < ActiveRecord::Base
           member.section_number = section_number
           member.is_enabled = true
           member.save
-        elsif(single_student_info[1].empty?)
-          incorrect_counter -= 1
-          user.school_id = incorrect_counter.to_s + '(Empty ID)'
-          user.save
         else
-          incorrect_counter -= 1
-          user.school_id = incorrect_counter.to_s + '(Duplicate ID entered)'
-          user.save
+          illegal_count += 1
         end
+      # The student user already exists in the database
       else
-        incorrect_counter -= 1
-        user = User.new
-        user.school_id = incorrect_counter.to_s + '(User already exists)'
+        user = User.find_by! school_id: single_student_info[1]
+        user.school_id = single_student_info[1]
         user.first_name = single_student_info[2].split(', ')[1]
         user.last_name = single_student_info[2].split(', ')[0]
         user.classification = single_student_info[3]
@@ -163,37 +162,39 @@ class User < ActiveRecord::Base
         user.minor = single_student_info[9]
         user.role = STUDENT
         user.save
-        # user = User.find_by! school_id: single_student_info[1]
-        # user.school_id = single_student_info[1]
-        # user.first_name = single_student_info[2].split(', ')[1]
-        # user.last_name = single_student_info[2].split(', ')[0]
-        # user.classification = single_student_info[3]
-        # user.box = single_student_info[5]
-        # user.phone = single_student_info[6]
-        # user.email = single_student_info[7]
-        # user.major = single_student_info[8]
-        # user.minor = single_student_info[9]
-        # user.role = STUDENT
-        # user.save
-        # if (member = Member.find_by(user_id: (User.find_by school_id: single_student_info[1]).id))
-          # member.user_id = user.id
-          # member.project_id = project_id
-          # member.section_number = section_number
-          # member.is_enabled = true
-          # member.save
-        # else
-          # member = Member.new
-          # member.user_id = user.id
-          # member.project_id = project_id
-          # member.section_number = section_number
-          # member.is_enabled = true
-          # member.save
-        # end
+        # Check to see if they are already a member of the project
+        if (Member.where(user_id: user.id, project_id: project_id).empty?)
+          member = Member.new
+          member.user_id = user.id
+          member.project_id = project_id
+          member.section_number = section_number
+          member.is_enabled = true
+          member.save
+        else
+          message += user.first_name + " " + user.last_name + ", "
+          invalid_count += 1
+        end
        end
     end
+    
+    if message.present?
+      message = message[0..-3]
+      if invalid_count > 1      
+         message += " were already members of this project." 
+      else
+        message += " was already a member of this project."
+      end
+    end
+    
+    if illegal_count > 0
+      message += " At least one student record contained input errors."
+    end
+    
+    message
   end
 
   # Good luck...
+  # Do whatever the teacher specified on the manage students page.
   def User.do_selected_option(students, choice, student_manager_id, selected_project, bonus_points, bonus_comment)
     if student_manager_id
       student_manager = User.find(student_manager_id)
@@ -345,22 +346,23 @@ class User < ActiveRecord::Base
         return reponse, flash_message
       end
 
-      if choice == 'Inactivate Students'
-        for i in 0..students.count-1
-          # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
-          member = Member.find_by(user_id: students[i])
-          member.parent_id = nil
-          User.find(students[i]).role == is_team_leader(Member.find_by(project_id: selected_project, parent_id: user_id)) ? Member.destroy_team(User.find(students[i]), true) : nil
-          Member.inactivate_student_status(member)
-        end
-      end
+      # These options are currently not being used
+      # if choice == 'Inactivate Students'
+      #   for i in 0..students.count-1
+      #     member = Member.find_by(user_id: students[i])
+      #     member.parent_id = nil
+      #     # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
+      #     User.find(students[i]).role == is_team_leader(Member.find_by(project_id: selected_project, parent_id: user_id)) ? Member.destroy_team(User.find(students[i]), true) : nil
+      #     Member.inactivate_student_status(member)
+      #   end
+      # end
 
-      if choice == 'Activate Students'
-        for i in 0..students.count-1
-          member = Member.find_by(user_id: students[i])
-          Member.activate_student_status(member)
-        end
-      end
+      # if choice == 'Activate Students'
+      #   for i in 0..students.count-1
+      #     member = Member.find_by(user_id: students[i])
+      #     Member.activate_student_status(member)
+      #   end
+      # end
 
       if choice == 'Add to Team'
         if student_manager
@@ -603,7 +605,7 @@ class User < ActiveRecord::Base
     end
   end
 
-# Delete the old teacher Member and add a new teacher member
+  # Delete the old teacher Member and add a new teacher member
   def self.change_teacher(p_new_teacher_id, p_old_teacher)
     new_teacher = Member.new
 
@@ -616,6 +618,7 @@ class User < ActiveRecord::Base
     new_teacher.save
   end
 
+  # Returns an array of the number of teachers in each section
   def self.get_number_of_teachers_per_section(array_of_all_sections, project)
     array_of_all_sections.delete 'all'
 
@@ -639,7 +642,7 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-# Creates a new Teacher member with the section number. This is all that is done to create a new section 
+  # Creates a new Teacher member with the section number. This is all that is done to create a new section 
   def User.create_new_section(teacher_id, section_number, project_id)
     # Current teacher id will get the current teacher user id in the test loop below.
     # not_a_section = true
@@ -676,7 +679,7 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
-# Returns the managers name for the current section to assign a team
+  # Returns the managers name for the current section to assign a team
   def self.get_managers_from_current_section(project, section)
       users = User.where(role: STUDENT)
       members = Member.where(section_number: section, project_id: project)
@@ -692,7 +695,7 @@ class User < ActiveRecord::Base
       # where(id: Member.where(project_id: project, section_number: section, parent_id: user_id).pluck(:user_id))
   end
 
-# Returns all the student users for a project and section
+  # Returns all the student users for a project and section
   def self.current_student_users(project, section = 'all')
     student_members = Member.student_members_user_ids(project, section)
     where('id in (?)', student_members)
@@ -721,7 +724,7 @@ class User < ActiveRecord::Base
     teachers
   end
 
-# Returns the manager name for a given user and project
+  # Returns the manager name for a given user and project
   def self.get_manager_name(student_id, project)
     user = User.find(student_id).members.find_by project_id: project.id
     if user && user.parent_id
@@ -746,10 +749,6 @@ class User < ActiveRecord::Base
 
   def self.all_teacher_ids
     where('role = ?', TEACHER).ids
-  end
-
-  def self.incorrect_students
-    where('school_id <= ?', -1)
   end
 
   def self.team_members(project, team_leader_id)

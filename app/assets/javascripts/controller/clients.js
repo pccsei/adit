@@ -167,16 +167,18 @@ onLoad(function() {
       "sDom": '<"H"CTrf>t<"F"lip>',
       "sScrollXInner": "110%",
       "fnInitComplete": function() {
-        this.css("visibility", "visible");
-        $('table.assign_table').each(function(i,table) {
-            $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
-        });
-      }
+          this.css("visibility", "visible");
+      },
+      "fnPreDrawCallback": $(".autoHide").hide()
   }, $(".defaultTooltip").tooltip({
       'selector': '',
       'placement': 'left',
       'container': 'body'
   }));
+
+  $('table.assign_table').each(function(i,table) {
+      $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
+  });
 
   /* Actions done on page load */
 	populate($('#currentSection').html());
@@ -204,6 +206,6 @@ onLoad(function() {
         });
     }
   });
-  
+
   return table;  
 });

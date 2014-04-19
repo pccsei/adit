@@ -1,4 +1,4 @@
-<% studentSelectable = Project.is_specific(@currentProject.id)%>
+<% studentSelectable = !Project.is_specific(@currentProject.id)%>
 
 <% if studentSelectable %>
   <% provide(:title, 'Choose New Clients') %>

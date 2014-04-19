@@ -184,34 +184,34 @@ onLoad(function () {
 	// Validation for an action
     $("#new_action").validate({
         rules: {
-            "price": {required: true, decimal: true, leading_zero: true, min_digit: .01, max: 1500, maxlength: 7},
-            "otherSize": {required: true, fraction: true, decimal_place: true },
-            "user_action_time": {required: true, date: true, valid_date_format: true, valid_year: true, valid_month: true, valid_day: true},
-            "comment": {maxlength: 250}
+            "price": 			{required:  true, decimal:  true, leading_zero:      true, min_digit:  .01,  max:         1500, maxlength: 7},
+            "otherSize": 		{required:  true, fraction: true, decimal_place:     true },
+            "user_action_time": {required:  true, date:     true, valid_date_format: true, valid_year: true, valid_month: true, valid_day: true},
+            "comment": 			{maxlength: 250}
         },
         messages: {
             "price": {
-                required: "Please enter a valid price (30 or 30.00).",
-                decimal: "Only a number with 0-2 decimal places (no commas).",
-                leading_zero: "The first number cannot be zero.",
-                min_digit: "Price cannot be all zero.",
-                max: "The price should not be higher than 1500 dollars.",
-                maxlength: "Cannot be more than six digits long."
+                required: 		   "Please enter a valid price (30 or 30.00).",
+                decimal: 		   "Only a number with 0-2 decimal places (no commas).",
+                leading_zero: 	   "The first number cannot be zero.",
+                min_digit: 		   "Price cannot be all zero.",
+                max: 			   "The price should not be higher than 1500 dollars.",
+                maxlength: 		   "Cannot be more than six digits long."
             },
             "otherSize": {
-                required: "Please enter an ad size (.25 or 1/4).",
-                decimal_place: "Can be between 0.01 and 3, with at most 2 decimal places.",
-                fraction: "Fraction is not allowed (allowed example is 1/4)."
+                required: 		   "Please enter an ad size (.25 or 1/4).",
+                decimal_place: 	   "Can be between 0.01 and 3, with at most 2 decimal places.",
+                fraction: 		   "Fraction is not allowed (allowed example is 1/4)."
             },
             "user_action_time": {
-                required: "Please enter in the date and time when you did this.",
-                date: "The date is incorrect.",
+                required: 		   "Please enter in the date and time when you did this.",
+                date: 			   "The date is incorrect.",
                 valid_date_format: "Should match format YYYY/MM/DD HH:MM AM/PM.",
-                valid_year: "Please select a year after 2000.",
-                valid_month: "Please select a valid month.",
-                valid_day: "Please select a valid day."
+                valid_year: 	   "Please select a year after 2000.",
+                valid_month: 	   "Please select a valid month.",
+                valid_day: 		   "Please select a valid day."
             },
-            "comment": "The maximum length for a comment is 250 characters."
+            "comment": 			   "The maximum length for a comment is 250 characters."
         }
     });
 
