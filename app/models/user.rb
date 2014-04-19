@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 # Validates the user's school id
   validates :school_id, presence: true, uniqueness: true, unless: Proc.new { |user| user.school_id.to_i <= -1 }
 
-# Validates the email - uniqueness removed for the EXPO
+# Validates the email
   validates :email, uniqueness: true, format: {
       with: /\A([^@\s]+)@(students.pcci.edu|faculty.pcci.edu)\Z/,
       message: 'must be a valid PCC email address (jsmith1234@students.pcci.edu).'
@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
       message: 'needs to be a range of 3-4 digits long.'
   }, numericality: { greater_than: 0 }, unless: Proc.new { |user| user.school_id.to_i <= -1 }
   
+# Validates the major and minor
   validates :major, :minor,
      length: {
         maximum: 75,
@@ -144,8 +145,19 @@ class User < ActiveRecord::Base
           member.section_number = section_number
           member.is_enabled = true
           member.save
+<<<<<<< HEAD
         else
           illegal_count += 1
+=======
+        elsif(single_student_info[1].empty?)
+          incorrect_counter -= 1
+          user.school_id = incorrect_counter.to_s + '(Empty ID'
+          user.save
+        else
+          incorrect_counter -= 1
+          user.school_id = incorrect_counter.to_s + '(Duplicate ID entered'
+          user.save
+>>>>>>> 032841bd8dd57b0a1520691980daf37d9a3fcae4
         end
       # The student user already exists in the database
       else
