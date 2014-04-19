@@ -194,6 +194,7 @@ class User < ActiveRecord::Base
   end
 
   # Good luck...
+  # Do whatever the teacher specified on the manage students page.
   def User.do_selected_option(students, choice, student_manager_id, selected_project, bonus_points, bonus_comment)
     if student_manager_id
       student_manager = User.find(student_manager_id)
@@ -345,22 +346,23 @@ class User < ActiveRecord::Base
         return reponse, flash_message
       end
 
-      if choice == 'Inactivate Students'
-        for i in 0..students.count-1
-          # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
-          member = Member.find_by(user_id: students[i])
-          member.parent_id = nil
-          User.find(students[i]).role == is_team_leader(Member.find_by(project_id: selected_project, parent_id: user_id)) ? Member.destroy_team(User.find(students[i]), true) : nil
-          Member.inactivate_student_status(member)
-        end
-      end
+      # These options are currently not being used
+      # if choice == 'Inactivate Students'
+      #   for i in 0..students.count-1
+      #     member = Member.find_by(user_id: students[i])
+      #     member.parent_id = nil
+      #     # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
+      #     User.find(students[i]).role == is_team_leader(Member.find_by(project_id: selected_project, parent_id: user_id)) ? Member.destroy_team(User.find(students[i]), true) : nil
+      #     Member.inactivate_student_status(member)
+      #   end
+      # end
 
-      if choice == 'Activate Students'
-        for i in 0..students.count-1
-          member = Member.find_by(user_id: students[i])
-          Member.activate_student_status(member)
-        end
-      end
+      # if choice == 'Activate Students'
+      #   for i in 0..students.count-1
+      #     member = Member.find_by(user_id: students[i])
+      #     Member.activate_student_status(member)
+      #   end
+      # end
 
       if choice == 'Add to Team'
         if student_manager
@@ -603,7 +605,7 @@ class User < ActiveRecord::Base
     end
   end
 
-# Delete the old teacher Member and add a new teacher member
+  # Delete the old teacher Member and add a new teacher member
   def self.change_teacher(p_new_teacher_id, p_old_teacher)
     new_teacher = Member.new
 
@@ -616,6 +618,7 @@ class User < ActiveRecord::Base
     new_teacher.save
   end
 
+  # Returns an array of the number of teachers in each section
   def self.get_number_of_teachers_per_section(array_of_all_sections, project)
     array_of_all_sections.delete 'all'
 
@@ -639,7 +642,7 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-# Creates a new Teacher member with the section number. This is all that is done to create a new section 
+  # Creates a new Teacher member with the section number. This is all that is done to create a new section 
   def User.create_new_section(teacher_id, section_number, project_id)
     # Current teacher id will get the current teacher user id in the test loop below.
     # not_a_section = true
@@ -676,7 +679,7 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
-# Returns the managers name for the current section to assign a team
+  # Returns the managers name for the current section to assign a team
   def self.get_managers_from_current_section(project, section)
       users = User.where(role: STUDENT)
       members = Member.where(section_number: section, project_id: project)
@@ -692,7 +695,7 @@ class User < ActiveRecord::Base
       # where(id: Member.where(project_id: project, section_number: section, parent_id: user_id).pluck(:user_id))
   end
 
-# Returns all the student users for a project and section
+  # Returns all the student users for a project and section
   def self.current_student_users(project, section = 'all')
     student_members = Member.student_members_user_ids(project, section)
     where('id in (?)', student_members)
@@ -721,7 +724,7 @@ class User < ActiveRecord::Base
     teachers
   end
 
-# Returns the manager name for a given user and project
+  # Returns the manager name for a given user and project
   def self.get_manager_name(student_id, project)
     user = User.find(student_id).members.find_by project_id: project.id
     if user && user.parent_id
