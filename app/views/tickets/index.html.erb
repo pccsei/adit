@@ -7,7 +7,6 @@
 <% end %>
 
 <% if @tickets %>
-    <% studentSelectable = Project.is_specific(@currentProject.id)%>
     <% open = (@currentProject.tickets_close_time > Time.now) %>
     <% if studentSelectable %>
       <div class="scroller_anchor"></div>
