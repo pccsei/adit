@@ -11,7 +11,7 @@
         <br/><%= submit_tag 'Add Students to Section', :class => 'btn btn-large btn-primary btn-sm', :disabled => archived? %>
     <% end %>
   </div>
-  <%= render 'form' %>
+  <%= render 'form', locals: 'new_student' %>
 </div>
 
 

@@ -45,6 +45,11 @@ class Member < ActiveRecord::Base
       end
     end
    
+   # Used to determine if the student is a student manager
+   def self.is_team_leader student
+     return student.parent_id == User.find(student.user_id).id ? true : false
+   end
+
    # Returns only the ids of student members for a given project
    def self.student_member_ids(project)
      teachers = User.all_teacher_ids
@@ -84,8 +89,6 @@ class Member < ActiveRecord::Base
   def self.destroy_team(team_leader, inactivate_team_leader = false)
     # Accept either the user team leader or member team leader
     if team_leader.instance_of?(User)
-      team_leader.role = STUDENT
-      team_leader.save
       team_leader = Member.find_by(user_id: team_leader)
     else 
       u_team_leader = User.find(team_leader.user_id).role = 

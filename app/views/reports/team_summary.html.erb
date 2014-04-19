@@ -1,5 +1,6 @@
 <% if current_user.role == 3 %>
 	<% provide(:title, 'Team Summary') %>
+	<% provide(:excel, (link_to (image_tag 'excel.png'), reports_team_summary_path(format: "xls"), :title => "Export to Excel").html_safe) %>
 	<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>	
 <% else %>
     <% provide(:title, 'Class Summary') %>	
@@ -8,10 +9,7 @@
 
 
 <%if defined? @team_data %>
-  <p>
-    Download:
-    <%= link_to "Excel", reports_team_summary_path(format: "xls") %>
-  </p>
+ 
 <% end %>
 
 <% if @team_data.empty? %>

@@ -49,12 +49,24 @@ class ClientsController < ApplicationController
     # Create a ticket for the student if he does not already have one.
     receipt = Receipt.where('ticket_id = ? AND user_id = ?', t.id, params[:studentID]).first
     r = Receipt.find_or_create_by(ticket_id: t.id, user_id: User.where(school_id: params[:studentID]).first.id)
+    
+    version_cleanup(current_user.id, "Receipt")
+    version_cleanup(current_user.id, "Ticket")
+    
     @message = User.where(school_id: params[:studentID]).first.to_s + 'is now assigned to ' + t.client.business_name.to_s
     # have the undo use the receipt id
     undo_link = view_context.link_to("Undo", revert_assign_version_path(t.versions.where(whodunnit: current_user.id).last), :method => :post)
     redirect_to clients_url, :notice => User.find_by_school_id(params[:studentID]).first_name.to_s + ' is now assigned to ' + t.client.business_name + ".  #{undo_link}"  
   end
   
+  def pending_clients_excel
+    @pending_clients = Client.pending
+  end
+
+  def edited_clients_excel
+    @edited_pending_clients = Client.edited_pending
+  end
+
   def approve_client
     status = params['commit']
     # This should probably be refactored to send the client ids from the front

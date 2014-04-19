@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
    
    # Restricts access to only teachers and student managers
    def only_leadership
-     if current_user.role == STUDENT 
+     if current_user.role == STUDENT && !Member.is_team_leader(Member.find_by(project_id: get_selected_project, user_id: current_user.id))
        redirect_to users_unauthorized_path# What should we redirect to?
      end
    end
@@ -117,7 +117,7 @@ class ApplicationController < ActionController::Base
        redirect_to no_project_path
      end
    end
-   
+
   def version_cleanup(uid, item_type)
     last_version_id = PaperTrail::Version.where(whodunnit: uid, item_type: item_type).last.id        
     PaperTrail::Version.where("whodunnit = ? AND item_type = ? AND id != ?", uid, item_type, last_version_id).destroy_all

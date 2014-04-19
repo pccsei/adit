@@ -1,4 +1,5 @@
 WhiteCollar::Application.routes.draw do
+  get "static_pages/about_us"
   root :to => 'tickets#index'
 
   match  '/users/duplicate_student', :to => 'users#duplicate_student', via: :post
@@ -45,6 +46,8 @@ WhiteCollar::Application.routes.draw do
   get    '/reports/team_data'
   get    '/reports/clients'
   get    '/projects/convert_to_excel'
+  get    '/clients/edited_clients_excel'
+  get    '/clients/pending_clients_excel'
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets
