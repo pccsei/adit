@@ -47,7 +47,11 @@ class Member < ActiveRecord::Base
    
    # Used to determine if the student is a student manager
    def self.is_team_leader student
-     return student.parent_id == User.find(student.user_id).id ? true : false
+     if student
+        return student.parent_id == User.find(student.user_id).id ? true : false
+     else
+       return false
+     end
    end
 
    # Returns only the ids of student members for a given project
