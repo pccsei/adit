@@ -59,7 +59,7 @@ class Report
     receipts = Receipt.selected_project_receipts(project)
     if current_user.role == TEACHER
       students = User.current_student_users(project, section)
-    elsif is_team_leader(Member.find_by(project_id: project, user_id: current_user))
+    elsif Member.is_team_leader(Member.find_by(project_id: project, user_id: current_user))
       students = User.team_members(project, current_user.id)
     end
 

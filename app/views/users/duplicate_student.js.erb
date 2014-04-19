@@ -14,6 +14,6 @@ document.getElementById("create").disabled = false;
 <% end %>
 
 <% if @message == "member" %>
-$( "#student_exists" ).html("<p class=\"alert alert-info\">This student is already  a member of this project. <a href=\"/users\">Go back to Students page.</a></p>");
+$( "#student_exists" ).html("<p class=\"alert alert-info\">This student is already  a member of this project. <a href=<%=users_path%>>Go back to Students page.</a></p>");
 document.getElementById("create").disabled = true;
 <% end %>

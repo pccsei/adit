@@ -49,7 +49,7 @@ class Project < ActiveRecord::Base
     end
   end
 
-# Teach assigns clients to the student
+# Teacher assigns clients to the student
   def self.is_specific(pid) 
     p = Project.find(pid)
     
