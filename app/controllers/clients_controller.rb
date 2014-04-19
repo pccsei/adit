@@ -67,6 +67,7 @@ class ClientsController < ApplicationController
     @edited_pending_clients = Client.edited_pending
   end
 
+  # Process the button choice on the approve client's page
   def approve_client
     status = params['commit']
     # This should probably be refactored to send the client ids from the front
@@ -95,6 +96,7 @@ class ClientsController < ApplicationController
     render :text => Ticket.more_clients_allowed(student, get_selected_project, TEACHER, params[:priority])
   end
   
+  # This only deals with the edited clients on the approve page, not the pending clients.
   def approve_client_edit
     status = 2 if params['commit'] == 'Approve'
     status = 1 if params['commit'] == 'Disapprove'

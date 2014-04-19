@@ -111,7 +111,7 @@ end
       end
       ticket = Ticket.find_by(client_id: pending_client.id)
       if User.find(pending_client.submitter).role < 3 && ticket.user_id
-         Receipt.create(ticket_id: ticket.id, user_id: ticket.user_id)
+        Receipt.create(ticket_id: ticket.id, user_id: ticket.user_id)
       end
     end
 
@@ -136,11 +136,11 @@ end
 
   end
   
-    def self.unapprove_clients(array_of_pending_clients)
-      flash_message = ""
-      unapproved_clients = []
+  def self.unapprove_clients(array_of_pending_clients)
+    flash_message = ""
+    unapproved_clients = []
 
-     for i in 0..array_of_pending_clients.count-1
+    for i in 0..array_of_pending_clients.count-1
       pending_client = Client.find(array_of_pending_clients[i].to_i)
       pending_client.status_id = Status.where('status_type = ?', 'Unapproved').first.id
       if pending_client.save
@@ -150,8 +150,7 @@ end
       if Ticket.where('client_id = ?', pending_client.id).first
         Ticket.where('client_id = ?', pending_client.id).first.destroy
       end
-
-     end
+    end
 
     unapproved_clients.compact!
     if unapproved_clients.count > 0
@@ -168,8 +167,7 @@ end
     end
 
     return flash_message
-
-    end
+  end
 
   def self.tickets_for_selected_project(pid)
     ticket_info = Ticket.where(project_id: pid)
@@ -208,6 +206,8 @@ end
     client_ticket
   end 
     
+  # This actually makes a totally different entry in the database, with a status 5 id that means editing and a parent
+  # id that points back to the to be edited client.
   def Client.make_pending_edited_client(edited_client, client, client_params, user_id)
     if edited_client.attributes != Client.find(client).attributes
       pending_edited_client = Client.new
@@ -224,6 +224,8 @@ end
     end
   end
 
+  # On clicking approve, the client's data gets replaced by the edited client's data that is in the database.
+  # The edited client then gets destroyed. The edited client knows its client by the parent id.
   def Client.approve_edited_clients(status, array_of_edited_pending_clients)
     flash_message = "The changes for "
     changed_edited_clients = [] 
