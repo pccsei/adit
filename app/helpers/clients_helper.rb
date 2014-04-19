@@ -3,9 +3,9 @@ module ClientsHelper
   # Checks to see if the current user is permitted to obtain another client
   def more_tickets_allowed
     if Project.is_specific(get_current_project.id)
-      Ticket.more_clients_allowed(current_user, get_current_project, current_user.role, 'low')
-    else
       Ticket.total_allowed_left(current_user, get_current_project) > 0
+    else
+      Ticket.more_clients_allowed(current_user, get_current_project, current_user.role, 'low')
     end
   end
 

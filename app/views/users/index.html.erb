@@ -19,7 +19,7 @@
    <div id='add_student'> <%= link_to 'Add Students', new_user_path, :id => 'add_student', class: 'btn btn-large btn-link btn-sm'%>
    </div>
   <!--Actions for the teacher to do with the students and sections-->
-  <%= form_tag(users_change_student_status_path) do%>
+  <%= form_tag users_change_student_status_path, :id => 'student_options' do%>
     <div id= "manage_dropdown">
       <span id = "option">
         <%= select_tag 'selected_option',
@@ -42,6 +42,7 @@
  
 
       <div id ="assign_bonus_points">
+
         <table>
           <tr>
             <td class="label-field">
@@ -60,6 +61,7 @@
             </td>
           </tr>
 	  </table>
+
       </div>
   </div>
    

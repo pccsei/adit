@@ -24,6 +24,13 @@ class TicketsController < ApplicationController
     end    
   end
   
+  def left
+    render json: {'Total'  => Ticket.total_allowed_left(current_user.id, get_current_project),
+                  'High'   => Ticket.high_allowed_left(current_user.id, get_current_project),
+                  'Medium' => Ticket.medium_allowed_left(current_user.id, get_current_project),
+                  'Low'    => Ticket.low_allowed_left(current_user.id, get_current_project)}
+  end
+  
   def getClient
     
     if params[:clientID]
@@ -34,7 +41,7 @@ class TicketsController < ApplicationController
         response = {'userMessage' => 'There is not a current project!'}
       else
         requested_ticket_priority_name = Ticket.find(params[:clientID]).priority.name
-        if Ticket.more_clients_allowed(current_user, get_current_project, STUDENT, requested_ticket_priority_name)
+        if Ticket.more_clients_allowed(current_user, get_current_project, 1, requested_ticket_priority_name)
         
           grabbedTicket = false
           ticket        = nil          
@@ -65,7 +72,6 @@ class TicketsController < ApplicationController
           end
         else
           response = {'userMessage' => "You already have the max number of #{requested_ticket_priority_name} priority clients."}
-
         end
       end
     else
@@ -78,7 +84,7 @@ class TicketsController < ApplicationController
     t = Ticket.find(params[:ticket_id])
       
     # If the user accessing the page is a teacher or the ticket holder, allow the user to release the ticket
-    if params[:ticket_id] && (current_user.role == TEACHER || t.user_id = current_user.id)
+    if params[:ticket_id] && (current_user.role == 3 || t.user_id = current_user.id)
       redirectUser = t.user_id
       t.user_id    = 0
       t.save
@@ -96,7 +102,7 @@ class TicketsController < ApplicationController
   end
 
   def teacher_to_assign
-    if current_user.role == TEACHER
+    if current_user.role == 3
        redirect_to clients_path, notice: "You have been redirected to the teacher's version of this page."
     end
   end

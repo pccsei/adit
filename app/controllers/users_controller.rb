@@ -101,6 +101,9 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    section_options = get_array_of_all_sections(get_selected_project)
+    section_options.delete('all')
+    @sections = section_options
   end
 
   # Get /users/new_teacher
@@ -119,6 +122,9 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    section_options = get_array_of_all_sections(get_selected_project)
+    section_options.delete('all')
+    @sections = section_options
   end
 
   def input_students_parse
@@ -206,15 +212,16 @@ class UsersController < ApplicationController
      else
       respond_to do |format|
         if @user.save
+
           if @user.role != TEACHER
             @member = Member.new
             @member.user_id = @user.id
             @member.project_id = session[:selected_project_id]
-            @member.section_number = get_selected_section
+            @member.section_number = params[:section_number]
             @member.is_enabled = true
             @member.save
 
-          format.html { redirect_to users_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to this section.' }
+          format.html { redirect_to users_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to the specified section.' }
           else
            format.html { redirect_to users_teachers_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to the teacher roster.'}
           end
@@ -231,22 +238,27 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-          members = Member.all
-          available = false
-          members.each do |current_member|
-            if current_member.user_id == @user.id
-              available = true
-            end
+        members = Member.all
+        available = false
+        members.each do |current_member|
+          if current_member.user_id == @user.id
+            available = true
           end
-          if available == false
-            @member = Member.new
-            @member.user_id = @user.id
-            @member.project_id = session[:selected_project_id]
-            @member.section_number = get_selected_section
-            @member.is_enabled = true
-            @member.save
-          end
-          
+        end
+        if available == false
+          @member = Member.new
+          @member.user_id = @user.id
+          @member.project_id = session[:selected_project_id]
+          @member.is_enabled = true
+          @member.section_number = params['section_number']
+          @member.save
+        end
+        if @user.role != TEACHER
+          member = Member.find_by(user_id: @user.id, project_id: get_selected_project)
+          member.section_number = params['section_number']
+          member.save
+        end
+
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
