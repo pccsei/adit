@@ -19,7 +19,17 @@
       <% end %>
       </div>
       <div class = "panel-body">
+      	<div id="student_exists">
+        </div>
         <table>
+          <tr>
+            <td class="label-field">
+              <%= f.label :school_id, 'School ID', class: 'required' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :school_id, class: 'form-control',  rows:3 %>
+            </td>
+          </tr>
           <tr>
             <td class="label-field">
               <%= f.label :first_name, 'First Name', class: 'required' %>
@@ -34,14 +44,6 @@
             </td>
             <td class="text-field">
               <%= f.text_field :last_name, class: 'form-control',  rows:3 %>
-            </td>
-          </tr>
-          <tr>
-            <td class="label-field">
-              <%= f.label :school_id, 'School ID', class: 'required' %>
-            </td>
-            <td class="text-field">
-              <%= f.text_field :school_id, class: 'form-control',  rows:3 %>
             </td>
           </tr>
           <tr>
@@ -102,7 +104,7 @@
 		        <%= f.hidden_field :role, :value => STUDENT %>
 		        <div class="actions">
 			        <% if @user.new_record? %>
-			         	<%= f.submit 'Create Student', :class => 'btn btn-primary btn-sm', :disabled => archived? %>
+			         	<%= f.submit 'Add to Project', :class => 'btn btn-primary btn-sm', :disabled => archived?, :id => "create" %>
 			        <% else %>
 			          <%= f.submit 'Update Student', :class => 'btn btn-primary btn-sm', :disabled => archived? %>
 			        <% end %>

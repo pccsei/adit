@@ -147,6 +147,17 @@ onLoad(function() {
             });
     });
     
+    // Inform teacher that the student already exists in the database
+    	$("#user_school_id").blur(function() {
+    		var student_id = $("#user_school_id").val();
+    	 	$.ajax({
+    	 		url: "duplicate_student",
+    	 		data: {student: student_id},
+    	 		type:"POST"
+    	 	});
+    	});   		
+    
+    
 //*********************************************************************************************************************/
 // New Student Validation - users/new
 //*********************************************************************************************************************/

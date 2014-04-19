@@ -1,6 +1,7 @@
 WhiteCollar::Application.routes.draw do
   root :to => 'tickets#index'
 
+  match  '/users/duplicate_student', :to => 'users#duplicate_student', via: :post
   post   '/clients/approve_client_edit'
   post   'clients/assign'#actually_assign'
   get    '/clients/show_assign_for'#assign'

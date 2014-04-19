@@ -100,7 +100,13 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    if params[:id]
+      @user = User.find(params[:id])
+      flash.now[:info] = "Update this student and submit form to add him to the current project."
+      @create_flag = true
+    else
+      @user = User.new
+    end
   end
 
   # Get /users/new_teacher
@@ -182,29 +188,12 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
-
-    # Why do we need this????????????????????????????????????????????????????????
-    # if User.pluck(:school_id).include?(@user.school_id)
-      # @user_same = User.find_by! school_id: @user.school_id
-      # @user_same.school_id = @user.school_id
-      # @user_same.first_name = @user.first_name
-      # @user_same.last_name = @user.last_name
-      # @user_same.classification = @user.classification
-      # @user_same.box = @user.box
-      # @user_same.phone = @user.phone
-      # @user_same.email = @user.email
-      # @user_same.major = @user.major
-      # @user_same.minor = @user.minor   
-      # @user_same.save
-      # redirect_to @user_same
-    # else
-     if User.pluck(:school_id).include?(@user.school_id)
-       redirect_to edit_user_path(User.find_by(school_id: @user.school_id)), notice: 'The school ID already exists for this user.  Please update or edit the user here if you need to.'
-       @user_same = User.find_by(school_id: @user.school_id)
-       @user_same.save
-     else
-      respond_to do |format|
+    if (User.find_by school_id: params[:user][:school_id])
+       @user = User.find_by school_id: params[:user][:school_id]
+       @user.update_attributes(user_params)
+    else
+       @user = User.new(user_params)
+    end
         if @user.save
           if @user.role != TEACHER
             @member = Member.new
@@ -213,17 +202,36 @@ class UsersController < ApplicationController
             @member.section_number = get_selected_section
             @member.is_enabled = true
             @member.save
-
-          format.html { redirect_to users_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to this section.' }
+            redirect_to users_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to this section.' 
           else
-           format.html { redirect_to users_teachers_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to the teacher roster.'}
+           redirect_to users_teachers_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to the teacher roster.'
           end
         else
-          format.html { render action: 'new' }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-        end
-      end
+          render action: 'new' 
+        end     
+  end
+
+  def duplicate_student
+    if params[:student]
+      @user = User.find_by school_id: params[:student]
     end
+     
+    if @user && @user.members.find_by(project_id: get_selected_project.id)
+      @message = "member"
+    elsif @user
+      @message = "data"
+    end
+    # if user
+       # render text: "user.id"
+    # else
+      # render html: "hi"
+    # end
+    # else
+      # redirect_to users_url
+    # end
+    respond_to do |format|
+      format.js
+    end    
   end
 
   # PATCH/PUT /users/1
@@ -247,7 +255,7 @@ class UsersController < ApplicationController
             @member.save
           end
           
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to users_path, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
