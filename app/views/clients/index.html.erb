@@ -1,9 +1,6 @@
 <% provide(:title, 'Assign Clients') %>
+<% provide(:excel, (link_to (image_tag 'excel.png'), clients_path(format: "xls"), :title => "Export to Excel").html_safe) %>
 
-<p>
-  Download:
-  <%= link_to "Excel", clients_path(format: "xls") %>
-</p>
 
 <table class="display assign_table" id="client_list">
   <thead>

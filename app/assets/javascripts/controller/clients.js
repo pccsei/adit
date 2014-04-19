@@ -73,11 +73,6 @@ onLoad(function() {
   var table =  $('.assign_table').dataTable({
       "aoColumns" : [{ "bSortable": true }, {"sType": "priority" }, null, null, null, null, null, null, null, null, null, null, null],
       "aaSorting" : [[2, 'asc']],
-      
-      "sScrollY": "450px",
-      "bScrollCollapse": true,
-      
-
       "bPaginate" : false,
       "iCookieDuration": 60,
       "bStateSave": false,
@@ -89,18 +84,16 @@ onLoad(function() {
       "sDom": '<"H"CTrf>t<"F"lip>',
       "sScrollXInner": "110%",
       "fnInitComplete": function() {
-          this.css("visibility", "visible");
-      },
-      "fnPreDrawCallback": $(".autoHide").hide()
+        this.css("visibility", "visible");
+        $('table.assign_table').each(function(i,table) {
+            $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
+        });
+      }
   }, $(".defaultTooltip").tooltip({
       'selector': '',
       'placement': 'left',
       'container': 'body'
   }));
-/*
-  $('table.assign_table').each(function(i,table) {
-      $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
-  });
 
   /* Actions done on page load */
 	populate($('#currentSection').html());
@@ -211,5 +204,4 @@ onLoad(function() {
 
   // Returns the of unapproved clients (Not part of the validation above)
   return table; 
-
 });

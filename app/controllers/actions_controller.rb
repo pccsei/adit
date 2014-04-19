@@ -30,6 +30,9 @@ class ActionsController < ApplicationController
                                       params[:comment], params[:contact],          params[:presentation], 
                                       params[:sale],    user_action_time, receipt)
 
+       version_cleanup(receipt.user_id, "Receipt")
+       version_cleanup(receipt.user_id, "Action")
+
        # The || will return message if present, else 'You successfully....'
        redirect_to receipt_path(id: receipt.id), notice: message || 'You successfully updated your client.'
     else
@@ -58,7 +61,7 @@ class ActionsController < ApplicationController
     # Find and delete the correct activity and update the receipt that it is associated with
     receipt = Receipt.find(@action.receipt_id)      
     Action.delete_activity(@action, receipt)
-
+    
     # Enable undo of delete action
     undo_link = view_context.link_to('Undo', revert_action_version_path(@action.versions.where(whodunnit: current_user.id).last), method: 'post')
 

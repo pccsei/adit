@@ -35,6 +35,10 @@
     <strong>Box:</strong>
     <%= @user.box %>
   </p>
+  <p>
+    <strong>Section:</strong>
+    <%= Member.find_by(user_id: @user.id, project_id: get_selected_project).section_number %>
+  </p>
 <% else %>
   <p>
     <strong>Name:</strong>

@@ -12,9 +12,6 @@ class UsersController < ApplicationController
     @selected_section = get_selected_section
     @select_students = User.get_student_info(get_selected_project, get_selected_section, TEACHER)
     
-    # Get array of all the incorrectly entered students
-    @incorrect_students = User.incorrect_students
-    
     # Get array of all sections
     @sections = get_array_of_all_sections(get_selected_project)
 
@@ -107,6 +104,10 @@ class UsersController < ApplicationController
     else
       @user = User.new
     end
+    
+    section_options = get_array_of_all_sections(get_selected_project)
+    section_options.delete('all')
+    @sections = section_options
   end
 
   # Get /users/new_teacher
@@ -125,19 +126,16 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    section_options = get_array_of_all_sections(get_selected_project)
+    section_options.delete('all')
+    @sections = section_options
   end
 
   def input_students_parse
     user_params = params['input'].strip
 
-    if User.incorrect_students.present?
-      incorrect = User.where(["school_id <= ?", -1]).last
-      User.parse_students(user_params, get_selected_section, session[:selected_project_id], incorrect.school_id.to_i)
-    else
-      incorrect = 0
-      message = User.parse_students(user_params, get_selected_section, session[:selected_project_id], incorrect.to_i)
-    end
-    
+    message = User.parse_students(user_params, get_selected_section, session[:selected_project_id]) 
+       
     redirect_to users_url, notice: message || "Import from Excel Successful!"
   end
 
@@ -195,11 +193,12 @@ class UsersController < ApplicationController
        @user = User.new(user_params)
     end
         if @user.save
+
           if @user.role != TEACHER
             @member = Member.new
             @member.user_id = @user.id
             @member.project_id = session[:selected_project_id]
-            @member.section_number = get_selected_section
+            @member.section_number = params[:section_number]
             @member.is_enabled = true
             @member.save
             redirect_to users_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to this section.' 
@@ -239,22 +238,27 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-          members = Member.all
-          available = false
-          members.each do |current_member|
-            if current_member.user_id == @user.id
-              available = true
-            end
+        members = Member.all
+        available = false
+        members.each do |current_member|
+          if current_member.user_id == @user.id
+            available = true
           end
-          if available == false
-            @member = Member.new
-            @member.user_id = @user.id
-            @member.project_id = session[:selected_project_id]
-            @member.section_number = get_selected_section
-            @member.is_enabled = true
-            @member.save
-          end
-          
+        end
+        if available == false
+          @member = Member.new
+          @member.user_id = @user.id
+          @member.project_id = session[:selected_project_id]
+          @member.is_enabled = true
+          @member.section_number = params['section_number']
+          @member.save
+        end
+        if @user.role != TEACHER
+          member = Member.find_by(user_id: @user.id, project_id: get_selected_project)
+          member.section_number = params['section_number']
+          member.save
+        end
+
         format.html { redirect_to users_path, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else

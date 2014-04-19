@@ -76,6 +76,12 @@ onLoad(function () {
       }
     });
     
+    // Hide the export to excel icon and show loading bar when export is successful
+      $('#export_project').click(function(){
+	      $('#exporting').show();
+	      $(this).hide();
+      });
+    
 //*********************************************************************************************************************/
 // Projects New/Edit Page Front-Side Validation
 //*********************************************************************************************************************/
@@ -147,7 +153,7 @@ onLoad(function () {
 						return $('[name="project[tickets_open_time]"]').val() > $('[name="project[tickets_close_time]"]').val();
 					}
 				}},
-			"project[comment]": {maxlength: 250}
+			"project[comment]": {maxlength: 500}
 		},
 		messages:{
 			"project[tickets_open_time]": {
@@ -171,7 +177,7 @@ onLoad(function () {
                 spring: 		   "Month needs to be in the Spring (01 - 05).",
                 start_before_end:  "Must be after Start Time."
 			},
-			"project[comment]":    "The maximum length for a comment is 250 characters."
+			"project[comment]":    "The maximum length for a comment is 500 characters."
 		}
 	});
 

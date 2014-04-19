@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def User.parse_students(user_params, section_number, project_id, incorrect_counter)
+  def User.parse_students(user_params, section_number, project_id)
     message = "" #Message containing names of people already in the project
     invalid_count = 0 #Number of students that already were members of the project
     illegal_count = 0 #Number of illegally entered students
@@ -220,8 +220,7 @@ class User < ActiveRecord::Base
         for i in 0..students.count-1
           user = User.find(students[i])
           member = Member.find_by(user_id: students[i])
-          if user.role != STUDENT_MANAGER
-            user.role = STUDENT_MANAGER
+          if !Member.is_team_leader(member)
             member.parent_id = user.id
             if member.save && user.save
               if !is_added_positive
@@ -286,7 +285,7 @@ class User < ActiveRecord::Base
       if choice == 'Demote Student'
         for i in 0..students.count-1
           user = User.find(students[i])
-          if user.role == STUDENT_MANAGER
+          if Member.is_team_leader(Member.find_by(user_id: user, project_id: selected_project, parent_id: user.id))
             Member.destroy_team(user)
             if !is_added_positive
               reponse_int += 1
@@ -351,7 +350,7 @@ class User < ActiveRecord::Base
           # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
           member = Member.find_by(user_id: students[i])
           member.parent_id = nil
-          User.find(students[i]).role == STUDENT_MANAGER ? Member.destroy_team(User.find(students[i]), true) : nil
+          User.find(students[i]).role == is_team_leader(Member.find_by(project_id: selected_project, parent_id: user_id)) ? Member.destroy_team(User.find(students[i]), true) : nil
           Member.inactivate_student_status(member)
         end
       end
@@ -679,18 +678,18 @@ class User < ActiveRecord::Base
 
 # Returns the managers name for the current section to assign a team
   def self.get_managers_from_current_section(project, section)
-      # users = User.where(role: STUDENT_MANAGER)
-      # members = Member.where(section_number: section)
-      # student_manager = Array[]
-      # users.each do |user|
-      #   members.each do |member|
-      #     if user.id == member.user_id
-      #       student_manager.push(user)
-      #     end
-      #   end
-      # end
-      # return student_manager
-      where(role: STUDENT_MANAGER, id: Member.where(project_id: project, section_number: section).pluck(:user_id))
+      users = User.where(role: STUDENT)
+      members = Member.where(section_number: section, project_id: project)
+      student_manager = Array[]
+      users.each do |user|
+        members.each do |member|
+          if user.id == member.user_id && user.id == member.parent_id
+            student_manager.push(user)
+          end
+        end
+      end
+      return student_manager
+      # where(id: Member.where(project_id: project, section_number: section, parent_id: user_id).pluck(:user_id))
   end
 
 # Returns all the student users for a project and section
@@ -704,7 +703,7 @@ class User < ActiveRecord::Base
 
     teachers = []
     index = 0
-    Member.where(project: project, user_id: User.where(role: 3).ids).each do |m|
+    Member.where(project: project, user_id: User.where(role: TEACHER).ids).each do |m|
       t = User.find(m.user_id)
       teachers[index]                = Struct::Teacher.new
       teachers[index].id             = t.id
@@ -738,7 +737,7 @@ class User < ActiveRecord::Base
   end
 
   def self.all_student_managers
-    where('role = ?', STUDENT).all + where('role = ?', STUDENT_MANAGER).all
+    where(parent_id: user_id)
   end
 
   def self.all_teachers
@@ -747,10 +746,6 @@ class User < ActiveRecord::Base
 
   def self.all_teacher_ids
     where('role = ?', TEACHER).ids
-  end
-
-  def self.incorrect_students
-    where('school_id LIKE (?)', "-")
   end
 
   def self.team_members(project, team_leader_id)

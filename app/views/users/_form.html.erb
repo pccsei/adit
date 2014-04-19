@@ -99,6 +99,18 @@
             </td>
           </tr>
           <tr>
+          <td class="label-field">
+            <%= f.label :section_number, 'Section', id:'section' %>
+          </td>
+            <td class="text-field">
+              <% if (defined?  locals['new_student']) %>
+                <%= select_tag(:section_number, options_for_select(@sections, get_selected_section)) %>
+              <% else %>
+                <%= select_tag(:section_number, options_for_select(@sections, Member.find_by(user_id: @user.id, project_id: get_selected_project).section_number))%>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
             <td class="label-field"></td>
             <td class="text-field">
 		        <%= f.hidden_field :role, :value => STUDENT %>
