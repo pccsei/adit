@@ -635,7 +635,7 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    "#{first_name} #{last_name} #{school_id}"
+    "#{first_name} #{last_name} (#{school_id})"
   end
 
   def teacher_full_name
