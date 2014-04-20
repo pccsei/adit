@@ -92,7 +92,16 @@ button.btn.btn-primary.btn-sm:hover {
   margin-top: 1em;
 }
 
+.choosecolumn {
+  word-wrap: break-word;
+}
+.ticket_table {
+  table-layout: fixed;
+}
 .ticket_table tbody {
+  td {
+    word-wrap: break-word;
+  }
   tr {
     height: 3em;
   }
