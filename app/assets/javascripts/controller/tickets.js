@@ -103,11 +103,9 @@ onLoad(function() {
   // Recursive function that pings the server to check for updates
   setTimeout(updateClients, 1000);  
   
- overridePrioritySort();
-  
   // Initialized the datatable with the bootstrap tooltip feature added
   var table =  $('.ticket_table').dataTable({
-        "aoColumns" : [{"sWidth": "12%"}, {"sType": "priority", "sWidth": "8%" }, { "bSortable": true, "sWidth": "26%" }, {"sWidth": "26%"}, {"sWidth": "18%"}, {"sWidth": "10%"}],
+        "aoColumns" : [{"sWidth": "12%"}, {"sType": "priority", "sWidth": "8%" }, { "sWidth": "26%" }, {"sWidth": "26%"}, {"sWidth": "18%"}, {"sWidth": "10%"}],
         "bPaginate" : false,
         "iCookieDuration": 60,
         "bStateSave": false,
