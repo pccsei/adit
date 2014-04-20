@@ -116,7 +116,8 @@ onLoad(function() {
         "bRetrieve": true,
         "bJQueryUI": true,
         "fnPreDrawCallback": $(".autoHide").hide()
-    }, $(".defaultTooltip").tooltip({
+         }, 
+         $(".defaultTooltip").tooltip({
         'selector': '',
         'placement': 'left',
         'container': 'body'

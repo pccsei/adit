@@ -93,10 +93,14 @@ button.btn.btn-primary.btn-sm:hover {
 }
 
 .choosecolumn {
-  word-wrap: break-word;
+  overflow-x: hidden;
+  cursor: pointer;
+  text-overflow: ellipsis;
 }
+
 .ticket_table {
   table-layout: fixed;
+  width: 100%;
 }
 .ticket_table tbody {
   td {
