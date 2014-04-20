@@ -14,12 +14,11 @@ class ApplicationController < ActionController::Base
   helper_method :get_selected_section
   helper_method :set_selected_section
   helper_method :get_current_student_project                    
-  
-  # Add where_is_enabled to know which members are currently enabled.
 
+  # Find if a student is a member of the current project
   def get_current_student_project
     get_current_project &&
-        Member.where(user_id: current_user.id, project_id: Project.where(:is_active => true)).present?
+        Member.where(is_enabled: true, user_id: current_user.id, project_id: Project.where(:is_active => true)).present?
   end
 
   # This method will most likely be deleted soon, use selected methods below instead                          
