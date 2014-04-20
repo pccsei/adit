@@ -45,7 +45,7 @@
   	  <li><%= link_to 'Submit Client',       clients_submit_path,                   id: 'submit_client' %></li>
   	
 <!-- Student Manager Links -->
- <% if signed_in? && Member.is_team_leader(Member.find_by(project_id: get_selected_project, user_id: current_user.id)) %>
+ <% if signed_in? && Member.is_team_leader(Member.find_by(project_id: get_selected_project.id, user_id: current_user.id)) %>
    <li class="dropdown">
      <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">My Team<b class="caret"></b></a>
      <ul class="dropdown-menu">              

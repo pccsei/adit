@@ -220,7 +220,7 @@ class User < ActiveRecord::Base
       if choice == 'Promote Student'
         for i in 0..students.count-1
           user = User.find(students[i])
-          member = Member.find_by(user_id: students[i])
+          member = Member.find_by(user_id: students[i], project_id: selected_project.id)
           if !Member.is_team_leader(member)
             member.parent_id = user.id
             if member.save && user.save
@@ -286,7 +286,7 @@ class User < ActiveRecord::Base
       if choice == 'Demote Student'
         for i in 0..students.count-1
           user = User.find(students[i])
-          if Member.is_team_leader(Member.find_by(user_id: user, project_id: selected_project, parent_id: user.id))
+          if Member.is_team_leader(Member.find_by(user_id: user, project_id: selected_project.id, parent_id: user.id))
             Member.destroy_team(user)
             if !is_added_positive
               reponse_int += 1
@@ -352,7 +352,7 @@ class User < ActiveRecord::Base
       #     member = Member.find_by(user_id: students[i])
       #     member.parent_id = nil
       #     # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
-      #     User.find(students[i]).role == is_team_leader(Member.find_by(project_id: selected_project, parent_id: user_id)) ? Member.destroy_team(User.find(students[i]), true) : nil
+      #     User.find(students[i]).role == is_team_leader(Member.find_by(project_id: selected_project.id, parent_id: user_id)) ? Member.destroy_team(User.find(students[i]), true) : nil
       #     Member.inactivate_student_status(member)
       #   end
       # end
