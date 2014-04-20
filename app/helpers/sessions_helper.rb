@@ -32,8 +32,6 @@ module SessionsHelper
       end
       cookies.delete(:remember_token)
       session.delete(:return_to)
-      session.delete(:selected_section_id)
-      session.delete(:selected_project_id)
    end
 
    # Redirects back to a saved url if present

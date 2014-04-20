@@ -51,8 +51,14 @@ class ProjectsController < ApplicationController
   def update
     if @project.update(project_params)
        if @project.is_active
-         set_selected_project(@project)
-         message = "The #{@project.semester} #{@project.year} project was successfully updated."
+         if @project.id == get_selected_project.id
+            message = "The #{@project.semester} #{@project.year} project was successfully updated."
+         else
+            set_selected_project(@project)
+            session.delete(:selected_section_id)
+            get_selected_section
+            message = "The #{@project.semester} #{@project.year} project was successfully reactivated."
+         end
        else
          message = "The #{@project.semester} #{@project.year} project was successfully archived."
        end
