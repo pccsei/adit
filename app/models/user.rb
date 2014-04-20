@@ -190,7 +190,11 @@ class User < ActiveRecord::Base
       message += " At least one student record contained input errors."
     end
     
-    message
+    if message.present?
+      message
+    else
+      "Your student list was successfully imported."
+    end
   end
 
   # Good luck...
