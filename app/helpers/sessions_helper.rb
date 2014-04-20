@@ -31,9 +31,9 @@ module SessionsHelper
          self.current_user = nil
       end
       cookies.delete(:remember_token)
-      session[:return_to]           = nil
-      session[:selected_section_id] = nil
-      session[:selected_project_id] = nil
+      session.delete(:return_to)
+      session.delete(:selected_section_id)
+      session.delete(:selected_project_id)
    end
 
    # Redirects back to a saved url if present

@@ -47,10 +47,13 @@ class ApplicationController < ActionController::Base
   
   def get_selected_project
     if session[:selected_project_id]
-      Project.find(session[:selected_project_id])
+      return Project.find(session[:selected_project_id])
     else
-      member = Member.find_by(user_id: current_user.id, project_id: Project.find_by(is_active: true).id) || 
-                  Member.find_by(user_id: current_user.id)
+      if get_current_project
+         member = Member.find_by(user_id: current_user.id, project_id: Project.find_by(is_active: true).id)
+      elsif !member
+         member = Member.find_by(user_id: current_user.id)
+      end
       if member
          project = member.project
       else
@@ -58,9 +61,9 @@ class ApplicationController < ActionController::Base
       end
       if project
          set_selected_project(project)
-         project
+         return project
       else
-         nil
+         return nil
       end
     end
   end
