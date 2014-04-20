@@ -70,11 +70,11 @@
                 <%= content_tag(:span, holder, :id =>ticket.id.to_s + '_span', :title => holder.sub("<br />", "") ) %>                	
               </td>
             <% end %>
-            <td class="priority"><span><%= ticket.priority.name.capitalize %></span></td>
-            <td title="View Client Details"><%= link_to tooltipify(client.business_name, 35), client_path(id: ticket.client.id, page: request.url)%></td>
-            <td><%= tooltipify(client.address, 35) %></td>
-            <td><%= tooltipify(client.contact_title + ' ' + client.contact_fname + ' ' +  client.contact_lname, 20)%></td>
-            <td ><%= tooltipify(client.comment)%></td>
+            <td class="priority column"><span><%= ticket.priority.name.capitalize %></span></td>
+            <td class="column" title="View Client Details"><%= link_to tooltipify(client.business_name, 35), client_path(id: ticket.client.id, page: request.url)%></td>
+            <td class="column"><%= tooltipify(client.address, 35) %></td>
+            <td class="column"><%= tooltipify(client.contact_title + ' ' + client.contact_fname + ' ' +  client.contact_lname, 20)%></td>
+            <td class="column"><%= tooltipify(client.comment)%></td>
           </tr>
       <% end %>
 

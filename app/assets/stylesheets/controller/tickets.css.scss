@@ -98,14 +98,17 @@ button.btn.btn-primary.btn-sm:hover {
   text-overflow: ellipsis;
 }
 
+.column {
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
 .ticket_table {
   table-layout: fixed;
   width: 100%;
 }
+
 .ticket_table tbody {
-  td {
-    word-wrap: break-word;
-  }
   tr {
     height: 3em;
   }
