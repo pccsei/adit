@@ -14,7 +14,7 @@
         <h3>&nbsp;Business Information</h3>
       </div>
       <div class = "panel-body">
-	    <% if !more_tickets_allowed %>
+	    <% if !more_tickets_allowed && @client.new_record? %>
 	      <p class="alert alert-info"><%= 'You have the maximum allowable clients. Go to My Clients and release one of your clients before asking for another.' %></p>
 	    <%end%>
         <table>
