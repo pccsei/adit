@@ -26,6 +26,7 @@ class ClientsController < ApplicationController
       if params[:page]
         session[:return_to] = params[:page]
       end   
+    @comments = Ticket.find_by(project_id: get_current_project.id, client_id: @client.id).comments
     # 2013 is sent to this function because that is the last year where we had no true sale information
     @sales_years = Receipt.early_sale_years(@client)
     @sales_info  = Receipt.sales_for_client_up_to_project(@client, get_selected_project)
