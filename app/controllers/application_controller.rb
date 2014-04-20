@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   # Find if a student is a member of the current project
   def get_current_student_project
     get_current_project &&
-        Member.where(is_enabled: true, user_id: current_user.id, project_id: Project.where(:is_active => true)).present?
+        Member.where(is_enabled: true, user_id: current_user.id, project_id: get_current_project.id).present?
   end
 
   # This method will most likely be deleted soon, use selected methods below instead                          

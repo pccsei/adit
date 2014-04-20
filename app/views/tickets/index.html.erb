@@ -67,7 +67,7 @@
                 <% else %>
                   <%= button_tag 'Choose', type: 'button', :class => 'btn btn-primary btn-sm', :disabled => true %>
                 <% end %>
-                <%= content_tag(:span, holder, :id =>ticket.id.to_s + '_span', :title => holder.sub("<br />", "") ) %>                	
+                <%= content_tag(:span, holder, :id =>ticket.id.to_s + '_span', :title => !holder || holder.sub("<br />", "" )) %>                	
               </td>
             <% end %>
             <td class="priority column"><span><%= ticket.priority.name.capitalize %></span></td>

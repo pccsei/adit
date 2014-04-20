@@ -77,7 +77,7 @@ class ProjectsController < ApplicationController
       selected_project = Project.find(project_id)
       set_selected_project(selected_project)
       if selected_project.is_active
-        set_selected_section(nil)
+        session.delete(:selected_section_id)
         get_selected_section
       else
         set_selected_section("all")
