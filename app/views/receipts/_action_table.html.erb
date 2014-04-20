@@ -20,7 +20,7 @@
     	<% ordered_delete[0] = "yes" %>
     <% elsif a.action_type.name == 'Presentation' %>
         <% ordered_delete[1] = "yes" %>
-    <% elsif (a.action_type.name == 'New Sale' || a.action_type.name == 'Old Sale') %>
+    <% elsif (a.action_type.name == 'New Sale' || a.action_type.name == 'Renewal Sale') %>
         <% ordered_delete[2] = "yes" %>
     <% elsif a.action_type.name == 'Comment' %>
     	<% ordered_delete[3] = "yes" %>
