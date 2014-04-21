@@ -1,6 +1,8 @@
+<% provide(:excel, (link_to (image_tag 'excel.png'), users_path(format: "xls"), :title => "Export to Excel").html_safe) %>
+<% provide(:title, 'Students') %>
+
 <%= render :partial => 'reports/dropdown' , :locals => {:sections => @sections}%>
 
-<% provide(:title, 'Students') %>
 
 <!--Creates a new Section link-->
 <div id="new_section">
@@ -11,7 +13,6 @@
 
 <% if @selected_section == 'all' %>
   <p id = "info_message" class = "alert alert-info ">You are currently viewing all students.<br /> Please select a section or create a section for additional options.</p>
-        <!--Refreshes page using ajax, actually just normally right now-->
       <div id = "section_refresh">
         <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
       </div>
@@ -39,10 +40,8 @@
   </span>
 
   <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm ', :id => 'action_submit', :disabled => archived?  %>
- 
 
       <div id ="assign_bonus_points">
-
         <table>
           <tr>
             <td class="label-field">
@@ -67,17 +66,6 @@
    
    
 
-
-
-	<% provide(:excel, (link_to (image_tag 'excel.png'), users_path(format: "xls"), :title => "Export to Excel").html_safe) %>
-
-
-  <!-- Displays the incorrect students if any -->
-  <% if @incorrect_students.present? %>
-  	<%= render :partial => 'incorrect_students' %>
-  <% end %>
-  
-  <!--Refreshes page using ajax, actually just normally right now-->
       <div id = "section_refresh">
         <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
       </div>

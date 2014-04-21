@@ -92,6 +92,22 @@ button.btn.btn-primary.btn-sm:hover {
   margin-top: 1em;
 }
 
+.choosecolumn {
+  overflow-x: hidden;
+  cursor: pointer;
+  text-overflow: ellipsis;
+}
+
+.column {
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
+.ticket_table {
+  table-layout: fixed;
+  width: 100%;
+}
+
 .ticket_table tbody {
   tr {
     height: 3em;

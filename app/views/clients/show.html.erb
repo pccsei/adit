@@ -1,4 +1,13 @@
 <% provide(:title, 'Client Information') %>
+<% if @comments.present? %>
+<div>
+	<% @comments.each do |c|%>
+	   <p class="alert alert-info">The previous student said the following about this client: </p>
+	   <br /><%= c.body %>
+	<% end %>
+
+</div>	
+<% end %>
 <div class = "panel panel-primary">
   <div class = "panel-heading">
     <h3>&nbsp;<%= tooltipify(@client.business_name, 40) %></li></h3><br />
@@ -78,7 +87,7 @@
 <% if @sales_info.present? %>	
 	<%= render :partial => 'sales_info', :locals => {:sales_info => @sales_info} %>
 <% end %>
-	
+
 <div>
   <% if @sales_years[0].present? %>
      <p class="addMargin">

@@ -26,6 +26,7 @@ class ClientsController < ApplicationController
       if params[:page]
         session[:return_to] = params[:page]
       end   
+    @comments = Ticket.find_by(project_id: get_current_project.id, client_id: @client.id).comments
     # 2013 is sent to this function because that is the last year where we had no true sale information
     @sales_years = Receipt.early_sale_years(@client)
     @sales_info  = Receipt.sales_for_client_up_to_project(@client, get_selected_project)
@@ -67,6 +68,7 @@ class ClientsController < ApplicationController
     @edited_pending_clients = Client.edited_pending
   end
 
+  # Process the button choice on the approve client's page
   def approve_client
     status = params['commit']
     # This should probably be refactored to send the client ids from the front
@@ -95,6 +97,7 @@ class ClientsController < ApplicationController
     render :text => Ticket.more_clients_allowed(student, get_selected_project, TEACHER, params[:priority])
   end
   
+  # This only deals with the edited clients on the approve page, not the pending clients.
   def approve_client_edit
     status = 2 if params['commit'] == 'Approve'
     status = 1 if params['commit'] == 'Disapprove'

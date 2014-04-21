@@ -103,34 +103,23 @@ onLoad(function() {
   // Recursive function that pings the server to check for updates
   setTimeout(updateClients, 1000);  
   
- overridePrioritySort();
-  
   // Initialized the datatable with the bootstrap tooltip feature added
   var table =  $('.ticket_table').dataTable({
-        "aoColumns" : [{ "bSortable": true }, {"sType": "priority" }, null, null, null, null, null],
+        "aoColumns" : [{"sWidth": "12%"}, {"sType": "priority", "sWidth": "8%" }, { "sWidth": "26%" }, {"sWidth": "26%"}, {"sWidth": "18%"}, {"sWidth": "10%"}],
         "bPaginate" : false,
         "iCookieDuration": 60,
         "bStateSave": false,
         "bAutoWidth": false,
-        "bScrollAutoCss": true,
         "bProcessing": true,
         "bRetrieve": true,
         "bJQueryUI": true,
-        "sDom": '<"H"CTrf>t<"F"lip>',
-        "sScrollXInner": "110%",
-        "fnInitComplete": function() {
-            this.css("visibility", "visible");
-        },
         "fnPreDrawCallback": $(".autoHide").hide()
-    }, $(".defaultTooltip").tooltip({
+         }, 
+         $(".defaultTooltip").tooltip({
         'selector': '',
         'placement': 'left',
         'container': 'body'
     }));
-
-    $('table.ticket_table').each(function(i,table) {
-        $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
-    });
 
   return table;
 });

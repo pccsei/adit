@@ -1,0 +1,19 @@
+
+<% if @message == "data" %>
+$( "#student_exists" ).html("<p class=\"alert alert-info\">This student already exists in the database. <br />Just update his information and submit the form to add him to the project.");
+$( "#user_first_name").val("<%= @user.first_name %>");
+$( "#user_last_name").val("<%= @user.last_name %>");
+$( "#user_email").val("<%= @user.email %>");
+$( "#user_phone").val("<%= @user.phone %>");
+$( "#user_box").val("<%= @user.box%>");
+$( "#user_major").val("<%= @user.major %>");
+$( "#user_minor").val("<%= @user.minor %>");
+$( "#user_classification").val("<%= @user.classification %>");
+$( "#section_number").val("<%= @section_number%>");
+document.getElementById("create").disabled = false;
+<% end %>
+
+<% if @message == "member" %>
+$( "#student_exists" ).html("<p class=\"alert alert-info\">This student is already  a member of this project. <a href=<%=users_path%>>Go back to Students page.</a></p>");
+document.getElementById("create").disabled = true;
+<% end %>

@@ -70,7 +70,6 @@ onLoad(function () {
     // Hide the submit button and show the loading bar if the form is valid
     $('#submitButton').click(function(){
       if (form.valid()) {
-      	alert("valid!");
 	    $('#loading').show();
 	    $(this).hide();
       }
@@ -180,4 +179,19 @@ onLoad(function () {
 			"project[comment]":    "The maximum length for a comment is 500 characters."
 		}
 	});
+
+	// Hide the submit button and show the loading bar if the form is valid
+    $('#submitButton').click(function(){
+      if (form.valid()) {
+	    $('#loading').show();
+	    $(this).hide();
+      }
+    });
+    
+    // Hide the export to excel icon and show loading bar when export is successful
+      $('#export_project').click(function(){
+	      $('#exporting').show();
+	      $(this).hide();
+      });
+
 });

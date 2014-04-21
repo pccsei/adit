@@ -12,9 +12,6 @@ class UsersController < ApplicationController
     @selected_section = get_selected_section
     @select_students = User.get_student_info(get_selected_project, get_selected_section, TEACHER)
     
-    # Get array of all the incorrectly entered students
-    @incorrect_students = User.incorrect_students
-    
     # Get array of all sections
     @sections = get_array_of_all_sections(get_selected_project)
 
@@ -44,16 +41,20 @@ class UsersController < ApplicationController
 
   # Add a new teacher to the section
   def another_teacher_to_section   
-    User.create_new_section(params["new_teacher_to_add"], params["section"], session[:selected_project_id])
+    User.create_new_section(params[:new_teacher_to_add], params[:section], session[:selected_project_id])
+    user = User.find(params[:new_teacher_to_add])
 
-    redirect_to users_teachers_path
+    redirect_to users_teachers_path, notice: "#{user.first_name} #{user.last_name} was added to section #{params[:section]}."
   end
 
   # Delete the old teacher Member and add a new teacher member
   def change_teacher
-    User.change_teacher(params["teacher_to_change_to"], Member.find(params["member_id"]))
+    member = Member.find(params[:member_id])
+    user = User.find(params[:teacher_to_change_to])
+    
+    User.change_teacher(user.id, member)
 
-    redirect_to users_teachers_path
+    redirect_to users_teachers_path, notice: "#{user.first_name} #{user.last_name} is now a teacher of section #{member.section_number}."
   end
   
   # GET /users/1
@@ -86,12 +87,11 @@ class UsersController < ApplicationController
   end
 
   def assign_teacher_to_section
-    teacher = params[:school_id]
     section_number = params['section']  
 
-    User.create_new_section(teacher[:id], section_number, session[:selected_project_id])
+    User.create_new_section(params[:teachers], section_number, session[:selected_project_id])
     set_selected_section(section_number)
-    redirect_to users_url,  notice: 'You are now viewing your newly created section ' + "#{section_number}" + '.'
+    redirect_to users_url,  notice: "You are now viewing your newly created section #{section_number}."
   end
   
   # Goes to the help page
@@ -100,7 +100,14 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    if params[:id]
+      @user = User.find(params[:id])
+      flash.now[:info] = "Update this student and submit form to add him to the current project."
+      @create_flag = true
+    else
+      @user = User.new
+    end
+    
     section_options = get_array_of_all_sections(get_selected_project)
     section_options.delete('all')
     @sections = section_options
@@ -128,17 +135,11 @@ class UsersController < ApplicationController
   end
 
   def input_students_parse
-    user_params = params['input']
+    user_params = params['input'].strip
 
-    if User.incorrect_students.present?
-      incorrect = User.where(["school_id <= ?", -1]).last
-      User.parse_students(user_params, get_selected_section, session[:selected_project_id], incorrect.school_id.to_i)
-    else
-      incorrect = 0
-      User.parse_students(user_params, get_selected_section, session[:selected_project_id], incorrect.to_i)
-    end
-    
-    redirect_to users_url
+    message = User.parse_students(user_params, get_selected_section, session[:selected_project_id]) 
+       
+    redirect_to users_url, notice: message || "Import from Excel Successful!"
   end
 
   def change_student_status
@@ -188,29 +189,12 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
-
-    # Why do we need this????????????????????????????????????????????????????????
-    # if User.pluck(:school_id).include?(@user.school_id)
-      # @user_same = User.find_by! school_id: @user.school_id
-      # @user_same.school_id = @user.school_id
-      # @user_same.first_name = @user.first_name
-      # @user_same.last_name = @user.last_name
-      # @user_same.classification = @user.classification
-      # @user_same.box = @user.box
-      # @user_same.phone = @user.phone
-      # @user_same.email = @user.email
-      # @user_same.major = @user.major
-      # @user_same.minor = @user.minor   
-      # @user_same.save
-      # redirect_to @user_same
-    # else
-     if User.pluck(:school_id).include?(@user.school_id)
-       redirect_to edit_user_path(User.find_by(school_id: @user.school_id)), notice: 'The school ID already exists for this user.  Please update or edit the user here if you need to.'
-       @user_same = User.find_by(school_id: @user.school_id)
-       @user_same.save
-     else
-      respond_to do |format|
+    if (User.find_by school_id: params[:user][:school_id])
+       @user = User.find_by school_id: params[:user][:school_id]
+       @user.update_attributes(user_params)
+    else
+       @user = User.new(user_params)
+    end
         if @user.save
 
           if @user.role != TEACHER
@@ -220,17 +204,38 @@ class UsersController < ApplicationController
             @member.section_number = params[:section_number]
             @member.is_enabled = true
             @member.save
-
-          format.html { redirect_to users_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to the specified section.' }
+            redirect_to users_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to this section.' 
           else
-           format.html { redirect_to users_teachers_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to the teacher roster.'}
+           redirect_to users_teachers_path, notice: @user.first_name + " " + @user.last_name + ' was successfully created and added to the teacher roster.'
           end
         else
-          format.html { render action: 'new' }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-        end
-      end
+          render action: 'new' 
+        end     
+  end
+
+  def duplicate_student
+    if params[:student]
+      @user = User.find_by school_id: params[:student]
     end
+    
+    if @user && @user.members.find_by(project_id: get_selected_project.id)
+      @message = "member"
+    elsif @user
+      @message = "data"
+      @section_number = get_selected_section
+    end
+    
+    # if user
+       # render text: "user.id"
+    # else
+      # render html: "hi"
+    # end
+    # else
+      # redirect_to users_url
+    # end
+    respond_to do |format|
+      format.js
+    end    
   end
 
   # PATCH/PUT /users/1
@@ -259,7 +264,7 @@ class UsersController < ApplicationController
           member.save
         end
 
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to users_path, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -292,7 +297,8 @@ class UsersController < ApplicationController
   def remove_member
      member = Member.find(params[:id])
      member.delete
-     redirect_to users_teachers_path, notice: "This teacher was successfully removed from the section."
+     redirect_to users_teachers_path, 
+        notice: "#{member.user.first_name} #{member.user.last_name} was successfully removed from section #{member.section_number}."
   end
   # FIX - needs to find the project and section that teacher is being removed from before the delete
   def destroy
