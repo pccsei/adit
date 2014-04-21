@@ -48,6 +48,7 @@ WhiteCollar::Application.routes.draw do
   get    '/projects/convert_to_excel'
   get    '/clients/edited_clients_excel'
   get    '/clients/pending_clients_excel'
+  get    '/tickets/left'
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets
