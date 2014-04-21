@@ -130,8 +130,7 @@ onLoad(function() {
   init(); 
   
   // Overrides the default column sorting for toggling through high, medium, low priorities. The code is in application.js
-  overridePrioritySort(); 
-    
+  overridePrioritySort();     
   
   // Initialized the datatable with the bootstrap tooltip feature added
   var table =  $('.ticket_table').dataTable({
