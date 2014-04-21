@@ -10,22 +10,68 @@
 
 
 <div id="Change_Teacher">
+	
+
 	<%= form_tag(users_change_teacher_path) do%>
-		<p>Change <span id='oldTeacher'></span> to <p>
-		<input id="memberId" type="hidden" name="member_id" />
-		<%= select_tag 'teacher_to_change_to', options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name),
-		                                     {:include_blank => false, :class => 'btn btn-default dropdown-toggle'} %>
-		<%= submit_tag 'Change the Teacher' , class: 'btn btn-primary btn-sm'%>
+	
+    <div id ="teacher_status_box">
+
+      <table>
+        <tr>
+          <td class="label-field">
+           Change <span id='oldTeacher'></span> to 
+          </td>
+          <td class="text-field">
+	  		<input id="memberId" type="hidden" name="member_id" />
+	  		<%= select_tag 'teacher_to_change_to', options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name),
+	  		                                     {:include_blank => false, :class => 'btn btn-default dropdown-toggle'} %>
+          </td>
+        </tr>
+        <tr>
+          <td class="label-field">
+            
+          </td>
+          <td class="text-field">
+           	<%= submit_tag 'Change the Teacher' , class: 'btn btn-primary btn-sm'%>
+        </tr>
+  </table>
+
+    </div>
+		
+		
+		
 	<% end %>
 </div>
 
 <div  id="New_Teacher">
+
 	<%= form_tag(users_another_teacher_to_section_path) do%>
-		<p>Add another teacher for section <span id='sectionNumber'></span><p>
-  		<input id="section" type="hidden" name="section" />
-		<%= select_tag 'new_teacher_to_add', options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name),
-		                                     {:include_blank => false, :class => 'btn btn-default dropdown-toggle'} %>
-		<%= submit_tag 'Add New Teacher', class: 'btn btn-primary btn-sm' %>
+    <div id ="teacher_status_box">
+
+      <table>
+        <tr>
+          <td class="label-field">
+           Add another teacher for section <span id='sectionNumber'></span>
+          </td>
+          <td class="text-field">
+			  <input id="section" type="hidden" name="section" />
+			  		<%= select_tag 'new_teacher_to_add', options_from_collection_for_select(@all_teachers, 'id', :teacher_full_name),
+			  		                                     {:include_blank => false, :class => 'btn btn-default dropdown-toggle'} %>
+          </td>
+        </tr>
+        <tr>
+          <td class="label-field">
+           
+          </td>
+          <td class="text-field">
+
+	  		<%= submit_tag 'Add New Teacher', class: 'btn btn-primary btn-sm' %>
+          </td>
+        </tr>
+  </table>
+
+    </div>
+			
 	<% end %>
 </div>
 

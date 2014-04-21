@@ -7,7 +7,7 @@
   <div id="parse_box">
     <%= form_tag(users_input_students_parse_path) do %>
         <br/>
-        <%= text_area_tag 'input' %>
+        <%= text_area_tag 'input', nil, :class => 'form-control', :id => 'students_text_parse' %>
         <br/><%= submit_tag 'Add Students to Section', :class => 'btn btn-large btn-primary btn-sm', :disabled => archived? %>
     <% end %>
   </div>
