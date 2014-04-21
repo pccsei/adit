@@ -28,10 +28,4 @@ module ApplicationHelper
       end         
     end
   end
-  
-  # Makes sure a value does not go below zero
-  def zeroMin(val)
-    return val < 0 ? 0 : val
-  end
-  
 end
