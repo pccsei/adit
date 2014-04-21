@@ -41,16 +41,20 @@ class UsersController < ApplicationController
 
   # Add a new teacher to the section
   def another_teacher_to_section   
-    User.create_new_section(params["new_teacher_to_add"], params["section"], session[:selected_project_id])
+    User.create_new_section(params[:new_teacher_to_add], params[:section], session[:selected_project_id])
+    user = User.find(params[:new_teacher_to_add])
 
-    redirect_to users_teachers_path
+    redirect_to users_teachers_path, notice: "#{user.first_name} #{user.last_name} was added to section #{params[:section]}."
   end
 
   # Delete the old teacher Member and add a new teacher member
   def change_teacher
-    User.change_teacher(params["teacher_to_change_to"], Member.find(params["member_id"]))
+    member = Member.find(params[:member_id])
+    user = User.find(params[:teacher_to_change_to])
+    
+    User.change_teacher(user.id, member)
 
-    redirect_to users_teachers_path
+    redirect_to users_teachers_path, notice: "#{user.first_name} #{user.last_name} is now a teacher of section #{member.section_number}."
   end
   
   # GET /users/1
@@ -294,7 +298,8 @@ class UsersController < ApplicationController
   def remove_member
      member = Member.find(params[:id])
      member.delete
-     redirect_to users_teachers_path, notice: "This teacher was successfully removed from the section."
+     redirect_to users_teachers_path, 
+        notice: "#{member.user.first_name} #{member.user.last_name} was successfully removed from section #{member.section_number}."
   end
   # FIX - needs to find the project and section that teacher is being removed from before the delete
   def destroy
