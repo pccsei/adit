@@ -8,7 +8,7 @@ class Ticket < ActiveRecord::Base
   has_paper_trail
 
   def self.current_project(project_id)
-    where(project_id: project_id, client_id: Client.where(status_id: Status.where(status_type: ["Approved", "In House"])))
+    where(project_id: project_id, client_id: Client.where(status_id: Status.where(status_type: "Approved")))
   end
 
   def self.updates(stamp)
