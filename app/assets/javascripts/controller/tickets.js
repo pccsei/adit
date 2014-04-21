@@ -1,7 +1,21 @@
+//*********************************************************************************************************************/
+// Tickets.js - Everything must be wrapped in the onLoad function to handle Turbolinks
+//*********************************************************************************************************************/
+
 onLoad(function() {  
-  // Grabs the server time to use as a timestamp. More comments on server-side.
+	
+  // Initializes the page for pinging the server and grabs the server time to use as a timestamp. More comments on server-side.
   $.getJSON("tickets/get_sys_time", function(json) {
     window.sysTime = json.time; // Attach the timestamp to the window object to make it globally accessible
+    
+    if (json.time != "assign") {
+      
+      $.getJSON('tickets/left', function(json) {
+      	setCounters(json.Total, json.High, json.Medium, json.Low);
+      });
+      
+      setTimeout(updateClients, 1000);      
+    }
   });       
         
   // Allows the user to try to get the client.
@@ -67,6 +81,12 @@ onLoad(function() {
   	}  	
   }
   
+  function setCounters(total, high, medium, low) {
+  	$('#clientsRemaining').html(total);
+  	$('#highPriorityCount').html(high);
+  	$('#mediumPriorityCount').html(medium);
+  	$('#lowPriorityCount').html(low);
+  }
   
   function updateCounters(selector) {
     highSelector   = $('#highPriorityCount');
@@ -101,7 +121,8 @@ onLoad(function() {
   function mm(selector) {selector.html(selector.html() - 1);}
 
   // Recursive function that pings the server to check for updates
-  setTimeout(updateClients, 1000);  
+  //setTimeout(updateClients, 1000);
+
   
   // Initialized the datatable with the bootstrap tooltip feature added
   var table =  $('.ticket_table').dataTable({
