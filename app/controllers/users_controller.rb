@@ -87,12 +87,11 @@ class UsersController < ApplicationController
   end
 
   def assign_teacher_to_section
-    teacher = params[:school_id]
     section_number = params['section']  
 
-    User.create_new_section(teacher[:id], section_number, session[:selected_project_id])
+    User.create_new_section(params[:teachers], section_number, session[:selected_project_id])
     set_selected_section(section_number)
-    redirect_to users_url,  notice: 'You are now viewing your newly created section ' + "#{section_number}" + '.'
+    redirect_to users_url,  notice: "You are now viewing your newly created section #{section_number}."
   end
   
   # Goes to the help page
