@@ -105,6 +105,7 @@ class Ticket < ActiveRecord::Base
     else
       total_left = project.max_high_priority_clients -
           get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'high')).size
+      total_left = 0 if total_left < 0
       total_allowed < total_left ? total_allowed : total_left
     end
   end
@@ -116,6 +117,7 @@ class Ticket < ActiveRecord::Base
     else
       total_left = project.max_medium_priority_clients -
           get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'medium')).size
+      total_left = 0 if total_left < 0          
       total_allowed < total_left ? total_allowed : total_left
     end
 
@@ -127,7 +129,8 @@ class Ticket < ActiveRecord::Base
       total_allowed
     else
       total_left = project.max_low_priority_clients -
-          get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'low')).size
+          get_current_tickets(uid, project.id).where('priority_id = ?', Priority.where('name = ?', 'low')).size      
+      total_left = 0 if total_left < 0              
       total_allowed < total_left ? total_allowed : total_left
     end
   end
