@@ -587,20 +587,24 @@ class User < ActiveRecord::Base
       # Change this function after the EXPO, so that it validates user input as well.
       if choice == 'Assign Bonus Points'
         if bonus_points != 0 && bonus_points != nil
+          flash_positive_message = " "
+          response = "success"
           for i in 0..students.count-1
             bonus = Bonus.new
             bonus.points = bonus_points
             bonus.comment = bonus_comment
-            bonus.user_id = User.find(students[i]).id
+            user = User.find(students[i])
+            bonus.user_id = user.id
             bonus.project_id = selected_project.id
             if bonus.save
               if students.count == 1
-                return flash_positive_message += "#{user.first_name} #{user.last_name} was given #{bonus_points} bonus points."
+                return response, flash_positive_message += "#{user.first_name} #{user.last_name} was given #{bonus_points} bonus points."
               elsif i < students.count-1
                 # If only two names do not add a comma
-                flash_positive_message += ("#{user.first_name} #{user.last_name}" + (students.count == 2 ? ' ' : ', '))
+                flash_positive_message += "#{user.first_name} #{user.last_name}"
+                (students.count == 2) ? flash_positive_message += ' ' : flash_positive_message +=', '
               else
-                return flash_positive_message += "and #{user.first_name} #{user.last_name} were given #{bonus_points} bonus points."
+                return response, flash_positive_message += "and #{user.first_name} #{user.last_name} were given #{bonus_points} bonus points."
               end
             end
           end
