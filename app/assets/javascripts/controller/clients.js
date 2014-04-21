@@ -154,7 +154,7 @@ onLoad(function() {
   overridePrioritySort();
       
   var table =  $('.assign_table').dataTable({
-      "aoColumns" : [{ "bSortable": true }, {"sType": "priority" }, null, null, null, null, null, null, null, null, null, null, null],
+      "aoColumns" : [{ "bSortable": true }, {"sType": "priority" }, null, null, null, null],
       "aaSorting" : [[2, 'asc']],
       "bPaginate" : false,
       "iCookieDuration": 60,
