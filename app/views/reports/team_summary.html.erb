@@ -1,4 +1,4 @@
-<% if current_user.role == 3 %>
+<% if current_user.role == TEACHER %>
 	<% provide(:title, 'Team Summary') %>
 	<% provide(:excel, (link_to (image_tag 'excel.png'), reports_team_summary_path(format: "xls"), :title => "Export to Excel").html_safe) %>
 	<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>	
@@ -12,8 +12,14 @@
  
 <% end %>
 
-<% if @team_data.empty? %>
-<p class="info-message alert alert-info"> Assign student managers on the <%=link_to "Students", users_path %> page to see team data!</p>
+<% if @team_data.empty?%>
+   <p class="info-message alert alert-info"> 
+      <% if current_user.role == TEACHER %>
+         Assign student managers on the <%=link_to "Students", users_path %> page to see team data!
+      <% else %>
+         Once your teacher assigns more student managers, you will see other teams here.
+      <% end %>
+   </p>
 <% end %>
 <div id = "section_refresh">
 <%= render :partial => "team_summary"%>

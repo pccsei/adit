@@ -7,15 +7,19 @@ class SessionsController < ApplicationController
 
    # This is active directory authentication
    def create
-      user = User.find_by school_id: params[:school_id]
+      user = User.find_by(school_id: params[:school_id])
       if user && (!Rails.env.production? || 
         (Rails.env.production? && User.authenticate(params[:school_id], params[:password])))
        if user.role == TEACHER
           sign_in(user)
-          redirect_back_or projects_path
+          if Project.find_by(is_active: true)
+             redirect_to users_path
+          else
+             redirect_to projects_path
+          end
        else
           sign_in(user)
-          redirect_back_or tickets_path
+          redirect_to tickets_path
        end
      else
        flash.now[:error] = 'Invalid PCC ID or password'

@@ -190,7 +190,11 @@ class User < ActiveRecord::Base
       message += " At least one student record contained input errors."
     end
     
-    message
+    if message.present?
+      message
+    else
+      "Your student list was successfully imported."
+    end
   end
 
   # Good luck...
@@ -220,7 +224,7 @@ class User < ActiveRecord::Base
       if choice == 'Promote Student'
         for i in 0..students.count-1
           user = User.find(students[i])
-          member = Member.find_by(user_id: students[i])
+          member = Member.find_by(user_id: students[i], project_id: selected_project.id)
           if !Member.is_team_leader(member)
             member.parent_id = user.id
             if member.save && user.save
@@ -286,7 +290,7 @@ class User < ActiveRecord::Base
       if choice == 'Demote Student'
         for i in 0..students.count-1
           user = User.find(students[i])
-          if Member.is_team_leader(Member.find_by(user_id: user, project_id: selected_project, parent_id: user.id))
+          if Member.is_team_leader(Member.find_by(user_id: user, project_id: selected_project.id, parent_id: user.id))
             Member.destroy_team(user)
             if !is_added_positive
               reponse_int += 1
@@ -352,7 +356,7 @@ class User < ActiveRecord::Base
       #     member = Member.find_by(user_id: students[i])
       #     member.parent_id = nil
       #     # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
-      #     User.find(students[i]).role == is_team_leader(Member.find_by(project_id: selected_project, parent_id: user_id)) ? Member.destroy_team(User.find(students[i]), true) : nil
+      #     User.find(students[i]).role == is_team_leader(Member.find_by(project_id: selected_project.id, parent_id: user_id)) ? Member.destroy_team(User.find(students[i]), true) : nil
       #     Member.inactivate_student_status(member)
       #   end
       # end
@@ -583,20 +587,24 @@ class User < ActiveRecord::Base
       # Change this function after the EXPO, so that it validates user input as well.
       if choice == 'Assign Bonus Points'
         if bonus_points != 0 && bonus_points != nil
+          flash_positive_message = " "
+          response = "success"
           for i in 0..students.count-1
             bonus = Bonus.new
             bonus.points = bonus_points
             bonus.comment = bonus_comment
-            bonus.user_id = User.find(students[i]).id
+            user = User.find(students[i])
+            bonus.user_id = user.id
             bonus.project_id = selected_project.id
             if bonus.save
               if students.count == 1
-                return flash_positive_message += "#{user.first_name} #{user.last_name} was given #{bonus_points} bonus points."
+                return response, flash_positive_message += "#{user.first_name} #{user.last_name} was given #{bonus_points} bonus points."
               elsif i < students.count-1
                 # If only two names do not add a comma
-                flash_positive_message += ("#{user.first_name} #{user.last_name}" + (students.count == 2 ? ' ' : ', '))
+                flash_positive_message += "#{user.first_name} #{user.last_name}"
+                (students.count == 2) ? flash_positive_message += ' ' : flash_positive_message +=', '
               else
-                return flash_positive_message += "and #{user.first_name} #{user.last_name} were given #{bonus_points} bonus points."
+                return response, flash_positive_message += "and #{user.first_name} #{user.last_name} were given #{bonus_points} bonus points."
               end
             end
           end
@@ -631,7 +639,7 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    "#{first_name} #{last_name} #{school_id}"
+    "#{first_name} #{last_name} (#{school_id})"
   end
 
   def teacher_full_name
@@ -644,35 +652,12 @@ class User < ActiveRecord::Base
 
   # Creates a new Teacher member with the section number. This is all that is done to create a new section 
   def User.create_new_section(teacher_id, section_number, project_id)
-    # Current teacher id will get the current teacher user id in the test loop below.
-    # not_a_section = true
-    # current_teacher_id =1
-
-    # Makeshift test to see if this section is already database. Hopefully this code will be rewritten to be effiecent
-    # Member.all.each do |t|
-    #   if User.find(t.user_id).role == TEACHER
-    #     if t.section_number == section_number.to_i && t.project_id == project_id
-    #       current_teacher_id = t.user_id
-    #       not_a_section = false
-    #     end
-    #   end
-    # end
-    # Only create a new member if it is a new section, otherwise override the existing data
-    # if not_a_section
     member = Member.new
     member.user_id = teacher_id
     member.project_id = project_id
     member.section_number = section_number
     member.is_enabled = true
     member.save
-    # else
-    #   member = Member.find_by(user_id: current_teacher_id, section_number: section_number, project_id: project_id)
-    #   member.user_id = teacher_id
-    #   member.project_id = project_id
-    #   member.section_number = section_number
-    #   member.is_enabled = true
-    #   member.save
-    # end
   end
 
   def User.encrypt(token)

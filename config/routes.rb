@@ -49,7 +49,8 @@ WhiteCollar::Application.routes.draw do
   get    '/users/tickets_left'
   get    '/clients/edited_clients_excel'
   get    '/clients/pending_clients_excel'
-
+  get    '/tickets/left'
+  
   resources :sessions, only: [:new, :create, :destroy]
   resources :tickets
   resources :clients

@@ -9,6 +9,13 @@
 	margin-top: 2em;
 	width: 45em;
 }
+#teacher_status_box{padding: 1em;
+border: 1em solid #EEE;
+border-radius: 1em;
+margin-top: 4em;
+width: 38em;
+margin-bottom: -5em !important;
+}
 #student_manager{
 	width: 17em;
 	margin-right: 1em;
@@ -45,7 +52,15 @@
 	margin-top: 1em;
 	margin-left: 0.1em;
 }
-
+.users #students_text_parse{
+	width: 79.8em;
+	height: 10em;
+	border: 3px solid #CCC;
+	padding: 5px;
+	font-family: Tahoma,sans-serif;
+	margin-top: 1em;
+	margin-left: 0.1em;
+}
 .text-field a{
 	vertical-align: -45%;
 }

@@ -28,11 +28,34 @@
 	    	My Completed Sale
 	    </p>
 	    <p class="sale_information">
-				<strong id="sale_display">Sale Amount:&nbsp;$ <%= number_with_precision(@receipt.sale_value, precision: 2) %></strong>
-				<strong id="page_display">Page Size:&nbsp; <%= number_with_precision(@receipt.page_size, precision: 2) %></strong>
-				<strong id="pay_display">Payment Type:&nbsp; <%= @receipt.payment_type %></strong>
+	        <table class="sale_table">
+	          <tr>
+	            <td class="label-field">
+	            <strong> Sale Amount: </strong>
+	            </td>
+	            <td class="text-field">
+	  			  <strong id="sale_display">$<%= number_with_precision(@receipt.sale_value, precision: 2) %></strong>
+	            </td>
+	          </tr>
+	          <tr>
+	            <td class="label-field">
+					<strong>Page Size:</strong>
+	            </td>
+	            <td class="text-field">
+					<strong id="page_display"><%= number_with_precision(@receipt.page_size, precision: 2) %>
+	            </td>
+	          </tr>
+	          <tr>
+	            <td class="label-field">
+					<strong>Payment Type:</strong>
+	            </td>
+	            <td class="text-field">
 
-			</p>
+	  	  		<strong id="pay_display"><%= @receipt.payment_type %></strong>
+	            </td>
+	          </tr>
+	    </table>
+			
 	    <% end %>
 
 		<div id="FirstContact" class ="action" <%= ' hidden' unless (@receipt.made_contact == false)%>>

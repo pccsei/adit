@@ -8,7 +8,7 @@
 
 action_types = ActionType.create!([{ name: 'First Contact',  role: 1, point_value: 5 },
                                    { name: 'Presentation',   role: 1, point_value: 5 },
-                                   { name: 'Old Sale',       role: 1, point_value: 10},
+                                   { name: 'Renewal Sale',   role: 1, point_value: 10},
                                    { name: 'New Sale',       role: 1, point_value: 15},
                                    { name: 'Comment',        role: 1, point_value: 0}])
 

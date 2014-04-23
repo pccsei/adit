@@ -41,8 +41,8 @@ class Action < ActiveRecord::Base
       priority = receipt.ticket.priority.name
       sale_action = Action.new
       if priority == 'high'
-        sale_action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
-        sale_action.points_earned  = (ActionType.find_by(name: 'Old Sale')).point_value
+        sale_action.action_type_id = (ActionType.find_by(name: 'Renewal Sale')).id
+        sale_action.points_earned  = (ActionType.find_by(name: 'Renewal Sale')).point_value
       else
         sale_action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
         sale_action.points_earned  = (ActionType.find_by(name: 'New Sale')).point_value
@@ -80,7 +80,7 @@ class Action < ActiveRecord::Base
     elsif action.action_type.name == 'First Contact'
       action.receipt.made_contact = false
       receipt.made_contact = false
-    elsif (action.action_type.name == 'New Sale' || action.action_type.name == 'Old Sale')
+    elsif (action.action_type.name == 'New Sale' || action.action_type.name == 'Renewal Sale')
       action.receipt.made_sale = false
       receipt.made_sale = false
     end
@@ -92,8 +92,8 @@ class Action < ActiveRecord::Base
   def self.new_action(action, receipt, action_received)
     if action_received == 'Sale'
       if receipt.ticket.priority.name == 'high'
-        action.action_type_id = (ActionType.find_by(name: 'Old Sale')).id
-        action.points_earned = (ActionType.find_by(name: 'Old Sale')).point_value
+        action.action_type_id = (ActionType.find_by(name: 'Renewal Sale')).id
+        action.points_earned = (ActionType.find_by(name: 'Renewal Sale')).point_value
       else
         action.action_type_id = (ActionType.find_by(name: 'New Sale')).id
         action.points_earned = (ActionType.find_by(name: 'New Sale')).point_value

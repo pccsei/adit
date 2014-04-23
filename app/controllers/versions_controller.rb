@@ -10,7 +10,7 @@ class VersionsController < ApplicationController
       r.made_contact = true
     when "Presentation"
       r.made_presentation = true
-    when "New Sale", "Old Sale"
+    when "New Sale", "Renewal Sale"
       r.made_sale = true
     end    
       r.save!

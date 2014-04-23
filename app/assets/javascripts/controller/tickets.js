@@ -1,8 +1,8 @@
+//*********************************************************************************************************************/
+// Tickets.js - Everything must be wrapped in the onLoad function to handle Turbolinks
+//*********************************************************************************************************************/
+
 onLoad(function() {  
-  // Grabs the server time to use as a timestamp. More comments on server-side.
-  $.getJSON("tickets/get_sys_time", function(json) {
-    window.sysTime = json.time; // Attach the timestamp to the window object to make it globally accessible
-  });       
         
   // Allows the user to try to get the client.
   $(".addTicket").click(function(caller) {
@@ -39,7 +39,24 @@ onLoad(function() {
       });
     }
   });
+	
+  // Sets up the needed ping to the server if students can select their clients  
+  function init(){ 
+  	// Grabs the server time to use as a timestamp. More comments on server-side.
+  	$.getJSON("tickets/get_sys_time", function(json) {
+	  window.sysTime = json.time; // Attach the timestamp to the window object to make it globally accessible
+	    
+	  // Starts pinging the server if the student can select clients  
+	  if (json.time != "assign") {	     
+	    $.getJSON('tickets/left', function(json) {
+	    	setCounters(json.Total, json.High, json.Medium, json.Low);
+	    });	    
+	    setTimeout(updateClients, 1000);      
+	  }
+	});       
+  }
   
+  // Gets all updates about clients after last timestamp.
   function updateClients() {
     $.getJSON("tickets/updates?&timestamp=" + window.sysTime, function(json) {
       var i, len = json.length - 1; // compensating for system time appended to the end of JSON object
@@ -54,6 +71,7 @@ onLoad(function() {
     setTimeout(updateClients, 2000);
   }  
   
+  // Updates client information in the datatable
   function updateClient(c, action) {
   	if (action == 'show') {
   	  $('#' + c.id).show();
@@ -66,8 +84,16 @@ onLoad(function() {
       $('#' + c.id + '_span').html(c.first_name + " " + c.last_name+ "<br />(" + c.school_id + ")");
   	}  	
   }
+   
+  // Sets the counters on the view. This is done here because the turbolinks can cause the counters to get off.
+  function setCounters(total, high, medium, low) {
+  	$('#clientsRemaining').html(total);
+  	$('#highPriorityCount').html(high);
+  	$('#mediumPriorityCount').html(medium);
+  	$('#lowPriorityCount').html(low);
+  }
   
-  
+  // Subtracts 1 from the relevant counters. making sure that none go below 0.
   function updateCounters(selector) {
     highSelector   = $('#highPriorityCount');
     mediumSelector = $('#mediumPriorityCount');
@@ -100,37 +126,29 @@ onLoad(function() {
   // This function is similar to a -- on a variable except it accepts the element that has a number in it
   function mm(selector) {selector.html(selector.html() - 1);}
 
-  // Recursive function that pings the server to check for updates
-  setTimeout(updateClients, 1000);  
+  // Gets the ping setup
+  init(); 
   
- overridePrioritySort();
+  // Overrides the default column sorting for toggling through high, medium, low priorities. The code is in application.js
+  overridePrioritySort();     
   
   // Initialized the datatable with the bootstrap tooltip feature added
   var table =  $('.ticket_table').dataTable({
-        "aoColumns" : [{ "bSortable": true }, {"sType": "priority" }, null, null, null, null, null],
+        "aoColumns" : [{"sWidth": "12%"}, {"sType": "priority", "sWidth": "8%" }, { "sWidth": "26%" }, {"sWidth": "26%"}, {"sWidth": "18%"}, {"sWidth": "10%"}],
         "bPaginate" : false,
         "iCookieDuration": 60,
         "bStateSave": false,
         "bAutoWidth": false,
-        "bScrollAutoCss": true,
         "bProcessing": true,
         "bRetrieve": true,
         "bJQueryUI": true,
-        "sDom": '<"H"CTrf>t<"F"lip>',
-        "sScrollXInner": "110%",
-        "fnInitComplete": function() {
-            this.css("visibility", "visible");
-        },
         "fnPreDrawCallback": $(".autoHide").hide()
-    }, $(".defaultTooltip").tooltip({
+         }, 
+         $(".defaultTooltip").tooltip({
         'selector': '',
         'placement': 'left',
         'container': 'body'
     }));
-
-    $('table.ticket_table').each(function(i,table) {
-        $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
-    });
 
   return table;
 });
