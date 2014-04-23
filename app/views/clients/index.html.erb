@@ -2,10 +2,6 @@
 <% provide(:excel, (link_to (image_tag 'excel.png'), clients_path(format: "xls"), :title => "Export to Excel").html_safe) %>
 
 
-<% if get_selected_project.is_active == false %>
-   <p class='alert-notice'>You must switch to an active project to assign clients.</p>
-<% end%>
-
 <table class="display assign_table" id="client_list">
   <thead>
   <tr>
@@ -13,14 +9,7 @@
     <th>Priority</th>
     <th>Business name</th>
     <th>Address</th>
-    <th>City</th>
-    <th>State</th>
-    <th>Zip</th>
-    <th>Telephone</th>
-    <th>Contact title</th>
-    <th>First name</th>
-    <th>Last name</th>
-    <th>E-mail</th>
+    <th>Person to Contact</th>
     <th>Comment</th>
   </tr>
   </thead>
@@ -28,7 +17,7 @@
   <tbody>
   <% @tickets.each do |ticket| %>
       <tr class="<%= ticket.priority.name %>">
-        <td>
+        <td class="choosecolumn">
           <% if ticket.id %>
               <% if get_selected_project.is_active == true %>
                  <% if ticket.student_fname %>
@@ -44,18 +33,10 @@
           <% end %>
         </td>   
         <td class="priority"><span><%= ticket.priority.name.capitalize %></span></td>     
-        <td><%= link_to ticket.business_name, client_path(ticket.client_id, page: request.url) %></td>
-        <td><%= ticket.address %></td>
-        <td><%= ticket.city %></td>
-        <td><%= ticket.state %></td>
-        <td><%= ticket.zipcode %></td>
-        <td><%= render_phone(ticket.telephone) %></td>
-        <td><%= ticket.contact_title %></td>
-        <td><%= ticket.contact_fname %></td>
-        <td><%= ticket.contact_lname %></td>
-        <td><%= ticket.email %></td>
+        <td title="View Client Details"><%= link_to tooltipify(ticket.business_name, 35), client_path(ticket.client_id, page: request.url) %></td>
+        <td><%= tooltipify(ticket.address, 35) %></td>
+        <td><%= tooltipify(ticket.contact_title + ' ' + ticket.contact_fname + ' ' +  ticket.contact_lname, 20)%></td>
         <td><%= tooltipify(ticket.comment)%></td>
-
       </tr>
   <% end %>
   </tbody>

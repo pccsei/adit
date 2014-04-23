@@ -7,13 +7,8 @@ class TicketsController < ApplicationController
     @currentProject = Project.select('id, max_clients,  max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients, tickets_close_time').find_by(is_active: true, id: Member.select('project_id').where(user_id: current_user.id))
 
     if @currentProject              
-      @tickets      = Ticket.current_project(@currentProject.id)
-      @clientsLeft  = Ticket.total_allowed_left(current_user.id,  @currentProject)
-      @highPriority = Ticket.high_allowed_left(current_user.id,   @currentProject)
-      @midPriority  = Ticket.medium_allowed_left(current_user.id, @currentProject)
-      @lowPriority  = Ticket.low_allowed_left(current_user.id,    @currentProject)
+      @tickets = Ticket.current_project(@currentProject.id)
     end
-        
   end
   
   def updates
@@ -25,10 +20,10 @@ class TicketsController < ApplicationController
   end
   
   def left
-    render json: {'Total'  => Ticket.total_allowed_left(current_user.id, get_current_project),
-                  'High'   => Ticket.high_allowed_left(current_user.id, get_current_project),
+    render json: {'Total'  => Ticket.total_allowed_left(current_user.id,  get_current_project),
+                  'High'   => Ticket.high_allowed_left(current_user.id,   get_current_project),
                   'Medium' => Ticket.medium_allowed_left(current_user.id, get_current_project),
-                  'Low'    => Ticket.low_allowed_left(current_user.id, get_current_project)}
+                  'Low'    => Ticket.low_allowed_left(current_user.id,    get_current_project)}
   end
   
   def getClient
@@ -111,7 +106,11 @@ class TicketsController < ApplicationController
   # When the user first visits the tickets page, the page grabs the server time and stores it as a timestamp. Then every x number of seconds, that timestamp is 
   # sent to the server. The server will respond with any data that has been modified after that time. 
   def get_sys_time
-    render json: {"time" => Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')} # UTC is used to standardize the time across the front and back end.
+    if Project.is_specific(get_current_project.id)
+      render json: {'time' => 'assign'}
+    else    
+      render json: {'time' => Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')} # UTC is used to standardize the time across the front and back end.
+    end
   end
   
   private

@@ -14,12 +14,11 @@ class ApplicationController < ActionController::Base
   helper_method :get_selected_section
   helper_method :set_selected_section
   helper_method :get_current_student_project                    
-  
-  # Add where_is_enabled to know which members are currently enabled.
 
+  # Find if a student is a member of the current project
   def get_current_student_project
     get_current_project &&
-        Member.where(user_id: current_user.id, project_id: Project.where(:is_active => true)).present?
+        Member.where(is_enabled: true, user_id: current_user.id, project_id: get_current_project.id).present?
   end
 
   # This method will most likely be deleted soon, use selected methods below instead                          
@@ -46,20 +45,25 @@ class ApplicationController < ActionController::Base
   end
   
   def get_selected_project
-    # EXPO rewrite after the expo, added the member stuff
-    member = Member.where(user_id: current_user.id).last
-    if member
-       project = member.project
-    else
-       project = Project.non_archived.last
-    end
     if session[:selected_project_id]
-      Project.find(session[:selected_project_id])
-    elsif project
-      set_selected_project(project)
-      project
+      return Project.find(session[:selected_project_id])
     else
-      nil
+      if get_current_project
+         member = Member.find_by(user_id: current_user.id, project_id: Project.find_by(is_active: true).id)
+      elsif !member
+         member = Member.find_by(user_id: current_user.id)
+      end
+      if member
+         project = member.project
+      else
+         project = Project.non_archived.last
+      end
+      if project
+         set_selected_project(project)
+         return project
+      else
+         return nil
+      end
     end
   end
 

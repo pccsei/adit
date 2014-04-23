@@ -59,6 +59,7 @@
 <% elsif @project.is_active == false %>
    <%= form_for(@project) do |f| %>
        <%= f.hidden_field :is_active, :value => true %>
+       <%= f.hidden_field :reactivate, :value => true %>
        <%= f.submit 'Reactivate This Project', class: 'btn btn-primary btn-sm' %>
    <% end %>
 <% else %>

@@ -1,6 +1,8 @@
+<% provide(:excel, (link_to (image_tag 'excel.png'), users_path(format: "xls"), :title => "Export to Excel").html_safe) %>
+<% provide(:title, 'Students') %>
+
 <%= render :partial => 'reports/dropdown' , :locals => {:sections => @sections}%>
 
-<% provide(:title, 'Students') %>
 
 <!--Creates a new Section link-->
 <div id="new_section">
@@ -11,7 +13,6 @@
 
 <% if @selected_section == 'all' %>
   <p id = "info_message" class = "alert alert-info ">You are currently viewing all students.<br /> Please select a section or create a section for additional options.</p>
-        <!--Refreshes page using ajax, actually just normally right now-->
       <div id = "section_refresh">
         <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
       </div>
@@ -21,45 +22,50 @@
   <!--Actions for the teacher to do with the students and sections-->
   <%= form_tag users_change_student_status_path, :id => 'student_options' do%>
     <div id= "manage_dropdown">
-      <div id = "option">
+      <span id = "option">
         <%= select_tag 'selected_option',
                         options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team', "Assign Bonus Points" ]),
                         :prompt => 'Choose Action', :type => 'button',
-                        :class => 'btn btn-default dropdown-toggle col-md-2', :datatoggle => 'dropdown',
+                        :class => 'btn btn-default dropdown-toggle', :datatoggle => 'dropdown',
                         :disabled => archived? %>
-      </div>
+      </span>
       <!-- This only appears if the teacher wants to assign a team to a student manager -->
-      <div id ="show_managers">
+      <span id ="show_managers">
         <% if @student_managers.count > 0 %>
           <%= select_tag 'student_manager', options_from_collection_for_select(@student_managers, 'id', :full_name),
                        :class => 'btn btn-default dropdown-toggle col-md-2', :disabled => archived? %>
       <% else %>
         <p id="no_managers" class="alert alert-error">Please promote students before creating a team.</p>
       <% end %>
-      </div>
+  </span>
 
- 
- 
+  <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm ', :id => 'action_submit', :disabled => archived?  %>
+
       <div id ="assign_bonus_points">
-        <p>Number of bonus points:
-        <%= number_field_tag 'bonus_points' %></p>
-        <p>Please enter the reason for the bonus points:
-        <%= text_area_tag 'bonus_comment' %></p>
+        <table>
+          <tr>
+            <td class="label-field">
+             Number of bonus points:
+            </td>
+            <td class="text-field">
+				 <%= number_field_tag 'bonus_points', nil, :class => 'form-control' %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
+              Please enter the reason <br />for the bonus points:
+            </td>
+            <td class="text-field">
+             	 <%= text_area_tag 'bonus_comment', nil, :class => 'form-control' %>
+            </td>
+          </tr>
+	  </table>
+
       </div>
-    <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm col-md-1', :id => 'action_submit', :disabled => archived?  %>
-    </div>
+  </div>
+   
+   
 
-
-
-	<% provide(:excel, (link_to (image_tag 'excel.png'), users_path(format: "xls"), :title => "Export to Excel").html_safe) %>
-
-
-  <!-- Displays the incorrect students if any -->
-  <% if @incorrect_students.present? %>
-  	<%= render :partial => 'incorrect_students' %>
-  <% end %>
-  
-  <!--Refreshes page using ajax, actually just normally right now-->
       <div id = "section_refresh">
         <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
       </div>

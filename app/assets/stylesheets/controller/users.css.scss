@@ -1,19 +1,24 @@
+
 .fake-link{
 	color: #DC0000;
 }
-.form_background{
-padding-top: 1.5em;
-  padding-left: 2em;
-  padding-right: 2em;
-  padding-bottom: 2.5em;
-  margin-top: 2em !important;
-  border: 
-  #EEE solid 1em;
-  border-radius: 1em;
+#assign_bonus_points{
+	padding: 1em 1em 1em;
+	border: 1em solid #EEE;
+	border-radius: 1em;
+	margin-top: 2em;
+	width: 45em;
+}
+#teacher_status_box{padding: 1em;
+border: 1em solid #EEE;
+border-radius: 1em;
+margin-top: 4em;
+width: 38em;
+margin-bottom: -5em !important;
 }
 #student_manager{
 	width: 17em;
-	margin-left: 1em;
+	margin-right: 1em;
 }
 #current_teacher{
 	margin-top: 3em !important;
@@ -38,8 +43,17 @@ padding-top: 1.5em;
   border-color: black;
 }
 
-.users textarea {
-	width: 86em;
+.users #bonus_comment {
+	width: 20em;
+	height: 5em;
+	border: 3px solid #CCC;
+	padding: 5px;
+	font-family: Tahoma,sans-serif;
+	margin-top: 1em;
+	margin-left: 0.1em;
+}
+.users #students_text_parse{
+	width: 79.8em;
 	height: 10em;
 	border: 3px solid #CCC;
 	padding: 5px;
@@ -47,7 +61,6 @@ padding-top: 1.5em;
 	margin-top: 1em;
 	margin-left: 0.1em;
 }
-
 .text-field a{
 	vertical-align: -45%;
 }

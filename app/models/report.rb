@@ -31,7 +31,7 @@ class Report
       sales[index].payment_type = r.payment_type
       sales[index].section      = Member.get_section_number(r.user_id, project)
       if (Action.find_by(receipt_id: r.id).action_type_id)
-        sales[index].ad_status  = ActionType.find(Action.find_by(receipt_id: r.id, action_type_id: [ActionType.where(name: "Old Sale").id,ActionType.where(name: "New Sale").id]).action_type_id).name
+        sales[index].ad_status  = ActionType.find(Action.find_by(receipt_id: r.id, action_type_id: [ActionType.find_by(name: "Renewal Sale").id,ActionType.find_by(name: "New Sale").id]).action_type_id).name
       end
       index = index + 1
     end
@@ -59,7 +59,7 @@ class Report
     receipts = Receipt.selected_project_receipts(project)
     if current_user.role == TEACHER
       students = User.current_student_users(project, section)
-    elsif is_team_leader(Member.find_by(project_id: project, user_id: current_user))
+    elsif Member.is_team_leader(Member.find_by(project_id: project, user_id: current_user))
       students = User.team_members(project, current_user.id)
     end
 
