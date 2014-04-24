@@ -127,15 +127,15 @@ class User < ActiveRecord::Base
       # Check to see if the current student being processed already exists as a user
       if !all_student_ids.include?(single_student_info[1])
         user = User.new
-        user.school_id = single_student_info[1]
-        user.first_name = single_student_info[2].split(', ')[1]
-        user.last_name = single_student_info[2].split(', ')[0]
-        user.classification = single_student_info[3]
-        user.box = single_student_info[5]
-        user.phone = single_student_info[6]
-        user.email = single_student_info[7]
-        user.major = single_student_info[8]
-        user.minor = single_student_info[9]
+        user.school_id = single_student_info[1]                 if single_student_info[1]
+        user.first_name = single_student_info[2].split(', ')[1] if single_student_info[2]
+        user.last_name = single_student_info[2].split(', ')[0]  if single_student_info[2]
+        user.classification = single_student_info[3]            if single_student_info[3]
+        user.box = single_student_info[5]                       if single_student_info[5]
+        user.phone = single_student_info[6]                     if single_student_info[6]
+        user.email = single_student_info[7]                     if single_student_info[7]
+        user.major = single_student_info[8]                     if single_student_info[8]
+        user.minor = single_student_info[9]                     if single_student_info[9]
         user.role = STUDENT
         user.save
         if(user.save)
