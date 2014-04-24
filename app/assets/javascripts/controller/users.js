@@ -9,7 +9,6 @@ onLoad(function() {
     
     // Choose Action dropdown
     $( "#show_managers" ).hide();
-    $("#parse_box").hide();
     $( "#assign_bonus_points" ).hide();
     $( "#option" ).click(
         function( event) {
@@ -144,15 +143,22 @@ onLoad(function() {
 // New Student - users/new
 //*********************************************************************************************************************/
     
-    // Shows and hides the box for the input from excel
-    $(function() {
-        $("#paste").click(
-            function() {
-                $("#parse_box").toggle();
-            });
+    
+    // Hide the excel input box and the excel help
+    $( "#parse_help").hide();
+    
+    $( "#helper").click(
+    	function() {
+    		$("#parse_help").toggle();
+    	});
+    	
+    $( "#hide_help").click( 
+    	function() {
+    	$("#parse_help").hide();
+    	$("html, body").animate({ scrollTop: 0 }, "slow");
     });
     
-    // Inform teacher that the student already exists in the database
+        // Inform teacher that the student already exists in the database
     	$("#user_school_id").blur(function() {
     		var student_id = $("#user_school_id").val();
     	 	$.ajax({

@@ -448,6 +448,16 @@ label.required:after {
   margin-right: .5em;
 }
 
+.form_background{
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-bottom: 2.5em;
+  padding-top: 1.5em;
+  margin-top: 1em !important;
+  border: #EEE solid 1em;
+  border-radius: 1em;
+}
+
 // Tooltip
 .tooltip-inner {
     white-space:pre-wrap;
