@@ -14,10 +14,6 @@ class Receipt < ActiveRecord::Base
 		message: 'can have a maximum of 6 digits. Please turn Javascript back on.'
   }
   
-  # def self.released_receipts
-    # all :conditions => {['']}
-  # end
-  
   # Returns all the receipts for the selected project
   def self.selected_project_receipts(project)
     
@@ -75,7 +71,8 @@ class Receipt < ActiveRecord::Base
       end
     end
     
-    return points + Bonus.get_student_bonus_total(student_id, project.id)
+    #return points + Bonus.get_student_bonus_total(student_id, project.id) BONUS
+    return points
   end
   
   def self.release!

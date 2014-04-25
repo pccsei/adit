@@ -24,7 +24,7 @@
     <div id= "manage_dropdown">
       <span id = "option">
         <%= select_tag 'selected_option',
-                        options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team', "Assign Bonus Points", "Activate", "Deactivate"]),
+                        options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team', "Activate", "Deactivate"]),
                         :prompt => 'Choose Action', :type => 'button',
                         :class => 'btn btn-default dropdown-toggle', :datatoggle => 'dropdown',
                         :disabled => archived? %>
