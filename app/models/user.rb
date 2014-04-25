@@ -198,7 +198,7 @@ class User < ActiveRecord::Base
   end
 
   # Good luck...
-  # Do whatever the teacher specified on the manage students page.
+  # Do whatever the teacher specified on the students page.
   def User.do_selected_option(students, choice, student_manager_id, selected_project, bonus_points, bonus_comment)
     if student_manager_id
       student_manager = User.find(student_manager_id)

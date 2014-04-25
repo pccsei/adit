@@ -2,7 +2,7 @@
 <% provide(:title, (@student_user.first_name.capitalize + '\'s Clients').html_safe)%>
 <br />
 	<% if session[:return_to] == users_url %>
-		<%= link_to "Back to Manage Students", session[:return_to] %>
+		<%= link_to "Back to Students", session[:return_to] %>
 	<% else %>
 		<%= link_to "Back to Reports", session[:return_to] %>
 	<% end %>
