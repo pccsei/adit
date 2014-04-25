@@ -51,9 +51,9 @@
         <td><%= student.class %></td>
         <% unless archived? %>
         <% if student.is_enabled %>
-          <td><%= link_to 'Deactivate', {controller: :users, action: :change_is_enabled, id: student.m_id}, method: :post %></td>
+          <td>Active</td>
         <% else %>
-		  <td><%= link_to 'Activate', {controller: :users, action: :change_is_enabled, id: student.m_id}, method: :post %></td>
+		      <td>Inactive</td>
         <% end %>
         <% end %>  
       </tr>
