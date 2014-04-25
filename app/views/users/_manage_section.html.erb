@@ -6,6 +6,7 @@
     <% if @selected_section != "all"%>
 	    <th class='empty'></th>
     <% end %>
+    <th class="empty"></th>
 	  <th>First Name</th>
 	  <th>Last Name</th>
 	  <th>ID number</th>
@@ -20,7 +21,6 @@
 	  <% unless archived? %>
 	  <th>Active?</th>
 	  <% end %>     	      	      	      	      
-	  <th class="empty"></th>
 	</tr>
   </thead>
   <tbody>
@@ -37,6 +37,7 @@
             <td><input id="students_managers" class="student_managers" name="students[]" type="checkbox" value="<%=student.id%>"/></td>
           <% end %>
         <% end %> 
+        <td><%= link_to 'Edit', edit_user_path(student.id) %></td>     
         <td><%= link_to student.first_name, my_receipts_path(id: student.id, page: request.url) %></td>
         <td><%= link_to student.last_name, my_receipts_path(id: student.id, page: request.url) %></td>
         <td><%= student.school_id %></td>
@@ -54,8 +55,7 @@
         <% else %>
 		  <td><%= link_to 'Activate', {controller: :users, action: :change_is_enabled, id: student.m_id}, method: :post %></td>
         <% end %>
-        <% end %>
-        <td><%= link_to 'Edit', edit_user_path(student.id) %></td>       
+        <% end %>  
       </tr>
     <% end %>
   </tbody>
