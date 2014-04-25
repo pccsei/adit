@@ -1,0 +1,24 @@
+<% provide(:title, "Bonuses") %>
+
+<table class ="display default_table">
+	<thead>
+		<tr>
+			<th>Description</th>
+			<th>Point Value</th>
+			<th>Date Created</th>
+			<th class="empty"</th>
+			<th class="empty"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @bonuses.each do |b| %>
+			<tr>
+				<td><%= b.name %></td>
+				<td><%= b.point_value %></td>
+				<td><%= b.created_at %></td>                     
+				<td><%= link_to 'Edit', edit_bonus_type_path(b) %></td>
+				<td><%= link_to 'Delete', b %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
