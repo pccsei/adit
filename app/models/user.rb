@@ -127,15 +127,15 @@ class User < ActiveRecord::Base
       # Check to see if the current student being processed already exists as a user
       if !all_student_ids.include?(single_student_info[1])
         user = User.new
-        user.school_id = single_student_info[1]
-        user.first_name = single_student_info[2].split(', ')[1]
-        user.last_name = single_student_info[2].split(', ')[0]
-        user.classification = single_student_info[3]
-        user.box = single_student_info[5]
-        user.phone = single_student_info[6]
-        user.email = single_student_info[7]
-        user.major = single_student_info[8]
-        user.minor = single_student_info[9]
+        user.school_id = single_student_info[1]                 if single_student_info[1]
+        user.first_name = single_student_info[2].split(', ')[1] if single_student_info[2]
+        user.last_name = single_student_info[2].split(', ')[0]  if single_student_info[2]
+        user.classification = single_student_info[3]            if single_student_info[3]
+        user.box = single_student_info[5]                       if single_student_info[5]
+        user.phone = single_student_info[6]                     if single_student_info[6]
+        user.email = single_student_info[7]                     if single_student_info[7]
+        user.major = single_student_info[8]                     if single_student_info[8]
+        user.minor = single_student_info[9]                     if single_student_info[9]
         user.role = STUDENT
         user.save
         if(user.save)
@@ -350,23 +350,26 @@ class User < ActiveRecord::Base
         return reponse, flash_message
       end
 
-      # These options are currently not being used
-      # if choice == 'Inactivate Students'
-      #   for i in 0..students.count-1
-      #     member = Member.find_by(user_id: students[i])
-      #     member.parent_id = nil
-      #     # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
-      #     User.find(students[i]).role == is_team_leader(Member.find_by(project_id: selected_project.id, parent_id: user_id)) ? Member.destroy_team(User.find(students[i]), true) : nil
-      #     Member.inactivate_student_status(member)
-      #   end
-      # end
+      # Inactivate students
+      if choice == 'Deactivate'
+        for i in 0..students.count-1
+          member = Member.find_by(user_id: students[i])
+          member.parent_id = nil
+          # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
+          if User.find(students[i]).role == Member.is_team_leader(Member.find_by(project_id: selected_project.id, parent_id: member.user_id))
+            Member.destroy_team(User.find(students[i]), true)
+          end
+          Member.inactivate_student_status(member)
+        end
+      end
 
-      # if choice == 'Activate Students'
-      #   for i in 0..students.count-1
-      #     member = Member.find_by(user_id: students[i])
-      #     Member.activate_student_status(member)
-      #   end
-      # end
+      # Activate students
+      if choice == 'Activate'
+        for i in 0..students.count-1
+          member = Member.find_by(user_id: students[i])
+          Member.activate_student_status(member)
+        end
+      end
 
       if choice == 'Add to Team'
         if student_manager

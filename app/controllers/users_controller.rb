@@ -324,6 +324,14 @@ class UsersController < ApplicationController
     render json: response
   end
 
+  def tickets_left
+    
+    render json: {'Total'  => Ticket.total_allowed_left(current_user.id, get_current_project),
+                  'High'   => Ticket.high_allowed_left(current_user.id, get_current_project),
+                  'Medium' => Ticket.medium_allowed_left(current_user.id, get_current_project), 
+                  'Low'    => Ticket.low_allowed_left(current_user.id, get_current_project)}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

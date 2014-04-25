@@ -10,6 +10,10 @@ class Bonus < ActiveRecord::Base
   	end
   end
 
+  # Retrieve the total bonuses assigned to a student
+  def self.get_student_bonus_total(student_id, proj_id)
+    Bonus.where(user_id: student_id, project_id: proj_id).sum(:points)
+  end
   # Make a change to the bonus
   def self.edit_bonus bonus, new_points, new_comment
   	bonuses = Bonus.where(created_at: bonus.created_at)
