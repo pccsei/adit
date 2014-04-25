@@ -37,7 +37,35 @@
 
 <div id = "project_options">
 
-			<p class="alert alert-info header">Client Restrictions</p>
+			<p class="alert alert-info header">Client Restrictions <span><%= image_tag("help.png", :id => "help")%></span></p>
+			<div id="priority_help" class="form_background">
+				<p>General Information:<br />
+               <li>If you select 0 for High, Medium, and Low, students will not be able to select any clients.</li>	
+               <li>In order for students to submit new clients, they will need to have an open slot in their personal client totals.</li>
+As a teacher, the only restriction you ever have to assigning is that you do not assign a student more clients than the total. The High, Medium, and  Low restrictions do not apply to you.
+
+
+<br /><br />Scenario 1: Students cannot choose clients from the client list. Instead, the teacher assigns clients to the students.
+	The setup for this scenario is fairly simple. Just set High, Medium, and Low to 0. This prevents the students from choosing anything. Then, set the total to whatever you wish. Students will still be able to submit new clients if they have under the Total restriction so remember to set that high enough. 
+Recommended Settings:
+Total: The number of clients you want to assign to each student plus 2.
+High, Medium, Low: 0
+
+<br /><br />	
+Scenario 2: Students pick their own clients, but the teacher can still assign clients to 
+	students if he wants to.
+Recommended Settings:
+To start the project: 
+Total: 3
+High, Medium, Low: 1
+Once the students have done their initial choosing of clients:
+Total: 5
+High: 2
+Medium, Low: NA
+	Students will be able to choose a maximum of the Total restriction of all the priorities combined, and they will be limited to whatever maximum you set on the individual high, medium, and low priorities. You will only be limited by the Total restriction when you are assigning clients. Normally, you will not really want to restrict the low priority client because new clients that students submit enter the program as low priority. 
+	Remember to remind students not to choose so many clients that they cannot submit new ones. If they do end up choosing the maximum number of clients and the wish to submit a new one, they will need to release one of their currently held clients on the My Clients page.</p>
+
+			</div>
 			<div id = "priority_dropdown">
 				<table>
 					<body>

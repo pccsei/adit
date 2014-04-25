@@ -37,6 +37,9 @@ onLoad(function () {
     $('#project_tickets_close_time').datetimepicker({ dateFormat: "yy/mm/dd", timeFormat: "hh:mm TT" });
 
 
+    // Show/hide of the priorities quick help guide
+    
+   
     // These three code blocks make the priorities choices logical
     $('#project_max_clients').change(function (s) {
         var high = $('#project_max_high_priority_clients')[0];
