@@ -350,23 +350,26 @@ class User < ActiveRecord::Base
         return reponse, flash_message
       end
 
-      # These options are currently not being used
-      # if choice == 'Inactivate Students'
-      #   for i in 0..students.count-1
-      #     member = Member.find_by(user_id: students[i])
-      #     member.parent_id = nil
-      #     # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
-      #     User.find(students[i]).role == is_team_leader(Member.find_by(project_id: selected_project.id, parent_id: user_id)) ? Member.destroy_team(User.find(students[i]), true) : nil
-      #     Member.inactivate_student_status(member)
-      #   end
-      # end
+      # Inactivate students
+      if choice == 'Deactivate'
+        for i in 0..students.count-1
+          member = Member.find_by(user_id: students[i])
+          member.parent_id = nil
+          # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
+          if User.find(students[i]).role == Member.is_team_leader(Member.find_by(project_id: selected_project.id, parent_id: member.user_id))
+            Member.destroy_team(User.find(students[i]), true)
+          end
+          Member.inactivate_student_status(member)
+        end
+      end
 
-      # if choice == 'Activate Students'
-      #   for i in 0..students.count-1
-      #     member = Member.find_by(user_id: students[i])
-      #     Member.activate_student_status(member)
-      #   end
-      # end
+      # Activate students
+      if choice == 'Activate'
+        for i in 0..students.count-1
+          member = Member.find_by(user_id: students[i])
+          Member.activate_student_status(member)
+        end
+      end
 
       if choice == 'Add to Team'
         if student_manager
