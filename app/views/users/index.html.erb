@@ -22,13 +22,45 @@
   <!--Actions for the teacher to do with the students and sections-->
   <%= form_tag users_change_student_status_path, :id => 'student_options' do%>
     <div id= "manage_dropdown">
-      <span id = "option">
-        <%= select_tag 'selected_option',
-                        options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team', 'Assign Bonus Points', 'Activate', 'Deactivate']),
-                        :prompt => 'Choose Action', :type => 'button',
-                        :class => 'btn btn-default dropdown-toggle', :datatoggle => 'dropdown',
-                        :disabled => archived? %>
-      </span>
+      <!-- This else statement determines whether or not a new bonus was created that should be preselected. -->
+      <% if !@bonus_type %>
+        <span id = "option">
+          <%= select_tag 'selected_option',
+                          options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team', 'Assign Bonus Points', 'Activate', 'Deactivate']),
+                          :prompt => 'Choose Action', :type => 'button',
+                          :class => 'btn btn-default dropdown-toggle', :datatoggle => 'dropdown',
+                          :disabled => archived? %>
+        </span>
+        <span id ="assign_bonus_points">
+          <% if @bonus_types.count > 0 %>
+            <%= select_tag 'bonus_type', options_from_collection_for_select(@bonus_types, 'id', :name_plus_points) + content_tag(:option, 'Create a new bonus', value: new_bonus_type_path), :class => 'btn btn-default dropdown-toggle col-md-2', :disabled => archived? %>
+
+            <!-- [[link_to('Add Students', new_user_path, :id => 'add_student', class: 'btn btn-large btn-link btn-sm'), new_bonus_type_path]]), onclick: "goToNewPage()" -->
+
+          <% else %>
+            <p id="no_bonuses" class="alert alert-error">Go to bonuses to make a new bonus type.</p>
+          <% end %>
+        </span>
+      <% else %>
+        <span id = "option">
+          <%= select_tag 'selected_option',
+                          options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team', 'Assign Bonus Points', 'Activate', 'Deactivate'], 'Assign Bonus Points'),
+                          :prompt => 'Choose Action', :type => 'button',
+                          :class => 'btn btn-default dropdown-toggle', :datatoggle => 'dropdown',
+                          :disabled => archived? %>
+        </span>
+        <!-- Use this if the teacher just created a new bonus. The new bonus will appear as the selected item in the dropdown. -->
+        <span id ="pre_selected_bonus_type">
+          <% if @bonus_types.count > 0 %>
+            <%= select_tag 'bonus_type', options_from_collection_for_select(@bonus_types, 'id', :name_plus_points, @bonus_type.id) + content_tag(:option, 'Create a new bonus', value: new_bonus_type_path), :class => 'btn btn-default dropdown-toggle col-md-2', :disabled => archived? %>
+
+            <!-- [[link_to('Add Students', new_user_path, :id => 'add_student', class: 'btn btn-large btn-link btn-sm'), new_bonus_type_path]]), onclick: "goToNewPage()" -->
+
+          <% else %>
+            <p id="no_bonuses" class="alert alert-error">Go to bonuses to make a new bonus type.</p>
+          <% end %>
+        </span>
+      <% end %>
       <!-- This only appears if the teacher wants to assign a team to a student manager -->
       <span id ="show_managers">
         <% if @student_managers.count > 0 %>
@@ -41,16 +73,6 @@
 
     <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm ', :id => 'action_submit', :disabled => archived?  %>
 
-      <span id ="assign_bonus_points">
-        <% if @bonus_types.count > 0 %>
-          <%= select_tag 'bonus_type', options_from_collection_for_select(@bonus_types, 'id', :name_plus_points) + content_tag(:option, 'Create a new bonus', value: new_bonus_type_path), :class => 'btn btn-default dropdown-toggle col-md-2', :disabled => archived? %>
-
-          <!-- [[link_to('Add Students', new_user_path, :id => 'add_student', class: 'btn btn-large btn-link btn-sm'), new_bonus_type_path]]), onclick: "goToNewPage()" -->
-
-        <% else %>
-          <p id="no_bonuses" class="alert alert-error">Go to bonuses to make a new bonus type.</p>
-        <% end %>
-      </span>
     </div>   
    
     <div id = "section_refresh">
@@ -59,4 +81,4 @@
   <%end%>
 <%end%>
 
-  <div id="student_managers" value="<%@student_managers%>"</div>
+  <div id="student_managers" value="<%@student_managers%>"></div>

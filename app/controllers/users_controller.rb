@@ -6,6 +6,11 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    # If the bonus type is part of the parameters passed to this page, find the bonus type. This is used for the dropdowns in the view.
+    if params[:bonus_type]
+      @bonus_type = BonusType.find(params[:bonus_type])
+    end
+
     @current = self.current_user
     @users = User.all
     @bonus_types = BonusType.where(is_active: true)
@@ -19,14 +24,17 @@ class UsersController < ApplicationController
     # find student managers
     @student_managers = User.get_managers_from_current_section(get_selected_project, get_selected_section)
     
+    # For after creating a new bonus. Normally using the session variable is not the best way to do things.
+    session[:my_previous_url] = users_path
+
     #if params[:section_option]
     #  set_selected_section(params[:section_option])
     #end
-    respond_to do |format|
-        format.html 
-        format.js
-        format.xls
-    end
+    # respond_to do |format|
+    #     format.html 
+    #     format.js
+    #     format.xls
+    # end
   end
 
   def unauthorized    

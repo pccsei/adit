@@ -1,5 +1,7 @@
 <% provide(:title, "Bonuses") %>
 
+<%=link_to 'New Bonus', new_bonus_type_path, :class => 'btn btn-link btn-sm' %>
+
 <table class ="display default_table">
 	<thead>
 		<tr>
@@ -15,7 +17,7 @@
 				<td><%= b.name %></td>
 				<td><%= b.point_value %></td>                   
 				<td><%= link_to 'Edit', edit_bonus_type_path(b) %></td>
-				<td><%= link_to 'Delete', b, method: :delete %></td>
+				<td><%= link_to 'Delete', b, method: :delete, data: { confirm: "Are you sure? This will delete the bonuses students already have!" } %></td>
 			</tr>
 		<% end %>
 	</tbody>

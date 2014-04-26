@@ -42,8 +42,9 @@ class ReportsController < ApplicationController
   def bonus
     @sections = get_array_of_all_sections(get_selected_project)
     @selected_section = get_selected_section
-    @current = self.current_user 
-    @bonuses, @bonus_total_points = Report.bonus(get_selected_project, get_selected_section)
+    @current = self.current_user
+    @bonuses, @bonus_total_points, @bonus_types = Report.bonus(get_selected_project, get_selected_section)
+    # render text: @bonuses
   end
 
   # GET reports/end_of_semester_data
@@ -62,7 +63,7 @@ class ReportsController < ApplicationController
   end
   
   def delete_bonus
-    Bonus.delete_bonus(Bonus.find(params[:bonus]), params[:all])
+    Bonuses.find(params[:id]).destroy
 
     redirect_to :back
   end

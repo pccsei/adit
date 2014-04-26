@@ -211,19 +211,27 @@ class Report
 
   # Calculates all the bonus information and totals.
   def self.bonus project, section
-    Struct.new("BonusData", :id, :first_name, :last_name, :student_id, :team_name, :created_date, :points, :comment, :section_number)
+    Struct.new("BonusData", :id, :first_name, :last_name, :student_id, :team_name, :created_date, :points, :comment, :section_number, :bonus_id, :user_id, :name)
+
+    if section != 'all'
+      all_bonuses = Bonuses.where(project_id: project, user_id: Member.where(section_number: section).pluck(:user_id))
+    else
+      all_bonuses = Bonuses.where(project_id: project, user_id: Member.all.pluck(:user_id))
+    end
 
     bonuses = []
 
-    all_bonuses = Bonuses.where(project_id: project, user_id: Member.where(section_number: section).pluck(:user_id))
-
+    bonus_total_points = all_bonuses.sum(:points_earned).to_i
+    bonus_types = BonusType.where(is_active: true)
     i = 0
-    bonus_total_points = all_bonuses.sum(:points_earned)
+
     all_bonuses.each do |b|
       bonuses[i] = Struct::BonusData.new
       bonuses[i].id = b.id
+      bonuses[i].bonus_id = BonusType.find(b.bonus_type_id).id
+      bonuses[i].user_id = User.find(b.user_id).id
       bonuses[i].points = b.points_earned
-      bonuses[i].comment = BonusType.find(b.bonus_type_id).name
+      bonuses[i].name = BonusType.find(b.bonus_type_id).name
       bonuses[i].first_name = User.find(b.user_id).first_name
       bonuses[i].last_name = User.find(b.user_id).last_name
       bonuses[i].student_id = User.find(b.user_id).school_id
@@ -232,7 +240,7 @@ class Report
       i = i + 1
     end
 
-    return bonuses, bonus_total_points
+    return bonuses, bonus_total_points, bonus_types
   end
 
   # Calculates all the end of semester information and totals.

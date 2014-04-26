@@ -18,12 +18,12 @@ class BonusType < ActiveRecord::Base
   end
 
   # Update the bonus to give all the current project users who have the bonus the new name and points.
-  def self.update_bonus bonus_type_id, current_project_id, name, points
+  def self.update_bonus bonus_type_id, current_project_id, bonus_type_params
     update_bonus = BonusType.find(bonus_type_id)
-    update_bonus.name = name
-    update_bonus.point_value = points
+    update_bonus.name = bonus_type_params[:name]
+    update_bonus.point_value = bonus_type_params[:point_value]
     Bonuses.where(bonus_type_id: update_bonus.id, project_id: current_project_id).each do |b|
-      b.points_earned = points
+      b.points_earned = bonus_type_params[:point_value]
       b.save
     end
     update_bonus.save
