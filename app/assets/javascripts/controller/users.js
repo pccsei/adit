@@ -7,6 +7,22 @@ onLoad(function() {
 // Manage Students - /users
 //*********************************************************************************************************************/
     
+    // Redirect to create a bonus type on click in the drop down menu
+    $( "#assign_bonus_points" ).click(
+        function( event) {
+            event.preventDefault();
+            var e = document.getElementById("bonus_type");  
+            var strUser = e.options[e.selectedIndex].text;
+            if (strUser=='Create a new bonus')
+            {
+                var url = document.getElementById('bonus_type').value;
+                if(url != 'none') {
+                    window.location = url;
+                }
+            }
+        }
+    );
+
     // Choose Action dropdown
     $( "#show_managers" ).hide();
     $("#parse_box").hide();

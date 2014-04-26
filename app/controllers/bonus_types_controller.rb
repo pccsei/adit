@@ -2,7 +2,7 @@ class BonusTypesController < ApplicationController
   before_action :set_bonus_type, only: [:edit, :update, :destroy]
   
   def index
-    @bonuses = BonusType.all
+    @bonuses = BonusType.where(is_active: true)
   end
   
   def new
@@ -16,12 +16,18 @@ class BonusTypesController < ApplicationController
   end
 
   def update
-    redirect_to bonus_type_url, :notice => "Your bonus was successfully updated."
+    # If it works let the user know.
+    # render text: params['bonus_name']
+    if BonusType.update_bonus(@bonus_type, get_current_project, params['bonus_name'], params['point_value'])
+      redirect_to bonus_types_url, :notice => "The bonus was successfully updated."
+    else
+      redirect_to bonus_types_url, :notice => "The bonus was not updated."
+    end
   end
 
   def destroy
-    @bonus_type.destroy
-      redirect_to bonus_type_url, :notice => "Your bonus was successfully destroyed."
+    message = BonusType.inactivate_bonus(@bonus_type, get_current_project)
+      redirect_to bonus_types_url, :notice => message
   end
   
   private

@@ -215,16 +215,15 @@ class Report
 
     bonuses = []
 
-    all_bonuses = Bonus.where(project_id: project, user_id: Member.where(section_number: section).pluck(:user_id))
+    all_bonuses = Bonuses.where(project_id: project, user_id: Member.where(section_number: section).pluck(:user_id))
 
     i = 0
-    bonus_total_points = all_bonuses.sum(:points)
+    bonus_total_points = all_bonuses.sum(:points_earned)
     all_bonuses.each do |b|
       bonuses[i] = Struct::BonusData.new
       bonuses[i].id = b.id
-      bonuses[i].created_date = b.created_at
-      bonuses[i].points = b.points
-      bonuses[i].comment = b.comment
+      bonuses[i].points = b.points_earned
+      bonuses[i].comment = BonusType.find(b.bonus_type_id).name
       bonuses[i].first_name = User.find(b.user_id).first_name
       bonuses[i].last_name = User.find(b.user_id).last_name
       bonuses[i].student_id = User.find(b.user_id).school_id

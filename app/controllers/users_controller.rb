@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   def index
     @current = self.current_user
     @users = User.all
+    @bonus_types = BonusType.where(is_active: true)
       
     @selected_section = get_selected_section
     @select_students = User.get_student_info(get_selected_project, get_selected_section, TEACHER)
@@ -146,6 +147,7 @@ class UsersController < ApplicationController
     students           = params[:students]
     choice             = params['selected_option']
     student_manager_id = params['student_manager']
+    bonus_type_id      = params['bonus_type']
 
     # I temporarily have these choices in the controller because it calls an application controller function
     # if choice == "Show Only Inactive Students"
@@ -162,7 +164,7 @@ class UsersController < ApplicationController
     if choice != ''
       if students
         if choice != 'Add to Team' || student_manager_id
-          success_state, message = User.do_selected_option(students, choice, student_manager_id, get_selected_project, params[:bonus_points], params[:bonus_comment])
+          success_state, message = User.do_selected_option(students, choice, student_manager_id, get_selected_project, bonus_type_id)
           if success_state == 'success'
             redirect_to users_url, :flash => { :success => message }
           elsif success_state == 'error'

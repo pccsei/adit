@@ -15,14 +15,23 @@
 	<div class="form_background">
 		<table>
 		  <body>
-			<tr>
-			  <td class="label-field"><%= f.label      :name, "Bonus Name:" %></td>	
-			  <td class="text-field"> <%= f.text_field :name %></td>
-			</tr>
-			<tr>
-			  <td class="label-field"><%= f.label      :point_value, "Points:" %></td>	
-			  <td class="text-field"> <%= f.text_field :point_value%></td>
-			</tr>
+				<tr>
+				  <td class="label-field"><%= f.label      :name, "Bonus Name:" %></td>	
+				  <td class="text-field"> <%= f.text_field :name, name: 'bonus_name' %></td>
+				</tr>
+				<tr>
+				  <td class="label-field"><%= f.label      :point_value, "Points:" %></td>	
+				  <td class="text-field"> <%= f.text_field :point_value, name: 'point_value'%></td>
+				</tr>
+				<tr>
+					<td>
+			      <% if @bonus_type.new_record? %>
+			      	<%= f.submit 'Create Bonus'%>
+			    	<% else %>
+			      	<%= f.submit 'Update Bonus' %>
+			      <% end %>
+		      </td>
+	      </tr>
 		  <body>			
 		</table>
 	</div>
