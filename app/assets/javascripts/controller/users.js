@@ -13,7 +13,7 @@ onLoad(function() {
             event.preventDefault();
             var e = document.getElementById("bonus_type");  
             var strUser = e.options[e.selectedIndex].text;
-            if (strUser=='Create a new bonus')
+            if (strUser=='Create a New Bonus')
             {
                 var url = document.getElementById('bonus_type').value;
                 if(url != 'none') {

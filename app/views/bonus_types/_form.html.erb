@@ -17,22 +17,23 @@
 		  <body>
 				<tr>
 				  <td class="label-field"><%= f.label      :name, "Bonus Name:" %></td>	
-				  <td class="text-field"> <%= f.text_field :name %></td>
+				  <td class="text-field"> <%= f.text_field :name, class: 'form-control' %></td>
 				</tr>
 				<tr>
 				  <td class="label-field"><%= f.label      :point_value, "Points:" %></td>	
-				  <td class="text-field"> <%= f.text_field :point_value%></td>
+				  <td class="text-field"> <%= f.text_field :point_value, class: 'form-control'%></td>
 				</tr>
 				<tr>
-					<td>
+				  <td class="label-field"></td>
+				  <td class="text-field">					
 			      <% if @bonus_type.new_record? %>
-			      	<%= f.submit 'Create Bonus'%>
+			      	<%= f.submit 'Create Bonus', class: 'btn btn-primary btn-sm'%>
 			    	<% else %>
-			      	<%= f.submit 'Update Bonus' %>
+			      	<%= f.submit 'Update Bonus', class: 'btn btn-primary btn-sm' %>
 			      <% end %>
-		      </td>
-	      </tr>
-		  <body>			
+		          </td>
+	            </tr>
+		  </body>			
 		</table>
 	</div>
 <% end %>

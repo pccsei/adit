@@ -71,8 +71,7 @@ class Receipt < ActiveRecord::Base
       end
     end
     
-    #return points + Bonus.get_student_bonus_total(student_id, project.id) BONUS
-    return points
+    return points + Bonuses.get_student_bonus_total(student_id, project.id) 
   end
   
   def self.release!

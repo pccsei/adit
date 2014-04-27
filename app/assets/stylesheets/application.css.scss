@@ -95,6 +95,7 @@ a.btn-primary {
 .fake-link {
   cursor: pointer;
   text-decoration: underline;
+  color: #DC0000;
 }
 
 /* typography */
@@ -447,6 +448,19 @@ label.required:after {
   width: 20em;
   margin-right: .5em;
 }
+
+.form_background{
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  margin-top: 2em !important;
+  margin-bottom: 1em !important;
+  border: 
+  #EEE solid 1em;
+  border-radius: 1em;
+}
+
 
 // Tooltip
 .tooltip-inner {

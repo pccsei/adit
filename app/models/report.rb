@@ -78,8 +78,7 @@ class Report
       student_totals.total_released += student_array[index].released
       student_array[index].sales = Receipt.sales_total(s.id, project)
       student_totals.total_sales += student_array[index].sales
-      student_array[index].points = Receipt.points_total(s.id, project) 
-         # + Bonus.get_student_bonus_total(s.id, project.id)
+      student_array[index].points = Receipt.points_total(s.id, project) + Bonuses.get_student_bonus_total(s.id, project.id)
       student_totals.total_points += student_array[index].points
       student_array[index].last_activity = Action.get_last_activity(s.id, project)
       index = index + 1
