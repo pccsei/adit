@@ -1,4 +1,9 @@
 WhiteCollar::Application.routes.draw do
+  get "bonus_type/index"
+  get "bonus_type/create"
+  get "bonus_type/edit"
+  get "bonus_type/update"
+  get "bonus_type/delete"
   get "static_pages/about_us"
   root :to => 'tickets#index'
 
@@ -60,6 +65,7 @@ WhiteCollar::Application.routes.draw do
     resources :actions 
   end
   
+  resources :bonus_types
   resources :actions
   
   match '/signin', to: 'sessions#new', via: 'get'

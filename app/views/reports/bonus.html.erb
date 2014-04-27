@@ -1,6 +1,9 @@
-<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%><% provide(:title, 'Bonuses') %><% provide(:excel, (link_to (image_tag 'excel.png'), reports_bonus_path(format: "xls"), :title => "Export to Excel").html_safe) %> 
-<%= form_tag(reports_edit_bonus_path) do%>
-<div id ="bonus_edit">
+<%= render :partial => 'dropdown' , :locals => {:sections => @sections}%>
+<% provide(:title, 'Bonuses') %>
+<% provide(:excel, (link_to (image_tag 'excel.png'), reports_bonus_path(format: "xls"), :title => "Export to Excel").html_safe) %> 
+
+<!--%= form_tag(reports_edit_bonus_path) do%-->
+<!-- <div id ="bonus_edit">
   <table>
     <tr>
       <td class="label-field">
@@ -19,6 +22,14 @@
 	      <input id="bonus_id" name="bonus_id" value="" type="hidden"></input>
       </td>
     </tr>
-    <tr>      <td class="label-field"></td>      <td class="text-field">	      <%= submit_tag :submit, :class=>'btn btn-primary btn-sm', :disabled => archived? %>      </td>    </tr></table></div>
-<% end %>
+    <tr>
+      <td class="label-field"></td>
+      <td class="text-field">
+	      %= submit_tag :submit, :class=>'btn btn-primary btn-sm', :disabled => archived? >
+      </td>
+    </tr>
+</table>
+</div> -->
+<!--% end %-->
+
 <%= render :partial => 'bonus'%>

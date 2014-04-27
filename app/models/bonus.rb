@@ -1,7 +1,17 @@
 class Bonus < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
-
+  belongs_to :bonus_type
+  
+  
+  
+  
+  
+  
+  
+  # Old code - use for refences while creating new bonus features
+=begin
+  
   def self.delete_bonus bonus, all
   	if all.to_i == 1
   		Bonus.destroy_all(created_at: bonus.created_at)
@@ -28,4 +38,5 @@ class Bonus < ActiveRecord::Base
 	    b.save
 	  end
   end
+=end
 end

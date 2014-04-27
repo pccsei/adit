@@ -199,7 +199,7 @@ class User < ActiveRecord::Base
 
   # Good luck...
   # Do whatever the teacher specified on the manage students page.
-  def User.do_selected_option(students, choice, student_manager_id, selected_project, bonus_points, bonus_comment)
+  def User.do_selected_option(students, choice, student_manager_id, selected_project, bonus_type_id)
     if student_manager_id
       student_manager = User.find(student_manager_id)
     end
@@ -589,25 +589,26 @@ class User < ActiveRecord::Base
 
       # Change this function after the EXPO, so that it validates user input as well.
       if choice == 'Assign Bonus Points'
-        if bonus_points != 0 && bonus_points != nil
+        if bonus_type_id
           flash_positive_message = " "
           response = "success"
+          bonus_type = BonusType.find(bonus_type_id)
           for i in 0..students.count-1
-            bonus = Bonus.new
-            bonus.points = bonus_points
-            bonus.comment = bonus_comment
+            bonus = Bonuses.new
+            bonus.points_earned = bonus_type.point_value
+            bonus.bonus_type_id = bonus_type.id
             user = User.find(students[i])
             bonus.user_id = user.id
             bonus.project_id = selected_project.id
             if bonus.save
               if students.count == 1
-                return response, flash_positive_message += "#{user.first_name} #{user.last_name} was given #{bonus_points} bonus points."
+                return response, flash_positive_message += "#{user.first_name} #{user.last_name} was given #{bonus.points_earned} bonus points."
               elsif i < students.count-1
                 # If only two names do not add a comma
                 flash_positive_message += "#{user.first_name} #{user.last_name}"
                 (students.count == 2) ? flash_positive_message += ' ' : flash_positive_message +=', '
               else
-                return response, flash_positive_message += "and #{user.first_name} #{user.last_name} were given #{bonus_points} bonus points."
+                return response, flash_positive_message += "and #{user.first_name} #{user.last_name} were given #{bonus.points_earned} bonus points."
               end
             end
           end
