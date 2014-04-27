@@ -1,51 +1,40 @@
-<% if @bonuses %>
-  <div class="bonus_accordion">
-    <% @bonus_types.each do |bonus_type| %>
-      <h3><%= bonus_type.name %></h3>
-        <div>
-          <p>
-            <table class ="display default_table">
-              <thead>
-                <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Student ID</th>
-                  <th>Student Manager</th>
-                  <th>Section</th>
-                  <th>Points Earned</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @bonuses.each do |bonus| %>
-                  <% if bonus.bonus_id == bonus_type.id %>
-                    <tr>
-                      <td><%= link_to bonus.first_name, my_receipts_path(id: bonus.user_id, page: request.url) %></td>
-                      <td><%= link_to bonus.last_name, my_receipts_path(id: bonus.user_id, page: request.url) %></td>
-                      <td><%= bonus.student_id %></td>
-                      <td><%= bonus.team_name %></td>
-                      <td align ="center"><%= bonus.section_number %></td>
-                      <td align ="center"><%= bonus.points %> </td>
-                      <td><%= link_to 'Delete', reports_delete_bonus_path(id: bonus.id), method: :delete,  confirm: "Are you sure you want to delete this bonus?"%></td>
-                    </tr>
-                  <% end %>
-                <% end %>
-              </tbody>
-              <tfoot>
-                <td align ="center">Totals</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tfoot>
-            </table>
-          </p>
-        </div>
+<table class ="display default_table">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Student ID</th>
+      <th>Student Manager</th>
+      <th>Section</th>
+      <th>Bonus Name</th>
+      <th>Points Earned</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bonuses.each do |bonus| %>
+      <tr>
+        <td><%= link_to bonus.first_name, my_receipts_path(id: bonus.user_id, page: request.url) %></td>
+        <td><%= link_to bonus.last_name, my_receipts_path(id: bonus.user_id, page: request.url) %></td>
+        <td><%= bonus.student_id %></td>
+        <td><%= bonus.team_name %></td>
+        <td align ="center"><%= bonus.section_number %></td>
+        <td><%= bonus.name %> </td>
+        <td align ="center"><%= bonus.points %> </td>
+        <td><%= link_to 'Delete', reports_delete_bonus_path(id: bonus.id), method: :delete,  confirm: "Are you sure you want to delete this bonus?"%></td>
+      </tr>
     <% end %>
-  </div>
+  </tbody>
+  <tfoot>
+    <td align ="center">Totals</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td align ="center"><%= @bonus_total_points %></td>
+    <td></td>
+  </tfoot>
+</table>
 
-  <p>In all <%= @bonus_total_points %> bonus points have been given for this section.</p>
-<% end %>
 
