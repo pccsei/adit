@@ -8,12 +8,12 @@
 </div>
 
 <div id="teacher_back">
-<% if current_user.role == TEACHER %>
-<% student_name = User.find(@receipt.user_id) %>
-<%= link_to 'Back to ' + student_name.first_name + '\'s Clients', my_receipts_path(@receipt.user_id)  %>
-<br />
-<br />
-<% end %>
+  <% if current_user.role == TEACHER %>
+     <% student_name = User.find(@receipt.user_id) %>
+     <%= link_to 'Back to ' + student_name.first_name + '\'s Clients', my_receipts_path(@receipt.user_id)  %>
+     <br />
+     <br />
+  <% end %>
 </div>
 <div>	
 	<% if Receipt.is_released(@receipt) == false %>
@@ -30,26 +30,26 @@
 	    <p class="sale_information">
 	        <table class="sale_table">
 	          <tr>
-	            <td class="label-field">
+	            <td class="label-field sale">
 	            <strong> Sale Amount: </strong>
 	            </td>
-	            <td class="text-field">
+	            <td class="text-field sale">
 	  			  <strong id="sale_display">$<%= number_with_precision(@receipt.sale_value, precision: 2) %></strong>
 	            </td>
 	          </tr>
 	          <tr>
-	            <td class="label-field">
+	            <td class="label-field sale">
 					<strong>Page Size:</strong>
 	            </td>
-	            <td class="text-field">
+	            <td class="text-field sale">
 					<strong id="page_display"><%= number_with_precision(@receipt.page_size, precision: 2) %>
 	            </td>
 	          </tr>
 	          <tr>
-	            <td class="label-field">
+	            <td class="label-field sale">
 					<strong>Payment Type:</strong>
 	            </td>
-	            <td class="text-field">
+	            <td class="text-field sale">
 
 	  	  		<strong id="pay_display"><%= @receipt.payment_type %></strong>
 	            </td>
@@ -96,8 +96,8 @@
 	              <%= label_tag('page', 'Page Size', class: 'required', id: 'page_size') %>
 	            </td>
 	            <td class="text-field">
-	             	<%= select_tag(:page, options_for_select([["Planner", 0.07], ["Quarter page", 0.25], ["Coupon page", 0.25],["Half page", 0.5], ["Whole page", 1], ["Double page", 2], ["Other", :id=> 'o']]), {class: "btn btn-default dropdown-toggle"})%>
-					<%= text_field_tag(:otherSize, '', :placeholder => '(1/5, 1/3, etc.) ', :class => "hidden form-control")%>
+	             	<%= select_tag(:page, options_for_select([["Planner (0.125)", 0.125], ["Quarter page (.25)", 0.25], ["Coupon page (.25)", 0.25],["Half page (.5)", 0.5], ["Whole page (1)", 1], ["Double page (2)", 2], ["Other", :id=> 'o']]), {class: "btn btn-default dropdown-toggle"})%>
+					<%= text_field_tag(:otherSize, '', :placeholder => '(1/5, .25, etc.) ', :class => "hidden form-control")%>
 	            </td>
 	          </tr>
 	          <tr>
@@ -105,7 +105,7 @@
 	          <%= label_tag('payment_type', 'Payment Type', id:'payment', class: 'required') %>
 	            </td>
 	            <td class="text-field">
-	             	<%= select_tag('payment_type', options_for_select(%w(Cash Credit Invoice Check Dept.Trans.)), {class: "btn btn-default dropdown-toggle"})%>
+	             	<%= select_tag('payment_type', options_for_select(%w(Cash Credit Invoice Check Department)), {class: "btn btn-default dropdown-toggle"})%>
 	          </tr>
 	        </table>	 
 			
@@ -125,7 +125,7 @@
 			<%= text_field_tag(:user_action_time, '', :placeholder => 'YYYY/MM/DD 00:00 AM/PM',  :class=>'form-control') %>
 		</div>
 		<div id="submit">
-			<%= submit_tag('Save', class: 'btn btn-primary btn-lg')%>
+			<%= submit_tag('Save', class: 'btn btn-primary btn-lg', id: 'save')%>
 		</div>
 
 	</div>
