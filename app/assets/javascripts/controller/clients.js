@@ -111,7 +111,7 @@ onLoad(function() {
               for (i = 0; i<json.length; i++)
                 $("#students").append("<li class='clickable ui-widget-content clicker' value='" + json[i][0]+"'>"+json[i][2]+", "+json[i][1]+" ("+json[i][0]+")</li>");
             else
-              $("#students").append("<li id='noAssign' class='clickable ui-widget-content'>"+"There are no students in this section"+"</li>");
+              $("#students").append("<li id='noAssign' class='clickable ui-widget-content'>"+"There are no students in section."+"</li>");
           });
       }    	
   }
