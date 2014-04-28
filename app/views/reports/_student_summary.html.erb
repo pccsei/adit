@@ -7,9 +7,9 @@
         <th>Student Manager</th>
         <th>Section</th>
       <% end %>
-      <th>Open Clients</th>
-      <th>Sold Clients</th>
-      <th>Released Clients</th>
+      <th>Active</th>
+      <th>Sold</th>
+      <th>Released</th>
       <th>Sales Total</th>
       <th>Points</th>
       <th>Last Student Activity</th>     	      	      	      	      
@@ -20,8 +20,8 @@
     <% @student_array.each do |student| %>
       <tr>
         <% if current_user.role == TEACHER %>
-          <td align ="left"><%= link_to student.first_name, my_receipts_path(id: student.id, page: request.url) %></td>
-          <td align ="left"><%= link_to student.last_name, my_receipts_path(id: student.id, page: request.url) %></td>
+          <td align ="left" title="Go to Student's Page"><%= link_to student.first_name, my_receipts_path(id: student.id, page: request.url) %></td>
+          <td align ="left" title="Go to Student's Page"><%= link_to student.last_name, my_receipts_path(id: student.id, page: request.url) %></td>
           <td align ="center"><%= student.student_manager %></td>
           <td align ="center"><%= student.section %></td>
         <% else %>
@@ -32,9 +32,9 @@
         <td align ="center"><%= student.sold %></td>
         <td align ="center"><%= student.released %></td>
         <td align ="right"><%= number_with_precision(student.sales, precision: 2) %></td>
-        <td align ="right"><%= student.points %></td>
+        <td align ="right"><%= student.points.to_i %></td>
         <% if student.last_activity.present? %>
-        	<td align ="center"><%= student.last_activity.to_formatted_s(:long_ordinal) %></td>
+        	<td align ="right"><%= student.last_activity.strftime("%B %e, %l:%M %p") %></td>
         <% else %>
         	<td></td>
         <% end %>
@@ -54,7 +54,7 @@
     <td align ="center"><%= @student_totals.total_sold %></td>
     <td align ="center"><%= @student_totals.total_released %></td>
     <td align ="right"><%= number_with_precision(@student_totals.total_sales, precision: 2) %></td>
-    <td align ="right"><%= @student_totals.total_points %></td>
+    <td align ="right"><%= @student_totals.total_points.to_i %></td>
     <td align ="center"></td>
   </tr>
   </tfoot>

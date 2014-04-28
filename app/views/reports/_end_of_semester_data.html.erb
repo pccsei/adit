@@ -23,7 +23,7 @@
   <tbody>
     <% @end_data.each do |d| %>
       <tr>
-        <td><%= d.date.to_formatted_s(:long_ordinal)%>
+        <td><%= d.date.strftime("%B %e, %l:%M %p")%>
         <td><%= d.company %>
         <td><%= d.address %>
         <td><%= d.city %>
