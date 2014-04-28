@@ -14,7 +14,7 @@ Universal Styling
 }
 
 /**********************************************
-My Reciepts Page        
+My Receipts Page        
 ***********************************************/
 .receipts .client {
   box-shadow: .3em .3em .3em #ccc;
@@ -161,6 +161,8 @@ Receipts Page
 ***********************************************/
 table.sale_table td{
 	margin-top: 1em !important;
+	padding-top: 1em;
+  padding-left: 2em;
 }
 .receipts #client_info{
   font-size: 16px;
@@ -190,9 +192,6 @@ table.sale_table td{
 }
 .receipts.show .form-control {
   display: inline;
-}
-.input-group {
-  height: 2.5em;
 }
 #saleMade table{
   margin-left: 2em;
@@ -230,6 +229,10 @@ table.sale_table td{
 #comment_box{
   width: 35em;
 }
+
+#save {
+  margin-left: 1.4em;
+}
 #timepicker label.required{
   display: block;
 }
@@ -254,7 +257,7 @@ table.sale_table td{
   width: 11.5em !important;
 }
 #price{
-  width: 20em;
+  width: 24.3em;
   height: inherit;
 }
 #submit{

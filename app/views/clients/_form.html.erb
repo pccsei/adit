@@ -15,7 +15,9 @@
       </div>
       <div class = "panel-body">
 	    <% if !more_tickets_allowed && @client.new_record? %>
-	      <p class="alert alert-info"><%= 'You have the maximum allowable clients. Go to My Clients and release one of your clients before asking for another.' %></p>
+	      <p class="alert alert-info">You cannot submit a new client because you already have the maximum number permitted.
+	      	                          <br /> Please go to <%= link_to "My Clients", my_receipts_path(id: current_user.id), class:'btn-link'%> 
+	      	                                 and release one of your current clients.</p>
 	    <%end%>
         <table>
           <tr>

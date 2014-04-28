@@ -16,6 +16,22 @@ onLoad(function () {
         }
       );
     });
+
+
+    $( "div.bonus_accordion" ).accordion({
+      header: "> h3:not(.item)",
+      collapsible: true,
+      autoHeight: false,
+      heightStyle: "content",
+      active: false
+    });
+    $( "div.bonus_accordion" ).accordion({
+      header: "> h3:not(.item)",
+      collapsible: true,
+      autoHeight: false,
+    heightStyle: "content",
+    active: false
+    });
     
 //*********************************************************************************************************************/
 // Bonuses Front-Side Validation

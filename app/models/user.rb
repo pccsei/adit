@@ -127,15 +127,15 @@ class User < ActiveRecord::Base
       # Check to see if the current student being processed already exists as a user
       if !all_student_ids.include?(single_student_info[1])
         user = User.new
-        user.school_id = single_student_info[1]
-        user.first_name = single_student_info[2].split(', ')[1]
-        user.last_name = single_student_info[2].split(', ')[0]
-        user.classification = single_student_info[3]
-        user.box = single_student_info[5]
-        user.phone = single_student_info[6]
-        user.email = single_student_info[7]
-        user.major = single_student_info[8]
-        user.minor = single_student_info[9]
+        user.school_id = single_student_info[1]                 if single_student_info[1]
+        user.first_name = single_student_info[2].split(', ')[1] if single_student_info[2]
+        user.last_name = single_student_info[2].split(', ')[0]  if single_student_info[2]
+        user.classification = single_student_info[3]            if single_student_info[3]
+        user.box = single_student_info[5]                       if single_student_info[5]
+        user.phone = single_student_info[6]                     if single_student_info[6]
+        user.email = single_student_info[7]                     if single_student_info[7]
+        user.major = single_student_info[8]                     if single_student_info[8]
+        user.minor = single_student_info[9]                     if single_student_info[9]
         user.role = STUDENT
         user.save
         if(user.save)
@@ -199,7 +199,7 @@ class User < ActiveRecord::Base
 
   # Good luck...
   # Do whatever the teacher specified on the manage students page.
-  def User.do_selected_option(students, choice, student_manager_id, selected_project, bonus_points, bonus_comment)
+  def User.do_selected_option(students, choice, student_manager_id, selected_project, bonus_type_id)
     if student_manager_id
       student_manager = User.find(student_manager_id)
     end
@@ -350,23 +350,26 @@ class User < ActiveRecord::Base
         return reponse, flash_message
       end
 
-      # These options are currently not being used
-      # if choice == 'Inactivate Students'
-      #   for i in 0..students.count-1
-      #     member = Member.find_by(user_id: students[i])
-      #     member.parent_id = nil
-      #     # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
-      #     User.find(students[i]).role == is_team_leader(Member.find_by(project_id: selected_project.id, parent_id: user_id)) ? Member.destroy_team(User.find(students[i]), true) : nil
-      #     Member.inactivate_student_status(member)
-      #   end
-      # end
+      # Inactivate students
+      if choice == 'Deactivate'
+        for i in 0..students.count-1
+          member = Member.find_by(user_id: students[i])
+          member.parent_id = nil
+          # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
+          if User.find(students[i]).role == Member.is_team_leader(Member.find_by(project_id: selected_project.id, parent_id: member.user_id))
+            Member.destroy_team(User.find(students[i]), true)
+          end
+          Member.inactivate_student_status(member)
+        end
+      end
 
-      # if choice == 'Activate Students'
-      #   for i in 0..students.count-1
-      #     member = Member.find_by(user_id: students[i])
-      #     Member.activate_student_status(member)
-      #   end
-      # end
+      # Activate students
+      if choice == 'Activate'
+        for i in 0..students.count-1
+          member = Member.find_by(user_id: students[i])
+          Member.activate_student_status(member)
+        end
+      end
 
       if choice == 'Add to Team'
         if student_manager
@@ -586,25 +589,26 @@ class User < ActiveRecord::Base
 
       # Change this function after the EXPO, so that it validates user input as well.
       if choice == 'Assign Bonus Points'
-        if bonus_points != 0 && bonus_points != nil
+        if bonus_type_id
           flash_positive_message = " "
           response = "success"
+          bonus_type = BonusType.find(bonus_type_id)
           for i in 0..students.count-1
-            bonus = Bonus.new
-            bonus.points = bonus_points
-            bonus.comment = bonus_comment
+            bonus = Bonuses.new
+            bonus.points_earned = bonus_type.point_value
+            bonus.bonus_type_id = bonus_type.id
             user = User.find(students[i])
             bonus.user_id = user.id
             bonus.project_id = selected_project.id
             if bonus.save
               if students.count == 1
-                return response, flash_positive_message += "#{user.first_name} #{user.last_name} was given #{bonus_points} bonus points."
+                return response, flash_positive_message += "#{user.first_name} #{user.last_name} was given #{bonus.points_earned} bonus points."
               elsif i < students.count-1
                 # If only two names do not add a comma
                 flash_positive_message += "#{user.first_name} #{user.last_name}"
                 (students.count == 2) ? flash_positive_message += ' ' : flash_positive_message +=', '
               else
-                return response, flash_positive_message += "and #{user.first_name} #{user.last_name} were given #{bonus_points} bonus points."
+                return response, flash_positive_message += "and #{user.first_name} #{user.last_name} were given #{bonus.points_earned} bonus points."
               end
             end
           end

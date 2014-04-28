@@ -4,9 +4,7 @@ class ClientsController < ApplicationController
   
   # GET /clients
   # GET /clients.json
-  def index
-    #@clients = Client.house
-    #@clients  = Client.for_selected_project(get_selected_project.id)    
+  def index   
     @projects = Project.all
     @tickets  = Client.tickets_for_selected_project(get_selected_project.id) #Ticket.where(project_id: get_selected_project.id)
   end
@@ -20,15 +18,24 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
-    @sections = get_array_of_all_sections(get_selected_project)
+
     @client   = Client.find(params[:id])
-      @receipt_id = params[:receipt_id]
-      if params[:page]
-        session[:return_to] = params[:page]
-      end   
+    
+    # Save this value if user came from the receipts show page
+    @receipt_id = params[:receipt_id]
+      
+    # Save the page url of the page where user came from 
+    if params[:page]
+      session[:return_to] = params[:page]
+    end
+     
+    # Get the release comments made during the current project     
     @comments = Ticket.find_by(project_id: get_current_project.id, client_id: @client.id).comments
-    # 2013 is sent to this function because that is the last year where we had no true sale information
+
+    # Get just the years where sales were made but not actual sale info exists
     @sales_years = Receipt.early_sale_years(@client)
+    
+    # Get the sales information about this specific client from the years after Adit was put into use
     @sales_info  = Receipt.sales_for_client_up_to_project(@client, get_selected_project)
   end
   
@@ -71,6 +78,7 @@ class ClientsController < ApplicationController
   # Process the button choice on the approve client's page
   def approve_client
     status = params['commit']
+    
     # This should probably be refactored to send the client ids from the front
     #    just in case delays happen and a client gets accidentally approved
     if status == 'Approve All'
@@ -78,7 +86,7 @@ class ClientsController < ApplicationController
     else
        array_of_pending_clients = params['clients']
     end
-    # render text: array_of_pending_clients
+    
     if array_of_pending_clients.present?
       if (status == 'Approve') || (status == 'Approve All')
         message = Client.approve_clients(array_of_pending_clients)
@@ -88,6 +96,7 @@ class ClientsController < ApplicationController
     else
       message = "No clients were selected."
     end
+    
     redirect_to clients_approve_url, flash: { notice: message }
   end
   
@@ -165,7 +174,7 @@ class ClientsController < ApplicationController
       edited_client = Client.new
       edited_client = Client.find(@client).clone
       edited_client.assign_attributes(client_params)
-      # render text: client_params
+
       Client.make_pending_edited_client(edited_client, @client, client_params, current_user.id)
       redirect_to session[:return_from_edit], notice: 'Your change has been submitted. Your client will be updated once the teacher approves your changes.'     
     elsif @client.update(client_params)
@@ -197,8 +206,8 @@ class ClientsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_client
       @client = Client.find(params[:id])
-      #@client = Ticket.find(params[:tid]).client
     end
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
       params.require(:client).permit(:id, :business_name, :address, :telephone, :comment, :created_at, 

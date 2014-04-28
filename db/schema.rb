@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140412153916) do
+ActiveRecord::Schema.define(version: 20140425141056) do
 
   create_table "action_types", force: true do |t|
     t.string   "name",        null: false
@@ -36,17 +36,18 @@ ActiveRecord::Schema.define(version: 20140412153916) do
   add_index "actions", ["action_type_id"], name: "index_actions_on_action_type_id", using: :btree
   add_index "actions", ["receipt_id"], name: "index_actions_on_receipt_id", using: :btree
 
-  create_table "bonus", force: true do |t|
-    t.integer  "points",     default: 0, null: false
-    t.string   "comment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "project_id",             null: false
-    t.integer  "user_id",                null: false
+  create_table "bonus_types", force: true do |t|
+    t.string  "name",                       null: false
+    t.integer "point_value",                null: false
+    t.boolean "is_active",   default: true, null: false
   end
 
-  add_index "bonus", ["project_id"], name: "index_bonus_on_project_id", using: :btree
-  add_index "bonus", ["user_id"], name: "index_bonus_on_user_id", using: :btree
+  create_table "bonuses", force: true do |t|
+    t.integer "user_id"
+    t.integer "project_id"
+    t.integer "bonus_type_id"
+    t.string  "points_earned", null: false
+  end
 
   create_table "clients", force: true do |t|
     t.string   "business_name",            null: false

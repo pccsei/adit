@@ -1,0 +1,24 @@
+<% provide(:title, "Bonuses") %>
+
+<p><%= link_to 'Create New Bonus', new_bonus_type_path %></p>
+
+<table class ="display default_table">
+	<thead>
+		<tr>
+			<th>Description</th>
+			<th>Point Value</th>
+			<th class="empty"></th>
+			<th class="empty"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @bonuses.each do |b| %>
+			<tr>
+				<td><%= b.name %></td>
+				<td align="right"><%= b.point_value %></td>                   
+				<td align="center"><%= link_to 'Edit', edit_bonus_type_path(b) %></td>
+				<td align="center"><%= link_to 'Delete', b, method: :delete, data: { confirm: "Are you sure? This will delete the bonuses students already have!" } %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

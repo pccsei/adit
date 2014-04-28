@@ -1,11 +1,6 @@
 <% provide(:title, "Team Contact Information") %>
-
-<!-- Should a student manager be able to convert to excel? -->
 <%if defined? @students %>
-  <p>
-    Download:
-    <%= link_to "Excel", reports_team_data_path(format: "xls") %>
-  </p>
+   <% provide(:excel, (link_to (image_tag 'excel.png'), reports_team_data_path(format: "xls"), :title => "Export to Excel").html_safe) %>
 <% end %>
 
 <div id = "section_refresh">

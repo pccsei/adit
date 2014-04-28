@@ -14,10 +14,6 @@ class Receipt < ActiveRecord::Base
 		message: 'can have a maximum of 6 digits. Please turn Javascript back on.'
   }
   
-  # def self.released_receipts
-    # all :conditions => {['']}
-  # end
-  
   # Returns all the receipts for the selected project
   def self.selected_project_receipts(project)
     
@@ -75,7 +71,7 @@ class Receipt < ActiveRecord::Base
       end
     end
     
-    return points
+    return points + Bonuses.get_student_bonus_total(student_id, project.id) 
   end
   
   def self.release!
@@ -88,23 +84,42 @@ class Receipt < ActiveRecord::Base
 
   # This returns the total list of years that the client has bought up to the current project year
   def self.years_client_has_bought_class(client, project)
-    arrow =    Project.where(id: Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? AND project_type_id = ? OR semester = ? AND year < ? AND project_type_id = ? ", "Spring", (project.year), ProjectType.find_by(name: "Arrow"),    "Fall", (project.year - 1), ProjectType.find_by(name: "Arrow"   )).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year).sort
-    calendar = Project.where(id: Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? AND project_type_id = ? OR semester = ? AND year < ? AND project_type_id = ? ", "Spring", (project.year), ProjectType.find_by(name: "Calendar"), "Fall", (project.year - 1), ProjectType.find_by(name: "Calendar")).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year).sort
+    arrow    = Project.where(id: 
+               Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: 
+               Project.where("year <= ? AND project_type_id = ?", (project.year), 
+               ProjectType.find_by(name: "Arrow")).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year).sort
+               
+    calendar = Project.where(id: 
+               Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: 
+               Project.where("year <= ? AND project_type_id = ?", (project.year), 
+               ProjectType.find_by(name: "Calendar")).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year).sort
+               
     return arrow, calendar
   end
   
   
   # Using specialized versions of these functions for the show page - NPC
   def self.early_sale_years(client)
-    arrow =    Project.where(id: Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? AND project_type_id = ? OR semester = ? AND year < ? AND project_type_id = ? ", "Spring", 2014, ProjectType.find_by(name: "Arrow"),    "Fall", (2014 - 1), ProjectType.find_by(name: "Arrow"   )).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year).sort
-    calendar = Project.where(id: Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("semester = ? AND year < ? AND project_type_id = ? OR semester = ? AND year < ? AND project_type_id = ? ", "Spring", 2014, ProjectType.find_by(name: "Calendar"), "Fall", (2014 - 1), ProjectType.find_by(name: "Calendar")).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year).sort
+    arrow    = Project.where(id: 
+               Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: 
+               Project.where("year <= ? AND project_type_id = ?", LAST_NON_ADIT_ARROW_YEAR, 
+               ProjectType.find_by(name: "Arrow")).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year).sort
+               
+    calendar = Project.where(id: 
+               Ticket.where(id: client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: 
+               Project.where("year <= ? AND project_type_id = ?", LAST_NON_ADIT_CALENDAR_YEAR, 
+               ProjectType.find_by(name: "Calendar")).ids)).pluck(:ticket_id)).pluck(:project_id)).pluck(:year).sort
+
     return arrow, calendar
   end
   
   # This only returns the sales that were after the archived projects
   def self.sales_for_client_up_to_project(client, project)
-    client.receipts.where(made_sale: true, ticket_id: client.tickets.where(project_id: Project.where("year < ? AND  year > ?", 
-                                                                                                       project.year, 2013).ids))
+    client.receipts.where(made_sale: true, ticket_id: 
+    client.tickets.where(project_id: 
+       Project.where("year < ? AND  (year > ? AND project_type_id = ?) OR (year > ? AND project_type_id = ?)", 
+                      project.year, LAST_NON_ADIT_ARROW_YEAR, ProjectType.find_by(name: "Arrow"), 
+                                    LAST_NON_ADIT_CALENDAR_YEAR, ProjectType.find_by(name: "Calendar")).ids))
   end
   
 end

@@ -525,6 +525,15 @@ users = User.create!([{school_id: 'Anonymous', role: 0, first_name: 'John', last
 
 priority_id = (Priority.find_by name: 'low').id
 
+bonus_types = BonusType.create!([{name: 'Driver', point_value: 5},
+                                 {name: '1st in Class Contract (signed)', point_value: 5},
+                                 {name: '1st in Class Money (received)', point_value: 5},
+                                 {name: '1st in Class Ad Proof (signed)', point_value: 5},
+                                 {name: '1st Ten Ad Contracts (signed)', point_value: 5},
+                                 {name: '1st Ten Ad Complete Status (full cycle)', point_value: 5},
+                                 {name: 'Same as Last Year (no major changes)', point_value: 5},
+                                 {name: 'Up sell from Previous Year', point_value: 5}])
+
 tickets = Ticket.create!([{project_id: (Project.where('project_type_id = ? AND year = ?', (ProjectType.find_by name: 'Calendar').id, 2010).first).id, client_id: (Client.find_by business_name: '6 Flags Cleaners Laundry').id, user_id: (User.find_by school_id: 'Anonymous').id, priority_id: priority_id}])
 tickets = Ticket.create!([{project_id: (Project.where('project_type_id = ? AND year = ?', (ProjectType.find_by name: 'Arrow').id, 2013).first).id, client_id: (Client.find_by business_name: 'Able Auto Repair').id, user_id: (User.find_by school_id: 'Anonymous').id, priority_id: priority_id}])
 tickets = Ticket.create!([{project_id: (Project.where('project_type_id = ? AND year = ?', (ProjectType.find_by name: 'Arrow').id, 2012).first).id, client_id: (Client.find_by business_name: 'Able Auto Repair').id, user_id: (User.find_by school_id: 'Anonymous').id, priority_id: priority_id}])
