@@ -38,6 +38,18 @@ onLoad(function () {
 
 
     // Show/hide of the priorities quick help guide
+    $( "#priority_help").hide();
+    
+    $( "#helpButton").click(
+    	function() {
+    		$("#priority_help").toggle();
+    	});
+    
+    $( "#hide_help").click( 
+    	function() {
+    	$("#priority_help").hide();
+    	$("html, body").animate({ scrollTop: 0 }, "slow");
+    });
     
    
     // These three code blocks make the priorities choices logical
