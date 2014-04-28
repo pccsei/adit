@@ -4,9 +4,7 @@ class ClientsController < ApplicationController
   
   # GET /clients
   # GET /clients.json
-  def index
-    #@clients = Client.house
-    #@clients  = Client.for_selected_project(get_selected_project.id)    
+  def index   
     @projects = Project.all
     @tickets  = Client.tickets_for_selected_project(get_selected_project.id) #Ticket.where(project_id: get_selected_project.id)
   end
@@ -20,15 +18,24 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
-    @sections = get_array_of_all_sections(get_selected_project)
+
     @client   = Client.find(params[:id])
-      @receipt_id = params[:receipt_id]
-      if params[:page]
-        session[:return_to] = params[:page]
-      end   
+    
+    # Save this value if user came from the receipts show page
+    @receipt_id = params[:receipt_id]
+      
+    # Save the page url of the page where user came from 
+    if params[:page]
+      session[:return_to] = params[:page]
+    end
+     
+    # Get the release comments made during the current project     
     @comments = Ticket.find_by(project_id: get_current_project.id, client_id: @client.id).comments
-    # 2013 is sent to this function because that is the last year where we had no true sale information
+
+    # Get just the years where sales were made but not actual sale info exists
     @sales_years = Receipt.early_sale_years(@client)
+    
+    # Get the sales information about this specific client from the years after Adit was put into use
     @sales_info  = Receipt.sales_for_client_up_to_project(@client, get_selected_project)
   end
   

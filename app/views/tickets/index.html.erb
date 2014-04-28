@@ -19,7 +19,7 @@
         <% if open %>
             <p id="ticket_info">You will be able to get new clients until <%= @currentProject.tickets_close_time.strftime("%B %e, %l:%M %p")  %>.</p>
         <% elsif (@currentProject.tickets_close_time > Time.now.utc) %>
-            <p id="ticket_info">You will be able to select clients on <%= @currentProject.tickets_open_time.strftime("%B %e at %l:%M %p") %></p>
+            <p id="ticket_info">You will be able to select clients on <%= @currentProject.tickets_open_time.strftime("%B %e at %l:%M %p") %>.</p>
         <% else %>
             <p id="ticket_info">You are no longer able to get new clients.</p>
         <% end %>
