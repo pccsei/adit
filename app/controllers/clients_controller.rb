@@ -78,6 +78,7 @@ class ClientsController < ApplicationController
   # Process the button choice on the approve client's page
   def approve_client
     status = params['commit']
+    
     # This should probably be refactored to send the client ids from the front
     #    just in case delays happen and a client gets accidentally approved
     if status == 'Approve All'
@@ -85,7 +86,7 @@ class ClientsController < ApplicationController
     else
        array_of_pending_clients = params['clients']
     end
-    # render text: array_of_pending_clients
+    
     if array_of_pending_clients.present?
       if (status == 'Approve') || (status == 'Approve All')
         message = Client.approve_clients(array_of_pending_clients)
@@ -95,6 +96,7 @@ class ClientsController < ApplicationController
     else
       message = "No clients were selected."
     end
+    
     redirect_to clients_approve_url, flash: { notice: message }
   end
   
@@ -172,7 +174,7 @@ class ClientsController < ApplicationController
       edited_client = Client.new
       edited_client = Client.find(@client).clone
       edited_client.assign_attributes(client_params)
-      # render text: client_params
+
       Client.make_pending_edited_client(edited_client, @client, client_params, current_user.id)
       redirect_to session[:return_from_edit], notice: 'Your change has been submitted. Your client will be updated once the teacher approves your changes.'     
     elsif @client.update(client_params)
@@ -204,8 +206,8 @@ class ClientsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_client
       @client = Client.find(params[:id])
-      #@client = Ticket.find(params[:tid]).client
     end
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
       params.require(:client).permit(:id, :business_name, :address, :telephone, :comment, :created_at, 
