@@ -11,10 +11,10 @@ onLoad(function() {
         $('#' + caller.target.id).addClass("autoHide").hide();
         selector =  $('#' + json.ticketPriority + "PriorityCount");        
         updateCounters(selector);
-        $("#userMessage").hide().html(json.Success).fadeIn(1000);
+        $("#userMessage").hide().html(json.Success).fadeIn(1000).fadeOut(5000);
       }
       else
-        $("#userMessage").hide().html(json.userMessage).fadeIn(1000);
+        $("#userMessage").hide().html(json.userMessage).fadeIn(1000).fadeOut(5000);
     });
   });
 

@@ -1,7 +1,7 @@
 WhiteCollar::Application.routes.draw do
-  get "static_pages/about_us"
   root :to => 'tickets#index'
-
+  
+  get "static_pages/about_us"
   match  '/users/duplicate_student', :to => 'users#duplicate_student', via: :post
   post   '/clients/approve_client_edit'
   post   'clients/assign'#actually_assign'
@@ -19,6 +19,11 @@ WhiteCollar::Application.routes.draw do
   get    '/reports/sales'
   get    '/reports/team_summary'
   get    '/reports/bonus'
+  delete '/reports/delete_bonus'
+  post   '/reports/edit_bonus'
+  get    '/reports/team_data'
+  get    '/reports/clients'
+  get    '/reports/end_of_semester_data'
   post   '/users/assign_teacher_to_section'
   post   '/users/another_teacher_to_section'
   post   '/users/change_teacher'
@@ -37,14 +42,9 @@ WhiteCollar::Application.routes.draw do
   get    '/users/in_section'
   post   '/users/remove_member'
   post   '/tickets/release'
-  get    '/reports/end_of_semester_data'
   get    '/tickets/get_sys_time'
   get    '/tickets/updates'
   get    '/tickets/getClient'
-  delete '/reports/delete_bonus'
-  post   '/reports/edit_bonus'
-  get    '/reports/team_data'
-  get    '/reports/clients'
   get    '/projects/convert_to_excel'
   get    '/users/tickets_left'
   get    '/clients/edited_clients_excel'
@@ -58,8 +58,8 @@ WhiteCollar::Application.routes.draw do
   resources :users
   resources :receipts do
     resources :actions 
-  end
-  
+  end  
+  resources :bonus_types
   resources :actions
   
   match '/signin', to: 'sessions#new', via: 'get'

@@ -4,7 +4,7 @@ class TicketsController < ApplicationController
   
   def index
 
-    @currentProject = Project.select('id, max_clients,  max_high_priority_clients, max_medium_priority_clients, max_low_priority_clients, tickets_close_time').find_by(is_active: true, id: Member.select('project_id').where(user_id: current_user.id))
+    @currentProject = Project.find_by(is_active: true, id: Member.select('project_id').where(user_id: current_user.id))
 
     if @currentProject              
       @tickets = Ticket.current_project(@currentProject.id)

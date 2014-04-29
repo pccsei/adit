@@ -16,16 +16,16 @@
   <tbody>
     <% @activities.each do |activity| %>
       <tr>
-        <td><%= link_to activity.first_name, my_receipts_path(id: activity.student_id, page: request.url) %></td>
-        <td><%= link_to activity.last_name, my_receipts_path(id: activity.student_id, page: request.url) %></td>
+        <td title="Go to Student's Page"><%= link_to activity.first_name, my_receipts_path(id: activity.student_id, page: request.url) %></td>
+        <td title="Go to Student's Page"><%= link_to activity.last_name, my_receipts_path(id: activity.student_id, page: request.url) %></td>
         <td><%= activity.team_leader %></td>
         <td align ="center"><%= activity.section %></td>
         <!-- Change this to javascript function-->
-        <td><%= activity.time_of_activity.to_formatted_s(:long_ordinal) %> </td>
+        <td><%= activity.time_of_activity.strftime("%B %e, %l:%M %p") %> </td>
         <td><%= activity.company %></td>
         <td><%= activity.activity %></td>
-        <td align ="right"><%= activity.points_earned %></td>
-        <td align ="right"><%= activity.cumulative_points_earned_on_client %></td>
+        <td align ="right"><%= activity.points_earned.to_i %></td>
+        <td align ="right"><%= activity.cumulative_points_earned_on_client.to_i %></td>
         <td><%= tooltipify(activity.comments) %></td>        
       </tr>
     <% end %>
@@ -38,8 +38,8 @@
     <td></td>
     <td></td>
     <td></td>
-    <td align ="right"><%= @activity_totals.points_earned%></td>
-    <td align ="right"><%= @activity_totals.cumulative_points_earned_on_client %></td>
+    <td align ="right"><%= @activity_totals.points_earned.to_i%></td>
+    <td></td>
     <td align ="center"></td>
   </tfoot>
 </table>

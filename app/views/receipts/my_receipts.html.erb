@@ -10,6 +10,15 @@
 	<% provide(:title, (@student_user.first_name.capitalize + '\'s Clients').html_safe)%>
 <% end %>
 
+     <!-- List bonuses if the student has earned any --> 
+     <% if @bonuses%>
+        <% @bonuses.each do |b| %>
+           <p><span class="glyphicon glyphicon-star"></span>
+        	  <%= "#{b.bonus_type.name} - #{b.points_earned} points!"%>
+           </p>
+        <% end %>   
+     <% end %>
+     
 <% if Project.non_archived %>
 
       <div class="modal fade " tabindex="-1" role="dialog" aria-hidden="true" id="releaseBox">
@@ -75,6 +84,7 @@
         </div>
         <% end %>
       </div>
+      
 
 <% else %>
 <p> There are currently no projects to view. <p>

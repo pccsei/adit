@@ -9,10 +9,11 @@ class ReceiptsController < ApplicationController
   
   def my_receipts
     if User.ids.include?(params[:id].to_i) && (((User.find(params[:id].to_i).id == current_user.id) || (current_user.role == TEACHER)))
-        @student_user     =  User.find(params[:id])
+        @student_user      =  User.find(params[:id])
         @active_receipts   = Receipt.open_clients(@student_user.id, get_selected_project)
         @sold_receipts     = Receipt.sold_clients(@student_user.id, get_selected_project)
         @released_receipts = Receipt.released_clients(@student_user.id, get_selected_project)
+        @bonuses           = Bonuses.get_bonuses(@student_user.id, get_selected_project.id)
     else
       if current_user.role != TEACHER
         redirect_to my_receipts_path(id: current_user.id), alert: 'You have been redirected to your own page'
