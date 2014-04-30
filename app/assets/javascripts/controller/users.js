@@ -34,6 +34,7 @@ onLoad(function() {
             if (strUser=="Promote Student")
             {
                 $( "#show_managers" ).hide();
+                $("#pre_selected_bonus_type").hide();
                 $( "#assign_bonus_points" ).hide();
                 $('.student_managers').attr('checked', false);
                 $('.student_managers').attr('disabled', true);
