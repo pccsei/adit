@@ -84,7 +84,7 @@ class TicketsController < ApplicationController
       t.user_id    = 0
       t.save
       
-      if params[:body] # Tag the ticket with a comment if a comment was entered      
+      if params[:body].present? # Tag the ticket with a comment if a comment was entered
         Comment.create(body: params[:body], ticket_id: params[:ticket_id], user_id: current_user.id);
       end
     else 

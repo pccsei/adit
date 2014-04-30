@@ -1,10 +1,10 @@
 <% provide(:title, 'Client Information') %>
 
-<% if @comments[0].present? && @comments[0].body.present? %>
+<% if @comments[0].present? %>
 <div>
 	<% @comments.each do |c|%>
 	   <p class="alert alert-info">The previous student said the following about this client: </p>
-	   <br /><%= c.body %>
+	   <br /><%= c %>
 	<% end %>
 </div>	
 <% end %>
