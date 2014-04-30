@@ -1,3 +1,16 @@
+#! /usr/bin/env python3
+"""Allow responses from expo survey to be converted into CSV format.
+
+The expo survey data was in a custom format that was difficult to work
+with. This program opens responses.txt, parses the data it contains,
+and writes out responses.csv for use in a spreadsheet program."""
+
+__author__ = 'Stephen "Zero" Chappell <Noctis.Skytower@gmail.com>'
+__date__ = '28 April 2014'
+__version__ = 1, 0, 0
+
+################################################################################
+
 import ast
 import csv
 import datetime
