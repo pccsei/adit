@@ -5,9 +5,9 @@
       <% if current_user.role == TEACHER %>
         <th>Section</td>
       <% end %>
-      <th>Open Clients</td>
-      <th>Sold Clients</td>
-      <th>Released Clients</td>
+      <th>Active</td>
+      <th>Sold</td>
+      <th>Released</td>
       <th>Sales Total</td>
       <th>Points</td>
     </tr>
@@ -23,7 +23,7 @@
         <td align ="center"><%= team_data.sold %></td>
         <td align ="center"><%= team_data.released %></td>
         <td align ="right"><%= number_with_precision(team_data.sales, precision: 2) %></td>
-        <td align ="right"><%= team_data.points %></td>
+        <td align ="right"><%= team_data.points.to_i %></td>
       </tr>
     <% end %>
   </tbody>
@@ -37,7 +37,7 @@
       <td align ="center"><%= @team_totals.total_sold %></td>
       <td align ="center"><%= @team_totals.total_released %></td>
       <td align ="right"><%= number_with_precision(@team_totals.total_sales, precision: 2) %></td>
-      <td align ="right"><%= @team_totals.total_points %></td>
+      <td align ="right"><%= @team_totals.total_points.to_i %></td>
     </tr>
   </tfoot>
 </table>

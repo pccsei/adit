@@ -13,8 +13,8 @@
 
 <p>
   <strong>Client List Open:</strong>
-  <%= "#{@project.tickets_open_time.to_formatted_s(:long_ordinal)}
-       - #{@project.tickets_close_time.to_formatted_s(:long_ordinal)}" %>
+  <%= "#{@project.tickets_open_time.strftime("%B %e, %l:%M %p")}
+       - #{@project.tickets_close_time.strftime("%B %e, %l:%M %p")}" %>
 </p>
 
 <p>

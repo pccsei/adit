@@ -28,7 +28,7 @@ class Priority < ActiveRecord::Base
             value = (Priority.find_by name: "high").id
 		  # IF there exists a sale in spring of last year, two years ago, or
 		  #    fall of three years ago, the priority should be medium
-          elsif (client.receipts.where("made_sale = ? AND ticket_id NOT IN (?)", true, 
+          elsif (client.receipts.where("made_sale = ? AND ticket_id IN (?)", true, 
 		        (client.tickets.where("project_id IN (?)", 
 				        Project.where("semester = ? AND year = ? OR year = ? OR semester = ? AND year = ?", 
 						              "Spring",(project.year - 1), (project.year - 2), "Fall", (project.year - 3)).ids)))).present?

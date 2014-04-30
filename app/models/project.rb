@@ -4,17 +4,17 @@ class Project < ActiveRecord::Base
   has_many   :bonuses
   has_many   :members
 
-# Validates the year for the project
+  # Validates the year for the project
   validates :year, presence: true, uniqueness: { scope: :semester, message: "can only have one active project per semester of each year."}
   
-# Validates the start and end times for the project  
+  # Validates the start and end times for the project  
   validates :tickets_open_time, presence: true, uniqueness: true
   validates :tickets_close_time, presence: true
   validate :start_before_end
   validate :current_selected_year
   validate :current_semester
 
-# Custom method to make sure the start time is before the end time  
+  # Custom method to make sure the start time is before the end time  
   def start_before_end
     if(tickets_open_time && tickets_close_time)
       errors.add(:tickets_open_time, 'needs to start before the project end time.') unless
@@ -22,7 +22,7 @@ class Project < ActiveRecord::Base
     end
   end
   
-# Custom method to make sure the selected year is in the start time
+  # Custom method to make sure the selected year is in the start time
   def current_selected_year
     if(tickets_open_time)
       errors.add(:tickets_open_time, 'needs to be in the year you selected above.') unless
@@ -49,7 +49,7 @@ class Project < ActiveRecord::Base
     end
   end
 
-# Teacher assigns clients to the student
+  # Teacher assigns clients to the student
   def self.is_specific(pid) 
     p = Project.find(pid)
     
@@ -67,20 +67,19 @@ class Project < ActiveRecord::Base
            User.get_student_info(project, "all", 3), User.all_teachers, User.current_teachers(project)
   end
 
+  # Projects where Adit was being used and true sale history exists
   def self.non_archived
-    where('year > ?', 2013)
+    where('(year > ? AND semester = ?) OR (year > ? AND semester = ?)', LAST_NON_ADIT_ARROW_YEAR, "Fall", LAST_NON_ADIT_CALENDAR_YEAR, "Spring")
   end
   
+  # Projects where Adit was not being used and no true sale history exists
+  def self.archived
+    where('(year <= ? AND semester = ?) OR (year <= ? AND semester = ?)', LAST_NON_ADIT_ARROW_YEAR, "Fall", LAST_NON_ADIT_CALENDAR_YEAR, "Spring")
+  end
+  
+  # The current, active project
   def self.current
     find_by(is_active: true)
-  end 
-  
-  def self.current_for_user(uid)
-    
-  end
-    
-  def self.archived
-    where('year < ? and is_active = ?', 2014, false)
-  end
+  end  
     
 end

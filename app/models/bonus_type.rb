@@ -2,7 +2,7 @@ class BonusType < ActiveRecord::Base
   has_many :bonuses
 
   def name_plus_points
-    "#{point_value} #{name}"
+    "#{name} (#{point_value}) "
   end
 
   # Hide the bonus type from the teacher. 

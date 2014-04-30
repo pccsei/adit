@@ -1,7 +1,7 @@
 <% provide(:title, 'Approve Clients') %>
 <p>or <%= link_to 'Submit Your Own', new_client_path %></p>
 
-<h3>Pending Clients <%= (link_to (image_tag 'excel.png'), clients_pending_clients_excel_path(format: 'xls'), :title => "Export Unapproved Clients to Excel").html_safe %></h3>
+<h3>Pending Clients <%= (link_to (image_tag 'excel.png'), clients_pending_clients_excel_path(format: 'xls'), :title => "Export Pending Clients to Excel").html_safe %></h3>
 <% if @pending_clients.present? %>
       <%= form_tag(clients_approve_client_path) do %>
          <%= render :partial => 'pending', :locals => { :pending_clients => @pending_clients} %>
@@ -21,7 +21,7 @@
   <p>There are currently no pending clients.</p>
 <% end %>
 
-<h3>Edited Clients <%= (link_to (image_tag 'excel.png'), clients_edited_clients_excel_path(format: 'xls'), :title => "Export Unapproved Clients to Excel").html_safe %>
+<h3>Edited Clients <%= (link_to (image_tag 'excel.png'), clients_edited_clients_excel_path(format: 'xls'), :title => "Export Edited Clients to Excel").html_safe %>
 </h3>
 <% if @edited_pending_clients.present? %> 
       <%= form_tag(clients_approve_client_edit_path) do %>

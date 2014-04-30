@@ -13,7 +13,7 @@
   width: 31.5em;
 }
 
-.form_background{
+.form_background {
   padding-left: 2em;
   padding-right: 2em;
   padding-top: 1.5em;
@@ -23,6 +23,11 @@
   border: 
   #EEE solid 1em;
   border-radius: 1em;
+}
+
+#help {
+  vertical-align: text-bottom;
+  cursor: pointer;
 }
 
 td {
@@ -54,13 +59,3 @@ td {
   margin-bottom: 1em !important;
 }
 
-.form_background{
-  padding-top: 1.5em;
-  padding-left: 2em;
-  padding-right: 2em;
-  padding-bottom: 2.5em;
-  margin-top: 2em !important;
-  border: 
-  #EEE solid 1em;
-  border-radius: 1em;
-}

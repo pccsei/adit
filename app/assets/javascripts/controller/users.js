@@ -4,7 +4,7 @@
 onLoad(function() {
 
 //*********************************************************************************************************************/
-// Manage Students - /users
+// Students - /users
 //*********************************************************************************************************************/
     
     // Redirect to create a bonus type on click in the drop down menu
@@ -13,7 +13,7 @@ onLoad(function() {
             event.preventDefault();
             var e = document.getElementById("bonus_type");  
             var strUser = e.options[e.selectedIndex].text;
-            if (strUser=='Create a new bonus')
+            if (strUser=='Create a New Bonus')
             {
                 var url = document.getElementById('bonus_type').value;
                 if(url != 'none') {
@@ -25,7 +25,6 @@ onLoad(function() {
 
     // Choose Action dropdown
     $( "#show_managers" ).hide();
-    $("#parse_box").hide();
     $( "#assign_bonus_points" ).hide();
     $( "#option" ).click(
         function( event) {
@@ -160,15 +159,22 @@ onLoad(function() {
 // New Student - users/new
 //*********************************************************************************************************************/
     
-    // Shows and hides the box for the input from excel
-    $(function() {
-        $("#paste").click(
-            function() {
-                $("#parse_box").toggle();
-            });
+    
+    // Hide the excel input box and the excel help
+    $( "#parse_help").hide();
+    
+    $( "#helper").click(
+    	function() {
+    		$("#parse_help").toggle();
+    	});
+    	
+    $( "#hide_help").click( 
+    	function() {
+    	$("#parse_help").hide();
+    	$("html, body").animate({ scrollTop: 0 }, "slow");
     });
     
-    // Inform teacher that the student already exists in the database
+        // Inform teacher that the student already exists in the database
     	$("#user_school_id").blur(function() {
     		var student_id = $("#user_school_id").val();
     	 	$.ajax({
@@ -260,29 +266,4 @@ onLoad(function() {
 		    }
         }
     });
-    
-//*********************************************************************************************************************/
-// Bonuses Front-Side Validation
-//*********************************************************************************************************************/
-	
-	// Custom validation to make sure the bonus points number is in a valid format
-	jQuery.validator.addMethod("valid_bonus", function(value, element) {
-        return this.optional(element) || /^(\d{0,3})$/.test(value);
-    });
-	
-	$("#student_options").validate({
-		rules: {
-			"bonus_points":  {required:  true, min: 1, max: 100, valid_bonus: true, leading_zero: true},
-			"bonus_comment": {maxlength: 250}
-		},
-		messages: {
-			"bonus_points": {
-				required:     "Please enter the amount of bonus points.",
-				min:          "Cannot be less than 1.",
-				max:          "The maximum amount of bonus points is 100.",
-				valid_bonus:  "Can only be a number from 1-100 (no decimal values).",
-				leading_zero: "Cannot begin with zero."
-			}
-		}
-	});
 });

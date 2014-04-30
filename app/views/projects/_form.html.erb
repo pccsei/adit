@@ -34,10 +34,54 @@
    </body>
 </table>
 </div>
-
-<div id = "project_options">
-
-			<p class="alert alert-info header">Client Restrictions</p>
+	<div id = "project_options">
+	   <p id="helpButton" class="alert alert-info header">Client Restrictions <span id="help"><%= image_tag 'help.png'%></span></p>
+	   <div id="priority_help" class="form_background">
+	   <p>General Information:</p>
+	   <ul>
+          <li>If you select 0 for High, Medium, and Low, students will not be able to select any clients.</li>	
+          <li>In order for students to submit new clients, they will need to have an open slot in their personal client totals.</li>
+          <li>When you are assigning clients to students, you may not assign more than the total restriction; however, you
+       	      are not restricted by the High, Medium, and Low restrictions.</li>
+	   </ul>
+	
+	   <ol><br />
+	      <li><strong>Scenario 1: Students cannot choose clients from the client list. Instead, the teacher assigns clients to the students.</strong></li>
+	      <br />
+	      <ul>
+		     <li>Set High, Medium, and Low to 0. This prevents the students from choosing anything.</li>
+		     <li>Set the total to whatever you wish. Students will still be able to submit new clients if they have under the Total restriction so remember to set that high enough.</li>
+	         <li>Recommended Settings:</li>
+	         <ul>
+	         	<li>Total: The number of clients you want to assign to each student plus 2.</li>
+	            <li>High, Medium, Low: 0</li>
+	         </ul>
+	      </ul>
+	      <br />
+	      <li><strong>Scenario 2: Students pick their own clients, but teacher still can assign clients if necessary.</strong></li>
+	      <br />
+	      <ul>
+	      	 <li>Set Total to the maximum number of clients students should have at one time.</li>
+	      	 <li>Set High, Medium, and Low to restrict a specific priority of client to less than the Total.</li>
+	      	 <li>If you do not wish to further restrict High, Medium, or Low, choose NA.</li>
+	      	 <li>When students submit new clients, they are given a low priority. Thus we recommend setting Low to NA.</li>
+	         <li>Recommended Settings:</li>
+	         <ul>
+				<li>To start the project:</li> 
+	            <ul>
+	               <li>Total: 3</li>
+	               <li>High, Medium, Low: 1</li>
+	            </ul>
+	            <li>Once the students have done their initial choosing of clients:</li>
+	            <ul>
+	               <li>Total: 5</li>
+	               <li>High: 2</li>
+	               <li>Medium, Low: NA</li>
+	            </ul>
+	      </ul>
+	</ol>
+	<p id="hide_help" class="fake-link">Hide</p>
+</div>
 			<div id = "priority_dropdown">
 				<table>
 					<body>

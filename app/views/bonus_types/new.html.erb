@@ -1,3 +1,9 @@
 <% provide(:title, "New Bonus") %>
 
 <%= render 'form' %>
+
+<% if session[:my_previous_url] == users_path %>
+	<%= link_to 'Back to Students', users_path %>
+<% else %>
+	<%= link_to 'Back to Bonuses', bonus_types_path %>
+<% end %>
