@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update ]
   before_action :only_teachers, except: [:unauthorized, :need_help, :download_help]
-  skip_before_action :must_have_project, only: :unauthorized
+  skip_before_action :must_have_project, only: [:unauthorized, :need_help, :download_help]
 
   # GET /users
   # GET /users.json
