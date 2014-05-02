@@ -265,12 +265,12 @@ class UsersController < ApplicationController
           @member.user_id = @user.id
           @member.project_id = session[:selected_project_id]
           @member.is_enabled = true
-          @member.section_number = params['section_number']
+          @member.section_number = params['section_number'] || 0
           @member.save
         end
         if @user.role != TEACHER
           member = Member.find_by(user_id: @user.id, project_id: get_selected_project)
-          member.section_number = params['section_number']
+          member.section_number = params['section_number'] || 0
           member.save
         end
 
@@ -322,7 +322,7 @@ class UsersController < ApplicationController
     
     if params[:sn]
     
-      if params[:sn] == "all"
+      if params[:sn] == "All"
         response = User.current_student_users(get_selected_project).pluck(:school_id, :first_name, :last_name)
       else 
         response = User.current_student_users(get_selected_project, params[:sn]).pluck(:school_id, :first_name, :last_name)

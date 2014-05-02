@@ -61,9 +61,9 @@ class Member < ActiveRecord::Base
   end
    
   # Returns only the user ids of student members of a given project and an optional section number
-  def self.student_members_user_ids(project, section = "all")
+  def self.student_members_user_ids(project, section = "All")
     teachers = User.all_teacher_ids
-    if section == "all"
+    if section == "All"
       self.where("project_id = ? AND user_id NOT IN (?)", project.id, teachers).pluck(:user_id)
     else
       self.where("project_id = ? AND section_number = ? AND user_id NOT IN (?)", 

@@ -684,7 +684,7 @@ class User < ActiveRecord::Base
   end
 
   # Returns all the student users for a project and section
-  def self.current_student_users(project, section = 'all')
+  def self.current_student_users(project, section = 'All')
     student_members = Member.student_members_user_ids(project, section)
     where('id in (?)', student_members)
   end
