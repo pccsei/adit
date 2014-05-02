@@ -9,9 +9,32 @@
 
 <!-- Help display explaining how the priorities work -->
 <div id="help_area" class="form_background hidden">
+  <h3>Help for Choosing Clients</h3>
+  <ul>
+  	<br />
+  	<li>If the title of this page is "Client List", your teacher will do the work of picking your clients.</li>
+  	<li>However, if the title is "Choose New Clients", you will have to come here to choose your own clients.</li>
+  	<br />
+  	<li>If the Owner column has blue "Choose" buttons, the client list is not yet open. You can see when the list
+  		will be open by looking at the message bar above the client list.</li>
+    <li>If the Owner column has red "Choose" buttons, you can choose new clients until the list closes.</li>
+    <li>If a row in the Owner column has a name and ID in it, someone in the class has already chosen the client.</li>
+  </ul>
+  <h3>What do the Total, High, Medium, and Low numbers mean?</h3>
+  <ul>
+  	<br />
+  	<li>Total clients available: This is the maximum number of clients you can have, including the clients you have
+  		submitted for approval.</li>
+  	<li>High, Medium, and Low priority allowed: Look at the priority column. These numbers tell you the maximum number
+  		of clients that you can have from each priority.</li>
+  	<li>IMPORTANT! The priority restrictions are a subset of the total clients available number. If total, medium, and
+  		low all say 4 allowed, you are permitted 4 clients. It could be 4 medium or 4 low or a combination, but altogether
+  		you are only allowed to have 4 clients. However, if total says 4 and high says 1, you can only get one 1 high and
+  		must choose other priorities for the other 3.</li>
+  </ul>
 	
 
-	
+<p>For more information, read the "Choose Clients" section of the <%= link_to "Help", users_need_help_path %> page. </p>	
 <p id="hide_help" class="fake-link">Hide</p>
 </div>
 
