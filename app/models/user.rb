@@ -92,16 +92,15 @@ class User < ActiveRecord::Base
   end
 
   def User.get_array_of_manager_ids_from_project_and_section(project, section)
-    members = Member.all
-    if !members.empty?
-      array_of_manager_ids = Array.new(Member.pluck(:parent_id).uniq!)
-      array_of_manager_ids.delete(nil)
-      array_of_manager_ids.delete_if{|id| Member.find_by(user_id: id).project_id != project.id}
-      if section != 'all'
-        array_of_manager_ids.delete_if{|id| Member.find_by(user_id: id).section_number != section.to_i}
+    members = Member.where(project_id: project.id, section_number: section)
+    student_manager_ids = []
+    
+    members.each do |m|
+      if Member.is_team_leader(m)
+         student_manager_ids << m.user.id
       end
-      array_of_manager_ids
     end
+    student_manager_ids    
   end
 
   def User.parse_students(user_params, section_number, project_id)
@@ -353,7 +352,7 @@ class User < ActiveRecord::Base
       # Inactivate students
       if choice == 'Deactivate'
         for i in 0..students.count-1
-          member = Member.find_by(user_id: students[i])
+          member = Member.find_by(user_id: students[i], project_id: selected_project.id)
           member.parent_id = nil
           # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
           if User.find(students[i]).role == Member.is_team_leader(Member.find_by(project_id: selected_project.id, parent_id: member.user_id))
@@ -366,7 +365,7 @@ class User < ActiveRecord::Base
       # Activate students
       if choice == 'Activate'
         for i in 0..students.count-1
-          member = Member.find_by(user_id: students[i])
+          member = Member.find_by(user_id: students[i], project_id: selected_project.id)
           Member.activate_student_status(member)
         end
       end
@@ -374,7 +373,7 @@ class User < ActiveRecord::Base
       if choice == 'Add to Team'
         if student_manager
           for i in 0..students.count-1
-            member = Member.find_by(user_id: students[i])
+            member = Member.find_by(user_id: students[i], project_id: selected_project.id)
             user = User.find(students[i])
             if user.role == STUDENT
               if !member.parent_id
@@ -502,7 +501,7 @@ class User < ActiveRecord::Base
       if choice == 'Remove from Team'
         for i in 0..students.count-1
           user = User.find(students[i])
-          member = Member.find_by(user_id: students[i])
+          member = Member.find_by(user_id: students[i], project_id: selected_project.id)
           if user.role == STUDENT
             if member.parent_id
               member.parent_id = nil

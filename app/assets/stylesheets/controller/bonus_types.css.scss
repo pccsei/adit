@@ -3,20 +3,16 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 // New/Edit
-.label-field {
-  text-align: right;
-  width: 10em;
-  padding-bottom: 1em;
-  margin-bottom: 1em !important;
-}
-
 .text-field {
-  text-align: left;
-  padding-bottom: 1em;
-  margin-bottom: 1em !important;
+text-align: left;
+padding-bottom: 1em;
+margin-bottom: 1em !important;
+padding-left: 1em;
 }
 
-tr {
-  padding: 1em;
+.label-field {
+text-align: right;
+width: 10em;
+padding-bottom: 1em;
+margin-bottom: 1em !important;
 }
-
