@@ -25,15 +25,17 @@
       <!-- This else statement determines whether or not a new bonus was created that should be preselected. -->
         <span id = "option">
           <%= select_tag 'selected_option',
-                          options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team', 'Assign Bonus Points', 'Activate', 'Deactivate']),
+                          options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team', 'Assign Bonus Points', 'Activate', 'Deactivate'], bonus_selected(@bonus_type)),
                           :prompt => 'Choose Action', :type => 'button',
                           :class => 'btn btn-default dropdown-toggle', :datatoggle => 'dropdown',
-                          :disabled => archived?%>
+                          :disabled => archived? %>
         </span>
-        <span id ="assign_bonus_points">
-            <%= select_tag 'bonus_type', options_from_collection_for_select(@bonus_types, 'id', :name_plus_points) + content_tag(:option, 'Create a New Bonus', value: new_bonus_type_path, class: 'fake-link'), :class => 'btn btn-default dropdown-toggle', :disabled => archived? %>
+        <span id ="assign_bonus_points" class="<%= 'hidden' unless @bonus_type %>">
+            <%= select_tag 'bonus_type', options_from_collection_for_select(@bonus_types, 'id', :name_plus_points, bonus_type_selected(@bonus_type)) + content_tag(:option, 'Create a New Bonus', value: new_bonus_type_path, class: 'fake-link'), 
+            :class => 'btn btn-default dropdown-toggle', :disabled => archived? %>
 
         </span>
+
       <!-- This only appears if the teacher wants to assign a team to a student manager -->
       <span id ="show_managers">
         <% if @student_managers.count > 0 %>

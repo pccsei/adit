@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def index
     # If the bonus type is part of the parameters passed to this page, find the bonus type. This is used for the dropdowns in the view.
     if params[:bonus_type]
-      @bonus_type = BonusType.find(params[:bonus_type]).name
+      @bonus_type = BonusType.find(params[:bonus_type]).id
     end
 
     @current = self.current_user
