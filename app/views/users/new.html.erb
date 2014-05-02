@@ -2,11 +2,11 @@
 <%= params[:per_page] %>
 <div>
   <br />
-  <p><strong>Copy and Paste your Excel spreadsheet below. <span id="helper"><%= image_tag '/assets/help.png'%></span></strong></p>
+  <p><strong>Copy and Paste your Excel spreadsheet below. <span id="helper"><%= image_tag 'help.png'%></span></strong></p>
 
   <div id="parse_box">
     <%= form_tag(users_input_students_parse_path) do %>
-        <br/>
+    <br/>
 	<div id="parse_help" class="form_background">
 		<p>You must have only the following columns in your excel spreadsheet:</p>
 	    <p>Course, ID, Name, Class, Grad Term, Box, Phone, Email, Major, Minor, Work, RA</p>
@@ -27,9 +27,9 @@
 	</ul>
 	<p id="hide_help" class="fake-link">Hide</p>	
 	</div>
-  </div>
-        <%= text_area_tag 'input', nil, :class => 'form-control', :id => 'students_text_parse' %>
-        <br/><%= submit_tag 'Add Students to Section', :class => 'btn btn-large btn-primary btn-sm', :disabled => archived? %>
+       <%= text_area_tag 'input', nil, :class => 'form-control', :id => 'students_text_parse' %>
+       </br />   
+       <%= submit_tag 'Add Students to Section', :class => 'btn btn-large btn-primary btn-sm', :disabled => archived? %>
     <% end %>
     
   <%= render 'form', locals: 'new_student' %>

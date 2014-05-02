@@ -115,7 +115,7 @@ class ApplicationController < ActionController::Base
    def must_have_project
      if current_user.role == TEACHER
        if get_selected_project == nil
-         redirect_to projects_url
+         redirect_to no_project_path
        end
      elsif !get_current_student_project
        redirect_to no_project_path

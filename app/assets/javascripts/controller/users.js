@@ -25,7 +25,7 @@ onLoad(function() {
 
     // Choose Action dropdown
     $( "#show_managers" ).hide();
-    $( "#assign_bonus_points" ).hide();
+    $( ".hidden" ).hide();
     $( "#option" ).click(
         function( event) {
             event.preventDefault();
@@ -73,7 +73,7 @@ onLoad(function() {
             else if (strUser=="Assign Bonus Points")
             {
                 $( "#show_managers" ).hide();
-                $( "#assign_bonus_points" ).show();
+                $( "#assign_bonus_points" ).removeClass("hidden").show();
                 $('.student_managers').attr('disabled', false);
                 $('.students_with_manager').attr('disabled', false);
                 $('.students_without_manager').attr('disabled', false);

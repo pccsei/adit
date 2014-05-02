@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController
   before_action :only_teachers, only: [:sales, :activities, :end_of_semester_data]
   before_action :only_leadership
+  skip_before_action :must_have_project, only: :clients
 
   def sales
     @sections = get_array_of_all_sections(get_selected_project)
@@ -27,7 +28,8 @@ class ReportsController < ApplicationController
 
   # GET reports/client_summary
   def clients
-    @clients = Report.clients(get_selected_project)
+    project = get_selected_project || Project.archived.last
+    @clients = Report.clients(project)
   end
 
   # GET reports/activities

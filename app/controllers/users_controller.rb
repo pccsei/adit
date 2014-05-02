@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update ]
   before_action :only_teachers, except: [:unauthorized, :need_help, :download_help]
-  skip_before_action :must_have_project, only: :unauthorized
+  skip_before_action :must_have_project, only: [:unauthorized, :need_help, :download_help]
 
   # GET /users
   # GET /users.json
   def index
     # If the bonus type is part of the parameters passed to this page, find the bonus type. This is used for the dropdowns in the view.
     if params[:bonus_type]
-      @bonus_type = BonusType.find(params[:bonus_type])
+      @bonus_type = BonusType.find(params[:bonus_type]).id
     end
 
     @current = self.current_user

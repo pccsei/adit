@@ -12,43 +12,37 @@
 <!-- Adds students to a section and is only allowed for a teacher-->
 
 <% if @selected_section == 'all' %>
-  <p id = "info_message" class = "alert alert-info ">You are currently viewing all students.<br /> Please select a section or create a section for additional options.</p>
+  <p id = "info_message" class = "alert alert-info ">
+  	  <% if @select_students.present? %>
+  	  	You are currently viewing the entire student roster for this class.
+  	    <br /> Please select a section or create a section for additional options.
+  	  <% else %>
+  	    There are currently no students in this project.<br />
+  	    Please create a section to add students to the project.  	    
+  	  <% end %></p>
       <div id = "section_refresh">
         <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
       </div>
-<% else %>  
+<% else %>
    <div id='add_student'> <%= link_to 'Add Students', new_user_path, :id => 'add_student', class: 'btn btn-large btn-link btn-sm'%>
    </div>
   <!--Actions for the teacher to do with the students and sections-->
   <%= form_tag users_change_student_status_path, :id => 'student_options' do%>
     <div id= "manage_dropdown">
       <!-- This else statement determines whether or not a new bonus was created that should be preselected. -->
-      <% if !@bonus_type %>
         <span id = "option">
           <%= select_tag 'selected_option',
-                          options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team', 'Assign Bonus Points', 'Activate', 'Deactivate']),
+                          options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team', 'Assign Bonus Points', 'Activate', 'Deactivate'], bonus_selected(@bonus_type)),
                           :prompt => 'Choose Action', :type => 'button',
                           :class => 'btn btn-default dropdown-toggle', :datatoggle => 'dropdown',
                           :disabled => archived? %>
         </span>
-        <span id ="assign_bonus_points">
-            <%= select_tag 'bonus_type', options_from_collection_for_select(@bonus_types, 'id', :name_plus_points) + content_tag(:option, 'Create a New Bonus', value: new_bonus_type_path, class: 'fake-link'), :class => 'btn btn-default dropdown-toggle', :disabled => archived? %>
+        <span id ="assign_bonus_points" class="<%= 'hidden' unless @bonus_type %>">
+            <%= select_tag 'bonus_type', options_from_collection_for_select(@bonus_types, 'id', :name_plus_points, bonus_type_selected(@bonus_type)) + content_tag(:option, 'Create a New Bonus', value: new_bonus_type_path, class: 'fake-link'), 
+            :class => 'btn btn-default dropdown-toggle', :disabled => archived? %>
 
         </span>
-      <% else %>
-        <span id = "option">
-          <%= select_tag 'selected_option',
-                          options_for_select(['Promote Student', 'Demote Student', 'Add to Team', 'Remove from Team', 'Assign Bonus Points', 'Activate', 'Deactivate'], 'Assign Bonus Points'),
-                          :prompt => 'Choose Action', :type => 'button',
-                          :class => 'btn btn-default dropdown-toggle', :datatoggle => 'dropdown',
-                          :disabled => archived? %>
-        </span>
-        <!-- Use this if the teacher just created a new bonus. The new bonus will appear as the selected item in the dropdown. -->
-        <span id ="pre_selected_bonus_type">
-            <%= select_tag 'bonus_type', options_from_collection_for_select(@bonus_types, 'id', :name_plus_points, @bonus_type.id) + content_tag(:option, 'Create a New Bonus', value: new_bonus_type_path), :class => 'btn btn-default dropdown-toggle', :disabled => archived? %>
 
-        </span>
-      <% end %>
       <!-- This only appears if the teacher wants to assign a team to a student manager -->
       <span id ="show_managers">
         <% if @student_managers.count > 0 %>
@@ -61,8 +55,8 @@
 
     <%= submit_tag :Submit, :class => 'btn btn-primary btn-sm ', :id => 'action_submit', :disabled => archived?  %>
 
-    </div>   
-   
+    </div>
+
     <div id = "section_refresh">
       <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
     </div>

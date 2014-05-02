@@ -1,4 +1,17 @@
-import markov_encryption as me
+#! /usr/bin/env python3
+"""Provide functionality to obfuscate and read sensitive data.
+
+This module has functions to encrypt and open files that need to be
+secured because of their sensitive nature. While easy to get around,
+the raw data is more difficult to access when stored as cypher text."""
+
+__author__ = 'Stephen "Zero" Chappell <Noctis.Skytower@gmail.com>'
+__date__ = '28 April 2014'
+__version__ = 1, 0, 0
+
+################################################################################
+
+import me
 import pickle
 import pickletools
 import bz2
@@ -7,10 +20,19 @@ import codecs
 import locale
 import io
 
+################################################################################
+
 DATA_FILE = 'security.dat'
-with builtins.open(DATA_FILE, 'rb') as file:
-    KEY, PRIMER = pickle.loads(bz2.decompress(file.read()))
-KEY, PRIMER = me.Key(KEY), me.Primer(PRIMER)
+
+try:
+    with builtins.open(DATA_FILE, 'rb') as file:
+        KEY, PRIMER = pickle.loads(bz2.decompress(file.read()))
+except OSError:
+    print('Warning: KEY and PRIMER were not loaded!')
+else:
+    KEY, PRIMER = me.Key(KEY), me.Primer(PRIMER)
+
+################################################################################
 
 def replace_key_primer(force=False):
     global KEY, PRIMER
