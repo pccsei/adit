@@ -12,7 +12,7 @@
    $( "#section_number").val("<%= @section_number %>");
    document.getElementById("create").disabled = false;
 <% else %>
-   $( "#student_exists" ).html("");
+   <!-- $( "#student_exists" ).html(""); -->
    $( "#user_first_name").val("");
    $( "#user_last_name").val("");
    $( "#user_email").val("");
@@ -28,7 +28,7 @@
 <% if @message == "member" %>
    $( "#student_exists" ).html("<p class=\"alert alert-info\">This student is already  a member of this project. <a href=<%=users_path%>>Go back to Students page.</a></p>");
    document.getElementById("create").disabled = true;
-<% else %>
+<% elsif @message != "data" %>
    $( "#student_exists" ).html("");
    document.getElementById("create").disabled = false;
 <% end %>
