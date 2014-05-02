@@ -461,6 +461,13 @@ label.required:after {
   border-radius: 1em;
 }
 
+// Help page
+.user_manual {
+ float: right;
+ padding-right: .2em;
+ padding-bottom: .5em;
+}
+
 // Tooltip
 .tooltip-inner {
     white-space:pre-wrap;

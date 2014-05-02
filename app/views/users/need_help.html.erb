@@ -1,8 +1,12 @@
 <a id="top" name="top"></a>
 
+<!-- Provides the content for the title of the page and the header content -->
 <% provide(:title, 'Help') %>
 
-<%= link_to 'Download User Manual', :action => :download_help %>
+<!-- Allow the user to download the extensive help manual-->
+<div class="user_manual">
+	<p class="user_manual"><%= link_to 'Download User Manual', :action => :download_help, :class => "user_manual" %></p>
+</div>	
 
 <% if current_user.role == TEACHER %>
 <div class="help_accordion">
