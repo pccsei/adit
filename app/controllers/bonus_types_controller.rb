@@ -15,7 +15,7 @@ class BonusTypesController < ApplicationController
     @bonus_type = BonusType.new(bonus_type_params)
 
     if @bonus_type.save
-      if session[:my_previous_url] == '/users'
+      if session[:my_previous_url] == users_path
         redirect_to :controller => 'users', :action => 'index', :bonus_type => @bonus_type
       else
         redirect_to bonus_types_path, notice: 'Bonus was successfully created.'
