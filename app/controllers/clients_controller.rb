@@ -29,8 +29,10 @@ class ClientsController < ApplicationController
       session[:return_to] = params[:page]
     end
      
-    # Get the release comments made during the current project     
-    @comments = Ticket.find_by(project_id: get_current_project.id, client_id: @client.id).comments
+    # Get the release comments made during the current project
+    if (ticket = Ticket.find_by(project_id: get_current_project.id, client_id: @client.id))
+       @comments = ticket.comments.pluck(:body)
+    end
 
     # Get just the years where sales were made but not actual sale info exists
     @sales_years = Receipt.early_sale_years(@client)

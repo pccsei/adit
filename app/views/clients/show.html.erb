@@ -1,10 +1,10 @@
 <% provide(:title, 'Client Information') %>
 
-<% if @comments[0].present? && @comments[0].body.present? %>
+<% if @comments %>
 <div>
 	<% @comments.each do |c|%>
 	   <p class="alert alert-info">The previous student said the following about this client: </p>
-	   <br /><%= c.body %>
+	   <br /><%= c %>
 	<% end %>
 </div>	
 <% end %>
@@ -75,7 +75,7 @@
 
 <div>
     <!-- Display detailed sale information if it exists on the client -->
-	<% if @sales_info.present? || @sales_years.present? %>
+	<% if @sales_info.present? || @sales_years[0].present? || @sales_years[1].present? %>
 	   <h3> Sales History </h3>
 	<% end %>
 	<% if @sales_info.present? %>	

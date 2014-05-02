@@ -59,9 +59,9 @@
 		        <div class="actions">
 			        <% if @user.new_record? %>
 	            	   <%= f.submit 'Create Teacher', :class => 'btn btn-primary btn-sm' %>
-	          	<% else %>
+	          		<% else %>
 	            	   <%= f.submit 'Update Teacher', :class => 'btn btn-primary btn-sm' %>
-	            <% end %>
+	            	<% end %>
 	                <%= link_to 'Back to Teachers', users_teachers_path %>
                 </div>
              </td>
