@@ -29,12 +29,24 @@
         <% if @selected_section != "all"%>
           <% if !Member.is_team_leader(Member.find_by(project_id: get_selected_project, user_id: student.id)) %>
             <% if student.student_manager_name %>
-              <td><input class="students_with_manager" name="students[]" type="checkbox" value="<%=student.id%>" /></td>
+              <% if student.is_enabled %>
+                <td><input class="students_with_manager_and_active" name="students[]" type="checkbox" value="<%=student.id%>" /></td>
+              <% else %>
+                <td><input class="students_with_manager_and_inactive" name="students[]" type="checkbox" value="<%=student.id%>"/></td>
+              <% end %>
             <% else  %>
-              <td><input class="students_without_manager" name="students[]" type="checkbox" value="<%=student.id%>"/></td>
+              <% if student.is_enabled %>
+                <td><input class="students_without_manager_and_active" name="students[]" type="checkbox" value="<%=student.id%>" /></td>
+              <% else %>
+                <td><input class="students_without_manager_and_inactive" name="students[]" type="checkbox" value="<%=student.id%>"/></td>
+              <% end %>
             <% end %>
           <% else %>
-            <td><input id="students_managers" class="student_managers" name="students[]" type="checkbox" value="<%=student.id%>"/></td>
+            <% if student.is_enabled %>
+              <td><input class="active_student_managers" name="students[]" type="checkbox" value="<%=student.id%>" /></td>
+            <% else %>
+              <td><input class="inactive_student_managers" name="students[]" type="checkbox" value="<%=student.id%>"/></td>
+            <% end %>
           <% end %>
         <% end %> 
         <td><%= link_to 'Edit', edit_user_path(student.id) %></td>     

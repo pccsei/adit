@@ -33,58 +33,136 @@ onLoad(function() {
             var strUser = e.options[e.selectedIndex].text;
             if (strUser=="Promote Student")
             {
+                // If a box is disabled deselect all the students in it
+
+                // Boxes for certain items
                 $( "#show_managers" ).hide();
                 $( "#assign_bonus_points" ).hide();
-                $('.student_managers').attr('checked', false);
-                $('.student_managers').attr('disabled', true);
-                $('.students_with_manager').attr('disabled', false);
-                $('.students_without_manager').attr('disabled', false);
+                // Selectable students
+                $('.active_student_managers').attr('disabled', true);
+                $('.active_student_managers').attr('checked', false);
+                $('.inactive_student_managers').attr('disabled', true);
+                $('.inactive_student_managers').attr('checked', false);
+                $('.students_with_manager_and_active').attr('disabled', true);
+                $('.students_with_manager_and_active').attr('checked', false);
+                $('.students_without_manager_and_active').attr('disabled', false);
+                $('.students_with_manager_and_inactive').attr('disabled', true);
+                $('.students_with_manager_and_inactive').attr('checked', false);
+                $('.students_without_manager_and_inactive').attr('disabled', true);
+                $('.students_without_manager_and_inactive').attr('checked', false);
             }            
             else if (strUser=="Demote Student")
             {
+                // Boxes for certain items
                 $( "#show_managers" ).hide();
                 $( "#assign_bonus_points" ).hide();
-                $('.student_managers').attr('disabled', false);
-                $('.students_without_manager').attr('checked', false);
-                $('.students_with_manager').attr('checked', false);
-                $('.students_with_manager').attr('disabled', true);
-                $('.students_without_manager').attr('disabled', true);
+                // Selectable students
+                $('.active_student_managers').attr('disabled', false);
+                $('.inactive_student_managers').attr('disabled', false);
+                $('.students_with_manager_and_active').attr('disabled', true);
+                $('.students_with_manager_and_active').attr('checked', false);
+                $('.students_without_manager_and_active').attr('disabled', true);
+                $('.students_without_manager_and_active').attr('checked', false);
+                $('.students_with_manager_and_inactive').attr('disabled', true);
+                $('.students_with_manager_and_inactive').attr('checked', false);
+                $('.students_without_manager_and_inactive').attr('disabled', true);
+                $('.students_without_manager_and_inactive').attr('checked', false);
             }
             else if (strUser=="Add to Team")
             {
+                // Boxes for certain items
                 $( "#show_managers" ).show();
                 $( "#assign_bonus_points" ).hide();
-                $('.student_managers').attr('checked', false);
-                $('.student_managers').attr('disabled', true);
-                $('.students_with_manager').attr('checked', false);
-                $('.students_with_manager').attr('disabled', true);
-                $('.students_without_manager').attr('disabled', false);
+                // Selectable students
+                $('.active_student_managers').attr('disabled', true);
+                $('.active_student_managers').attr('checked', false);
+                $('.inactive_student_managers').attr('disabled', true);
+                $('.inactive_student_managers').attr('checked', false);
+                $('.students_with_manager_and_active').attr('disabled', true);
+                $('.students_with_manager_and_active').attr('checked', false);
+                $('.students_without_manager_and_active').attr('disabled', false);
+                $('.students_with_manager_and_inactive').attr('disabled', true);
+                $('.students_with_manager_and_inactive').attr('checked', false);
+                $('.students_without_manager_and_inactive').attr('disabled', true);
+                $('.students_without_manager_and_inactive').attr('checked', false);
             }
             else if (strUser=="Remove from Team")
             {
+                // Boxes for certain items
                 $( "#show_managers" ).hide();
                 $( "#assign_bonus_points" ).hide();
-                $('.student_managers').attr('checked', false);
-                $('.student_managers').attr('disabled', true);
-                $('.students_without_manager').attr('checked', false);
-                $('.students_with_manager').attr('disabled', false);
-                $('.students_without_manager').attr('disabled', true);
+                // Selectable students
+                $('.active_student_managers').attr('disabled', true);
+                $('.active_student_managers').attr('checked', false);
+                $('.inactive_student_managers').attr('disabled', true);
+                $('.inactive_student_managers').attr('checked', false);
+                $('.students_with_manager_and_active').attr('disabled', false);
+                $('.students_without_manager_and_active').attr('disabled', true);
+                $('.students_without_manager_and_active').attr('checked', false);
+                $('.students_with_manager_and_inactive').attr('disabled', false);
+                $('.students_without_manager_and_inactive').attr('disabled', true);
+                $('.students_without_manager_and_inactive').attr('checked', false);
             }
             else if (strUser=="Assign Bonus Points")
             {
+                // Boxes for certain items
                 $( "#show_managers" ).hide();
                 $( "#assign_bonus_points" ).removeClass("hidden").show();
-                $('.student_managers').attr('disabled', false);
-                $('.students_with_manager').attr('disabled', false);
-                $('.students_without_manager').attr('disabled', false);
+                // Selectable students
+                $('.active_student_managers').attr('disabled', false);
+                $('.inactive_student_managers').attr('disabled', true);
+                $('.inactive_student_managers').attr('checked', false);
+                $('.students_with_manager_and_active').attr('disabled', false);
+                $('.students_without_manager_and_active').attr('disabled', false);
+                $('.students_with_manager_and_inactive').attr('disabled', true);
+                $('.students_with_manager_and_inactive').attr('checked', false);
+                $('.students_without_manager_and_inactive').attr('disabled', true);
+                $('.students_without_manager_and_inactive').attr('checked', false);
+            }
+            else if (strUser=="Activate")
+            {
+                // Boxes for certain items
+                $( "#show_managers" ).hide();
+                $( "#assign_bonus_points" ).hide();
+                // Selectable students
+                $('.active_student_managers').attr('disabled', true);
+                $('.active_student_managers').attr('checked', false);
+                $('.inactive_student_managers').attr('disabled', false);
+                $('.students_with_manager_and_active').attr('disabled', true);
+                $('.students_with_manager_and_active').attr('checked', false);
+                $('.students_without_manager_and_active').attr('disabled', true);
+                $('.students_without_manager_and_active').attr('checked', false);
+                $('.students_with_manager_and_inactive').attr('disabled', false);
+                $('.students_without_manager_and_inactive').attr('disabled', false);
+            }
+            else if (strUser=="Deactivate")
+            {
+                // Boxes for certain items
+                $( "#show_managers" ).hide();
+                $( "#assign_bonus_points" ).hide();
+                // Selectable students
+                $('.active_student_managers').attr('disabled', false);
+                $('.inactive_student_managers').attr('disabled', true);
+                $('.inactive_student_managers').attr('checked', false);
+                $('.students_with_manager_and_active').attr('disabled', false);
+                $('.students_without_manager_and_active').attr('disabled', false);
+                $('.students_with_manager_and_inactive').attr('disabled', true);
+                $('.students_with_manager_and_inactive').attr('checked', false);
+                $('.students_without_manager_and_inactive').attr('disabled', true);
+                $('.students_without_manager_and_inactive').attr('checked', false);
             }
             else
             {
+                // Boxes for certain items
                 $( "#show_managers" ).hide();
                 $( "#assign_bonus_points" ).hide();
-                $('.student_managers').attr('disabled', false);
-                $('.students_with_manager').attr('disabled', false);
-                $('.students_without_manager').attr('disabled', false);
+                // Selectable students are everyone
+                $('.active_student_managers').attr('disabled', false);
+                $('.inactive_student_managers').attr('disabled', false);
+                $('.students_with_manager_and_active').attr('disabled', false);
+                $('.students_without_manager_and_active').attr('disabled', false);
+                $('.students_with_manager_and_inactive').attr('disabled', false);
+                $('.students_without_manager_and_inactive').attr('disabled', false);
             }
         }
     );
