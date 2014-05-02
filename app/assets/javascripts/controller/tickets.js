@@ -149,7 +149,7 @@ onLoad(function() {
   
   // Initialized the datatable with the bootstrap tooltip feature added
   var table =  $('.ticket_table').dataTable({
-        "aoColumns" : [ null, {"sType": "priority"}, null, null, null, null],
+        "aoColumns" : [ {sWidth: "10%"}, {"sType": "priority", "sWidth": "10%"}, null, null, null, null],
         "bPaginate" : false,
         "iCookieDuration": 60,
         "bStateSave": false,
@@ -164,6 +164,11 @@ onLoad(function() {
         'placement': 'left',
         'container': 'body'
     }));
+    
+    $('table.ticket_table').each(function(i,table) {
+        $('<div style="width: 100%; overflow: auto"></div>').append($(table)).insertAfter($('#' + $(table).attr('id') + '_wrapper div').first());
+    });
+
 
   return table;
 });
