@@ -2,6 +2,8 @@
 
 <% provide(:title, 'Help') %>
 
+<%= link_to 'Download User Manual', :action => :download_help %>
+
 <% if current_user.role == TEACHER %>
 <div class="help_accordion">
 	<h3>Recommended Navigation</h3>
