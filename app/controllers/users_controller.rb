@@ -260,22 +260,26 @@ class UsersController < ApplicationController
             available = true
           end
         end
-        if available == false
+        if available == false && @user.role != TEACHER
           @member = Member.new
           @member.user_id = @user.id
           @member.project_id = session[:selected_project_id]
           @member.is_enabled = true
-          @member.section_number = params['section_number'] || 0
+          @member.section_number = params['section_number']
           @member.save
         end
         if @user.role != TEACHER
           member = Member.find_by(user_id: @user.id, project_id: get_selected_project)
-          member.section_number = params['section_number'] || 0
+          member.section_number = params['section_number']
           member.save
         end
-
-        format.html { redirect_to users_path, notice: 'User was successfully updated.' }
-        format.json { head :no_content }
+        
+        if @user.role == TEACHER
+          format.html { redirect_to users_teachers_path, notice: "#{@user.first_name} was successfully updated."}
+        else
+          format.html { redirect_to users_path, notice: "#{@user.first_name} was successfully updated."}
+          format.json { head :no_content }
+        end
       else
         format.html { render action: 'edit' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
