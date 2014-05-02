@@ -2,8 +2,8 @@
 	<div class="panel-body">
 
 		<strong>Project:</strong> <%= get_selected_project.semester + ' ' + get_selected_project.year.to_s %><br />
-		<% if get_selected_section == 'all' %>
-		<strong>Sections:</strong> All
+		<% if get_selected_section == 'All' %>
+		<strong>Sections:</strong><span id="currentSection">&nbsp; All</span>
 		<% else %>
 		<strong>Section:&nbsp;</strong><span id="currentSection"><%= get_selected_section %></span>
 		<% end %>

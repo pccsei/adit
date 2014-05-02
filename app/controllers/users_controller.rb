@@ -118,7 +118,7 @@ class UsersController < ApplicationController
     end
     
     section_options = get_array_of_all_sections(get_selected_project)
-    section_options.delete('all')
+    section_options.delete('All')
     @sections = section_options
   end
 
@@ -139,7 +139,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     section_options = get_array_of_all_sections(get_selected_project)
-    section_options.delete('all')
+    section_options.delete('All')
     @sections = section_options
   end
 
@@ -260,7 +260,7 @@ class UsersController < ApplicationController
             available = true
           end
         end
-        if available == false
+        if available == false && @user.role != TEACHER
           @member = Member.new
           @member.user_id = @user.id
           @member.project_id = session[:selected_project_id]
@@ -273,9 +273,13 @@ class UsersController < ApplicationController
           member.section_number = params['section_number']
           member.save
         end
-
-        format.html { redirect_to users_path, notice: 'User was successfully updated.' }
-        format.json { head :no_content }
+        
+        if @user.role == TEACHER
+          format.html { redirect_to users_teachers_path, notice: "#{@user.first_name} was successfully updated."}
+        else
+          format.html { redirect_to users_path, notice: "#{@user.first_name} was successfully updated."}
+          format.json { head :no_content }
+        end
       else
         format.html { render action: 'edit' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -322,7 +326,7 @@ class UsersController < ApplicationController
     
     if params[:sn]
     
-      if params[:sn] == "all"
+      if params[:sn] == "All"
         response = User.current_student_users(get_selected_project).pluck(:school_id, :first_name, :last_name)
       else 
         response = User.current_student_users(get_selected_project, params[:sn]).pluck(:school_id, :first_name, :last_name)

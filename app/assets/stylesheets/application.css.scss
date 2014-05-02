@@ -463,7 +463,7 @@ label.required:after {
 
 // Help page
 .user_manual {
- float: right;
+ padding-top: .5em;
  padding-right: .2em;
  padding-bottom: .5em;
 }
@@ -477,7 +477,10 @@ label.required:after {
 .defaultTooltip {
   cursor: pointer;
 }
-
+#waiting {
+  margin-left: 20em;
+  margin-top: -3em !important;
+}
 // This is all the code for a floating div on the expo version
 /*
 .expo_logo {

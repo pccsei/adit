@@ -212,7 +212,7 @@ class Report
   def self.bonus project, section
     Struct.new("BonusData", :id, :first_name, :last_name, :student_id, :team_name, :created_date, :points, :comment, :section_number, :bonus_id, :user_id, :name)
 
-    if section != 'all'
+    if section != 'All'
       all_bonuses = Bonuses.where(project_id: project, user_id: Member.where(section_number: section).pluck(:user_id))
     else
       all_bonuses = Bonuses.where(project_id: project, user_id: Member.all.pluck(:user_id))

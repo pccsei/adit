@@ -3,7 +3,7 @@
 
   <thead>
 	<tr>
-    <% if @selected_section != "all"%>
+    <% if @selected_section != "All"%>
 	    <th class='empty'></th>
     <% end %>
     <th class="empty"></th>
@@ -26,7 +26,7 @@
   <tbody>
     <% current_students.each do |student| %>
       <tr>
-        <% if @selected_section != "all"%>
+        <% if @selected_section != "All"%>
           <% if !Member.is_team_leader(Member.find_by(project_id: get_selected_project, user_id: student.id)) %>
             <% if student.student_manager_name %>
               <% if student.is_enabled %>

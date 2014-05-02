@@ -13,8 +13,9 @@ action_types = ActionType.create!([{ name: 'First Contact',  role: 1, point_valu
                                    { name: 'Comment',        role: 1, point_value: 0}])
  
 # Add the two current teachers of the professional selling class                                   
-users = User.create!([{school_id: 'dlunsford', role: TEACHER, first_name: 'David',  last_name: 'Lunsford', email: 'dlunsford@faculty.pcci.edu'},
-                      {school_id: 'lsmith',    role: TEACHER, first_name: 'Lonnie', last_name: 'Smith',    email: 'lsmith@faculty.pcci.edu'}])
+users = User.create!([{school_id: 'dlunsford', role: TEACHER, first_name: 'David',   last_name: 'Lunsford', email: 'dlunsford@faculty.pcci.edu'},
+                      {school_id: 'lsmith',    role: TEACHER, first_name: 'Lonnie',  last_name: 'Smith',    email: 'lsmith@faculty.pcci.edu'},
+                      {school_id: 'mgeary',    role: TEACHER, first_name: 'Michael', last_name: 'Geary',    email: 'mgeary@faculty.pcci.edu'}])
 
 statuses = Status.create!([{status_type: 'Unapproved'}, {status_type: 'Approved'}, {status_type: 'In House'}, {status_type: 'Pending'}, {status_type: 'Edited'}])
 

@@ -31,6 +31,10 @@
   <% end %>  
   
     <div id="container">
+    	<div id="waiting">
+	       <p><strong>Please wait while this page loads...</strong>
+	       <%= image_tag 'loading.GIF'%><br /></p>
+        </div>
     	<% if signed_in? && get_selected_project && get_selected_project.is_active == false && current_user.role == TEACHER %>
     	   <p class="alert alert-info">You are viewing an archived project. Some features have been disabled.</p>
     	<% end %>

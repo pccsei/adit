@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
        section = current_user.members.where(project_id: get_selected_project).first.section_number
        set_selected_section(section)
     else
-       section = 'all'
+       section = 'All'
        set_selected_section(section)
     end
        section
@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
     selected_project_id = selected_project.id
     sections = (Member.where('project_id = ?', selected_project_id).uniq!.pluck('section_number'))
     sections.sort!
-    sections.unshift('all')
+    sections.unshift('All')
   end
    
    # Restricts access to only teachers 

@@ -35,8 +35,8 @@ class Receipt < ActiveRecord::Base
     Receipt.where(user_id: student_id, made_sale: true, ticket_id: Ticket.where(project_id: project))
   end
 
-  def self.all_sold_clients_in_section(project, section_number="all")
-    if section_number != "all"
+  def self.all_sold_clients_in_section(project, section_number="All")
+    if section_number != "All"
       Receipt.where(made_sale: true, ticket_id: Ticket.where(project_id: project.id)) & Receipt.where(user_id: User.where(id: Member.where(section_number: section_number).pluck(:user_id)))
     else
       Receipt.where(made_sale: true, ticket_id: Ticket.where(project_id: project.id))

@@ -123,7 +123,7 @@ class Action < ActiveRecord::Base
   end
 
   def Action.all_actions_in_project(project, section_number)
-    if section_number != "all"
+    if section_number != "All"
       Action.where(receipt_id: Receipt.where(ticket_id: Ticket.where(project_id: project))) & Action.where(receipt_id: Receipt.where(user_id: User.where(id: Member.where(section_number: section_number).pluck(:user_id))))
     else
       Action.where(receipt_id: Receipt.where(ticket_id: Ticket.where(project_id: project)))
