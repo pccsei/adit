@@ -3,6 +3,21 @@
 //*********************************************************************************************************************/
 
 onLoad(function() {  
+    
+   // Show/hide of the help area
+   $( ".priority_help").click(
+      function() {
+      	 if ($('#help_area').is(':hidden'))
+      	     $("#help_area").removeClass("hidden").show();
+      	 else
+             $("#help_area").addClass("hidden").hide();
+   });
+ 	
+   $( "#hide_help").click( 
+	   function() {
+	   $("#help_area").hide();
+	   $("html, body").animate({ scrollTop: 0 }, "slow");
+   });
         
   // Allows the user to try to get the client.
   $(".addTicket").click(function(caller) {
@@ -134,7 +149,7 @@ onLoad(function() {
   
   // Initialized the datatable with the bootstrap tooltip feature added
   var table =  $('.ticket_table').dataTable({
-        "aoColumns" : [{"sWidth": "12%"}, {"sType": "priority", "sWidth": "8%" }, { "sWidth": "26%" }, {"sWidth": "26%"}, {"sWidth": "18%"}, {"sWidth": "10%"}],
+        "aoColumns" : [ null, {"sType": "priority"}, null, null, null, null],
         "bPaginate" : false,
         "iCookieDuration": 60,
         "bStateSave": false,

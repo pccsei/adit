@@ -1,10 +1,20 @@
-<% studentSelectable = !Project.is_specific(@currentProject.id)%>
+<% studentSelectable = !Project.is_specific(@currentProject.id)%>          
 
+<% provide(:excel, (image_tag ('help.png'), :style => "cursor:pointer", :title => 'Help! What am I supposed to do?', :class => 'priority_help').html_safe) %>
 <% if studentSelectable %>
   <% provide(:title, 'Choose New Clients') %>
 <% else %>
   <% provide(:title, 'Client List')%>
 <% end %>
+
+<!-- Help display explaining how the priorities work -->
+<div id="help_area" class="form_background hidden">
+	
+
+	
+<p id="hide_help" class="fake-link">Hide</p>
+</div>
+
 
 <% if @tickets %>
     <% open = ((@currentProject.tickets_close_time > Time.now.utc) && (@currentProject.tickets_open_time < Time.now.utc)) %>
@@ -34,6 +44,8 @@
       <tr>
         <% if open %>
             <th>Owner</th>
+        <% else %>
+        <th></th>
         <% end %>
         <th>Priority</th>
         <th>Business Name</th>
@@ -69,6 +81,8 @@
                 <% end %>
                 <%= content_tag(:span, holder, :id =>ticket.id.to_s + '_span', :title => !holder || holder.sub("<br />", "" )) %>                	
               </td>
+            <% else %>
+              <td><%= button_tag 'Choose', type: 'button', :class => 'btn btn-primary btn-sm', :disabled => true %></td>
             <% end %>
             <td class="priority column"><span><%= ticket.priority.name.capitalize %></span></td>
             <td class="column" title="View Client Details"><%= link_to tooltipify(client.business_name, 35), client_path(id: ticket.client.id, page: request.url)%></td>
