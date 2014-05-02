@@ -631,7 +631,7 @@ class User < ActiveRecord::Base
 
   # Returns an array of the number of teachers in each section
   def self.get_number_of_teachers_per_section(array_of_all_sections, project)
-    array_of_all_sections.delete 'all'
+    array_of_all_sections.delete 'All'
 
     number_of_teachers_per_section = []
     for i in array_of_all_sections

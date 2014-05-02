@@ -118,7 +118,7 @@ class UsersController < ApplicationController
     end
     
     section_options = get_array_of_all_sections(get_selected_project)
-    section_options.delete('all')
+    section_options.delete('All')
     @sections = section_options
   end
 
@@ -139,7 +139,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     section_options = get_array_of_all_sections(get_selected_project)
-    section_options.delete('all')
+    section_options.delete('All')
     @sections = section_options
   end
 

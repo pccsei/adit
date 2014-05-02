@@ -38,7 +38,7 @@ class ProjectsController < ApplicationController
 
       if @project.save
          set_selected_project(@project)
-         set_selected_section("all")
+         set_selected_section("All")
          Ticket.createTickets(@project)
          redirect_to users_path, notice: 'Project was successfully created.'
       else
@@ -86,7 +86,7 @@ class ProjectsController < ApplicationController
         session.delete(:selected_section_id)
         get_selected_section
       else
-        set_selected_section("all")
+        set_selected_section("All")
       end
       redirect_to projects_url, notice: 'You are now viewing the ' + selected_project.semester + ' ' +
                                             selected_project.year.to_s + ' project.'
