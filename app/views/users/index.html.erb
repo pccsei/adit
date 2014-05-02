@@ -12,7 +12,14 @@
 <!-- Adds students to a section and is only allowed for a teacher-->
 
 <% if @selected_section == 'all' %>
-  <p id = "info_message" class = "alert alert-info ">You are currently viewing all students.<br /> Please select a section or create a section for additional options.</p>
+  <p id = "info_message" class = "alert alert-info ">
+  	  <% if @select_students.present? %>
+  	  	You are currently viewing the entire student roster for this class.
+  	    <br /> Please select a section or create a section for additional options.
+  	  <% else %>
+  	    There are currently no students in this project.<br />
+  	    Please create a section to add students to the project.  	    
+  	  <% end %></p>
       <div id = "section_refresh">
         <%= render :partial => 'manage_section', :locals => { :current_students => @select_students }%>
       </div>
