@@ -37,6 +37,11 @@ window.onLoad = function(callback) {
 
 // This initializes all the default dataTables in the application
 onLoad(function() {
+	
+	$('#waiting').hide();
+	$('.long_wait').click(function(){
+	      $('#waiting').show();
+      });
  
     var table =  $('.default_table').dataTable({
         "bPaginate" : false,
