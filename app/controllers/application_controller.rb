@@ -123,7 +123,9 @@ class ApplicationController < ActionController::Base
    end
 
   def version_cleanup(uid, item_type)
-    last_version_id = PaperTrail::Version.where(whodunnit: uid, item_type: item_type).last.id        
-    PaperTrail::Version.where("whodunnit = ? AND item_type = ? AND id != ?", uid, item_type, last_version_id).destroy_all
+    if PaperTrail::Version.where(whodunnit: uid, item_type: item_type).last
+      last_version_id = PaperTrail::Version.where(whodunnit: uid, item_type: item_type).last.id
+      PaperTrail::Version.where("whodunnit = ? AND item_type = ? AND id != ?", uid, item_type, last_version_id).destroy_all
+    end     
   end
 end

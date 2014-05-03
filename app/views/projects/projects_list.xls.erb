@@ -1,0 +1,64 @@
+<xml version="1.0">
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Project List">
+    <Table>
+    <Row><Cell><Data ss:Type="String">Current Project</Data></Cell></Row>  
+      <Row>
+        <Cell><Data ss:Type="String">Year</Data></Cell>
+        <Cell><Data ss:Type="String">Semester</Data></Cell>
+        <Cell><Data ss:Type="String">Project Type</Data></Cell>
+        <Cell><Data ss:Type="String">Client List Open</Data></Cell>
+        <Cell><Data ss:Type="String">Total Clients Per Student</Data></Cell>
+        <Cell><Data ss:Type="String">Maximum High Priority</Data></Cell>
+        <Cell><Data ss:Type="String">Maximum Medium Priority</Data></Cell>
+        <Cell><Data ss:Type="String">Maximum Low Priority</Data></Cell>
+        <Cell><Data ss:Type="String">Comments</Data></Cell>
+      </Row>
+      <% if defined? @project %>
+        <Row>
+          <Cell><Data ss:Type="String"><%= @project.year %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @project.semester %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @project.project_type.name%></Data></Cell>
+          <Cell><Data ss:Type="String"><%= "#{@project.tickets_open_time.strftime("%B %e, %l:%M %p")} - #{@project.tickets_close_time.strftime("%B %e, %l:%M %p")}" %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @project.max_clients %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @project.max_high_priority_clients %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @project.max_medium_priority_clients %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= @project.max_low_priority_clients %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= @project.comment %></Data></Cell>
+        </Row>
+      <% end %>
+      <Row/>
+      <Row><Cell><Data ss:Type="String">Archived Project(s)</Data></Cell></Row>
+      <Row>
+        <Cell><Data ss:Type="String">Year</Data></Cell>
+        <Cell><Data ss:Type="String">Semester</Data></Cell>
+        <Cell><Data ss:Type="String">Project Type</Data></Cell>
+        <Cell><Data ss:Type="String">Client List Open</Data></Cell>
+        <Cell><Data ss:Type="String">Total Clients Per Student</Data></Cell>
+        <Cell><Data ss:Type="String">Maximum High Priority</Data></Cell>
+        <Cell><Data ss:Type="String">Maximum Medium Priority</Data></Cell>
+        <Cell><Data ss:Type="String">Maximum Low Priority</Data></Cell>
+        <Cell><Data ss:Type="String">Comments</Data></Cell>
+      </Row>
+      <% if defined? @archived_projects %>
+        <% @archived_projects.each do |project| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= project.year %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= project.semester %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= project.project_type.name%></Data></Cell>
+            <Cell><Data ss:Type="String"><%= "#{project.tickets_open_time.strftime("%B %e, %l:%M %p")} - #{project.tickets_close_time.strftime("%B %e, %l:%M %p")}" %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= project.max_clients %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= project.max_high_priority_clients %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= project.max_medium_priority_clients %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= project.max_low_priority_clients %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= project.comment %></Data></Cell>
+          </Row>
+        <% end %>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

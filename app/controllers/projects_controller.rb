@@ -19,6 +19,11 @@ class ProjectsController < ApplicationController
     @select_students, @all_teachers, @current_teachers = Project.all_to_excel(get_selected_project, current_user)
   end
 
+  def projects_list   
+    @project  = get_current_project
+    @archived_projects = Project.non_archived.where('is_active = ?', false)
+  end
+
   # GET /projects/1
   def show
   end
