@@ -17,7 +17,8 @@
 
     <% if @archived_projects.present? %>
         <%= form_tag(projects_select_project_path) do%>
-            <h3>Archived Projects</h3>
+            <h3>Archived Projects
+            <%= (link_to (image_tag 'excel.png'), projects_projects_list_path(format: 'xls'), :title => "Projects").html_safe %></h3>
             <table class = "display default_table">
               <thead>
               <tr>

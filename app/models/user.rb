@@ -306,7 +306,7 @@ class User < ActiveRecord::Base
         end
 
         if reponse_int == 1
-        reponse = 'success'
+          reponse = 'success'
         elsif reponse_int == 2
           reponse = 'error'
         else
@@ -352,22 +352,60 @@ class User < ActiveRecord::Base
       # Inactivate students
       if choice == 'Deactivate'
         for i in 0..students.count-1
+          user = User.find(students[i])
           member = Member.find_by(user_id: students[i], project_id: selected_project.id)
           member.parent_id = nil
-          # Destroy team if the student is a team leader. The second parameter "true" signifies that the student manage is to be inactivated.
-          if User.find(students[i]).role == Member.is_team_leader(Member.find_by(project_id: selected_project.id, parent_id: member.user_id))
-            Member.destroy_team(User.find(students[i]), true)
+          # Destroy team if the student is a team leader. 
+          if Member.is_team_leader(Member.find_by(user_id: user, project_id: selected_project.id, parent_id: user.id))
+            Member.destroy_team(user)
           end
           Member.inactivate_student_status(member)
+          flash_positive_names[i] = "#{user.first_name} #{user.last_name}"
         end
+
+        # Most of the following code is for verb tense
+        flash_positive_names.compact!
+        if flash_positive_names.count > 0
+          if flash_positive_names.count == 1
+            flash_message += flash_positive_names[0] + " has now been deactivated."
+          else
+            if flash_positive_names.count == 2
+              flash_message += flash_positive_names.join(' and ')
+            else
+              flash_message += flash_positive_names[0..-2].join(', ') + ", and " + flash_positive_names[-1].to_s
+            end
+            flash_message += " have now been deactivated. "
+          end
+        end
+
+        return 'success', flash_message
       end
 
       # Activate students
       if choice == 'Activate'
         for i in 0..students.count-1
+          user = User.find(students[i])
           member = Member.find_by(user_id: students[i], project_id: selected_project.id)
           Member.activate_student_status(member)
+          flash_positive_names[i] = "#{user.first_name} #{user.last_name}"
         end
+
+        # Most of the following code is for verb tense
+        flash_positive_names.compact!
+        if flash_positive_names.count > 0
+          if flash_positive_names.count == 1
+            flash_message += flash_positive_names[0] + " has now been activated."
+          else
+            if flash_positive_names.count == 2
+              flash_message += flash_positive_names.join(' and ')
+            else
+              flash_message += flash_positive_names[0..-2].join(', ') + ", and " + flash_positive_names[-1].to_s
+            end
+            flash_message += " have now been activated. "
+          end
+        end
+
+        return 'success', flash_message
       end
 
       if choice == 'Add to Team'

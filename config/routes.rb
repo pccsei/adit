@@ -45,6 +45,7 @@ WhiteCollar::Application.routes.draw do
   get    '/tickets/get_sys_time'
   get    '/tickets/updates'
   get    '/tickets/getClient'
+  get    '/projects/projects_list'
   get    '/projects/convert_to_excel'
   get    '/users/tickets_left'
   get    '/clients/edited_clients_excel'
