@@ -9,7 +9,6 @@
    $( "#user_major").val("<%= @user.major %>");
    $( "#user_minor").val("<%= @user.minor %>");
    $( "#user_classification").val("<%= @user.classification %>");
-   $( "#section_number").val("<%= @section_number %>");
    document.getElementById("create").disabled = false;
 <% else %>
    <!-- $( "#student_exists" ).html(""); -->
@@ -21,7 +20,6 @@
    $( "#user_major").val("");
    $( "#user_minor").val("");
    $( "#user_classification").val("");
-   $( "#section_number").val("");
    document.getElementById("create").disabled = false;   
 <% end %>
 
