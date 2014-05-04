@@ -173,7 +173,9 @@ class ClientsController < ApplicationController
   # PATCH/PUT /clients/1.json
   def update
     
-    ticket = @client.tickets.find_by(project_id: get_current_project.id)
+    if get_current_project
+       ticket = @client.tickets.find_by(project_id: get_current_project.id)
+    end
     status = @client.status.status_type 
     if current_user.role != TEACHER
       edited_client = Client.new
@@ -184,8 +186,9 @@ class ClientsController < ApplicationController
       redirect_to session[:return_from_edit], notice: 'Your change has been submitted. Your client will be updated once the teacher approves your changes.'     
     elsif @client.update(client_params)
        if status == "Unapproved"
-          if ticket
-            ticket.user_id == nil
+          if ticket.present?
+            ticket.user_id = nil
+            ticket.save
           end
        elsif status == "Approved"
          if !ticket && get_current_project
