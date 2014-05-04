@@ -38,9 +38,8 @@ window.onLoad = function(callback) {
 // This initializes all the default dataTables in the application
 onLoad(function() {
 	
-	$('#waiting').hide();
 	$('.long_wait').click(function(){
-	      $('#waiting').show();
+	   $('#container').prepend("<p class=\"alert alert-info\"><strong>Please wait while this page loads...</strong></p>");
       });
  
     var table =  $('.default_table').dataTable({

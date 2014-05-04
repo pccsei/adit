@@ -477,9 +477,12 @@ label.required:after {
 .defaultTooltip {
   cursor: pointer;
 }
+
 #waiting {
-  margin-left: 20em;
   margin-top: -3em !important;
+  height: 0em;
+  width: 0em;
+  margin-left: 20em;
 }
 // This is all the code for a floating div on the expo version
 /*

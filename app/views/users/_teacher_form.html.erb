@@ -22,6 +22,14 @@
         <table>
           <tr>
             <td class="label-field">
+              <%= f.label :school_id, 'School ID', class: 'required' %>
+            </td>
+            <td class="text-field">
+              <%= f.text_field :school_id, class: 'form-control',  rows:3 %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label-field">
               <%= f.label :first_name, 'First Name', class: 'required' %>
             </td>
             <td class="text-field">
@@ -34,14 +42,6 @@
             </td>
             <td class="text-field">
               <%= f.text_field :last_name, class: 'form-control',  rows:3 %>
-            </td>
-          </tr>
-          <tr>
-            <td class="label-field">
-              <%= f.label :school_id, 'School ID', class: 'required' %>
-            </td>
-            <td class="text-field">
-              <%= f.text_field :school_id, class: 'form-control',  rows:3 %>
             </td>
           </tr>
           <tr>
