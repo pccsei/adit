@@ -513,6 +513,8 @@ projects = Project.create!([{year: 2008, semester: 'Fall', tickets_open_time: Da
 
 priorities = Priority.create!([{name: 'high'}, {name: 'medium'}, {name: 'low'}])
 
+users = User.create!([{school_id: 'Anonymous', role: 0, first_name: 'John', last_name: 'Doe', email: 'noreply@faculty.pcci.edu', phone: '000-0000', box: 9999}])
+
 priority_id = (Priority.find_by name: 'low').id
 
 bonus_types = BonusType.create!([{name: 'Driver', point_value: 5},
