@@ -9,5 +9,5 @@ STUDENT         = 1         # Student role
 NA              = -1        # No client restriction
 LAST_NON_ADIT_ARROW_YEAR    = 2013  
                             # Last year of the arrow project without Adit
-LAST_NON_ADIT_CALENDAR_YEAR = 2013 
+LAST_NON_ADIT_CALENDAR_YEAR = 2014 
                             # Last year of the calendar project without Adit

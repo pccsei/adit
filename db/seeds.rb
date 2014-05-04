@@ -513,21 +513,6 @@ projects = Project.create!([{year: 2008, semester: 'Fall', tickets_open_time: Da
 
 priorities = Priority.create!([{name: 'high'}, {name: 'medium'}, {name: 'low'}])
 
-users = User.create!([{school_id: 'Anonymous', role: 0, first_name: 'John', last_name: 'Doe', email: 'noreply@faculty.pcci.edu', phone: '000-0000', box: 9999},
-                      {school_id: '117288', role: 1, first_name: 'Gordon', last_name: 'Badgett', email: 'gbadge5789@students.pcci.edu', phone: '17-6808-1', box: 9999},
-                      {school_id: '116431', role: 1, first_name: 'Jake', last_name: 'Canipe', email: 'jcanip5463@students.pcci.edu', phone: '17-1303-2', box: 9999},
-                      {school_id: '116042', role: 1, first_name: 'Stephen', last_name: 'Chappell', email: 'schapp1161@students.pcci.edu', phone: '17-6904-1', box: 9999},
-                      {school_id: '117751', role: 1, first_name: 'Chris', last_name: 'Chord', email: 'cchord1692@students.pcci.edu', phone: '17-6328-1', box: 9999},
-                      {school_id: '117567', role: 3, first_name: 'Noah', last_name: 'Conrad', email: 'nconra2202@students.pcci.edu', phone: '17-6510-1', box: 9999},
-                      {school_id: '116766', role: 1, first_name: 'Zach', last_name: 'Evans', email: 'zevans8222@students.pcci.edu', phone: '17-1403-4', box: 9999},
-                      {school_id: '114369', role: 1, first_name: 'Alex', last_name: 'Harper', email: 'aharpe1129@students.pcci.edu', phone: '17-1169-2', box: 9999},
-                      {school_id: '118679', role: 3, first_name: 'James', last_name: 'Miyashita', email: 'jmiyas1311@students.pcci.edu', phone: '17-6727-2', box: 9999},
-                      {school_id: '115245', role: 1, first_name: 'James', last_name: 'Mulvihill', email: 'jmulvi1261@students.pcci.edu', phone: '17-6308-1', box: 9999},
-                      {school_id: '117602', role: 1, first_name: 'Dannie', last_name: 'Scull', email: 'dscull4171@students.pcci.edu', phone: '17-1315-1', box: 9999},
-                      {school_id: '116730', role: 1, first_name: 'Stephen', last_name: 'Weaver', email: 'sweave3686@students.pcci.edu', phone: '17-6622-2', box: 9999},
-                      {school_id: '115749', role: 1, first_name: 'Koffi', last_name: 'Wodome', email: 'kwodom1512@students.pcci.edu', phone: '17-2111-1', box: 9999},
-                      {school_id: '116156', role: 1, first_name: 'Rob', last_name: 'Yoder', email: 'ryoder0017@students.pcci.edu', phone: '17-6324-1', box: 9999}])
-
 priority_id = (Priority.find_by name: 'low').id
 
 bonus_types = BonusType.create!([{name: 'Driver', point_value: 5},
@@ -1051,7 +1036,8 @@ Ticket.all.each do |t|
   t.receipts.create!(:user_id => anon, :made_contact => true, :made_presentation => true, :made_sale => true)
 end
 
-
+# Gets rid of unnecessary entries in the versions tables for the undo feature
+PaperTrail::Version.delete_all
 # This is where the seed data for the expo begins, Feel free to use any of it to create realistic data for testing
   # Student Data
 =begin
@@ -2260,4 +2246,3 @@ teachers.each do |t|
   next_year += 1
 end
 =end
-PaperTrail::Version.delete_all
