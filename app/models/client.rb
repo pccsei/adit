@@ -170,7 +170,7 @@ end
   end
 
   def self.tickets_for_selected_project(pid)
-    ticket_info = Ticket.where(project_id: pid)
+    ticket_info = Ticket.where(project_id: pid, client_id: Client.house.ids)
         
     Struct.new('Client_ticket', :business_name, :contact_fname, :telephone, :student_lname, :zipcode, :city, :id, :priority,
                                 :state, :contact_lname, :contact_title, :client_id, :address, :email, :student_fname, :student_id, :status_type, :comment)

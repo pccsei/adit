@@ -172,6 +172,9 @@ class ClientsController < ApplicationController
   # PATCH/PUT /clients/1
   # PATCH/PUT /clients/1.json
   def update
+    
+    ticket = @client.tickets.find_by(project_id: get_current_project.id)
+    status = @client.status.status_type 
     if current_user.role != TEACHER
       edited_client = Client.new
       edited_client = Client.find(@client).clone
@@ -180,6 +183,19 @@ class ClientsController < ApplicationController
       Client.make_pending_edited_client(edited_client, @client, client_params, current_user.id)
       redirect_to session[:return_from_edit], notice: 'Your change has been submitted. Your client will be updated once the teacher approves your changes.'     
     elsif @client.update(client_params)
+       if status == "Unapproved"
+          if ticket
+            ticket.user_id == nil
+          end
+       elsif status == "Approved"
+         if !ticket && get_current_project
+           Ticket.create(project_id: get_current_project.id, client_id: @client.id, priority_id: Priority.find_by(name: 'low').id)
+         end
+       elsif status == "In House"
+         if !ticket && get_current_project
+            Ticket.create(project_id: get_current_project.id, client_id: @client.id, priority_id: Priority.find_by(name: 'low').id)
+         end
+       end
        redirect_to session[:return_from_edit], notice: 'Client was successfully updated.'
     else
        render action: 'edit' 
@@ -212,8 +228,8 @@ class ClientsController < ApplicationController
     
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
-      params.require(:client).permit(:id, :business_name, :address, :telephone, :comment, :created_at, 
-                                     :updataed_at, :zipcode, :contact_fname, :contact_lname, :contact_title, 
+      params.require(:client).permit(:id, :business_name, :address, :telephone, :comment, :created_at, :email, 
+                                     :updated_at, :zipcode, :contact_fname, :contact_lname, :contact_title, 
                                      :city, :state, :status_id)
     end
 end
