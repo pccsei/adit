@@ -7,9 +7,9 @@
 <div class="user_manual">
 	<p class="user_manual">
 	<% if @current_user.role == TEACHER %>
-	   <%= link_to 'Download User Manual', "/Teacher_User_Manual.docx" %>
+	   <%= link_to 'Download User Manual', asset_path("/Teacher_User_Manual.docx") %>
 	<% else %>
-	   <%= link_to 'Download User Manual', "Student_User_Manual.docx" %>
+	   <%= link_to 'Download User Manual', asset_path("/Student_User_Manual.docx") %>
 	<% end %>
 	</p>
 </div>	

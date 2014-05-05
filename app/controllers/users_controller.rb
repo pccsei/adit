@@ -42,9 +42,9 @@ class UsersController < ApplicationController
   
   def download_help
     if current_user.role == TEACHER
-      send_file("#{Rails.root}/public/Teacher_User_Manual.docx", :filename => "Adit_Teacher_User_Manual.docx", :type => "application/docx")
+      send_file("/Teacher_User_Manual.docx", :filename => "Adit_Teacher_User_Manual.docx", :type => "application/docx")
     else
-      send_file("#{Rails.root}/public/Student_User_Manual.docx", :filename => "Adit_Student_User_Manual.docx", :type => "application/docx")
+      send_file("/Student_User_Manual.docx", :filename => "Adit_Student_User_Manual.docx", :type => "application/docx")
     end
   end
 
