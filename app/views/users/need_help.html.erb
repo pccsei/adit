@@ -5,7 +5,13 @@
 
 <!-- Allow the user to download the extensive help manual-->
 <div class="user_manual">
-	<p class="user_manual"><%= link_to 'Download User Manual', :action => :download_help, :class => "user_manual" %></p>
+	<p class="user_manual">
+	<% if @current_user.role == TEACHER %>
+	   <%= link_to 'Download User Manual', "/Teacher_User_Manual.docx" %>
+	<% else %>
+	   <%= link_to 'Download User Manual', "Student_User_Manual.docx" %>
+	<% end %>
+	</p>
 </div>	
 
 <% if current_user.role == TEACHER %>
